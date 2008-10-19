@@ -1,0 +1,2 @@
+
+SUBDIRS = libvirt-glib

@@ -1,0 +1,58 @@
+# -*- rpm-spec -*-
+
+Name: @PACKAGE@
+Version: @VERSION@
+Release: 1%{?dist}%{?extra_release}
+Summary: libvirt glib integration for events
+Group: Development/Libraries
+License: LGPLv2+
+URL: http://libvirt.org/
+Source0: http://libvirt.org/%{name}/%{name}-%{version}.tar.gz
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+BuildRequires: glib2-devel >= 2.10.0
+BuildRequires: libvirt-devel >= 0.4.7
+
+%package devel
+Group: Development/Libraries
+Summary: libvirt glib integration for events development files
+
+%description
+This package provides integration between libvirt and the glib
+event loop.
+
+%description devel
+This package provides integration between libvirt and the glib
+event loop.
+
+%prep
+%setup -q
+
+%build
+%configure
+%__make %{?_smp_mflags}
+
+
+%install
+rm -rf $RPM_BUILD_ROOT
+%__make install  DESTDIR=$RPM_BUILD_ROOT
+rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
+rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.la
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%defattr(-,root,root,-)
+%doc README COPYING AUTHORS ChangeLog NEWS
+%{_libdir}/%{name}.so.*
+
+%files devel
+%defattr(-,root,root,-)
+%{_libdir}/%{name}.so
+%{_includedir}/%{name}/%{name}.h
+
+%changelog
+* Sun Oct 19 2008 Daniel P. Berrange <berrange@redhat.com> - 0.0.1-1
+- Initial release
+
