@@ -75,3 +75,4 @@ Makefile\.in$
 src/.*\.la$
 ^mingw-libvirt.spec$
 ^src/libvirt_lxc$
+^build/

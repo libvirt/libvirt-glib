@@ -1,6 +1,8 @@
 
 noinst_PROGRAMS = event-test
 
+EXTRA_DIST = event-test.py
+
 event_test_CFLAGS = \
 		$(WARN_CFLAGS) \
 		$(LIBVIRT_CFLAGS) \

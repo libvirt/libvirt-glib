@@ -12,18 +12,27 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: glib2-devel >= 2.10.0
 BuildRequires: libvirt-devel >= 0.4.7
+BuildRequires: python-devel
 
 %package devel
 Group: Development/Libraries
 Summary: libvirt glib integration for events development files
+
+%package python
+Group: Development/Libraries
+Summary: libvirt glib integration for events python binding
 
 %description
 This package provides integration between libvirt and the glib
 event loop.
 
 %description devel
-This package provides integration between libvirt and the glib
-event loop.
+This package provides development header files and libraries for
+integration between libvirt and the glib event loop.
+
+%description python
+This package provides a python module for integration between
+libvirt and the glib event loop
 
 %prep
 %setup -q
@@ -49,8 +58,16 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(-,root,root,-)
+%doc examples/event-test.c
 %{_libdir}/%{name}.so
+%{_libdir}/pkg-config/%{name}.pc
 %{_includedir}/%{name}/%{name}.h
+
+%files python
+%defattr(-,root,root,-)
+%doc examples/event-test.py
+%{_libdir}/python*/site-packages/libvirtglib.py*
+%{_libdir}/python*/site-packages/libvirtglibmod*
 
 %changelog
 * Sun Oct 19 2008 Daniel P. Berrange <berrange@redhat.com> - 0.0.1-1

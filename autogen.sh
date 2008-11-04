@@ -36,6 +36,7 @@ if test -z "$*"; then
         echo "the $0 command line."
 fi
 
+mkdir -p build-aux
 libtoolize --copy --force
 aclocal
 autoheader
