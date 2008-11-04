@@ -51,11 +51,15 @@ virEventDispatchHandleGLib(GIOChannel *source,
     int events = 0;
 
     if (condition & G_IO_IN)
-        events |= POLLIN;
+        events |= VIR_EVENT_HANDLE_READABLE;
     if (condition & G_IO_OUT)
-        events |= POLLOUT;
+        events |= VIR_EVENT_HANDLE_WRITABLE;
     if (condition & G_IO_HUP)
-        events |= POLLHUP;
+        events |= VIR_EVENT_HANDLE_HANGUP;
+    if (condition & G_IO_ERR)
+        events |= VIR_EVENT_HANDLE_ERROR;
+
+    fprintf(stderr, "Dispatch handler %d %d %p\n", data->fd, events, data->opaque);
 
     (data->cb)(data->fd, events, data->opaque);
 
@@ -75,10 +79,9 @@ int virEventAddHandleGLib(int fd,
     data = g_malloc(sizeof(*data));
     memset(data, 0, sizeof(*data));
 
-    cond |= G_IO_HUP;
-    if (events & POLLIN)
+    if (events & VIR_EVENT_HANDLE_READABLE)
         cond |= G_IO_IN;
-    if (events & POLLOUT)
+    if (events & VIR_EVENT_HANDLE_WRITABLE)
         cond |= G_IO_OUT;
 
     data->fd = fd;
@@ -86,6 +89,9 @@ int virEventAddHandleGLib(int fd,
     data->cb = cb;
     data->opaque = opaque;
     data->channel = g_io_channel_unix_new(fd);
+
+    fprintf(stderr, "Add handle %d %d %p\n", data->fd, events, data->opaque);
+
     data->source = g_io_add_watch(data->channel,
                                   cond,
                                   virEventDispatchHandleGLib,
@@ -145,7 +151,19 @@ void virEventUpdateHandleGLib(int fd,
 
 int virEventRemoveHandleGLib(int fd)
 {
-    return -1;
+    struct virHandleGLib *data = virEventFindHandle(fd);
+
+    if (!data)
+        return -1;
+
+    fprintf(stderr, "Remove handle %d\n", fd);
+
+    g_source_remove(data->source);
+    data->source = 0;
+    data->events = 0;
+    VIR_FREE(data);
+
+    return 0;
 }
 
 struct virTimeoutGLib
