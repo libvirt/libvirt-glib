@@ -1,7 +1,7 @@
 
 SUBDIRS = include src python examples
 
-pkgconfigdir = $(libdir)/pkg-config
+pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libvirt-glib.pc
 
 EXTRA_DIST = @PACKAGE@.spec libvirt-glib.pc.in

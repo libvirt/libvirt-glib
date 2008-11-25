@@ -60,7 +60,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %doc examples/event-test.c
 %{_libdir}/%{name}.so
-%{_libdir}/pkg-config/%{name}.pc
+%{_libdir}/pkgconfig/%{name}.pc
 %{_includedir}/%{name}/%{name}.h
 
 %files python
