@@ -30,6 +30,7 @@
 
 struct virHandleGLib
 {
+    int watch;
     int fd;
     int events;
     int enabled;
@@ -37,8 +38,10 @@ struct virHandleGLib
     guint source;
     virEventHandleCallback cb;
     void *opaque;
+    virFreeCallback ff;
 };
 
+static int nextwatch = 1;
 static unsigned int nhandles = 0;
 static struct virHandleGLib **handles = NULL;
 
@@ -61,7 +64,7 @@ virEventDispatchHandleGLib(GIOChannel *source,
 
     fprintf(stderr, "Dispatch handler %d %d %p\n", data->fd, events, data->opaque);
 
-    (data->cb)(data->fd, events, data->opaque);
+    (data->cb)(data->watch, data->fd, events, data->opaque);
 
     return TRUE;
 }
@@ -70,7 +73,8 @@ virEventDispatchHandleGLib(GIOChannel *source,
 int virEventAddHandleGLib(int fd,
                           int events,
                           virEventHandleCallback cb,
-                          void *opaque)
+                          void *opaque,
+                          virFreeCallback ff)
 {
     struct virHandleGLib *data;
     GIOCondition cond = 0;
@@ -84,11 +88,13 @@ int virEventAddHandleGLib(int fd,
     if (events & VIR_EVENT_HANDLE_WRITABLE)
         cond |= G_IO_OUT;
 
+    data->watch = nextwatch++;
     data->fd = fd;
     data->events = events;
     data->cb = cb;
     data->opaque = opaque;
     data->channel = g_io_channel_unix_new(fd);
+    data->ff = ff;
 
     fprintf(stderr, "Add handle %d %d %p\n", data->fd, events, data->opaque);
 
@@ -99,24 +105,24 @@ int virEventAddHandleGLib(int fd,
 
     handles[nhandles] = data;
 
-    return 0;
+    return data->watch;
 }
 
 static struct virHandleGLib *
-virEventFindHandle(int fd)
+virEventFindHandle(int watch)
 {
     unsigned int i;
     for (i = 0 ; i < nhandles ; i++)
-        if (handles[i]->fd == fd)
+        if (handles[i]->watch == watch)
             return handles[i];
 
     return NULL;
 }
 
-void virEventUpdateHandleGLib(int fd,
+void virEventUpdateHandleGLib(int watch,
                               int events)
 {
-    struct virHandleGLib *data = virEventFindHandle(fd);
+    struct virHandleGLib *data = virEventFindHandle(watch);
 
     if (!data)
         return;
@@ -149,19 +155,21 @@ void virEventUpdateHandleGLib(int fd,
     }
 }
 
-int virEventRemoveHandleGLib(int fd)
+int virEventRemoveHandleGLib(int watch)
 {
-    struct virHandleGLib *data = virEventFindHandle(fd);
+    struct virHandleGLib *data = virEventFindHandle(watch);
 
     if (!data)
         return -1;
 
-    fprintf(stderr, "Remove handle %d\n", fd);
+    fprintf(stderr, "Remove handle %d %d\n", watch, data->fd);
 
     g_source_remove(data->source);
     data->source = 0;
     data->events = 0;
-    VIR_FREE(data);
+    if (data->ff)
+        (data->ff)(data->opaque);
+    free(data);
 
     return 0;
 }
@@ -173,6 +181,7 @@ struct virTimeoutGLib
     guint source;
     virEventTimeoutCallback cb;
     void *opaque;
+    virFreeCallback ff;
 };
 
 
@@ -193,7 +202,8 @@ virEventDispatchTimeoutGLib(void *opaque)
 static int
 virEventAddTimeoutGLib(int interval,
                        virEventTimeoutCallback cb,
-                       void *opaque)
+                       void *opaque,
+                       virFreeCallback ff)
 {
     struct virTimeoutGLib *data;
 
@@ -205,6 +215,7 @@ virEventAddTimeoutGLib(int interval,
     data->interval = interval;
     data->cb = cb;
     data->opaque = opaque;
+    data->ff = ff;
     if (interval >= 0)
         data->source = g_timeout_add(interval,
                                      virEventDispatchTimeoutGLib,
@@ -271,6 +282,11 @@ int virEventRemoveTimeoutGLibm(int timer)
 
     g_source_remove(data->source);
     data->source = 0;
+
+    if (data->ff)
+        (data->ff)(data->opaque);
+
+    free(data);
 
     return 0;
 }

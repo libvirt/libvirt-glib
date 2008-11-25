@@ -14,23 +14,10 @@
 #define ATTRIBUTE_UNUSED __attribute__((__unused__))
 #endif
 
-/* handle globals */
-int h_fd = 0;
-int h_event = 0;
-virEventHandleCallback h_cb = NULL;
-void *h_opaque = NULL;
-
-/* timeout globals */
-#define TIMEOUT_MS 1000
-int t_timeout = -1;
-virEventTimeoutCallback t_cb = NULL;
-void *t_opaque = NULL;
-
-
 /* Prototypes */
 const char *eventToString(int event);
-int myDomainEventCallback1 (virConnectPtr conn, virDomainPtr dom, int event, void *opaque);
-int myDomainEventCallback2 (virConnectPtr conn, virDomainPtr dom, int event, void *opaque);
+int myDomainEventCallback1 (virConnectPtr conn, virDomainPtr dom, int event, int detail, void *opaque);
+int myDomainEventCallback2 (virConnectPtr conn, virDomainPtr dom, int event, int detail, void *opaque);
 
 void usage(const char *pname);
 
@@ -39,11 +26,11 @@ void usage(const char *pname);
 const char *eventToString(int event) {
     const char *ret = NULL;
     switch(event) {
-        case VIR_DOMAIN_EVENT_ADDED:
-            ret ="Added";
+        case VIR_DOMAIN_EVENT_DEFINED:
+            ret ="Defined";
             break;
-        case VIR_DOMAIN_EVENT_REMOVED:
-            ret ="Removed";
+        case VIR_DOMAIN_EVENT_UNDEFINED:
+            ret ="Undefined";
             break;
         case VIR_DOMAIN_EVENT_STARTED:
             ret ="Started";
@@ -57,12 +44,6 @@ const char *eventToString(int event) {
         case VIR_DOMAIN_EVENT_STOPPED:
             ret ="Stopped";
             break;
-        case VIR_DOMAIN_EVENT_SAVED:
-            ret ="Saved";
-            break;
-        case VIR_DOMAIN_EVENT_RESTORED:
-            ret ="Restored";
-            break;
         default:
             ret ="Unknown Event";
     }
@@ -72,6 +53,7 @@ const char *eventToString(int event) {
 int myDomainEventCallback1 (virConnectPtr conn ATTRIBUTE_UNUSED,
                             virDomainPtr dom,
                             int event,
+                            int detail,
                             void *opaque ATTRIBUTE_UNUSED)
 {
     printf("%s EVENT: Domain %s(%d) %s\n", __FUNCTION__, virDomainGetName(dom), virDomainGetID(dom), eventToString(event));
@@ -81,6 +63,7 @@ int myDomainEventCallback1 (virConnectPtr conn ATTRIBUTE_UNUSED,
 int myDomainEventCallback2 (virConnectPtr conn ATTRIBUTE_UNUSED,
                             virDomainPtr dom,
                             int event,
+                            int detail,
                             void *opaque ATTRIBUTE_UNUSED)
 {
     printf("%s EVENT: Domain %s(%d) %s\n", __FUNCTION__, virDomainGetName(dom), virDomainGetID(dom), eventToString(event));
@@ -107,7 +90,7 @@ int main(int argc, char **argv)
     virEventRegisterGLib();
 
     virConnectPtr dconn = NULL;
-    dconn = virConnectOpen (argv[1] ? argv[1] : "qemu:///system");
+    dconn = virConnectOpen (argv[1] ? argv[1] : NULL);
     if (!dconn) {
         printf("error opening\n");
         return -1;
@@ -116,8 +99,8 @@ int main(int argc, char **argv)
     DEBUG0("Registering domain event cbs");
 
     /* Add 2 callbacks to prove this works with more than just one */
-    virConnectDomainEventRegister(dconn, myDomainEventCallback1, NULL);
-    virConnectDomainEventRegister(dconn, myDomainEventCallback2, NULL);
+    virConnectDomainEventRegister(dconn, myDomainEventCallback1, NULL, NULL);
+    virConnectDomainEventRegister(dconn, myDomainEventCallback2, NULL, NULL);
 
     g_main_loop_run(loop);
 
