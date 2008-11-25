@@ -24,9 +24,13 @@
 #include <sys/poll.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <glib.h>
 #include <libvirt/libvirt.h>
 
+gboolean debugFlag = FALSE;
+
+#define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
 
 struct virHandleGLib
 {
@@ -62,7 +66,7 @@ virEventDispatchHandleGLib(GIOChannel *source,
     if (condition & G_IO_ERR)
         events |= VIR_EVENT_HANDLE_ERROR;
 
-    fprintf(stderr, "Dispatch handler %d %d %p\n", data->fd, events, data->opaque);
+    DEBUG("Dispatch handler %d %d %p\n", data->fd, events, data->opaque);
 
     (data->cb)(data->watch, data->fd, events, data->opaque);
 
@@ -96,7 +100,7 @@ int virEventAddHandleGLib(int fd,
     data->channel = g_io_channel_unix_new(fd);
     data->ff = ff;
 
-    fprintf(stderr, "Add handle %d %d %p\n", data->fd, events, data->opaque);
+    DEBUG("Add handle %d %d %p\n", data->fd, events, data->opaque);
 
     data->source = g_io_add_watch(data->channel,
                                   cond,
@@ -162,7 +166,7 @@ int virEventRemoveHandleGLib(int watch)
     if (!data)
         return -1;
 
-    fprintf(stderr, "Remove handle %d %d\n", watch, data->fd);
+    DEBUG("Remove handle %d %d\n", watch, data->fd);
 
     g_source_remove(data->source);
     data->source = 0;
@@ -193,7 +197,7 @@ static gboolean
 virEventDispatchTimeoutGLib(void *opaque)
 {
     struct virTimeoutGLib *data = opaque;
-    fprintf(stderr, "Dispatch timeout %p %p %p %p\n", data, data->cb, data->timer, data->opaque);
+    DEBUG("Dispatch timeout %p %p %p %p\n", data, data->cb, data->timer, data->opaque);
     (data->cb)(data->timer, data->opaque);
 
     return TRUE;
@@ -223,7 +227,7 @@ virEventAddTimeoutGLib(int interval,
 
     timeouts[ntimeouts] = data;
 
-    fprintf(stderr, "Add timeout %p %d %p %p %d\n", data, interval, cb, opaque, data->timer);
+    DEBUG("Add timeout %p %d %p %p %d\n", data, interval, cb, opaque, data->timer);
 
     return data->timer;
 }
@@ -249,7 +253,7 @@ void virEventUpdateTimeoutGLib(int timer,
     if (!data)
         return;
 
-    fprintf(stderr, "Update timeout %p %d %d\n", data, timer, interval);
+    DEBUG("Update timeout %p %d %d\n", data, timer, interval);
 
     if (interval >= 0) {
         if (data->source)
@@ -275,7 +279,7 @@ int virEventRemoveTimeoutGLibm(int timer)
     if (!data)
         return -1;
 
-    fprintf(stderr, "Remove timeout %p %d\n", data, timer);
+    DEBUG("Remove timeout %p %d\n", data, timer);
 
     if (!data->source)
         return -1;
@@ -293,6 +297,10 @@ int virEventRemoveTimeoutGLibm(int timer)
 
 
 void virEventRegisterGLib(void) {
+    char *debugEnv = getenv("LIBVIRT_GLIB_DEBUG");
+    if (debugEnv && *debugEnv && *debugEnv != '0')
+        debugFlag = 1;
+
     virEventRegisterImpl(virEventAddHandleGLib,
                          virEventUpdateHandleGLib,
                          virEventRemoveHandleGLib,
