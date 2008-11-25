@@ -11,8 +11,7 @@ mkdir build
 cd build
 
 ../autogen.sh --prefix=$AUTOBUILD_INSTALL_ROOT \
-    --enable-compile-warnings=error \
-    --enable-plugin
+    --enable-compile-warnings=error
 
 make
 make install
