@@ -21,7 +21,6 @@
  */
 
 
-#include <sys/poll.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -140,9 +139,9 @@ void virEventUpdateHandleGLib(int watch,
             g_source_remove(data->source);
 
         cond |= G_IO_HUP;
-        if (events & POLLIN)
+        if (events & VIR_EVENT_HANDLE_READABLE)
             cond |= G_IO_IN;
-        if (events & POLLOUT)
+        if (events & VIR_EVENT_HANDLE_WRITABLE)
             cond |= G_IO_OUT;
         data->source = g_io_add_watch(data->channel,
                                       cond,
