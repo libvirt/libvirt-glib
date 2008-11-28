@@ -7,7 +7,7 @@ dnl Make automake keep quiet about wildcards & other GNUmake-isms
 AM_INIT_AUTOMAKE([-Wno-portability])
 AC_CANONICAL_HOST
 
-LIBVIRT_REQUIRED=0.4.6
+LIBVIRT_REQUIRED=0.5.0
 GLIB2_REQUIRED=2.10.0
 
 
@@ -166,4 +166,5 @@ AC_OUTPUT(Makefile
           examples/Makefile
           python/Makefile
           libvirt-glib.pc
-          libvirt-glib.spec)
+          libvirt-glib.spec
+          mingw32-libvirt-glib.spec)
