@@ -27,7 +27,7 @@
 #include <glib.h>
 #include <libvirt/libvirt.h>
 
-gboolean debugFlag = FALSE;
+static gboolean debugFlag = FALSE;
 
 #define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
 
@@ -106,7 +106,7 @@ int virEventAddHandleGLib(int fd,
                                   virEventDispatchHandleGLib,
                                   data);
 
-    handles[nhandles] = data;
+    handles[nhandles++] = data;
 
     return data->watch;
 }
@@ -127,8 +127,10 @@ void virEventUpdateHandleGLib(int watch,
 {
     struct virHandleGLib *data = virEventFindHandle(watch);
 
-    if (!data)
+    if (!data) {
+        DEBUG("Update for missing handle watch %d", watch);
         return;
+    }
 
     if (events) {
         GIOCondition cond = 0;
@@ -162,8 +164,10 @@ int virEventRemoveHandleGLib(int watch)
 {
     struct virHandleGLib *data = virEventFindHandle(watch);
 
-    if (!data)
+    if (!data) {
+        DEBUG("Remove of missing watch %d", watch);
         return -1;
+    }
 
     DEBUG("Remove handle %d %d\n", watch, data->fd);
 
@@ -224,7 +228,7 @@ virEventAddTimeoutGLib(int interval,
                                      virEventDispatchTimeoutGLib,
                                      data);
 
-    timeouts[ntimeouts] = data;
+    timeouts[ntimeouts++] = data;
 
     DEBUG("Add timeout %p %d %p %p %d\n", data, interval, cb, opaque, data->timer);
 
@@ -249,8 +253,10 @@ void virEventUpdateTimeoutGLib(int timer,
 {
     struct virTimeoutGLib *data = virEventFindTimer(timer);
 
-    if (!data)
+    if (!data) {
+        DEBUG("Update of missing timer %d", timer);
         return;
+    }
 
     DEBUG("Update timeout %p %d %d\n", data, timer, interval);
 
@@ -271,12 +277,14 @@ void virEventUpdateTimeoutGLib(int timer,
     }
 }
 
-int virEventRemoveTimeoutGLibm(int timer)
+int virEventRemoveTimeoutGLib(int timer)
 {
     struct virTimeoutGLib *data = virEventFindTimer(timer);
 
-    if (!data)
+    if (!data) {
+        DEBUG("Remove of missing timer %d", timer);
         return -1;
+    }
 
     DEBUG("Remove timeout %p %d\n", data, timer);
 
@@ -305,6 +313,6 @@ void virEventRegisterGLib(void) {
                          virEventRemoveHandleGLib,
                          virEventAddTimeoutGLib,
                          virEventUpdateTimeoutGLib,
-                         virEventRemoveHandleGLib);
+                         virEventRemoveTimeoutGLib);
 }
 
