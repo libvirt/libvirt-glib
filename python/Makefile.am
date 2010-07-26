@@ -19,7 +19,7 @@ libvirtglibmod_la_CFLAGS = -Wno-redundant-decls
 
 libvirtglibmod_la_LDFLAGS = -module -avoid-version \
 	$(CYGWIN_EXTRA_LDFLAGS)
-libvirtglibmod_la_LIBADD = ../src/libvirt-glib.la
+libvirtglibmod_la_LIBADD = ../src/libvirt-glib-1.0.la
 	$(CYGWIN_EXTRA_LIBADD) $(CYGWIN_EXTRA_PYTHON_LIBADD)
 
 

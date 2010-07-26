@@ -12,6 +12,6 @@ event_test_CFLAGS = \
 event_test_SOURCES = \
 		event-test.c
 event_test_LDADD = \
-		../src/libvirt-glib.la \
+		../src/libvirt-glib-1.0.la \
 		$(LIBVIRT_LIBS) \
 		$(GLIB2_LIBS)

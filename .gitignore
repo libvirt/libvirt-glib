@@ -37,3 +37,6 @@ examples/event-test
 libvirt-glib.spec
 libvirt-glib.pc
 mingw32-libvirt-glib.spec
+python/*pyc
+src/LibvirtGLib-1.0.gir
+src/LibvirtGLib-1.0.typelib
