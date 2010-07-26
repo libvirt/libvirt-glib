@@ -1,5 +1,5 @@
 
-SUBDIRS = libvirt-glib python examples
+SUBDIRS = libvirt-glib libvirt-gobject python examples
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libvirt-glib.pc

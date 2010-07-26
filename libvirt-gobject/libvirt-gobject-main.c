@@ -1,5 +1,5 @@
 /*
- * libvirt-glib-main.c: libvirt glib integration
+ * libvirt-gobject-main.c: libvirt gobject integration
  *
  * Copyright (C) 2008 Daniel P. Berrange
  * Copyright (C) 2010 Red Hat
@@ -24,43 +24,37 @@
 #include <config.h>
 
 #include <stdlib.h>
-#include <libvirt/virterror.h>
 
-#include "libvirt-glib-main.h"
+#include "libvirt-glib/libvirt-glib.h"
+#include "libvirt-gobject/libvirt-gobject-main.h"
 
 gboolean debugFlag = FALSE;
 
 #define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
 
-static void
-vir_g_error_func(gpointer opaque G_GNUC_UNUSED,
-                 virErrorPtr err)
-{
-    DEBUG("Error: %s", err->message);
-}
-
-
-void vir_g_init(int *argc,
-                char ***argv)
+void vir_g_object_init(int *argc,
+                       char ***argv)
 {
     GError *err = NULL;
-    if (!vir_g_init_check(argc, argv, &err)) {
-        g_error("Could not initialize libvirt-glib: %s\n",
+    if (!vir_g_object_init_check(argc, argv, &err)) {
+        g_error("Could not initialize libvirt-gobject: %s\n",
                 err->message);
     }
 }
 
 
-gboolean vir_g_init_check(int *argc G_GNUC_UNUSED,
-                          char ***argv G_GNUC_UNUSED,
-                          GError **err G_GNUC_UNUSED)
+gboolean vir_g_object_init_check(int *argc,
+                                 char ***argv,
+                                 GError **err)
 {
-    char *debugEnv = getenv("LIBVIRT_GLIB_DEBUG");
+    char *debugEnv = getenv("LIBVIRT_GOBJECT_DEBUG");
     if (debugEnv && *debugEnv && *debugEnv != '0')
         debugFlag = 1;
 
-    virSetErrorFunc(NULL, vir_g_error_func);
-    g_thread_init(NULL);
+    g_type_init();
+
+    if (!vir_g_init_check(argc, argv, err))
+        return FALSE;
 
     return TRUE;
 }

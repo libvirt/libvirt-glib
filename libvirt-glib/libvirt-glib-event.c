@@ -69,7 +69,7 @@ static unsigned int ntimeouts = 0;
 static struct vir_g_event_timeout **timeouts = NULL;
 
 static gboolean
-vir_g_event_handle_dispatch(GIOChannel *source,
+vir_g_event_handle_dispatch(GIOChannel *source G_GNUC_UNUSED,
                             GIOCondition condition,
                             gpointer opaque)
 {
@@ -93,11 +93,12 @@ vir_g_event_handle_dispatch(GIOChannel *source,
 }
 
 
-int vir_g_event_handle_add(int fd,
-                           int events,
-                           virEventHandleCallback cb,
-                           void *opaque,
-                           virFreeCallback ff)
+static int
+vir_g_event_handle_add(int fd,
+                       int events,
+                       virEventHandleCallback cb,
+                       void *opaque,
+                       virFreeCallback ff)
 {
     struct vir_g_event_handle *data;
     GIOCondition cond = 0;
@@ -149,8 +150,9 @@ vir_g_event_handle_find(int watch)
     return NULL;
 }
 
-void vir_g_event_handle_update(int watch,
-                               int events)
+static void
+vir_g_event_handle_update(int watch,
+                          int events)
 {
     struct vir_g_event_handle *data;
 
@@ -193,7 +195,8 @@ cleanup:
     g_mutex_unlock(eventlock);
 }
 
-int vir_g_event_handle_remove(int watch)
+static int
+vir_g_event_handle_remove(int watch)
 {
     struct vir_g_event_handle *data;
     int ret = -1;
@@ -230,7 +233,7 @@ static gboolean
 vir_g_event_timeout_dispatch(void *opaque)
 {
     struct vir_g_event_timeout *data = opaque;
-    DEBUG("Dispatch timeout %p %p %p %p\n", data, data->cb, data->timer, data->opaque);
+    DEBUG("Dispatch timeout %p %p %d %p\n", data, data->cb, data->timer, data->opaque);
     (data->cb)(data->timer, data->opaque);
 
     return TRUE;
@@ -285,8 +288,9 @@ vir_g_event_timeout_find(int timer)
 }
 
 
-void vir_g_event_timeout_update(int timer,
-                               int interval)
+static void
+vir_g_event_timeout_update(int timer,
+                           int interval)
 {
     struct vir_g_event_timeout *data;
 
@@ -320,7 +324,8 @@ cleanup:
     g_mutex_unlock(eventlock);
 }
 
-int vir_g_event_timeout_remove(int timer)
+static int
+vir_g_event_timeout_remove(int timer)
 {
     struct vir_g_event_timeout *data;
     int ret = -1;

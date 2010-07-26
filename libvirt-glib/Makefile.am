@@ -17,10 +17,13 @@ libvirt_glib_1_0_la_CFLAGS = \
 			$(COVERAGE_CFLAGS) \
 			-I$(top_srcdir) \
 			$(LIBVIRT_CFLAGS) \
-			$(GLIB2_CFLAGS)
+			$(GLIB2_CFLAGS) \
+			$(GTHREAD2_CFLAGS) \
+			$(WARN_CFLAGS)
 libvirt_glib_1_0_la_LIBADD = \
 			$(LIBVIRT_LIBS) \
 			$(GLIB2_LIBS) \
+			$(GTHREAD2_LIBS) \
 			$(CYGWIN_EXTRA_LIBADD)
 libvirt_glib_1_0_la_LDFLAGS = \
 			$(COVERAGE_CFLAGS:-f%=-Wc,f%) \

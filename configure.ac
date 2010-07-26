@@ -9,6 +9,8 @@ AC_CANONICAL_HOST
 
 LIBVIRT_REQUIRED=0.5.0
 GLIB2_REQUIRED=2.10.0
+GOBJECT2_REQUIRED=2.10.0
+GIO_REQUIRED=2.10.0
 GOBJECT_INTROSPECTION_REQUIRED=0.6.2
 
 
@@ -40,6 +42,9 @@ LIBVIRT_GLIB_COMPILE_WARNINGS([maximum])
 
 PKG_CHECK_MODULES(LIBVIRT, libvirt >= $LIBVIRT_REQUIRED)
 PKG_CHECK_MODULES(GLIB2, glib-2.0 >= $GLIB2_REQUIRED)
+PKG_CHECK_MODULES(GTHREAD2, gthread-2.0 >= $GLIB2_REQUIRED)
+PKG_CHECK_MODULES(GOBJECT2, gobject-2.0 >= $GLIB2_REQUIRED)
+PKG_CHECK_MODULES(GIO2, gio-2.0 >= $GLIB2_REQUIRED)
 
 dnl Extra link-time flags for Cygwin.
 dnl Copied from libxml2 configure.in, but I removed mingw changes
@@ -186,6 +191,7 @@ AM_CONDITIONAL([WITH_GOBJECT_INTROSPECTION], [test "x$enable_introspection" = "x
 
 AC_OUTPUT(Makefile
           libvirt-glib/Makefile
+          libvirt-gobject/Makefile
           examples/Makefile
           python/Makefile
           libvirt-glib.pc
