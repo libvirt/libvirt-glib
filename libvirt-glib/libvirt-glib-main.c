@@ -60,7 +60,8 @@ gboolean vir_g_init_check(int *argc G_GNUC_UNUSED,
         debugFlag = 1;
 
     virSetErrorFunc(NULL, vir_g_error_func);
-    g_thread_init(NULL);
+    if (!g_thread_supported())
+        g_thread_init(NULL);
 
     return TRUE;
 }
