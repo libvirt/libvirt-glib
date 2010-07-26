@@ -6,6 +6,6 @@ except:
     import cygvirtglibmod as libvirtglibmod
 
 
-def eventRegister():
-    libvirtglibmod.virEventRegisterGLib()
+def event_register():
+    libvirtglibmod.event_register()
 

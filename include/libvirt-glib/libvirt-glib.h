@@ -23,11 +23,19 @@
 #ifndef __LIBVIRT_GLIB_H__
 #define __LIBVIRT_GLIB_H__
 
+#include <glib.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-    void virEventRegisterGLib(void);
+    void vir_g_init(int *argc,
+                    char ***argv);
+    gboolean vir_g_init_check(int *argc,
+                              char ***argv,
+                              GError **err);
+
+    void vir_g_event_register(void);
 
 #ifdef __cplusplus
 };

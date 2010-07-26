@@ -1,7 +1,11 @@
-{
+LIBVIRT_GLIB_0.0.1 {
   global:
-        virEventRegisterGLib;
+        vir_g_init;
+        vir_g_init_check;
+        vir_g_event_register;
 
   local:
         *;
 };
+
+# .... define new API here using predicted next version number ....

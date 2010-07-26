@@ -26,15 +26,15 @@ extern void initcygvirtglibmod(void);
 #define VIR_PY_NONE (Py_INCREF (Py_None), Py_None)
 
 static PyObject *
-libvirt_virEventRegisterGLib(PyObject *self G_GNUC_UNUSED, PyObject *args G_GNUC_UNUSED) {
-    virEventRegisterGLib();
+libvirt_vir_g_event_register(PyObject *self G_GNUC_UNUSED, PyObject *args G_GNUC_UNUSED) {
+    vir_g_event_register();
 
     return VIR_PY_NONE;
 }
 
 
 static PyMethodDef libvirtGLibMethods[] = {
-    {(char *) "virEventRegisterGLib", libvirt_virEventRegisterGLib, METH_VARARGS, NULL},
+    {(char *) "event_register", libvirt_vir_g_event_register, METH_VARARGS, NULL},
     {NULL, NULL, 0, NULL}
 };
 
@@ -46,6 +46,7 @@ initcygvirtglibmod
 #endif
   (void)
 {
+    vir_g_init(NULL, NULL);
     /* initialize the python extension module */
     Py_InitModule((char *)
 #ifndef __CYGWIN__

@@ -24,14 +24,16 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <glib.h>
+
 #include <libvirt/libvirt.h>
+
+#include "libvirt-glib/libvirt-glib.h"
 
 static gboolean debugFlag = FALSE;
 
 #define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
 
-struct virHandleGLib
+struct vir_g_event_handle
 {
     int watch;
     int fd;
@@ -44,16 +46,30 @@ struct virHandleGLib
     virFreeCallback ff;
 };
 
+struct vir_g_event_timeout
+{
+    int timer;
+    int interval;
+    guint source;
+    virEventTimeoutCallback cb;
+    void *opaque;
+    virFreeCallback ff;
+};
+
 static int nextwatch = 1;
 static unsigned int nhandles = 0;
-static struct virHandleGLib **handles = NULL;
+static struct vir_g_event_handle **handles = NULL;
+
+static int nexttimer = 1;
+static unsigned int ntimeouts = 0;
+static struct vir_g_event_timeout **timeouts = NULL;
 
 static gboolean
-virEventDispatchHandleGLib(GIOChannel *source,
-                           GIOCondition condition,
-                           gpointer opaque)
+vir_g_event_handle_dispatch(GIOChannel *source,
+                            GIOCondition condition,
+                            gpointer opaque)
 {
-    struct virHandleGLib *data = opaque;
+    struct vir_g_event_handle *data = opaque;
     int events = 0;
 
     if (condition & G_IO_IN)
@@ -73,13 +89,13 @@ virEventDispatchHandleGLib(GIOChannel *source,
 }
 
 
-int virEventAddHandleGLib(int fd,
-                          int events,
-                          virEventHandleCallback cb,
-                          void *opaque,
-                          virFreeCallback ff)
+int vir_g_event_handle_add(int fd,
+                           int events,
+                           virEventHandleCallback cb,
+                           void *opaque,
+                           virFreeCallback ff)
 {
-    struct virHandleGLib *data;
+    struct vir_g_event_handle *data;
     GIOCondition cond = 0;
 
     handles = g_realloc(handles, sizeof(*handles)*(nhandles+1));
@@ -103,7 +119,7 @@ int virEventAddHandleGLib(int fd,
 
     data->source = g_io_add_watch(data->channel,
                                   cond,
-                                  virEventDispatchHandleGLib,
+                                  vir_g_event_handle_dispatch,
                                   data);
 
     handles[nhandles++] = data;
@@ -111,8 +127,8 @@ int virEventAddHandleGLib(int fd,
     return data->watch;
 }
 
-static struct virHandleGLib *
-virEventFindHandle(int watch)
+static struct vir_g_event_handle *
+vir_g_event_handle_find(int watch)
 {
     unsigned int i;
     for (i = 0 ; i < nhandles ; i++)
@@ -122,10 +138,10 @@ virEventFindHandle(int watch)
     return NULL;
 }
 
-void virEventUpdateHandleGLib(int watch,
-                              int events)
+void vir_g_event_handle_update(int watch,
+                               int events)
 {
-    struct virHandleGLib *data = virEventFindHandle(watch);
+    struct vir_g_event_handle *data = vir_g_event_handle_find(watch);
 
     if (!data) {
         DEBUG("Update for missing handle watch %d", watch);
@@ -147,7 +163,7 @@ void virEventUpdateHandleGLib(int watch,
             cond |= G_IO_OUT;
         data->source = g_io_add_watch(data->channel,
                                       cond,
-                                      virEventDispatchHandleGLib,
+                                      vir_g_event_handle_dispatch,
                                       data);
         data->events = events;
     } else {
@@ -160,9 +176,9 @@ void virEventUpdateHandleGLib(int watch,
     }
 }
 
-int virEventRemoveHandleGLib(int watch)
+int vir_g_event_handle_remove(int watch)
 {
-    struct virHandleGLib *data = virEventFindHandle(watch);
+    struct vir_g_event_handle *data = vir_g_event_handle_find(watch);
 
     if (!data) {
         DEBUG("Remove of missing watch %d", watch);
@@ -181,25 +197,11 @@ int virEventRemoveHandleGLib(int watch)
     return 0;
 }
 
-struct virTimeoutGLib
-{
-    int timer;
-    int interval;
-    guint source;
-    virEventTimeoutCallback cb;
-    void *opaque;
-    virFreeCallback ff;
-};
-
-
-static int nexttimer = 1;
-static unsigned int ntimeouts = 0;
-static struct virTimeoutGLib **timeouts = NULL;
 
 static gboolean
-virEventDispatchTimeoutGLib(void *opaque)
+vir_g_event_timeout_dispatch(void *opaque)
 {
-    struct virTimeoutGLib *data = opaque;
+    struct vir_g_event_timeout *data = opaque;
     DEBUG("Dispatch timeout %p %p %p %p\n", data, data->cb, data->timer, data->opaque);
     (data->cb)(data->timer, data->opaque);
 
@@ -207,12 +209,12 @@ virEventDispatchTimeoutGLib(void *opaque)
 }
 
 static int
-virEventAddTimeoutGLib(int interval,
-                       virEventTimeoutCallback cb,
-                       void *opaque,
-                       virFreeCallback ff)
+vir_g_event_timeout_add(int interval,
+                        virEventTimeoutCallback cb,
+                        void *opaque,
+                        virFreeCallback ff)
 {
-    struct virTimeoutGLib *data;
+    struct vir_g_event_timeout *data;
 
     timeouts = g_realloc(timeouts, sizeof(*timeouts)*(ntimeouts+1));
     data = g_malloc(sizeof(*data));
@@ -225,7 +227,7 @@ virEventAddTimeoutGLib(int interval,
     data->ff = ff;
     if (interval >= 0)
         data->source = g_timeout_add(interval,
-                                     virEventDispatchTimeoutGLib,
+                                     vir_g_event_timeout_dispatch,
                                      data);
 
     timeouts[ntimeouts++] = data;
@@ -236,8 +238,8 @@ virEventAddTimeoutGLib(int interval,
 }
 
 
-static struct virTimeoutGLib *
-virEventFindTimer(int timer)
+static struct vir_g_event_timeout *
+vir_g_event_timeout_find(int timer)
 {
     unsigned int i;
     for (i = 0 ; i < ntimeouts ; i++)
@@ -248,10 +250,10 @@ virEventFindTimer(int timer)
 }
 
 
-void virEventUpdateTimeoutGLib(int timer,
+void vir_g_event_timeout_update(int timer,
                                int interval)
 {
-    struct virTimeoutGLib *data = virEventFindTimer(timer);
+    struct vir_g_event_timeout *data = vir_g_event_timeout_find(timer);
 
     if (!data) {
         DEBUG("Update of missing timer %d", timer);
@@ -266,7 +268,7 @@ void virEventUpdateTimeoutGLib(int timer,
 
         data->interval = interval;
         data->source = g_timeout_add(data->interval,
-                                     virEventDispatchTimeoutGLib,
+                                     vir_g_event_timeout_dispatch,
                                      data);
     } else {
         if (!data->source)
@@ -277,9 +279,9 @@ void virEventUpdateTimeoutGLib(int timer,
     }
 }
 
-int virEventRemoveTimeoutGLib(int timer)
+int vir_g_event_timeout_remove(int timer)
 {
-    struct virTimeoutGLib *data = virEventFindTimer(timer);
+    struct vir_g_event_timeout *data = vir_g_event_timeout_find(timer);
 
     if (!data) {
         DEBUG("Remove of missing timer %d", timer);
@@ -303,16 +305,36 @@ int virEventRemoveTimeoutGLib(int timer)
 }
 
 
-void virEventRegisterGLib(void) {
+void vir_g_init(int *argc,
+                char ***argv)
+{
+    GError *err = NULL;
+    if (!vir_g_init_check(argc, argv, &err)) {
+        fprintf(stderr, "Could not initialize libvirt-glib: %s\n",
+                err->message);
+        abort();
+    }
+}
+
+
+gboolean vir_g_init_check(int *argc G_GNUC_UNUSED,
+                          char ***argv G_GNUC_UNUSED,
+                          GError **err G_GNUC_UNUSED)
+{
     char *debugEnv = getenv("LIBVIRT_GLIB_DEBUG");
     if (debugEnv && *debugEnv && *debugEnv != '0')
         debugFlag = 1;
 
-    virEventRegisterImpl(virEventAddHandleGLib,
-                         virEventUpdateHandleGLib,
-                         virEventRemoveHandleGLib,
-                         virEventAddTimeoutGLib,
-                         virEventUpdateTimeoutGLib,
-                         virEventRemoveTimeoutGLib);
+    return TRUE;
+}
+
+
+void vir_g_event_register(void) {
+    virEventRegisterImpl(vir_g_event_handle_add,
+                         vir_g_event_handle_update,
+                         vir_g_event_handle_remove,
+                         vir_g_event_timeout_add,
+                         vir_g_event_timeout_update,
+                         vir_g_event_timeout_remove);
 }
 

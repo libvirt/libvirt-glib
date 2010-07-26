@@ -154,13 +154,15 @@ int main(int argc, char **argv)
 {
     GMainLoop *loop;
 
+    vir_g_init(&argc, &argv);
+
     if(argc > 1 && STREQ(argv[1],"--help")) {
         usage(argv[0]);
         return -1;
     }
     loop = g_main_loop_new(g_main_context_default(), 1);
 
-    virEventRegisterGLib();
+    vir_g_event_register();
 
     virConnectPtr dconn = NULL;
     dconn = virConnectOpen (argv[1] ? argv[1] : NULL);
