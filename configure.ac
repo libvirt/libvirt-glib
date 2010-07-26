@@ -1,6 +1,6 @@
 
 AC_INIT(libvirt-glib, 0.0.1)
-AC_CONFIG_SRCDIR(src/events.c)
+AC_CONFIG_SRCDIR(libvirt-glib/libvirt-glib-main.c)
 AC_CONFIG_AUX_DIR([build-aux])
 AM_CONFIG_HEADER(config.h)
 dnl Make automake keep quiet about wildcards & other GNUmake-isms
@@ -32,7 +32,7 @@ AM_PROG_CC_C_O
 AC_LIBTOOL_WIN32_DLL
 AC_PROG_LIBTOOL
 
-AC_CONFIG_LIBOBJ_DIR([src])
+dnl AC_CONFIG_LIBOBJ_DIR([src])
 
 AC_DEFINE([_GNU_SOURCE], [], [Enable GNU extensions])
 
@@ -185,9 +185,7 @@ fi
 AM_CONDITIONAL([WITH_GOBJECT_INTROSPECTION], [test "x$enable_introspection" = "xyes"])
 
 AC_OUTPUT(Makefile
-          include/Makefile
-          include/libvirt-glib/Makefile
-          src/Makefile
+          libvirt-glib/Makefile
           examples/Makefile
           python/Makefile
           libvirt-glib.pc

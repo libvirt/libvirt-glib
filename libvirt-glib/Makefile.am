@@ -1,13 +1,21 @@
 
-EXTRA_DIST = libvirt_glib.sym
+EXTRA_DIST = libvirt-glib.sym
 
 lib_LTLIBRARIES = libvirt-glib-1.0.la
 
-libvirt_glib_1_0_la_SOURCES = events.c
+libvirt_glib_1_0_ladir = $(includedir)/libvirt-glib
+libvirt_glib_1_0_la_HEADERS = \
+			libvirt-glib.h \
+			libvirt-glib-event.h \
+			libvirt-glib-main.h
+libvirt_glib_1_0_la_SOURCES = \
+			$(libvirt_glib_1_0_la_HEADERS) \
+			libvirt-glib-event.c \
+			libvirt-glib-main.c
 libvirt_glib_1_0_la_CFLAGS = \
+			-DLIBVIRT_GLIB_BUILD \
 			$(COVERAGE_CFLAGS) \
-			-I$(top_srcdir)/include \
-			../include \
+			-I$(top_srcdir) \
 			$(LIBVIRT_CFLAGS) \
 			$(GLIB2_CFLAGS)
 libvirt_glib_1_0_la_LIBADD = \
@@ -17,14 +25,10 @@ libvirt_glib_1_0_la_LIBADD = \
 libvirt_glib_1_0_la_LDFLAGS = \
 			$(COVERAGE_CFLAGS:-f%=-Wc,f%) \
 			$(CYGWIN_EXTRA_LDFLAGS) $(MINGW_EXTRA_LDFLAGS) \
-			-Wl,--version-script=$(srcdir)/libvirt_glib.sym \
+			-Wl,--version-script=$(srcdir)/libvirt-glib.sym \
 			-version-info $(LIBVIRT_GLIB_VERSION_INFO)
 
 if WITH_GOBJECT_INTROSPECTION
-
-LIBVIRT_GLIB_INTROSPECTION_SRCS = \
-                        $(srcdir)/events.c \
-                        $(srcdir)/../include/libvirt-glib/libvirt-glib.h
 
 LibvirtGLib-1.0.gir: libvirt-glib-1.0.la $(G_IR_SCANNER) Makefile.am
 	$(AM_V_GEN)$(G_IR_SCANNER) -v \
@@ -42,7 +46,7 @@ LibvirtGLib-1.0.gir: libvirt-glib-1.0.la $(G_IR_SCANNER) Makefile.am
                 --verbose \
                 --pkg=glib-2.0 \
                 --pkg=gthread-2.0 \
-                $(LIBVIRT_GLIB_INTROSPECTION_SRCS)
+                $(libvirt_glib_1_0_la_SOURCES:%=$(srcdir)/%)
 
 girdir = $(datadir)/gir-1.0
 gir_DATA = LibvirtGLib-1.0.gir

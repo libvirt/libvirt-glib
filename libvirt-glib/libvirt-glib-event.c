@@ -1,7 +1,8 @@
 /*
- * libvirt-glib.h: libvirt glib integration
+ * libvirt-glib-event.c: libvirt glib integration
  *
  * Copyright (C) 2008 Daniel P. Berrange
+ * Copyright (C) 2010 Red Hat
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,6 +21,7 @@
  * Author: Daniel P. Berrange <berrange@redhat.com>
  */
 
+#include <config.h>
 
 #include <stdio.h>
 #include <string.h>
@@ -29,7 +31,7 @@
 
 #include "libvirt-glib/libvirt-glib.h"
 
-static gboolean debugFlag = FALSE;
+extern gboolean debugFlag;
 
 #define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
 
@@ -352,33 +354,8 @@ cleanup:
 }
 
 
-void vir_g_init(int *argc,
-                char ***argv)
-{
-    GError *err = NULL;
-    if (!vir_g_init_check(argc, argv, &err)) {
-        fprintf(stderr, "Could not initialize libvirt-glib: %s\n",
-                err->message);
-        abort();
-    }
-}
-
-
-gboolean vir_g_init_check(int *argc G_GNUC_UNUSED,
-                          char ***argv G_GNUC_UNUSED,
-                          GError **err G_GNUC_UNUSED)
-{
-    char *debugEnv = getenv("LIBVIRT_GLIB_DEBUG");
-    if (debugEnv && *debugEnv && *debugEnv != '0')
-        debugFlag = 1;
-
-    eventlock = g_mutex_new();
-
-    return TRUE;
-}
-
-
 void vir_g_event_register(void) {
+    eventlock = g_mutex_new();
     virEventRegisterImpl(vir_g_event_handle_add,
                          vir_g_event_handle_update,
                          vir_g_event_handle_remove,

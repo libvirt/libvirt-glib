@@ -42,7 +42,7 @@ rm -rf $RPM_BUILD_ROOT
 
 make DESTDIR=$RPM_BUILD_ROOT install
 
-rm $RPM_BUILD_ROOT%{_mingw32_libdir}/libvirt-glib.a
+rm $RPM_BUILD_ROOT%{_mingw32_libdir}/libvirt-glib-1.0.a
 
 
 %clean
@@ -51,14 +51,15 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-%{_mingw32_bindir}/libvirt-glib-0.dll
+%{_mingw32_bindir}/libvirt-glib-1.0-0.dll
 
-%{_mingw32_libdir}/libvirt-glib.dll.a
-%{_mingw32_libdir}/libvirt-glib.la
+%{_mingw32_libdir}/libvirt-glib-1.0.dll.a
+%{_mingw32_libdir}/libvirt-glib-1.0.la
 %{_mingw32_libdir}/pkgconfig/libvirt-glib.pc
 
 %dir %{_mingw32_includedir}/libvirt-glib
 %{_mingw32_includedir}/libvirt-glib/libvirt-glib.h
+%{_mingw32_includedir}/libvirt-glib/libvirt-glib-*.h
 
 
 %changelog

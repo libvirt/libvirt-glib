@@ -1,5 +1,5 @@
 
-SUBDIRS = include src python examples
+SUBDIRS = libvirt-glib python examples
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libvirt-glib.pc

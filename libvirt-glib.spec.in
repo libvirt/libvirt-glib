@@ -1,5 +1,15 @@
 # -*- rpm-spec -*-
 
+%define with_introspection 0
+
+%if 0%{?fedora} >= 12
+%define with_introspection 1
+%endif
+%if 0%{?rhel} >= 6
+%define with_introspection 1
+%endif
+
+
 Name: @PACKAGE@
 Version: @VERSION@
 Release: 1%{?dist}%{?extra_release}
@@ -13,6 +23,13 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: glib2-devel >= 2.10.0
 BuildRequires: libvirt-devel >= 0.5.0
 BuildRequires: python-devel
+%if %{with_introspection}
+BuildRequires: gobject-introspection-devel
+%if 0%{?fedora} == 12
+BuildRequires: gir-repository-devel
+%endif
+BuildRequires: gjs-devel
+%endif
 
 %package devel
 Group: Development/Libraries
@@ -38,15 +55,22 @@ libvirt and the glib event loop
 %setup -q
 
 %build
-%configure
+
+%if %{with_introspection}
+%define introspection_arg --enable-introspection --with-javascript
+%else
+%define introspection_arg --disable-introspection --without-javascript
+%endif
+
+%configure %{introspection_arg}
 %__make %{?_smp_mflags}
 
 
 %install
 rm -rf $RPM_BUILD_ROOT
 %__make install  DESTDIR=$RPM_BUILD_ROOT
-rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
-rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.la
+rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}-1.0.a
+rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}-1.0.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -54,14 +78,21 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %doc README COPYING AUTHORS ChangeLog NEWS
-%{_libdir}/%{name}.so.*
+%{_libdir}/%{name}-1.0.so.*
+%if %{with_introspection}
+%{_libdir}/girepository-1.0/LibvirtGLib-1.0.typelib
+%endif
 
 %files devel
 %defattr(-,root,root,-)
 %doc examples/event-test.c
-%{_libdir}/%{name}.so
+%{_libdir}/%{name}-1.0.so
 %{_libdir}/pkgconfig/%{name}.pc
 %{_includedir}/%{name}/%{name}.h
+%{_includedir}/%{name}/%{name}-*.h
+%if %{with_introspection}
+%{_datadir}/gir-1.0/LibvirtGLib-1.0.gir
+%endif
 
 %files python
 %defattr(-,root,root,-)

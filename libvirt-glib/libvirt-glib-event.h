@@ -1,7 +1,8 @@
 /*
- * libvirt-glib.h: libvirt glib integration
+ * libvirt-glib-event.h: libvirt glib integration
  *
  * Copyright (C) 2008 Daniel P. Berrange
+ * Copyright (C) 2010 Red Hat
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,25 +21,15 @@
  * Author: Daniel P. Berrange <berrange@redhat.com>
  */
 
-#ifndef __LIBVIRT_GLIB_H__
-#define __LIBVIRT_GLIB_H__
+#ifndef __LIBVIRT_GLIB_EVENT_H__
+#define __LIBVIRT_GLIB_EVENT_H__
 
 #include <glib.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+G_BEGIN_DECLS
 
-    void vir_g_init(int *argc,
-                    char ***argv);
-    gboolean vir_g_init_check(int *argc,
-                              char ***argv,
-                              GError **err);
+void vir_g_event_register(void);
 
-    void vir_g_event_register(void);
+G_END_DECLS
 
-#ifdef __cplusplus
-};
-#endif
-
-#endif /* __LIBVIRT_GLIB_H__ */
+#endif /* __LIBVIRT_GLIB_EVENT_H__ */
