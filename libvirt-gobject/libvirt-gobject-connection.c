@@ -196,6 +196,10 @@ vir_g_connection_open_async(GSimpleAsyncResult *res,
 }
 
 
+/**
+ * vir_g_connection_open:
+ * @cancellable: (allow-none): operation cancellation
+ */
 void vir_g_connection_open(VirGConnection *conn,
                            GCancellable *cancellable,
                            GAsyncReadyCallback callback,

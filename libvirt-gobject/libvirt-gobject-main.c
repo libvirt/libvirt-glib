@@ -32,6 +32,11 @@ gboolean debugFlag = FALSE;
 
 #define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
 
+/**
+ * vir_g_object_init:
+ * @argc: (inout): pointer to application's argc
+ * @argv: (inout) (array length=argc) (allow-none): pointer to application's argv
+ */
 void vir_g_object_init(int *argc,
                        char ***argv)
 {
@@ -43,6 +48,12 @@ void vir_g_object_init(int *argc,
 }
 
 
+/**
+ * vir_g_object_init_check:
+ * @argc: (inout): pointer to application's argc
+ * @argv: (inout) (array length=argc) (allow-none): pointer to application's argv
+ * @err: pointer to a #GError to which a message will be posted on error
+ */
 gboolean vir_g_object_init_check(int *argc,
                                  char ***argv,
                                  GError **err)
