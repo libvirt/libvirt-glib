@@ -64,6 +64,8 @@ gboolean vir_g_object_init_check(int *argc,
 
     g_type_init();
 
+    vir_g_event_register();
+
     if (!vir_g_init_check(argc, argv, err))
         return FALSE;
 
