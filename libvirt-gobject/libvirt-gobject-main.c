@@ -33,15 +33,15 @@ gboolean debugFlag = FALSE;
 #define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
 
 /**
- * vir_g_object_init:
+ * gvir_init_object:
  * @argc: (inout): pointer to application's argc
  * @argv: (inout) (array length=argc) (allow-none): pointer to application's argv
  */
-void vir_g_object_init(int *argc,
-                       char ***argv)
+void gvir_init_object(int *argc,
+                      char ***argv)
 {
     GError *err = NULL;
-    if (!vir_g_object_init_check(argc, argv, &err)) {
+    if (!gvir_init_object_check(argc, argv, &err)) {
         g_error("Could not initialize libvirt-gobject: %s\n",
                 err->message);
     }
@@ -49,14 +49,14 @@ void vir_g_object_init(int *argc,
 
 
 /**
- * vir_g_object_init_check:
+ * gvir_init_object_check:
  * @argc: (inout): pointer to application's argc
  * @argv: (inout) (array length=argc) (allow-none): pointer to application's argv
  * @err: pointer to a #GError to which a message will be posted on error
  */
-gboolean vir_g_object_init_check(int *argc,
-                                 char ***argv,
-                                 GError **err)
+gboolean gvir_init_object_check(int *argc,
+                                char ***argv,
+                                GError **err)
 {
     char *debugEnv = getenv("LIBVIRT_GOBJECT_DEBUG");
     if (debugEnv && *debugEnv && *debugEnv != '0')
@@ -64,9 +64,9 @@ gboolean vir_g_object_init_check(int *argc,
 
     g_type_init();
 
-    vir_g_event_register();
+    gvir_event_register();
 
-    if (!vir_g_init_check(argc, argv, err))
+    if (!gvir_init_check(argc, argv, err))
         return FALSE;
 
     return TRUE;

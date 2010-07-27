@@ -33,33 +33,33 @@ gboolean debugFlag = FALSE;
 #define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
 
 static void
-vir_g_error_func(gpointer opaque G_GNUC_UNUSED,
-                 virErrorPtr err)
+gvir_error_func(gpointer opaque G_GNUC_UNUSED,
+                virErrorPtr err)
 {
     DEBUG("Error: %s", err->message);
 }
 
 
-void vir_g_init(int *argc,
+void gvir_init(int *argc,
                 char ***argv)
 {
     GError *err = NULL;
-    if (!vir_g_init_check(argc, argv, &err)) {
+    if (!gvir_init_check(argc, argv, &err)) {
         g_error("Could not initialize libvirt-glib: %s\n",
                 err->message);
     }
 }
 
 
-gboolean vir_g_init_check(int *argc G_GNUC_UNUSED,
-                          char ***argv G_GNUC_UNUSED,
-                          GError **err G_GNUC_UNUSED)
+gboolean gvir_init_check(int *argc G_GNUC_UNUSED,
+                         char ***argv G_GNUC_UNUSED,
+                         GError **err G_GNUC_UNUSED)
 {
     char *debugEnv = getenv("LIBVIRT_GLIB_DEBUG");
     if (debugEnv && *debugEnv && *debugEnv != '0')
         debugFlag = 1;
 
-    virSetErrorFunc(NULL, vir_g_error_func);
+    virSetErrorFunc(NULL, gvir_error_func);
     if (!g_thread_supported())
         g_thread_init(NULL);
 

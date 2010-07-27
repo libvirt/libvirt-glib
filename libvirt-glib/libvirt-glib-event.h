@@ -28,7 +28,7 @@
 
 G_BEGIN_DECLS
 
-void vir_g_event_register(void);
+void gvir_event_register(void);
 
 G_END_DECLS
 

@@ -32,11 +32,11 @@
 
 G_BEGIN_DECLS
 
-void vir_g_object_init(int *argc,
-                       char ***argv);
-gboolean vir_g_object_init_check(int *argc,
-                                 char ***argv,
-                                 GError **err);
+void gvir_init_object(int *argc,
+                      char ***argv);
+gboolean gvir_init_object_check(int *argc,
+                                char ***argv,
+                                GError **err);
 
 G_END_DECLS
 

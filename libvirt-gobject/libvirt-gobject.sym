@@ -1,15 +1,15 @@
 LIBVIRT_GLIB_0.0.1 {
   global:
-        vir_g_object_init;
-        vir_g_object_init_check;
+        gvir_init_object;
+        gvir_init_object_check;
 
-	vir_g_connection_get_type;
-	vir_g_connection_new;
-	vir_g_connection_open;
-	vir_g_connection_open_async;
-	vir_g_connection_open_finish;
-	vir_g_connection_is_open;
-	vir_g_connection_close;
+	gvir_connection_get_type;
+	gvir_connection_new;
+	gvir_connection_open;
+	gvir_connection_open_async;
+	gvir_connection_open_finish;
+	gvir_connection_is_open;
+	gvir_connection_close;
 
   local:
         *;

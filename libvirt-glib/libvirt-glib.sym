@@ -1,8 +1,8 @@
 LIBVIRT_GLIB_0.0.1 {
   global:
-        vir_g_init;
-        vir_g_init_check;
-        vir_g_event_register;
+        gvir_init;
+        gvir_init_check;
+        gvir_event_register;
 
   local:
         *;

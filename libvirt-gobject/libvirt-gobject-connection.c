@@ -33,10 +33,10 @@ extern gboolean debugFlag;
 
 #define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
 
-#define VIR_G_CONNECTION_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), VIR_G_TYPE_CONNECTION, VirGConnectionPrivate))
+#define GVIR_CONNECTION_GET_PRIVATE(obj)                         \
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONNECTION, GVirConnectionPrivate))
 
-struct _VirGConnectionPrivate
+struct _GVirConnectionPrivate
 {
     gchar *uri;
     virConnectPtr conn;
@@ -44,7 +44,7 @@ struct _VirGConnectionPrivate
     GHashTable *domains;
 };
 
-G_DEFINE_TYPE(VirGConnection, vir_g_connection, G_TYPE_OBJECT);
+G_DEFINE_TYPE(GVirConnection, gvir_connection, G_TYPE_OBJECT);
 
 
 enum {
@@ -53,21 +53,21 @@ enum {
 };
 
 
-#define VIR_G_CONNECTION_ERROR vir_g_connection_error_quark()
+#define GVIR_CONNECTION_ERROR gvir_connection_error_quark()
 
 static GQuark
-vir_g_connection_error_quark(void)
+gvir_connection_error_quark(void)
 {
     return g_quark_from_static_string("vir-g-connection");
 }
 
-static void vir_g_connection_get_property(GObject *object,
-                                          guint prop_id,
-                                          GValue *value,
-                                          GParamSpec *pspec)
+static void gvir_connection_get_property(GObject *object,
+                                         guint prop_id,
+                                         GValue *value,
+                                         GParamSpec *pspec)
 {
-    VirGConnection *conn = VIR_G_CONNECTION(object);
-    VirGConnectionPrivate *priv = conn->priv;
+    GVirConnection *conn = GVIR_CONNECTION(object);
+    GVirConnectionPrivate *priv = conn->priv;
 
     switch (prop_id) {
     case PROP_URI:
@@ -80,13 +80,13 @@ static void vir_g_connection_get_property(GObject *object,
 }
 
 
-static void vir_g_connection_set_property(GObject *object,
-                                          guint prop_id,
-                                          const GValue *value,
-                                          GParamSpec *pspec)
+static void gvir_connection_set_property(GObject *object,
+                                         guint prop_id,
+                                         const GValue *value,
+                                         GParamSpec *pspec)
 {
-    VirGConnection *conn = VIR_G_CONNECTION(object);
-    VirGConnectionPrivate *priv = conn->priv;
+    GVirConnection *conn = GVIR_CONNECTION(object);
+    GVirConnectionPrivate *priv = conn->priv;
 
     switch (prop_id) {
     case PROP_URI:
@@ -100,29 +100,29 @@ static void vir_g_connection_set_property(GObject *object,
 }
 
 
-static void vir_g_connection_finalize(GObject *object)
+static void gvir_connection_finalize(GObject *object)
 {
-    VirGConnection *conn = VIR_G_CONNECTION(object);
-    VirGConnectionPrivate *priv = conn->priv;
+    GVirConnection *conn = GVIR_CONNECTION(object);
+    GVirConnectionPrivate *priv = conn->priv;
 
-    DEBUG("Finalize VirGConnection=%p", conn);
+    DEBUG("Finalize GVirConnection=%p", conn);
 
-    if (vir_g_connection_is_open(conn))
-        vir_g_connection_close(conn);
+    if (gvir_connection_is_open(conn))
+        gvir_connection_close(conn);
 
     g_free(priv->uri);
 
-    G_OBJECT_CLASS(vir_g_connection_parent_class)->finalize(object);
+    G_OBJECT_CLASS(gvir_connection_parent_class)->finalize(object);
 }
 
 
-static void vir_g_connection_class_init(VirGConnectionClass *klass)
+static void gvir_connection_class_init(GVirConnectionClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-    object_class->finalize = vir_g_connection_finalize;
-    object_class->get_property = vir_g_connection_get_property;
-    object_class->set_property = vir_g_connection_set_property;
+    object_class->finalize = gvir_connection_finalize;
+    object_class->get_property = gvir_connection_get_property;
+    object_class->set_property = gvir_connection_set_property;
 
     g_object_class_install_property(object_class,
                                     PROP_URI,
@@ -137,41 +137,41 @@ static void vir_g_connection_class_init(VirGConnectionClass *klass)
                                                         G_PARAM_STATIC_NICK |
                                                         G_PARAM_STATIC_BLURB));
 
-    g_type_class_add_private(klass, sizeof(VirGConnectionPrivate));
+    g_type_class_add_private(klass, sizeof(GVirConnectionPrivate));
 }
 
 
-static void vir_g_connection_init(VirGConnection *conn)
+static void gvir_connection_init(GVirConnection *conn)
 {
-    VirGConnectionPrivate *priv;
+    GVirConnectionPrivate *priv;
 
-    DEBUG("Init VirGConnection=%p", conn);
+    DEBUG("Init GVirConnection=%p", conn);
 
-    priv = conn->priv = VIR_G_CONNECTION_GET_PRIVATE(conn);
+    priv = conn->priv = GVIR_CONNECTION_GET_PRIVATE(conn);
 
     memset(priv, 0, sizeof(*priv));
 }
 
 
-VirGConnection *vir_g_connection_new(const char *uri)
+GVirConnection *gvir_connection_new(const char *uri)
 {
-    return VIR_G_CONNECTION(g_object_new(VIR_G_TYPE_CONNECTION,
+    return GVIR_CONNECTION(g_object_new(GVIR_TYPE_CONNECTION,
                                          "uri", uri,
                                          NULL));
 }
 
 
 static void
-vir_g_connection_open_helper(GSimpleAsyncResult *res,
-                             GObject *object,
-                             GCancellable *cancellable)
+gvir_connection_open_helper(GSimpleAsyncResult *res,
+                            GObject *object,
+                            GCancellable *cancellable)
 {
-    VirGConnection *conn = VIR_G_CONNECTION(object);
-    VirGConnectionPrivate *priv = conn->priv;
+    GVirConnection *conn = GVIR_CONNECTION(object);
+    GVirConnectionPrivate *priv = conn->priv;
     GError *err = NULL;
 
     if (priv->conn) {
-        err = g_error_new(VIR_G_CONNECTION_ERROR,
+        err = g_error_new(GVIR_CONNECTION_ERROR,
                           0,
                           "Connection %s is already open",
                           priv->uri);
@@ -188,7 +188,7 @@ vir_g_connection_open_helper(GSimpleAsyncResult *res,
 
     if (!(priv->conn = virConnectOpen(priv->uri))) {
         virErrorPtr verr = virGetLastError();
-        err = g_error_new(VIR_G_CONNECTION_ERROR,
+        err = g_error_new(GVIR_CONNECTION_ERROR,
                           0,
                           "Unable to open %s: %s",
                           priv->uri, verr->message);
@@ -197,13 +197,13 @@ vir_g_connection_open_helper(GSimpleAsyncResult *res,
     }
 }
 
-gboolean vir_g_connection_open(VirGConnection *conn,
-                               GError **err)
+gboolean gvir_connection_open(GVirConnection *conn,
+                              GError **err)
 {
-    VirGConnectionPrivate *priv = conn->priv;
+    GVirConnectionPrivate *priv = conn->priv;
 
     if (priv->conn) {
-        *err = g_error_new(VIR_G_CONNECTION_ERROR,
+        *err = g_error_new(GVIR_CONNECTION_ERROR,
                            0,
                            "Connection %s is already open",
                            priv->uri);
@@ -212,7 +212,7 @@ gboolean vir_g_connection_open(VirGConnection *conn,
 
     if (!(priv->conn = virConnectOpen(priv->uri))) {
         virErrorPtr verr = virGetLastError();
-        *err = g_error_new(VIR_G_CONNECTION_ERROR,
+        *err = g_error_new(GVIR_CONNECTION_ERROR,
                            0,
                            "Unable to open %s: %s",
                            priv->uri, verr->message);
@@ -223,38 +223,38 @@ gboolean vir_g_connection_open(VirGConnection *conn,
 }
 
 /**
- * vir_g_connection_open_async:
+ * gvir_connection_open_async:
  * @cancellable: (allow-none): operation cancellation
  */
-void vir_g_connection_open_async(VirGConnection *conn,
-                                 GCancellable *cancellable,
-                                 GAsyncReadyCallback callback,
-                                 gpointer opaque)
+void gvir_connection_open_async(GVirConnection *conn,
+                                GCancellable *cancellable,
+                                GAsyncReadyCallback callback,
+                                gpointer opaque)
 {
     GSimpleAsyncResult *res;
 
     res = g_simple_async_result_new(G_OBJECT(conn),
                                     callback,
                                     opaque,
-                                    vir_g_connection_open);
+                                    gvir_connection_open);
     g_simple_async_result_run_in_thread(res,
-                                        vir_g_connection_open_helper,
+                                        gvir_connection_open_helper,
                                         G_PRIORITY_DEFAULT,
                                         cancellable);
     g_object_unref(res);
 }
 
 
-gboolean vir_g_connection_open_finish(VirGConnection *conn,
-                                      GAsyncResult *result,
-                                      GError **err)
+gboolean gvir_connection_open_finish(GVirConnection *conn,
+                                     GAsyncResult *result,
+                                     GError **err)
 {
-    g_return_val_if_fail(VIR_G_IS_CONNECTION(conn), FALSE);
+    g_return_val_if_fail(GVIR_IS_CONNECTION(conn), FALSE);
     g_return_val_if_fail(G_IS_ASYNC_RESULT(result), FALSE);
 
     if (G_IS_SIMPLE_ASYNC_RESULT(result)) {
         GSimpleAsyncResult *simple = G_SIMPLE_ASYNC_RESULT(result);
-        g_warn_if_fail (g_simple_async_result_get_source_tag(simple) == vir_g_connection_open);
+        g_warn_if_fail (g_simple_async_result_get_source_tag(simple) == gvir_connection_open);
         if (g_simple_async_result_propagate_error(simple, err))
             return FALSE;
     }
@@ -263,17 +263,17 @@ gboolean vir_g_connection_open_finish(VirGConnection *conn,
 }
 
 
-gboolean vir_g_connection_is_open(VirGConnection *conn)
+gboolean gvir_connection_is_open(GVirConnection *conn)
 {
-    VirGConnectionPrivate *priv = conn->priv;
+    GVirConnectionPrivate *priv = conn->priv;
 
     return priv->conn == NULL ? FALSE : TRUE;
 }
 
-void vir_g_connection_close(VirGConnection *conn)
+void gvir_connection_close(GVirConnection *conn)
 {
-    VirGConnectionPrivate *priv = conn->priv;
-    DEBUG("Close VirGConnection=%p", conn);
+    GVirConnectionPrivate *priv = conn->priv;
+    DEBUG("Close GVirConnection=%p", conn);
 
     if (!priv->conn)
         return;

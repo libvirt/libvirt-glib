@@ -32,48 +32,48 @@
 
 G_BEGIN_DECLS
 
-#define VIR_G_TYPE_CONNECTION            (vir_g_connection_get_type ())
-#define VIR_G_CONNECTION(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), VIR_G_TYPE_CONNECTION, VirGConnection))
-#define VIR_G_CONNECTION_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), VIR_G_TYPE_CONNECTION, VirGConnectionClass))
-#define VIR_G_IS_CONNECTION(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), VIR_G_TYPE_CONNECTION))
-#define VIR_G_IS_CONNECTION_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), VIR_G_TYPE_CONNECTION))
-#define VIR_G_CONNECTION_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), VIR_G_TYPE_CONNECTION, VirGConnectionClass))
+#define GVIR_TYPE_CONNECTION            (gvir_connection_get_type ())
+#define GVIR_CONNECTION(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GVIR_TYPE_CONNECTION, GVirConnection))
+#define GVIR_CONNECTION_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GVIR_TYPE_CONNECTION, GVirConnectionClass))
+#define GVIR_IS_CONNECTION(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GVIR_TYPE_CONNECTION))
+#define GVIR_IS_CONNECTION_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GVIR_TYPE_CONNECTION))
+#define GVIR_CONNECTION_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GVIR_TYPE_CONNECTION, GVirConnectionClass))
 
 
-typedef struct _VirGConnection VirGConnection;
-typedef struct _VirGConnectionPrivate VirGConnectionPrivate;
-typedef struct _VirGConnectionClass VirGConnectionClass;
+typedef struct _GVirConnection GVirConnection;
+typedef struct _GVirConnectionPrivate GVirConnectionPrivate;
+typedef struct _GVirConnectionClass GVirConnectionClass;
 
-struct _VirGConnection
+struct _GVirConnection
 {
     GObject parent;
 
-    VirGConnectionPrivate *priv;
+    GVirConnectionPrivate *priv;
 
     /* Do not add fields to this struct */
 };
 
-struct _VirGConnectionClass
+struct _GVirConnectionClass
 {
     GObjectClass parent_class;
 
     gpointer padding[20];
 };
 
-GType vir_g_connection_get_type(void);
+GType gvir_connection_get_type(void);
 
-VirGConnection *vir_g_connection_new(const char *uri);
-gboolean vir_g_connection_open(VirGConnection *conn,
-                               GError **err);
-void vir_g_connection_open_async(VirGConnection *conn,
-                                 GCancellable *cancellable,
-                                 GAsyncReadyCallback callback,
-                                 gpointer opaque);
-gboolean vir_g_connection_open_finish(VirGConnection *conn,
-                                      GAsyncResult *result,
-                                      GError **err);
-gboolean vir_g_connection_is_open(VirGConnection *conn);
-void vir_g_connection_close(VirGConnection *conn);
+GVirConnection *gvir_connection_new(const char *uri);
+gboolean gvir_connection_open(GVirConnection *conn,
+                              GError **err);
+void gvir_connection_open_async(GVirConnection *conn,
+                                GCancellable *cancellable,
+                                GAsyncReadyCallback callback,
+                                gpointer opaque);
+gboolean gvir_connection_open_finish(GVirConnection *conn,
+                                     GAsyncResult *result,
+                                     GError **err);
+gboolean gvir_connection_is_open(GVirConnection *conn);
+void gvir_connection_close(GVirConnection *conn);
 
 G_END_DECLS
 

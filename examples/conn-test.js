@@ -4,9 +4,9 @@ const lv = imports.gi.LibvirtGObject;
 const gio = imports.gi.Gio;
 const glib = imports.gi.GLib;
 
-lv.object_init(null, null);
+lv.init_object(null, null);
 
-var conn = new lv.VirGConnection({ uri: "test:///default" })
+var conn = new lv.Connection({ uri: "test:///default" })
 var canc = new gio.Cancellable()
 
 //canc.cancel()

@@ -38,7 +38,7 @@ LibvirtGLib-1.0.gir: libvirt-glib-1.0.la $(G_IR_SCANNER) Makefile.am
                 --namespace LibvirtGLib \
                 --nsversion 1.0 \
                 --include GLib-2.0 \
-                --strip-prefix=vir_g \
+                --strip-prefix=gvir \
                 --library=$(builddir)/libvirt-glib-1.0.la \
                 --add-include-path=$(top_srcdir) \
                 --add-include-path=$(srcdir) \

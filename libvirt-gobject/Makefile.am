@@ -42,8 +42,7 @@ LibvirtGObject-1.0.gir: libvirt-gobject-1.0.la $(G_IR_SCANNER) Makefile.am
                 --nsversion 1.0 \
                 --include GObject-2.0 \
                 --include Gio-2.0 \
-                --strip-prefix=VirG \
-                --strip-prefix=vir_g \
+                --strip-prefix=gvir \
                 --library=$(builddir)/libvirt-gobject-1.0.la \
                 --add-include-path=$(top_srcdir) \
                 --add-include-path=$(srcdir) \
