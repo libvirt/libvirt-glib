@@ -6,6 +6,7 @@ LIBVIRT_GLIB_0.0.1 {
 	vir_g_connection_get_type;
 	vir_g_connection_new;
 	vir_g_connection_open;
+	vir_g_connection_open_async;
 	vir_g_connection_open_finish;
 	vir_g_connection_is_open;
 	vir_g_connection_close;

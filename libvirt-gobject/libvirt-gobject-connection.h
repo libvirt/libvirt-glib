@@ -63,10 +63,12 @@ struct _VirGConnectionClass
 GType vir_g_connection_get_type(void);
 
 VirGConnection *vir_g_connection_new(const char *uri);
-void vir_g_connection_open(VirGConnection *conn,
-                           GCancellable *cancellable,
-                           GAsyncReadyCallback callback,
-                           gpointer opaque);
+gboolean vir_g_connection_open(VirGConnection *conn,
+                               GError **err);
+void vir_g_connection_open_async(VirGConnection *conn,
+                                 GCancellable *cancellable,
+                                 GAsyncReadyCallback callback,
+                                 gpointer opaque);
 gboolean vir_g_connection_open_finish(VirGConnection *conn,
                                       GAsyncResult *result,
                                       GError **err);

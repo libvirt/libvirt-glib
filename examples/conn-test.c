@@ -55,8 +55,8 @@ int main(int argc, char **argv)
     loop = g_main_loop_new(g_main_context_default(),
                            TRUE);
 
-    vir_g_connection_open(conn, NULL, do_connection_open, loop);
-    vir_g_connection_open(conn, NULL, do_connection_open, loop);
+    vir_g_connection_open_async(conn, NULL, do_connection_open, loop);
+    vir_g_connection_open_async(conn, NULL, do_connection_open, loop);
 
     g_main_loop_run(loop);
 

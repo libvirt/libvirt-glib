@@ -21,7 +21,7 @@ function done(conn, result, data) {
     }
 }
 
-conn.open(null done, null)
+conn.open_async(canc, done, null)
 
 glib.main_loop_run(loop)
 

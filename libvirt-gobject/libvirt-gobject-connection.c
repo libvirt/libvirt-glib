@@ -40,6 +40,8 @@ struct _VirGConnectionPrivate
 {
     gchar *uri;
     virConnectPtr conn;
+
+    GHashTable *domains;
 };
 
 G_DEFINE_TYPE(VirGConnection, vir_g_connection, G_TYPE_OBJECT);
@@ -160,9 +162,9 @@ VirGConnection *vir_g_connection_new(const char *uri)
 
 
 static void
-vir_g_connection_open_async(GSimpleAsyncResult *res,
-                            GObject *object,
-                            GCancellable *cancellable)
+vir_g_connection_open_helper(GSimpleAsyncResult *res,
+                             GObject *object,
+                             GCancellable *cancellable)
 {
     VirGConnection *conn = VIR_G_CONNECTION(object);
     VirGConnectionPrivate *priv = conn->priv;
@@ -195,15 +197,39 @@ vir_g_connection_open_async(GSimpleAsyncResult *res,
     }
 }
 
+gboolean vir_g_connection_open(VirGConnection *conn,
+                               GError **err)
+{
+    VirGConnectionPrivate *priv = conn->priv;
+
+    if (priv->conn) {
+        *err = g_error_new(VIR_G_CONNECTION_ERROR,
+                           0,
+                           "Connection %s is already open",
+                           priv->uri);
+        return FALSE;
+    }
+
+    if (!(priv->conn = virConnectOpen(priv->uri))) {
+        virErrorPtr verr = virGetLastError();
+        *err = g_error_new(VIR_G_CONNECTION_ERROR,
+                           0,
+                           "Unable to open %s: %s",
+                           priv->uri, verr->message);
+        return FALSE;
+    }
+
+    return TRUE;
+}
 
 /**
- * vir_g_connection_open:
+ * vir_g_connection_open_async:
  * @cancellable: (allow-none): operation cancellation
  */
-void vir_g_connection_open(VirGConnection *conn,
-                           GCancellable *cancellable,
-                           GAsyncReadyCallback callback,
-                           gpointer opaque)
+void vir_g_connection_open_async(VirGConnection *conn,
+                                 GCancellable *cancellable,
+                                 GAsyncReadyCallback callback,
+                                 gpointer opaque)
 {
     GSimpleAsyncResult *res;
 
@@ -212,7 +238,7 @@ void vir_g_connection_open(VirGConnection *conn,
                                     opaque,
                                     vir_g_connection_open);
     g_simple_async_result_run_in_thread(res,
-                                        vir_g_connection_open_async,
+                                        vir_g_connection_open_helper,
                                         G_PRIORITY_DEFAULT,
                                         cancellable);
     g_object_unref(res);
