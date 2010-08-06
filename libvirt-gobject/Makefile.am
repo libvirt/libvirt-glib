@@ -67,16 +67,15 @@ CLEANFILES = $(BUILT_SOURCES)
 if WITH_GOBJECT_INTROSPECTION
 
 LibvirtGObject-1.0.gir: libvirt-gobject-1.0.la $(G_IR_SCANNER) Makefile.am
-	$(AM_V_GEN)$(G_IR_SCANNER) -v \
+	$(AM_V_GEN)$(G_IR_SCANNER) \
                 --namespace LibvirtGObject \
                 --nsversion 1.0 \
                 --include GObject-2.0 \
                 --include Gio-2.0 \
+                --include LibvirtGLib-1.0 \
                 --strip-prefix=gvir \
                 --library=$(builddir)/libvirt-gobject-1.0.la \
-                --add-include-path=$(top_srcdir) \
-                --add-include-path=$(srcdir) \
-                --add-include-path=$(builddir) \
+                --add-include-path=$(top_builddir)/libvirt-glib \
                 --output $@ \
                 -I$(top_srcdir) \
                 -I$(srcdir) \
@@ -93,7 +92,7 @@ typelibs_DATA = LibvirtGObject-1.0.typelib
 
 %.typelib: %.gir
 	$(AM_V_GEN)$(G_IR_COMPILER) \
-                --includedir=$(srcdir) \
+                --includedir=$(top_builddir)/libvirt-glib \
                 --includedir=$(builddir) \
                 --includedir=$(girdir) \
                 -o $@ $<

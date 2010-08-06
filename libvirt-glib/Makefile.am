@@ -36,19 +36,16 @@ libvirt_glib_1_0_la_LDFLAGS = \
 if WITH_GOBJECT_INTROSPECTION
 
 LibvirtGLib-1.0.gir: libvirt-glib-1.0.la $(G_IR_SCANNER) Makefile.am
-	$(AM_V_GEN)$(G_IR_SCANNER) -v \
+	$(AM_V_GEN)$(G_IR_SCANNER) \
                 --namespace LibvirtGLib \
                 --nsversion 1.0 \
                 --include GLib-2.0 \
                 --strip-prefix=gvir \
                 --library=$(builddir)/libvirt-glib-1.0.la \
-                --add-include-path=$(top_srcdir) \
-                --add-include-path=$(srcdir) \
                 --add-include-path=$(builddir) \
                 --output $@ \
                 -I$(top_srcdir) \
                 -I$(srcdir) \
-                --verbose \
                 --pkg=glib-2.0 \
                 --pkg=gthread-2.0 \
                 $(libvirt_glib_1_0_la_SOURCES:%=$(srcdir)/%)
@@ -61,7 +58,6 @@ typelibs_DATA = LibvirtGLib-1.0.typelib
 
 %.typelib: %.gir
 	$(AM_V_GEN)$(G_IR_COMPILER) \
-                --includedir=$(srcdir) \
                 --includedir=$(builddir) \
                 --includedir=$(girdir) \
                 -o $@ $<
