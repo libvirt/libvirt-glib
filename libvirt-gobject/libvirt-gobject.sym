@@ -1,4 +1,4 @@
-LIBVIRT_GLIB_0.0.1 {
+LIBVIRT_GOBJECT_0.0.1 {
   global:
         gvir_init_object;
         gvir_init_object_check;
@@ -10,6 +10,7 @@ LIBVIRT_GLIB_0.0.1 {
 	gvir_connection_open_finish;
 	gvir_connection_is_open;
 	gvir_connection_close;
+	gvir_connection_get_uri;
 
 	gvir_connection_fetch_domains;
 	gvir_connection_get_domains;

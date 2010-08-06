@@ -79,6 +79,7 @@ void gvir_connection_close(GVirConnection *conn);
 gboolean gvir_connection_fetch_domains(GVirConnection *conn,
                                        GError **err);
 
+const gchar *gvir_connection_get_uri(GVirConnection *conn);
 GList *gvir_connection_get_domains(GVirConnection *conn);
 
 GVirDomain *gvir_connection_get_domain(GVirConnection *conn,

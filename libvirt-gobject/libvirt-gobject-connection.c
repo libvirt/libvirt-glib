@@ -380,6 +380,12 @@ cleanup:
 }
 
 
+const gchar *gvir_connection_get_uri(GVirConnection *conn)
+{
+    GVirConnectionPrivate *priv = conn->priv;
+    return priv->uri;
+}
+
 /**
  * gvir_connection_get_domains:
  *
@@ -435,7 +441,7 @@ GVirDomain *gvir_connection_find_domain_by_name(GVirConnection *conn,
         GVirDomain *dom = value;
         gchar *thisname = gvir_domain_get_name(dom);
 
-        if (strcmp(thisname, name)) {
+        if (strcmp(thisname, name) == 0) {
             g_free(thisname);
             return dom;
         }
