@@ -4,6 +4,10 @@ LIBVIRT_GLIB_0.0.1 {
         gvir_init_check;
         gvir_event_register;
 
+	gvir_error_new;
+	gvir_error_new_valist;
+	gvir_error_new_literal;
+
   local:
         *;
 };

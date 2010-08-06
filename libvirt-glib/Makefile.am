@@ -6,10 +6,12 @@ lib_LTLIBRARIES = libvirt-glib-1.0.la
 libvirt_glib_1_0_ladir = $(includedir)/libvirt-glib
 libvirt_glib_1_0_la_HEADERS = \
 			libvirt-glib.h \
+			libvirt-glib-error.h \
 			libvirt-glib-event.h \
 			libvirt-glib-main.h
 libvirt_glib_1_0_la_SOURCES = \
 			$(libvirt_glib_1_0_la_HEADERS) \
+			libvirt-glib-error.c \
 			libvirt-glib-event.c \
 			libvirt-glib-main.c
 libvirt_glib_1_0_la_CFLAGS = \

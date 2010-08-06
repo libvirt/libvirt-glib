@@ -29,6 +29,7 @@
 
 #include <glib-object.h>
 #include <gio/gio.h>
+#include <libvirt-gobject/libvirt-gobject-domain.h>
 
 G_BEGIN_DECLS
 
@@ -74,6 +75,18 @@ gboolean gvir_connection_open_finish(GVirConnection *conn,
                                      GError **err);
 gboolean gvir_connection_is_open(GVirConnection *conn);
 void gvir_connection_close(GVirConnection *conn);
+
+gboolean gvir_connection_fetch_domains(GVirConnection *conn,
+                                       GError **err);
+
+GList *gvir_connection_get_domains(GVirConnection *conn);
+
+GVirDomain *gvir_connection_get_domain(GVirConnection *conn,
+                                       const gchar *uuid);
+GVirDomain *gvir_connection_find_domain_by_id(GVirConnection *conn,
+                                              gint id);
+GVirDomain *gvir_connection_find_domain_by_name(GVirConnection *conn,
+                                                const gchar *name);
 
 G_END_DECLS
 

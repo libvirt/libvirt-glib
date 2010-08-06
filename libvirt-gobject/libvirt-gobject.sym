@@ -11,6 +11,28 @@ LIBVIRT_GLIB_0.0.1 {
 	gvir_connection_is_open;
 	gvir_connection_close;
 
+	gvir_connection_fetch_domains;
+	gvir_connection_get_domains;
+	gvir_connection_get_domain;
+	gvir_connection_find_domain_by_id;
+	gvir_connection_find_domain_by_name;
+
+
+	gvir_domain_get_type;
+	gvir_domain_handle_get_type;
+	gvir_domain_info_get_type;
+	gvir_domain_state_get_type;
+
+	gvir_domain_get_name;
+	gvir_domain_get_uuid;
+	gvir_domain_get_id;
+	gvir_domain_start;
+	gvir_domain_stop;
+	gvir_domain_delete;
+	gvir_domain_shutdown;
+	gvir_domain_reboot;
+	gvir_domain_get_config;
+	gvir_domain_get_info;
   local:
         *;
 };

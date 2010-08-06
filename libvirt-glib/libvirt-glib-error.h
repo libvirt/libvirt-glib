@@ -1,6 +1,7 @@
 /*
- * libvirt-glib.h: libvirt glib integration
+ * libvirt-glib-error.h: libvirt glib integration
  *
+ * Copyright (C) 2008 Daniel P. Berrange
  * Copyright (C) 2010 Red Hat
  *
  * This library is free software; you can redistribute it and/or
@@ -20,11 +21,27 @@
  * Author: Daniel P. Berrange <berrange@redhat.com>
  */
 
-#ifndef __LIBVIRT_GLIB_H__
-#define __LIBVIRT_GLIB_H__
+#ifndef __LIBVIRT_GLIB_ERROR_H__
+#define __LIBVIRT_GLIB_ERROR_H__
 
-#include <libvirt-glib/libvirt-glib-main.h>
-#include <libvirt-glib/libvirt-glib-event.h>
-#include <libvirt-glib/libvirt-glib-error.h>
+#include <glib.h>
 
-#endif /* __LIBVIRT_GLIB_H__ */
+G_BEGIN_DECLS
+
+GError *gvir_error_new(GQuark domain,
+                       gint code,
+                       const gchar *format,
+                       ...);
+
+GError *gvir_error_new_literal(GQuark domain,
+                               gint code,
+                               const gchar *message);
+
+GError *gvir_error_new_valist(GQuark domain,
+                              gint code,
+                              const gchar *format,
+                              va_list args);
+
+G_END_DECLS
+
+#endif /* __LIBVIRT_GLIB_ERROR_H__ */

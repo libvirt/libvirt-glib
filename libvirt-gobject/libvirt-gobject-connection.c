@@ -24,9 +24,10 @@
 #include <config.h>
 
 #include <libvirt/libvirt.h>
-#include <libvirt/virterror.h>
 #include <string.h>
 
+#include "libvirt-glib/libvirt-glib.h"
+#include "libvirt-gobject/libvirt-gobject-domain.h"
 #include "libvirt-gobject/libvirt-gobject-connection.h"
 
 extern gboolean debugFlag;
@@ -187,11 +188,10 @@ gvir_connection_open_helper(GSimpleAsyncResult *res,
     }
 
     if (!(priv->conn = virConnectOpen(priv->uri))) {
-        virErrorPtr verr = virGetLastError();
-        err = g_error_new(GVIR_CONNECTION_ERROR,
-                          0,
-                          "Unable to open %s: %s",
-                          priv->uri, verr->message);
+        err = gvir_error_new(GVIR_CONNECTION_ERROR,
+                             0,
+                             "Unable to open %s",
+                             priv->uri);
         g_simple_async_result_set_from_error(res, err);
         g_error_free(err);
     }
@@ -211,11 +211,10 @@ gboolean gvir_connection_open(GVirConnection *conn,
     }
 
     if (!(priv->conn = virConnectOpen(priv->uri))) {
-        virErrorPtr verr = virGetLastError();
-        *err = g_error_new(GVIR_CONNECTION_ERROR,
-                           0,
-                           "Unable to open %s: %s",
-                           priv->uri, verr->message);
+        *err = gvir_error_new(GVIR_CONNECTION_ERROR,
+                              0,
+                              "Unable to open %s",
+                              priv->uri);
         return FALSE;
     }
 
@@ -278,8 +277,171 @@ void gvir_connection_close(GVirConnection *conn)
     if (!priv->conn)
         return;
 
+    if (priv->domains)
+        g_hash_table_unref(priv->domains);
+
     virConnectClose(priv->conn);
     priv->conn = NULL;
     /* xxx signals */
+}
+
+gboolean gvir_connection_fetch_domains(GVirConnection *conn,
+                                       GError **err)
+{
+    GVirConnectionPrivate *priv = conn->priv;
+    GHashTable *doms;
+    gchar **inactive = NULL;
+    gint ninactive = 0;
+    gint *active = NULL;
+    gint nactive = 0;
+    gboolean ret = FALSE;
+    gint i;
+
+    if ((nactive = virConnectNumOfDomains(priv->conn)) < 0) {
+        *err = gvir_error_new(GVIR_CONNECTION_ERROR,
+                              0,
+                              "Unable to count domains");
+        goto cleanup;
+    }
+    if (nactive) {
+        active = g_new(gint, nactive);
+        if ((nactive = virConnectListDomains(priv->conn, active, nactive)) < 0) {
+            *err = gvir_error_new(GVIR_CONNECTION_ERROR,
+                                  0,
+                                  "Unable to list domains");
+            goto cleanup;
+        }
+    }
+
+    if ((ninactive = virConnectNumOfDefinedDomains(priv->conn)) < 0) {
+        *err = gvir_error_new(GVIR_CONNECTION_ERROR,
+                              0,
+                              "Unable to count domains");
+        goto cleanup;
+    }
+
+    if (ninactive) {
+        inactive = g_new(gchar *, ninactive);
+        if ((ninactive = virConnectListDefinedDomains(priv->conn, inactive, ninactive)) < 0) {
+            *err = gvir_error_new(GVIR_CONNECTION_ERROR,
+                                  0,
+                                  "Unable to list domains %d", ninactive);
+            goto cleanup;
+        }
+    }
+
+    doms = g_hash_table_new_full(g_str_hash,
+                                 g_str_equal,
+                                 g_free,
+                                 g_object_unref);
+
+    for (i = 0 ; i < nactive ; i++) {
+        virDomainPtr vdom = virDomainLookupByID(priv->conn, active[i]);
+        GVirDomain *dom;
+        if (!vdom)
+            continue;
+
+        dom = GVIR_DOMAIN(g_object_new(GVIR_TYPE_DOMAIN,
+                                       "handle", vdom,
+                                       NULL));
+
+        g_hash_table_insert(doms,
+                            g_strdup(gvir_domain_get_uuid(dom)),
+                            dom);
+    }
+
+    for (i = 0 ; i < ninactive ; i++) {
+        virDomainPtr vdom = virDomainLookupByName(priv->conn, inactive[i]);
+        GVirDomain *dom;
+        if (!vdom)
+            continue;
+
+        dom = GVIR_DOMAIN(g_object_new(GVIR_TYPE_DOMAIN,
+                                       "handle", vdom,
+                                       NULL));
+
+        g_hash_table_insert(doms,
+                            g_strdup(gvir_domain_get_uuid(dom)),
+                            dom);
+    }
+
+    if (priv->domains)
+        g_hash_table_unref(priv->domains);
+    priv->domains = doms;
+
+    ret = TRUE;
+
+cleanup:
+    g_free(active);
+    for (i = 0 ; i < ninactive ; i++)
+        g_free(inactive[i]);
+    g_free(inactive);
+    return ret;
+}
+
+
+/**
+ * gvir_connection_get_domains:
+ *
+ * Return value: (element-type LibvirtGObject.Domain) (transfer container): List of #GVirDomain
+ */
+GList *gvir_connection_get_domains(GVirConnection *conn)
+{
+    GVirConnectionPrivate *priv = conn->priv;
+
+    return g_hash_table_get_values(priv->domains);
+}
+
+GVirDomain *gvir_connection_get_domain(GVirConnection *conn,
+                                       const gchar *uuid)
+{
+    GVirConnectionPrivate *priv = conn->priv;
+
+    return g_hash_table_lookup(priv->domains, uuid);
+}
+
+
+GVirDomain *gvir_connection_find_domain_by_id(GVirConnection *conn,
+                                              gint id)
+{
+    GVirConnectionPrivate *priv = conn->priv;
+    GHashTableIter iter;
+    gpointer key, value;
+
+    g_hash_table_iter_init(&iter, priv->domains);
+
+    while (g_hash_table_iter_next(&iter, &key, &value)) {
+        GVirDomain *dom = value;
+        gint thisid = gvir_domain_get_id(dom, NULL);
+
+        if (thisid == id)
+            return dom;
+    }
+
+    return NULL;
+}
+
+
+GVirDomain *gvir_connection_find_domain_by_name(GVirConnection *conn,
+                                                const gchar *name)
+{
+    GVirConnectionPrivate *priv = conn->priv;
+    GHashTableIter iter;
+    gpointer key, value;
+
+    g_hash_table_iter_init(&iter, priv->domains);
+
+    while (g_hash_table_iter_next(&iter, &key, &value)) {
+        GVirDomain *dom = value;
+        gchar *thisname = gvir_domain_get_name(dom);
+
+        if (strcmp(thisname, name)) {
+            g_free(thisname);
+            return dom;
+        }
+        g_free(thisname);
+    }
+
+    return NULL;
 }
 
