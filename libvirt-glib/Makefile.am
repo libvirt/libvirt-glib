@@ -3,7 +3,7 @@ EXTRA_DIST = libvirt-glib.sym
 
 lib_LTLIBRARIES = libvirt-glib-1.0.la
 
-libvirt_glib_1_0_ladir = $(includedir)/libvirt-glib
+libvirt_glib_1_0_ladir = $(includedir)/libvirt-glib-1.0/libvirt-glib
 libvirt_glib_1_0_la_HEADERS = \
 			libvirt-glib.h \
 			libvirt-glib-error.h \

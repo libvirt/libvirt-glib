@@ -194,6 +194,7 @@ AC_OUTPUT(Makefile
           libvirt-gobject/Makefile
           examples/Makefile
           python/Makefile
-          libvirt-glib.pc
+          libvirt-glib-1.0.pc
+          libvirt-gobject-1.0.pc
           libvirt-glib.spec
           mingw32-libvirt-glib.spec)

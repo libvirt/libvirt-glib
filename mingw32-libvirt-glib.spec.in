@@ -43,6 +43,7 @@ rm -rf $RPM_BUILD_ROOT
 make DESTDIR=$RPM_BUILD_ROOT install
 
 rm $RPM_BUILD_ROOT%{_mingw32_libdir}/libvirt-glib-1.0.a
+rm $RPM_BUILD_ROOT%{_mingw32_libdir}/libvirt-gobject-1.0.a
 
 
 %clean
@@ -52,14 +53,24 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 %{_mingw32_bindir}/libvirt-glib-1.0-0.dll
+%{_mingw32_bindir}/libvirt-gobject-1.0-0.dll
 
 %{_mingw32_libdir}/libvirt-glib-1.0.dll.a
 %{_mingw32_libdir}/libvirt-glib-1.0.la
-%{_mingw32_libdir}/pkgconfig/libvirt-glib.pc
+%{_mingw32_libdir}/libvirt-gobject-1.0.dll.a
+%{_mingw32_libdir}/libvirt-gobject-1.0.la
 
-%dir %{_mingw32_includedir}/libvirt-glib
-%{_mingw32_includedir}/libvirt-glib/libvirt-glib.h
-%{_mingw32_includedir}/libvirt-glib/libvirt-glib-*.h
+%{_mingw32_libdir}/pkgconfig/libvirt-glib-1.0.pc
+%{_mingw32_libdir}/pkgconfig/libvirt-gobject-1.0.pc
+
+%dir %{_mingw32_includedir}/libvirt-glib-1.0
+%dir %{_mingw32_includedir}/libvirt-glib-1.0/libvirt-glib
+%{_mingw32_includedir}/libvirt-glib-1.0/libvirt-glib/libvirt-glib.h
+%{_mingw32_includedir}/libvirt-glib-1.0/libvirt-glib/libvirt-glib-*.h
+%dir %{_mingw32_includedir}/libvirt-gobject-1.0
+%dir %{_mingw32_includedir}/libvirt-gobject-1.0/libvirt-gobject
+%{_mingw32_includedir}/libvirt-gobject-1.0/libvirt-gobject/libvirt-gobject.h
+%{_mingw32_includedir}/libvirt-gobject-1.0/libvirt-gobject/libvirt-gobject-*.h
 
 
 %changelog

@@ -3,19 +3,24 @@ EXTRA_DIST = libvirt-gobject.sym
 
 lib_LTLIBRARIES = libvirt-gobject-1.0.la
 
-libvirt_gobject_1_0_ladir = $(includedir)/libvirt-gobject
-libvirt_gobject_1_0_la_HEADERS = \
+GOBJECT_HEADER_FILES = \
 			libvirt-gobject.h \
 			libvirt-gobject-main.h \
 			libvirt-gobject-connection.h \
-			libvirt-gobject-domain.h \
-			libvirt-gobject-enums.h
-libvirt_gobject_1_0_la_SOURCES = \
-			$(libvirt_gobject_1_0_la_HEADERS) \
+			libvirt-gobject-domain.h
+GOBJECT_SOURCE_FILES = \
 			libvirt-gobject-main.c \
 			libvirt-gobject-connection.c \
-			libvirt-gobject-domain.c \
-			libvirt-gobject-enums.c
+			libvirt-gobject-domain.c
+
+libvirt_gobject_1_0_ladir = $(includedir)/libvirt-gobject-1.0/libvirt-gobject
+libvirt_gobject_1_0_la_HEADERS = \
+			libvirt-gobject-enums.h \
+			$(GOBJECT_HEADER_FILES)
+libvirt_gobject_1_0_la_SOURCES = \
+			$(libvirt_gobject_1_0_la_HEADERS) \
+			libvirt-gobject-enums.c \
+			$(GOBJECT_SOURCE_FILES)
 libvirt_gobject_1_0_la_CFLAGS = \
 			-DLIBVIRT_GOBJECT_BUILD \
 			$(COVERAGE_CFLAGS) \
@@ -78,11 +83,13 @@ LibvirtGObject-1.0.gir: libvirt-gobject-1.0.la $(G_IR_SCANNER) Makefile.am
                 --add-include-path=$(top_builddir)/libvirt-glib \
                 --output $@ \
                 -I$(top_srcdir) \
-                -I$(srcdir) \
+                -I$(top_buildir) \
                 --verbose \
                 --pkg=gobject-2.0 \
                 --pkg=gthread-2.0 \
-                $(libvirt_gobject_1_0_la_SOURCES:%=$(srcdir)/%)
+		$(srcdir)/libvirt-gobject.h \
+                $(GOBJECT_SOURCE_FILES:%=$(srcdir)/%) \
+		$(builddir)/libvirt-gobject-enums.c
 
 girdir = $(datadir)/gir-1.0
 gir_DATA = LibvirtGObject-1.0.gir
