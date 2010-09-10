@@ -27,8 +27,6 @@
 #ifndef __LIBVIRT_GOBJECT_DOMAIN_H__
 #define __LIBVIRT_GOBJECT_DOMAIN_H__
 
-#include <glib-object.h>
-
 G_BEGIN_DECLS
 
 #define GVIR_TYPE_DOMAIN            (gvir_domain_get_type ())
@@ -102,11 +100,12 @@ gboolean gvir_domain_shutdown(GVirDomain *dom,
                               GError **err);
 gboolean gvir_domain_reboot(GVirDomain *dom,
                             GError **err);
-gchar *gvir_domain_get_config(GVirDomain *dom,
-                              GError **err);
 
 GVirDomainInfo *gvir_domain_get_info(GVirDomain *dom,
                                      GError **err);
+
+GVirDomainConfig *gvir_domain_get_config(GVirDomain *dom,
+                                         GError **err);
 
 G_END_DECLS
 

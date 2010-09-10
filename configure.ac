@@ -3,9 +3,12 @@ AC_INIT(libvirt-glib, 0.0.1)
 AC_CONFIG_SRCDIR(libvirt-glib/libvirt-glib-main.c)
 AC_CONFIG_AUX_DIR([build-aux])
 AM_CONFIG_HEADER(config.h)
+AC_CONFIG_MACRO_DIR([m4])
 dnl Make automake keep quiet about wildcards & other GNUmake-isms
 AM_INIT_AUTOMAKE([-Wno-portability])
 AC_CANONICAL_HOST
+
+AM_SILENT_RULES([yes])
 
 LIBVIRT_REQUIRED=0.5.0
 GLIB2_REQUIRED=2.10.0

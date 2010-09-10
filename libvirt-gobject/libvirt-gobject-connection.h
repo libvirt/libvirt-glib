@@ -27,10 +27,6 @@
 #ifndef __LIBVIRT_GOBJECT_CONNECTION_H__
 #define __LIBVIRT_GOBJECT_CONNECTION_H__
 
-#include <glib-object.h>
-#include <gio/gio.h>
-#include <libvirt-gobject/libvirt-gobject-domain.h>
-
 G_BEGIN_DECLS
 
 #define GVIR_TYPE_CONNECTION            (gvir_connection_get_type ())

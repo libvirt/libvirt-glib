@@ -2,7 +2,7 @@
 
 const lv = imports.gi.LibvirtGObject;
 const gio = imports.gi.Gio;
-const glib = imports.gi.GLib;
+const gtk = imports.gi.Gtk;
 
 lv.init_object(null, null);
 
@@ -10,7 +10,6 @@ var conn = new lv.Connection({ uri: "test:///default" })
 var canc = new gio.Cancellable()
 
 //canc.cancel()
-loop = glib.main_loop_new()
 
 function done(conn, result, data) {
     try {
@@ -20,20 +19,24 @@ function done(conn, result, data) {
 
 	conn.fetch_domains()
 	print ("Fetched")
-	doms = conn.get_domains()
+	var doms = conn.get_domains()
 	print ("Got " + doms)
 
 	for (var d in doms) {
 	    print ("One dom: " + doms[d])
 	    print ("Name " + doms[d].get_name())
+
+	    var conf = doms[d].get_config()
+	    var xml = conf.get_doc()
+	    print ("XML " + xml)
 	}
 
     } finally {
-	glib.main_loop_quit(loop)
+	gtk.main_quit()
     }
 }
 
 conn.open_async(canc, done, null)
 
-glib.main_loop_run(loop)
+gtk.main(null, null)
 

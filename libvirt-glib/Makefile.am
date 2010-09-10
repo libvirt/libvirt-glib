@@ -37,6 +37,7 @@ if WITH_GOBJECT_INTROSPECTION
 
 LibvirtGLib-1.0.gir: libvirt-glib-1.0.la $(G_IR_SCANNER) Makefile.am
 	$(AM_V_GEN)$(G_IR_SCANNER) \
+                --quiet \
                 --namespace LibvirtGLib \
                 --nsversion 1.0 \
                 --include GLib-2.0 \

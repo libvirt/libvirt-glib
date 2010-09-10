@@ -26,7 +26,7 @@
 #include <stdlib.h>
 
 #include "libvirt-glib/libvirt-glib.h"
-#include "libvirt-gobject/libvirt-gobject-main.h"
+#include "libvirt-gobject/libvirt-gobject.h"
 
 gboolean debugFlag = FALSE;
 

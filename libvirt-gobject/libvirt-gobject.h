@@ -23,8 +23,15 @@
 #ifndef __LIBVIRT_GOBJECT_H__
 #define __LIBVIRT_GOBJECT_H__
 
+#include <glib-object.h>
+#include <gio/gio.h>
+
 #include <libvirt-gobject/libvirt-gobject-main.h>
-#include <libvirt-gobject/libvirt-gobject-connection.h>
+#include <libvirt-gobject/libvirt-gobject-enums.h>
+#include <libvirt-gobject/libvirt-gobject-xml-config.h>
+#include <libvirt-gobject/libvirt-gobject-domain-config.h>
 #include <libvirt-gobject/libvirt-gobject-domain.h>
+#include <libvirt-gobject/libvirt-gobject-connection.h>
+#include <libvirt-gobject/libvirt-gobject-manager.h>
 
 #endif /* __LIBVIRT_GOBJECT_H__ */

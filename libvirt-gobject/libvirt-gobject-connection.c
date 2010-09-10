@@ -27,8 +27,7 @@
 #include <string.h>
 
 #include "libvirt-glib/libvirt-glib.h"
-#include "libvirt-gobject/libvirt-gobject-domain.h"
-#include "libvirt-gobject/libvirt-gobject-connection.h"
+#include "libvirt-gobject/libvirt-gobject.h"
 
 extern gboolean debugFlag;
 
@@ -224,6 +223,7 @@ gboolean gvir_connection_open(GVirConnection *conn,
 /**
  * gvir_connection_open_async:
  * @cancellable: (allow-none): operation cancellation
+ * @opaque: (allow-none):
  */
 void gvir_connection_open_async(GVirConnection *conn,
                                 GCancellable *cancellable,

@@ -27,7 +27,7 @@
 #include <string.h>
 
 #include "libvirt-glib/libvirt-glib.h"
-#include "libvirt-gobject/libvirt-gobject-domain.h"
+#include "libvirt-gobject/libvirt-gobject.h"
 
 extern gboolean debugFlag;
 
@@ -311,8 +311,8 @@ gboolean gvir_domain_reboot(GVirDomain *dom,
     return TRUE;
 }
 
-gchar *gvir_domain_get_config(GVirDomain *dom,
-                              GError **err)
+GVirDomainConfig *gvir_domain_get_config(GVirDomain *dom,
+                                         GError **err)
 {
     GVirDomainPrivate *priv = dom->priv;
     gchar *xml;
@@ -324,7 +324,10 @@ gchar *gvir_domain_get_config(GVirDomain *dom,
         return NULL;
     }
 
-    return xml;
+    GVirDomainConfig *conf = gvir_domain_config_new(xml);
+
+    g_free(xml);
+    return conf;
 }
 
 

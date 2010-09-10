@@ -6,12 +6,18 @@ lib_LTLIBRARIES = libvirt-gobject-1.0.la
 GOBJECT_HEADER_FILES = \
 			libvirt-gobject.h \
 			libvirt-gobject-main.h \
+			libvirt-gobject-xml-config.h \
+			libvirt-gobject-domain-config.h \
+			libvirt-gobject-domain.h \
 			libvirt-gobject-connection.h \
-			libvirt-gobject-domain.h
+			libvirt-gobject-manager.h
 GOBJECT_SOURCE_FILES = \
 			libvirt-gobject-main.c \
+			libvirt-gobject-xml-config.c \
+			libvirt-gobject-domain-config.c \
+			libvirt-gobject-domain.c \
 			libvirt-gobject-connection.c \
-			libvirt-gobject-domain.c
+			libvirt-gobject-manager.c
 
 libvirt_gobject_1_0_ladir = $(includedir)/libvirt-gobject-1.0/libvirt-gobject
 libvirt_gobject_1_0_la_HEADERS = \
@@ -22,6 +28,7 @@ libvirt_gobject_1_0_la_SOURCES = \
 			libvirt-gobject-enums.c \
 			$(GOBJECT_SOURCE_FILES)
 libvirt_gobject_1_0_la_CFLAGS = \
+			-DDATADIR="\"$(datadir)\"" \
 			-DLIBVIRT_GOBJECT_BUILD \
 			$(COVERAGE_CFLAGS) \
 			-I$(top_srcdir) \
@@ -42,9 +49,8 @@ libvirt_gobject_1_0_la_LDFLAGS = \
 			-version-info $(LIBVIRT_GLIB_VERSION_INFO)
 
 libvirt-gobject-enums.c: libvirt-gobject-domain.h libvirt-gobject-connection.h
-	$(AM_V_GEN)glib-mkenums    --fhead "#include <glib-object.h>\n" \
-                        --fhead "#include \"libvirt-gobject/libvirt-gobject-enums.h\"\n\n" \
-                        --fhead "#include \"libvirt-gobject/libvirt-gobject-domain.h\"\n\n" \
+	$(AM_V_GEN)glib-mkenums \
+                        --fhead "#include \"libvirt-gobject/libvirt-gobject.h\"\n\n" \
                         --vhead "static const G@Type@Value _@enum_name@_values[] = {" \
                         --vprod "  { @VALUENAME@, \"@VALUENAME@\", \"@valuenick@\" }," \
                         --vtail "  { 0, NULL, NULL }\n};\n\n" \
@@ -73,6 +79,7 @@ if WITH_GOBJECT_INTROSPECTION
 
 LibvirtGObject-1.0.gir: libvirt-gobject-1.0.la $(G_IR_SCANNER) Makefile.am
 	$(AM_V_GEN)$(G_IR_SCANNER) \
+                --quiet \
                 --namespace LibvirtGObject \
                 --nsversion 1.0 \
                 --include GObject-2.0 \
@@ -89,6 +96,7 @@ LibvirtGObject-1.0.gir: libvirt-gobject-1.0.la $(G_IR_SCANNER) Makefile.am
                 --pkg=gthread-2.0 \
 		$(srcdir)/libvirt-gobject.h \
                 $(GOBJECT_SOURCE_FILES:%=$(srcdir)/%) \
+                $(GOBJECT_HEADER_FILES:%=$(srcdir)/%) \
 		$(builddir)/libvirt-gobject-enums.c
 
 girdir = $(datadir)/gir-1.0

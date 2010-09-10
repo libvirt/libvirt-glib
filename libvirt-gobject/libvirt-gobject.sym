@@ -18,6 +18,12 @@ LIBVIRT_GOBJECT_0.0.1 {
 	gvir_connection_find_domain_by_id;
 	gvir_connection_find_domain_by_name;
 
+	gvir_manager_get_type;
+	gvir_manager_new;
+	gvir_manager_add_connection;
+	gvir_manager_remove_connection;
+	gvir_manager_get_connections;
+	gvir_manager_find_connection_by_uri;
 
 	gvir_domain_get_type;
 	gvir_domain_handle_get_type;
@@ -34,6 +40,16 @@ LIBVIRT_GOBJECT_0.0.1 {
 	gvir_domain_reboot;
 	gvir_domain_get_config;
 	gvir_domain_get_info;
+
+	gvir_xml_config_get_type;
+	gvir_xml_config_new;
+	gvir_xml_config_get_doc;
+	gvir_xml_config_get_schema;
+	gvir_xml_config_validate;
+
+	gvir_domain_config_get_type;
+	gvir_domain_config_new;
+
   local:
         *;
 };

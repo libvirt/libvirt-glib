@@ -23,8 +23,6 @@ src/virsh
 *.gcno
 aclocal.m4
 libtool
-libvirt.pc
-libvirt.spec
 ltmain.sh
 mkinstalldirs
 configure
@@ -36,7 +34,8 @@ missing
 examples/event-test
 examples/conn-test
 libvirt-glib.spec
-libvirt-glib.pc
+libvirt-glib-1.0.pc
+libvirt-gobject-1.0.pc
 mingw32-libvirt-glib.spec
 python/*pyc
 libvirt-glib/LibvirtGLib-1.0.gir

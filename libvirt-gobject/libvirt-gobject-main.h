@@ -28,8 +28,6 @@
 #ifndef __LIBVIRT_GOBJECT_MAIN_H__
 #define __LIBVIRT_GOBJECT_MAIN_H__
 
-#include <glib-object.h>
-
 G_BEGIN_DECLS
 
 void gvir_init_object(int *argc,
