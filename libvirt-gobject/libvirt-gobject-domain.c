@@ -236,7 +236,14 @@ gint gvir_domain_get_id(GVirDomain *dom,
     return ret;
 }
 
+
+/**
+ * gvir_domain_start:
+ * @dom: the domain
+ * @flags: (default 0): the flags
+ */
 gboolean gvir_domain_start(GVirDomain *dom,
+                           guint64 flags G_GNUC_UNUSED,
                            GError **err)
 {
     GVirDomainPrivate *priv = dom->priv;
@@ -251,7 +258,13 @@ gboolean gvir_domain_start(GVirDomain *dom,
     return TRUE;
 }
 
+/**
+ * gvir_domain_start:
+ * @dom: the domain
+ * @flags: (default 0): the flags
+ */
 gboolean gvir_domain_stop(GVirDomain *dom,
+                          guint64 flags G_GNUC_UNUSED,
                           GError **err)
 {
     GVirDomainPrivate *priv = dom->priv;
@@ -266,7 +279,13 @@ gboolean gvir_domain_stop(GVirDomain *dom,
     return TRUE;
 }
 
+/**
+ * gvir_domain_start:
+ * @dom: the domain
+ * @flags: (default 0): the flags
+ */
 gboolean gvir_domain_delete(GVirDomain *dom,
+                            guint64 flags G_GNUC_UNUSED,
                             GError **err)
 {
     GVirDomainPrivate *priv = dom->priv;
@@ -281,7 +300,13 @@ gboolean gvir_domain_delete(GVirDomain *dom,
     return TRUE;
 }
 
+/**
+ * gvir_domain_start:
+ * @dom: the domain
+ * @flags: (default 0): the flags
+ */
 gboolean gvir_domain_shutdown(GVirDomain *dom,
+                              guint64 flags G_GNUC_UNUSED,
                               GError **err)
 {
     GVirDomainPrivate *priv = dom->priv;
@@ -296,12 +321,18 @@ gboolean gvir_domain_shutdown(GVirDomain *dom,
     return TRUE;
 }
 
+/**
+ * gvir_domain_start:
+ * @dom: the domain
+ * @flags: (default 0): the flags
+ */
 gboolean gvir_domain_reboot(GVirDomain *dom,
+                            guint64 flags,
                             GError **err)
 {
     GVirDomainPrivate *priv = dom->priv;
 
-    if (virDomainReboot(priv->handle, 0) < 0) {
+    if (virDomainReboot(priv->handle, flags) < 0) {
         *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
                                       0,
                                       "Unable to reboot domain");
@@ -311,13 +342,20 @@ gboolean gvir_domain_reboot(GVirDomain *dom,
     return TRUE;
 }
 
+/**
+ * gvir_domain_get_config:
+ * @dom: the domain
+ * @flags: (default 0): the flags
+ * Returns: (transfer full): the config
+ */
 GVirDomainConfig *gvir_domain_get_config(GVirDomain *dom,
+                                         guint64 flags,
                                          GError **err)
 {
     GVirDomainPrivate *priv = dom->priv;
     gchar *xml;
 
-    if (!(xml = virDomainGetXMLDesc(priv->handle, 0))) {
+    if (!(xml = virDomainGetXMLDesc(priv->handle, flags))) {
         *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
                                       0,
                                       "Unable to get domain XML config");
@@ -331,6 +369,11 @@ GVirDomainConfig *gvir_domain_get_config(GVirDomain *dom,
 }
 
 
+/**
+ * gvir_domain_get_info:
+ * @dom: the domain
+ * Returns: (transfer full): the info
+ */
 GVirDomainInfo *gvir_domain_get_info(GVirDomain *dom,
                                      GError **err)
 {

@@ -161,45 +161,19 @@ GVirConnection *gvir_connection_new(const char *uri)
 }
 
 
-static void
-gvir_connection_open_helper(GSimpleAsyncResult *res,
-                            GObject *object,
-                            GCancellable *cancellable)
-{
-    GVirConnection *conn = GVIR_CONNECTION(object);
-    GVirConnectionPrivate *priv = conn->priv;
-    GError *err = NULL;
-
-    if (priv->conn) {
-        err = g_error_new(GVIR_CONNECTION_ERROR,
-                          0,
-                          "Connection %s is already open",
-                          priv->uri);
-        g_simple_async_result_set_from_error(res, err);
-        g_error_free(err);
-        return;
-    }
-
-    if (g_cancellable_set_error_if_cancelled(cancellable, &err)) {
-        g_simple_async_result_set_from_error(res, err);
-        g_error_free(err);
-        return;
-    }
-
-    if (!(priv->conn = virConnectOpen(priv->uri))) {
-        err = gvir_error_new(GVIR_CONNECTION_ERROR,
-                             0,
-                             "Unable to open %s",
-                             priv->uri);
-        g_simple_async_result_set_from_error(res, err);
-        g_error_free(err);
-    }
-}
-
+/**
+ * gvir_connection_open:
+ * @conn: the connection
+ * @cancellable: (allow-none)(transfer none): cancellation object
+ */
 gboolean gvir_connection_open(GVirConnection *conn,
+                              GCancellable *cancellable,
                               GError **err)
 {
     GVirConnectionPrivate *priv = conn->priv;
+
+    if (g_cancellable_set_error_if_cancelled(cancellable, err))
+        return FALSE;
 
     if (priv->conn) {
         *err = g_error_new(GVIR_CONNECTION_ERROR,
@@ -220,10 +194,28 @@ gboolean gvir_connection_open(GVirConnection *conn,
     return TRUE;
 }
 
+
+static void
+gvir_connection_open_helper(GSimpleAsyncResult *res,
+                            GObject *object,
+                            GCancellable *cancellable)
+{
+    GVirConnection *conn = GVIR_CONNECTION(object);
+    GError *err = NULL;
+
+    if (!gvir_connection_open(conn, cancellable, &err)) {
+        g_simple_async_result_set_from_error(res, err);
+        g_error_free(err);
+    }
+}
+
+
 /**
  * gvir_connection_open_async:
- * @cancellable: (allow-none): operation cancellation
- * @opaque: (allow-none):
+ * @conn: the connection
+ * @cancellable: (allow-none)(transfer none): cancellation object
+ * @callback: (transfer none): completion callback
+ * @opaque: (transfer none)(allow-none): opaque data for callback
  */
 void gvir_connection_open_async(GVirConnection *conn,
                                 GCancellable *cancellable,
@@ -244,6 +236,11 @@ void gvir_connection_open_async(GVirConnection *conn,
 }
 
 
+/**
+ * gvir_connection_open_finish:
+ * @conn: the connection
+ * @result: (transfer none): async method result
+ */
 gboolean gvir_connection_open_finish(GVirConnection *conn,
                                      GAsyncResult *result,
                                      GError **err)
@@ -285,7 +282,13 @@ void gvir_connection_close(GVirConnection *conn)
     /* xxx signals */
 }
 
+/**
+ * gvir_connection_fetch_domains:
+ * @conn: the connection
+ * @cancellable: (allow-none)(transfer none): cancellation object
+ */
 gboolean gvir_connection_fetch_domains(GVirConnection *conn,
+                                       GCancellable *cancellable,
                                        GError **err)
 {
     GVirConnectionPrivate *priv = conn->priv;
@@ -297,6 +300,9 @@ gboolean gvir_connection_fetch_domains(GVirConnection *conn,
     gboolean ret = FALSE;
     gint i;
 
+    if (g_cancellable_set_error_if_cancelled(cancellable, err))
+        goto cleanup;
+
     if ((nactive = virConnectNumOfDomains(priv->conn)) < 0) {
         *err = gvir_error_new(GVIR_CONNECTION_ERROR,
                               0,
@@ -304,6 +310,9 @@ gboolean gvir_connection_fetch_domains(GVirConnection *conn,
         goto cleanup;
     }
     if (nactive) {
+        if (g_cancellable_set_error_if_cancelled(cancellable, err))
+            goto cleanup;
+
         active = g_new(gint, nactive);
         if ((nactive = virConnectListDomains(priv->conn, active, nactive)) < 0) {
             *err = gvir_error_new(GVIR_CONNECTION_ERROR,
@@ -313,6 +322,9 @@ gboolean gvir_connection_fetch_domains(GVirConnection *conn,
         }
     }
 
+    if (g_cancellable_set_error_if_cancelled(cancellable, err))
+        goto cleanup;
+
     if ((ninactive = virConnectNumOfDefinedDomains(priv->conn)) < 0) {
         *err = gvir_error_new(GVIR_CONNECTION_ERROR,
                               0,
@@ -321,6 +333,9 @@ gboolean gvir_connection_fetch_domains(GVirConnection *conn,
     }
 
     if (ninactive) {
+        if (g_cancellable_set_error_if_cancelled(cancellable, err))
+            goto cleanup;
+
         inactive = g_new(gchar *, ninactive);
         if ((ninactive = virConnectListDefinedDomains(priv->conn, inactive, ninactive)) < 0) {
             *err = gvir_error_new(GVIR_CONNECTION_ERROR,
@@ -336,6 +351,9 @@ gboolean gvir_connection_fetch_domains(GVirConnection *conn,
                                  g_object_unref);
 
     for (i = 0 ; i < nactive ; i++) {
+        if (g_cancellable_set_error_if_cancelled(cancellable, err))
+            goto cleanup;
+
         virDomainPtr vdom = virDomainLookupByID(priv->conn, active[i]);
         GVirDomain *dom;
         if (!vdom)
@@ -351,6 +369,9 @@ gboolean gvir_connection_fetch_domains(GVirConnection *conn,
     }
 
     for (i = 0 ; i < ninactive ; i++) {
+        if (g_cancellable_set_error_if_cancelled(cancellable, err))
+            goto cleanup;
+
         virDomainPtr vdom = virDomainLookupByName(priv->conn, inactive[i]);
         GVirDomain *dom;
         if (!vdom)
@@ -377,6 +398,69 @@ cleanup:
         g_free(inactive[i]);
     g_free(inactive);
     return ret;
+}
+
+
+static void
+gvir_connection_fetch_domains_helper(GSimpleAsyncResult *res,
+                                     GObject *object,
+                                     GCancellable *cancellable)
+{
+    GVirConnection *conn = GVIR_CONNECTION(object);
+    GError *err = NULL;
+
+    if (!gvir_connection_fetch_domains(conn, cancellable, &err)) {
+        g_simple_async_result_set_from_error(res, err);
+        g_error_free(err);
+    }
+}
+
+
+/**
+ * gvir_connection_fetch_domains_async:
+ * @conn: the connection
+ * @cancellable: (allow-none)(transfer none): cancellation object
+ * @callback: (transfer none): completion callback
+ * @opaque: (transfer none)(allow-none): opaque data for callback
+ */
+void gvir_connection_fetch_domains_async(GVirConnection *conn,
+                                         GCancellable *cancellable,
+                                         GAsyncReadyCallback callback,
+                                         gpointer opaque)
+{
+    GSimpleAsyncResult *res;
+
+    res = g_simple_async_result_new(G_OBJECT(conn),
+                                    callback,
+                                    opaque,
+                                    gvir_connection_fetch_domains);
+    g_simple_async_result_run_in_thread(res,
+                                        gvir_connection_fetch_domains_helper,
+                                        G_PRIORITY_DEFAULT,
+                                        cancellable);
+    g_object_unref(res);
+}
+
+/**
+ * gvir_connection_fetch_domains_finish:
+ * @conn: the connection
+ * @result: (transfer none): async method result
+ */
+gboolean gvir_connection_fetch_domains_finish(GVirConnection *conn,
+                                              GAsyncResult *result,
+                                              GError **err)
+{
+    g_return_val_if_fail(GVIR_IS_CONNECTION(conn), FALSE);
+    g_return_val_if_fail(G_IS_ASYNC_RESULT(result), FALSE);
+
+    if (G_IS_SIMPLE_ASYNC_RESULT(result)) {
+        GSimpleAsyncResult *simple = G_SIMPLE_ASYNC_RESULT(result);
+        g_warn_if_fail (g_simple_async_result_get_source_tag(simple) == gvir_connection_fetch_domains);
+        if (g_simple_async_result_propagate_error(simple, err))
+            return FALSE;
+    }
+
+    return TRUE;
 }
 
 

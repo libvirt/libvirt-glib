@@ -91,20 +91,26 @@ gint gvir_domain_get_id(GVirDomain *dom,
                         GError **err);
 
 gboolean gvir_domain_start(GVirDomain *dom,
+                           guint64 flags,
                            GError **err);
 gboolean gvir_domain_stop(GVirDomain *dom,
+                          guint64 flags,
                           GError **err);
 gboolean gvir_domain_delete(GVirDomain *dom,
+                            guint64 flags,
                             GError **err);
 gboolean gvir_domain_shutdown(GVirDomain *dom,
+                              guint64 flags,
                               GError **err);
 gboolean gvir_domain_reboot(GVirDomain *dom,
+                            guint64 flags,
                             GError **err);
 
 GVirDomainInfo *gvir_domain_get_info(GVirDomain *dom,
                                      GError **err);
 
 GVirDomainConfig *gvir_domain_get_config(GVirDomain *dom,
+                                         guint64 flags,
                                          GError **err);
 
 G_END_DECLS

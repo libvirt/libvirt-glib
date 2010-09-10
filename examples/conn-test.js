@@ -1,4 +1,4 @@
-#!/usr/bin/seed
+#!/usr/bin/gjs
 
 const lv = imports.gi.LibvirtGObject;
 const gio = imports.gi.Gio;
@@ -9,15 +9,13 @@ lv.init_object(null, null);
 var conn = new lv.Connection({ uri: "test:///default" })
 var canc = new gio.Cancellable()
 
-//canc.cancel()
-
 function done(conn, result, data) {
     try {
 	conn.open_finish(result)
 
-	print("Opened " + conn.uri)
+	print("Opened " + conn.get_uri())
 
-	conn.fetch_domains()
+	conn.fetch_domains(null)
 	print ("Fetched")
 	var doms = conn.get_domains()
 	print ("Got " + doms)
@@ -25,10 +23,11 @@ function done(conn, result, data) {
 	for (var d in doms) {
 	    print ("One dom: " + doms[d])
 	    print ("Name " + doms[d].get_name())
-
-	    var conf = doms[d].get_config()
+	    var conf = doms[d].get_config(0)
+	    print ("Conf " + conf)
 	    var xml = conf.get_doc()
 	    print ("XML " + xml)
+	    print ("Info " + doms[d].get_info().memory)
 	}
 
     } finally {

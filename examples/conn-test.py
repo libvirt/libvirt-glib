@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 from gi.repository import LibvirtGObject;
-from gi.repository import GObject;
 from gi.repository import Gio;
 from gi.repository import Gtk;
 
@@ -16,18 +15,19 @@ def done(conn, result, data):
 
 	print("Opened " + conn.get_uri())
 
-	conn.fetch_domains()
+	conn.fetch_domains(None)
 	print ("Fetched")
 	doms = conn.get_domains()
 	print ("Got " + str(doms))
 
 	for d in doms:
 	    print ("One dom: " + str(d))
-	    #print ("Name " + d.get_name())
-	    conf = d.get_config()
-            print ("Conf " + str(conf))
+	    print ("Name " + d.get_name())
+	    conf = d.get_config(0)
+	    print ("Conf " + str(conf))
 	    xml = conf.get_doc()
 	    print ("XML " + xml)
+	    print ("Info " + str(d.get_info().memory))
 
     finally:
 	Gtk.main_quit()
