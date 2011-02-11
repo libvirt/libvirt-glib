@@ -6,6 +6,7 @@ EXTRA_DIST = event-test.py
 event_test_CFLAGS = \
 		$(WARN_CFLAGS) \
 		$(GLIB2_CFLAGS) \
+		$(LIBVIRT_CFLAGS) \
 		-I$(top_srcdir)
 event_test_SOURCES = \
 		event-test.c
@@ -17,6 +18,7 @@ event_test_LDADD = \
 conn_test_CFLAGS = \
 		$(WARN_CFLAGS) \
 		$(GLIB2_CFLAGS) \
+		$(LIBVIRT_CFLAGS) \
 		-I$(top_srcdir)
 conn_test_SOURCES = \
 		conn-test.c
