@@ -109,7 +109,7 @@ gboolean gvir_domain_reboot(GVirDomain *dom,
 GVirDomainInfo *gvir_domain_get_info(GVirDomain *dom,
                                      GError **err);
 
-GVirDomainConfig *gvir_domain_get_config(GVirDomain *dom,
+GVirConfigDomain *gvir_domain_get_config(GVirDomain *dom,
                                          guint64 flags,
                                          GError **err);
 

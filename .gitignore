@@ -38,10 +38,8 @@ libvirt-glib-1.0.pc
 libvirt-gobject-1.0.pc
 mingw32-libvirt-glib.spec
 python/*pyc
-libvirt-glib/LibvirtGLib-1.0.gir
-libvirt-glib/LibvirtGLib-1.0.typelib
-libvirt-gobject/LibvirtGObject-1.0.gir
-libvirt-gobject/LibvirtGObject-1.0.typelib
+*/*.gir
+*/*.typelib
 build/
 libvirt-gobject/libvirt-gobject-enums.h
 libvirt-gobject/libvirt-gobject-enums.c

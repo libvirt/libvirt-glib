@@ -1,5 +1,5 @@
 /*
- * libvirt-gobject-xml_config.c: libvirt glib integration
+ * libvirt-gconfig-config-object.c: base object for XML configuration
  *
  * Copyright (C) 2008 Daniel P. Berrange
  * Copyright (C) 2010 Red Hat
@@ -23,26 +23,25 @@
 
 #include <config.h>
 
-#include <libvirt/virterror.h>
 #include <string.h>
 
-#include "libvirt-glib/libvirt-glib.h"
-#include "libvirt-gobject/libvirt-gobject.h"
+#include "libvirt-gconfig/libvirt-gconfig.h"
 
-extern gboolean debugFlag;
+//extern gboolean debugFlag;
+gboolean debugFlag;
 
 #define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
 
-#define GVIR_XML_CONFIG_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_XML_CONFIG, GVirXmlConfigPrivate))
+#define GVIR_CONFIG_OBJECT_GET_PRIVATE(obj)                         \
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_OBJECT, GVirConfigObjectPrivate))
 
-struct _GVirXmlConfigPrivate
+struct _GVirConfigObjectPrivate
 {
     gchar *doc;
     gchar *schema;
 };
 
-G_DEFINE_TYPE(GVirXmlConfig, gvir_xml_config, G_TYPE_OBJECT);
+G_DEFINE_TYPE(GVirConfigObject, gvir_config_object, G_TYPE_OBJECT);
 
 
 enum {
@@ -52,22 +51,22 @@ enum {
 };
 
 
-#define GVIR_XML_CONFIG_ERROR gvir_xml_config_error_quark()
+#define GVIR_CONFIG_OBJECT_ERROR gvir_config_object_error_quark()
 
 
 static GQuark
-gvir_xml_config_error_quark(void)
+gvir_config_object_error_quark(void)
 {
-    return g_quark_from_static_string("vir-g-xml_config");
+    return g_quark_from_static_string("vir-g-config_object");
 }
 
-static void gvir_xml_config_get_property(GObject *object,
-                                         guint prop_id,
-                                         GValue *value,
-                                         GParamSpec *pspec)
+static void gvir_config_object_get_property(GObject *object,
+                                            guint prop_id,
+                                            GValue *value,
+                                            GParamSpec *pspec)
 {
-    GVirXmlConfig *conn = GVIR_XML_CONFIG(object);
-    GVirXmlConfigPrivate *priv = conn->priv;
+    GVirConfigObject *conn = GVIR_CONFIG_OBJECT(object);
+    GVirConfigObjectPrivate *priv = conn->priv;
 
     switch (prop_id) {
     case PROP_DOC:
@@ -84,13 +83,13 @@ static void gvir_xml_config_get_property(GObject *object,
 }
 
 
-static void gvir_xml_config_set_property(GObject *object,
-                                         guint prop_id,
-                                         const GValue *value,
-                                         GParamSpec *pspec)
+static void gvir_config_object_set_property(GObject *object,
+                                            guint prop_id,
+                                            const GValue *value,
+                                            GParamSpec *pspec)
 {
-    GVirXmlConfig *conn = GVIR_XML_CONFIG(object);
-    GVirXmlConfigPrivate *priv = conn->priv;
+    GVirConfigObject *conn = GVIR_CONFIG_OBJECT(object);
+    GVirConfigObjectPrivate *priv = conn->priv;
 
     switch (prop_id) {
     case PROP_DOC:
@@ -111,27 +110,27 @@ static void gvir_xml_config_set_property(GObject *object,
 }
 
 
-static void gvir_xml_config_finalize(GObject *object)
+static void gvir_config_object_finalize(GObject *object)
 {
-    GVirXmlConfig *conn = GVIR_XML_CONFIG(object);
-    GVirXmlConfigPrivate *priv = conn->priv;
+    GVirConfigObject *conn = GVIR_CONFIG_OBJECT(object);
+    GVirConfigObjectPrivate *priv = conn->priv;
 
-    DEBUG("Finalize GVirXmlConfig=%p", conn);
+    DEBUG("Finalize GVirConfigObject=%p", conn);
 
     g_free(priv->doc);
     g_free(priv->schema);
 
-    G_OBJECT_CLASS(gvir_xml_config_parent_class)->finalize(object);
+    G_OBJECT_CLASS(gvir_config_object_parent_class)->finalize(object);
 }
 
 
-static void gvir_xml_config_class_init(GVirXmlConfigClass *klass)
+static void gvir_config_object_class_init(GVirConfigObjectClass *klass)
 {
-    GObjectClass *object_class = G_OBJECT_CLASS (klass);
+    GObjectClass *object_class = G_OBJECT_CLASS(klass);
 
-    object_class->finalize = gvir_xml_config_finalize;
-    object_class->get_property = gvir_xml_config_get_property;
-    object_class->set_property = gvir_xml_config_set_property;
+    object_class->finalize = gvir_config_object_finalize;
+    object_class->get_property = gvir_config_object_get_property;
+    object_class->set_property = gvir_config_object_set_property;
 
     g_object_class_install_property(object_class,
                                     PROP_DOC,
@@ -158,50 +157,50 @@ static void gvir_xml_config_class_init(GVirXmlConfigClass *klass)
                                                         G_PARAM_STATIC_NICK |
                                                         G_PARAM_STATIC_BLURB));
 
-    g_type_class_add_private(klass, sizeof(GVirXmlConfigPrivate));
+    g_type_class_add_private(klass, sizeof(GVirConfigObjectPrivate));
 }
 
 
-static void gvir_xml_config_init(GVirXmlConfig *conn)
+static void gvir_config_object_init(GVirConfigObject *conn)
 {
-    GVirXmlConfigPrivate *priv;
+    GVirConfigObjectPrivate *priv;
 
-    DEBUG("Init GVirXmlConfig=%p", conn);
+    DEBUG("Init GVirConfigObject=%p", conn);
 
-    priv = conn->priv = GVIR_XML_CONFIG_GET_PRIVATE(conn);
+    priv = conn->priv = GVIR_CONFIG_OBJECT_GET_PRIVATE(conn);
 
     memset(priv, 0, sizeof(*priv));
 }
 
 
-GVirXmlConfig *gvir_xml_config_new(const gchar *doc,
+GVirConfigObject *gvir_config_object_new(const gchar *doc,
                                    const gchar *schema)
 {
-    return GVIR_XML_CONFIG(g_object_new(GVIR_TYPE_XML_CONFIG,
-                                        "doc", doc,
-                                        "schema", schema,
-                                        NULL));
+    return GVIR_CONFIG_OBJECT(g_object_new(GVIR_TYPE_CONFIG_OBJECT,
+                                           "doc", doc,
+                                           "schema", schema,
+                                           NULL));
 }
 
-void gvir_xml_config_validate(GVirXmlConfig *config G_GNUC_UNUSED,
-                              GError **err)
+void gvir_config_object_validate(GVirConfigObject *config G_GNUC_UNUSED,
+                                 GError **err)
 {
     g_set_error(err,
-                GVIR_XML_CONFIG_ERROR,
+                GVIR_CONFIG_OBJECT_ERROR,
                 0,
                 "%s",
                 "Unable to validate config");
 }
 
-const gchar *gvir_xml_config_get_doc(GVirXmlConfig *config)
+const gchar *gvir_config_object_get_doc(GVirConfigObject *config)
 {
-    GVirXmlConfigPrivate *priv = config->priv;
+    GVirConfigObjectPrivate *priv = config->priv;
     return priv->doc;
 }
 
-const gchar *gvir_xml_config_get_schema(GVirXmlConfig *config)
+const gchar *gvir_config_object_get_schema(GVirConfigObject *config)
 {
-    GVirXmlConfigPrivate *priv = config->priv;
+    GVirConfigObjectPrivate *priv = config->priv;
     return priv->schema;
 }
 

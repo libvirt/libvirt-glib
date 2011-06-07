@@ -94,6 +94,8 @@ fi
 dnl
 dnl check for python
 dnl
+AC_ARG_WITH([python],
+  AC_HELP_STRING([--with-python], [Build python bindings @<:@default=yes@:>@]),[],[with_python=yes])
 
 PYTHON_VERSION=
 PYTHON_INCLUDES=
@@ -101,6 +103,9 @@ PYTHON_SITE_PACKAGES=
 PYTHON_TESTS=
 pythondir=
 if test "$with_python" != "no" ; then
+    if test "$with_python" = "yes" ; then
+       with_python=""
+    fi
     if test -x "$with_python/bin/python"
     then
         echo Found python in $with_python/bin/python
@@ -194,10 +199,12 @@ AM_CONDITIONAL([WITH_GOBJECT_INTROSPECTION], [test "x$enable_introspection" = "x
 
 AC_OUTPUT(Makefile
           libvirt-glib/Makefile
+          libvirt-gconfig/Makefile
           libvirt-gobject/Makefile
           examples/Makefile
           python/Makefile
           libvirt-glib-1.0.pc
+          libvirt-gconfig-1.0.pc
           libvirt-gobject-1.0.pc
           libvirt-glib.spec
           mingw32-libvirt-glib.spec)

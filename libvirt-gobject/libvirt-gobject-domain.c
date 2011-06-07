@@ -348,7 +348,7 @@ gboolean gvir_domain_reboot(GVirDomain *dom,
  * @flags: (default 0): the flags
  * Returns: (transfer full): the config
  */
-GVirDomainConfig *gvir_domain_get_config(GVirDomain *dom,
+GVirConfigDomain *gvir_domain_get_config(GVirDomain *dom,
                                          guint64 flags,
                                          GError **err)
 {
@@ -362,7 +362,7 @@ GVirDomainConfig *gvir_domain_get_config(GVirDomain *dom,
         return NULL;
     }
 
-    GVirDomainConfig *conf = gvir_domain_config_new(xml);
+    GVirConfigDomain *conf = gvir_config_domain_new(xml);
 
     g_free(xml);
     return conf;

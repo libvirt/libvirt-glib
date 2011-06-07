@@ -1,5 +1,5 @@
 /*
- * libvirt-gobject.h: libvirt gobject integration
+ * libvirt-gconfig.h: libvirt gconfig integration
  *
  * Copyright (C) 2010 Red Hat
  *
@@ -20,17 +20,12 @@
  * Author: Daniel P. Berrange <berrange@redhat.com>
  */
 
-#ifndef __LIBVIRT_GOBJECT_H__
-#define __LIBVIRT_GOBJECT_H__
+#ifndef __LIBVIRT_GCONFIG_H__
+#define __LIBVIRT_GCONFIG_H__
 
 #include <glib-object.h>
-#include <gio/gio.h>
-#include <libvirt-gconfig/libvirt-gconfig.h>
 
-#include <libvirt-gobject/libvirt-gobject-main.h>
-#include <libvirt-gobject/libvirt-gobject-enums.h>
-#include <libvirt-gobject/libvirt-gobject-domain.h>
-#include <libvirt-gobject/libvirt-gobject-connection.h>
-#include <libvirt-gobject/libvirt-gobject-manager.h>
+#include <libvirt-gconfig/libvirt-gconfig-object.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain.h>
 
-#endif /* __LIBVIRT_GOBJECT_H__ */
+#endif /* __LIBVIRT_GCONFIG_H__ */

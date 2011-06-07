@@ -1,5 +1,5 @@
 /*
- * libvirt-gobject-domain_config.c: libvirt glib integration
+ * libvirt-gobject-config_domain.c: libvirt glib integration
  *
  * Copyright (C) 2008 Daniel P. Berrange
  * Copyright (C) 2010 Red Hat
@@ -23,49 +23,47 @@
 
 #include <config.h>
 
-#include <libvirt/virterror.h>
 #include <string.h>
 
-#include "libvirt-glib/libvirt-glib.h"
-#include "libvirt-gobject/libvirt-gobject.h"
+#include "libvirt-gconfig/libvirt-gconfig.h"
 
 extern gboolean debugFlag;
 
 #define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
 
-#define GVIR_DOMAIN_CONFIG_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_DOMAIN_CONFIG, GVirDomainConfigPrivate))
+#define GVIR_CONFIG_DOMAIN_GET_PRIVATE(obj)                         \
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN, GVirConfigDomainPrivate))
 
-struct _GVirDomainConfigPrivate
+struct _GVirConfigDomainPrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirDomainConfig, gvir_domain_config, GVIR_TYPE_XML_CONFIG);
+G_DEFINE_TYPE(GVirConfigDomain, gvir_config_domain, GVIR_TYPE_CONFIG_OBJECT);
 
 
-static void gvir_domain_config_class_init(GVirDomainConfigClass *klass)
+static void gvir_config_domain_class_init(GVirConfigDomainClass *klass)
 {
 
-    g_type_class_add_private(klass, sizeof(GVirDomainConfigPrivate));
+    g_type_class_add_private(klass, sizeof(GVirConfigDomainPrivate));
 }
 
 
-static void gvir_domain_config_init(GVirDomainConfig *conn)
+static void gvir_config_domain_init(GVirConfigDomain *conn)
 {
-    GVirDomainConfigPrivate *priv;
+    GVirConfigDomainPrivate *priv;
 
-    DEBUG("Init GVirDomainConfig=%p", conn);
+    DEBUG("Init GVirConfigDomain=%p", conn);
 
-    priv = conn->priv = GVIR_DOMAIN_CONFIG_GET_PRIVATE(conn);
+    priv = conn->priv = GVIR_CONFIG_DOMAIN_GET_PRIVATE(conn);
 
     memset(priv, 0, sizeof(*priv));
 }
 
 
-GVirDomainConfig *gvir_domain_config_new(const gchar *xml)
+GVirConfigDomain *gvir_config_domain_new(const gchar *xml)
 {
-    return GVIR_DOMAIN_CONFIG(g_object_new(GVIR_TYPE_DOMAIN_CONFIG,
+    return GVIR_CONFIG_DOMAIN(g_object_new(GVIR_TYPE_CONFIG_DOMAIN,
                                            "doc", xml,
                                            "schema", DATADIR "/libvirt/schemas/domain.rng",
                                            NULL));

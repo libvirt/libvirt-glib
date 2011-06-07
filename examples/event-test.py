@@ -1,9 +1,10 @@
 
 import gtk
 import libvirt
-import libvirtglib
 import getopt
 import sys
+
+from gi.repository import LibvirtGLib;
 
 def eventToString(event):
     eventStrings = ( "Added",
@@ -46,7 +47,9 @@ def main():
 
     print "Using uri:" + uri
 
-    libvirtglib.eventRegister()
+    LibvirtGLib.init("")
+    LibvirtGLib.event_register()
+#    libvirtglib.eventRegister()
     vc = libvirt.open(uri)
 
     #Add 2 callbacks to prove this works with more than just one

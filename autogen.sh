@@ -45,7 +45,19 @@ autoconf
 
 cd $THEDIR
 
-$srcdir/configure --enable-compile-warnings=maximum "$@" && {
+if test "x$1" = "x--system"; then
+    shift
+    prefix=/usr
+    libdir=$prefix/lib
+    sysconfdir=/etc
+    localstatedir=/var
+    if [ -d /usr/lib64 ]; then
+      libdir=$prefix/lib64
+    fi
+    EXTRA_ARGS="--prefix=$prefix --sysconfdir=$sysconfdir --localstatedir=$localstatedir --libdir=$libdir"
+fi
+
+$srcdir/configure --enable-compile-warnings=maximum $EXTRA_ARGS "$@" && {
     echo 
     echo "Now type 'make' to compile libvirt-glib."
 }

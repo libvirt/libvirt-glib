@@ -1,0 +1,16 @@
+LIBVIRT_GOBJECT_0.0.1 {
+  global:
+	gvir_config_object_get_type;
+	gvir_config_object_new;
+	gvir_config_object_get_doc;
+	gvir_config_object_get_schema;
+	gvir_config_object_validate;
+
+	gvir_config_domain_get_type;
+	gvir_config_domain_new;
+
+  local:
+        *;
+};
+
+# .... define new API here using predicted next version number ....

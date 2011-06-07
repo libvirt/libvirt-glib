@@ -6,15 +6,11 @@ lib_LTLIBRARIES = libvirt-gobject-1.0.la
 GOBJECT_HEADER_FILES = \
 			libvirt-gobject.h \
 			libvirt-gobject-main.h \
-			libvirt-gobject-xml-config.h \
-			libvirt-gobject-domain-config.h \
 			libvirt-gobject-domain.h \
 			libvirt-gobject-connection.h \
 			libvirt-gobject-manager.h
 GOBJECT_SOURCE_FILES = \
 			libvirt-gobject-main.c \
-			libvirt-gobject-xml-config.c \
-			libvirt-gobject-domain-config.c \
 			libvirt-gobject-domain.c \
 			libvirt-gobject-connection.c \
 			libvirt-gobject-manager.c
@@ -41,6 +37,7 @@ libvirt_gobject_1_0_la_LIBADD = \
 			$(GOBJECT2_LIBS) \
 			$(GIO2_LIBS) \
 			../libvirt-glib/libvirt-glib-1.0.la \
+			../libvirt-gconfig/libvirt-gconfig-1.0.la \
 			$(CYGWIN_EXTRA_LIBADD)
 libvirt_gobject_1_0_la_LDFLAGS = \
 			$(COVERAGE_CFLAGS:-f%=-Wc,f%) \
@@ -85,9 +82,11 @@ LibvirtGObject-1.0.gir: libvirt-gobject-1.0.la $(G_IR_SCANNER) Makefile.am
                 --include GObject-2.0 \
                 --include Gio-2.0 \
                 --include LibvirtGLib-1.0 \
+                --include LibvirtGConfig-1.0 \
                 --strip-prefix=gvir \
                 --library=$(builddir)/libvirt-gobject-1.0.la \
                 --add-include-path=$(top_builddir)/libvirt-glib \
+                --add-include-path=$(top_builddir)/libvirt-gconfig \
                 --output $@ \
                 -I$(top_srcdir) \
                 -I$(top_buildir) \
@@ -108,6 +107,7 @@ typelibs_DATA = LibvirtGObject-1.0.typelib
 %.typelib: %.gir
 	$(AM_V_GEN)$(G_IR_COMPILER) \
                 --includedir=$(top_builddir)/libvirt-glib \
+                --includedir=$(top_builddir)/libvirt-gconfig \
                 --includedir=$(builddir) \
                 --includedir=$(girdir) \
                 -o $@ $<
