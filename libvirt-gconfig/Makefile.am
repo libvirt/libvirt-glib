@@ -6,10 +6,28 @@ lib_LTLIBRARIES = libvirt-gconfig-1.0.la
 GCONFIG_HEADER_FILES = \
 			libvirt-gconfig.h \
 			libvirt-gconfig-object.h \
-			libvirt-gconfig-domain.h
+			libvirt-gconfig-capabilities.h \
+			libvirt-gconfig-domain.h \
+			libvirt-gconfig-domain-snapshot.h \
+			libvirt-gconfig-interface.h \
+			libvirt-gconfig-network.h \
+			libvirt-gconfig-network-filter.h \
+			libvirt-gconfig-node-device.h \
+			libvirt-gconfig-secret.h \
+			libvirt-gconfig-storage-pool.h \
+			libvirt-gconfig-storage-vol.h
 GCONFIG_SOURCE_FILES = \
 			libvirt-gconfig-object.c \
-			libvirt-gconfig-domain.c
+			libvirt-gconfig-capabilities.c \
+			libvirt-gconfig-domain.c \
+			libvirt-gconfig-domain-snapshot.c \
+			libvirt-gconfig-interface.c \
+			libvirt-gconfig-network.c \
+			libvirt-gconfig-network-filter.c \
+			libvirt-gconfig-node-device.c \
+			libvirt-gconfig-secret.c \
+			libvirt-gconfig-storage-pool.c \
+			libvirt-gconfig-storage-vol.c
 
 libvirt_gconfig_1_0_ladir = $(includedir)/libvirt-gconfig-1.0/libvirt-gconfig
 libvirt_gconfig_1_0_la_HEADERS = \

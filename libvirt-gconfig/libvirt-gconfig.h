@@ -26,6 +26,15 @@
 #include <glib-object.h>
 
 #include <libvirt-gconfig/libvirt-gconfig-object.h>
+#include <libvirt-gconfig/libvirt-gconfig-capabilities.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-snapshot.h>
+#include <libvirt-gconfig/libvirt-gconfig-interface.h>
+#include <libvirt-gconfig/libvirt-gconfig-network.h>
+#include <libvirt-gconfig/libvirt-gconfig-node-device.h>
+#include <libvirt-gconfig/libvirt-gconfig-network-filter.h>
+#include <libvirt-gconfig/libvirt-gconfig-secret.h>
+#include <libvirt-gconfig/libvirt-gconfig-storage-pool.h>
+#include <libvirt-gconfig/libvirt-gconfig-storage-vol.h>
 
 #endif /* __LIBVIRT_GCONFIG_H__ */
