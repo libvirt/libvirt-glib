@@ -27,6 +27,8 @@ libvirt_glib_1_0_la_LIBADD = \
 			$(GLIB2_LIBS) \
 			$(GTHREAD2_LIBS) \
 			$(CYGWIN_EXTRA_LIBADD)
+libvirt_glib_1_0_la_DEPENDENCIES = \
+			libvirt-glib.sym
 libvirt_glib_1_0_la_LDFLAGS = \
 			$(COVERAGE_CFLAGS:-f%=-Wc,f%) \
 			$(CYGWIN_EXTRA_LDFLAGS) $(MINGW_EXTRA_LDFLAGS) \

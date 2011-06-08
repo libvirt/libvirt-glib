@@ -6,12 +6,28 @@ lib_LTLIBRARIES = libvirt-gobject-1.0.la
 GOBJECT_HEADER_FILES = \
 			libvirt-gobject.h \
 			libvirt-gobject-main.h \
+			libvirt-gobject-domain-snapshot.h \
 			libvirt-gobject-domain.h \
+			libvirt-gobject-interface.h \
+			libvirt-gobject-network.h \
+			libvirt-gobject-network-filter.h \
+			libvirt-gobject-node-device.h \
+			libvirt-gobject-secret.h \
+			libvirt-gobject-storage-vol.h \
+			libvirt-gobject-storage-pool.h \
 			libvirt-gobject-connection.h \
 			libvirt-gobject-manager.h
 GOBJECT_SOURCE_FILES = \
 			libvirt-gobject-main.c \
+			libvirt-gobject-domain-snapshot.c \
 			libvirt-gobject-domain.c \
+			libvirt-gobject-interface.c \
+			libvirt-gobject-network.c \
+			libvirt-gobject-network-filter.c \
+			libvirt-gobject-node-device.c \
+			libvirt-gobject-secret.c \
+			libvirt-gobject-storage-vol.c \
+			libvirt-gobject-storage-pool.c \
 			libvirt-gobject-connection.c \
 			libvirt-gobject-manager.c
 
@@ -39,6 +55,10 @@ libvirt_gobject_1_0_la_LIBADD = \
 			../libvirt-glib/libvirt-glib-1.0.la \
 			../libvirt-gconfig/libvirt-gconfig-1.0.la \
 			$(CYGWIN_EXTRA_LIBADD)
+libvirt_gobject_1_0_la_DEPENDENCIES = \
+                        libvirt-gobject.sym \
+			../libvirt-glib/libvirt-glib-1.0.la \
+			../libvirt-gconfig/libvirt-gconfig-1.0.la
 libvirt_gobject_1_0_la_LDFLAGS = \
 			$(COVERAGE_CFLAGS:-f%=-Wc,f%) \
 			$(CYGWIN_EXTRA_LDFLAGS) $(MINGW_EXTRA_LDFLAGS) \

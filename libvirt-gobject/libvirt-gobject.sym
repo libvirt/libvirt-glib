@@ -18,18 +18,10 @@ LIBVIRT_GOBJECT_0.0.1 {
 	gvir_connection_find_domain_by_id;
 	gvir_connection_find_domain_by_name;
 
-	gvir_manager_get_type;
-	gvir_manager_new;
-	gvir_manager_add_connection;
-	gvir_manager_remove_connection;
-	gvir_manager_get_connections;
-	gvir_manager_find_connection_by_uri;
-
 	gvir_domain_get_type;
 	gvir_domain_handle_get_type;
 	gvir_domain_info_get_type;
 	gvir_domain_state_get_type;
-
 	gvir_domain_get_name;
 	gvir_domain_get_uuid;
 	gvir_domain_get_id;
@@ -41,14 +33,55 @@ LIBVIRT_GOBJECT_0.0.1 {
 	gvir_domain_get_config;
 	gvir_domain_get_info;
 
-	gvir_xml_config_get_type;
-	gvir_xml_config_new;
-	gvir_xml_config_get_doc;
-	gvir_xml_config_get_schema;
-	gvir_xml_config_validate;
+	gvir_domain_snapshot_get_type;
+	gvir_domain_snapshot_handle_get_type;
+	gvir_domain_snapshot_get_name;
+	gvir_domain_snapshot_get_config;
 
-	gvir_domain_config_get_type;
-	gvir_domain_config_new;
+	gvir_network_get_type;
+	gvir_network_handle_get_type;
+	gvir_network_get_name;
+	gvir_network_get_uuid;
+	gvir_network_get_config;
+
+	gvir_network_filter_get_type;
+	gvir_network_filter_handle_get_type;
+	gvir_network_filter_get_name;
+	gvir_network_filter_get_uuid;
+	gvir_network_filter_get_config;
+
+	gvir_node_device_get_type;
+	gvir_node_device_handle_get_type;
+	gvir_node_device_get_name;
+	gvir_node_device_get_config;
+
+	gvir_interface_get_type;
+	gvir_interface_handle_get_type;
+	gvir_interface_get_name;
+	gvir_interface_get_config;
+
+	gvir_secret_get_type;
+	gvir_secret_handle_get_type;
+	gvir_secret_get_uuid;
+	gvir_secret_get_config;
+
+	gvir_storage_pool_get_type;
+	gvir_storage_pool_handle_get_type;
+	gvir_storage_pool_get_name;
+	gvir_storage_pool_get_uuid;
+	gvir_storage_pool_get_config;
+
+	gvir_storage_vol_get_type;
+	gvir_storage_vol_handle_get_type;
+	gvir_storage_vol_get_name;
+	gvir_storage_vol_get_config;
+
+	gvir_manager_get_type;
+	gvir_manager_new;
+	gvir_manager_add_connection;
+	gvir_manager_remove_connection;
+	gvir_manager_get_connections;
+	gvir_manager_find_connection_by_uri;
 
   local:
         *;

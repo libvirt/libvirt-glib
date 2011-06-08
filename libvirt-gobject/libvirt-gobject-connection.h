@@ -54,6 +54,13 @@ struct _GVirConnectionClass
 {
     GObjectClass parent_class;
 
+    /* signals */
+    void (*vir_connection_opened)(GVirConnection *conn);
+    void (*vir_connection_closed)(GVirConnection *conn);
+
+    void (*vir_domain_added)(GVirConnection *conn, GVirDomain *dom);
+    void (*vir_domain_removed)(GVirConnection *conn, GVirDomain *dom);
+
     gpointer padding[20];
 };
 
@@ -86,14 +93,54 @@ gboolean gvir_connection_fetch_domains_finish(GVirConnection *conn,
 
 
 const gchar *gvir_connection_get_uri(GVirConnection *conn);
-GList *gvir_connection_get_domains(GVirConnection *conn);
 
+
+GList *gvir_connection_get_domains(GVirConnection *conn);
 GVirDomain *gvir_connection_get_domain(GVirConnection *conn,
                                        const gchar *uuid);
 GVirDomain *gvir_connection_find_domain_by_id(GVirConnection *conn,
                                               gint id);
 GVirDomain *gvir_connection_find_domain_by_name(GVirConnection *conn,
                                                 const gchar *name);
+
+
+GList *gvir_connection_get_interfaces(GVirConnection *conn);
+GVirInterface *gvir_connection_get_interface(GVirConnection *conn,
+                                             const gchar *name);
+GVirInterface *gvir_connection_find_interface_by_mac(GVirConnection *conn,
+                                                     const gchar *macaddr);
+
+
+GList *gvir_connection_get_networks(GVirConnection *conn);
+GVirNetwork *gvir_connection_get_network(GVirConnection *conn,
+                                         const gchar *uuid);
+GVirNetwork *gvir_connection_find_network_by_name(GVirConnection *conn,
+                                                  const gchar *name);
+
+
+GList *gvir_connection_get_network_filters(GVirConnection *conn);
+GVirNetworkFilter *gvir_connection_get_network_filter(GVirConnection *conn,
+                                                      const gchar *uuid);
+GVirNetworkFilter *gvir_connection_find_network_filter_by_name(GVirConnection *conn,
+                                                               const gchar *name);
+
+
+GList *gvir_connection_get_node_devices(GVirConnection *conn);
+GVirNodeDevice *gvir_connection_get_node_device(GVirConnection *conn,
+                                                const gchar *name);
+
+
+GList *gvir_connection_get_secrets(GVirConnection *conn);
+GVirSecret *gvir_connection_get_secret(GVirConnection *conn,
+                                       const gchar *uuid);
+
+
+GList *gvir_connection_get_storage_pools(GVirConnection *conn);
+GVirStoragePool *gvir_connection_get_storage_pool(GVirConnection *conn,
+                                                  const gchar *uuid);
+GVirStoragePool *gvir_connection_find_storage_pool_by_name(GVirConnection *conn,
+                                                           const gchar *name);
+
 
 G_END_DECLS
 

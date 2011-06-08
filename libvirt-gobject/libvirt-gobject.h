@@ -29,7 +29,15 @@
 
 #include <libvirt-gobject/libvirt-gobject-main.h>
 #include <libvirt-gobject/libvirt-gobject-enums.h>
+#include <libvirt-gobject/libvirt-gobject-domain-snapshot.h>
 #include <libvirt-gobject/libvirt-gobject-domain.h>
+#include <libvirt-gobject/libvirt-gobject-interface.h>
+#include <libvirt-gobject/libvirt-gobject-network.h>
+#include <libvirt-gobject/libvirt-gobject-network-filter.h>
+#include <libvirt-gobject/libvirt-gobject-node-device.h>
+#include <libvirt-gobject/libvirt-gobject-secret.h>
+#include <libvirt-gobject/libvirt-gobject-storage-vol.h>
+#include <libvirt-gobject/libvirt-gobject-storage-pool.h>
 #include <libvirt-gobject/libvirt-gobject-connection.h>
 #include <libvirt-gobject/libvirt-gobject-manager.h>
 

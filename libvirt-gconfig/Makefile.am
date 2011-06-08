@@ -45,6 +45,8 @@ libvirt_gconfig_1_0_la_CFLAGS = \
 libvirt_gconfig_1_0_la_LIBADD = \
 			$(GOBJECT2_LIBS) \
 			$(CYGWIN_EXTRA_LIBADD)
+libvirt_gconfig_1_0_la_DEPENDENCIES = \
+			libvirt-gconfig.sym
 libvirt_gconfig_1_0_la_LDFLAGS = \
 			$(COVERAGE_CFLAGS:-f%=-Wc,f%) \
 			$(CYGWIN_EXTRA_LDFLAGS) $(MINGW_EXTRA_LDFLAGS) \

@@ -38,6 +38,7 @@ extern gboolean debugFlag;
 
 struct _GVirConnectionPrivate
 {
+    GMutex *lock;
     gchar *uri;
     virConnectPtr conn;
 
@@ -110,6 +111,7 @@ static void gvir_connection_finalize(GObject *object)
     if (gvir_connection_is_open(conn))
         gvir_connection_close(conn);
 
+    g_mutex_free(priv->lock);
     g_free(priv->uri);
 
     G_OBJECT_CLASS(gvir_connection_parent_class)->finalize(object);
@@ -137,6 +139,40 @@ static void gvir_connection_class_init(GVirConnectionClass *klass)
                                                         G_PARAM_STATIC_NICK |
                                                         G_PARAM_STATIC_BLURB));
 
+    g_signal_new("vir-connection-opened",
+                 G_OBJECT_CLASS_TYPE(object_class),
+                 G_SIGNAL_RUN_FIRST,
+                 G_STRUCT_OFFSET(GVirConnectionClass, vir_connection_opened),
+                 NULL, NULL,
+                 g_cclosure_marshal_VOID__VOID,
+                 G_TYPE_NONE,
+                 0);
+    g_signal_new("vir-connection-closed",
+                 G_OBJECT_CLASS_TYPE(object_class),
+                 G_SIGNAL_RUN_FIRST,
+                 G_STRUCT_OFFSET(GVirConnectionClass, vir_connection_closed),
+                 NULL, NULL,
+                 g_cclosure_marshal_VOID__VOID,
+                 G_TYPE_NONE,
+                 0);
+
+    g_signal_new("vir-domain-added",
+                 G_OBJECT_CLASS_TYPE(object_class),
+                 G_SIGNAL_RUN_FIRST,
+                 G_STRUCT_OFFSET(GVirConnectionClass, vir_domain_added),
+                 NULL, NULL,
+                 g_cclosure_marshal_VOID__VOID,
+                 G_TYPE_NONE,
+                 0);
+    g_signal_new("vir-domain-removed",
+                 G_OBJECT_CLASS_TYPE(object_class),
+                 G_SIGNAL_RUN_FIRST,
+                 G_STRUCT_OFFSET(GVirConnectionClass, vir_domain_removed),
+                 NULL, NULL,
+                 g_cclosure_marshal_VOID__VOID,
+                 G_TYPE_NONE,
+                 0);
+
     g_type_class_add_private(klass, sizeof(GVirConnectionPrivate));
 }
 
@@ -150,6 +186,8 @@ static void gvir_connection_init(GVirConnection *conn)
     priv = conn->priv = GVIR_CONNECTION_GET_PRIVATE(conn);
 
     memset(priv, 0, sizeof(*priv));
+
+    priv->lock = g_mutex_new();
 }
 
 
@@ -175,11 +213,13 @@ gboolean gvir_connection_open(GVirConnection *conn,
     if (g_cancellable_set_error_if_cancelled(cancellable, err))
         return FALSE;
 
+    g_mutex_lock(priv->lock);
     if (priv->conn) {
         *err = g_error_new(GVIR_CONNECTION_ERROR,
                            0,
                            "Connection %s is already open",
                            priv->uri);
+        g_mutex_unlock(priv->lock);
         return FALSE;
     }
 
@@ -188,9 +228,13 @@ gboolean gvir_connection_open(GVirConnection *conn,
                               0,
                               "Unable to open %s",
                               priv->uri);
+        g_mutex_unlock(priv->lock);
         return FALSE;
     }
 
+    g_mutex_unlock(priv->lock);
+
+    g_signal_emit_by_name(conn, "vir-connection-opened");
     return TRUE;
 }
 
@@ -262,8 +306,12 @@ gboolean gvir_connection_open_finish(GVirConnection *conn,
 gboolean gvir_connection_is_open(GVirConnection *conn)
 {
     GVirConnectionPrivate *priv = conn->priv;
-
-    return priv->conn == NULL ? FALSE : TRUE;
+    gboolean open = TRUE;
+    g_mutex_lock(priv->lock);
+    if (!priv->conn)
+        open = FALSE;
+    g_mutex_unlock(priv->lock);
+    return open;
 }
 
 void gvir_connection_close(GVirConnection *conn)
@@ -271,15 +319,22 @@ void gvir_connection_close(GVirConnection *conn)
     GVirConnectionPrivate *priv = conn->priv;
     DEBUG("Close GVirConnection=%p", conn);
 
-    if (!priv->conn)
-        return;
+    g_mutex_lock(priv->lock);
 
-    if (priv->domains)
+    if (priv->domains) {
         g_hash_table_unref(priv->domains);
+        priv->domains = NULL;
+    }
 
-    virConnectClose(priv->conn);
-    priv->conn = NULL;
+    if (priv->conn) {
+        virConnectClose(priv->conn);
+        priv->conn = NULL;
+    }
     /* xxx signals */
+
+    g_mutex_unlock(priv->lock);
+
+    g_signal_emit_by_name(conn, "vir-connection-closed");
 }
 
 /**
@@ -299,11 +354,25 @@ gboolean gvir_connection_fetch_domains(GVirConnection *conn,
     gint nactive = 0;
     gboolean ret = FALSE;
     gint i;
+    virConnectPtr vconn = NULL;
+
+    g_mutex_lock(priv->lock);
+    if (!priv->conn) {
+        *err = gvir_error_new(GVIR_CONNECTION_ERROR,
+                              0,
+                              "Connection is not open");
+        g_mutex_unlock(priv->lock);
+        goto cleanup;
+    }
+    vconn = priv->conn;
+    /* Stop another thread closing the connection just at the minute */
+    virConnectRef(vconn);
+    g_mutex_unlock(priv->lock);
 
     if (g_cancellable_set_error_if_cancelled(cancellable, err))
         goto cleanup;
 
-    if ((nactive = virConnectNumOfDomains(priv->conn)) < 0) {
+    if ((nactive = virConnectNumOfDomains(vconn)) < 0) {
         *err = gvir_error_new(GVIR_CONNECTION_ERROR,
                               0,
                               "Unable to count domains");
@@ -314,7 +383,7 @@ gboolean gvir_connection_fetch_domains(GVirConnection *conn,
             goto cleanup;
 
         active = g_new(gint, nactive);
-        if ((nactive = virConnectListDomains(priv->conn, active, nactive)) < 0) {
+        if ((nactive = virConnectListDomains(vconn, active, nactive)) < 0) {
             *err = gvir_error_new(GVIR_CONNECTION_ERROR,
                                   0,
                                   "Unable to list domains");
@@ -325,7 +394,7 @@ gboolean gvir_connection_fetch_domains(GVirConnection *conn,
     if (g_cancellable_set_error_if_cancelled(cancellable, err))
         goto cleanup;
 
-    if ((ninactive = virConnectNumOfDefinedDomains(priv->conn)) < 0) {
+    if ((ninactive = virConnectNumOfDefinedDomains(vconn)) < 0) {
         *err = gvir_error_new(GVIR_CONNECTION_ERROR,
                               0,
                               "Unable to count domains");
@@ -337,7 +406,7 @@ gboolean gvir_connection_fetch_domains(GVirConnection *conn,
             goto cleanup;
 
         inactive = g_new(gchar *, ninactive);
-        if ((ninactive = virConnectListDefinedDomains(priv->conn, inactive, ninactive)) < 0) {
+        if ((ninactive = virConnectListDefinedDomains(vconn, inactive, ninactive)) < 0) {
             *err = gvir_error_new(GVIR_CONNECTION_ERROR,
                                   0,
                                   "Unable to list domains %d", ninactive);
@@ -354,7 +423,7 @@ gboolean gvir_connection_fetch_domains(GVirConnection *conn,
         if (g_cancellable_set_error_if_cancelled(cancellable, err))
             goto cleanup;
 
-        virDomainPtr vdom = virDomainLookupByID(priv->conn, active[i]);
+        virDomainPtr vdom = virDomainLookupByID(vconn, active[i]);
         GVirDomain *dom;
         if (!vdom)
             continue;
@@ -372,7 +441,7 @@ gboolean gvir_connection_fetch_domains(GVirConnection *conn,
         if (g_cancellable_set_error_if_cancelled(cancellable, err))
             goto cleanup;
 
-        virDomainPtr vdom = virDomainLookupByName(priv->conn, inactive[i]);
+        virDomainPtr vdom = virDomainLookupByName(vconn, inactive[i]);
         GVirDomain *dom;
         if (!vdom)
             continue;
@@ -386,9 +455,12 @@ gboolean gvir_connection_fetch_domains(GVirConnection *conn,
                             dom);
     }
 
+    g_mutex_lock(priv->lock);
     if (priv->domains)
         g_hash_table_unref(priv->domains);
     priv->domains = doms;
+    virConnectClose(vconn);
+    g_mutex_unlock(priv->lock);
 
     ret = TRUE;
 
@@ -470,27 +542,52 @@ const gchar *gvir_connection_get_uri(GVirConnection *conn)
     return priv->uri;
 }
 
+
+static void gvir_domain_ref(gpointer obj, gpointer ignore G_GNUC_UNUSED)
+{
+    g_object_ref(obj);
+}
+
 /**
  * gvir_connection_get_domains:
  *
- * Return value: (element-type LibvirtGObject.Domain) (transfer container): List of #GVirDomain
+ * Return value: (element-type LibvirtGObject.Domain) (transfer full): List of #GVirDomain
  */
 GList *gvir_connection_get_domains(GVirConnection *conn)
 {
     GVirConnectionPrivate *priv = conn->priv;
-
-    return g_hash_table_get_values(priv->domains);
+    GList *domains;
+    g_mutex_lock(priv->lock);
+    domains = g_hash_table_get_values(priv->domains);
+    g_list_foreach(domains, gvir_domain_ref, NULL);
+    g_mutex_unlock(priv->lock);
+    return domains;
 }
 
+/**
+ * gvir_connection_get_domain:
+ *
+ * Return value: (transfer full): the #GVirDomain
+ */
 GVirDomain *gvir_connection_get_domain(GVirConnection *conn,
                                        const gchar *uuid)
 {
     GVirConnectionPrivate *priv = conn->priv;
-
-    return g_hash_table_lookup(priv->domains, uuid);
+    GVirDomain *dom;
+    g_mutex_lock(priv->lock);
+    dom = g_hash_table_lookup(priv->domains, uuid);
+    if (dom)
+        g_object_ref(dom);
+    g_mutex_unlock(priv->lock);
+    return dom;
 }
 
 
+/**
+ * gvir_connection_get_domain_by_id:
+ *
+ * Return value: (transfer full): the #GVirDomain
+ */
 GVirDomain *gvir_connection_find_domain_by_id(GVirConnection *conn,
                                               gint id)
 {
@@ -498,20 +595,30 @@ GVirDomain *gvir_connection_find_domain_by_id(GVirConnection *conn,
     GHashTableIter iter;
     gpointer key, value;
 
+    g_mutex_lock(priv->lock);
     g_hash_table_iter_init(&iter, priv->domains);
 
     while (g_hash_table_iter_next(&iter, &key, &value)) {
         GVirDomain *dom = value;
         gint thisid = gvir_domain_get_id(dom, NULL);
 
-        if (thisid == id)
+        if (thisid == id) {
+            g_object_ref(dom);
+            g_mutex_unlock(priv->lock);
             return dom;
+        }
     }
+    g_mutex_unlock(priv->lock);
 
     return NULL;
 }
 
 
+/**
+ * gvir_connection_get_domain_by_name:
+ *
+ * Return value: (transfer full): the #GVirDomain
+ */
 GVirDomain *gvir_connection_find_domain_by_name(GVirConnection *conn,
                                                 const gchar *name)
 {
@@ -519,18 +626,20 @@ GVirDomain *gvir_connection_find_domain_by_name(GVirConnection *conn,
     GHashTableIter iter;
     gpointer key, value;
 
+    g_mutex_lock(priv->lock);
     g_hash_table_iter_init(&iter, priv->domains);
 
     while (g_hash_table_iter_next(&iter, &key, &value)) {
         GVirDomain *dom = value;
-        gchar *thisname = gvir_domain_get_name(dom);
+        const gchar *thisname = gvir_domain_get_name(dom);
 
         if (strcmp(thisname, name) == 0) {
-            g_free(thisname);
+            g_object_ref(dom);
+            g_mutex_unlock(priv->lock);
             return dom;
         }
-        g_free(thisname);
     }
+    g_mutex_unlock(priv->lock);
 
     return NULL;
 }

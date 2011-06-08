@@ -38,6 +38,7 @@ extern gboolean debugFlag;
 
 struct _GVirManagerPrivate
 {
+    GMutex *lock;
     GList *connections;
 };
 
@@ -75,6 +76,8 @@ static void gvir_manager_finalize(GObject *object)
     }
     g_list_free(priv->connections);
 
+    g_mutex_free(priv->lock);
+
     G_OBJECT_CLASS(gvir_manager_parent_class)->finalize(object);
 }
 
@@ -84,6 +87,25 @@ static void gvir_manager_class_init(GVirManagerClass *klass)
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
     object_class->finalize = gvir_manager_finalize;
+
+    g_signal_new("vir-connection-added",
+                 G_OBJECT_CLASS_TYPE(object_class),
+                 G_SIGNAL_RUN_FIRST,
+                 G_STRUCT_OFFSET(GVirManagerClass, vir_connection_added),
+                 NULL, NULL,
+                 g_cclosure_marshal_VOID__OBJECT,
+                 G_TYPE_NONE,
+                 1,
+                 GVIR_TYPE_CONNECTION);
+    g_signal_new("vir-connection-removed",
+                 G_OBJECT_CLASS_TYPE(object_class),
+                 G_SIGNAL_RUN_FIRST,
+                 G_STRUCT_OFFSET(GVirManagerClass, vir_connection_removed),
+                 NULL, NULL,
+                 g_cclosure_marshal_VOID__OBJECT,
+                 G_TYPE_NONE,
+                 1,
+                 GVIR_TYPE_CONNECTION);
 
     g_type_class_add_private(klass, sizeof(GVirManagerPrivate));
 }
@@ -98,6 +120,8 @@ static void gvir_manager_init(GVirManager *conn)
     priv = conn->priv = GVIR_MANAGER_GET_PRIVATE(conn);
 
     memset(priv, 0, sizeof(*priv));
+
+    priv->lock = g_mutex_new();
 }
 
 
@@ -114,8 +138,15 @@ void gvir_manager_add_connection(GVirManager *man,
 {
     GVirManagerPrivate *priv = man->priv;
 
+    g_mutex_lock(priv->lock);
     g_object_ref(conn);
     priv->connections = g_list_append(priv->connections, conn);
+
+    /* Hold extra reference while emitting signal */
+    g_object_ref(conn);
+    g_mutex_unlock(priv->lock);
+    g_signal_emit_by_name(man, "vir-connection-added", conn);
+    g_object_unref(conn);
 }
 
 void gvir_manager_remove_connection(GVirManager *man,
@@ -123,7 +154,11 @@ void gvir_manager_remove_connection(GVirManager *man,
 {
     GVirManagerPrivate *priv = man->priv;
 
+    g_mutex_lock(priv->lock);
     priv->connections = g_list_remove(priv->connections, conn);
+    g_mutex_unlock(priv->lock);
+
+    g_signal_emit_by_name(man, "vir-connection-removed", conn);
     g_object_unref(conn);
 }
 

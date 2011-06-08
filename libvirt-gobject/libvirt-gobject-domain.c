@@ -198,7 +198,7 @@ GType gvir_domain_info_get_type(void)
 }
 
 
-gchar *gvir_domain_get_name(GVirDomain *dom)
+const gchar *gvir_domain_get_name(GVirDomain *dom)
 {
     GVirDomainPrivate *priv = dom->priv;
     const char *name;
@@ -207,7 +207,7 @@ gchar *gvir_domain_get_name(GVirDomain *dom)
         g_error("Failed to get domain name on %p", priv->handle);
     }
 
-    return g_strdup(name);
+    return name;
 }
 
 

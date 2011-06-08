@@ -56,6 +56,9 @@ struct _GVirDomainClass
 {
     GObjectClass parent_class;
 
+    void (*vir_domain_started)(GVirDomain *dom);
+    void (*vir_domain_stopped)(GVirDomain *dom);
+
     gpointer padding[20];
 };
 
@@ -85,7 +88,7 @@ GType gvir_domain_get_type(void);
 GType gvir_domain_info_get_type(void);
 GType gvir_domain_handle_get_type(void);
 
-gchar *gvir_domain_get_name(GVirDomain *dom);
+const gchar *gvir_domain_get_name(GVirDomain *dom);
 gchar *gvir_domain_get_uuid(GVirDomain *dom);
 gint gvir_domain_get_id(GVirDomain *dom,
                         GError **err);
