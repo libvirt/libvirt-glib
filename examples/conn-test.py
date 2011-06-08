@@ -25,6 +25,14 @@ def done(conn, result, data):
 	    print ("Name " + d.get_name())
 	    conf = d.get_config(0)
 	    print ("Conf " + str(conf))
+
+            try:
+                conf.validate()
+
+                print "Document is valid according to %s" % conf.get_schema()
+            except Exception, e:
+                print "Document is not valid according to %s: %s: %s" % (conf.get_schema(), str(e), str(type(e)))
+
 	    xml = conf.get_doc()
 	    print ("XML " + xml)
 	    print ("Info " + str(d.get_info().memory))

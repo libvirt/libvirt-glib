@@ -25,6 +25,9 @@
 
 #include <string.h>
 
+#include <libxml/relaxng.h>
+#include <libxml/xmlerror.h>
+
 #include "libvirt-gconfig/libvirt-gconfig.h"
 
 //extern gboolean debugFlag;
@@ -39,6 +42,8 @@ struct _GVirConfigObjectPrivate
 {
     gchar *doc;
     gchar *schema;
+
+    xmlDocPtr docHandle;
 };
 
 G_DEFINE_TYPE(GVirConfigObject, gvir_config_object, G_TYPE_OBJECT);
@@ -57,7 +62,61 @@ enum {
 static GQuark
 gvir_config_object_error_quark(void)
 {
-    return g_quark_from_static_string("vir-g-config_object");
+    return g_quark_from_static_string("gvir-config-object");
+}
+
+static GError *gvir_xml_error_new_literal(GQuark domain,
+                                          gint code,
+                                          const gchar *message)
+{
+    xmlErrorPtr xerr = xmlGetLastError();
+
+    if (!xerr)
+        return NULL;
+
+    if (message)
+        return g_error_new(domain,
+                           code,
+                           "%s: %s",
+                           message,
+                           xerr->message);
+    else
+        return g_error_new(domain,
+                           code,
+                           "%s",
+                           message);
+}
+
+
+static GError *gvir_xml_error_new(GQuark domain,
+                                  gint code,
+                                  const gchar *format,
+                                  ...)
+{
+    GError *err;
+    va_list args;
+    gchar *message;
+
+    va_start(args, format);
+    message = g_strdup_vprintf(format, args);
+    va_end(args);
+
+    err = gvir_xml_error_new_literal(domain, code, message);
+
+    g_free(message);
+
+    return err;
+}
+
+static void gvir_xml_generic_error_nop(void *userData G_GNUC_UNUSED,
+                                       const char *msg G_GNUC_UNUSED,
+                                       ...)
+{
+}
+
+static void gvir_xml_structured_error_nop(void *userData G_GNUC_UNUSED,
+                                          xmlErrorPtr error G_GNUC_UNUSED)
+{
 }
 
 static void gvir_config_object_get_property(GObject *object,
@@ -119,6 +178,9 @@ static void gvir_config_object_finalize(GObject *object)
 
     g_free(priv->doc);
     g_free(priv->schema);
+
+    if (priv->docHandle)
+        xmlFreeDoc(priv->docHandle);
 
     G_OBJECT_CLASS(gvir_config_object_parent_class)->finalize(object);
 }
@@ -182,14 +244,81 @@ GVirConfigObject *gvir_config_object_new(const gchar *doc,
                                            NULL));
 }
 
-void gvir_config_object_validate(GVirConfigObject *config G_GNUC_UNUSED,
+static void
+gvir_config_object_parse(GVirConfigObject *config,
+                         GError **err)
+{
+    GVirConfigObjectPrivate *priv = config->priv;
+    if (priv->docHandle)
+        return;
+
+    priv->docHandle = xmlParseMemory(priv->doc, strlen(priv->doc));
+    if (!priv->docHandle) {
+        *err = gvir_xml_error_new(GVIR_CONFIG_OBJECT_ERROR,
+                                  0,
+                                  "%s",
+                                  "Unable to parse configuration");
+    }
+}
+
+
+void gvir_config_object_validate(GVirConfigObject *config,
                                  GError **err)
 {
-    g_set_error(err,
-                GVIR_CONFIG_OBJECT_ERROR,
-                0,
-                "%s",
-                "Unable to validate config");
+    GVirConfigObjectPrivate *priv = config->priv;
+    xmlRelaxNGParserCtxtPtr rngParser = NULL;
+    xmlRelaxNGPtr rng = NULL;
+    xmlRelaxNGValidCtxtPtr rngValid = NULL;
+
+    xmlSetGenericErrorFunc(NULL, gvir_xml_generic_error_nop);
+    xmlSetStructuredErrorFunc(NULL, gvir_xml_structured_error_nop);
+
+    gvir_config_object_parse(config, err);
+    if (*err)
+        return;
+
+    rngParser = xmlRelaxNGNewParserCtxt(priv->schema);
+    if (!rngParser) {
+        *err = gvir_xml_error_new(GVIR_CONFIG_OBJECT_ERROR,
+                                  0,
+                                  "Unable to create RNG parser for %s",
+                                  priv->schema);
+        return;
+    }
+
+    rng = xmlRelaxNGParse(rngParser);
+    if (!rng) {
+        *err = gvir_xml_error_new(GVIR_CONFIG_OBJECT_ERROR,
+                                  0,
+                                  "Unable to parse RNG %s",
+                                  priv->schema);
+        xmlRelaxNGFreeParserCtxt(rngParser);
+        return;
+    }
+    xmlRelaxNGFreeParserCtxt(rngParser);
+
+    rngValid = xmlRelaxNGNewValidCtxt(rng);
+    if (!rngValid) {
+        *err = gvir_xml_error_new(GVIR_CONFIG_OBJECT_ERROR,
+                                  0,
+                                  "Unable to create RNG validation context %s",
+                                  priv->schema);
+        xmlRelaxNGFree(rng);
+        return;
+    }
+
+    if (xmlRelaxNGValidateDoc(rngValid, priv->docHandle) != 0) {
+        *err = gvir_xml_error_new(GVIR_CONFIG_OBJECT_ERROR,
+                                  0,
+                                  "%s",
+                                  "Unable to validate doc");
+        xmlRelaxNGFreeValidCtxt(rngValid);
+        xmlRelaxNGFree(rng);
+        return;
+    }
+
+    xmlRelaxNGFreeValidCtxt(rngValid);
+    xmlRelaxNGFree(rng);
 }
 
 const gchar *gvir_config_object_get_doc(GVirConfigObject *config)

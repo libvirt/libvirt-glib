@@ -41,9 +41,11 @@ libvirt_gconfig_1_0_la_CFLAGS = \
 			$(COVERAGE_CFLAGS) \
 			-I$(top_srcdir) \
 			$(GOBJECT2_CFLAGS) \
+			$(LIBXML2_CFLAGS) \
 			$(WARN_CFLAGS)
 libvirt_gconfig_1_0_la_LIBADD = \
 			$(GOBJECT2_LIBS) \
+			$(LIBXML2_LIBS) \
 			$(CYGWIN_EXTRA_LIBADD)
 libvirt_gconfig_1_0_la_DEPENDENCIES = \
 			libvirt-gconfig.sym
