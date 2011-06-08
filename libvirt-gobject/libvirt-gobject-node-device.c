@@ -56,7 +56,7 @@ enum {
 static GQuark
 gvir_node_device_error_quark(void)
 {
-    return g_quark_from_static_string("vir-g-node_device");
+    return g_quark_from_static_string("gvir-node_device");
 }
 
 static void gvir_node_device_get_property(GObject *object,

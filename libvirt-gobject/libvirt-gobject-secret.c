@@ -56,7 +56,7 @@ enum {
 static GQuark
 gvir_secret_error_quark(void)
 {
-    return g_quark_from_static_string("vir-g-secret");
+    return g_quark_from_static_string("gvir-secret");
 }
 
 static void gvir_secret_get_property(GObject *object,

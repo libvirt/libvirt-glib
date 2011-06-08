@@ -56,7 +56,7 @@ enum {
 static GQuark
 gvir_manager_error_quark(void)
 {
-    return g_quark_from_static_string("vir-g-manager");
+    return g_quark_from_static_string("gvir-manager");
 }
 #endif
 

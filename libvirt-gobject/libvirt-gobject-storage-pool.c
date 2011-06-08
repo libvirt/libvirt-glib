@@ -56,7 +56,7 @@ enum {
 static GQuark
 gvir_storage_pool_error_quark(void)
 {
-    return g_quark_from_static_string("vir-g-storage_pool");
+    return g_quark_from_static_string("gvir-storage-pool");
 }
 
 static void gvir_storage_pool_get_property(GObject *object,

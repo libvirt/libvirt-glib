@@ -56,7 +56,7 @@ enum {
 static GQuark
 gvir_network_filter_error_quark(void)
 {
-    return g_quark_from_static_string("vir-g-network_filter");
+    return g_quark_from_static_string("gvir-network_filter");
 }
 
 static void gvir_network_filter_get_property(GObject *object,

@@ -56,7 +56,7 @@ enum {
 static GQuark
 gvir_interface_error_quark(void)
 {
-    return g_quark_from_static_string("vir-g-interface");
+    return g_quark_from_static_string("gvir-interface");
 }
 
 static void gvir_interface_get_property(GObject *object,

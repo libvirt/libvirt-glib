@@ -59,7 +59,7 @@ enum {
 static GQuark
 gvir_connection_error_quark(void)
 {
-    return g_quark_from_static_string("vir-g-connection");
+    return g_quark_from_static_string("gvir-connection");
 }
 
 static void gvir_connection_get_property(GObject *object,

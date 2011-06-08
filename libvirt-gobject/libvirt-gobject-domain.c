@@ -56,7 +56,7 @@ enum {
 static GQuark
 gvir_domain_error_quark(void)
 {
-    return g_quark_from_static_string("vir-g-domain");
+    return g_quark_from_static_string("gvir-domain");
 }
 
 static void gvir_domain_get_property(GObject *object,
