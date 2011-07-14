@@ -129,6 +129,12 @@ static void gvir_connection_finalize(GObject *object)
 }
 
 
+static GVirStream* gvir_connection_stream_new(GVirConnection *self G_GNUC_UNUSED,
+                                             gpointer handle)
+{
+    return g_object_new(GVIR_TYPE_STREAM, "handle", handle, NULL);
+}
+
 static void gvir_connection_class_init(GVirConnectionClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -136,6 +142,8 @@ static void gvir_connection_class_init(GVirConnectionClass *klass)
     object_class->finalize = gvir_connection_finalize;
     object_class->get_property = gvir_connection_get_property;
     object_class->set_property = gvir_connection_set_property;
+
+    klass->stream_new = gvir_connection_stream_new;
 
     g_object_class_install_property(object_class,
                                     PROP_URI,
@@ -690,4 +698,26 @@ GType gvir_connection_handle_get_type(void)
              (GBoxedFreeFunc)virConnectClose);
 
     return handle_type;
+}
+
+/**
+ * gvir_connection_get_stream:
+ * @flags: flags to use for the stream
+ *
+ * Return value: (transfer full): a #GVirStream stream, or NULL
+ */
+GVirStream *gvir_connection_get_stream(GVirConnection *self,
+                                       gint flags)
+{
+    GVirConnectionClass *klass;
+
+    g_return_val_if_fail(GVIR_IS_CONNECTION(self), NULL);
+    g_return_val_if_fail(self->priv->conn, NULL);
+
+    klass = GVIR_CONNECTION_GET_CLASS(self);
+    g_return_val_if_fail(klass->stream_new, NULL);
+
+    virStreamPtr st = virStreamNew(self->priv->conn, flags);
+
+    return klass->stream_new(self, st);
 }

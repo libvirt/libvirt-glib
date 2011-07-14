@@ -62,6 +62,8 @@ struct _GVirConnectionClass
     void (*vir_domain_added)(GVirConnection *conn, GVirDomain *dom);
     void (*vir_domain_removed)(GVirConnection *conn, GVirDomain *dom);
 
+    GVirStream *(*stream_new)(GVirConnection *conn, gpointer handle);
+
     gpointer padding[20];
 };
 
@@ -144,6 +146,9 @@ GVirStoragePool *gvir_connection_get_storage_pool(GVirConnection *conn,
 GVirStoragePool *gvir_connection_find_storage_pool_by_name(GVirConnection *conn,
                                                            const gchar *name);
 #endif
+
+GVirStream *gvir_connection_get_stream(GVirConnection *conn,
+                                       gint flags);
 
 G_END_DECLS
 

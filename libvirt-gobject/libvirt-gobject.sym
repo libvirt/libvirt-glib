@@ -11,6 +11,7 @@ LIBVIRT_GOBJECT_0.0.1 {
 	gvir_connection_is_open;
 	gvir_connection_close;
 	gvir_connection_get_uri;
+	gvir_connection_get_stream;
 
 	gvir_connection_fetch_domains;
 	gvir_connection_get_domains;
@@ -84,6 +85,10 @@ LIBVIRT_GOBJECT_0.0.1 {
 	gvir_manager_remove_connection;
 	gvir_manager_get_connections;
 	gvir_manager_find_connection_by_uri;
+
+	gvir_stream_get_type;
+	gvir_stream_receive_all;
+	gvir_stream_handle_get_type;
 
   local:
         *;

@@ -15,6 +15,7 @@ GOBJECT_HEADER_FILES = \
 			libvirt-gobject-secret.h \
 			libvirt-gobject-storage-vol.h \
 			libvirt-gobject-storage-pool.h \
+			libvirt-gobject-stream.h \
 			libvirt-gobject-connection.h \
 			libvirt-gobject-manager.h
 GOBJECT_SOURCE_FILES = \
@@ -28,6 +29,7 @@ GOBJECT_SOURCE_FILES = \
 			libvirt-gobject-secret.c \
 			libvirt-gobject-storage-vol.c \
 			libvirt-gobject-storage-pool.c \
+			libvirt-gobject-stream.c \
 			libvirt-gobject-connection.c \
 			libvirt-gobject-manager.c
 
