@@ -89,7 +89,7 @@ static void gvir_domain_set_property(GObject *object,
     switch (prop_id) {
     case PROP_HANDLE:
         if (priv->handle)
-            g_object_unref(priv->handle);
+            virDomainFree(priv->handle);
         priv->handle = g_value_dup_boxed(value);
         g_print("Set handle %p\n", priv->handle);
         break;

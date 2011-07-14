@@ -152,14 +152,12 @@ static void gvir_config_object_set_property(GObject *object,
 
     switch (prop_id) {
     case PROP_DOC:
-        if (priv->doc)
-            g_object_unref(priv->doc);
+        g_free(priv->doc);
         priv->doc = g_value_dup_string(value);
         break;
 
     case PROP_SCHEMA:
-        if (priv->schema)
-            g_object_unref(priv->schema);
+        g_free(priv->schema);
         priv->schema = g_value_dup_string(value);
         break;
 
