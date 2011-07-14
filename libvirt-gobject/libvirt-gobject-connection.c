@@ -103,7 +103,6 @@ static void gvir_connection_set_property(GObject *object,
         if (priv->conn)
             virConnectClose(priv->conn);
         priv->conn = g_value_dup_boxed(value);
-        g_print("Set connection %p\n", priv->conn);
         break;
 
     default:

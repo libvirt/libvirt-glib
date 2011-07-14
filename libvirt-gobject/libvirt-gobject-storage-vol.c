@@ -91,7 +91,6 @@ static void gvir_storage_vol_set_property(GObject *object,
         if (priv->handle)
             virStorageVolFree(priv->handle);
         priv->handle = g_value_dup_boxed(value);
-        g_print("Set handle %p\n", priv->handle);
         break;
 
     default:

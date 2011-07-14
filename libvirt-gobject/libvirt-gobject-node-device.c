@@ -91,7 +91,6 @@ static void gvir_node_device_set_property(GObject *object,
         if (priv->handle)
             virNodeDeviceFree(priv->handle);
         priv->handle = g_value_dup_boxed(value);
-        g_print("Set handle %p\n", priv->handle);
         break;
 
     default:

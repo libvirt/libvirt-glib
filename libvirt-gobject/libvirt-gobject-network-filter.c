@@ -91,7 +91,6 @@ static void gvir_network_filter_set_property(GObject *object,
         if (priv->handle)
             virNWFilterFree(priv->handle);
         priv->handle = g_value_dup_boxed(value);
-        g_print("Set handle %p\n", priv->handle);
         break;
 
     default:
