@@ -187,7 +187,7 @@ const gchar *gvir_node_device_get_name(GVirNodeDevice *dom)
 /**
  * gvir_node_device_get_config:
  * @dom: the node_device
- * @flags: (default 0): the flags
+ * @flags: the flags
  * Returns: (transfer full): the config
  */
 GVirConfigNodeDevice *gvir_node_device_get_config(GVirNodeDevice *dom,

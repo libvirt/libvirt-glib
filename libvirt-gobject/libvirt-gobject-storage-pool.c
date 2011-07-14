@@ -199,7 +199,7 @@ gchar *gvir_storage_pool_get_uuid(GVirStoragePool *dom)
 /**
  * gvir_storage_pool_get_config:
  * @dom: the storage_pool
- * @flags: (default 0): the flags
+ * @flags: the flags
  * Returns: (transfer full): the config
  */
 GVirConfigStoragePool *gvir_storage_pool_get_config(GVirStoragePool *dom,

@@ -186,7 +186,7 @@ gchar *gvir_secret_get_uuid(GVirSecret *dom)
 /**
  * gvir_secret_get_config:
  * @dom: the secret
- * @flags: (default 0): the flags
+ * @flags: the flags
  * Returns: (transfer full): the config
  */
 GVirConfigSecret *gvir_secret_get_config(GVirSecret *dom,

@@ -28,6 +28,18 @@
 
 #include "libvirt-glib/libvirt-glib.h"
 
+/**
+ * gvir_error_new: (skip)
+ * @domain: error domain
+ * @code: error code
+ * @format: printf()-style format for error message
+ * @Varargs: parameters for message format
+ *
+ * Creates a new #GError with the given @domain and @code,
+ * and a message formatted with @format.
+ *
+ * Returns: a new #GError
+ */
 GError *gvir_error_new(GQuark domain,
                        gint code,
                        const gchar *format,
@@ -48,6 +60,19 @@ GError *gvir_error_new(GQuark domain,
     return err;
 }
 
+/**
+ * gvir_error_new_literal: (skip)
+ * @domain: error domain
+ * @code: error code
+ * @message: error message
+ *
+ * Creates a new #GError; unlike gvir_error_new(), @message is
+ * not a printf()-style format string. Use this function if
+ * @message contains text you don't have control over,
+ * that could include printf() escape sequences.
+ *
+ * Returns: a new #GError
+ */
 GError *gvir_error_new_literal(GQuark domain,
                                gint code,
                                const gchar *message)
@@ -70,6 +95,18 @@ GError *gvir_error_new_literal(GQuark domain,
                            message);
 }
 
+/**
+ * gvir_error_new_valist: (skip)
+ * @domain: error domain
+ * @code: error code
+ * @format: printf()-style format for error message
+ * @args: #va_list of parameters for the message format
+ *
+ * Creates a new #GError with the given @domain and @code,
+ * and a message formatted with @format.
+ *
+ * Returns: a new #GError
+ */
 GError *gvir_error_new_valist(GQuark domain,
                               gint code,
                               const gchar *format,

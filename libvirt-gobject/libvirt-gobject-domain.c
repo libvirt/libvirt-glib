@@ -240,7 +240,7 @@ gint gvir_domain_get_id(GVirDomain *dom,
 /**
  * gvir_domain_start:
  * @dom: the domain
- * @flags: (default 0): the flags
+ * @flags:  the flags
  */
 gboolean gvir_domain_start(GVirDomain *dom,
                            guint64 flags G_GNUC_UNUSED,
@@ -261,7 +261,7 @@ gboolean gvir_domain_start(GVirDomain *dom,
 /**
  * gvir_domain_start:
  * @dom: the domain
- * @flags: (default 0): the flags
+ * @flags:  the flags
  */
 gboolean gvir_domain_stop(GVirDomain *dom,
                           guint64 flags G_GNUC_UNUSED,
@@ -282,7 +282,7 @@ gboolean gvir_domain_stop(GVirDomain *dom,
 /**
  * gvir_domain_start:
  * @dom: the domain
- * @flags: (default 0): the flags
+ * @flags:  the flags
  */
 gboolean gvir_domain_delete(GVirDomain *dom,
                             guint64 flags G_GNUC_UNUSED,
@@ -303,7 +303,7 @@ gboolean gvir_domain_delete(GVirDomain *dom,
 /**
  * gvir_domain_start:
  * @dom: the domain
- * @flags: (default 0): the flags
+ * @flags:  the flags
  */
 gboolean gvir_domain_shutdown(GVirDomain *dom,
                               guint64 flags G_GNUC_UNUSED,
@@ -324,7 +324,7 @@ gboolean gvir_domain_shutdown(GVirDomain *dom,
 /**
  * gvir_domain_start:
  * @dom: the domain
- * @flags: (default 0): the flags
+ * @flags:  the flags
  */
 gboolean gvir_domain_reboot(GVirDomain *dom,
                             guint64 flags,
@@ -345,7 +345,7 @@ gboolean gvir_domain_reboot(GVirDomain *dom,
 /**
  * gvir_domain_get_config:
  * @dom: the domain
- * @flags: (default 0): the flags
+ * @flags:  the flags
  * Returns: (transfer full): the config
  */
 GVirConfigDomain *gvir_domain_get_config(GVirDomain *dom,

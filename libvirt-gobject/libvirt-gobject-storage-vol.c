@@ -187,7 +187,7 @@ const gchar *gvir_storage_vol_get_name(GVirStorageVol *dom)
 /**
  * gvir_storage_vol_get_config:
  * @dom: the storage_vol
- * @flags: (default 0): the flags
+ * @flags: the flags
  * Returns: (transfer full): the config
  */
 GVirConfigStorageVol *gvir_storage_vol_get_config(GVirStorageVol *dom,

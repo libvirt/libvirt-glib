@@ -104,6 +104,7 @@ GVirDomain *gvir_connection_find_domain_by_name(GVirConnection *conn,
                                                 const gchar *name);
 
 
+#if 0
 GList *gvir_connection_get_interfaces(GVirConnection *conn);
 GVirInterface *gvir_connection_get_interface(GVirConnection *conn,
                                              const gchar *name);
@@ -140,7 +141,7 @@ GVirStoragePool *gvir_connection_get_storage_pool(GVirConnection *conn,
                                                   const gchar *uuid);
 GVirStoragePool *gvir_connection_find_storage_pool_by_name(GVirConnection *conn,
                                                            const gchar *name);
-
+#endif
 
 G_END_DECLS
 

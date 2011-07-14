@@ -198,7 +198,7 @@ gchar *gvir_network_get_uuid(GVirNetwork *dom)
 /**
  * gvir_network_get_config:
  * @dom: the network
- * @flags: (default 0): the flags
+ * @flags: the flags
  * Returns: (transfer full): the config
  */
 GVirConfigNetwork *gvir_network_get_config(GVirNetwork *dom,

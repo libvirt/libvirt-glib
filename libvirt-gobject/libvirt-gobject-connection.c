@@ -566,8 +566,9 @@ GList *gvir_connection_get_domains(GVirConnection *conn)
 
 /**
  * gvir_connection_get_domain:
+ * @uuid: uuid string of the requested domain
  *
- * Return value: (transfer full): the #GVirDomain
+ * Return value: (transfer full): the #GVirDomain, or NULL
  */
 GVirDomain *gvir_connection_get_domain(GVirConnection *conn,
                                        const gchar *uuid)
@@ -584,9 +585,10 @@ GVirDomain *gvir_connection_get_domain(GVirConnection *conn,
 
 
 /**
- * gvir_connection_get_domain_by_id:
+ * gvir_connection_find_domain_by_id:
+ * @id: id of the requested domain
  *
- * Return value: (transfer full): the #GVirDomain
+ * Return value: (transfer full): the #GVirDomain, or NULL
  */
 GVirDomain *gvir_connection_find_domain_by_id(GVirConnection *conn,
                                               gint id)
@@ -615,9 +617,10 @@ GVirDomain *gvir_connection_find_domain_by_id(GVirConnection *conn,
 
 
 /**
- * gvir_connection_get_domain_by_name:
+ * gvir_connection_find_domain_by_name:
+ * @name: name of the requested domain
  *
- * Return value: (transfer full): the #GVirDomain
+ * Return value: (transfer full): the #GVirDomain, or NULL
  */
 GVirDomain *gvir_connection_find_domain_by_name(GVirConnection *conn,
                                                 const gchar *name)

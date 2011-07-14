@@ -187,7 +187,7 @@ const gchar *gvir_interface_get_name(GVirInterface *dom)
 /**
  * gvir_interface_get_config:
  * @dom: the interface
- * @flags: (default 0): the flags
+ * @flags: the flags
  * Returns: (transfer full): the config
  */
 GVirConfigInterface *gvir_interface_get_config(GVirInterface *dom,
