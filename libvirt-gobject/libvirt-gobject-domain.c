@@ -397,3 +397,42 @@ GVirDomainInfo *gvir_domain_get_info(GVirDomain *dom,
 
     return ret;
 }
+
+/**
+ * gvir_domain_screenshot:
+ * @stream: stream to use as output
+ * @monitor_id: monitor ID to take screenshot from
+ * @flags: extra flags, currently unused
+ *
+ * Returns: (transfer full): mime-type of the image format, or NULL upon error.
+ */
+gchar *gvir_domain_screenshot(GVirDomain *dom,
+                              GVirStream *stream,
+                              guint64 monitor_id,
+                              guint64 flags,
+                              GError **err)
+{
+    GVirDomainPrivate *priv;
+    virStreamPtr st = NULL;
+    gchar *mime = NULL;
+
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), NULL);
+    g_return_val_if_fail(GVIR_IS_STREAM(stream), NULL);
+
+    priv = dom->priv;
+    g_object_get(stream, "handle", &st, NULL);
+
+    if (!(mime = virDomainScreenshot(priv->handle,
+                                     st,
+                                     monitor_id,
+                                     flags))) {
+        *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
+                                      0,
+                                      "Unable to take a screenshot");
+        goto end;
+    }
+end:
+    if (st != NULL)
+        virStreamFree(st);
+    return mime;
+}

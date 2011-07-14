@@ -29,6 +29,8 @@
 
 G_BEGIN_DECLS
 
+#include <libvirt-gobject/libvirt-gobject-stream.h>
+
 #define GVIR_TYPE_DOMAIN            (gvir_domain_get_type ())
 #define GVIR_DOMAIN(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GVIR_TYPE_DOMAIN, GVirDomain))
 #define GVIR_DOMAIN_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GVIR_TYPE_DOMAIN, GVirDomainClass))
@@ -115,6 +117,12 @@ GVirDomainInfo *gvir_domain_get_info(GVirDomain *dom,
 GVirConfigDomain *gvir_domain_get_config(GVirDomain *dom,
                                          guint64 flags,
                                          GError **err);
+
+gchar *gvir_domain_screenshot(GVirDomain *dom,
+                              GVirStream *stream,
+                              guint64 monitor_id,
+                              guint64 flags,
+                              GError **err);
 
 G_END_DECLS
 
