@@ -97,13 +97,15 @@ if WITH_GOBJECT_INTROSPECTION
 LibvirtGObject-1.0.gir: libvirt-gobject-1.0.la $(G_IR_SCANNER) Makefile.am
 	$(AM_V_GEN)$(G_IR_SCANNER) \
                 --quiet \
+                --warn-all \
                 --namespace LibvirtGObject \
                 --nsversion 1.0 \
                 --include GObject-2.0 \
                 --include Gio-2.0 \
                 --include LibvirtGLib-1.0 \
                 --include LibvirtGConfig-1.0 \
-                --strip-prefix=gvir \
+                --identifier-prefix=GVir \
+                --symbol-prefix=gvir \
                 --library=$(builddir)/libvirt-gobject-1.0.la \
                 --add-include-path=$(top_builddir)/libvirt-glib \
                 --add-include-path=$(top_builddir)/libvirt-gconfig \
@@ -113,10 +115,10 @@ LibvirtGObject-1.0.gir: libvirt-gobject-1.0.la $(G_IR_SCANNER) Makefile.am
                 --verbose \
                 --pkg=gobject-2.0 \
                 --pkg=gthread-2.0 \
-		$(srcdir)/libvirt-gobject.h \
+                $(srcdir)/libvirt-gobject.h \
                 $(GOBJECT_SOURCE_FILES:%=$(srcdir)/%) \
                 $(GOBJECT_HEADER_FILES:%=$(srcdir)/%) \
-		$(builddir)/libvirt-gobject-enums.c
+                $(builddir)/libvirt-gobject-enums.c
 
 girdir = $(datadir)/gir-1.0
 gir_DATA = LibvirtGObject-1.0.gir

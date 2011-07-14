@@ -60,10 +60,12 @@ if WITH_GOBJECT_INTROSPECTION
 LibvirtGConfig-1.0.gir: libvirt-gconfig-1.0.la $(G_IR_SCANNER) Makefile.am
 	$(AM_V_GEN)$(G_IR_SCANNER) \
                 --quiet \
+                --warn-all \
                 --namespace LibvirtGConfig \
                 --nsversion 1.0 \
                 --include GObject-2.0 \
-                --strip-prefix=gvir \
+                --identifier-prefix=GVir \
+                --symbol-prefix=gvir \
                 --library=$(builddir)/libvirt-gconfig-1.0.la \
                 --output $@ \
                 -I$(top_srcdir) \
