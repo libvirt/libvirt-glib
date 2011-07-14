@@ -36,6 +36,7 @@ G_BEGIN_DECLS
 #define GVIR_IS_CONNECTION_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GVIR_TYPE_CONNECTION))
 #define GVIR_CONNECTION_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GVIR_TYPE_CONNECTION, GVirConnectionClass))
 
+#define GVIR_TYPE_CONNECTION_HANDLE      (gvir_connection_handle_get_type ())
 
 typedef struct _GVirConnection GVirConnection;
 typedef struct _GVirConnectionPrivate GVirConnectionPrivate;
@@ -65,6 +66,7 @@ struct _GVirConnectionClass
 };
 
 GType gvir_connection_get_type(void);
+GType gvir_connection_handle_get_type(void);
 
 GVirConnection *gvir_connection_new(const char *uri);
 gboolean gvir_connection_open(GVirConnection *conn,

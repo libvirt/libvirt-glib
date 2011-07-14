@@ -51,6 +51,7 @@ G_DEFINE_TYPE(GVirConnection, gvir_connection, G_TYPE_OBJECT);
 enum {
     PROP_0,
     PROP_URI,
+    PROP_HANDLE,
 };
 
 
@@ -74,6 +75,9 @@ static void gvir_connection_get_property(GObject *object,
     case PROP_URI:
         g_value_set_string(value, priv->uri);
         break;
+    case PROP_HANDLE:
+        g_value_set_boxed(value, priv->conn);
+        break;
 
     default:
         G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
@@ -93,6 +97,13 @@ static void gvir_connection_set_property(GObject *object,
     case PROP_URI:
         g_free(priv->uri);
         priv->uri = g_value_dup_string(value);
+        break;
+
+    case PROP_HANDLE:
+        if (priv->conn)
+            virConnectClose(priv->conn);
+        priv->conn = g_value_dup_boxed(value);
+        g_print("Set connection %p\n", priv->conn);
         break;
 
     default:
@@ -172,6 +183,19 @@ static void gvir_connection_class_init(GVirConnectionClass *klass)
                  g_cclosure_marshal_VOID__VOID,
                  G_TYPE_NONE,
                  0);
+
+    g_object_class_install_property(object_class,
+                                    PROP_HANDLE,
+                                    g_param_spec_boxed("handle",
+                                                       "Handle",
+                                                       "The connection handle",
+                                                       GVIR_TYPE_CONNECTION_HANDLE,
+                                                       G_PARAM_READABLE |
+                                                       G_PARAM_WRITABLE |
+                                                       G_PARAM_CONSTRUCT_ONLY |
+                                                       G_PARAM_STATIC_NAME |
+                                                       G_PARAM_STATIC_NICK |
+                                                       G_PARAM_STATIC_BLURB));
 
     g_type_class_add_private(klass, sizeof(GVirConnectionPrivate));
 }
@@ -647,3 +671,23 @@ GVirDomain *gvir_connection_find_domain_by_name(GVirConnection *conn,
     return NULL;
 }
 
+static gpointer
+gvir_connection_handle_copy(gpointer src)
+{
+    virConnectRef(src);
+    return src;
+}
+
+
+GType gvir_connection_handle_get_type(void)
+{
+    static GType handle_type = 0;
+
+    if (G_UNLIKELY(handle_type == 0))
+        handle_type = g_boxed_type_register_static
+            ("GVirConnectionHandle",
+             gvir_connection_handle_copy,
+             (GBoxedFreeFunc)virConnectClose);
+
+    return handle_type;
+}
