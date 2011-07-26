@@ -65,6 +65,8 @@ struct _GVirStreamClass
  * @buf: data pointer
  * @nbytes: data size
  * @user_data: user data passed to the function
+ * Returns: the number of bytes filled, 0 upon end
+ * of file, or -1 upon error
  */
 typedef gint (* GVirStreamSinkFunc) (GVirStream *stream,
                                      const gchar *buf,

@@ -191,6 +191,7 @@ stream_sink(virStreamPtr st G_GNUC_UNUSED,
  * @stream: the stream
  * @func: (scope notified): the callback for writing data to application
  * @user_data: (closure): data to be passed to @callback
+ * Returns: the number of bytes consumed or -1 upon error
  *
  * Receive the entire data stream, sending the data to the
  * requested data sink. This is simply a convenient alternative
