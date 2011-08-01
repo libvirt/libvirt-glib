@@ -359,7 +359,8 @@ cleanup:
 }
 
 
-void gvir_event_register(void) {
+static gpointer event_register_once(gpointer data G_GNUC_UNUSED)
+{
     eventlock = g_mutex_new();
     virEventRegisterImpl(gvir_event_handle_add,
                          gvir_event_handle_update,
@@ -367,5 +368,13 @@ void gvir_event_register(void) {
                          gvir_event_timeout_add,
                          gvir_event_timeout_update,
                          gvir_event_timeout_remove);
+    return NULL;
+}
+
+void gvir_event_register(void)
+{
+    static GOnce once = G_ONCE_INIT;
+
+    g_once(&once, event_register_once, NULL);
 }
 
