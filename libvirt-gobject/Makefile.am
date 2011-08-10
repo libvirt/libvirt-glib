@@ -113,7 +113,7 @@ LibvirtGObject-1.0.gir: libvirt-gobject-1.0.la $(G_IR_SCANNER) Makefile.am
                 --add-include-path=$(top_builddir)/libvirt-gconfig \
                 --output $@ \
                 -I$(top_srcdir) \
-                -I$(top_buildir) \
+                -I$(top_builddir) \
                 --verbose \
                 --pkg=gobject-2.0 \
                 --pkg=gthread-2.0 \

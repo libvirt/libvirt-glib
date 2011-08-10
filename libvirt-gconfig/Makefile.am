@@ -69,7 +69,7 @@ LibvirtGConfig-1.0.gir: libvirt-gconfig-1.0.la $(G_IR_SCANNER) Makefile.am
                 --library=$(builddir)/libvirt-gconfig-1.0.la \
                 --output $@ \
                 -I$(top_srcdir) \
-                -I$(top_buildir) \
+                -I$(top_builddir) \
                 --verbose \
                 --pkg=gobject-2.0 \
 		$(srcdir)/libvirt-gconfig.h \
