@@ -46,8 +46,7 @@ struct _GVirConfigObjectPrivate
     xmlDocPtr docHandle;
 };
 
-G_DEFINE_TYPE(GVirConfigObject, gvir_config_object, G_TYPE_OBJECT);
-
+G_DEFINE_ABSTRACT_TYPE(GVirConfigObject, gvir_config_object, G_TYPE_OBJECT);
 
 enum {
     PROP_0,
@@ -230,16 +229,6 @@ static void gvir_config_object_init(GVirConfigObject *conn)
     priv = conn->priv = GVIR_CONFIG_OBJECT_GET_PRIVATE(conn);
 
     memset(priv, 0, sizeof(*priv));
-}
-
-
-GVirConfigObject *gvir_config_object_new(const gchar *doc,
-                                   const gchar *schema)
-{
-    return GVIR_CONFIG_OBJECT(g_object_new(GVIR_TYPE_CONFIG_OBJECT,
-                                           "doc", doc,
-                                           "schema", schema,
-                                           NULL));
 }
 
 static void

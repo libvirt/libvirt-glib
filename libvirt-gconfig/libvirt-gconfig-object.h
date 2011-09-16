@@ -59,9 +59,6 @@ struct _GVirConfigObjectClass
 
 GType gvir_config_object_get_type(void);
 
-GVirConfigObject *gvir_config_object_new(const gchar *doc,
-                                         const gchar *schema);
-
 void gvir_config_object_validate(GVirConfigObject *config,
                                  GError **err);
 
