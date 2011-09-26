@@ -107,6 +107,9 @@ GVirDomain *gvir_connection_find_domain_by_id(GVirConnection *conn,
 GVirDomain *gvir_connection_find_domain_by_name(GVirConnection *conn,
                                                 const gchar *name);
 
+GVirDomain *gvir_connection_create_domain(GVirConnection *conn,
+                                          GVirConfigDomain *conf,
+                                          GError **err);
 
 #if 0
 GList *gvir_connection_get_interfaces(GVirConnection *conn);

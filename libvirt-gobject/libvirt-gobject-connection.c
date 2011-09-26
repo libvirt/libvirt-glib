@@ -719,3 +719,43 @@ GVirStream *gvir_connection_get_stream(GVirConnection *self,
 
     return klass->stream_new(self, st);
 }
+
+/**
+ * gvir_connection_create_domain:
+ * @conn: the connection on which to create the dmain
+ * @conf: the configuration for the new domain
+ * Returns: (transfer full): the newly created domain
+ */
+GVirDomain *gvir_connection_create_domain(GVirConnection *conn,
+                                          GVirConfigDomain *conf,
+                                          GError **err)
+{
+    const gchar *xml;
+    virDomainPtr handle;
+    GVirConnectionPrivate *priv = conn->priv;
+
+    xml = gvir_config_object_get_doc(GVIR_CONFIG_OBJECT(conf));
+
+    g_return_val_if_fail(xml != NULL, NULL);
+
+    if (!(handle = virDomainDefineXML(priv->conn, xml))) {
+        *err = gvir_error_new_literal(GVIR_CONNECTION_ERROR,
+                                      0,
+                                      "Failed to create domain");
+        return NULL;
+    }
+
+    GVirDomain *domain;
+
+    domain = GVIR_DOMAIN(g_object_new(GVIR_TYPE_DOMAIN,
+                                       "handle", handle,
+                                       NULL));
+
+    g_mutex_lock(priv->lock);
+    g_hash_table_insert(priv->domains,
+                        g_strdup(gvir_domain_get_uuid(domain)),
+                        domain);
+    g_mutex_unlock(priv->lock);
+
+    return g_object_ref(domain);
+}
