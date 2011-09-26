@@ -43,6 +43,7 @@ struct _GVirConnectionPrivate
     virConnectPtr conn;
 
     GHashTable *domains;
+    GHashTable *pools;
 };
 
 G_DEFINE_TYPE(GVirConnection, gvir_connection, G_TYPE_OBJECT);
@@ -357,6 +358,11 @@ void gvir_connection_close(GVirConnection *conn)
         priv->domains = NULL;
     }
 
+    if (priv->pools) {
+        g_hash_table_unref(priv->pools);
+        priv->pools = NULL;
+    }
+
     if (priv->conn) {
         virConnectClose(priv->conn);
         priv->conn = NULL;
@@ -503,6 +509,148 @@ cleanup:
     return ret;
 }
 
+/**
+ * gvir_connection_fetch_storage_pools:
+ * @conn: the connection
+ * @cancellable: (allow-none)(transfer none): cancellation object
+ */
+gboolean gvir_connection_fetch_storage_pools(GVirConnection *conn,
+                                             GCancellable *cancellable,
+                                             GError **err)
+{
+    GVirConnectionPrivate *priv = conn->priv;
+    GHashTable *pools;
+    gchar **inactive = NULL;
+    gint ninactive = 0;
+    gchar **active = NULL;
+    gint nactive = 0;
+    gboolean ret = FALSE;
+    gint i;
+    virConnectPtr vconn = NULL;
+
+    g_mutex_lock(priv->lock);
+    if (!priv->conn) {
+        *err = gvir_error_new(GVIR_CONNECTION_ERROR,
+                              0,
+                              "Connection is not open");
+        g_mutex_unlock(priv->lock);
+        goto cleanup;
+    }
+    vconn = priv->conn;
+    /* Stop another thread closing the connection just at the minute */
+    virConnectRef(vconn);
+    g_mutex_unlock(priv->lock);
+
+    if (g_cancellable_set_error_if_cancelled(cancellable, err))
+        goto cleanup;
+
+    if ((nactive = virConnectNumOfStoragePools(vconn)) < 0) {
+        *err = gvir_error_new(GVIR_CONNECTION_ERROR,
+                              0,
+                              "Unable to count pools");
+        goto cleanup;
+    }
+    if (nactive) {
+        if (g_cancellable_set_error_if_cancelled(cancellable, err))
+            goto cleanup;
+
+        active = g_new(gchar *, nactive);
+        if ((nactive = virConnectListStoragePools(vconn,
+                                                  active,
+                                                  nactive)) < 0) {
+            *err = gvir_error_new(GVIR_CONNECTION_ERROR,
+                                  0,
+                                  "Unable to list pools");
+            goto cleanup;
+        }
+    }
+
+    if (g_cancellable_set_error_if_cancelled(cancellable, err))
+        goto cleanup;
+
+    if ((ninactive = virConnectNumOfDefinedStoragePools(vconn)) < 0) {
+        *err = gvir_error_new(GVIR_CONNECTION_ERROR,
+                              0,
+                              "Unable to count pools");
+        goto cleanup;
+    }
+
+    if (ninactive) {
+        if (g_cancellable_set_error_if_cancelled(cancellable, err))
+            goto cleanup;
+
+        inactive = g_new(gchar *, ninactive);
+        if ((ninactive = virConnectListDefinedStoragePools(vconn,
+                                                           inactive,
+                                                           ninactive)) < 0) {
+            *err = gvir_error_new(GVIR_CONNECTION_ERROR,
+                                  0,
+                                  "Unable to list pools %d", ninactive);
+            goto cleanup;
+        }
+    }
+
+    pools = g_hash_table_new_full(g_str_hash,
+                                  g_str_equal,
+                                  g_free,
+                                  g_object_unref);
+
+    for (i = 0 ; i < nactive ; i++) {
+        if (g_cancellable_set_error_if_cancelled(cancellable, err))
+            goto cleanup;
+
+        virStoragePoolPtr vpool;
+        GVirStoragePool *pool;
+
+        vpool = virStoragePoolLookupByName(vconn, active[i]);
+        if (!vpool)
+            continue;
+
+        pool = GVIR_STORAGE_POOL(g_object_new(GVIR_TYPE_STORAGE_POOL,
+                                              "handle", vpool,
+                                              NULL));
+
+        g_hash_table_insert(pools,
+                            g_strdup(gvir_storage_pool_get_uuid(pool)),
+                            pool);
+    }
+
+    for (i = 0 ; i < ninactive ; i++) {
+        if (g_cancellable_set_error_if_cancelled(cancellable, err))
+            goto cleanup;
+
+        virStoragePoolPtr vpool;
+        GVirStoragePool *pool;
+
+        vpool = virStoragePoolLookupByName(vconn, inactive[i]);
+        if (!vpool)
+            continue;
+
+        pool = GVIR_STORAGE_POOL(g_object_new(GVIR_TYPE_STORAGE_POOL,
+                                              "handle", vpool,
+                                              NULL));
+
+        g_hash_table_insert(pools,
+                            g_strdup(gvir_storage_pool_get_uuid(pool)),
+                            pool);
+    }
+
+    g_mutex_lock(priv->lock);
+    if (priv->pools)
+        g_hash_table_unref(priv->pools);
+    priv->pools = pools;
+    virConnectClose(vconn);
+    g_mutex_unlock(priv->lock);
+
+    ret = TRUE;
+
+cleanup:
+    g_free(active);
+    for (i = 0 ; i < ninactive ; i++)
+        g_free(inactive[i]);
+    g_free(inactive);
+    return ret;
+}
 
 static void
 gvir_connection_fetch_domains_helper(GSimpleAsyncResult *res,
@@ -566,6 +714,67 @@ gboolean gvir_connection_fetch_domains_finish(GVirConnection *conn,
     return TRUE;
 }
 
+static void
+gvir_connection_fetch_pools_helper(GSimpleAsyncResult *res,
+                                   GObject *object,
+                                   GCancellable *cancellable)
+{
+    GVirConnection *conn = GVIR_CONNECTION(object);
+    GError *err = NULL;
+
+    if (!gvir_connection_fetch_storage_pools(conn, cancellable, &err)) {
+        g_simple_async_result_set_from_error(res, err);
+        g_error_free(err);
+    }
+}
+
+/**
+ * gvir_connection_fetch_storage_pools_async:
+ * @conn: the connection
+ * @cancellable: (allow-none)(transfer none): cancellation object
+ * @callback: (transfer none): completion callback
+ * @opaque: (transfer none)(allow-none): opaque data for callback
+ */
+void gvir_connection_fetch_storage_pools_async(GVirConnection *conn,
+                                               GCancellable *cancellable,
+                                               GAsyncReadyCallback callback,
+                                               gpointer opaque)
+{
+    GSimpleAsyncResult *res;
+
+    res = g_simple_async_result_new(G_OBJECT(conn),
+                                    callback,
+                                    opaque,
+                                    gvir_connection_fetch_storage_pools);
+    g_simple_async_result_run_in_thread(res,
+                                        gvir_connection_fetch_pools_helper,
+                                        G_PRIORITY_DEFAULT,
+                                        cancellable);
+    g_object_unref(res);
+}
+
+/**
+ * gvir_connection_fetch_storage_pools_finish:
+ * @conn: the connection
+ * @result: (transfer none): async method result
+ */
+gboolean gvir_connection_fetch_storage_pools_finish(GVirConnection *conn,
+                                                    GAsyncResult *result,
+                                                    GError **err)
+{
+    g_return_val_if_fail(GVIR_IS_CONNECTION(conn), FALSE);
+    g_return_val_if_fail(G_IS_ASYNC_RESULT(result), FALSE);
+
+    if (G_IS_SIMPLE_ASYNC_RESULT(result)) {
+        GSimpleAsyncResult *simple = G_SIMPLE_ASYNC_RESULT(result);
+        g_warn_if_fail (g_simple_async_result_get_source_tag(simple) ==
+                        gvir_connection_fetch_storage_pools);
+        if (g_simple_async_result_propagate_error(simple, err))
+            return FALSE;
+    }
+
+    return TRUE;
+}
 
 const gchar *gvir_connection_get_uri(GVirConnection *conn)
 {
@@ -595,6 +804,25 @@ GList *gvir_connection_get_domains(GVirConnection *conn)
 }
 
 /**
+ * gvir_connection_get_storage_pools:
+ *
+ * Return value: (element-type LibvirtGObject.StoragePool) (transfer full): List
+ * of #GVirStoragePool
+ */
+GList *gvir_connection_get_storage_pools(GVirConnection *conn)
+{
+    GVirConnectionPrivate *priv = conn->priv;
+    GList *pools;
+
+    g_mutex_lock(priv->lock);
+    pools = g_hash_table_get_values(priv->pools);
+    g_list_foreach(pools, gvir_domain_ref, NULL);
+    g_mutex_unlock(priv->lock);
+
+    return pools;
+}
+
+/**
  * gvir_connection_get_domain:
  * @uuid: uuid string of the requested domain
  *
@@ -613,6 +841,26 @@ GVirDomain *gvir_connection_get_domain(GVirConnection *conn,
     return dom;
 }
 
+/**
+ * gvir_connection_get_storage_pool:
+ * @uuid: uuid string of the requested storage pool
+ *
+ * Return value: (transfer full): the #GVirStoragePool, or NULL
+ */
+GVirStoragePool *gvir_connection_get_storage_pool(GVirConnection *conn,
+                                                  const gchar *uuid)
+{
+    GVirConnectionPrivate *priv = conn->priv;
+    GVirStoragePool *pool;
+
+    g_mutex_lock(priv->lock);
+    pool = g_hash_table_lookup(priv->pools, uuid);
+    if (pool)
+        g_object_ref(pool);
+    g_mutex_unlock(priv->lock);
+
+    return pool;
+}
 
 /**
  * gvir_connection_find_domain_by_id:
@@ -670,6 +918,37 @@ GVirDomain *gvir_connection_find_domain_by_name(GVirConnection *conn,
             g_object_ref(dom);
             g_mutex_unlock(priv->lock);
             return dom;
+        }
+    }
+    g_mutex_unlock(priv->lock);
+
+    return NULL;
+}
+
+/**
+ * gvir_connection_find_storage_pool_by_name:
+ * @name: name of the requested storage pool
+ *
+ * Return value: (transfer full): the #GVirStoragePool, or NULL
+ */
+GVirStoragePool *gvir_connection_find_storage_pool_by_name(GVirConnection *conn,
+                                                           const gchar *name)
+{
+    GVirConnectionPrivate *priv = conn->priv;
+    GHashTableIter iter;
+    gpointer key, value;
+
+    g_mutex_lock(priv->lock);
+    g_hash_table_iter_init(&iter, priv->pools);
+
+    while (g_hash_table_iter_next(&iter, &key, &value)) {
+        GVirStoragePool *pool = value;
+        const gchar *thisname = gvir_storage_pool_get_name(pool);
+
+        if (strcmp(thisname, name) == 0) {
+            g_object_ref(pool);
+            g_mutex_unlock(priv->lock);
+            return pool;
         }
     }
     g_mutex_unlock(priv->lock);

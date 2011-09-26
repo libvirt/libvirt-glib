@@ -141,14 +141,24 @@ GVirNodeDevice *gvir_connection_get_node_device(GVirConnection *conn,
 GList *gvir_connection_get_secrets(GVirConnection *conn);
 GVirSecret *gvir_connection_get_secret(GVirConnection *conn,
                                        const gchar *uuid);
+#endif
 
+gboolean gvir_connection_fetch_storage_pools(GVirConnection *conn,
+                                             GCancellable *cancellable,
+                                             GError **err);
+void gvir_connection_fetch_storage_pools_async(GVirConnection *conn,
+                                               GCancellable *cancellable,
+                                               GAsyncReadyCallback callback,
+                                               gpointer opaque);
+gboolean gvir_connection_fetch_storage_pools_finish(GVirConnection *conn,
+                                                    GAsyncResult *result,
+                                                    GError **err);
 
 GList *gvir_connection_get_storage_pools(GVirConnection *conn);
 GVirStoragePool *gvir_connection_get_storage_pool(GVirConnection *conn,
                                                   const gchar *uuid);
 GVirStoragePool *gvir_connection_find_storage_pool_by_name(GVirConnection *conn,
                                                            const gchar *name);
-#endif
 
 GVirStream *gvir_connection_get_stream(GVirConnection *conn,
                                        gint flags);
