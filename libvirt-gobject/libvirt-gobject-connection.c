@@ -573,7 +573,6 @@ const gchar *gvir_connection_get_uri(GVirConnection *conn)
     return priv->uri;
 }
 
-
 static void gvir_domain_ref(gpointer obj, gpointer ignore G_GNUC_UNUSED)
 {
     g_object_ref(obj);
