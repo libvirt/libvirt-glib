@@ -258,7 +258,7 @@ gboolean gvir_domain_start(GVirDomain *dom,
 }
 
 /**
- * gvir_domain_start:
+ * gvir_domain_stop:
  * @dom: the domain
  * @flags:  the flags
  */
@@ -279,7 +279,7 @@ gboolean gvir_domain_stop(GVirDomain *dom,
 }
 
 /**
- * gvir_domain_start:
+ * gvir_domain_delete:
  * @dom: the domain
  * @flags:  the flags
  */
@@ -300,7 +300,7 @@ gboolean gvir_domain_delete(GVirDomain *dom,
 }
 
 /**
- * gvir_domain_start:
+ * gvir_domain_shutdown:
  * @dom: the domain
  * @flags:  the flags
  */
@@ -321,7 +321,7 @@ gboolean gvir_domain_shutdown(GVirDomain *dom,
 }
 
 /**
- * gvir_domain_start:
+ * gvir_domain_reboot:
  * @dom: the domain
  * @flags:  the flags
  */
