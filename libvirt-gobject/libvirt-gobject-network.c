@@ -170,9 +170,9 @@ GType gvir_network_handle_get_type(void)
 }
 
 
-const gchar *gvir_network_get_name(GVirNetwork *dom)
+const gchar *gvir_network_get_name(GVirNetwork *network)
 {
-    GVirNetworkPrivate *priv = dom->priv;
+    GVirNetworkPrivate *priv = network->priv;
     const char *name;
 
     if (!(name = virNetworkGetName(priv->handle))) {
@@ -183,9 +183,9 @@ const gchar *gvir_network_get_name(GVirNetwork *dom)
 }
 
 
-gchar *gvir_network_get_uuid(GVirNetwork *dom)
+gchar *gvir_network_get_uuid(GVirNetwork *network)
 {
-    GVirNetworkPrivate *priv = dom->priv;
+    GVirNetworkPrivate *priv = network->priv;
     char *uuid = g_new(gchar, VIR_UUID_STRING_BUFLEN);
 
     if (virNetworkGetUUIDString(priv->handle, uuid) < 0) {
@@ -196,15 +196,15 @@ gchar *gvir_network_get_uuid(GVirNetwork *dom)
 
 /**
  * gvir_network_get_config:
- * @dom: the network
+ * @network: the network
  * @flags: the flags
  * Returns: (transfer full): the config
  */
-GVirConfigNetwork *gvir_network_get_config(GVirNetwork *dom,
+GVirConfigNetwork *gvir_network_get_config(GVirNetwork *network,
                                            guint64 flags,
                                            GError **err)
 {
-    GVirNetworkPrivate *priv = dom->priv;
+    GVirNetworkPrivate *priv = network->priv;
     gchar *xml;
 
     if (!(xml = virNetworkGetXMLDesc(priv->handle, flags))) {

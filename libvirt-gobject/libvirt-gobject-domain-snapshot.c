@@ -172,10 +172,10 @@ GType gvir_domain_snapshot_handle_get_type(void)
 }
 
 
-const gchar *gvir_domain_snapshot_get_name(GVirDomainSnapshot *dom)
+const gchar *gvir_domain_snapshot_get_name(GVirDomainSnapshot *snapshot)
 {
 #if 0
-    GVirDomainSnapshotPrivate *priv = dom->priv;
+    GVirDomainSnapshotPrivate *priv = snapshot->priv;
     const char *name;
 
     if (!(name = virDomainSnapshotGetName(priv->handle))) {
@@ -184,7 +184,7 @@ const gchar *gvir_domain_snapshot_get_name(GVirDomainSnapshot *dom)
 
     return name;
 #else
-    if (dom || !dom)
+    if (snapshot || !snapshot)
         return NULL;
 #endif
 }
@@ -192,15 +192,16 @@ const gchar *gvir_domain_snapshot_get_name(GVirDomainSnapshot *dom)
 
 /**
  * gvir_domain_snapshot_get_config:
- * @dom: the domain_snapshot
+ * @snapshot: the domain_snapshot
  * @flags: the flags
  * Returns: (transfer full): the config
  */
-GVirConfigDomainSnapshot *gvir_domain_snapshot_get_config(GVirDomainSnapshot *dom,
-                                                          guint64 flags,
-                                                          GError **err)
+GVirConfigDomainSnapshot *gvir_domain_snapshot_get_config
+                                (GVirDomainSnapshot *snapshot,
+                                 guint64 flags,
+                                 GError **err)
 {
-    GVirDomainSnapshotPrivate *priv = dom->priv;
+    GVirDomainSnapshotPrivate *priv = snapshot->priv;
     gchar *xml;
 
     if (!(xml = virDomainSnapshotGetXMLDesc(priv->handle, flags))) {

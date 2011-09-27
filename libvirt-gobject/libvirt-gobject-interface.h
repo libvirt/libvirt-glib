@@ -62,11 +62,11 @@ struct _GVirInterfaceClass
 GType gvir_interface_get_type(void);
 GType gvir_interface_handle_get_type(void);
 
-const gchar *gvir_interface_get_name(GVirInterface *dom);
+const gchar *gvir_interface_get_name(GVirInterface *iface);
 
-GVirConfigInterface *gvir_interface_get_config(GVirInterface *dom,
-                                         guint64 flags,
-                                         GError **err);
+GVirConfigInterface *gvir_interface_get_config(GVirInterface *iface,
+                                               guint64 flags,
+                                               GError **err);
 
 G_END_DECLS
 

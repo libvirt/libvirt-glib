@@ -62,11 +62,12 @@ struct _GVirDomainSnapshotClass
 GType gvir_domain_snapshot_get_type(void);
 GType gvir_domain_snapshot_handle_get_type(void);
 
-const gchar *gvir_domain_snapshot_get_name(GVirDomainSnapshot *dom);
+const gchar *gvir_domain_snapshot_get_name(GVirDomainSnapshot *snapshot);
 
-GVirConfigDomainSnapshot *gvir_domain_snapshot_get_config(GVirDomainSnapshot *dom,
-                                                          guint64 flags,
-                                                          GError **err);
+GVirConfigDomainSnapshot *gvir_domain_snapshot_get_config
+                                (GVirDomainSnapshot *snapshot,
+                                 guint64 flags,
+                                 GError **err);
 
 G_END_DECLS
 

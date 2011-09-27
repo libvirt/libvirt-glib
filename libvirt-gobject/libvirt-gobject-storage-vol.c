@@ -170,9 +170,9 @@ GType gvir_storage_vol_handle_get_type(void)
 }
 
 
-const gchar *gvir_storage_vol_get_name(GVirStorageVol *dom)
+const gchar *gvir_storage_vol_get_name(GVirStorageVol *vol)
 {
-    GVirStorageVolPrivate *priv = dom->priv;
+    GVirStorageVolPrivate *priv = vol->priv;
     const char *name;
 
     if (!(name = virStorageVolGetName(priv->handle))) {
@@ -185,15 +185,15 @@ const gchar *gvir_storage_vol_get_name(GVirStorageVol *dom)
 
 /**
  * gvir_storage_vol_get_config:
- * @dom: the storage_vol
+ * @vol: the storage_vol
  * @flags: the flags
  * Returns: (transfer full): the config
  */
-GVirConfigStorageVol *gvir_storage_vol_get_config(GVirStorageVol *dom,
+GVirConfigStorageVol *gvir_storage_vol_get_config(GVirStorageVol *vol,
                                                   guint64 flags,
                                                   GError **err)
 {
-    GVirStorageVolPrivate *priv = dom->priv;
+    GVirStorageVolPrivate *priv = vol->priv;
     gchar *xml;
 
     if (!(xml = virStorageVolGetXMLDesc(priv->handle, flags))) {

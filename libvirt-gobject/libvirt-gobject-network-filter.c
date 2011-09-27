@@ -170,9 +170,9 @@ GType gvir_network_filter_handle_get_type(void)
 }
 
 
-const gchar *gvir_network_filter_get_name(GVirNetworkFilter *dom)
+const gchar *gvir_network_filter_get_name(GVirNetworkFilter *filter)
 {
-    GVirNetworkFilterPrivate *priv = dom->priv;
+    GVirNetworkFilterPrivate *priv = filter->priv;
     const char *name;
 
     if (!(name = virNWFilterGetName(priv->handle))) {
@@ -183,9 +183,9 @@ const gchar *gvir_network_filter_get_name(GVirNetworkFilter *dom)
 }
 
 
-gchar *gvir_network_filter_get_uuid(GVirNetworkFilter *dom)
+gchar *gvir_network_filter_get_uuid(GVirNetworkFilter *filter)
 {
-    GVirNetworkFilterPrivate *priv = dom->priv;
+    GVirNetworkFilterPrivate *priv = filter->priv;
     char *uuid = g_new(gchar, VIR_UUID_STRING_BUFLEN);
 
     if (virNWFilterGetUUIDString(priv->handle, uuid) < 0) {
@@ -197,15 +197,16 @@ gchar *gvir_network_filter_get_uuid(GVirNetworkFilter *dom)
 
 /**
  * gvir_network_filter_get_config:
- * @dom: the network_filter
+ * @filter: the network_filter
  * @flags: the flags
  * Returns: (transfer full): the config
  */
-GVirConfigNetworkFilter *gvir_network_filter_get_config(GVirNetworkFilter *dom,
-                                         guint64 flags,
-                                         GError **err)
+GVirConfigNetworkFilter *gvir_network_filter_get_config
+                                (GVirNetworkFilter *filter,
+                                 guint64 flags,
+                                 GError **err)
 {
-    GVirNetworkFilterPrivate *priv = dom->priv;
+    GVirNetworkFilterPrivate *priv = filter->priv;
     gchar *xml;
 
     if (!(xml = virNWFilterGetXMLDesc(priv->handle, flags))) {

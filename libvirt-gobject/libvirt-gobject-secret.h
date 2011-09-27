@@ -62,10 +62,10 @@ struct _GVirSecretClass
 GType gvir_secret_get_type(void);
 GType gvir_secret_handle_get_type(void);
 
-const gchar *gvir_secret_get_name(GVirSecret *dom);
-gchar *gvir_secret_get_uuid(GVirSecret *dom);
+const gchar *gvir_secret_get_name(GVirSecret *secret);
+gchar *gvir_secret_get_uuid(GVirSecret *secret);
 
-GVirConfigSecret *gvir_secret_get_config(GVirSecret *dom,
+GVirConfigSecret *gvir_secret_get_config(GVirSecret *secret,
                                          guint64 flags,
                                          GError **err);
 

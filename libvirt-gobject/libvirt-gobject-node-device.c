@@ -170,9 +170,9 @@ GType gvir_node_device_handle_get_type(void)
 }
 
 
-const gchar *gvir_node_device_get_name(GVirNodeDevice *dom)
+const gchar *gvir_node_device_get_name(GVirNodeDevice *device)
 {
-    GVirNodeDevicePrivate *priv = dom->priv;
+    GVirNodeDevicePrivate *priv = device->priv;
     const char *name;
 
     if (!(name = virNodeDeviceGetName(priv->handle))) {
@@ -185,15 +185,15 @@ const gchar *gvir_node_device_get_name(GVirNodeDevice *dom)
 
 /**
  * gvir_node_device_get_config:
- * @dom: the node_device
+ * @device: the node_device
  * @flags: the flags
  * Returns: (transfer full): the config
  */
-GVirConfigNodeDevice *gvir_node_device_get_config(GVirNodeDevice *dom,
+GVirConfigNodeDevice *gvir_node_device_get_config(GVirNodeDevice *device,
                                                   guint64 flags,
                                                   GError **err)
 {
-    GVirNodeDevicePrivate *priv = dom->priv;
+    GVirNodeDevicePrivate *priv = device->priv;
     gchar *xml;
 
     if (!(xml = virNodeDeviceGetXMLDesc(priv->handle, flags))) {

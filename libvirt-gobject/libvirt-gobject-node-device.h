@@ -61,9 +61,9 @@ struct _GVirNodeDeviceClass
 GType gvir_node_device_get_type(void);
 GType gvir_node_device_handle_get_type(void);
 
-const gchar *gvir_node_device_get_name(GVirNodeDevice *dom);
+const gchar *gvir_node_device_get_name(GVirNodeDevice *device);
 
-GVirConfigNodeDevice *gvir_node_device_get_config(GVirNodeDevice *dom,
+GVirConfigNodeDevice *gvir_node_device_get_config(GVirNodeDevice *device,
                                                   guint64 flags,
                                                   GError **err);
 

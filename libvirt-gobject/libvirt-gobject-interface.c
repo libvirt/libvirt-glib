@@ -170,9 +170,9 @@ GType gvir_interface_handle_get_type(void)
 }
 
 
-const gchar *gvir_interface_get_name(GVirInterface *dom)
+const gchar *gvir_interface_get_name(GVirInterface *iface)
 {
-    GVirInterfacePrivate *priv = dom->priv;
+    GVirInterfacePrivate *priv = iface->priv;
     const char *name;
 
     if (!(name = virInterfaceGetName(priv->handle))) {
@@ -185,15 +185,15 @@ const gchar *gvir_interface_get_name(GVirInterface *dom)
 
 /**
  * gvir_interface_get_config:
- * @dom: the interface
+ * @iface: the interface
  * @flags: the flags
  * Returns: (transfer full): the config
  */
-GVirConfigInterface *gvir_interface_get_config(GVirInterface *dom,
+GVirConfigInterface *gvir_interface_get_config(GVirInterface *iface,
                                                guint64 flags,
                                                GError **err)
 {
-    GVirInterfacePrivate *priv = dom->priv;
+    GVirInterfacePrivate *priv = iface->priv;
     gchar *xml;
 
     if (!(xml = virInterfaceGetXMLDesc(priv->handle, flags))) {

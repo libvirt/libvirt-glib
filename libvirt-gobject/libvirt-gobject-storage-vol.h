@@ -61,10 +61,10 @@ struct _GVirStorageVolClass
 GType gvir_storage_vol_get_type(void);
 GType gvir_storage_vol_handle_get_type(void);
 
-const gchar *gvir_storage_vol_get_name(GVirStorageVol *dom);
-const gchar *gvir_storage_vol_get_path(GVirStorageVol *dom);
+const gchar *gvir_storage_vol_get_name(GVirStorageVol *vol);
+const gchar *gvir_storage_vol_get_path(GVirStorageVol *vol);
 
-GVirConfigStorageVol *gvir_storage_vol_get_config(GVirStorageVol *dom,
+GVirConfigStorageVol *gvir_storage_vol_get_config(GVirStorageVol *vol,
                                                   guint64 flags,
                                                   GError **err);
 

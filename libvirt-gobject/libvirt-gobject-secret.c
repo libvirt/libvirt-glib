@@ -170,9 +170,9 @@ GType gvir_secret_handle_get_type(void)
 }
 
 
-gchar *gvir_secret_get_uuid(GVirSecret *dom)
+gchar *gvir_secret_get_uuid(GVirSecret *secret)
 {
-    GVirSecretPrivate *priv = dom->priv;
+    GVirSecretPrivate *priv = secret->priv;
     char *uuid = g_new(gchar, VIR_UUID_STRING_BUFLEN);
 
     if (virSecretGetUUIDString(priv->handle, uuid) < 0) {
@@ -184,15 +184,15 @@ gchar *gvir_secret_get_uuid(GVirSecret *dom)
 
 /**
  * gvir_secret_get_config:
- * @dom: the secret
+ * @secret: the secret
  * @flags: the flags
  * Returns: (transfer full): the config
  */
-GVirConfigSecret *gvir_secret_get_config(GVirSecret *dom,
+GVirConfigSecret *gvir_secret_get_config(GVirSecret *secret,
                                          guint64 flags,
                                          GError **err)
 {
-    GVirSecretPrivate *priv = dom->priv;
+    GVirSecretPrivate *priv = secret->priv;
     gchar *xml;
 
     if (!(xml = virSecretGetXMLDesc(priv->handle, flags))) {

@@ -61,12 +61,13 @@ struct _GVirNetworkFilterClass
 GType gvir_network_filter_get_type(void);
 GType gvir_network_filter_handle_get_type(void);
 
-const gchar *gvir_network_filter_get_name(GVirNetworkFilter *dom);
-gchar *gvir_network_filter_get_uuid(GVirNetworkFilter *dom);
+const gchar *gvir_network_filter_get_name(GVirNetworkFilter *filter);
+gchar *gvir_network_filter_get_uuid(GVirNetworkFilter *filter);
 
-GVirConfigNetworkFilter *gvir_network_filter_get_config(GVirNetworkFilter *dom,
-                                                        guint64 flags,
-                                                        GError **err);
+GVirConfigNetworkFilter *gvir_network_filter_get_config
+                                (GVirNetworkFilter *filter,
+                                 guint64 flags,
+                                 GError **err);
 
 G_END_DECLS
 
