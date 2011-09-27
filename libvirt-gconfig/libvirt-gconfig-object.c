@@ -294,6 +294,25 @@ void gvir_config_object_validate(GVirConfigObject *config,
     xmlRelaxNGFree(rng);
 }
 
+gchar *gvir_config_object_to_xml(GVirConfigObject *config)
+{
+    xmlChar *doc;
+    int size;
+    xmlNodePtr node;
+    gchar *output_doc;
+
+    node = gvir_config_object_get_xml_node(config, NULL);
+    if (node == NULL)
+        return NULL;
+
+    xmlDocDumpMemory(node->doc, &doc, &size);
+
+    output_doc = g_strdup((gchar *)doc);
+    xmlFree(doc);
+
+    return output_doc;
+}
+
 const gchar *gvir_config_object_get_doc(GVirConfigObject *config)
 {
     GVirConfigObjectPrivate *priv = config->priv;

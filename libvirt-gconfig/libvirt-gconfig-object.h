@@ -62,6 +62,8 @@ GType gvir_config_object_get_type(void);
 void gvir_config_object_validate(GVirConfigObject *config,
                                  GError **err);
 
+gchar *gvir_config_object_to_xml(GVirConfigObject *config);
+
 const gchar *gvir_config_object_get_doc(GVirConfigObject *config);
 const gchar *gvir_config_object_get_schema(GVirConfigObject *config);
 xmlDocPtr  gvir_config_object_get_xml_doc(GVirConfigObject *config, GError **error);
