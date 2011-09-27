@@ -22,6 +22,7 @@ LIBVIRT_GOBJECT_0.0.1 {
 	gvir_config_node_device_new;
 
 	gvir_config_object_get_type;
+	gvir_config_object_error_quark;
 	gvir_config_object_new;
 	gvir_config_object_get_doc;
 	gvir_config_object_get_schema;

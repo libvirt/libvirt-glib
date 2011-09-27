@@ -19,6 +19,7 @@ conn_test_CFLAGS = \
 		$(WARN_CFLAGS) \
 		$(GLIB2_CFLAGS) \
 		$(LIBVIRT_CFLAGS) \
+		$(LIBXML2_CFLAGS) \
 		-I$(top_srcdir)
 conn_test_SOURCES = \
 		conn-test.c

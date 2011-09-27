@@ -29,6 +29,7 @@
 #include <libxml/xmlerror.h>
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
+#include "libvirt-gconfig/libvirt-gconfig-helpers-private.h"
 
 //extern gboolean debugFlag;
 gboolean debugFlag;
@@ -54,58 +55,6 @@ enum {
     PROP_SCHEMA,
 };
 
-
-#define GVIR_CONFIG_OBJECT_ERROR gvir_config_object_error_quark()
-
-
-static GQuark
-gvir_config_object_error_quark(void)
-{
-    return g_quark_from_static_string("gvir-config-object");
-}
-
-static GError *gvir_xml_error_new_literal(GQuark domain,
-                                          gint code,
-                                          const gchar *message)
-{
-    xmlErrorPtr xerr = xmlGetLastError();
-
-    if (!xerr)
-        return NULL;
-
-    if (message)
-        return g_error_new(domain,
-                           code,
-                           "%s: %s",
-                           message,
-                           xerr->message);
-    else
-        return g_error_new(domain,
-                           code,
-                           "%s",
-                           xerr->message);
-}
-
-
-static GError *gvir_xml_error_new(GQuark domain,
-                                  gint code,
-                                  const gchar *format,
-                                  ...)
-{
-    GError *err;
-    va_list args;
-    gchar *message;
-
-    va_start(args, format);
-    message = g_strdup_vprintf(format, args);
-    va_end(args);
-
-    err = gvir_xml_error_new_literal(domain, code, message);
-
-    g_free(message);
-
-    return err;
-}
 
 static void gvir_xml_generic_error_nop(void *userData G_GNUC_UNUSED,
                                        const char *msg G_GNUC_UNUSED,

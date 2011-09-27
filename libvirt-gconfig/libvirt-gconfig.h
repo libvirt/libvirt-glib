@@ -24,7 +24,9 @@
 #define __LIBVIRT_GCONFIG_H__
 
 #include <glib-object.h>
+#include <libxml/tree.h>
 
+#include <libvirt-gconfig/libvirt-gconfig-helpers.h>
 #include <libvirt-gconfig/libvirt-gconfig-object.h>
 #include <libvirt-gconfig/libvirt-gconfig-capabilities.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain.h>

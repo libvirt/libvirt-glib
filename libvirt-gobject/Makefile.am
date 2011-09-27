@@ -57,6 +57,7 @@ libvirt_gobject_1_0_la_CFLAGS = \
 			$(LIBVIRT_CFLAGS) \
 			$(GOBJECT2_CFLAGS) \
 			$(GIO2_CFLAGS) \
+			$(LIBXML2_CFLAGS) \
 			$(WARN_CFLAGS)
 libvirt_gobject_1_0_la_LIBADD = \
 			$(LIBVIRT_LIBS) \
@@ -122,6 +123,7 @@ LibvirtGObject-1.0.gir: libvirt-gobject-1.0.la $(G_IR_SCANNER) Makefile.am
                 --output $@ \
                 -I$(top_srcdir) \
                 -I$(top_builddir) \
+                $(LIBXML2_CFLAGS) \
                 --verbose \
                 --pkg=gobject-2.0 \
                 --pkg=gthread-2.0 \
