@@ -645,6 +645,8 @@ gboolean gvir_connection_fetch_storage_pools(GVirConnection *conn,
     ret = TRUE;
 
 cleanup:
+    for (i = 0 ; i < nactive ; i++)
+        g_free(active[i]);
     g_free(active);
     for (i = 0 ; i < ninactive ; i++)
         g_free(inactive[i]);
