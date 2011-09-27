@@ -188,6 +188,14 @@ gvir_config_object_parse(GVirConfigObject *config,
     if (priv->docHandle)
         return;
 
+    if (!priv->doc) {
+        *err = g_error_new(GVIR_CONFIG_OBJECT_ERROR,
+                           0,
+                           "%s",
+                           "No XML document to parse");
+        return;
+    }
+
     priv->docHandle = xmlParseMemory(priv->doc, strlen(priv->doc));
     if (!priv->docHandle) {
         *err = gvir_xml_error_new(GVIR_CONFIG_OBJECT_ERROR,
