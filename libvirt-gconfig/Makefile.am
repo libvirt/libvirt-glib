@@ -1,3 +1,4 @@
+SUBDIRS = . tests
 
 EXTRA_DIST = libvirt-gconfig.sym
 

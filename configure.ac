@@ -238,6 +238,7 @@ AM_CONDITIONAL([WITH_VALA], [test "x$enable_vala" = "xyes"])
 AC_OUTPUT(Makefile
           libvirt-glib/Makefile
           libvirt-gconfig/Makefile
+          libvirt-gconfig/tests/Makefile
           libvirt-gobject/Makefile
           examples/Makefile
           python/Makefile
