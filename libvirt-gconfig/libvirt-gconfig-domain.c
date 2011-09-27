@@ -95,7 +95,7 @@ static void gvir_config_domain_init(GVirConfigDomain *conn)
 }
 
 
-GVirConfigDomain *gvir_config_domain_new(const gchar *xml)
+GVirConfigDomain *gvir_config_domain_new_from_xml(const gchar *xml)
 {
     return GVIR_CONFIG_DOMAIN(g_object_new(GVIR_TYPE_CONFIG_DOMAIN,
                                            "doc", xml,
