@@ -103,6 +103,18 @@ GVirConfigDomain *gvir_config_domain_new_from_xml(const gchar *xml)
                                            NULL));
 }
 
+GVirConfigDomain *gvir_config_domain_new(void)
+{
+    xmlDocPtr doc;
+
+    doc = xmlNewDoc((xmlChar *)"1.0");
+    doc->children = xmlNewDocNode(doc, NULL, (xmlChar *)"domain", NULL);
+    return GVIR_CONFIG_DOMAIN(g_object_new(GVIR_TYPE_CONFIG_DOMAIN,
+                                           "node", doc->children,
+                                           "schema", DATADIR "/libvirt/schemas/domain.rng",
+                                           NULL));
+}
+
 /* FIXME: do we add a GError ** to all getters in case there's an XML
  * parsing error? Doesn't work with gobject properties
  * => have a function to test if an error has occurred a la cairo?
