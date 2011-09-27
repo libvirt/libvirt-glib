@@ -61,6 +61,8 @@ GType gvir_config_domain_get_type(void);
 
 GVirConfigDomain *gvir_config_domain_new(const gchar *xml);
 
+char *gvir_config_domain_get_name(GVirConfigDomain *domain);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GCONFIG_DOMAIN_H__ */

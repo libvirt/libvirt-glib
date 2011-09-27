@@ -41,11 +41,45 @@ struct _GVirConfigDomainPrivate
 
 G_DEFINE_TYPE(GVirConfigDomain, gvir_config_domain, GVIR_TYPE_CONFIG_OBJECT);
 
+enum {
+    PROP_0,
+    PROP_NAME,
+};
+
+static void gvir_config_domain_get_property(GObject *object,
+                                            guint prop_id,
+                                            GValue *value,
+                                            GParamSpec *pspec)
+{
+    GVirConfigDomain *domain = GVIR_CONFIG_DOMAIN(object);
+
+    switch (prop_id) {
+    case PROP_NAME:
+        g_value_take_string(value, gvir_config_domain_get_name(domain));
+        break;
+
+    default:
+        G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
+    }
+}
+
 
 static void gvir_config_domain_class_init(GVirConfigDomainClass *klass)
 {
+    GObjectClass *object_class = G_OBJECT_CLASS(klass);
 
     g_type_class_add_private(klass, sizeof(GVirConfigDomainPrivate));
+
+    object_class->get_property = gvir_config_domain_get_property;
+
+    g_object_class_install_property(object_class,
+                                    PROP_NAME,
+                                    g_param_spec_string("name",
+                                                        "Name",
+                                                        "Domain Name",
+                                                        NULL,
+                                                        G_PARAM_READABLE |
+                                                        G_PARAM_STATIC_STRINGS));
 }
 
 
@@ -67,4 +101,20 @@ GVirConfigDomain *gvir_config_domain_new(const gchar *xml)
                                            "doc", xml,
                                            "schema", DATADIR "/libvirt/schemas/domain.rng",
                                            NULL));
+}
+
+/* FIXME: do we add a GError ** to all getters in case there's an XML
+ * parsing error? Doesn't work with gobject properties
+ * => have a function to test if an error has occurred a la cairo?
+ */
+char *gvir_config_domain_get_name(GVirConfigDomain *domain)
+{
+    xmlNodePtr node;
+
+    node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(domain), NULL);
+    if (node == NULL)
+        return NULL;
+
+    return gvir_config_xml_get_child_element_content_glib(node, "name");
+
 }
