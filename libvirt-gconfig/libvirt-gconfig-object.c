@@ -44,7 +44,11 @@ struct _GVirConfigObjectPrivate
     gchar *doc;
     gchar *schema;
 
+    /* FIXME: docHandle is node->doc, can probably be removed to avoid the
+     * 2 getting out of sync
+     */
     xmlDocPtr docHandle;
+    xmlNodePtr node;
 };
 
 G_DEFINE_ABSTRACT_TYPE(GVirConfigObject, gvir_config_object, G_TYPE_OBJECT);
@@ -53,6 +57,7 @@ enum {
     PROP_0,
     PROP_DOC,
     PROP_SCHEMA,
+    PROP_NODE
 };
 
 
@@ -84,6 +89,10 @@ static void gvir_config_object_get_property(GObject *object,
         g_value_set_string(value, priv->schema);
         break;
 
+    case PROP_NODE:
+        g_value_set_pointer(value, gvir_config_object_get_xml_node(conn, NULL));
+        break;
+
     default:
         G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
     }
@@ -107,6 +116,16 @@ static void gvir_config_object_set_property(GObject *object,
     case PROP_SCHEMA:
         g_free(priv->schema);
         priv->schema = g_value_dup_string(value);
+        break;
+
+    case PROP_NODE:
+        priv->node = g_value_get_pointer(value);
+        if ((priv->docHandle != NULL) && (priv->docHandle != priv->node->doc))
+            xmlFreeDoc(priv->docHandle);
+        if (priv->node)
+            priv->docHandle = priv->node->doc;
+        else
+            priv->docHandle = NULL;
         break;
 
     default:
@@ -165,6 +184,15 @@ static void gvir_config_object_class_init(GVirConfigObjectClass *klass)
                                                         G_PARAM_STATIC_NICK |
                                                         G_PARAM_STATIC_BLURB));
 
+    g_object_class_install_property(object_class,
+                                    PROP_NODE,
+                                    g_param_spec_pointer("node",
+                                                        "XML Node",
+                                                        "The XML node this config object corresponds to",
+                                                        G_PARAM_READWRITE |
+                                                        G_PARAM_CONSTRUCT_ONLY |
+                                                        G_PARAM_STATIC_STRINGS));
+
     g_type_class_add_private(klass, sizeof(GVirConfigObjectPrivate));
 }
 
@@ -203,6 +231,7 @@ gvir_config_object_parse(GVirConfigObject *config,
                                   "%s",
                                   "Unable to parse configuration");
     }
+    priv->node = priv->docHandle->children;
 }
 
 
@@ -278,6 +307,8 @@ const gchar *gvir_config_object_get_schema(GVirConfigObject *config)
 }
 
 /* NB: the xmlDocPtr must not be freed by the caller */
+/* gupnp has wrapped xmlDoc in a gobject */
+/* not really useful, can be obtained from xmlNode::doc */
 xmlDocPtr gvir_config_object_get_xml_doc(GVirConfigObject *config, GError **error)
 {
     gvir_config_object_parse(config, error);
@@ -291,7 +322,5 @@ xmlNodePtr gvir_config_object_get_xml_node(GVirConfigObject *config,
                                            GError **error)
 {
     gvir_config_object_parse(config, error);
-    if (error)
-        return NULL;
-    return config->priv->docHandle->children;
+    return config->priv->node;
 }
