@@ -64,7 +64,7 @@ LibvirtGConfig-1.0.gir: libvirt-gconfig-1.0.la $(G_IR_SCANNER) Makefile.am
                 --namespace LibvirtGConfig \
                 --nsversion 1.0 \
                 --include GObject-2.0 \
-                --identifier-prefix=GVir \
+                --identifier-prefix=GVirConfig \
                 --symbol-prefix=gvir \
                 --library=$(builddir)/libvirt-gconfig-1.0.la \
                 --output $@ \
