@@ -63,6 +63,22 @@ static void gvir_config_domain_get_property(GObject *object,
     }
 }
 
+static void gvir_config_domain_set_property(GObject *object,
+                                            guint prop_id,
+                                            const GValue *value,
+                                            GParamSpec *pspec)
+{
+    GVirConfigDomain *domain = GVIR_CONFIG_DOMAIN(object);
+
+    switch (prop_id) {
+    case PROP_NAME:
+        gvir_config_domain_set_name(domain, g_value_get_string(value));
+        break;
+    default:
+        G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
+    }
+}
+
 
 static void gvir_config_domain_class_init(GVirConfigDomainClass *klass)
 {
@@ -71,6 +87,7 @@ static void gvir_config_domain_class_init(GVirConfigDomainClass *klass)
     g_type_class_add_private(klass, sizeof(GVirConfigDomainPrivate));
 
     object_class->get_property = gvir_config_domain_get_property;
+    object_class->set_property = gvir_config_domain_set_property;
 
     g_object_class_install_property(object_class,
                                     PROP_NAME,
@@ -78,7 +95,7 @@ static void gvir_config_domain_class_init(GVirConfigDomainClass *klass)
                                                         "Name",
                                                         "Domain Name",
                                                         NULL,
-                                                        G_PARAM_READABLE |
+                                                        G_PARAM_READWRITE |
                                                         G_PARAM_STATIC_STRINGS));
 }
 
