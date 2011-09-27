@@ -374,6 +374,51 @@ void gvir_connection_close(GVirConnection *conn)
     g_signal_emit_by_name(conn, "vir-connection-closed");
 }
 
+typedef gint (* CountFunction) (virConnectPtr vconn);
+typedef gint (* ListFunction) (virConnectPtr vconn, gchar **lst, gint max);
+
+static gchar ** fetch_list(virConnectPtr vconn,
+                           const char *name,
+                           CountFunction count_func,
+                           ListFunction list_func,
+                           GCancellable *cancellable,
+                           gint *length,
+                           GError **err)
+{
+    gchar **lst = NULL;
+    gint n = 0;
+    gint i;
+
+    if ((n = count_func(vconn)) < 0) {
+        *err = gvir_error_new(GVIR_CONNECTION_ERROR,
+                              0,
+                              "Unable to count %s", name);
+        goto error;
+    }
+
+    if (n) {
+        if (g_cancellable_set_error_if_cancelled(cancellable, err))
+            goto error;
+
+        lst = g_new(gchar *, n);
+        if ((n = list_func(vconn, lst, n)) < 0) {
+            *err = gvir_error_new(GVIR_CONNECTION_ERROR,
+                                  0,
+                                  "Unable to list %s %d", name, n);
+            goto error;
+        }
+    }
+
+    *length = n;
+    return lst;
+
+error:
+    for (i = 0 ; i < n; i++)
+        g_free(lst[i]);
+    g_free(lst);
+    return NULL;
+}
+
 /**
  * gvir_connection_fetch_domains:
  * @conn: the connection
@@ -431,25 +476,15 @@ gboolean gvir_connection_fetch_domains(GVirConnection *conn,
     if (g_cancellable_set_error_if_cancelled(cancellable, err))
         goto cleanup;
 
-    if ((ninactive = virConnectNumOfDefinedDomains(vconn)) < 0) {
-        *err = gvir_error_new(GVIR_CONNECTION_ERROR,
-                              0,
-                              "Unable to count domains");
+    inactive = fetch_list(vconn,
+                          "Domains",
+                          virConnectNumOfDefinedDomains,
+                          virConnectListDefinedDomains,
+                          cancellable,
+                          &ninactive,
+                          err);
+    if (*err != NULL)
         goto cleanup;
-    }
-
-    if (ninactive) {
-        if (g_cancellable_set_error_if_cancelled(cancellable, err))
-            goto cleanup;
-
-        inactive = g_new(gchar *, ninactive);
-        if ((ninactive = virConnectListDefinedDomains(vconn, inactive, ninactive)) < 0) {
-            *err = gvir_error_new(GVIR_CONNECTION_ERROR,
-                                  0,
-                                  "Unable to list domains %d", ninactive);
-            goto cleanup;
-        }
-    }
 
     doms = g_hash_table_new_full(g_str_hash,
                                  g_str_equal,
@@ -544,51 +579,28 @@ gboolean gvir_connection_fetch_storage_pools(GVirConnection *conn,
     if (g_cancellable_set_error_if_cancelled(cancellable, err))
         goto cleanup;
 
-    if ((nactive = virConnectNumOfStoragePools(vconn)) < 0) {
-        *err = gvir_error_new(GVIR_CONNECTION_ERROR,
-                              0,
-                              "Unable to count pools");
+    active = fetch_list(vconn,
+                        "Storage Pools",
+                        virConnectNumOfStoragePools,
+                        virConnectListStoragePools,
+                        cancellable,
+                        &nactive,
+                        err);
+    if (*err != NULL)
         goto cleanup;
-    }
-    if (nactive) {
-        if (g_cancellable_set_error_if_cancelled(cancellable, err))
-            goto cleanup;
-
-        active = g_new(gchar *, nactive);
-        if ((nactive = virConnectListStoragePools(vconn,
-                                                  active,
-                                                  nactive)) < 0) {
-            *err = gvir_error_new(GVIR_CONNECTION_ERROR,
-                                  0,
-                                  "Unable to list pools");
-            goto cleanup;
-        }
-    }
 
     if (g_cancellable_set_error_if_cancelled(cancellable, err))
         goto cleanup;
 
-    if ((ninactive = virConnectNumOfDefinedStoragePools(vconn)) < 0) {
-        *err = gvir_error_new(GVIR_CONNECTION_ERROR,
-                              0,
-                              "Unable to count pools");
+    inactive = fetch_list(vconn,
+                          "Storage Pools",
+                          virConnectNumOfDefinedStoragePools,
+                          virConnectListDefinedStoragePools,
+                          cancellable,
+                          &ninactive,
+                          err);
+    if (*err != NULL)
         goto cleanup;
-    }
-
-    if (ninactive) {
-        if (g_cancellable_set_error_if_cancelled(cancellable, err))
-            goto cleanup;
-
-        inactive = g_new(gchar *, ninactive);
-        if ((ninactive = virConnectListDefinedStoragePools(vconn,
-                                                           inactive,
-                                                           ninactive)) < 0) {
-            *err = gvir_error_new(GVIR_CONNECTION_ERROR,
-                                  0,
-                                  "Unable to list pools %d", ninactive);
-            goto cleanup;
-        }
-    }
 
     pools = g_hash_table_new_full(g_str_hash,
                                   g_str_equal,
