@@ -38,7 +38,10 @@ extern gboolean debugFlag;
 
 struct _GVirStoragePoolPrivate
 {
+    GMutex *lock;
     virStoragePoolPtr handle;
+
+    GHashTable *volumes;
 };
 
 G_DEFINE_TYPE(GVirStoragePool, gvir_storage_pool, G_TYPE_OBJECT);
@@ -64,8 +67,8 @@ static void gvir_storage_pool_get_property(GObject *object,
                                            GValue *value,
                                            GParamSpec *pspec)
 {
-    GVirStoragePool *conn = GVIR_STORAGE_POOL(object);
-    GVirStoragePoolPrivate *priv = conn->priv;
+    GVirStoragePool *pool = GVIR_STORAGE_POOL(object);
+    GVirStoragePoolPrivate *priv = pool->priv;
 
     switch (prop_id) {
     case PROP_HANDLE:
@@ -83,8 +86,8 @@ static void gvir_storage_pool_set_property(GObject *object,
                                            const GValue *value,
                                            GParamSpec *pspec)
 {
-    GVirStoragePool *conn = GVIR_STORAGE_POOL(object);
-    GVirStoragePoolPrivate *priv = conn->priv;
+    GVirStoragePool *pool = GVIR_STORAGE_POOL(object);
+    GVirStoragePoolPrivate *priv = pool->priv;
 
     switch (prop_id) {
     case PROP_HANDLE:
@@ -101,12 +104,19 @@ static void gvir_storage_pool_set_property(GObject *object,
 
 static void gvir_storage_pool_finalize(GObject *object)
 {
-    GVirStoragePool *conn = GVIR_STORAGE_POOL(object);
-    GVirStoragePoolPrivate *priv = conn->priv;
+    GVirStoragePool *pool = GVIR_STORAGE_POOL(object);
+    GVirStoragePoolPrivate *priv = pool->priv;
 
-    DEBUG("Finalize GVirStoragePool=%p", conn);
+    DEBUG("Finalize GVirStoragePool=%p", pool);
+
+    if (priv->volumes) {
+        g_hash_table_unref(priv->volumes);
+        priv->volumes = NULL;
+    }
 
     virStoragePoolFree(priv->handle);
+
+    g_mutex_free(priv->lock);
 
     G_OBJECT_CLASS(gvir_storage_pool_parent_class)->finalize(object);
 }
@@ -137,15 +147,17 @@ static void gvir_storage_pool_class_init(GVirStoragePoolClass *klass)
 }
 
 
-static void gvir_storage_pool_init(GVirStoragePool *conn)
+static void gvir_storage_pool_init(GVirStoragePool *pool)
 {
     GVirStoragePoolPrivate *priv;
 
-    DEBUG("Init GVirStoragePool=%p", conn);
+    DEBUG("Init GVirStoragePool=%p", pool);
 
-    priv = conn->priv = GVIR_STORAGE_POOL_GET_PRIVATE(conn);
+    priv = pool->priv = GVIR_STORAGE_POOL_GET_PRIVATE(pool);
 
     memset(priv, 0, sizeof(*priv));
+
+    priv->lock = g_mutex_new();
 }
 
 static gpointer
@@ -219,4 +231,276 @@ GVirConfigStoragePool *gvir_storage_pool_get_config(GVirStoragePool *pool,
 
     g_free(xml);
     return conf;
+}
+
+typedef gint (* CountFunction) (virStoragePoolPtr vpool);
+typedef gint (* ListFunction) (virStoragePoolPtr vpool, gchar **lst, gint max);
+
+static gchar ** fetch_list(virStoragePoolPtr vpool,
+                           const char *name,
+                           CountFunction count_func,
+                           ListFunction list_func,
+                           GCancellable *cancellable,
+                           gint *length,
+                           GError **err)
+{
+    gchar **lst = NULL;
+    gint n = 0;
+    gint i;
+
+    if ((n = count_func(vpool)) < 0) {
+        *err = gvir_error_new(GVIR_STORAGE_POOL_ERROR,
+                              0,
+                              "Unable to count %s", name);
+        goto error;
+    }
+
+    if (n) {
+        if (g_cancellable_set_error_if_cancelled(cancellable, err))
+            goto error;
+
+        lst = g_new(gchar *, n);
+        if ((n = list_func(vpool, lst, n)) < 0) {
+            *err = gvir_error_new(GVIR_STORAGE_POOL_ERROR,
+                                  0,
+                                  "Unable to list %s %d", name, n);
+            goto error;
+        }
+    }
+
+    *length = n;
+    return lst;
+
+error:
+    for (i = 0 ; i < n; i++)
+        g_free(lst[i]);
+    g_free(lst);
+    return NULL;
+}
+
+/**
+ * gvir_storage_pool_refresh:
+ * @pool: the storage pool
+ * @cancellable: (allow-none)(transfer none): cancellation object
+ */
+gboolean gvir_storage_pool_refresh(GVirStoragePool *pool,
+                                   GCancellable *cancellable,
+                                   GError **err)
+{
+    GVirStoragePoolPrivate *priv = pool->priv;
+    GHashTable *vol_hash;
+    gchar **volumes = NULL;
+    gint nvolumes = 0;
+    gboolean ret = FALSE;
+    gint i;
+    virStoragePoolPtr vpool = NULL;
+
+    vpool = priv->handle;
+
+    if (virStoragePoolRefresh(vpool, 0) < 0) {
+        *err = gvir_error_new_literal(GVIR_STORAGE_POOL_ERROR,
+                                      0,
+                                      "Unable to refresh storage pool");
+        goto cleanup;
+    }
+
+    volumes = fetch_list(vpool,
+                        "Storage Volumes",
+                        virStoragePoolNumOfVolumes,
+                        virStoragePoolListVolumes,
+                        cancellable,
+                        &nvolumes,
+                        err);
+    if (*err != NULL)
+        goto cleanup;
+
+    if (g_cancellable_set_error_if_cancelled(cancellable, err))
+        goto cleanup;
+
+    vol_hash = g_hash_table_new_full(g_str_hash,
+                                     g_str_equal,
+                                     g_free,
+                                     g_object_unref);
+
+    for (i = 0 ; i < nvolumes ; i++) {
+        if (g_cancellable_set_error_if_cancelled(cancellable, err))
+            goto cleanup;
+
+        virStorageVolPtr vvolume;
+        GVirStorageVol *volume;
+
+        vvolume = virStorageVolLookupByName(vpool, volumes[i]);
+        if (!vvolume)
+            continue;
+
+        volume = GVIR_STORAGE_VOL(g_object_new(GVIR_TYPE_STORAGE_VOL,
+                                               "handle", vvolume,
+                                               NULL));
+
+        g_hash_table_insert(vol_hash, g_strdup(volumes[i]), volume);
+    }
+
+    g_mutex_lock(priv->lock);
+    if (priv->volumes)
+        g_hash_table_unref(priv->volumes);
+    priv->volumes = vol_hash;
+    g_mutex_unlock(priv->lock);
+
+    ret = TRUE;
+
+cleanup:
+    for (i = 0 ; i < nvolumes ; i++)
+        g_free(volumes[i]);
+    g_free(volumes);
+    return ret;
+}
+
+static void
+gvir_storage_pool_refresh_helper(GSimpleAsyncResult *res,
+                                 GObject *object,
+                                 GCancellable *cancellable)
+{
+    GVirStoragePool *pool = GVIR_STORAGE_POOL(object);
+    GError *err = NULL;
+
+    if (!gvir_storage_pool_refresh(pool, cancellable, &err)) {
+        g_simple_async_result_set_from_error(res, err);
+        g_error_free(err);
+    }
+}
+
+/**
+ * gvir_storage_pool_refresh_async:
+ * @pool: the storage pool
+ * @cancellable: (allow-none)(transfer none): cancellation object
+ * @callback: (transfer none): completion callback
+ * @opaque: (transfer none)(allow-none): opaque data for callback
+ */
+void gvir_storage_pool_refresh_async(GVirStoragePool *pool,
+                                     GCancellable *cancellable,
+                                     GAsyncReadyCallback callback,
+                                     gpointer opaque)
+{
+    GSimpleAsyncResult *res;
+
+    res = g_simple_async_result_new(G_OBJECT(pool),
+                                    callback,
+                                    opaque,
+                                    gvir_storage_pool_refresh);
+    g_simple_async_result_run_in_thread(res,
+                                        gvir_storage_pool_refresh_helper,
+                                        G_PRIORITY_DEFAULT,
+                                        cancellable);
+    g_object_unref(res);
+}
+
+/**
+ * gvir_storage_pool_refresh_finish:
+ * @pool: the storage pool
+ * @result: (transfer none): async method result
+ */
+gboolean gvir_storage_pool_refresh_finish(GVirStoragePool *pool,
+                                          GAsyncResult *result,
+                                          GError **err)
+{
+    g_return_val_if_fail(GVIR_IS_STORAGE_POOL(pool), FALSE);
+    g_return_val_if_fail(G_IS_ASYNC_RESULT(result), FALSE);
+
+    if (G_IS_SIMPLE_ASYNC_RESULT(result)) {
+        GSimpleAsyncResult *simple = G_SIMPLE_ASYNC_RESULT(result);
+        g_warn_if_fail (g_simple_async_result_get_source_tag(simple) ==
+                        gvir_storage_pool_refresh);
+        if (g_simple_async_result_propagate_error(simple, err))
+            return FALSE;
+    }
+
+    return TRUE;
+}
+
+static void gvir_storage_vol_ref(gpointer obj, gpointer ignore G_GNUC_UNUSED)
+{
+    g_object_ref(obj);
+}
+
+/**
+ * gvir_storage_pool_get_volumes:
+ * @pool: the storage pool
+ *
+ * Return value: (element-type LibvirtGObject.StoragePool) (transfer full): List
+ * of #GVirStorageVol
+ */
+GList *gvir_storage_pool_get_volumes(GVirStoragePool *pool)
+{
+    GVirStoragePoolPrivate *priv = pool->priv;
+    GList *volumes;
+
+    g_mutex_lock(priv->lock);
+    volumes = g_hash_table_get_values(priv->volumes);
+    g_list_foreach(volumes, gvir_storage_vol_ref, NULL);
+    g_mutex_unlock(priv->lock);
+
+    return volumes;
+}
+
+/**
+ * gvir_storage_pool_get_volume:
+ * @pool: the storage pool
+ * @name: Name of the requested storage volume
+ *
+ * Return value: (transfer full): the #GVirStorageVol, or NULL
+ */
+GVirStoragePool *gvir_storage_pool_get_volume(GVirStoragePool *pool,
+                                              const gchar *name)
+{
+    GVirStoragePoolPrivate *priv = pool->priv;
+    GVirStoragePool *volume;
+
+    g_mutex_lock(priv->lock);
+    volume = g_hash_table_lookup(priv->volumes, name);
+    if (volume)
+        g_object_ref(volume);
+    g_mutex_unlock(priv->lock);
+
+    return volume;
+}
+
+/**
+ * gvir_storage_pool_create_volume:
+ * @pool: the storage pool in which to create the volume
+ * @conf: the configuration for the new volume
+ * Returns: (transfer full): the newly created volume
+ */
+GVirStorageVol *gvir_storage_pool_create_volume
+                                (GVirStoragePool *pool,
+                                 GVirConfigStorageVol *conf,
+                                 GError **err)
+{
+    const gchar *xml;
+    virStorageVolPtr handle;
+    GVirStoragePoolPrivate *priv = pool->priv;
+
+    xml = gvir_config_object_get_doc(GVIR_CONFIG_OBJECT(conf));
+
+    g_return_val_if_fail(xml != NULL, NULL);
+
+    if (!(handle = virStorageVolCreateXML(priv->handle, xml, 0))) {
+        *err = gvir_error_new_literal(GVIR_STORAGE_POOL_ERROR,
+                                      0,
+                                      "Failed to create volume");
+        return NULL;
+    }
+
+    GVirStorageVol *volume;
+
+    volume = GVIR_STORAGE_VOL(g_object_new(GVIR_TYPE_STORAGE_VOL,
+                                           "handle", handle,
+                                           NULL));
+
+    g_mutex_lock(priv->lock);
+    g_hash_table_insert(priv->volumes,
+                        g_strdup(gvir_storage_vol_get_name(volume)),
+                        volume);
+    g_mutex_unlock(priv->lock);
+
+    return g_object_ref(volume);
 }

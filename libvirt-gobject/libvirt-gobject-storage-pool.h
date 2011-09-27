@@ -69,6 +69,25 @@ GVirConfigStoragePool *gvir_storage_pool_get_config(GVirStoragePool *pool,
                                                     guint64 flags,
                                                     GError **err);
 
+gboolean gvir_storage_pool_refresh(GVirStoragePool *pool,
+                                   GCancellable *cancellable,
+                                   GError **err);
+void gvir_storage_pool_refresh_async(GVirStoragePool *pool,
+                                     GCancellable *cancellable,
+                                     GAsyncReadyCallback callback,
+                                     gpointer opaque);
+gboolean gvir_storage_pool_refresh_finish(GVirStoragePool *pool,
+                                          GAsyncResult *result,
+                                          GError **err);
+
+GList *gvir_storage_pool_get_volumes(GVirStoragePool *pool);
+GVirStoragePool *gvir_storage_pool_get_volume(GVirStoragePool *pool,
+                                              const gchar *name);
+GVirStorageVol *gvir_storage_pool_create_volume
+                                (GVirStoragePool *pool,
+                                 GVirConfigStorageVol *conf,
+                                 GError **err);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GOBJECT_STORAGE_POOL_H__ */
