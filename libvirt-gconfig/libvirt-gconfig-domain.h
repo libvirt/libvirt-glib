@@ -63,6 +63,7 @@ GVirConfigDomain *gvir_config_domain_new_from_xml(const gchar *xml);
 GVirConfigDomain *gvir_config_domain_new(void);
 
 char *gvir_config_domain_get_name(GVirConfigDomain *domain);
+void gvir_config_domain_set_name(GVirConfigDomain *domain, const char *name);
 
 G_END_DECLS
 

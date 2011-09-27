@@ -130,3 +130,30 @@ char *gvir_config_domain_get_name(GVirConfigDomain *domain)
     return gvir_config_xml_get_child_element_content_glib(node, "name");
 
 }
+
+void gvir_config_domain_set_name(GVirConfigDomain *domain, const char *name)
+{
+    xmlNodePtr parent_node;
+    xmlNodePtr old_node;
+    xmlNodePtr new_node;
+    xmlChar *encoded_name;
+
+    parent_node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(domain),
+                                                  NULL);
+    encoded_name = xmlEncodeEntitiesReentrant(parent_node->doc,
+                                              (xmlChar *)name);
+    new_node = xmlNewDocNode(parent_node->doc, NULL,
+                             (xmlChar *)"name", encoded_name);
+    xmlFree(encoded_name);
+
+    old_node = gvir_config_xml_get_element(parent_node, "name", NULL);
+
+    if (old_node) {
+        old_node = xmlReplaceNode(old_node, new_node);
+        xmlFreeNode(old_node);
+    } else {
+        xmlAddChild(parent_node, new_node);
+    }
+
+    g_object_notify(G_OBJECT(domain), "name");
+}

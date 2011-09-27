@@ -7,6 +7,7 @@ LIBVIRT_GOBJECT_0.0.1 {
 	gvir_config_domain_new;
 	gvir_config_domain_new_from_xml;
 	gvir_config_domain_get_name;
+	gvir_config_domain_set_name;
 
 	gvir_config_domain_snapshot_get_type;
 	gvir_config_domain_snapshot_new;
