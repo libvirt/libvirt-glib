@@ -170,9 +170,9 @@ GType gvir_storage_pool_handle_get_type(void)
 }
 
 
-const gchar *gvir_storage_pool_get_name(GVirStoragePool *dom)
+const gchar *gvir_storage_pool_get_name(GVirStoragePool *pool)
 {
-    GVirStoragePoolPrivate *priv = dom->priv;
+    GVirStoragePoolPrivate *priv = pool->priv;
     const char *name;
 
     if (!(name = virStoragePoolGetName(priv->handle))) {
@@ -183,9 +183,9 @@ const gchar *gvir_storage_pool_get_name(GVirStoragePool *dom)
 }
 
 
-gchar *gvir_storage_pool_get_uuid(GVirStoragePool *dom)
+gchar *gvir_storage_pool_get_uuid(GVirStoragePool *pool)
 {
-    GVirStoragePoolPrivate *priv = dom->priv;
+    GVirStoragePoolPrivate *priv = pool->priv;
     char *uuid = g_new(gchar, VIR_UUID_STRING_BUFLEN);
 
     if (virStoragePoolGetUUIDString(priv->handle, uuid) < 0) {
@@ -197,15 +197,15 @@ gchar *gvir_storage_pool_get_uuid(GVirStoragePool *dom)
 
 /**
  * gvir_storage_pool_get_config:
- * @dom: the storage_pool
+ * @pool: the storage_pool
  * @flags: the flags
  * Returns: (transfer full): the config
  */
-GVirConfigStoragePool *gvir_storage_pool_get_config(GVirStoragePool *dom,
+GVirConfigStoragePool *gvir_storage_pool_get_config(GVirStoragePool *pool,
                                                     guint64 flags,
                                                     GError **err)
 {
-    GVirStoragePoolPrivate *priv = dom->priv;
+    GVirStoragePoolPrivate *priv = pool->priv;
     gchar *xml;
 
     if (!(xml = virStoragePoolGetXMLDesc(priv->handle, flags))) {
