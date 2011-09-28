@@ -143,7 +143,7 @@ char *gvir_config_domain_get_name(GVirConfigDomain *domain)
 {
     xmlNodePtr node;
 
-    node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(domain), NULL);
+    node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(domain));
     if (node == NULL)
         return NULL;
 
@@ -157,8 +157,7 @@ void gvir_config_domain_set_name(GVirConfigDomain *domain, const char *name)
     xmlNodePtr new_node;
     xmlChar *encoded_name;
 
-    parent_node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(domain),
-                                                  NULL);
+    parent_node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(domain));
     encoded_name = xmlEncodeEntitiesReentrant(parent_node->doc,
                                               (xmlChar *)name);
     new_node = xmlNewDocNode(parent_node->doc, NULL,

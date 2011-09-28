@@ -87,7 +87,7 @@ static void gvir_config_object_get_property(GObject *object,
         break;
 
     case PROP_NODE:
-        g_value_set_pointer(value, gvir_config_object_get_xml_node(conn, NULL));
+        g_value_set_pointer(value, gvir_config_object_get_xml_node(conn));
         break;
 
     default:
@@ -280,7 +280,7 @@ gchar *gvir_config_object_to_xml(GVirConfigObject *config)
     xmlNodePtr node;
     gchar *output_doc;
 
-    node = gvir_config_object_get_xml_node(config, NULL);
+    node = gvir_config_object_get_xml_node(config);
     if (node == NULL)
         return NULL;
 
@@ -307,8 +307,7 @@ const gchar *gvir_config_object_get_schema(GVirConfigObject *config)
 /* FIXME: will we always have one xmlNode per GConfig object? */
 /* FIXME: need to return the right node from subclasses */
 /* NB: the xmlNodePtr must not be freed by the caller */
-xmlNodePtr gvir_config_object_get_xml_node(GVirConfigObject *config,
-                                           GError **error)
+xmlNodePtr gvir_config_object_get_xml_node(GVirConfigObject *config)
 {
     return config->priv->node;
 }
