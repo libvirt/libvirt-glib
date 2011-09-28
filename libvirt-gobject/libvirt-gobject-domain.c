@@ -49,6 +49,16 @@ enum {
     PROP_HANDLE,
 };
 
+enum {
+    VIR_STARTED,
+    VIR_SUSPENDED,
+    VIR_RESUMED,
+    VIR_STOPPED,
+    VIR_UPDATED,
+    LAST_SIGNAL
+};
+
+static gint signals[LAST_SIGNAL];
 
 #define GVIR_DOMAIN_ERROR gvir_domain_error_quark()
 
@@ -132,6 +142,55 @@ static void gvir_domain_class_init(GVirDomainClass *klass)
                                                        G_PARAM_STATIC_NAME |
                                                        G_PARAM_STATIC_NICK |
                                                        G_PARAM_STATIC_BLURB));
+
+    signals[VIR_STARTED] = g_signal_new("vir-started",
+                                        G_OBJECT_CLASS_TYPE(object_class),
+                                        G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE |
+                                        G_SIGNAL_NO_HOOKS | G_SIGNAL_DETAILED,
+                                        G_STRUCT_OFFSET(GVirDomainClass, vir_domain_started),
+                                        NULL, NULL,
+                                        g_cclosure_marshal_VOID__VOID,
+                                        G_TYPE_NONE,
+                                        1, G_TYPE_STRING | G_SIGNAL_TYPE_STATIC_SCOPE);
+
+    signals[VIR_SUSPENDED] = g_signal_new("vir-suspended",
+                                        G_OBJECT_CLASS_TYPE(object_class),
+                                        G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE |
+                                        G_SIGNAL_NO_HOOKS | G_SIGNAL_DETAILED,
+                                        G_STRUCT_OFFSET(GVirDomainClass, vir_domain_suspended),
+                                        NULL, NULL,
+                                        g_cclosure_marshal_VOID__VOID,
+                                        G_TYPE_NONE,
+                                        1, G_TYPE_STRING | G_SIGNAL_TYPE_STATIC_SCOPE);
+
+    signals[VIR_RESUMED] = g_signal_new("vir-resumed",
+                                        G_OBJECT_CLASS_TYPE(object_class),
+                                        G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE |
+                                        G_SIGNAL_NO_HOOKS | G_SIGNAL_DETAILED,
+                                        G_STRUCT_OFFSET(GVirDomainClass, vir_domain_resumed),
+                                        NULL, NULL,
+                                        g_cclosure_marshal_VOID__VOID,
+                                        G_TYPE_NONE,
+                                        1, G_TYPE_STRING | G_SIGNAL_TYPE_STATIC_SCOPE);
+
+    signals[VIR_STOPPED] = g_signal_new("vir-stopped",
+                                        G_OBJECT_CLASS_TYPE(object_class),
+                                        G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE |
+                                        G_SIGNAL_NO_HOOKS | G_SIGNAL_DETAILED,
+                                        G_STRUCT_OFFSET(GVirDomainClass, vir_domain_stopped),
+                                        NULL, NULL,
+                                        g_cclosure_marshal_VOID__VOID,
+                                        G_TYPE_NONE,
+                                        1, G_TYPE_STRING | G_SIGNAL_TYPE_STATIC_SCOPE);
+
+    signals[VIR_UPDATED] = g_signal_new("vir-updated",
+                                        G_OBJECT_CLASS_TYPE(object_class),
+                                        G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
+                                        G_STRUCT_OFFSET(GVirDomainClass, vir_domain_updated),
+                                        NULL, NULL,
+                                        g_cclosure_marshal_VOID__VOID,
+                                        G_TYPE_NONE,
+                                        0);
 
     g_type_class_add_private(klass, sizeof(GVirDomainPrivate));
 }
