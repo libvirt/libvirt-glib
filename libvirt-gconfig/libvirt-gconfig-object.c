@@ -83,7 +83,7 @@ static GError *gvir_xml_error_new_literal(GQuark domain,
         return g_error_new(domain,
                            code,
                            "%s",
-                           message);
+                           xerr->message);
 }
 
 
