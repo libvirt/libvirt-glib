@@ -50,7 +50,11 @@ int main(int argc, char **argv)
 
     g_type_init();
 
-    domain = gvir_config_domain_new_from_xml(xml);
+    domain = gvir_config_domain_new_from_xml(xml, &error);
+    if (error != NULL) {
+        g_print("Couldn't parse %s: %s\n", argv[1], error->message);
+        return 3;
+    }
     g_assert(domain != NULL);
     name = gvir_config_domain_get_name(domain);
     g_assert(name != NULL);

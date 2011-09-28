@@ -26,10 +26,10 @@
 #include <string.h>
 
 #include <libxml/relaxng.h>
-#include <libxml/xmlerror.h>
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
 #include "libvirt-gconfig/libvirt-gconfig-helpers-private.h"
+
 
 //extern gboolean debugFlag;
 gboolean debugFlag;
@@ -68,6 +68,7 @@ static void gvir_xml_structured_error_nop(void *userData G_GNUC_UNUSED,
 {
 }
 
+
 static void gvir_config_object_get_property(GObject *object,
                                             guint prop_id,
                                             GValue *value,
@@ -93,7 +94,6 @@ static void gvir_config_object_get_property(GObject *object,
         G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
     }
 }
-
 
 static void gvir_config_object_set_property(GObject *object,
                                             guint prop_id,
@@ -210,34 +210,6 @@ static void gvir_config_object_init(GVirConfigObject *conn)
     memset(priv, 0, sizeof(*priv));
 }
 
-static void
-gvir_config_object_parse(GVirConfigObject *config,
-                         GError **err)
-{
-    GVirConfigObjectPrivate *priv = config->priv;
-    xmlDocPtr doc;
-    if (priv->node)
-        return;
-
-    if (!priv->doc) {
-        *err = g_error_new(GVIR_CONFIG_OBJECT_ERROR,
-                           0,
-                           "%s",
-                           "No XML document to parse");
-        return;
-    }
-
-    doc = xmlParseMemory(priv->doc, strlen(priv->doc));
-    if (!doc) {
-        *err = gvir_xml_error_new(GVIR_CONFIG_OBJECT_ERROR,
-                                  0,
-                                  "%s",
-                                  "Unable to parse configuration");
-    }
-    priv->node = doc->children;
-}
-
-
 void gvir_config_object_validate(GVirConfigObject *config,
                                  GError **err)
 {
@@ -249,9 +221,13 @@ void gvir_config_object_validate(GVirConfigObject *config,
     xmlSetGenericErrorFunc(NULL, gvir_xml_generic_error_nop);
     xmlSetStructuredErrorFunc(NULL, gvir_xml_structured_error_nop);
 
-    gvir_config_object_parse(config, err);
-    if (*err)
+    if (!priv->node) {
+        *err = gvir_xml_error_new(GVIR_CONFIG_OBJECT_ERROR,
+                                  0,
+                                  "%s",
+                                  "No XML document associated with this config object");
         return;
+    }
 
     rngParser = xmlRelaxNGNewParserCtxt(priv->schema);
     if (!rngParser) {
@@ -334,6 +310,5 @@ const gchar *gvir_config_object_get_schema(GVirConfigObject *config)
 xmlNodePtr gvir_config_object_get_xml_node(GVirConfigObject *config,
                                            GError **error)
 {
-    gvir_config_object_parse(config, error);
     return config->priv->node;
 }

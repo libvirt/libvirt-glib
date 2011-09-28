@@ -453,7 +453,7 @@ GVirConfigDomain *gvir_domain_get_config(GVirDomain *dom,
         return NULL;
     }
 
-    GVirConfigDomain *conf = gvir_config_domain_new_from_xml(xml);
+    GVirConfigDomain *conf = gvir_config_domain_new_from_xml(xml, err);
     g_free(xml);
     if ((err != NULL) && (*err != NULL))
         return NULL;

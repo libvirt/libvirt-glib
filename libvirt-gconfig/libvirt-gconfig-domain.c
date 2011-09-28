@@ -26,6 +26,7 @@
 #include <string.h>
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
+#include "libvirt-gconfig/libvirt-gconfig-helpers-private.h"
 
 extern gboolean debugFlag;
 
@@ -112,10 +113,16 @@ static void gvir_config_domain_init(GVirConfigDomain *conn)
 }
 
 
-GVirConfigDomain *gvir_config_domain_new_from_xml(const gchar *xml)
+GVirConfigDomain *gvir_config_domain_new_from_xml(const gchar *xml,
+                                                  GError **error)
 {
+    xmlNodePtr node;
+
+    node = gvir_config_xml_parse(xml, "domain", error);
+    if ((error != NULL) && (*error != NULL))
+        return NULL;
     return GVIR_CONFIG_DOMAIN(g_object_new(GVIR_TYPE_CONFIG_DOMAIN,
-                                           "doc", xml,
+                                           "node", node,
                                            "schema", DATADIR "/libvirt/schemas/domain.rng",
                                            NULL));
 }
@@ -132,10 +139,6 @@ GVirConfigDomain *gvir_config_domain_new(void)
                                            NULL));
 }
 
-/* FIXME: do we add a GError ** to all getters in case there's an XML
- * parsing error? Doesn't work with gobject properties
- * => have a function to test if an error has occurred a la cairo?
- */
 char *gvir_config_domain_get_name(GVirConfigDomain *domain)
 {
     xmlNodePtr node;
@@ -145,7 +148,6 @@ char *gvir_config_domain_get_name(GVirConfigDomain *domain)
         return NULL;
 
     return gvir_config_xml_get_child_element_content_glib(node, "name");
-
 }
 
 void gvir_config_domain_set_name(GVirConfigDomain *domain, const char *name)
@@ -164,7 +166,6 @@ void gvir_config_domain_set_name(GVirConfigDomain *domain, const char *name)
     xmlFree(encoded_name);
 
     old_node = gvir_config_xml_get_element(parent_node, "name", NULL);
-
     if (old_node) {
         old_node = xmlReplaceNode(old_node, new_node);
         xmlFreeNode(old_node);

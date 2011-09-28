@@ -68,6 +68,9 @@ const gchar *gvir_config_object_get_doc(GVirConfigObject *config);
 const gchar *gvir_config_object_get_schema(GVirConfigObject *config);
 xmlNodePtr gvir_config_object_get_xml_node(GVirConfigObject *config, GError **error);
 
+/* FIXME: move to a libvirt-gconfig-helpers.h file? */
+xmlNodePtr gvir_config_object_parse(const char *xml, const char *root_node, GError **err);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GCONFIG_OBJECT_H__ */
