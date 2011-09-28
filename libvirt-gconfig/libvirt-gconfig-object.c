@@ -41,7 +41,6 @@ gboolean debugFlag;
 
 struct _GVirConfigObjectPrivate
 {
-    gchar *doc;
     gchar *schema;
 
     xmlNodePtr node;
@@ -51,7 +50,6 @@ G_DEFINE_ABSTRACT_TYPE(GVirConfigObject, gvir_config_object, G_TYPE_OBJECT);
 
 enum {
     PROP_0,
-    PROP_DOC,
     PROP_SCHEMA,
     PROP_NODE
 };
@@ -78,10 +76,6 @@ static void gvir_config_object_get_property(GObject *object,
     GVirConfigObjectPrivate *priv = conn->priv;
 
     switch (prop_id) {
-    case PROP_DOC:
-        g_value_set_string(value, priv->doc);
-        break;
-
     case PROP_SCHEMA:
         g_value_set_string(value, priv->schema);
         break;
@@ -104,11 +98,6 @@ static void gvir_config_object_set_property(GObject *object,
     GVirConfigObjectPrivate *priv = conn->priv;
 
     switch (prop_id) {
-    case PROP_DOC:
-        g_free(priv->doc);
-        priv->doc = g_value_dup_string(value);
-        break;
-
     case PROP_SCHEMA:
         g_free(priv->schema);
         priv->schema = g_value_dup_string(value);
@@ -139,7 +128,6 @@ static void gvir_config_object_finalize(GObject *object)
 
     DEBUG("Finalize GVirConfigObject=%p", conn);
 
-    g_free(priv->doc);
     g_free(priv->schema);
 
     /* FIXME: all objects describing a given XML document will share the
@@ -161,18 +149,6 @@ static void gvir_config_object_class_init(GVirConfigObjectClass *klass)
     object_class->get_property = gvir_config_object_get_property;
     object_class->set_property = gvir_config_object_set_property;
 
-    g_object_class_install_property(object_class,
-                                    PROP_DOC,
-                                    g_param_spec_string("doc",
-                                                        "Doc",
-                                                        "The XML document",
-                                                        NULL,
-                                                        G_PARAM_READABLE |
-                                                        G_PARAM_WRITABLE |
-                                                        G_PARAM_CONSTRUCT_ONLY |
-                                                        G_PARAM_STATIC_NAME |
-                                                        G_PARAM_STATIC_NICK |
-                                                        G_PARAM_STATIC_BLURB));
     g_object_class_install_property(object_class,
                                     PROP_SCHEMA,
                                     g_param_spec_string("schema",
@@ -290,12 +266,6 @@ gchar *gvir_config_object_to_xml(GVirConfigObject *config)
     xmlFree(doc);
 
     return output_doc;
-}
-
-const gchar *gvir_config_object_get_doc(GVirConfigObject *config)
-{
-    GVirConfigObjectPrivate *priv = config->priv;
-    return priv->doc;
 }
 
 const gchar *gvir_config_object_get_schema(GVirConfigObject *config)

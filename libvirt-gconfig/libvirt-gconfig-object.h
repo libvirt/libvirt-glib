@@ -64,7 +64,6 @@ void gvir_config_object_validate(GVirConfigObject *config,
 
 gchar *gvir_config_object_to_xml(GVirConfigObject *config);
 
-const gchar *gvir_config_object_get_doc(GVirConfigObject *config);
 const gchar *gvir_config_object_get_schema(GVirConfigObject *config);
 xmlNodePtr gvir_config_object_get_xml_node(GVirConfigObject *config);
 
