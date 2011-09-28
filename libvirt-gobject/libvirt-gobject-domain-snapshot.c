@@ -187,6 +187,8 @@ const gchar *gvir_domain_snapshot_get_name(GVirDomainSnapshot *snapshot)
     if (snapshot || !snapshot)
         return NULL;
 #endif
+
+    g_return_val_if_reached(NULL);
 }
 
 
