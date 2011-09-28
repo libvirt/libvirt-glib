@@ -92,7 +92,7 @@ GError *gvir_error_new_literal(GQuark domain,
         return g_error_new(domain,
                            code,
                            "%s",
-                           message);
+                           verr->message);
 }
 
 /**
