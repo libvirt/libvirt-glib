@@ -44,6 +44,7 @@ struct _GVirConnectionPrivate
 
     GHashTable *domains;
     GHashTable *pools;
+    gboolean    domain_event;
 };
 
 G_DEFINE_TYPE(GVirConnection, gvir_connection, G_TYPE_OBJECT);
@@ -148,6 +149,8 @@ static void gvir_connection_class_init(GVirConnectionClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS(klass);
 
+    gvir_event_register();
+
     object_class->finalize = gvir_connection_finalize;
     object_class->get_property = gvir_connection_get_property;
     object_class->set_property = gvir_connection_set_property;
@@ -244,6 +247,125 @@ GVirConnection *gvir_connection_new(const char *uri)
 }
 
 
+static int domain_event_cb(virConnectPtr conn G_GNUC_UNUSED,
+                           virDomainPtr dom,
+                           int event,
+                           int detail,
+                           void *opaque)
+{
+    gchar uuid[VIR_UUID_STRING_BUFLEN];
+    GVirConnection *gconn = opaque;
+    GVirDomain *gdom;
+    GVirConnectionPrivate *priv = gconn->priv;
+
+    if (virDomainGetUUIDString(dom, uuid) < 0) {
+        g_warning("Failed to get domain UUID on %p", dom);
+        return 0;
+    }
+
+    DEBUG("%s: %s event:%d, detail:%d", G_STRFUNC, uuid, event, detail);
+
+    g_mutex_lock(priv->lock);
+    gdom = g_hash_table_lookup(priv->domains, uuid);
+    g_mutex_unlock(priv->lock);
+
+    if (gdom == NULL) {
+        gdom = GVIR_DOMAIN(g_object_new(GVIR_TYPE_DOMAIN, "handle", dom, NULL));
+
+        g_mutex_lock(priv->lock);
+        g_hash_table_insert(priv->domains, (gpointer)gvir_domain_get_uuid(gdom), gdom);
+        g_mutex_unlock(priv->lock);
+    }
+
+    switch (event) {
+        case VIR_DOMAIN_EVENT_DEFINED:
+            if (detail == VIR_DOMAIN_EVENT_DEFINED_ADDED)
+                g_signal_emit(gconn, signals[VIR_DOMAIN_ADDED], 0, gdom);
+            else if (detail == VIR_DOMAIN_EVENT_DEFINED_UPDATED)
+                g_signal_emit_by_name(gdom, "vir-updated");
+            else
+                g_warn_if_reached();
+            break;
+
+        case VIR_DOMAIN_EVENT_UNDEFINED:
+            if (detail == VIR_DOMAIN_EVENT_UNDEFINED_REMOVED) {
+                g_mutex_lock(priv->lock);
+                g_hash_table_steal(priv->domains, uuid);
+                g_mutex_unlock(priv->lock);
+
+                g_signal_emit(gconn, signals[VIR_DOMAIN_REMOVED], 0, gdom);
+                g_object_unref(gdom);
+            } else
+                g_warn_if_reached();
+            break;
+
+        case VIR_DOMAIN_EVENT_STARTED:
+            if (detail == VIR_DOMAIN_EVENT_STARTED_BOOTED)
+                g_signal_emit_by_name(gdom, "vir-started::booted");
+            else if (detail == VIR_DOMAIN_EVENT_STARTED_MIGRATED)
+                g_signal_emit_by_name(gdom, "vir-started::migrated");
+            else if (detail == VIR_DOMAIN_EVENT_STARTED_RESTORED)
+                g_signal_emit_by_name(gdom, "vir-started::restored");
+            else if (detail == VIR_DOMAIN_EVENT_STARTED_FROM_SNAPSHOT)
+                g_signal_emit_by_name(gdom, "vir-started::from-snapshot");
+            else
+                g_warn_if_reached();
+            break;
+
+        case VIR_DOMAIN_EVENT_SUSPENDED:
+            if (detail == VIR_DOMAIN_EVENT_SUSPENDED_PAUSED)
+                g_signal_emit_by_name(gdom, "vir-suspended::paused");
+            else if (detail == VIR_DOMAIN_EVENT_SUSPENDED_MIGRATED)
+                g_signal_emit_by_name(gdom, "vir-suspended::migrated");
+            else if (detail == VIR_DOMAIN_EVENT_SUSPENDED_IOERROR)
+                g_signal_emit_by_name(gdom, "vir-suspended::ioerror");
+            else if (detail == VIR_DOMAIN_EVENT_SUSPENDED_WATCHDOG)
+                g_signal_emit_by_name(gdom, "vir-suspended::watchdog");
+            else if (detail == VIR_DOMAIN_EVENT_SUSPENDED_RESTORED)
+                g_signal_emit_by_name(gdom, "vir-suspended::restored");
+            else if (detail == VIR_DOMAIN_EVENT_SUSPENDED_FROM_SNAPSHOT)
+                g_signal_emit_by_name(gdom, "vir-suspended::from-snapshot");
+            else
+                g_warn_if_reached();
+            break;
+
+        case VIR_DOMAIN_EVENT_RESUMED:
+            if (detail == VIR_DOMAIN_EVENT_RESUMED_UNPAUSED)
+                g_signal_emit_by_name(gdom, "vir-resumed::unpaused");
+            else if (detail == VIR_DOMAIN_EVENT_RESUMED_MIGRATED)
+                g_signal_emit_by_name(gdom, "vir-resumed::migrated");
+            else if (detail == VIR_DOMAIN_EVENT_RESUMED_FROM_SNAPSHOT)
+                g_signal_emit_by_name(gdom, "vir-resumed::from-snapshot");
+            else
+                g_warn_if_reached();
+            break;
+
+        case VIR_DOMAIN_EVENT_STOPPED:
+            if (detail == VIR_DOMAIN_EVENT_STOPPED_SHUTDOWN)
+                g_signal_emit_by_name(gdom, "vir-stopped::shutdown");
+            else if (detail == VIR_DOMAIN_EVENT_STOPPED_DESTROYED)
+                g_signal_emit_by_name(gdom, "vir-stopped::destroyed");
+            else if (detail == VIR_DOMAIN_EVENT_STOPPED_CRASHED)
+                g_signal_emit_by_name(gdom, "vir-stopped::crashed");
+            else if (detail == VIR_DOMAIN_EVENT_STOPPED_MIGRATED)
+                g_signal_emit_by_name(gdom, "vir-stopped::migrated");
+            else if (detail == VIR_DOMAIN_EVENT_STOPPED_SAVED)
+                g_signal_emit_by_name(gdom, "vir-stopped::saved");
+            else if (detail == VIR_DOMAIN_EVENT_STOPPED_FAILED)
+                g_signal_emit_by_name(gdom, "vir-stopped::failed");
+            else if (detail == VIR_DOMAIN_EVENT_STOPPED_FROM_SNAPSHOT)
+                g_signal_emit_by_name(gdom, "vir-stopped::from-snapshot");
+            else
+                g_warn_if_reached();
+            break;
+
+        default:
+            g_warn_if_reached();
+    }
+
+    return 0;
+}
+
 /**
  * gvir_connection_open:
  * @conn: the connection
@@ -276,6 +398,11 @@ gboolean gvir_connection_open(GVirConnection *conn,
         g_mutex_unlock(priv->lock);
         return FALSE;
     }
+
+    if (virConnectDomainEventRegister(priv->conn, domain_event_cb, conn, NULL) != -1)
+        priv->domain_event = TRUE;
+    else
+        g_warning("Failed to register domain events, ignoring");
 
     g_mutex_unlock(priv->lock);
 
@@ -378,6 +505,8 @@ void gvir_connection_close(GVirConnection *conn)
     }
 
     if (priv->conn) {
+        virConnectDomainEventDeregister(priv->conn, domain_event_cb);
+        priv->domain_event = FALSE;
         virConnectClose(priv->conn);
         priv->conn = NULL;
     }
