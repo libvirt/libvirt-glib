@@ -83,6 +83,7 @@ LIBVIRT_GOBJECT_0.0.1 {
 	gvir_storage_vol_get_type;
 	gvir_storage_vol_handle_get_type;
 	gvir_storage_vol_get_name;
+	gvir_storage_vol_get_path;
 	gvir_storage_vol_get_config;
 
 	gvir_connection_handle_get_type;
