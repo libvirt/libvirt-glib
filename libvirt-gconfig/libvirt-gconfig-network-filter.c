@@ -61,10 +61,14 @@ static void gvir_config_network_filter_init(GVirConfigNetworkFilter *conn)
 }
 
 
-GVirConfigNetworkFilter *gvir_config_network_filter_new(const gchar *xml)
+GVirConfigNetworkFilter *gvir_config_network_filter_new(void)
 {
+    xmlDocPtr doc;
+
+    doc = xmlNewDoc((xmlChar *)"1.0");
+    doc->children = xmlNewDocNode(doc, NULL, (xmlChar *)"filter", NULL);
     return GVIR_CONFIG_NETWORK_FILTER(g_object_new(GVIR_TYPE_CONFIG_NETWORK_FILTER,
-                                                   "doc", xml,
+                                                   "node", doc->children,
                                                    "schema", DATADIR "/libvirt/schemas/nwfilter.rng",
                                                    NULL));
 }

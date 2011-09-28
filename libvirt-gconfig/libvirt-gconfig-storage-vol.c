@@ -61,10 +61,14 @@ static void gvir_config_storage_vol_init(GVirConfigStorageVol *conn)
 }
 
 
-GVirConfigStorageVol *gvir_config_storage_vol_new(const gchar *xml)
+GVirConfigStorageVol *gvir_config_storage_vol_new(void)
 {
+    xmlDocPtr doc;
+
+    doc = xmlNewDoc((xmlChar *)"1.0");
+    doc->children = xmlNewDocNode(doc, NULL, (xmlChar *)"volume", NULL);
     return GVIR_CONFIG_STORAGE_VOL(g_object_new(GVIR_TYPE_CONFIG_STORAGE_VOL,
-                                           "doc", xml,
-                                           "schema", DATADIR "/libvirt/schemas/storage_vol.rng",
-                                           NULL));
+                                                "node", doc->children,
+                                                "schema", DATADIR "/libvirt/schemas/storage_vol.rng",
+                                                NULL));
 }

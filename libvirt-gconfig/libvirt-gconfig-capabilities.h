@@ -59,7 +59,7 @@ struct _GVirConfigCapabilitiesClass
 
 GType gvir_config_capabilities_get_type(void);
 
-GVirConfigCapabilities *gvir_config_capabilities_new(const gchar *xml);
+GVirConfigCapabilities *gvir_config_capabilities_new(void);
 
 G_END_DECLS
 

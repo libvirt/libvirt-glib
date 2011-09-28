@@ -203,8 +203,12 @@ GVirConfigNodeDevice *gvir_node_device_get_config(GVirNodeDevice *device,
         return NULL;
     }
 
+#if 0
     GVirConfigNodeDevice *conf = gvir_config_node_device_new(xml);
 
     g_free(xml);
     return conf;
+#endif
+
+    return NULL;
 }

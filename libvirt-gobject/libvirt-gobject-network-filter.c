@@ -228,8 +228,11 @@ GVirConfigNetworkFilter *gvir_network_filter_get_config
         return NULL;
     }
 
+#if 0
     GVirConfigNetworkFilter *conf = gvir_config_network_filter_new(xml);
 
     g_free(xml);
     return conf;
+#endif
+    return NULL;
 }

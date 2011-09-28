@@ -59,7 +59,7 @@ struct _GVirConfigSecretClass
 
 GType gvir_config_secret_get_type(void);
 
-GVirConfigSecret *gvir_config_secret_new(const gchar *xml);
+GVirConfigSecret *gvir_config_secret_new(void);
 
 G_END_DECLS
 

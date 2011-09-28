@@ -61,10 +61,15 @@ static void gvir_config_domain_snapshot_init(GVirConfigDomainSnapshot *conn)
 }
 
 
-GVirConfigDomainSnapshot *gvir_config_domain_snapshot_new(const gchar *xml)
+GVirConfigDomainSnapshot *gvir_config_domain_snapshot_new(void)
 {
+    xmlDocPtr doc;
+
+    doc = xmlNewDoc((xmlChar *)"1.0");
+    doc->children = xmlNewDocNode(doc, NULL, (xmlChar *)"domainsnapshot", NULL);
+
     return GVIR_CONFIG_DOMAIN_SNAPSHOT(g_object_new(GVIR_TYPE_CONFIG_DOMAIN_SNAPSHOT,
-                                                    "doc", xml,
+                                                    "node", doc->children,
                                                     "schema", DATADIR "/libvirt/schemas/domainsnapshot.rng",
                                                     NULL));
 }

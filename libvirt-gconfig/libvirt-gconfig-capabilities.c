@@ -61,10 +61,16 @@ static void gvir_config_capabilities_init(GVirConfigCapabilities *conn)
 }
 
 
-GVirConfigCapabilities *gvir_config_capabilities_new(const gchar *xml)
+GVirConfigCapabilities *gvir_config_capabilities_new(void)
 {
+    xmlDocPtr doc;
+
+    doc = xmlNewDoc((xmlChar *)"1.0");
+    /* FIXME: what is the XML root of the capability node? I suspect it is
+     * either 'guest' or 'host' */
+    doc->children = xmlNewDocNode(doc, NULL, (xmlChar *)"capabilities", NULL);
     return GVIR_CONFIG_CAPABILITIES(g_object_new(GVIR_TYPE_CONFIG_CAPABILITIES,
-                                                 "doc", xml,
+                                                 "node", doc->children,
                                                  "schema", DATADIR "/libvirt/schemas/capability.rng",
                                                  NULL));
 }

@@ -59,7 +59,7 @@ struct _GVirConfigNetworkFilterClass
 
 GType gvir_config_network_filter_get_type(void);
 
-GVirConfigNetworkFilter *gvir_config_network_filter_new(const gchar *xml);
+GVirConfigNetworkFilter *gvir_config_network_filter_new(void);
 
 G_END_DECLS
 

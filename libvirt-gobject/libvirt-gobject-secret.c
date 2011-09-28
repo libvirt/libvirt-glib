@@ -214,8 +214,12 @@ GVirConfigSecret *gvir_secret_get_config(GVirSecret *secret,
         return NULL;
     }
 
+#if 0
     GVirConfigSecret *conf = gvir_config_secret_new(xml);
 
     g_free(xml);
     return conf;
+#endif
+
+    return NULL;
 }

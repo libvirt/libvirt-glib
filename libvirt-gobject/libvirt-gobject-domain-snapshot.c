@@ -213,8 +213,11 @@ GVirConfigDomainSnapshot *gvir_domain_snapshot_get_config
         return NULL;
     }
 
+#if 0
     GVirConfigDomainSnapshot *conf = gvir_config_domain_snapshot_new(xml);
 
     g_free(xml);
     return conf;
+#endif
+    return NULL;
 }

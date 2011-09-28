@@ -61,10 +61,14 @@ static void gvir_config_storage_pool_init(GVirConfigStoragePool *conn)
 }
 
 
-GVirConfigStoragePool *gvir_config_storage_pool_new(const gchar *xml)
+GVirConfigStoragePool *gvir_config_storage_pool_new(void)
 {
+    xmlDocPtr doc;
+
+    doc = xmlNewDoc((xmlChar *)"1.0");
+    doc->children = xmlNewDocNode(doc, NULL, (xmlChar *)"pool", NULL);
     return GVIR_CONFIG_STORAGE_POOL(g_object_new(GVIR_TYPE_CONFIG_STORAGE_POOL,
-                                                 "doc", xml,
+                                                 "node", doc->children,
                                                  "schema", DATADIR "/libvirt/schemas/storagepool.rng",
                                                  NULL));
 }

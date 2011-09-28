@@ -61,10 +61,14 @@ static void gvir_config_interface_init(GVirConfigInterface *conn)
 }
 
 
-GVirConfigInterface *gvir_config_interface_new(const gchar *xml)
+GVirConfigInterface *gvir_config_interface_new(void)
 {
+    xmlDocPtr doc;
+
+    doc = xmlNewDoc((xmlChar *)"1.0");
+    doc->children = xmlNewDocNode(doc, NULL, (xmlChar *)"interface", NULL);
     return GVIR_CONFIG_INTERFACE(g_object_new(GVIR_TYPE_CONFIG_INTERFACE,
-                                           "doc", xml,
-                                           "schema", DATADIR "/libvirt/schemas/interface.rng",
-                                           NULL));
+                                              "node", doc->children,
+                                              "schema", DATADIR "/libvirt/schemas/interface.rng",
+                                              NULL));
 }

@@ -203,8 +203,11 @@ GVirConfigInterface *gvir_interface_get_config(GVirInterface *iface,
         return NULL;
     }
 
+#if 0
     GVirConfigInterface *conf = gvir_config_interface_new(xml);
 
     g_free(xml);
     return conf;
+#endif
+    return NULL;
 }

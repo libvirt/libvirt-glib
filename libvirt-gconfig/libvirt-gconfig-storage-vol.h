@@ -59,7 +59,7 @@ struct _GVirConfigStorageVolClass
 
 GType gvir_config_storage_vol_get_type(void);
 
-GVirConfigStorageVol *gvir_config_storage_vol_new(const gchar *xml);
+GVirConfigStorageVol *gvir_config_storage_vol_new(void);
 
 G_END_DECLS
 

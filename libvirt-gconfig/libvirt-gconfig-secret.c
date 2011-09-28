@@ -61,10 +61,14 @@ static void gvir_config_secret_init(GVirConfigSecret *conn)
 }
 
 
-GVirConfigSecret *gvir_config_secret_new(const gchar *xml)
+GVirConfigSecret *gvir_config_secret_new(void)
 {
+    xmlDocPtr doc;
+
+    doc = xmlNewDoc((xmlChar *)"1.0");
+    doc->children = xmlNewDocNode(doc, NULL, (xmlChar *)"secret", NULL);
     return GVIR_CONFIG_SECRET(g_object_new(GVIR_TYPE_CONFIG_SECRET,
-                                           "doc", xml,
+                                           "node", doc->children,
                                            "schema", DATADIR "/libvirt/schemas/secret.rng",
                                            NULL));
 }

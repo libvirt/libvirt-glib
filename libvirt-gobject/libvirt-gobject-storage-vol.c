@@ -214,8 +214,11 @@ GVirConfigStorageVol *gvir_storage_vol_get_config(GVirStorageVol *vol,
         return NULL;
     }
 
+#if 0
     GVirConfigStorageVol *conf = gvir_config_storage_vol_new(xml);
 
     g_free(xml);
     return conf;
+#endif
+    return NULL;
 }
