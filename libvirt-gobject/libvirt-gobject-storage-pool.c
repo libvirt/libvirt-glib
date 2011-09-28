@@ -42,6 +42,7 @@ struct _GVirStoragePoolPrivate
     virStoragePoolPtr handle;
 
     GHashTable *volumes;
+    gchar uuid[VIR_UUID_STRING_BUFLEN];
 };
 
 G_DEFINE_TYPE(GVirStoragePool, gvir_storage_pool, G_TYPE_OBJECT);
@@ -122,6 +123,20 @@ static void gvir_storage_pool_finalize(GObject *object)
 }
 
 
+static void gvir_storage_pool_constructed(GObject *object)
+{
+    GVirStoragePool *conn = GVIR_STORAGE_POOL(object);
+    GVirStoragePoolPrivate *priv = conn->priv;
+
+    G_OBJECT_CLASS(gvir_storage_pool_parent_class)->constructed(object);
+
+    /* xxx we may want to turn this into an initable */
+    if (virStoragePoolGetUUIDString(priv->handle, priv->uuid) < 0) {
+        g_error("Failed to get storage pool UUID on %p", priv->handle);
+    }
+}
+
+
 static void gvir_storage_pool_class_init(GVirStoragePoolClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -129,6 +144,7 @@ static void gvir_storage_pool_class_init(GVirStoragePoolClass *klass)
     object_class->finalize = gvir_storage_pool_finalize;
     object_class->get_property = gvir_storage_pool_get_property;
     object_class->set_property = gvir_storage_pool_set_property;
+    object_class->constructed = gvir_storage_pool_constructed;
 
     g_object_class_install_property(object_class,
                                     PROP_HANDLE,
@@ -195,15 +211,11 @@ const gchar *gvir_storage_pool_get_name(GVirStoragePool *pool)
 }
 
 
-gchar *gvir_storage_pool_get_uuid(GVirStoragePool *pool)
+const gchar *gvir_storage_pool_get_uuid(GVirStoragePool *pool)
 {
-    GVirStoragePoolPrivate *priv = pool->priv;
-    char *uuid = g_new(gchar, VIR_UUID_STRING_BUFLEN);
+    g_return_val_if_fail(GVIR_IS_STORAGE_POOL(pool), NULL);
 
-    if (virStoragePoolGetUUIDString(priv->handle, uuid) < 0) {
-        g_error("Failed to get storage_pool UUID on %p", priv->handle);
-    }
-    return uuid;
+    return pool->priv->uuid;
 }
 
 

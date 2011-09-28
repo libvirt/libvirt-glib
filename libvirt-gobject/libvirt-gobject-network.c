@@ -39,6 +39,7 @@ extern gboolean debugFlag;
 struct _GVirNetworkPrivate
 {
     virNetworkPtr handle;
+    gchar uuid[VIR_UUID_STRING_BUFLEN];
 };
 
 G_DEFINE_TYPE(GVirNetwork, gvir_network, G_TYPE_OBJECT);
@@ -111,6 +112,18 @@ static void gvir_network_finalize(GObject *object)
     G_OBJECT_CLASS(gvir_network_parent_class)->finalize(object);
 }
 
+static void gvir_network_constructed(GObject *object)
+{
+    GVirNetwork *net = GVIR_NETWORK(object);
+    GVirNetworkPrivate *priv = net->priv;
+
+    G_OBJECT_CLASS(gvir_network_parent_class)->constructed(object);
+
+    /* xxx we may want to turn this into an initable */
+    if (virNetworkGetUUIDString(priv->handle, priv->uuid) < 0) {
+        g_error("Failed to get network UUID on %p", priv->handle);
+    }
+}
 
 static void gvir_network_class_init(GVirNetworkClass *klass)
 {
@@ -119,6 +132,7 @@ static void gvir_network_class_init(GVirNetworkClass *klass)
     object_class->finalize = gvir_network_finalize;
     object_class->get_property = gvir_network_get_property;
     object_class->set_property = gvir_network_set_property;
+    object_class->constructed = gvir_network_constructed;
 
     g_object_class_install_property(object_class,
                                     PROP_HANDLE,
@@ -183,15 +197,11 @@ const gchar *gvir_network_get_name(GVirNetwork *network)
 }
 
 
-gchar *gvir_network_get_uuid(GVirNetwork *network)
+const gchar *gvir_network_get_uuid(GVirNetwork *network)
 {
-    GVirNetworkPrivate *priv = network->priv;
-    char *uuid = g_new(gchar, VIR_UUID_STRING_BUFLEN);
+    g_return_val_if_fail(GVIR_IS_NETWORK(network), NULL);
 
-    if (virNetworkGetUUIDString(priv->handle, uuid) < 0) {
-        g_error("Failed to get network UUID on %p", priv->handle);
-    }
-    return uuid;
+    return network->priv->uuid;
 }
 
 /**

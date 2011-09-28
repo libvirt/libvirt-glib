@@ -66,7 +66,7 @@ GType gvir_network_get_type(void);
 GType gvir_network_handle_get_type(void);
 
 const gchar *gvir_network_get_name(GVirNetwork *network);
-gchar *gvir_network_get_uuid(GVirNetwork *network);
+const gchar *gvir_network_get_uuid(GVirNetwork *network);
 
 GVirConfigNetwork *gvir_network_get_config(GVirNetwork *network,
                                            guint64 flags,

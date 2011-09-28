@@ -63,7 +63,7 @@ GType gvir_storage_pool_get_type(void);
 GType gvir_storage_pool_handle_get_type(void);
 
 const gchar *gvir_storage_pool_get_name(GVirStoragePool *pool);
-gchar *gvir_storage_pool_get_uuid(GVirStoragePool *pool);
+const gchar *gvir_storage_pool_get_uuid(GVirStoragePool *pool);
 
 GVirConfigStoragePool *gvir_storage_pool_get_config(GVirStoragePool *pool,
                                                     guint64 flags,

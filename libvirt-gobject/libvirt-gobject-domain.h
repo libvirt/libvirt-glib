@@ -95,7 +95,7 @@ GType gvir_domain_info_get_type(void);
 GType gvir_domain_handle_get_type(void);
 
 const gchar *gvir_domain_get_name(GVirDomain *dom);
-gchar *gvir_domain_get_uuid(GVirDomain *dom);
+const gchar *gvir_domain_get_uuid(GVirDomain *dom);
 gint gvir_domain_get_id(GVirDomain *dom,
                         GError **err);
 

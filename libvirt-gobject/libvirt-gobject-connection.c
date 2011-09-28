@@ -502,7 +502,7 @@ gboolean gvir_connection_fetch_domains(GVirConnection *conn,
 
     doms = g_hash_table_new_full(g_str_hash,
                                  g_str_equal,
-                                 g_free,
+                                 NULL,
                                  g_object_unref);
 
     for (i = 0 ; i < nactive ; i++) {
@@ -519,7 +519,7 @@ gboolean gvir_connection_fetch_domains(GVirConnection *conn,
                                        NULL));
 
         g_hash_table_insert(doms,
-                            gvir_domain_get_uuid(dom),
+                            (gpointer)gvir_domain_get_uuid(dom),
                             dom);
     }
 
@@ -537,7 +537,7 @@ gboolean gvir_connection_fetch_domains(GVirConnection *conn,
                                        NULL));
 
         g_hash_table_insert(doms,
-                            gvir_domain_get_uuid(dom),
+                            (gpointer)gvir_domain_get_uuid(dom),
                             dom);
     }
 
@@ -637,7 +637,7 @@ gboolean gvir_connection_fetch_storage_pools(GVirConnection *conn,
                                               NULL));
 
         g_hash_table_insert(pools,
-                            gvir_storage_pool_get_uuid(pool),
+                            (gpointer)gvir_storage_pool_get_uuid(pool),
                             pool);
     }
 
@@ -657,7 +657,7 @@ gboolean gvir_connection_fetch_storage_pools(GVirConnection *conn,
                                               NULL));
 
         g_hash_table_insert(pools,
-                            gvir_storage_pool_get_uuid(pool),
+                            (gpointer)gvir_storage_pool_get_uuid(pool),
                             pool);
     }
 
@@ -1060,7 +1060,7 @@ GVirDomain *gvir_connection_create_domain(GVirConnection *conn,
 
     g_mutex_lock(priv->lock);
     g_hash_table_insert(priv->domains,
-                        gvir_domain_get_uuid(domain),
+                        (gpointer)gvir_domain_get_uuid(domain),
                         domain);
     g_mutex_unlock(priv->lock);
 

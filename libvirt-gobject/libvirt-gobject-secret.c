@@ -39,6 +39,7 @@ extern gboolean debugFlag;
 struct _GVirSecretPrivate
 {
     virSecretPtr handle;
+    gchar uuid[VIR_UUID_STRING_BUFLEN];
 };
 
 G_DEFINE_TYPE(GVirSecret, gvir_secret, G_TYPE_OBJECT);
@@ -112,6 +113,20 @@ static void gvir_secret_finalize(GObject *object)
 }
 
 
+static void gvir_secret_constructed(GObject *object)
+{
+    GVirSecret *conn = GVIR_SECRET(object);
+    GVirSecretPrivate *priv = conn->priv;
+
+    G_OBJECT_CLASS(gvir_secret_parent_class)->constructed(object);
+
+    /* xxx we may want to turn this into an initable */
+    if (virSecretGetUUIDString(priv->handle, priv->uuid) < 0) {
+        g_error("Failed to get secret UUID on %p", priv->handle);
+    }
+}
+
+
 static void gvir_secret_class_init(GVirSecretClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -119,6 +134,7 @@ static void gvir_secret_class_init(GVirSecretClass *klass)
     object_class->finalize = gvir_secret_finalize;
     object_class->get_property = gvir_secret_get_property;
     object_class->set_property = gvir_secret_set_property;
+    object_class->constructed = gvir_secret_constructed;
 
     g_object_class_install_property(object_class,
                                     PROP_HANDLE,
@@ -170,15 +186,11 @@ GType gvir_secret_handle_get_type(void)
 }
 
 
-gchar *gvir_secret_get_uuid(GVirSecret *secret)
+const gchar *gvir_secret_get_uuid(GVirSecret *secret)
 {
-    GVirSecretPrivate *priv = secret->priv;
-    char *uuid = g_new(gchar, VIR_UUID_STRING_BUFLEN);
+    g_return_val_if_fail(GVIR_IS_SECRET(secret), NULL);
 
-    if (virSecretGetUUIDString(priv->handle, uuid) < 0) {
-        g_error("Failed to get secret UUID on %p", priv->handle);
-    }
-    return uuid;
+    return secret->priv->uuid;
 }
 
 

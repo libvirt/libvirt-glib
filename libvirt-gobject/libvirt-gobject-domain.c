@@ -39,6 +39,7 @@ extern gboolean debugFlag;
 struct _GVirDomainPrivate
 {
     virDomainPtr handle;
+    gchar uuid[VIR_UUID_STRING_BUFLEN];
 };
 
 G_DEFINE_TYPE(GVirDomain, gvir_domain, G_TYPE_OBJECT);
@@ -122,6 +123,20 @@ static void gvir_domain_finalize(GObject *object)
 }
 
 
+static void gvir_domain_constructed(GObject *object)
+{
+    GVirDomain *conn = GVIR_DOMAIN(object);
+    GVirDomainPrivate *priv = conn->priv;
+
+    G_OBJECT_CLASS(gvir_domain_parent_class)->constructed(object);
+
+    /* xxx we may want to turn this into an initable */
+    if (virDomainGetUUIDString(priv->handle, priv->uuid) < 0) {
+        g_error("Failed to get domain UUID on %p", priv->handle);
+    }
+}
+
+
 static void gvir_domain_class_init(GVirDomainClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -129,6 +144,7 @@ static void gvir_domain_class_init(GVirDomainClass *klass)
     object_class->finalize = gvir_domain_finalize;
     object_class->get_property = gvir_domain_get_property;
     object_class->set_property = gvir_domain_set_property;
+    object_class->constructed = gvir_domain_constructed;
 
     g_object_class_install_property(object_class,
                                     PROP_HANDLE,
@@ -269,15 +285,11 @@ const gchar *gvir_domain_get_name(GVirDomain *dom)
 }
 
 
-gchar *gvir_domain_get_uuid(GVirDomain *dom)
+const gchar *gvir_domain_get_uuid(GVirDomain *dom)
 {
-    GVirDomainPrivate *priv = dom->priv;
-    char *uuid = g_new(gchar, VIR_UUID_STRING_BUFLEN);
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), NULL);
 
-    if (virDomainGetUUIDString(priv->handle, uuid) < 0) {
-        g_error("Failed to get domain UUID on %p", priv->handle);
-    }
-    return uuid;
+    return dom->priv->uuid;
 }
 
 gint gvir_domain_get_id(GVirDomain *dom,

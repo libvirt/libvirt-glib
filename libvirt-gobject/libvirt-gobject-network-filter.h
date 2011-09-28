@@ -62,7 +62,7 @@ GType gvir_network_filter_get_type(void);
 GType gvir_network_filter_handle_get_type(void);
 
 const gchar *gvir_network_filter_get_name(GVirNetworkFilter *filter);
-gchar *gvir_network_filter_get_uuid(GVirNetworkFilter *filter);
+const gchar *gvir_network_filter_get_uuid(GVirNetworkFilter *filter);
 
 GVirConfigNetworkFilter *gvir_network_filter_get_config
                                 (GVirNetworkFilter *filter,
