@@ -66,7 +66,6 @@ gchar *gvir_config_object_to_xml(GVirConfigObject *config);
 
 const gchar *gvir_config_object_get_doc(GVirConfigObject *config);
 const gchar *gvir_config_object_get_schema(GVirConfigObject *config);
-xmlDocPtr  gvir_config_object_get_xml_doc(GVirConfigObject *config, GError **error);
 xmlNodePtr gvir_config_object_get_xml_node(GVirConfigObject *config, GError **error);
 
 G_END_DECLS

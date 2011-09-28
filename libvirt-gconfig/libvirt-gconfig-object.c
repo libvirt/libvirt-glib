@@ -44,10 +44,6 @@ struct _GVirConfigObjectPrivate
     gchar *doc;
     gchar *schema;
 
-    /* FIXME: docHandle is node->doc, can probably be removed to avoid the
-     * 2 getting out of sync
-     */
-    xmlDocPtr docHandle;
     xmlNodePtr node;
 };
 
@@ -118,15 +114,17 @@ static void gvir_config_object_set_property(GObject *object,
         priv->schema = g_value_dup_string(value);
         break;
 
-    case PROP_NODE:
-        priv->node = g_value_get_pointer(value);
-        if ((priv->docHandle != NULL) && (priv->docHandle != priv->node->doc))
-            xmlFreeDoc(priv->docHandle);
-        if (priv->node)
-            priv->docHandle = priv->node->doc;
-        else
-            priv->docHandle = NULL;
+    case PROP_NODE: {
+        xmlNodePtr node;
+        node = g_value_get_pointer(value);
+        if ((priv->node != NULL)
+             && (priv->node->doc != NULL)
+             && (priv->node->doc != node->doc)) {
+            xmlFreeDoc(priv->node->doc);
+        }
+        priv->node = node;
         break;
+    }
 
     default:
         G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
@@ -144,8 +142,12 @@ static void gvir_config_object_finalize(GObject *object)
     g_free(priv->doc);
     g_free(priv->schema);
 
-    if (priv->docHandle)
-        xmlFreeDoc(priv->docHandle);
+    /* FIXME: all objects describing a given XML document will share the
+     * same document so we can't destroy it here like this, we need some
+     * refcounting to know when to destroy it.
+     */
+    if (priv->node)
+        xmlFreeDoc(priv->node->doc);
 
     G_OBJECT_CLASS(gvir_config_object_parent_class)->finalize(object);
 }
@@ -213,7 +215,8 @@ gvir_config_object_parse(GVirConfigObject *config,
                          GError **err)
 {
     GVirConfigObjectPrivate *priv = config->priv;
-    if (priv->docHandle)
+    xmlDocPtr doc;
+    if (priv->node)
         return;
 
     if (!priv->doc) {
@@ -224,14 +227,14 @@ gvir_config_object_parse(GVirConfigObject *config,
         return;
     }
 
-    priv->docHandle = xmlParseMemory(priv->doc, strlen(priv->doc));
-    if (!priv->docHandle) {
+    doc = xmlParseMemory(priv->doc, strlen(priv->doc));
+    if (!doc) {
         *err = gvir_xml_error_new(GVIR_CONFIG_OBJECT_ERROR,
                                   0,
                                   "%s",
                                   "Unable to parse configuration");
     }
-    priv->node = priv->docHandle->children;
+    priv->node = doc->children;
 }
 
 
@@ -280,7 +283,7 @@ void gvir_config_object_validate(GVirConfigObject *config,
         return;
     }
 
-    if (xmlRelaxNGValidateDoc(rngValid, priv->docHandle) != 0) {
+    if (xmlRelaxNGValidateDoc(rngValid, priv->node->doc) != 0) {
         *err = gvir_xml_error_new(GVIR_CONFIG_OBJECT_ERROR,
                                   0,
                                   "%s",
@@ -323,15 +326,6 @@ const gchar *gvir_config_object_get_schema(GVirConfigObject *config)
 {
     GVirConfigObjectPrivate *priv = config->priv;
     return priv->schema;
-}
-
-/* NB: the xmlDocPtr must not be freed by the caller */
-/* gupnp has wrapped xmlDoc in a gobject */
-/* not really useful, can be obtained from xmlNode::doc */
-xmlDocPtr gvir_config_object_get_xml_doc(GVirConfigObject *config, GError **error)
-{
-    gvir_config_object_parse(config, error);
-    return config->priv->docHandle;
 }
 
 /* FIXME: will we always have one xmlNode per GConfig object? */
