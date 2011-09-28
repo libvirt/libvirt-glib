@@ -55,6 +55,15 @@ enum {
     PROP_HANDLE,
 };
 
+enum {
+    VIR_CONNECTION_OPENED,
+    VIR_CONNECTION_CLOSED,
+    VIR_DOMAIN_ADDED,
+    VIR_DOMAIN_REMOVED,
+    LAST_SIGNAL
+};
+
+static gint signals[LAST_SIGNAL];
 
 #define GVIR_CONNECTION_ERROR gvir_connection_error_quark()
 
@@ -137,7 +146,7 @@ static GVirStream* gvir_connection_stream_new(GVirConnection *self G_GNUC_UNUSED
 
 static void gvir_connection_class_init(GVirConnectionClass *klass)
 {
-    GObjectClass *object_class = G_OBJECT_CLASS (klass);
+    GObjectClass *object_class = G_OBJECT_CLASS(klass);
 
     object_class->finalize = gvir_connection_finalize;
     object_class->get_property = gvir_connection_get_property;
@@ -158,7 +167,7 @@ static void gvir_connection_class_init(GVirConnectionClass *klass)
                                                         G_PARAM_STATIC_NICK |
                                                         G_PARAM_STATIC_BLURB));
 
-    g_signal_new("vir-connection-opened",
+    signals[VIR_CONNECTION_OPENED] = g_signal_new("vir-connection-opened",
                  G_OBJECT_CLASS_TYPE(object_class),
                  G_SIGNAL_RUN_FIRST,
                  G_STRUCT_OFFSET(GVirConnectionClass, vir_connection_opened),
@@ -166,7 +175,8 @@ static void gvir_connection_class_init(GVirConnectionClass *klass)
                  g_cclosure_marshal_VOID__VOID,
                  G_TYPE_NONE,
                  0);
-    g_signal_new("vir-connection-closed",
+
+    signals[VIR_CONNECTION_CLOSED] = g_signal_new("vir-connection-closed",
                  G_OBJECT_CLASS_TYPE(object_class),
                  G_SIGNAL_RUN_FIRST,
                  G_STRUCT_OFFSET(GVirConnectionClass, vir_connection_closed),
@@ -175,22 +185,25 @@ static void gvir_connection_class_init(GVirConnectionClass *klass)
                  G_TYPE_NONE,
                  0);
 
-    g_signal_new("vir-domain-added",
+    signals[VIR_DOMAIN_ADDED] = g_signal_new("vir-domain-added",
                  G_OBJECT_CLASS_TYPE(object_class),
                  G_SIGNAL_RUN_FIRST,
                  G_STRUCT_OFFSET(GVirConnectionClass, vir_domain_added),
                  NULL, NULL,
-                 g_cclosure_marshal_VOID__VOID,
+                 g_cclosure_marshal_VOID__OBJECT,
                  G_TYPE_NONE,
-                 0);
-    g_signal_new("vir-domain-removed",
+                 1,
+                 G_TYPE_OBJECT);
+
+    signals[VIR_DOMAIN_REMOVED] = g_signal_new("vir-domain-removed",
                  G_OBJECT_CLASS_TYPE(object_class),
                  G_SIGNAL_RUN_FIRST,
                  G_STRUCT_OFFSET(GVirConnectionClass, vir_domain_removed),
                  NULL, NULL,
-                 g_cclosure_marshal_VOID__VOID,
+                 g_cclosure_marshal_VOID__OBJECT,
                  G_TYPE_NONE,
-                 0);
+                 1,
+                 G_TYPE_OBJECT);
 
     g_object_class_install_property(object_class,
                                     PROP_HANDLE,
@@ -266,7 +279,8 @@ gboolean gvir_connection_open(GVirConnection *conn,
 
     g_mutex_unlock(priv->lock);
 
-    g_signal_emit_by_name(conn, "vir-connection-opened");
+    g_signal_emit(conn, signals[VIR_CONNECTION_OPENED], 0);
+
     return TRUE;
 }
 
@@ -371,7 +385,7 @@ void gvir_connection_close(GVirConnection *conn)
 
     g_mutex_unlock(priv->lock);
 
-    g_signal_emit_by_name(conn, "vir-connection-closed");
+    g_signal_emit(conn, signals[VIR_CONNECTION_CLOSED], 0);
 }
 
 typedef gint (* CountFunction) (virConnectPtr vconn);

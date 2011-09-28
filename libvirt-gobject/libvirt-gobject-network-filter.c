@@ -64,8 +64,8 @@ static void gvir_network_filter_get_property(GObject *object,
                                              GValue *value,
                                              GParamSpec *pspec)
 {
-    GVirNetworkFilter *conn = GVIR_NETWORK_FILTER(object);
-    GVirNetworkFilterPrivate *priv = conn->priv;
+    GVirNetworkFilter *nf = GVIR_NETWORK_FILTER(object);
+    GVirNetworkFilterPrivate *priv = nf->priv;
 
     switch (prop_id) {
     case PROP_HANDLE:
@@ -83,8 +83,8 @@ static void gvir_network_filter_set_property(GObject *object,
                                              const GValue *value,
                                              GParamSpec *pspec)
 {
-    GVirNetworkFilter *conn = GVIR_NETWORK_FILTER(object);
-    GVirNetworkFilterPrivate *priv = conn->priv;
+    GVirNetworkFilter *nf = GVIR_NETWORK_FILTER(object);
+    GVirNetworkFilterPrivate *priv = nf->priv;
 
     switch (prop_id) {
     case PROP_HANDLE:
@@ -101,10 +101,10 @@ static void gvir_network_filter_set_property(GObject *object,
 
 static void gvir_network_filter_finalize(GObject *object)
 {
-    GVirNetworkFilter *conn = GVIR_NETWORK_FILTER(object);
-    GVirNetworkFilterPrivate *priv = conn->priv;
+    GVirNetworkFilter *nf = GVIR_NETWORK_FILTER(object);
+    GVirNetworkFilterPrivate *priv = nf->priv;
 
-    DEBUG("Finalize GVirNetworkFilter=%p", conn);
+    DEBUG("Finalize GVirNetworkFilter=%p", nf);
 
     virNWFilterFree(priv->handle);
 
