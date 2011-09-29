@@ -323,3 +323,35 @@ void gvir_config_object_set_node_content(GVirConfigObject *object,
     }
 }
 
+/* FIXME: how to notify of errors/node not found? */
+guint64 gvir_config_object_get_node_content_uint64(GVirConfigObject *object,
+                                                   const char *node_name)
+{
+    xmlNodePtr node;
+    xmlChar *str;
+    guint64 value;
+
+    node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(object));
+    if (node == NULL)
+        return 0;
+
+    str = gvir_config_xml_get_child_element_content(node, node_name);
+    if (!str)
+        return 0;
+
+    value = g_ascii_strtoull((char *)str, NULL, 0);
+    xmlFree(str);
+
+    return value;
+}
+
+
+void gvir_config_object_set_node_content_uint64(GVirConfigObject *object,
+                                                const char *node_name,
+                                                guint64 value)
+{
+    char *str;
+    str = g_strdup_printf("%"G_GUINT64_FORMAT, value);
+    gvir_config_object_set_node_content(object, node_name, str);
+    g_free(str);
+}

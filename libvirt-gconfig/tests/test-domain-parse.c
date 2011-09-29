@@ -66,6 +66,9 @@ int main(int argc, char **argv)
     g_assert(name != NULL);
     g_assert(strcmp(name, "foo") == 0);
     g_free(name);
+
+    g_assert(gvir_config_domain_get_memory(domain) == 987654321);
+
     g_free(xml);
 
     xml = gvir_config_object_to_xml(GVIR_CONFIG_OBJECT(domain));

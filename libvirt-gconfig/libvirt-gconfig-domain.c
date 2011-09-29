@@ -45,6 +45,7 @@ G_DEFINE_TYPE(GVirConfigDomain, gvir_config_domain, GVIR_TYPE_CONFIG_OBJECT);
 enum {
     PROP_0,
     PROP_NAME,
+    PROP_MEMORY,
 };
 
 static void gvir_config_domain_get_property(GObject *object,
@@ -57,6 +58,9 @@ static void gvir_config_domain_get_property(GObject *object,
     switch (prop_id) {
     case PROP_NAME:
         g_value_take_string(value, gvir_config_domain_get_name(domain));
+        break;
+    case PROP_MEMORY:
+        g_value_set_uint64(value, gvir_config_domain_get_memory(domain));
         break;
 
     default:
@@ -74,6 +78,9 @@ static void gvir_config_domain_set_property(GObject *object,
     switch (prop_id) {
     case PROP_NAME:
         gvir_config_domain_set_name(domain, g_value_get_string(value));
+        break;
+    case PROP_MEMORY:
+        gvir_config_domain_set_memory(domain, g_value_get_uint64(value));
         break;
     default:
         G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
@@ -96,6 +103,15 @@ static void gvir_config_domain_class_init(GVirConfigDomainClass *klass)
                                                         "Name",
                                                         "Domain Name",
                                                         NULL,
+                                                        G_PARAM_READWRITE |
+                                                        G_PARAM_STATIC_STRINGS));
+    g_object_class_install_property(object_class,
+                                    PROP_MEMORY,
+                                    g_param_spec_uint64("memory",
+                                                        "Memory",
+                                                        "Maximum Guest Memory (in kilobytes)",
+                                                        0, G_MAXUINT64,
+                                                        0,
                                                         G_PARAM_READWRITE |
                                                         G_PARAM_STATIC_STRINGS));
 }
@@ -150,4 +166,17 @@ void gvir_config_domain_set_name(GVirConfigDomain *domain, const char *name)
     gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(domain),
                                         "name", name);
     g_object_notify(G_OBJECT(domain), "name");
+}
+
+guint64 gvir_config_domain_get_memory(GVirConfigDomain *domain)
+{
+    return gvir_config_object_get_node_content_uint64(GVIR_CONFIG_OBJECT(domain),
+                                                      "memory");
+}
+
+void gvir_config_domain_set_memory(GVirConfigDomain *domain, guint64 memory)
+{
+    gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(domain),
+                                               "memory", memory);
+    g_object_notify(G_OBJECT(domain), "memory");
 }

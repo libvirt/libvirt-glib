@@ -44,6 +44,9 @@ int main(void)
     g_assert(strcmp(name, "foo") == 0);
     g_free(name);
 
+    gvir_config_domain_set_memory(domain, 1234);
+    g_assert(gvir_config_domain_get_memory(domain) == 1234);
+
     xml = gvir_config_object_to_xml(GVIR_CONFIG_OBJECT(domain));
     g_print("%s\n", xml);
     g_free(xml);
