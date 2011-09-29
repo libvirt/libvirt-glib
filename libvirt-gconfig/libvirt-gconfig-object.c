@@ -281,3 +281,15 @@ xmlNodePtr gvir_config_object_get_xml_node(GVirConfigObject *config)
 {
     return config->priv->node;
 }
+
+char *gvir_config_object_get_node_content(GVirConfigObject *object,
+                                          const char *node_name)
+{
+    xmlNodePtr node;
+
+    node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(object));
+    if (node == NULL)
+        return NULL;
+
+    return gvir_config_xml_get_child_element_content_glib(node, node_name);
+}

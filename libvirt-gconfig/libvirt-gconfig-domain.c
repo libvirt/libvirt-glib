@@ -141,13 +141,8 @@ GVirConfigDomain *gvir_config_domain_new(void)
 
 char *gvir_config_domain_get_name(GVirConfigDomain *domain)
 {
-    xmlNodePtr node;
-
-    node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(domain));
-    if (node == NULL)
-        return NULL;
-
-    return gvir_config_xml_get_child_element_content_glib(node, "name");
+    return gvir_config_object_get_node_content(GVIR_CONFIG_OBJECT(domain),
+                                               "name");
 }
 
 void gvir_config_domain_set_name(GVirConfigDomain *domain, const char *name)
