@@ -293,3 +293,33 @@ char *gvir_config_object_get_node_content(GVirConfigObject *object,
 
     return gvir_config_xml_get_child_element_content_glib(node, node_name);
 }
+
+/* FIXME: if there are multiple nodes with the same name, this function
+ * won't behave as expected. Should we get rid of the duplicated node names
+ * here?
+ */
+void gvir_config_object_set_node_content(GVirConfigObject *object,
+                                         const char *node_name,
+                                         const char *value)
+{
+    xmlNodePtr parent_node;
+    xmlNodePtr old_node;
+    xmlNodePtr new_node;
+    xmlChar *encoded_name;
+
+    parent_node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(object));
+    encoded_name = xmlEncodeEntitiesReentrant(parent_node->doc,
+                                              (xmlChar *)value);
+    new_node = xmlNewDocNode(parent_node->doc, NULL,
+                             (xmlChar *)node_name, encoded_name);
+    xmlFree(encoded_name);
+
+    old_node = gvir_config_xml_get_element(parent_node, node_name, NULL);
+    if (old_node) {
+        old_node = xmlReplaceNode(old_node, new_node);
+        xmlFreeNode(old_node);
+    } else {
+        xmlAddChild(parent_node, new_node);
+    }
+}
+
