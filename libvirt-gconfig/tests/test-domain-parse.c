@@ -56,6 +56,12 @@ int main(int argc, char **argv)
         return 3;
     }
     g_assert(domain != NULL);
+    gvir_config_object_validate(GVIR_CONFIG_OBJECT(domain), &error);
+    if (error != NULL) {
+        g_print("%s format is invalid: %s\n", argv[1], error->message);
+        g_clear_error(&error);
+    }
+
     name = gvir_config_domain_get_name(domain);
     g_assert(name != NULL);
     g_assert(strcmp(name, "foo") == 0);
