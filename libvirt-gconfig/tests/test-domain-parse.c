@@ -33,6 +33,7 @@ int main(int argc, char **argv)
 {
     GVirConfigDomain *domain;
     char *name;
+    GStrv features;
     char *xml;
     GError *error = NULL;
 
@@ -68,6 +69,12 @@ int main(int argc, char **argv)
     g_free(name);
 
     g_assert(gvir_config_domain_get_memory(domain) == 987654321);
+
+    features = gvir_config_domain_get_features(domain);
+    g_assert(g_strv_length(features) == 2);
+    g_assert(strcmp(features[0], "f1") == 0);
+    g_assert(strcmp(features[1], "f2") == 0);
+    g_strfreev(features);
 
     g_free(xml);
 

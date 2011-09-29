@@ -28,10 +28,14 @@
 #include <string.h>
 #include <libvirt-gconfig/libvirt-gconfig.h>
 
+const char *features[] = { "foo", "bar", "baz", NULL };
+
 int main(void)
 {
     GVirConfigDomain *domain;
     char *name;
+    GStrv feat;
+    unsigned int i;
     char *xml;
 
     g_type_init();
@@ -46,6 +50,14 @@ int main(void)
 
     gvir_config_domain_set_memory(domain, 1234);
     g_assert(gvir_config_domain_get_memory(domain) == 1234);
+
+    gvir_config_domain_set_features(domain, (const GStrv)features);
+    feat = gvir_config_domain_get_features(domain);
+    for (i = 0; features[i] != NULL; i++) {
+        g_assert(feat[i] != NULL);
+        g_assert(strcmp(feat[i], features[i]) == 0);
+    }
+    g_strfreev(feat);
 
     xml = gvir_config_object_to_xml(GVIR_CONFIG_OBJECT(domain));
     g_print("%s\n", xml);

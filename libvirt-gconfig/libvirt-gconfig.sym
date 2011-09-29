@@ -6,6 +6,8 @@ LIBVIRT_GOBJECT_0.0.1 {
 	gvir_config_domain_get_type;
 	gvir_config_domain_new;
 	gvir_config_domain_new_from_xml;
+	gvir_config_domain_get_features;
+	gvir_config_domain_set_features;
 	gvir_config_domain_get_memory;
 	gvir_config_domain_set_memory;
 	gvir_config_domain_get_name;

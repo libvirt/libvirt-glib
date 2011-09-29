@@ -46,6 +46,7 @@ enum {
     PROP_0,
     PROP_NAME,
     PROP_MEMORY,
+    PROP_FEATURES
 };
 
 static void gvir_config_domain_get_property(GObject *object,
@@ -61,6 +62,9 @@ static void gvir_config_domain_get_property(GObject *object,
         break;
     case PROP_MEMORY:
         g_value_set_uint64(value, gvir_config_domain_get_memory(domain));
+        break;
+    case PROP_FEATURES:
+        g_value_take_boxed(value, gvir_config_domain_get_features(domain));
         break;
 
     default:
@@ -81,6 +85,9 @@ static void gvir_config_domain_set_property(GObject *object,
         break;
     case PROP_MEMORY:
         gvir_config_domain_set_memory(domain, g_value_get_uint64(value));
+        break;
+    case PROP_FEATURES:
+        gvir_config_domain_set_features(domain, g_value_get_boxed(value));
         break;
     default:
         G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
@@ -112,6 +119,14 @@ static void gvir_config_domain_class_init(GVirConfigDomainClass *klass)
                                                         "Maximum Guest Memory (in kilobytes)",
                                                         0, G_MAXUINT64,
                                                         0,
+                                                        G_PARAM_READWRITE |
+                                                        G_PARAM_STATIC_STRINGS));
+    g_object_class_install_property(object_class,
+                                    PROP_FEATURES,
+                                    g_param_spec_boxed("features",
+                                                        "Features",
+                                                        "Hypervisor Features",
+                                                        G_TYPE_STRV,
                                                         G_PARAM_READWRITE |
                                                         G_PARAM_STATIC_STRINGS));
 }
@@ -179,4 +194,60 @@ void gvir_config_domain_set_memory(GVirConfigDomain *domain, guint64 memory)
     gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(domain),
                                                "memory", memory);
     g_object_notify(G_OBJECT(domain), "memory");
+}
+
+/**
+ * gvir_config_domain_get_features:
+ * Returns: (transfer full):
+ */
+GStrv gvir_config_domain_get_features(GVirConfigDomain *domain)
+{
+    GPtrArray *features;
+    xmlNodePtr parent_node;
+    xmlNodePtr node;
+    xmlNodePtr it;
+
+    parent_node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(domain));
+    if (parent_node == NULL)
+        return NULL;
+
+    node = gvir_config_xml_get_element(parent_node, "features", NULL);
+    if (node == NULL)
+        return NULL;
+
+    features = g_ptr_array_new();
+    for (it = node->children; it != NULL; it = it->next) {
+        g_ptr_array_add(features, g_strdup((char *)it->name));
+    }
+    g_ptr_array_add(features, NULL);
+
+    return (GStrv)g_ptr_array_free(features, FALSE);
+}
+
+void gvir_config_domain_set_features(GVirConfigDomain *domain,
+                                     const GStrv features)
+{
+    xmlNodePtr parent_node;
+    xmlNodePtr features_node;
+    xmlNodePtr old_node;
+    GStrv it;
+
+    parent_node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(domain));
+    features_node = xmlNewDocNode(parent_node->doc, NULL,
+                                 (xmlChar *)"features", NULL);
+    for (it = features; *it != NULL; it++) {
+        xmlNodePtr node;
+
+        node = xmlNewDocNode(parent_node->doc, NULL, (xmlChar *)*it, NULL);
+        xmlAddChild(features_node, node);
+    }
+
+    old_node = gvir_config_xml_get_element(parent_node, "features", NULL);
+    if (old_node) {
+        old_node = xmlReplaceNode(old_node, features_node);
+        xmlFreeNode(old_node);
+    } else {
+        xmlAddChild(parent_node, features_node);
+    }
+    g_object_notify(G_OBJECT(domain), "features");
 }
