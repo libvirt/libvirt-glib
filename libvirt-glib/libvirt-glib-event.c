@@ -195,6 +195,18 @@ cleanup:
     g_mutex_unlock(eventlock);
 }
 
+static gboolean
+_event_handle_remove(gpointer data)
+{
+    struct gvir_event_handle *h = data;
+
+    if (h->ff)
+        (h->ff)(h->opaque);
+    free(h);
+
+    return FALSE;
+}
+
 static int
 gvir_event_handle_remove(int watch)
 {
@@ -217,9 +229,7 @@ gvir_event_handle_remove(int watch)
     g_source_remove(data->source);
     data->source = 0;
     data->events = 0;
-    if (data->ff)
-        (data->ff)(data->opaque);
-    free(data);
+    g_idle_add(_event_handle_remove, data);
 
     ret = 0;
 
@@ -324,6 +334,18 @@ cleanup:
     g_mutex_unlock(eventlock);
 }
 
+static gboolean
+_event_timeout_remove(gpointer data)
+{
+    struct gvir_event_timeout *t = data;
+
+    if (t->ff)
+        (t->ff)(t->opaque);
+    free(t);
+
+    return FALSE;
+}
+
 static int
 gvir_event_timeout_remove(int timer)
 {
@@ -345,11 +367,7 @@ gvir_event_timeout_remove(int timer)
 
     g_source_remove(data->source);
     data->source = 0;
-
-    if (data->ff)
-        (data->ff)(data->opaque);
-
-    free(data);
+    g_idle_add(_event_timeout_remove, data);
 
     ret = 0;
 
