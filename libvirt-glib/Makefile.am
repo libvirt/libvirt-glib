@@ -53,6 +53,8 @@ LibvirtGLib-1.0.gir: libvirt-glib-1.0.la $(G_IR_SCANNER) Makefile.am
                 -I$(srcdir) \
                 --pkg=glib-2.0 \
                 --pkg=gthread-2.0 \
+                --c-include="libvirt-glib/libvirt-glib.h" \
+                --pkg-export=libvirt-glib-1.0 \
                 $(libvirt_glib_1_0_la_SOURCES:%=$(srcdir)/%)
 
 girdir = $(datadir)/gir-1.0

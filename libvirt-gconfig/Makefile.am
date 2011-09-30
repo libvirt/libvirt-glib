@@ -72,6 +72,8 @@ LibvirtGConfig-1.0.gir: libvirt-gconfig-1.0.la $(G_IR_SCANNER) Makefile.am
                 -I$(top_builddir) \
                 --verbose \
                 --pkg=gobject-2.0 \
+                --c-include="libvirt-gconfig/libvirt-gconfig.h" \
+                --pkg-export=libvirt-gconfig-1.0 \
 		$(srcdir)/libvirt-gconfig.h \
                 $(GCONFIG_SOURCE_FILES:%=$(srcdir)/%) \
                 $(GCONFIG_HEADER_FILES:%=$(srcdir)/%)

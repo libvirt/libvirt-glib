@@ -117,6 +117,8 @@ LibvirtGObject-1.0.gir: libvirt-gobject-1.0.la $(G_IR_SCANNER) Makefile.am
                 --verbose \
                 --pkg=gobject-2.0 \
                 --pkg=gthread-2.0 \
+                --c-include="libvirt-gobject/libvirt-gobject.h" \
+                --pkg-export=libvirt-gobject-1.0 \
                 $(srcdir)/libvirt-gobject.h \
                 $(GOBJECT_SOURCE_FILES:%=$(srcdir)/%) \
                 $(GOBJECT_HEADER_FILES:%=$(srcdir)/%) \
