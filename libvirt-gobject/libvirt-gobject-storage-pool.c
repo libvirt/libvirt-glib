@@ -385,19 +385,19 @@ gvir_storage_pool_refresh_helper(GSimpleAsyncResult *res,
  * gvir_storage_pool_refresh_async:
  * @pool: the storage pool
  * @cancellable: (allow-none)(transfer none): cancellation object
- * @callback: (transfer none): completion callback
- * @opaque: (transfer none)(allow-none): opaque data for callback
+ * @callback: (scope async): completion callback
+ * @user_data: (closure): opaque data for callback
  */
 void gvir_storage_pool_refresh_async(GVirStoragePool *pool,
                                      GCancellable *cancellable,
                                      GAsyncReadyCallback callback,
-                                     gpointer opaque)
+                                     gpointer user_data)
 {
     GSimpleAsyncResult *res;
 
     res = g_simple_async_result_new(G_OBJECT(pool),
                                     callback,
-                                    opaque,
+                                    user_data,
                                     gvir_storage_pool_refresh);
     g_simple_async_result_run_in_thread(res,
                                         gvir_storage_pool_refresh_helper,

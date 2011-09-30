@@ -431,19 +431,19 @@ gvir_connection_open_helper(GSimpleAsyncResult *res,
  * gvir_connection_open_async:
  * @conn: the connection
  * @cancellable: (allow-none)(transfer none): cancellation object
- * @callback: (transfer none): completion callback
- * @opaque: (transfer none)(allow-none): opaque data for callback
+ * @callback: (scope async): completion callback
+ * @user_data: (closure): opaque data for callback
  */
 void gvir_connection_open_async(GVirConnection *conn,
                                 GCancellable *cancellable,
                                 GAsyncReadyCallback callback,
-                                gpointer opaque)
+                                gpointer user_data)
 {
     GSimpleAsyncResult *res;
 
     res = g_simple_async_result_new(G_OBJECT(conn),
                                     callback,
-                                    opaque,
+                                    user_data,
                                     gvir_connection_open);
     g_simple_async_result_run_in_thread(res,
                                         gvir_connection_open_helper,
@@ -828,19 +828,19 @@ gvir_connection_fetch_domains_helper(GSimpleAsyncResult *res,
  * gvir_connection_fetch_domains_async:
  * @conn: the connection
  * @cancellable: (allow-none)(transfer none): cancellation object
- * @callback: (transfer none): completion callback
- * @opaque: (transfer none)(allow-none): opaque data for callback
+ * @callback: (scope async): completion callback
+ * @user_data: (closure): opaque data for callback
  */
 void gvir_connection_fetch_domains_async(GVirConnection *conn,
                                          GCancellable *cancellable,
                                          GAsyncReadyCallback callback,
-                                         gpointer opaque)
+                                         gpointer user_data)
 {
     GSimpleAsyncResult *res;
 
     res = g_simple_async_result_new(G_OBJECT(conn),
                                     callback,
-                                    opaque,
+                                    user_data,
                                     gvir_connection_fetch_domains);
     g_simple_async_result_run_in_thread(res,
                                         gvir_connection_fetch_domains_helper,
@@ -889,19 +889,19 @@ gvir_connection_fetch_pools_helper(GSimpleAsyncResult *res,
  * gvir_connection_fetch_storage_pools_async:
  * @conn: the connection
  * @cancellable: (allow-none)(transfer none): cancellation object
- * @callback: (transfer none): completion callback
- * @opaque: (transfer none)(allow-none): opaque data for callback
+ * @callback: (scope async): completion callback
+ * @user_data: (closure): opaque data for callback
  */
 void gvir_connection_fetch_storage_pools_async(GVirConnection *conn,
                                                GCancellable *cancellable,
                                                GAsyncReadyCallback callback,
-                                               gpointer opaque)
+                                               gpointer user_data)
 {
     GSimpleAsyncResult *res;
 
     res = g_simple_async_result_new(G_OBJECT(conn),
                                     callback,
-                                    opaque,
+                                    user_data,
                                     gvir_connection_fetch_storage_pools);
     g_simple_async_result_run_in_thread(res,
                                         gvir_connection_fetch_pools_helper,

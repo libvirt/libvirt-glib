@@ -75,7 +75,7 @@ gboolean gvir_storage_pool_refresh(GVirStoragePool *pool,
 void gvir_storage_pool_refresh_async(GVirStoragePool *pool,
                                      GCancellable *cancellable,
                                      GAsyncReadyCallback callback,
-                                     gpointer opaque);
+                                     gpointer user_data);
 gboolean gvir_storage_pool_refresh_finish(GVirStoragePool *pool,
                                           GAsyncResult *result,
                                           GError **err);

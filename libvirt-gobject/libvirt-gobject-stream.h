@@ -62,7 +62,7 @@ struct _GVirStreamClass
 /**
  * GVirStreamSinkFunc:
  * @stream: a #GVirStream
- * @buf: data pointer
+ * @buf: (out) (array length=nbytes) (transfer none): data pointer
  * @nbytes: data size
  * @user_data: user data passed to the function
  * Returns: the number of bytes filled, 0 upon end

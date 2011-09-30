@@ -77,7 +77,7 @@ gboolean gvir_connection_open(GVirConnection *conn,
 void gvir_connection_open_async(GVirConnection *conn,
                                 GCancellable *cancellable,
                                 GAsyncReadyCallback callback,
-                                gpointer opaque);
+                                gpointer user_data);
 gboolean gvir_connection_open_finish(GVirConnection *conn,
                                      GAsyncResult *result,
                                      GError **err);
@@ -90,7 +90,7 @@ gboolean gvir_connection_fetch_domains(GVirConnection *conn,
 void gvir_connection_fetch_domains_async(GVirConnection *conn,
                                          GCancellable *cancellable,
                                          GAsyncReadyCallback callback,
-                                         gpointer opaque);
+                                         gpointer user_data);
 gboolean gvir_connection_fetch_domains_finish(GVirConnection *conn,
                                               GAsyncResult *result,
                                               GError **err);
@@ -149,7 +149,7 @@ gboolean gvir_connection_fetch_storage_pools(GVirConnection *conn,
 void gvir_connection_fetch_storage_pools_async(GVirConnection *conn,
                                                GCancellable *cancellable,
                                                GAsyncReadyCallback callback,
-                                               gpointer opaque);
+                                               gpointer user_data);
 gboolean gvir_connection_fetch_storage_pools_finish(GVirConnection *conn,
                                                     GAsyncResult *result,
                                                     GError **err);
