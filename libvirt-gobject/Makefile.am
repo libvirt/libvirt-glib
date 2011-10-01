@@ -88,7 +88,7 @@ libvirt-gobject-enums.h: libvirt-gobject-domain.h libvirt-gobject-connection.h
                         --ftail "#endif /* __LIBVIRT_GOBJECT_ENUMS_H__ */\n" \
                         --eprod "#define GVIR_TYPE_@ENUMSHORT@ @enum_name@_get_type()\n" \
                         --eprod "GType @enum_name@_get_type (void);\n" \
-                $^ | sed -e 's/g_vir/gvir/g' > $@
+                $^ | sed -e 's/g_vir/gvir/g' | sed -e 's/_VIR_/_/g' > $@
 
 BUILT_SOURCES = libvirt-gobject-enums.c libvirt-gobject-enums.h
 
