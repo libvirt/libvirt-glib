@@ -1151,7 +1151,7 @@ GVirStream *gvir_connection_get_stream(GVirConnection *self,
     klass = GVIR_CONNECTION_GET_CLASS(self);
     g_return_val_if_fail(klass->stream_new, NULL);
 
-    virStreamPtr st = virStreamNew(self->priv->conn, flags);
+    virStreamPtr st = virStreamNew(self->priv->conn, flags | VIR_STREAM_NONBLOCK);
 
     return klass->stream_new(self, st);
 }

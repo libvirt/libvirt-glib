@@ -40,6 +40,8 @@ libvirt_gobject_1_0_la_HEADERS = \
 libvirt_gobject_1_0_la_SOURCES = \
 			$(libvirt_gobject_1_0_la_HEADERS) \
 			libvirt-gobject-enums.c \
+			libvirt-gobject-input-stream.c \
+			libvirt-gobject-input-stream.h \
 			$(GOBJECT_SOURCE_FILES)
 libvirt_gobject_1_0_la_CFLAGS = \
 			-DDATADIR="\"$(datadir)\"" \

@@ -28,6 +28,9 @@
 #ifndef __LIBVIRT_GOBJECT_STREAM_H__
 #define __LIBVIRT_GOBJECT_STREAM_H__
 
+#include <glib-object.h>
+#include <gio/gio.h>
+
 G_BEGIN_DECLS
 
 #define GVIR_TYPE_STREAM            (gvir_stream_get_type ())
@@ -45,7 +48,7 @@ typedef struct _GVirStreamClass GVirStreamClass;
 
 struct _GVirStream
 {
-    GObject parent;
+    GIOStream parent_instance;
 
     GVirStreamPrivate *priv;
 
@@ -54,7 +57,7 @@ struct _GVirStream
 
 struct _GVirStreamClass
 {
-    GObjectClass parent_class;
+    GIOStreamClass parent_class;
 
     gpointer padding[20];
 };
@@ -76,7 +79,8 @@ typedef gint (* GVirStreamSinkFunc) (GVirStream *stream,
 GType gvir_stream_get_type(void);
 GType gvir_stream_handle_get_type(void);
 
-gint gvir_stream_receive_all(GVirStream *stream, GVirStreamSinkFunc func, gpointer user_data, GError **err);
+gssize gvir_stream_receive_all(GVirStream *stream, GVirStreamSinkFunc func, gpointer user_data, GError **err);
+gssize gvir_stream_receive(GVirStream *stream, gchar *buffer, gsize size, GCancellable *cancellable, GError **error);
 
 G_END_DECLS
 

@@ -30,6 +30,8 @@
 #include "libvirt-glib/libvirt-glib.h"
 #include "libvirt-gobject/libvirt-gobject.h"
 
+#include "libvirt-gobject/libvirt-gobject-input-stream.h"
+
 extern gboolean debugFlag;
 
 #define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
@@ -39,10 +41,12 @@ extern gboolean debugFlag;
 
 struct _GVirStreamPrivate
 {
-    virStreamPtr handle;
+    virStreamPtr   handle;
+    GInputStream  *input_stream;
+    gboolean       in_dispose;
 };
 
-G_DEFINE_TYPE(GVirStream, gvir_stream, G_TYPE_OBJECT);
+G_DEFINE_TYPE(GVirStream, gvir_stream, G_TYPE_IO_STREAM);
 
 
 enum {
@@ -59,6 +63,71 @@ gvir_stream_error_quark(void)
 {
     return g_quark_from_static_string("vir-g-stream");
 }
+
+
+static GInputStream* gvir_stream_get_input_stream(GIOStream *io_stream)
+{
+    GVirStream *self = GVIR_STREAM(io_stream);
+
+    if (self->priv->input_stream == NULL)
+        self->priv->input_stream = (GInputStream *)_gvir_input_stream_new(self);
+
+    return self->priv->input_stream;
+}
+
+
+static gboolean gvir_stream_close(GIOStream *io_stream,
+                                  GCancellable *cancellable, G_GNUC_UNUSED GError **error)
+{
+    GVirStream *self = GVIR_STREAM(io_stream);
+
+    if (self->priv->input_stream)
+        g_input_stream_close(self->priv->input_stream, cancellable, NULL);
+
+    if (self->priv->in_dispose)
+        return TRUE;
+
+    return TRUE; /* FIXME: really close the stream? */
+}
+
+
+static void gvir_stream_close_async(GIOStream *stream, G_GNUC_UNUSED int io_priority,
+                                    GCancellable *cancellable, GAsyncReadyCallback callback,
+                                    gpointer user_data)
+{
+    GSimpleAsyncResult *res;
+    GIOStreamClass *class;
+    GError *error;
+
+    class = G_IO_STREAM_GET_CLASS(stream);
+
+    /* close is not blocked, just do it! */
+    error = NULL;
+    if (class->close_fn &&
+        !class->close_fn(stream, cancellable, &error)) {
+        g_simple_async_report_take_gerror_in_idle(G_OBJECT (stream),
+                                                  callback, user_data,
+                                                  error);
+        return;
+    }
+
+    res = g_simple_async_result_new(G_OBJECT (stream),
+                                    callback,
+                                    user_data,
+                                    gvir_stream_close_async);
+    g_simple_async_result_complete_in_idle(res);
+    g_object_unref (res);
+}
+
+
+static gboolean
+gvir_stream_close_finish(G_GNUC_UNUSED GIOStream *stream,
+                         G_GNUC_UNUSED GAsyncResult *result,
+                         G_GNUC_UNUSED GError **error)
+{
+    return TRUE;
+}
+
 
 static void gvir_stream_get_property(GObject *object,
                                      guint prop_id,
@@ -107,6 +176,9 @@ static void gvir_stream_finalize(GObject *object)
 
     DEBUG("Finalize GVirStream=%p", self);
 
+    if (self->priv->input_stream)
+        g_object_unref(self->priv->input_stream);
+
     if (priv->handle) {
         if (virStreamFinish(priv->handle) < 0)
             g_critical("cannot finish stream");
@@ -120,11 +192,17 @@ static void gvir_stream_finalize(GObject *object)
 
 static void gvir_stream_class_init(GVirStreamClass *klass)
 {
-    GObjectClass *object_class = G_OBJECT_CLASS (klass);
+    GObjectClass *object_class = G_OBJECT_CLASS(klass);
+    GIOStreamClass *stream_class = G_IO_STREAM_CLASS(klass);
 
     object_class->finalize = gvir_stream_finalize;
     object_class->get_property = gvir_stream_get_property;
     object_class->set_property = gvir_stream_set_property;
+
+    stream_class->get_input_stream = gvir_stream_get_input_stream;
+    stream_class->close_fn = gvir_stream_close;
+    stream_class->close_async = gvir_stream_close_async;
+    stream_class->close_finish = gvir_stream_close_finish;
 
     g_object_class_install_property(object_class,
                                     PROP_HANDLE,
@@ -170,6 +248,50 @@ GType gvir_stream_handle_get_type(void)
     return handle_type;
 }
 
+/**
+ * gvir_stream_receive:
+ * @stream: the stream
+ * @buffer: a buffer to read data into (which should be at least @size
+ *     bytes long).
+ * @size: the number of bytes you want to read from the stream
+ * @cancellable: (allow-none): a %GCancellable or %NULL
+ * @error: #GError for error reporting, or %NULL to ignore.
+ *
+ * Receive data (up to @size bytes) from a stream.
+ * On error -1 is returned and @error is set accordingly.
+ *
+ * gvir_stream_receive() can return any number of bytes, up to
+ * @size. If more than @size bytes have been received, the additional
+ * data will be returned in future calls to gvir_stream_receive().
+ *
+ * If there is no data available, a %G_IO_ERROR_WOULD_BLOCK error will be
+ * returned.
+ *
+ * Returns: Number of bytes read, or 0 if the end of stream reached,
+ * or -1 on error.
+ */
+gssize gvir_stream_receive(GVirStream *self, gchar *buffer, gsize size,
+                           GCancellable *cancellable, GError **error)
+{
+    int got;
+
+    g_return_val_if_fail(GVIR_IS_STREAM(self), -1);
+    g_return_val_if_fail(buffer != NULL, -1);
+
+    if (g_cancellable_set_error_if_cancelled (cancellable, error))
+        return -1;
+
+    got = virStreamRecv(self->priv->handle, buffer, size);
+
+    if (got == -2) {  /* blocking */
+        g_set_error(error, G_IO_ERROR, G_IO_ERROR_WOULD_BLOCK, NULL);
+    } else if (got < 0) {
+        g_set_error(error, G_IO_ERROR, G_IO_ERROR_INVALID_ARGUMENT,
+                    "Got virStreamRecv error in %s", G_STRFUNC);
+    }
+
+    return got;
+}
 
 struct stream_sink_helper {
     GVirStream *self;
@@ -197,7 +319,7 @@ stream_sink(virStreamPtr st G_GNUC_UNUSED,
  * requested data sink. This is simply a convenient alternative
  * to virStreamRecv, for apps that do blocking-I/o.
  */
-gint
+gssize
 gvir_stream_receive_all(GVirStream *self, GVirStreamSinkFunc func, gpointer user_data, GError **err)
 {
     struct stream_sink_helper helper = {
