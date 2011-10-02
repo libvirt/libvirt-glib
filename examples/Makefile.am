@@ -25,5 +25,5 @@ conn_test_SOURCES = \
 conn_test_LDADD = \
 		../libvirt-gobject/libvirt-gobject-1.0.la \
 		$(LIBVIRT_LIBS) \
-		$(GLIB2_LIBS)
-
+		$(GLIB2_LIBS) \
+		$(GOBJECT2_LIBS)
