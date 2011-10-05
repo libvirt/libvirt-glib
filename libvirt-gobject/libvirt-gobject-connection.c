@@ -1176,7 +1176,7 @@ GVirDomain *gvir_connection_create_domain(GVirConnection *conn,
     virDomainPtr handle;
     GVirConnectionPrivate *priv = conn->priv;
 
-    xml = gvir_config_object_get_doc(GVIR_CONFIG_OBJECT(conf));
+    xml = gvir_config_object_to_xml(GVIR_CONFIG_OBJECT(conf));
 
     g_return_val_if_fail(xml != NULL, NULL);
 
@@ -1220,7 +1220,7 @@ GVirStoragePool *gvir_connection_create_storage_pool
     virStoragePoolPtr handle;
     GVirConnectionPrivate *priv = conn->priv;
 
-    xml = gvir_config_object_get_doc(GVIR_CONFIG_OBJECT(conf));
+    xml = gvir_config_object_to_xml(GVIR_CONFIG_OBJECT(conf));
 
     g_return_val_if_fail(xml != NULL, NULL);
 

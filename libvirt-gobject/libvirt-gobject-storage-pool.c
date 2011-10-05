@@ -493,7 +493,7 @@ GVirStorageVol *gvir_storage_pool_create_volume
     virStorageVolPtr handle;
     GVirStoragePoolPrivate *priv = pool->priv;
 
-    xml = gvir_config_object_get_doc(GVIR_CONFIG_OBJECT(conf));
+    xml = gvir_config_object_to_xml(GVIR_CONFIG_OBJECT(conf));
 
     g_return_val_if_fail(xml != NULL, NULL);
 
