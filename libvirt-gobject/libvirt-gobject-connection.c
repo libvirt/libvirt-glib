@@ -170,7 +170,7 @@ static void gvir_connection_class_init(GVirConnectionClass *klass)
                                                         G_PARAM_STATIC_NICK |
                                                         G_PARAM_STATIC_BLURB));
 
-    signals[VIR_CONNECTION_OPENED] = g_signal_new("vir-connection-opened",
+    signals[VIR_CONNECTION_OPENED] = g_signal_new("connection-opened",
                  G_OBJECT_CLASS_TYPE(object_class),
                  G_SIGNAL_RUN_FIRST,
                  G_STRUCT_OFFSET(GVirConnectionClass, vir_connection_opened),
@@ -179,7 +179,7 @@ static void gvir_connection_class_init(GVirConnectionClass *klass)
                  G_TYPE_NONE,
                  0);
 
-    signals[VIR_CONNECTION_CLOSED] = g_signal_new("vir-connection-closed",
+    signals[VIR_CONNECTION_CLOSED] = g_signal_new("connection-closed",
                  G_OBJECT_CLASS_TYPE(object_class),
                  G_SIGNAL_RUN_FIRST,
                  G_STRUCT_OFFSET(GVirConnectionClass, vir_connection_closed),
@@ -188,7 +188,7 @@ static void gvir_connection_class_init(GVirConnectionClass *klass)
                  G_TYPE_NONE,
                  0);
 
-    signals[VIR_DOMAIN_ADDED] = g_signal_new("vir-domain-added",
+    signals[VIR_DOMAIN_ADDED] = g_signal_new("domain-added",
                  G_OBJECT_CLASS_TYPE(object_class),
                  G_SIGNAL_RUN_FIRST,
                  G_STRUCT_OFFSET(GVirConnectionClass, vir_domain_added),
@@ -198,7 +198,7 @@ static void gvir_connection_class_init(GVirConnectionClass *klass)
                  1,
                  G_TYPE_OBJECT);
 
-    signals[VIR_DOMAIN_REMOVED] = g_signal_new("vir-domain-removed",
+    signals[VIR_DOMAIN_REMOVED] = g_signal_new("domain-removed",
                  G_OBJECT_CLASS_TYPE(object_class),
                  G_SIGNAL_RUN_FIRST,
                  G_STRUCT_OFFSET(GVirConnectionClass, vir_domain_removed),
@@ -282,7 +282,7 @@ static int domain_event_cb(virConnectPtr conn G_GNUC_UNUSED,
             if (detail == VIR_DOMAIN_EVENT_DEFINED_ADDED)
                 g_signal_emit(gconn, signals[VIR_DOMAIN_ADDED], 0, gdom);
             else if (detail == VIR_DOMAIN_EVENT_DEFINED_UPDATED)
-                g_signal_emit_by_name(gdom, "vir-updated");
+                g_signal_emit_by_name(gdom, "updated");
             else
                 g_warn_if_reached();
             break;
@@ -301,60 +301,60 @@ static int domain_event_cb(virConnectPtr conn G_GNUC_UNUSED,
 
         case VIR_DOMAIN_EVENT_STARTED:
             if (detail == VIR_DOMAIN_EVENT_STARTED_BOOTED)
-                g_signal_emit_by_name(gdom, "vir-started::booted");
+                g_signal_emit_by_name(gdom, "started::booted");
             else if (detail == VIR_DOMAIN_EVENT_STARTED_MIGRATED)
-                g_signal_emit_by_name(gdom, "vir-started::migrated");
+                g_signal_emit_by_name(gdom, "started::migrated");
             else if (detail == VIR_DOMAIN_EVENT_STARTED_RESTORED)
-                g_signal_emit_by_name(gdom, "vir-started::restored");
+                g_signal_emit_by_name(gdom, "started::restored");
             else if (detail == VIR_DOMAIN_EVENT_STARTED_FROM_SNAPSHOT)
-                g_signal_emit_by_name(gdom, "vir-started::from-snapshot");
+                g_signal_emit_by_name(gdom, "started::from-snapshot");
             else
                 g_warn_if_reached();
             break;
 
         case VIR_DOMAIN_EVENT_SUSPENDED:
             if (detail == VIR_DOMAIN_EVENT_SUSPENDED_PAUSED)
-                g_signal_emit_by_name(gdom, "vir-suspended::paused");
+                g_signal_emit_by_name(gdom, "suspended::paused");
             else if (detail == VIR_DOMAIN_EVENT_SUSPENDED_MIGRATED)
-                g_signal_emit_by_name(gdom, "vir-suspended::migrated");
+                g_signal_emit_by_name(gdom, "suspended::migrated");
             else if (detail == VIR_DOMAIN_EVENT_SUSPENDED_IOERROR)
-                g_signal_emit_by_name(gdom, "vir-suspended::ioerror");
+                g_signal_emit_by_name(gdom, "suspended::ioerror");
             else if (detail == VIR_DOMAIN_EVENT_SUSPENDED_WATCHDOG)
-                g_signal_emit_by_name(gdom, "vir-suspended::watchdog");
+                g_signal_emit_by_name(gdom, "suspended::watchdog");
             else if (detail == VIR_DOMAIN_EVENT_SUSPENDED_RESTORED)
-                g_signal_emit_by_name(gdom, "vir-suspended::restored");
+                g_signal_emit_by_name(gdom, "suspended::restored");
             else if (detail == VIR_DOMAIN_EVENT_SUSPENDED_FROM_SNAPSHOT)
-                g_signal_emit_by_name(gdom, "vir-suspended::from-snapshot");
+                g_signal_emit_by_name(gdom, "suspended::from-snapshot");
             else
                 g_warn_if_reached();
             break;
 
         case VIR_DOMAIN_EVENT_RESUMED:
             if (detail == VIR_DOMAIN_EVENT_RESUMED_UNPAUSED)
-                g_signal_emit_by_name(gdom, "vir-resumed::unpaused");
+                g_signal_emit_by_name(gdom, "resumed::unpaused");
             else if (detail == VIR_DOMAIN_EVENT_RESUMED_MIGRATED)
-                g_signal_emit_by_name(gdom, "vir-resumed::migrated");
+                g_signal_emit_by_name(gdom, "resumed::migrated");
             else if (detail == VIR_DOMAIN_EVENT_RESUMED_FROM_SNAPSHOT)
-                g_signal_emit_by_name(gdom, "vir-resumed::from-snapshot");
+                g_signal_emit_by_name(gdom, "resumed::from-snapshot");
             else
                 g_warn_if_reached();
             break;
 
         case VIR_DOMAIN_EVENT_STOPPED:
             if (detail == VIR_DOMAIN_EVENT_STOPPED_SHUTDOWN)
-                g_signal_emit_by_name(gdom, "vir-stopped::shutdown");
+                g_signal_emit_by_name(gdom, "stopped::shutdown");
             else if (detail == VIR_DOMAIN_EVENT_STOPPED_DESTROYED)
-                g_signal_emit_by_name(gdom, "vir-stopped::destroyed");
+                g_signal_emit_by_name(gdom, "stopped::destroyed");
             else if (detail == VIR_DOMAIN_EVENT_STOPPED_CRASHED)
-                g_signal_emit_by_name(gdom, "vir-stopped::crashed");
+                g_signal_emit_by_name(gdom, "stopped::crashed");
             else if (detail == VIR_DOMAIN_EVENT_STOPPED_MIGRATED)
-                g_signal_emit_by_name(gdom, "vir-stopped::migrated");
+                g_signal_emit_by_name(gdom, "stopped::migrated");
             else if (detail == VIR_DOMAIN_EVENT_STOPPED_SAVED)
-                g_signal_emit_by_name(gdom, "vir-stopped::saved");
+                g_signal_emit_by_name(gdom, "stopped::saved");
             else if (detail == VIR_DOMAIN_EVENT_STOPPED_FAILED)
-                g_signal_emit_by_name(gdom, "vir-stopped::failed");
+                g_signal_emit_by_name(gdom, "stopped::failed");
             else if (detail == VIR_DOMAIN_EVENT_STOPPED_FROM_SNAPSHOT)
-                g_signal_emit_by_name(gdom, "vir-stopped::from-snapshot");
+                g_signal_emit_by_name(gdom, "stopped::from-snapshot");
             else
                 g_warn_if_reached();
             break;

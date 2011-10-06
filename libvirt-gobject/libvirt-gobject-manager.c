@@ -88,7 +88,7 @@ static void gvir_manager_class_init(GVirManagerClass *klass)
 
     object_class->finalize = gvir_manager_finalize;
 
-    g_signal_new("vir-connection-added",
+    g_signal_new("connection-added",
                  G_OBJECT_CLASS_TYPE(object_class),
                  G_SIGNAL_RUN_FIRST,
                  G_STRUCT_OFFSET(GVirManagerClass, vir_connection_added),
@@ -97,7 +97,7 @@ static void gvir_manager_class_init(GVirManagerClass *klass)
                  G_TYPE_NONE,
                  1,
                  GVIR_TYPE_CONNECTION);
-    g_signal_new("vir-connection-removed",
+    g_signal_new("connection-removed",
                  G_OBJECT_CLASS_TYPE(object_class),
                  G_SIGNAL_RUN_FIRST,
                  G_STRUCT_OFFSET(GVirManagerClass, vir_connection_removed),
@@ -145,7 +145,7 @@ void gvir_manager_add_connection(GVirManager *man,
     /* Hold extra reference while emitting signal */
     g_object_ref(conn);
     g_mutex_unlock(priv->lock);
-    g_signal_emit_by_name(man, "vir-connection-added", conn);
+    g_signal_emit_by_name(man, "connection-added", conn);
     g_object_unref(conn);
 }
 
@@ -158,7 +158,7 @@ void gvir_manager_remove_connection(GVirManager *man,
     priv->connections = g_list_remove(priv->connections, conn);
     g_mutex_unlock(priv->lock);
 
-    g_signal_emit_by_name(man, "vir-connection-removed", conn);
+    g_signal_emit_by_name(man, "connection-removed", conn);
     g_object_unref(conn);
 }
 
