@@ -444,11 +444,13 @@ static void gvir_storage_vol_ref(gpointer obj, gpointer ignore G_GNUC_UNUSED)
 GList *gvir_storage_pool_get_volumes(GVirStoragePool *pool)
 {
     GVirStoragePoolPrivate *priv = pool->priv;
-    GList *volumes;
+    GList *volumes = NULL;
 
     g_mutex_lock(priv->lock);
-    volumes = g_hash_table_get_values(priv->volumes);
-    g_list_foreach(volumes, gvir_storage_vol_ref, NULL);
+    if (priv->volumes != NULL) {
+        volumes = g_hash_table_get_values(priv->volumes);
+        g_list_foreach(volumes, gvir_storage_vol_ref, NULL);
+    }
     g_mutex_unlock(priv->lock);
 
     return volumes;

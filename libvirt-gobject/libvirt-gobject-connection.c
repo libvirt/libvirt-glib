@@ -952,11 +952,15 @@ static void gvir_domain_ref(gpointer obj, gpointer ignore G_GNUC_UNUSED)
 GList *gvir_connection_get_domains(GVirConnection *conn)
 {
     GVirConnectionPrivate *priv = conn->priv;
-    GList *domains;
+    GList *domains = NULL;
+
     g_mutex_lock(priv->lock);
-    domains = g_hash_table_get_values(priv->domains);
-    g_list_foreach(domains, gvir_domain_ref, NULL);
+    if (priv->domains != NULL) {
+        domains = g_hash_table_get_values(priv->domains);
+        g_list_foreach(domains, gvir_domain_ref, NULL);
+    }
     g_mutex_unlock(priv->lock);
+
     return domains;
 }
 
@@ -969,11 +973,13 @@ GList *gvir_connection_get_domains(GVirConnection *conn)
 GList *gvir_connection_get_storage_pools(GVirConnection *conn)
 {
     GVirConnectionPrivate *priv = conn->priv;
-    GList *pools;
+    GList *pools = NULL;
 
     g_mutex_lock(priv->lock);
-    pools = g_hash_table_get_values(priv->pools);
-    g_list_foreach(pools, gvir_domain_ref, NULL);
+    if (priv->pools != NULL) {
+        pools = g_hash_table_get_values(priv->pools);
+        g_list_foreach(pools, gvir_domain_ref, NULL);
+    }
     g_mutex_unlock(priv->lock);
 
     return pools;
