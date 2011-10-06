@@ -277,3 +277,21 @@ const gchar *gvir_config_object_get_schema(GVirConfigObject *config)
     return priv->schema;
 }
 
+/* NB: the xmlDocPtr must not be freed by the caller */
+xmlDocPtr gvir_config_object_get_xml_doc(GVirConfigObject *config, GError **error)
+{
+    gvir_config_object_parse(config, error);
+    return config->priv->docHandle;
+}
+
+/* FIXME: will we always have one xmlNode per GConfig object? */
+/* FIXME: need to return the right node from subclasses */
+/* NB: the xmlNodePtr must not be freed by the caller */
+xmlNodePtr gvir_config_object_get_xml_node(GVirConfigObject *config,
+                                           GError **error)
+{
+    gvir_config_object_parse(config, error);
+    if (error)
+        return NULL;
+    return config->priv->docHandle->children;
+}

@@ -26,6 +26,8 @@ LIBVIRT_GOBJECT_0.0.1 {
 	gvir_config_object_new;
 	gvir_config_object_get_doc;
 	gvir_config_object_get_schema;
+	gvir_config_object_get_xml_doc;
+	gvir_config_object_get_xml_node;
 	gvir_config_object_validate;
 
 	gvir_config_secret_get_type;
