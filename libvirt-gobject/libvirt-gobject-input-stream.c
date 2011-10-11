@@ -80,7 +80,7 @@ static void gvir_input_stream_set_property(GObject      *object,
 
     switch (prop_id) {
     case PROP_STREAM:
-        stream->priv->stream = g_value_dup_object(value);
+        stream->priv->stream = g_value_get_object(value);
         break;
 
     default:
@@ -92,8 +92,8 @@ static void gvir_input_stream_finalize(GObject *object)
 {
     GVirInputStream *stream = GVIR_INPUT_STREAM(object);
 
-    if (stream->priv->stream)
-        g_object_unref(stream->priv->stream);
+    DEBUG("Finalize input stream GVirStream=%p", stream->priv->stream);
+    stream->priv->stream = NULL; // unowned
 
     if (G_OBJECT_CLASS(gvir_input_stream_parent_class)->finalize)
         (*G_OBJECT_CLASS(gvir_input_stream_parent_class)->finalize)(object);
