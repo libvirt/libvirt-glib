@@ -160,7 +160,7 @@ static void gvir_stream_set_property(GObject *object,
     case PROP_HANDLE:
         if (priv->handle)
             virStreamFree(priv->handle);
-        priv->handle = g_value_dup_boxed(value);
+        priv->handle = g_value_get_boxed(value);
         break;
 
     default:
