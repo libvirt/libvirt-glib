@@ -26,11 +26,11 @@
 #include <glib-object.h>
 #include <libxml/tree.h>
 
-#include <libvirt-gconfig/libvirt-gconfig-helpers.h>
 #include <libvirt-gconfig/libvirt-gconfig-object.h>
 #include <libvirt-gconfig/libvirt-gconfig-capabilities.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-snapshot.h>
+#include <libvirt-gconfig/libvirt-gconfig-helpers.h>
 #include <libvirt-gconfig/libvirt-gconfig-interface.h>
 #include <libvirt-gconfig/libvirt-gconfig-network.h>
 #include <libvirt-gconfig/libvirt-gconfig-node-device.h>
