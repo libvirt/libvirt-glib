@@ -17,6 +17,8 @@ LIBVIRT_GOBJECT_0.0.1 {
 	gvir_config_domain_clock_get_type;
 	gvir_config_domain_clock_new;
 	gvir_config_domain_clock_new_from_xml;
+	gvir_config_domain_clock_set_timezone;
+	gvir_config_domain_clock_set_variable_offset;
 
 	gvir_config_domain_snapshot_get_type;
 	gvir_config_domain_snapshot_new;

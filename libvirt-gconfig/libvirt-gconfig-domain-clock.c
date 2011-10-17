@@ -27,6 +27,7 @@
 #include <libxml/tree.h>
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
+#include "libvirt-gconfig/libvirt-gconfig-object-private.h"
 
 extern gboolean debugFlag;
 
@@ -78,4 +79,41 @@ GVirConfigDomainClock *gvir_config_domain_clock_new_from_xml(const gchar *xml,
     object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_DOMAIN_CLOCK,
                                              "clock", NULL, xml, error);
     return GVIR_CONFIG_DOMAIN_CLOCK(object);
+}
+
+void gvir_config_domain_clock_set_timezone(GVirConfigDomainClock *klock,
+                                           const char *tz)
+{
+    xmlNodePtr node;
+    xmlChar *encoded_tz;
+
+    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_CLOCK(klock));
+    g_return_if_fail(tz != NULL);
+
+    node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(klock));
+    if (node == NULL)
+        return;
+
+    xmlNewProp(node, (xmlChar*)"offset", (xmlChar*)"timezone");
+    encoded_tz = xmlEncodeEntitiesReentrant(node->doc, (xmlChar*)tz);
+    xmlNewProp(node, (xmlChar*)"timezone", encoded_tz);
+    xmlFree(encoded_tz);
+}
+
+void gvir_config_domain_clock_set_variable_offset(GVirConfigDomainClock *klock,
+                                                  gint seconds)
+{
+    xmlNodePtr node;
+    char *offset_str;
+
+    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_CLOCK(klock));
+
+    node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(klock), "clock");
+    if (node == NULL)
+        return;
+
+    xmlNewProp(node, (xmlChar*)"offset", (xmlChar*)"variable");
+    offset_str = g_strdup_printf("%d", seconds);
+    xmlNewProp(node, (xmlChar*)"adjustment", (xmlChar*)offset_str);
+    g_free(offset_str);
 }
