@@ -29,7 +29,9 @@
 #include <libvirt-gconfig/libvirt-gconfig-object.h>
 #include <libvirt-gconfig/libvirt-gconfig-capabilities.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-clock.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-snapshot.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-timer.h>
 #include <libvirt-gconfig/libvirt-gconfig-helpers.h>
 #include <libvirt-gconfig/libvirt-gconfig-interface.h>
 #include <libvirt-gconfig/libvirt-gconfig-network.h>
