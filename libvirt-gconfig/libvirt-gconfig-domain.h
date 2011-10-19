@@ -27,6 +27,8 @@
 #ifndef __LIBVIRT_GCONFIG_DOMAIN_H__
 #define __LIBVIRT_GCONFIG_DOMAIN_H__
 
+#include <libvirt-gconfig/libvirt-gconfig-domain-clock.h>
+
 G_BEGIN_DECLS
 
 #define GVIR_TYPE_CONFIG_DOMAIN            (gvir_config_domain_get_type ())
@@ -69,6 +71,8 @@ void gvir_config_domain_set_memory(GVirConfigDomain *domain, guint64 memory);
 GStrv gvir_config_domain_get_features(GVirConfigDomain *domain);
 void gvir_config_domain_set_features(GVirConfigDomain *domain,
                                      const GStrv features);
+void gvir_config_domain_set_clock(GVirConfigDomain *domain,
+                                  GVirConfigDomainClock *klock);
 
 G_END_DECLS
 
