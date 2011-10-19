@@ -56,11 +56,11 @@ struct _GVirConnectionClass
     GObjectClass parent_class;
 
     /* signals */
-    void (*vir_connection_opened)(GVirConnection *conn);
-    void (*vir_connection_closed)(GVirConnection *conn);
+    void (*connection_opened)(GVirConnection *conn);
+    void (*connection_closed)(GVirConnection *conn);
 
-    void (*vir_domain_added)(GVirConnection *conn, GVirDomain *dom);
-    void (*vir_domain_removed)(GVirConnection *conn, GVirDomain *dom);
+    void (*domain_added)(GVirConnection *conn, GVirDomain *dom);
+    void (*domain_removed)(GVirConnection *conn, GVirDomain *dom);
 
     GVirStream *(*stream_new)(GVirConnection *conn, gpointer handle);
 

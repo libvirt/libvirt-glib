@@ -59,11 +59,11 @@ struct _GVirDomainClass
     GObjectClass parent_class;
 
     /* signals */
-    void (*vir_domain_started)(GVirDomain *dom);
-    void (*vir_domain_stopped)(GVirDomain *dom);
-    void (*vir_domain_resumed)(GVirDomain *dom);
-    void (*vir_domain_updated)(GVirDomain *dom);
-    void (*vir_domain_suspended)(GVirDomain *dom);
+    void (*started)(GVirDomain *dom);
+    void (*stopped)(GVirDomain *dom);
+    void (*resumed)(GVirDomain *dom);
+    void (*updated)(GVirDomain *dom);
+    void (*suspended)(GVirDomain *dom);
 
     gpointer padding[20];
 };

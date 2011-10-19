@@ -55,8 +55,8 @@ struct _GVirManagerClass
     GObjectClass parent_class;
 
     /* Signals */
-    void (*vir_connection_added)(GVirManager *man, GVirConnection *conn);
-    void (*vir_connection_removed)(GVirManager *man, GVirConnection *conn);
+    void (*connection_added)(GVirManager *man, GVirConnection *conn);
+    void (*connection_removed)(GVirManager *man, GVirConnection *conn);
 
     gpointer padding[20];
 };

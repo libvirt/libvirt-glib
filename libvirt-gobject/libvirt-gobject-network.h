@@ -55,8 +55,8 @@ struct _GVirNetworkClass
 {
     GObjectClass parent_class;
 
-    void (*vir_network_started)(GVirNetwork *net);
-    void (*vir_network_stopped)(GVirNetwork *net);
+    void (*started)(GVirNetwork *net);
+    void (*stopped)(GVirNetwork *net);
 
     gpointer padding[20];
 };

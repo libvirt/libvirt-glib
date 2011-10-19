@@ -163,7 +163,7 @@ static void gvir_domain_class_init(GVirDomainClass *klass)
                                         G_OBJECT_CLASS_TYPE(object_class),
                                         G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE |
                                         G_SIGNAL_NO_HOOKS | G_SIGNAL_DETAILED,
-                                        G_STRUCT_OFFSET(GVirDomainClass, vir_domain_started),
+                                        G_STRUCT_OFFSET(GVirDomainClass, started),
                                         NULL, NULL,
                                         g_cclosure_marshal_VOID__VOID,
                                         G_TYPE_NONE,
@@ -173,7 +173,7 @@ static void gvir_domain_class_init(GVirDomainClass *klass)
                                         G_OBJECT_CLASS_TYPE(object_class),
                                         G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE |
                                         G_SIGNAL_NO_HOOKS | G_SIGNAL_DETAILED,
-                                        G_STRUCT_OFFSET(GVirDomainClass, vir_domain_suspended),
+                                        G_STRUCT_OFFSET(GVirDomainClass, suspended),
                                         NULL, NULL,
                                         g_cclosure_marshal_VOID__VOID,
                                         G_TYPE_NONE,
@@ -183,7 +183,7 @@ static void gvir_domain_class_init(GVirDomainClass *klass)
                                         G_OBJECT_CLASS_TYPE(object_class),
                                         G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE |
                                         G_SIGNAL_NO_HOOKS | G_SIGNAL_DETAILED,
-                                        G_STRUCT_OFFSET(GVirDomainClass, vir_domain_resumed),
+                                        G_STRUCT_OFFSET(GVirDomainClass, resumed),
                                         NULL, NULL,
                                         g_cclosure_marshal_VOID__VOID,
                                         G_TYPE_NONE,
@@ -193,7 +193,7 @@ static void gvir_domain_class_init(GVirDomainClass *klass)
                                         G_OBJECT_CLASS_TYPE(object_class),
                                         G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE |
                                         G_SIGNAL_NO_HOOKS | G_SIGNAL_DETAILED,
-                                        G_STRUCT_OFFSET(GVirDomainClass, vir_domain_stopped),
+                                        G_STRUCT_OFFSET(GVirDomainClass, stopped),
                                         NULL, NULL,
                                         g_cclosure_marshal_VOID__VOID,
                                         G_TYPE_NONE,
@@ -202,7 +202,7 @@ static void gvir_domain_class_init(GVirDomainClass *klass)
     signals[VIR_UPDATED] = g_signal_new("updated",
                                         G_OBJECT_CLASS_TYPE(object_class),
                                         G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
-                                        G_STRUCT_OFFSET(GVirDomainClass, vir_domain_updated),
+                                        G_STRUCT_OFFSET(GVirDomainClass, updated),
                                         NULL, NULL,
                                         g_cclosure_marshal_VOID__VOID,
                                         G_TYPE_NONE,
