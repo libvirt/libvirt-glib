@@ -34,6 +34,7 @@ LIBVIRT_GOBJECT_0.0.1 {
 	gvir_domain_get_uuid;
 	gvir_domain_get_id;
 	gvir_domain_start;
+	gvir_domain_resume;
 	gvir_domain_stop;
 	gvir_domain_delete;
 	gvir_domain_shutdown;

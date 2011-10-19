@@ -102,6 +102,8 @@ gint gvir_domain_get_id(GVirDomain *dom,
 gboolean gvir_domain_start(GVirDomain *dom,
                            guint64 flags,
                            GError **err);
+gboolean gvir_domain_resume(GVirDomain *dom,
+                            GError **err);
 gboolean gvir_domain_stop(GVirDomain *dom,
                           guint64 flags,
                           GError **err);

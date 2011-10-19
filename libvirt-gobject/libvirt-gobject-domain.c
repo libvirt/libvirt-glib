@@ -329,6 +329,27 @@ gboolean gvir_domain_start(GVirDomain *dom,
 }
 
 /**
+ * gvir_domain_resume:
+ * @dom: the domain
+ *
+ * Returns: TRUE on success
+ */
+gboolean gvir_domain_resume(GVirDomain *dom,
+                            GError **err)
+{
+    GVirDomainPrivate *priv = dom->priv;
+
+    if (virDomainResume(priv->handle) < 0) {
+        *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
+                                      0,
+                                      "Unable to resume domain");
+        return FALSE;
+    }
+
+    return TRUE;
+}
+
+/**
  * gvir_domain_stop:
  * @dom: the domain
  * @flags:  the flags
