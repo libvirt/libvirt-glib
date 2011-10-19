@@ -32,6 +32,7 @@
 #include <libvirt-gconfig/libvirt-gconfig-domain-clock.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-snapshot.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-timer.h>
+#include <libvirt-gconfig/libvirt-gconfig-enum-types.h>
 #include <libvirt-gconfig/libvirt-gconfig-helpers.h>
 #include <libvirt-gconfig/libvirt-gconfig-interface.h>
 #include <libvirt-gconfig/libvirt-gconfig-network.h>
