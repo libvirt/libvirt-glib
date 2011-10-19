@@ -167,7 +167,7 @@ static void gvir_domain_class_init(GVirDomainClass *klass)
                                         NULL, NULL,
                                         g_cclosure_marshal_VOID__VOID,
                                         G_TYPE_NONE,
-                                        1, G_TYPE_STRING | G_SIGNAL_TYPE_STATIC_SCOPE);
+                                        0);
 
     signals[VIR_SUSPENDED] = g_signal_new("suspended",
                                         G_OBJECT_CLASS_TYPE(object_class),
@@ -177,7 +177,7 @@ static void gvir_domain_class_init(GVirDomainClass *klass)
                                         NULL, NULL,
                                         g_cclosure_marshal_VOID__VOID,
                                         G_TYPE_NONE,
-                                        1, G_TYPE_STRING | G_SIGNAL_TYPE_STATIC_SCOPE);
+                                        0);
 
     signals[VIR_RESUMED] = g_signal_new("resumed",
                                         G_OBJECT_CLASS_TYPE(object_class),
@@ -187,7 +187,7 @@ static void gvir_domain_class_init(GVirDomainClass *klass)
                                         NULL, NULL,
                                         g_cclosure_marshal_VOID__VOID,
                                         G_TYPE_NONE,
-                                        1, G_TYPE_STRING | G_SIGNAL_TYPE_STATIC_SCOPE);
+                                        0);
 
     signals[VIR_STOPPED] = g_signal_new("stopped",
                                         G_OBJECT_CLASS_TYPE(object_class),
@@ -197,7 +197,7 @@ static void gvir_domain_class_init(GVirDomainClass *klass)
                                         NULL, NULL,
                                         g_cclosure_marshal_VOID__VOID,
                                         G_TYPE_NONE,
-                                        1, G_TYPE_STRING | G_SIGNAL_TYPE_STATIC_SCOPE);
+                                        0);
 
     signals[VIR_UPDATED] = g_signal_new("updated",
                                         G_OBJECT_CLASS_TYPE(object_class),
