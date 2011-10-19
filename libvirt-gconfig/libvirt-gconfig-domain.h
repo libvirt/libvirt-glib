@@ -70,7 +70,6 @@ GStrv gvir_config_domain_get_features(GVirConfigDomain *domain);
 void gvir_config_domain_set_features(GVirConfigDomain *domain,
                                      const GStrv features);
 
-
 G_END_DECLS
 
 #endif /* __LIBVIRT_GCONFIG_DOMAIN_H__ */
