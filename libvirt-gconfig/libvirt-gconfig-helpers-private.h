@@ -40,6 +40,7 @@ xmlChar * gvir_config_xml_get_child_element_content (xmlNode    *node,
                                                      const char *child_name);
 char *gvir_config_xml_get_child_element_content_glib (xmlNode    *node,
                                                       const char *child_name);
+const char *gvir_config_genum_get_nick (GType enum_type, gint value);
 G_END_DECLS
 
 #endif /* __LIBVIRT_GCONFIG_HELPERS_PRIVATE_H__ */

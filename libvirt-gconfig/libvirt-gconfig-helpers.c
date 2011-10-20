@@ -178,3 +178,20 @@ gvir_config_xml_get_child_element_content_glib (xmlNode    *node,
 
         return copy;
 }
+
+const char *gvir_config_genum_get_nick (GType enum_type, gint value)
+{
+    GEnumClass *enum_class;
+    GEnumValue *enum_value;
+
+    g_return_val_if_fail (G_TYPE_IS_ENUM (enum_type), NULL);
+
+    enum_class = g_type_class_ref(enum_type);
+    enum_value = g_enum_get_value(enum_class, value);
+    g_type_class_unref(enum_class);
+
+    if (enum_value != NULL)
+        return enum_value->value_nick;
+
+    g_return_val_if_reached(NULL);
+}

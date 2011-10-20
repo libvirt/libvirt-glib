@@ -27,6 +27,7 @@
 #include <libxml/tree.h>
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
+#include "libvirt-gconfig/libvirt-gconfig-helpers-private.h"
 #include "libvirt-gconfig/libvirt-gconfig-object-private.h"
 
 extern gboolean debugFlag;
@@ -79,6 +80,22 @@ GVirConfigDomainClock *gvir_config_domain_clock_new_from_xml(const gchar *xml,
     object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_DOMAIN_CLOCK,
                                              "clock", NULL, xml, error);
     return GVIR_CONFIG_DOMAIN_CLOCK(object);
+}
+
+void gvir_config_domain_clock_set_offset(GVirConfigDomainClock *klock,
+                                         GVirConfigDomainClockOffset offset)
+{
+    xmlNodePtr node;
+    const char *offset_str;
+
+    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_CLOCK(klock));
+
+    node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(klock));
+    g_return_if_fail(node != NULL);
+    offset_str = gvir_config_genum_get_nick(GVIR_TYPE_CONFIG_DOMAIN_CLOCK_OFFSET,
+                                             offset);
+    g_return_if_fail(offset_str != NULL);
+    xmlNewProp(node, (xmlChar*)"offset", (xmlChar*)offset_str);
 }
 
 void gvir_config_domain_clock_set_timezone(GVirConfigDomainClock *klock,

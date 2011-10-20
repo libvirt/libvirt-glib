@@ -56,12 +56,20 @@ struct _GVirConfigDomainClockClass
     gpointer padding[20];
 };
 
+typedef enum {
+    GVIR_CONFIG_DOMAIN_CLOCK_UTC,
+    GVIR_CONFIG_DOMAIN_CLOCK_LOCALTIME,
+    GVIR_CONFIG_DOMAIN_CLOCK_TIMEZONE,
+    GVIR_CONFIG_DOMAIN_CLOCK_VARIABLE
+} GVirConfigDomainClockOffset;
 
 GType gvir_config_domain_clock_get_type(void);
 
 GVirConfigDomainClock *gvir_config_domain_clock_new(void);
 GVirConfigDomainClock *gvir_config_domain_clock_new_from_xml(const gchar *xml,
                                                 GError **error);
+void gvir_config_domain_clock_set_offset(GVirConfigDomainClock *klock,
+                                         GVirConfigDomainClockOffset offset);
 void gvir_config_domain_clock_set_timezone(GVirConfigDomainClock *klock,
                                            const char *tz);
 void gvir_config_domain_clock_set_variable_offset(GVirConfigDomainClock *klock,
