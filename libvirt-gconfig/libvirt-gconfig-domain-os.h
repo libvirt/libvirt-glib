@@ -56,11 +56,38 @@ struct _GVirConfigDomainOsClass
     gpointer padding[20];
 };
 
+typedef enum {
+    GVIR_CONFIG_DOMAIN_OS_TYPE_HVM,
+    GVIR_CONFIG_DOMAIN_OS_TYPE_LINUX
+} GVirConfigDomainOsType;
+
+typedef enum {
+    GVIR_CONFIG_DOMAIN_OS_SMBIOS_MODE_EMULATE,
+    GVIR_CONFIG_DOMAIN_OS_SMBIOS_MODE_HOST,
+    GVIR_CONFIG_DOMAIN_OS_SMBIOS_MODE_SYSINFO
+} GVirConfigDomainOsSmBiosMode;
+
+typedef enum {
+    GVIR_CONFIG_DOMAIN_OS_BOOT_DEVICE_FD,
+    GVIR_CONFIG_DOMAIN_OS_BOOT_DEVICE_HD,
+    GVIR_CONFIG_DOMAIN_OS_BOOT_DEVICE_CDROM,
+    GVIR_CONFIG_DOMAIN_OS_BOOT_DEVICE_NETWORK
+} GVirConfigDomainOsBootDevice;
 
 GType gvir_config_domain_os_get_type(void);
 
 GVirConfigDomainOs *gvir_config_domain_os_new(void);
 GVirConfigDomainOs *gvir_config_domain_os_new_from_xml(const gchar *xml, GError **error);
+
+void gvir_config_domain_os_set_os_type(GVirConfigDomainOs *os, GVirConfigDomainOsType type);
+void gvir_config_domain_os_set_arch(GVirConfigDomainOs *os, const char *arch);
+void gvir_config_domain_os_set_boot_devices(GVirConfigDomainOs *os, GList *boot_devices);
+void gvir_config_domain_os_set_loader(GVirConfigDomainOs *os, const char * loader);
+void gvir_config_domain_os_set_machine(GVirConfigDomainOs *os, const char *machine);
+void gvir_config_domain_os_set_smbios_mode(GVirConfigDomainOs *os,
+                                           GVirConfigDomainOsSmBiosMode mode);
+void gvir_config_domain_os_enable_boot_menu(GVirConfigDomainOs *os, gboolean enable);
+void gvir_config_domain_os_bios_enable_serial(GVirConfigDomainOs *os, gboolean enable);
 
 G_END_DECLS
 
