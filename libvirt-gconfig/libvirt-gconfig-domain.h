@@ -28,6 +28,7 @@
 #define __LIBVIRT_GCONFIG_DOMAIN_H__
 
 #include <libvirt-gconfig/libvirt-gconfig-domain-clock.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-os.h>
 
 G_BEGIN_DECLS
 
@@ -73,6 +74,8 @@ void gvir_config_domain_set_features(GVirConfigDomain *domain,
                                      const GStrv features);
 void gvir_config_domain_set_clock(GVirConfigDomain *domain,
                                   GVirConfigDomainClock *klock);
+void gvir_config_domain_set_os(GVirConfigDomain *domain,
+                               GVirConfigDomainOs *os);
 
 G_END_DECLS
 

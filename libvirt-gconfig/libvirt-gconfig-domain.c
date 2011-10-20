@@ -249,3 +249,15 @@ void gvir_config_domain_set_clock(GVirConfigDomain *domain,
     clock_node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(klock));
     gvir_config_object_set_child(GVIR_CONFIG_OBJECT(domain), clock_node);
 }
+
+void gvir_config_domain_set_os(GVirConfigDomain *domain,
+                               GVirConfigDomainOs *os)
+{
+    xmlNodePtr os_node;
+
+    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN(domain));
+    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_OS(os));
+
+    os_node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(os));
+    gvir_config_object_set_child(GVIR_CONFIG_OBJECT(domain), os_node);
+}
