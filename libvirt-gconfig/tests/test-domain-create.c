@@ -33,7 +33,6 @@ const char *features[] = { "foo", "bar", "baz", NULL };
 int main(void)
 {
     GVirConfigDomain *domain;
-    GVirConfigDomainClock *klock;
     char *name;
     GStrv feat;
     unsigned int i;
@@ -60,9 +59,27 @@ int main(void)
     }
     g_strfreev(feat);
 
+    /* clock node */
+    GVirConfigDomainClock *klock;
+
     klock = gvir_config_domain_clock_new();
     gvir_config_domain_clock_set_offset(klock, GVIR_CONFIG_DOMAIN_CLOCK_UTC);
     gvir_config_domain_set_clock(domain, klock);
+
+    /* os node */
+    GVirConfigDomainOs *os;
+    GList *devices = NULL;
+
+    os = gvir_config_domain_os_new();
+    gvir_config_domain_os_set_os_type(os, GVIR_CONFIG_DOMAIN_OS_TYPE_HVM);
+    gvir_config_domain_os_set_arch(os, "x86_64");
+    devices = g_list_append(devices,
+                             GINT_TO_POINTER(GVIR_CONFIG_DOMAIN_OS_BOOT_DEVICE_CDROM));
+    devices = g_list_append(devices,
+                            GINT_TO_POINTER(GVIR_CONFIG_DOMAIN_OS_BOOT_DEVICE_NETWORK));
+    gvir_config_domain_os_set_boot_devices(os, devices);
+    g_list_free(devices);
+    gvir_config_domain_set_os(domain, os);
 
     xml = gvir_config_object_to_xml(GVIR_CONFIG_OBJECT(domain));
     g_print("%s\n", xml);
