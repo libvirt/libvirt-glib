@@ -47,6 +47,7 @@ enum {
     PROP_0,
     PROP_NAME,
     PROP_MEMORY,
+    PROP_VCPU,
     PROP_FEATURES
 };
 
@@ -63,6 +64,9 @@ static void gvir_config_domain_get_property(GObject *object,
         break;
     case PROP_MEMORY:
         g_value_set_uint64(value, gvir_config_domain_get_memory(domain));
+        break;
+    case PROP_VCPU:
+        g_value_set_uint64(value, gvir_config_domain_get_vcpus(domain));
         break;
     case PROP_FEATURES:
         g_value_take_boxed(value, gvir_config_domain_get_features(domain));
@@ -86,6 +90,9 @@ static void gvir_config_domain_set_property(GObject *object,
         break;
     case PROP_MEMORY:
         gvir_config_domain_set_memory(domain, g_value_get_uint64(value));
+        break;
+    case PROP_VCPU:
+        gvir_config_domain_set_vcpus(domain, g_value_get_uint64(value));
         break;
     case PROP_FEATURES:
         gvir_config_domain_set_features(domain, g_value_get_boxed(value));
@@ -120,6 +127,15 @@ static void gvir_config_domain_class_init(GVirConfigDomainClass *klass)
                                                         "Maximum Guest Memory (in kilobytes)",
                                                         0, G_MAXUINT64,
                                                         0,
+                                                        G_PARAM_READWRITE |
+                                                        G_PARAM_STATIC_STRINGS));
+    g_object_class_install_property(object_class,
+                                    PROP_VCPU,
+                                    g_param_spec_uint64("vcpu",
+                                                        "Virtual CPUs",
+                                                        "Maximum Number of Guest Virtual CPUs",
+                                                        0, G_MAXUINT64,
+                                                        1,
                                                         G_PARAM_READWRITE |
                                                         G_PARAM_STATIC_STRINGS));
     g_object_class_install_property(object_class,
@@ -191,6 +207,19 @@ void gvir_config_domain_set_memory(GVirConfigDomain *domain, guint64 memory)
     gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(domain),
                                                "memory", memory);
     g_object_notify(G_OBJECT(domain), "memory");
+}
+
+guint64 gvir_config_domain_get_vcpus(GVirConfigDomain *domain)
+{
+    return gvir_config_object_get_node_content_uint64(GVIR_CONFIG_OBJECT(domain),
+                                                      "vcpu");
+}
+
+void gvir_config_domain_set_vcpus(GVirConfigDomain *domain, guint64 vcpu_count)
+{
+    gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(domain),
+                                               "vcpu", vcpu_count);
+    g_object_notify(G_OBJECT(domain), "vcpu");
 }
 
 /**

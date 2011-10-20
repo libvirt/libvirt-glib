@@ -69,6 +69,9 @@ char *gvir_config_domain_get_name(GVirConfigDomain *domain);
 void gvir_config_domain_set_name(GVirConfigDomain *domain, const char *name);
 guint64 gvir_config_domain_get_memory(GVirConfigDomain *domain);
 void gvir_config_domain_set_memory(GVirConfigDomain *domain, guint64 memory);
+guint64 gvir_config_domain_get_vcpus(GVirConfigDomain *domain);
+void gvir_config_domain_set_vcpus(GVirConfigDomain *domain,
+                                  guint64 vcpu_count);
 GStrv gvir_config_domain_get_features(GVirConfigDomain *domain);
 void gvir_config_domain_set_features(GVirConfigDomain *domain,
                                      const GStrv features);

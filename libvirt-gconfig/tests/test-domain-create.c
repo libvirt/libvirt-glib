@@ -49,6 +49,7 @@ int main(void)
     g_free(name);
 
     gvir_config_domain_set_memory(domain, 1234);
+    gvir_config_domain_set_vcpus(domain, 3);
     g_assert(gvir_config_domain_get_memory(domain) == 1234);
 
     gvir_config_domain_set_features(domain, (const GStrv)features);
