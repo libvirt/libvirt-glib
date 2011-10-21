@@ -56,12 +56,37 @@ struct _GVirConfigDomainDiskClass
     gpointer padding[20];
 };
 
+typedef enum {
+    GVIR_CONFIG_DOMAIN_DISK_FILE,
+    GVIR_CONFIG_DOMAIN_DISK_BLOCK,
+    GVIR_CONFIG_DOMAIN_DISK_DIR,
+    GVIR_CONFIG_DOMAIN_DISK_NETWORK
+} GVirConfigDomainDiskType;
+
+typedef enum {
+    GVIR_CONFIG_DOMAIN_DISK_GUEST_DEVICE_DISK,
+    GVIR_CONFIG_DOMAIN_DISK_GUEST_DEVICE_FLOPPY,
+    GVIR_CONFIG_DOMAIN_DISK_GUEST_DEVICE_CDROM
+} GVirConfigDomainDiskGuestDeviceType;
+
+typedef enum {
+    GVIR_CONFIG_DOMAIN_DISK_SNAPSHOT_NO,
+    GVIR_CONFIG_DOMAIN_DISK_SNAPSHOT_INTERNAL,
+    GVIR_CONFIG_DOMAIN_DISK_SNAPSHOT_EXTERNAL
+} GVirConfigDomainDiskSnapshotType;
 
 GType gvir_config_domain_disk_get_type(void);
 
 GVirConfigDomainDisk *gvir_config_domain_disk_new(void);
 GVirConfigDomainDisk *gvir_config_domain_disk_new_from_xml(const gchar *xml,
                                                            GError **error);
+
+void gvir_config_domain_disk_set_type(GVirConfigDomainDisk *disk,
+                                      GVirConfigDomainDiskType type);
+void gvir_config_domain_disk_set_guest_device_type(GVirConfigDomainDisk *disk,
+                                                   GVirConfigDomainDiskGuestDeviceType type);
+void gvir_config_domain_disk_set_snapshot_type(GVirConfigDomainDisk *disk,
+                                               GVirConfigDomainDiskSnapshotType type);
 
 G_END_DECLS
 
