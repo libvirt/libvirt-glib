@@ -4,7 +4,6 @@ LIBVIRT_GOBJECT_0.0.1 {
 	gvir_config_capabilities_new;
 	gvir_config_capabilities_new_from_xml;
 
-
 	gvir_config_domain_get_type;
 	gvir_config_domain_new;
 	gvir_config_domain_new_from_xml;
@@ -28,6 +27,10 @@ LIBVIRT_GOBJECT_0.0.1 {
 	gvir_config_domain_clock_set_variable_offset;
 
 	gvir_config_domain_device_get_type;
+
+	gvir_config_domain_disk_get_type;
+	gvir_config_domain_disk_new;
+	gvir_config_domain_disk_new_from_xml;
 
 	gvir_config_domain_os_get_type;
 	gvir_config_domain_os_boot_device_get_type;
