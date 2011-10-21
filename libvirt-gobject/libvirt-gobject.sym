@@ -14,6 +14,8 @@ LIBVIRT_GOBJECT_0.0.1 {
 	gvir_connection_get_stream;
 
 	gvir_connection_fetch_domains;
+	gvir_connection_fetch_domains_async;
+	gvir_connection_fetch_domains_finish;
 	gvir_connection_fetch_storage_pools;
 	gvir_connection_fetch_storage_pools_async;
 	gvir_connection_fetch_storage_pools_finish;
