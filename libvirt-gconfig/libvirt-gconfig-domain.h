@@ -79,6 +79,8 @@ void gvir_config_domain_set_clock(GVirConfigDomain *domain,
                                   GVirConfigDomainClock *klock);
 void gvir_config_domain_set_os(GVirConfigDomain *domain,
                                GVirConfigDomainOs *os);
+void gvir_config_domain_set_devices(GVirConfigDomain *domain,
+                                    GList *devices);
 
 G_END_DECLS
 

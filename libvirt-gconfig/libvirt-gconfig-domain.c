@@ -290,3 +290,26 @@ void gvir_config_domain_set_os(GVirConfigDomain *domain,
     os_node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(os));
     gvir_config_object_set_child(GVIR_CONFIG_OBJECT(domain), os_node);
 }
+
+/**
+ * gvir_config_domain_set_devices:
+ * @devices: (in) (element-type LibvirtGConfig.DomainDevice):
+ */
+void gvir_config_domain_set_devices(GVirConfigDomain *domain,
+                                    GList *devices)
+{
+    xmlNodePtr devices_node;
+    GList *it;
+
+    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN(domain));
+
+    devices_node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(domain),
+                                                    "devices");
+    for (it = devices; it != NULL; it = it->next) {
+        GVirConfigDomainDevice *device = GVIR_CONFIG_DOMAIN_DEVICE(it->data);
+        xmlNodePtr node;
+
+        node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(device));
+        xmlAddChild(devices_node, node);
+    }
+}
