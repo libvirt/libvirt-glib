@@ -87,7 +87,16 @@ void gvir_config_domain_disk_set_guest_device_type(GVirConfigDomainDisk *disk,
                                                    GVirConfigDomainDiskGuestDeviceType type);
 void gvir_config_domain_disk_set_snapshot_type(GVirConfigDomainDisk *disk,
                                                GVirConfigDomainDiskSnapshotType type);
-
+void gvir_config_domain_disk_set_source(GVirConfigDomainDisk *disk,
+                                        const char *source);
+void gvir_config_domain_disk_set_driver_name(GVirConfigDomainDisk *disk,
+                                             const char *driver_name);
+void gvir_config_domain_disk_set_driver_type(GVirConfigDomainDisk *disk,
+                                             const char *driver_type);
+void gvir_config_domain_disk_set_target_bus(GVirConfigDomainDisk *disk,
+                                            const char *bus);
+void gvir_config_domain_disk_set_target_dev(GVirConfigDomainDisk *disk,
+                                            const char *dev);
 G_END_DECLS
 
 #endif /* __LIBVIRT_GCONFIG_DOMAIN_DISK_H__ */

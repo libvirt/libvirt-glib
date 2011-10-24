@@ -39,7 +39,7 @@ extern gboolean debugFlag;
 
 struct _GVirConfigDomainDiskPrivate
 {
-    gboolean unused;
+    GVirConfigDomainDiskType type;
 };
 
 G_DEFINE_TYPE(GVirConfigDomainDisk, gvir_config_domain_disk, GVIR_TYPE_CONFIG_DOMAIN_DEVICE);
@@ -96,6 +96,7 @@ void gvir_config_domain_disk_set_type(GVirConfigDomainDisk *disk,
                                           type);
     g_return_if_fail(type_str != NULL);
     xmlNewProp(node, (xmlChar*)"type", (xmlChar*)type_str);
+    disk->priv->type = type;
 }
 
 void gvir_config_domain_disk_set_guest_device_type(GVirConfigDomainDisk *disk,
@@ -128,4 +129,79 @@ void gvir_config_domain_disk_set_snapshot_type(GVirConfigDomainDisk *disk,
                                           type);
     g_return_if_fail(type_str != NULL);
     xmlNewProp(node, (xmlChar*)"snapshot", (xmlChar*)type_str);
+}
+
+void gvir_config_domain_disk_set_source(GVirConfigDomainDisk *disk,
+                                        const char *source)
+{
+    xmlNodePtr source_node;
+    const char *attribute_name;
+
+    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk));
+    source_node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(disk),
+                                                   "source");
+    g_return_if_fail(source_node != NULL);
+
+    switch (disk->priv->type) {
+        case GVIR_CONFIG_DOMAIN_DISK_FILE:
+            attribute_name = "file";
+            break;
+        case GVIR_CONFIG_DOMAIN_DISK_BLOCK:
+            attribute_name = "dev";
+            break;
+        case GVIR_CONFIG_DOMAIN_DISK_DIR:
+            attribute_name = "dir";
+            break;
+        case GVIR_CONFIG_DOMAIN_DISK_NETWORK:
+            attribute_name = "protocol";
+            break;
+        default:
+            g_return_if_reached();
+    }
+    xmlNewProp(source_node, (xmlChar*)attribute_name, (xmlChar*)source);
+}
+
+void gvir_config_domain_disk_set_driver_name(GVirConfigDomainDisk *disk,
+                                             const char *driver_name)
+{
+    xmlNodePtr node;
+
+    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk));
+    node = gvir_config_object_add_child(GVIR_CONFIG_OBJECT(disk), "driver");
+    g_return_if_fail(node != NULL);
+    xmlNewProp(node, (xmlChar*)"name", (xmlChar*)driver_name);
+
+}
+
+void gvir_config_domain_disk_set_driver_type(GVirConfigDomainDisk *disk,
+                                             const char *driver_type)
+{
+    xmlNodePtr node;
+
+    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk));
+    node = gvir_config_object_add_child(GVIR_CONFIG_OBJECT(disk), "driver");
+    g_return_if_fail(node != NULL);
+    xmlNewProp(node, (xmlChar*)"type", (xmlChar*)driver_type);
+}
+
+void gvir_config_domain_disk_set_target_bus(GVirConfigDomainDisk *disk,
+                                            const char *bus)
+{
+    xmlNodePtr node;
+
+    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk));
+    node = gvir_config_object_add_child(GVIR_CONFIG_OBJECT(disk), "target");
+    g_return_if_fail(node != NULL);
+    xmlNewProp(node, (xmlChar*)"bus", (xmlChar*)bus);
+}
+
+void gvir_config_domain_disk_set_target_dev(GVirConfigDomainDisk *disk,
+                                            const char *dev)
+{
+    xmlNodePtr node;
+
+    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk));
+    node = gvir_config_object_add_child(GVIR_CONFIG_OBJECT(disk), "target");
+    g_return_if_fail(node != NULL);
+    xmlNewProp(node, (xmlChar*)"dev", (xmlChar*)dev);
 }

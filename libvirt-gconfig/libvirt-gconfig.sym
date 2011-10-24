@@ -35,8 +35,13 @@ LIBVIRT_GOBJECT_0.0.1 {
 	gvir_config_domain_disk_type_get_type;
 	gvir_config_domain_disk_new;
 	gvir_config_domain_disk_new_from_xml;
-	gvir_config_domain_disk_set_snapshot_type;
+	gvir_config_domain_disk_set_driver_name;
+	gvir_config_domain_disk_set_driver_type;
 	gvir_config_domain_disk_set_guest_device_type;
+	gvir_config_domain_disk_set_snapshot_type;
+	gvir_config_domain_disk_set_source;
+	gvir_config_domain_disk_set_target_bus;
+	gvir_config_domain_disk_set_target_dev;
 	gvir_config_domain_disk_set_type;
 
 	gvir_config_domain_os_get_type;
