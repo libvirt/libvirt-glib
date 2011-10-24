@@ -80,7 +80,26 @@ int main(void)
                             GINT_TO_POINTER(GVIR_CONFIG_DOMAIN_OS_BOOT_DEVICE_NETWORK));
     gvir_config_domain_os_set_boot_devices(os, devices);
     g_list_free(devices);
+    devices = NULL;
     gvir_config_domain_set_os(domain, os);
+
+    /* disk node */
+    GVirConfigDomainDisk *disk;
+
+    disk = gvir_config_domain_disk_new();
+    gvir_config_domain_disk_set_type(disk, GVIR_CONFIG_DOMAIN_DISK_FILE);
+    gvir_config_domain_disk_set_guest_device_type(disk, GVIR_CONFIG_DOMAIN_DISK_GUEST_DEVICE_DISK);
+    gvir_config_domain_disk_set_source(disk, "/tmp/foo/bar");
+    gvir_config_domain_disk_set_driver_name(disk, "qemu");
+    gvir_config_domain_disk_set_driver_type(disk, "qcow2");
+    gvir_config_domain_disk_set_target_bus(disk, "ide");
+    gvir_config_domain_disk_set_target_dev(disk, "hda");
+
+    devices = g_list_append(devices, disk);
+    gvir_config_domain_set_devices(domain, devices);
+    g_list_free(devices);
+    devices = NULL;
+
 
     xml = gvir_config_object_to_xml(GVIR_CONFIG_OBJECT(domain));
     g_print("%s\n", xml);
