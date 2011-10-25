@@ -1201,3 +1201,47 @@ GVirDomain *gvir_connection_create_domain(GVirConnection *conn,
 
     return g_object_ref(domain);
 }
+
+/**
+ * gvir_connection_create_storage_pool:
+ * @conn: the connection on which to create the pool
+ * @conf: the configuration for the new storage pool
+ * @flags:  the flags
+ * @err: return location for any #GError
+ *
+ * Returns: (transfer full): the newly created storage pool
+ */
+GVirStoragePool *gvir_connection_create_storage_pool
+                                (GVirConnection *conn,
+                                 GVirConfigStoragePool *conf,
+                                 guint64 flags G_GNUC_UNUSED,
+                                 GError **err) {
+    const gchar *xml;
+    virStoragePoolPtr handle;
+    GVirConnectionPrivate *priv = conn->priv;
+
+    xml = gvir_config_object_get_doc(GVIR_CONFIG_OBJECT(conf));
+
+    g_return_val_if_fail(xml != NULL, NULL);
+
+    if (!(handle = virStoragePoolDefineXML(priv->conn, xml, 0))) {
+        *err = gvir_error_new_literal(GVIR_CONNECTION_ERROR,
+                                      flags,
+                                      "Failed to create storage pool");
+        return NULL;
+    }
+
+    GVirStoragePool *pool;
+
+    pool = GVIR_STORAGE_POOL(g_object_new(GVIR_TYPE_STORAGE_POOL,
+                                          "handle", handle,
+                                          NULL));
+
+    g_mutex_lock(priv->lock);
+    g_hash_table_insert(priv->pools,
+                        (gpointer)gvir_storage_pool_get_uuid(pool),
+                        pool);
+    g_mutex_unlock(priv->lock);
+
+    return g_object_ref(pool);
+}
