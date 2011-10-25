@@ -518,3 +518,47 @@ GVirStorageVol *gvir_storage_pool_create_volume
 
     return g_object_ref(volume);
 }
+
+/**
+ * gvir_storage_pool_build:
+ * @pool: the storage pool to build
+ * @flags:  the flags
+ * @err: return location for any #GError
+ *
+ * Return value: #True on success, #False otherwise.
+ */
+gboolean gvir_storage_pool_build (GVirStoragePool *pool,
+                                  guint64 flags,
+                                  GError **err)
+{
+    if (virStoragePoolBuild(pool->priv->handle, flags)) {
+        *err = gvir_error_new_literal(GVIR_STORAGE_POOL_ERROR,
+                                      0,
+                                      "Failed to build storage pool");
+        return FALSE;
+    }
+
+    return TRUE;
+}
+
+/**
+ * gvir_storage_pool_start:
+ * @pool: the storage pool to start
+ * @flags:  the flags
+ * @err: return location for any #GError
+ *
+ * Return value: #True on success, #False otherwise.
+ */
+gboolean gvir_storage_pool_start (GVirStoragePool *pool,
+                                  guint64 flags,
+                                  GError **err)
+{
+    if (virStoragePoolCreate(pool->priv->handle, flags)) {
+        *err = gvir_error_new_literal(GVIR_STORAGE_POOL_ERROR,
+                                      0,
+                                      "Failed to start storage pool");
+        return FALSE;
+    }
+
+    return TRUE;
+}

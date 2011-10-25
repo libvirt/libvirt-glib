@@ -88,6 +88,14 @@ GVirStorageVol *gvir_storage_pool_create_volume
                                  GVirConfigStorageVol *conf,
                                  GError **err);
 
+gboolean gvir_storage_pool_build (GVirStoragePool *pool,
+                                  guint64 flags,
+                                  GError **err);
+
+gboolean gvir_storage_pool_start (GVirStoragePool *pool,
+                                  guint64 flags,
+                                  GError **err);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GOBJECT_STORAGE_POOL_H__ */
