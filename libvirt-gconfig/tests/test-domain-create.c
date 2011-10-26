@@ -96,6 +96,14 @@ int main(void)
     gvir_config_domain_disk_set_target_dev(disk, "hda");
 
     devices = g_list_append(devices, disk);
+
+    /* network interface node */
+    GVirConfigDomainInterfaceNetwork *interface;
+
+    interface = gvir_config_domain_interface_network_new();
+    gvir_config_domain_interface_network_set_source(interface, "default");
+    devices = g_list_append(devices, interface);
+
     gvir_config_domain_set_devices(domain, devices);
     g_list_free(devices);
     devices = NULL;
