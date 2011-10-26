@@ -541,6 +541,88 @@ gboolean gvir_storage_pool_build (GVirStoragePool *pool,
     return TRUE;
 }
 
+typedef struct {
+    guint64 flags;
+} StoragePoolBuildData;
+
+static void
+gvir_storage_pool_build_helper(GSimpleAsyncResult *res,
+                               GObject *object,
+                               GCancellable *cancellable G_GNUC_UNUSED)
+{
+    GVirStoragePool *pool = GVIR_STORAGE_POOL(object);
+    StoragePoolBuildData *data;
+    GError *err = NULL;
+
+    data = (StoragePoolBuildData *) g_object_get_data(G_OBJECT(res),
+                                                      "StoragePoolBuildData");
+
+    if (!gvir_storage_pool_build(pool, data->flags, &err)) {
+        g_simple_async_result_set_from_error(res, err);
+        g_error_free(err);
+    }
+
+    g_slice_free (StoragePoolBuildData, data);
+}
+
+/**
+ * gvir_storage_pool_build_async:
+ * @pool: the storage pool to build
+ * @flags:  the flags
+ * @cancellable: (allow-none)(transfer none): cancellation object
+ * @callback: (scope async): completion callback
+ * @user_data: (closure): opaque data for callback
+ */
+void gvir_storage_pool_build_async (GVirStoragePool *pool,
+                                    guint64 flags,
+                                    GCancellable *cancellable,
+                                    GAsyncReadyCallback callback,
+                                    gpointer user_data)
+{
+    GSimpleAsyncResult *res;
+    StoragePoolBuildData *data;
+
+    data = g_new0(StoragePoolBuildData, 1);
+    data->flags = flags;
+
+    res = g_simple_async_result_new(G_OBJECT(pool),
+                                    callback,
+                                    user_data,
+                                    gvir_storage_pool_build);
+    g_object_set_data(G_OBJECT(res), "StoragePoolBuildData", data);
+    g_simple_async_result_run_in_thread(res,
+                                        gvir_storage_pool_build_helper,
+                                        G_PRIORITY_DEFAULT,
+                                        cancellable);
+    g_object_unref(res);
+}
+
+/**
+ * gvir_storage_pool_build_finish:
+ * @pool: the storage pool to build
+ * @result: (transfer none): async method result
+ * @err: return location for any #GError
+ *
+ * Return value: #True on success, #False otherwise.
+ */
+gboolean gvir_storage_pool_build_finish(GVirStoragePool *pool,
+                                        GAsyncResult *result,
+                                        GError **err)
+{
+    g_return_val_if_fail(GVIR_IS_STORAGE_POOL(pool), FALSE);
+    g_return_val_if_fail(G_IS_ASYNC_RESULT(result), FALSE);
+
+    if (G_IS_SIMPLE_ASYNC_RESULT(result)) {
+        GSimpleAsyncResult *simple = G_SIMPLE_ASYNC_RESULT(result);
+        g_warn_if_fail (g_simple_async_result_get_source_tag(simple) ==
+                        gvir_storage_pool_build);
+        if (g_simple_async_result_propagate_error(simple, err))
+            return FALSE;
+    }
+
+    return TRUE;
+}
+
 /**
  * gvir_storage_pool_start:
  * @pool: the storage pool to start
@@ -558,6 +640,84 @@ gboolean gvir_storage_pool_start (GVirStoragePool *pool,
                                       0,
                                       "Failed to start storage pool");
         return FALSE;
+    }
+
+    return TRUE;
+}
+
+static void
+gvir_storage_pool_start_helper(GSimpleAsyncResult *res,
+                               GObject *object,
+                               GCancellable *cancellable G_GNUC_UNUSED)
+{
+    GVirStoragePool *pool = GVIR_STORAGE_POOL(object);
+    StoragePoolBuildData *data;
+    GError *err = NULL;
+
+    data = (StoragePoolBuildData *) g_object_get_data(G_OBJECT(res),
+                                                      "StoragePoolBuildData");
+
+    if (!gvir_storage_pool_start(pool, data->flags, &err)) {
+        g_simple_async_result_set_from_error(res, err);
+        g_error_free(err);
+    }
+
+    g_slice_free (StoragePoolBuildData, data);
+}
+
+/**
+ * gvir_storage_pool_start_async:
+ * @pool: the storage pool to start
+ * @flags:  the flags
+ * @cancellable: (allow-none)(transfer none): cancellation object
+ * @callback: (scope async): completion callback
+ * @user_data: (closure): opaque data for callback
+ */
+void gvir_storage_pool_start_async (GVirStoragePool *pool,
+                                    guint64 flags,
+                                    GCancellable *cancellable,
+                                    GAsyncReadyCallback callback,
+                                    gpointer user_data)
+{
+    GSimpleAsyncResult *res;
+    StoragePoolBuildData *data;
+
+    data = g_new0(StoragePoolBuildData, 1);
+    data->flags = flags;
+
+    res = g_simple_async_result_new(G_OBJECT(pool),
+                                    callback,
+                                    user_data,
+                                    gvir_storage_pool_start);
+    g_object_set_data(G_OBJECT(res), "StoragePoolBuildData", data);
+    g_simple_async_result_run_in_thread(res,
+                                        gvir_storage_pool_start_helper,
+                                        G_PRIORITY_DEFAULT,
+                                        cancellable);
+    g_object_unref(res);
+}
+
+/**
+ * gvir_storage_pool_start_finish:
+ * @pool: the storage pool to start
+ * @result: (transfer none): async method result
+ * @err: return location for any #GError
+ *
+ * Return value: #True on success, #False otherwise.
+ */
+gboolean gvir_storage_pool_start_finish(GVirStoragePool *pool,
+                                        GAsyncResult *result,
+                                        GError **err)
+{
+    g_return_val_if_fail(GVIR_IS_STORAGE_POOL(pool), FALSE);
+    g_return_val_if_fail(G_IS_ASYNC_RESULT(result), FALSE);
+
+    if (G_IS_SIMPLE_ASYNC_RESULT(result)) {
+        GSimpleAsyncResult *simple = G_SIMPLE_ASYNC_RESULT(result);
+        g_warn_if_fail (g_simple_async_result_get_source_tag(simple) ==
+                        gvir_storage_pool_start);
+        if (g_simple_async_result_propagate_error(simple, err))
+            return FALSE;
     }
 
     return TRUE;

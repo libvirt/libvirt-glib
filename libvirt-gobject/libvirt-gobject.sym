@@ -90,7 +90,11 @@ LIBVIRT_GOBJECT_0.0.1 {
 	gvir_storage_pool_get_volume;
 	gvir_storage_pool_create_volume;
 	gvir_storage_pool_build;
+	gvir_storage_pool_build_async;
+	gvir_storage_pool_build_finish;
 	gvir_storage_pool_start;
+	gvir_storage_pool_start_async;
+	gvir_storage_pool_start_finish;
 
 	gvir_storage_vol_get_type;
 	gvir_storage_vol_handle_get_type;

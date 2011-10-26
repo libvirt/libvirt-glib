@@ -91,10 +91,26 @@ GVirStorageVol *gvir_storage_pool_create_volume
 gboolean gvir_storage_pool_build (GVirStoragePool *pool,
                                   guint64 flags,
                                   GError **err);
+void gvir_storage_pool_build_async (GVirStoragePool *pool,
+                                    guint64 flags,
+                                    GCancellable *cancellable,
+                                    GAsyncReadyCallback callback,
+                                    gpointer user_data);
+gboolean gvir_storage_pool_build_finish(GVirStoragePool *pool,
+                                        GAsyncResult *result,
+                                        GError **err);
 
 gboolean gvir_storage_pool_start (GVirStoragePool *pool,
                                   guint64 flags,
                                   GError **err);
+void gvir_storage_pool_start_async (GVirStoragePool *pool,
+                                    guint64 flags,
+                                    GCancellable *cancellable,
+                                    GAsyncReadyCallback callback,
+                                    gpointer user_data);
+gboolean gvir_storage_pool_start_finish(GVirStoragePool *pool,
+                                        GAsyncResult *result,
+                                        GError **err);
 
 G_END_DECLS
 
