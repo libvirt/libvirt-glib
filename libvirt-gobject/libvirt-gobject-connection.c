@@ -196,7 +196,7 @@ static void gvir_connection_class_init(GVirConnectionClass *klass)
                  g_cclosure_marshal_VOID__OBJECT,
                  G_TYPE_NONE,
                  1,
-                 G_TYPE_OBJECT);
+                 GVIR_TYPE_DOMAIN);
 
     signals[VIR_DOMAIN_REMOVED] = g_signal_new("domain-removed",
                  G_OBJECT_CLASS_TYPE(object_class),
@@ -206,7 +206,7 @@ static void gvir_connection_class_init(GVirConnectionClass *klass)
                  g_cclosure_marshal_VOID__OBJECT,
                  G_TYPE_NONE,
                  1,
-                 G_TYPE_OBJECT);
+                 GVIR_TYPE_DOMAIN);
 
     g_object_class_install_property(object_class,
                                     PROP_HANDLE,
