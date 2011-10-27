@@ -44,6 +44,13 @@ LIBVIRT_GOBJECT_0.0.1 {
 	gvir_config_domain_disk_set_target_dev;
 	gvir_config_domain_disk_set_type;
 
+	gvir_config_domain_input_get_type;
+	gvir_config_domain_input_device_type_get_type;
+	gvir_config_domain_input_new;
+	gvir_config_domain_input_new_from_xml;
+	gvir_config_domain_input_set_device_type;
+	gvir_config_domain_input_set_bus;
+
 	gvir_config_domain_interface_get_type;
 
 	gvir_config_domain_interface_network_get_type;

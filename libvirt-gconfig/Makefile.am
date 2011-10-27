@@ -15,6 +15,7 @@ GCONFIG_HEADER_FILES = \
 			libvirt-gconfig-domain-clock.h \
 			libvirt-gconfig-domain-device.h \
 			libvirt-gconfig-domain-disk.h \
+			libvirt-gconfig-domain-input.h \
 			libvirt-gconfig-domain-interface.h \
 			libvirt-gconfig-domain-interface-network.h \
 			libvirt-gconfig-domain-os.h \
@@ -38,6 +39,7 @@ GCONFIG_SOURCE_FILES = \
 			libvirt-gconfig-domain-clock.c \
 			libvirt-gconfig-domain-device.c \
 			libvirt-gconfig-domain-disk.c \
+			libvirt-gconfig-domain-input.c \
 			libvirt-gconfig-domain-interface.c \
 			libvirt-gconfig-domain-interface-network.c \
 			libvirt-gconfig-domain-os.c \

@@ -94,15 +94,25 @@ int main(void)
     gvir_config_domain_disk_set_driver_type(disk, "qcow2");
     gvir_config_domain_disk_set_target_bus(disk, "ide");
     gvir_config_domain_disk_set_target_dev(disk, "hda");
+    devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(disk));
 
-    devices = g_list_append(devices, disk);
 
     /* network interface node */
     GVirConfigDomainInterfaceNetwork *interface;
 
     interface = gvir_config_domain_interface_network_new();
     gvir_config_domain_interface_network_set_source(interface, "default");
-    devices = g_list_append(devices, interface);
+    devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(interface));
+
+    /* input node */
+    GVirConfigDomainInput *input;
+
+    input = gvir_config_domain_input_new();
+    gvir_config_domain_input_set_device_type(input,
+                                             GVIR_CONFIG_DOMAIN_INPUT_DEVICE_TABLET);
+    gvir_config_domain_input_set_bus(input, GVIR_CONFIG_DOMAIN_INPUT_BUS_USB);
+    devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(input));
+
 
     gvir_config_domain_set_devices(domain, devices);
     g_list_free(devices);
