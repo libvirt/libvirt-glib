@@ -87,6 +87,14 @@ LIBVIRT_GOBJECT_0.0.1 {
 	gvir_config_domain_timer_new;
 	gvir_config_domain_timer_new_from_xml;
 
+	gvir_config_domain_video_get_type;
+	gvir_config_domain_video_model_get_type;
+	gvir_config_domain_video_new;
+	gvir_config_domain_video_new_from_xml;
+	gvir_config_domain_video_set_model;
+	gvir_config_domain_video_set_vram;
+	gvir_config_domain_video_set_heads;
+
 	gvir_config_interface_get_type;
 	gvir_config_interface_new;
 	gvir_config_interface_new_from_xml;

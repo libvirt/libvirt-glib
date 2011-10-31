@@ -40,6 +40,7 @@
 #include <libvirt-gconfig/libvirt-gconfig-domain-os.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-snapshot.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-timer.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-video.h>
 #include <libvirt-gconfig/libvirt-gconfig-enum-types.h>
 #include <libvirt-gconfig/libvirt-gconfig-helpers.h>
 #include <libvirt-gconfig/libvirt-gconfig-interface.h>

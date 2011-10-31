@@ -23,6 +23,7 @@ GCONFIG_HEADER_FILES = \
 			libvirt-gconfig-domain-os.h \
 			libvirt-gconfig-domain-snapshot.h \
 			libvirt-gconfig-domain-timer.h \
+			libvirt-gconfig-domain-video.h \
 			libvirt-gconfig-helpers.h \
 			libvirt-gconfig-interface.h \
 			libvirt-gconfig-network.h \
@@ -49,6 +50,7 @@ GCONFIG_SOURCE_FILES = \
 			libvirt-gconfig-domain-os.c \
 			libvirt-gconfig-domain-snapshot.c \
 			libvirt-gconfig-domain-timer.c \
+			libvirt-gconfig-domain-video.c \
 			libvirt-gconfig-enum-types.c \
 			libvirt-gconfig-helpers.c \
 			libvirt-gconfig-interface.c \

@@ -1,0 +1,133 @@
+/*
+ * libvirt-gobject-config-domain-video.c: libvirt glib integration
+ *
+ * Copyright (C) 2011 Red Hat
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307  USA
+ *
+ * Author: Christophe Fergeau <cfergeau@gmail.com>
+ */
+
+#include <config.h>
+
+#include <string.h>
+
+#include <libxml/tree.h>
+
+#include "libvirt-gconfig/libvirt-gconfig.h"
+#include "libvirt-gconfig/libvirt-gconfig-helpers-private.h"
+#include "libvirt-gconfig/libvirt-gconfig-object-private.h"
+
+extern gboolean debugFlag;
+
+#define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
+
+#define GVIR_CONFIG_DOMAIN_VIDEO_GET_PRIVATE(obj)                         \
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_VIDEO, GVirConfigDomainVideoPrivate))
+
+struct _GVirConfigDomainVideoPrivate
+{
+    gboolean unused;
+};
+
+G_DEFINE_TYPE(GVirConfigDomainVideo, gvir_config_domain_video, GVIR_TYPE_CONFIG_DOMAIN_DEVICE);
+
+
+static void gvir_config_domain_video_class_init(GVirConfigDomainVideoClass *klass)
+{
+    g_type_class_add_private(klass, sizeof(GVirConfigDomainVideoPrivate));
+}
+
+
+static void gvir_config_domain_video_init(GVirConfigDomainVideo *video)
+{
+    GVirConfigDomainVideoPrivate *priv;
+
+    DEBUG("Init GVirConfigDomainVideo=%p", video);
+
+    priv = video->priv = GVIR_CONFIG_DOMAIN_VIDEO_GET_PRIVATE(video);
+
+    memset(priv, 0, sizeof(*priv));
+}
+
+
+GVirConfigDomainVideo *gvir_config_domain_video_new(void)
+{
+    GVirConfigObject *object;
+
+    object = gvir_config_object_new(GVIR_TYPE_CONFIG_DOMAIN_VIDEO,
+                                    "video", NULL);
+    return GVIR_CONFIG_DOMAIN_VIDEO(object);
+}
+
+GVirConfigDomainVideo *gvir_config_domain_video_new_from_xml(const gchar *xml,
+                                                             GError **error)
+{
+    GVirConfigObject *object;
+
+    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_DOMAIN_VIDEO,
+                                             "video", NULL, xml, error);
+    return GVIR_CONFIG_DOMAIN_VIDEO(object);
+}
+
+void gvir_config_domain_video_set_model(GVirConfigDomainVideo *video,
+                                        GVirConfigDomainVideoModel model)
+{
+    xmlNodePtr node;
+    const char *model_str;
+
+    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_VIDEO(video));
+    node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(video),
+                                            "model");
+    g_return_if_fail(node != NULL);
+    model_str = gvir_config_genum_get_nick(GVIR_TYPE_CONFIG_DOMAIN_VIDEO_MODEL,
+                                           model);
+    g_return_if_fail(model_str != NULL);
+    xmlNewProp(node, (xmlChar*)"type", (xmlChar*)model_str);
+}
+
+void gvir_config_domain_video_set_vram(GVirConfigDomainVideo *video,
+                                       guint kbytes)
+{
+    xmlNodePtr node;
+    char *vram_str;
+
+    node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(video));
+    if (node == NULL)
+        return;
+    node = gvir_config_xml_get_element(node, "model", NULL);
+    if (node == NULL)
+        return;
+    vram_str = g_strdup_printf("%u", kbytes);
+    xmlNewProp(node, (xmlChar*)"vram", (xmlChar*)vram_str);
+    g_free(vram_str);
+}
+
+void gvir_config_domain_video_set_heads(GVirConfigDomainVideo *video,
+                                        guint head_count)
+{
+    xmlNodePtr node;
+    char *heads_str;
+
+    node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(video));
+    if (node == NULL)
+        return;
+    node = gvir_config_xml_get_element(node, "model", NULL);
+    if (node == NULL)
+        return;
+    heads_str = g_strdup_printf("%u", head_count);
+    xmlNewProp(node, (xmlChar*)"heads", (xmlChar*)heads_str);
+    g_free(heads_str);
+}
