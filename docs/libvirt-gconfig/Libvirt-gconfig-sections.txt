@@ -1,0 +1,166 @@
+<SECTION>
+<FILE>libvirt-gconfig-object</FILE>
+<TITLE>GVirConfigObject</TITLE>
+gvir_config_object_validate
+gvir_config_object_get_doc
+gvir_config_object_get_schema
+<SUBSECTION Standard>
+GVIR_TYPE_OBJECT
+GVIR_OBJECT
+GVIR_OBJECT_CLASS
+GVIR_IS_OBJECT
+GVIR_IS_OBJECT_CLASS
+GVIR_OBJECT_GET_CLASS
+<SUBSECTION Private>
+GVirConfigObjectPrivate
+</SECTION>
+
+<SECTION>
+<FILE>libvirt-gconfig-domain</FILE>
+<TITLE>GVirConfigDomain</TITLE>
+gvir_config_domain_new
+<SUBSECTION Standard>
+GVIR_TYPE_DOMAIN
+GVIR_DOMAIN
+GVIR_DOMAIN_CLASS
+GVIR_IS_DOMAIN
+GVIR_IS_DOMAIN_CLASS
+GVIR_DOMAIN_GET_CLASS
+<SUBSECTION Private>
+GVirConfigDomainPrivate
+</SECTION>
+
+<SECTION>
+<FILE>libvirt-gconfig-domain-snapshot</FILE>
+<TITLE>GVirConfigDomainSnapshot</TITLE>
+gvir_config_domain_snapshot_new
+<SUBSECTION Standard>
+GVIR_TYPE_DOMAIN_SNAPSHOT
+GVIR_DOMAIN_SNAPSHOT
+GVIR_DOMAIN_SNAPSHOT_CLASS
+GVIR_IS_DOMAIN_SNAPSHOT
+GVIR_IS_DOMAIN_SNAPSHOT_CLASS
+GVIR_DOMAIN_SNAPSHOT_GET_CLASS
+<SUBSECTION Private>
+GVirConfigDomainSnapshotPrivate
+</SECTION>
+
+<SECTION>
+<FILE>libvirt-gconfig-interface</FILE>
+<TITLE>GVirConfigInterface</TITLE>
+gvir_config_interface_new
+<SUBSECTION Standard>
+GVIR_TYPE_INTERFACE
+GVIR_INTERFACE
+GVIR_INTERFACE_CLASS
+GVIR_IS_INTERFACE
+GVIR_IS_INTERFACE_CLASS
+GVIR_INTERFACE_GET_CLASS
+<SUBSECTION Private>
+GVirConfigInterfacePrivate
+</SECTION>
+
+<SECTION>
+<FILE>libvirt-gconfig-network-filter</FILE>
+<TITLE>GVirConfigNetworkFilter</TITLE>
+gvir_config_network_filter_new
+<SUBSECTION Standard>
+GVIR_TYPE_NETWORK_FILTER
+GVIR_NETWORK_FILTER
+GVIR_NETWORK_FILTER_CLASS
+GVIR_IS_NETWORK_FILTER
+GVIR_IS_NETWORK_FILTER_CLASS
+GVIR_NETWORK_FILTER_GET_CLASS
+<SUBSECTION Private>
+GVirConfigNetworkFilterPrivate
+</SECTION>
+
+<SECTION>
+<FILE>libvirt-gconfig-network</FILE>
+<TITLE>GVirConfigNetwork</TITLE>
+gvir_config_network_new
+<SUBSECTION Standard>
+GVIR_TYPE_NETWORK
+GVIR_NETWORK
+GVIR_NETWORK_CLASS
+GVIR_IS_NETWORK
+GVIR_IS_NETWORK_CLASS
+GVIR_NETWORK_GET_CLASS
+<SUBSECTION Private>
+GVirConfigNetworkPrivate
+</SECTION>
+
+<SECTION>
+<FILE>libvirt-gconfig-node-device</FILE>
+<TITLE>GVirConfigNodeDevice</TITLE>
+gvir_config_node_device_new
+<SUBSECTION Standard>
+GVIR_TYPE_NODE_DEVICE
+GVIR_NODE_DEVICE
+GVIR_NODE_DEVICE_CLASS
+GVIR_IS_NODE_DEVICE
+GVIR_IS_NODE_DEVICE_CLASS
+GVIR_NODE_DEVICE_GET_CLASS
+<SUBSECTION Private>
+GVirConfigNodeDevicePrivate
+</SECTION>
+
+<SECTION>
+<FILE>libvirt-gconfig-secret</FILE>
+<TITLE>GVirConfigSecret</TITLE>
+gvir_config_secret_get_new
+<SUBSECTION Standard>
+GVIR_TYPE_SECRET
+GVIR_SECRET
+GVIR_SECRET_CLASS
+GVIR_IS_SECRET
+GVIR_IS_SECRET_CLASS
+GVIR_SECRET_GET_CLASS
+<SUBSECTION Private>
+GVirConfigSecretPrivate
+</SECTION>
+
+<SECTION>
+<FILE>libvirt-gconfig-storage-pool</FILE>
+<TITLE>GVirConfigStoragePool</TITLE>
+gvir_config_storage_pool_new
+<SUBSECTION Standard>
+GVIR_TYPE_STORAGE_POOL
+GVIR_STORAGE_POOL
+GVIR_STORAGE_POOL_CLASS
+GVIR_IS_STORAGE_POOL
+GVIR_IS_STORAGE_POOL_CLASS
+GVIR_STORAGE_POOL_GET_CLASS
+<SUBSECTION Private>
+GVirConfigStoragePoolPrivate
+</SECTION>
+
+<SECTION>
+<FILE>libvirt-gconfig-storage-vol</FILE>
+<TITLE>GVirConfigStorageVol</TITLE>
+gvir_config_storage_vol_new
+<SUBSECTION Standard>
+GVIR_TYPE_STORAGE_VOL
+GVIR_STORAGE_VOL
+GVIR_STORAGE_VOL_CLASS
+GVIR_IS_STORAGE_VOL
+GVIR_IS_STORAGE_VOL_CLASS
+GVIR_STORAGE_VOL_GET_CLASS
+<SUBSECTION Private>
+GVirConfigStorageVolPrivate
+</SECTION>
+
+<SECTION>
+<FILE>libvirt-gconfig-capabilities</FILE>
+<TITLE>GVirConfigCapabilities</TITLE>
+gvir_config_capabilities_new
+<SUBSECTION Standard>
+GVIR_TYPE_CAPABILITIES
+GVIR_CAPABILITIES
+GVIR_CAPABILITIES_CLASS
+GVIR_IS_CAPABILITIES
+GVIR_IS_CAPABILITIES_CLASS
+GVIR_CAPABILITIES_GET_CLASS
+<SUBSECTION Private>
+GVirConfigCapabilitiesPrivate
+</SECTION>

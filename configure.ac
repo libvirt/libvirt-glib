@@ -50,6 +50,8 @@ PKG_CHECK_MODULES(GOBJECT2, gobject-2.0 >= $GLIB2_REQUIRED)
 PKG_CHECK_MODULES(GIO2, gio-2.0 >= $GLIB2_REQUIRED)
 PKG_CHECK_MODULES(LIBXML2, libxml-2.0 >= $LIBXML2_REQUIRED)
 
+GTK_DOC_CHECK([1.10],[--flavour no-tmpl])
+
 dnl Extra link-time flags for Cygwin.
 dnl Copied from libxml2 configure.in, but I removed mingw changes
 dnl for now since I'm not supporting mingw at present.  - RWMJ
@@ -223,6 +225,10 @@ AC_OUTPUT(Makefile
           examples/Makefile
           python/Makefile
           vapi/Makefile
+          docs/Makefile
+          docs/libvirt-glib/Makefile
+          docs/libvirt-gobject/Makefile
+          docs/libvirt-gconfig/Makefile
           libvirt-glib-1.0.pc
           libvirt-gconfig-1.0.pc
           libvirt-gobject-1.0.pc
