@@ -113,6 +113,13 @@ int main(void)
     gvir_config_domain_input_set_bus(input, GVIR_CONFIG_DOMAIN_INPUT_BUS_USB);
     devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(input));
 
+    /* graphics node */
+    GVirConfigDomainGraphicsSpice *graphics;
+
+    graphics = gvir_config_domain_graphics_spice_new();
+    gvir_config_domain_graphics_spice_set_port(graphics, 1234);
+    devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(graphics));
+
 
     gvir_config_domain_set_devices(domain, devices);
     g_list_free(devices);
