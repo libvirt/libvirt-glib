@@ -9,7 +9,7 @@ DOC_SOURCE_DIR=../../libvirt-glib
 
 SCANGOBJ_OPTIONS=
 
-SCAN_OPTIONS=
+SCAN_OPTIONS=--rebuild-sections --rebuild-types
 
 MKDB_OPTIONS=--sgml-mode --output-format=xml
 
