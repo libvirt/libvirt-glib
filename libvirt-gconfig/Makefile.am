@@ -36,6 +36,7 @@ GCONFIG_HEADER_FILES = \
 noinst_HEADERS = \
 			libvirt-gconfig-helpers-private.h \
 			libvirt-gconfig-object-private.h
+			libvirt-gconfig-xml-doc.h
 GCONFIG_SOURCE_FILES = \
 			libvirt-gconfig-object.c \
 			libvirt-gconfig-main.c \
@@ -60,7 +61,8 @@ GCONFIG_SOURCE_FILES = \
 			libvirt-gconfig-node-device.c \
 			libvirt-gconfig-secret.c \
 			libvirt-gconfig-storage-pool.c \
-			libvirt-gconfig-storage-vol.c
+			libvirt-gconfig-storage-vol.c \
+			libvirt-gconfig-xml-doc.c
 
 libvirt_gconfig_1_0_ladir = $(includedir)/libvirt-gconfig-1.0/libvirt-gconfig
 libvirt_gconfig_1_0_la_HEADERS = \
