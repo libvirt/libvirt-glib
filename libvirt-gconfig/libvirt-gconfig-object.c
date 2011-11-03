@@ -30,6 +30,7 @@
 #include "libvirt-gconfig/libvirt-gconfig.h"
 #include "libvirt-gconfig/libvirt-gconfig-helpers-private.h"
 #include "libvirt-gconfig/libvirt-gconfig-object-private.h"
+#include "libvirt-gconfig/libvirt-gconfig-xml-doc.h"
 
 #define GVIR_CONFIG_OBJECT_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_OBJECT, GVirConfigObjectPrivate))
@@ -38,6 +39,7 @@ struct _GVirConfigObjectPrivate
 {
     gchar *schema;
 
+    GVirConfigXmlDoc *doc;
     xmlNodePtr node;
 };
 
@@ -46,7 +48,8 @@ G_DEFINE_ABSTRACT_TYPE(GVirConfigObject, gvir_config_object, G_TYPE_OBJECT);
 enum {
     PROP_0,
     PROP_SCHEMA,
-    PROP_NODE
+    PROP_NODE,
+    PROP_DOC
 };
 
 
@@ -67,8 +70,8 @@ static void gvir_config_object_get_property(GObject *object,
                                             GValue *value,
                                             GParamSpec *pspec)
 {
-    GVirConfigObject *conn = GVIR_CONFIG_OBJECT(object);
-    GVirConfigObjectPrivate *priv = conn->priv;
+    GVirConfigObject *obj = GVIR_CONFIG_OBJECT(object);
+    GVirConfigObjectPrivate *priv = obj->priv;
 
     switch (prop_id) {
     case PROP_SCHEMA:
@@ -76,7 +79,11 @@ static void gvir_config_object_get_property(GObject *object,
         break;
 
     case PROP_NODE:
-        g_value_set_pointer(value, gvir_config_object_get_xml_node(conn));
+        g_value_set_pointer(value, gvir_config_object_get_xml_node(obj));
+        break;
+
+    case PROP_DOC:
+        g_value_set_object(value, obj->priv->doc);
         break;
 
     default:
@@ -89,8 +96,8 @@ static void gvir_config_object_set_property(GObject *object,
                                             const GValue *value,
                                             GParamSpec *pspec)
 {
-    GVirConfigObject *conn = GVIR_CONFIG_OBJECT(object);
-    GVirConfigObjectPrivate *priv = conn->priv;
+    GVirConfigObject *obj = GVIR_CONFIG_OBJECT(object);
+    GVirConfigObjectPrivate *priv = obj->priv;
 
     switch (prop_id) {
     case PROP_SCHEMA:
@@ -98,17 +105,13 @@ static void gvir_config_object_set_property(GObject *object,
         priv->schema = g_value_dup_string(value);
         break;
 
-    case PROP_NODE: {
-        xmlNodePtr node;
-        node = g_value_get_pointer(value);
-        if ((priv->node != NULL)
-             && (priv->node->doc != NULL)
-             && (priv->node->doc != node->doc)) {
-            xmlFreeDoc(priv->node->doc);
-        }
-        priv->node = node;
+    case PROP_NODE:
+        priv->node =g_value_get_pointer(value);
         break;
-    }
+
+    case PROP_DOC:
+        obj->priv->doc = g_value_dup_object(value);
+        break;
 
     default:
         G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
@@ -125,12 +128,14 @@ static void gvir_config_object_finalize(GObject *object)
 
     g_free(priv->schema);
 
-    /* FIXME: all objects describing a given XML document will share the
-     * same document so we can't destroy it here like this, we need some
-     * refcounting to know when to destroy it.
-     */
-    if (priv->node)
-        xmlFreeDoc(priv->node->doc);
+    if (priv->doc != NULL) {
+        g_object_unref(G_OBJECT(priv->doc));
+        priv->node = NULL; /* node belongs to doc, make sure not to free it */
+    }
+    if (priv->node != NULL) {
+        g_assert(priv->node->doc == NULL);
+        xmlFreeNode(priv->node);
+    }
 
     G_OBJECT_CLASS(gvir_config_object_parent_class)->finalize(object);
 }
@@ -153,15 +158,23 @@ static void gvir_config_object_class_init(GVirConfigObjectClass *klass)
                                                         G_PARAM_READABLE |
                                                         G_PARAM_WRITABLE |
                                                         G_PARAM_CONSTRUCT_ONLY |
-                                                        G_PARAM_STATIC_NAME |
-                                                        G_PARAM_STATIC_NICK |
-                                                        G_PARAM_STATIC_BLURB));
+                                                        G_PARAM_STATIC_STRINGS));
 
     g_object_class_install_property(object_class,
                                     PROP_NODE,
                                     g_param_spec_pointer("node",
                                                         "XML Node",
                                                         "The XML node this config object corresponds to",
+                                                        G_PARAM_READWRITE |
+                                                        G_PARAM_CONSTRUCT_ONLY |
+                                                        G_PARAM_STATIC_STRINGS));
+
+    g_object_class_install_property(object_class,
+                                    PROP_DOC,
+                                    g_param_spec_object("doc",
+                                                        "XML Doc",
+                                                        "The XML doc this config object corresponds to",
+                                                        GVIR_TYPE_CONFIG_XML_DOC,
                                                         G_PARAM_READWRITE |
                                                         G_PARAM_CONSTRUCT_ONLY |
                                                         G_PARAM_STATIC_STRINGS));
