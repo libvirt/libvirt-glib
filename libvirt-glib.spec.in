@@ -164,6 +164,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with_introspection}
 %{_datadir}/gir-1.0/LibvirtGLib-1.0.gir
 %endif
+%{_datadir}/gtk-doc/html/Libvirt-glib
 
 %files -n libvirt-gconfig-devel
 %defattr(-,root,root,-)
@@ -177,6 +178,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with_introspection}
 %{_datadir}/gir-1.0/LibvirtGConfig-1.0.gir
 %endif
+%{_datadir}/gtk-doc/html/Libvirt-gconfig
 
 %files -n libvirt-gobject-devel
 %defattr(-,root,root,-)
@@ -190,6 +192,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with_introspection}
 %{_datadir}/gir-1.0/LibvirtGObject-1.0.gir
 %endif
+%{_datadir}/gtk-doc/html/Libvirt-gobject
 
 %if %{with_python}
 %files python
