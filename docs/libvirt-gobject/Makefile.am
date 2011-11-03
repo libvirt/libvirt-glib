@@ -31,13 +31,13 @@ content_files=
 expand_content_files=
 
 GTKDOC_CFLAGS= \
-	$(LIBXML_CFLAGS) \
-	$(GOBJECT_CFLAGS)\
-	$(GIO_CFLAGS)
+	$(LIBVIRT_CFLAGS) \
+	$(GOBJECT2_CFLAGS) \
+	$(GIO2_CFLAGS)
 GTKDOC_LIBS = \
-	$(LIBXML_LIBS) \
-	$(GOBJECT_LIBS) \
-	$(GIO_LIBS) \
+	$(LIBVIRT_LIBS) \
+	$(GOBJECT2_LIBS) \
+	$(GIO2_LIBS) \
 	$(top_builddir)/libvirt-gobject/libvirt-gobject-1.0.la
 
 include $(top_srcdir)/gtk-doc.make
