@@ -206,14 +206,31 @@ AC_ARG_ENABLE([vala],
 if test "x$enable_introspection" = "xyes" ; then
         if test "x$enable_vala" != "xno" ; then
                 AC_PATH_PROG(VAPIGEN, vapigen, no)
-                if test "x$VAPIGEN" != "xno"; then
+                if test "x$VAPIGEN" == "xno"; then
                         if test "x$enable_vala" == "xcheck" ; then
-                                enable_vala=yes
-                                AC_SUBST(VAPIGEN)
+                                enable_vala=no
+                        else
+                                AC_MSG_ERROR([Cannot find the "vapigen" binary in your PATH])
+                        fi
+                fi
+                AC_SUBST(VAPIGEN)
+        fi
+        if test "x$enable_vala" != "xno" ; then
+                AC_MSG_CHECKING([$VAPIGEN support for --metadatadir])
+                vapigen --help | grep metadatadir 1>/dev/null 2>&1
+                if test $? != 0 ; then
+                        if test "x$enable_vala" == "xcheck" ; then
+                                enable_vala=no
+                                AC_MSG_RESULT([no])
+                        else
+                                AC_MSG_ERROR(["vapigen" binary in your PATH is too old (< 0.13)])
                         fi
                 else
-                        AC_MSG_ERROR([Cannot find the "vapigen" binary in your PATH])
+                        AC_MSG_RESULT([no])
                 fi
+        fi
+        if test "x$enable_vala" = "check" ; then
+                enable_vala=yes
         fi
 fi
 AM_CONDITIONAL([WITH_VALA], [test "x$enable_vala" = "xyes"])
