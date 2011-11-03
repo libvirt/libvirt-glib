@@ -58,7 +58,7 @@ make DESTDIR=$RPM_BUILD_ROOT install
 rm $RPM_BUILD_ROOT%{_mingw32_libdir}/libvirt-glib-1.0.a
 rm $RPM_BUILD_ROOT%{_mingw32_libdir}/libvirt-gconfig-1.0.a
 rm $RPM_BUILD_ROOT%{_mingw32_libdir}/libvirt-gobject-1.0.a
-
+rm -rf $RPM_BUILD_ROOT%{_mingw32_datadir}/gtk-doc
 
 %clean
 rm -rf $RPM_BUILD_ROOT
