@@ -27,7 +27,7 @@
 static void
 do_connection_open(GObject *source,
                    GAsyncResult *res,
-                   gpointer opaque)
+                   gpointer opaque G_GNUC_UNUSED)
 {
     GVirConnection *conn = GVIR_CONNECTION(source);
     GError *err = NULL;
@@ -40,7 +40,7 @@ do_connection_open(GObject *source,
 }
 
 static void quit(gpointer data,
-                 GObject *where_the_object_was)
+                 GObject *where_the_object_was G_GNUC_UNUSED)
 {
     GMainLoop *loop = data;
 
