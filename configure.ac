@@ -229,7 +229,7 @@ if test "x$enable_introspection" = "xyes" ; then
                         AC_MSG_RESULT([no])
                 fi
         fi
-        if test "x$enable_vala" = "check" ; then
+        if test "x$enable_vala" = "xcheck" ; then
                 enable_vala=yes
         fi
 fi
