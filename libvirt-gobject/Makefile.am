@@ -41,6 +41,8 @@ libvirt_gobject_1_0_ladir = $(includedir)/libvirt-gobject-1.0/libvirt-gobject
 libvirt_gobject_1_0_la_HEADERS = \
 			$(GOBJECT_HEADER_FILES) \
 			libvirt-gobject-input-stream.h
+nodist_libvirt_gobject_1_0_la_HEADERS = \
+			libvirt-gobject-enums.h
 libvirt_gobject_1_0_la_SOURCES = \
 			$(libvirt_gobject_1_0_la_HEADERS) \
 			$(GOBJECT_SOURCE_FILES) \
