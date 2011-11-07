@@ -66,6 +66,7 @@ int main(void)
     klock = gvir_config_domain_clock_new();
     gvir_config_domain_clock_set_offset(klock, GVIR_CONFIG_DOMAIN_CLOCK_UTC);
     gvir_config_domain_set_clock(domain, klock);
+    g_object_unref(G_OBJECT(klock));
 
     /* os node */
     GVirConfigDomainOs *os;
@@ -82,6 +83,7 @@ int main(void)
     g_list_free(devices);
     devices = NULL;
     gvir_config_domain_set_os(domain, os);
+    g_object_unref(G_OBJECT(os));
 
     /* disk node */
     GVirConfigDomainDisk *disk;
@@ -130,6 +132,7 @@ int main(void)
 
 
     gvir_config_domain_set_devices(domain, devices);
+    g_list_foreach(devices, (GFunc)g_object_unref, NULL);
     g_list_free(devices);
     devices = NULL;
 
