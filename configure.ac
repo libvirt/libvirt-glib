@@ -10,7 +10,7 @@ AC_CANONICAL_HOST
 
 AM_SILENT_RULES([yes])
 
-LIBVIRT_REQUIRED=0.5.0
+LIBVIRT_REQUIRED=0.9.4
 GLIB2_REQUIRED=2.10.0
 GOBJECT2_REQUIRED=2.10.0
 GIO_REQUIRED=2.10.0
@@ -217,7 +217,7 @@ if test "x$enable_introspection" = "xyes" ; then
         fi
         if test "x$enable_vala" != "xno" ; then
                 AC_MSG_CHECKING([$VAPIGEN support for --metadatadir])
-                vapigen --help | grep metadatadir 1>/dev/null 2>&1
+                $VAPIGEN --help | grep metadatadir 1>/dev/null 2>&1
                 if test $? != 0 ; then
                         if test "x$enable_vala" == "xcheck" ; then
                                 enable_vala=no
