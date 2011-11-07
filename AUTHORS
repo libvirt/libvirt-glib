@@ -1,0 +1,16 @@
+       libvirt-glib Authors
+       ====================
+
+The primary maintainers of libvirt-glib are:
+
+   Christophe Fergeau <cfergeau@redhat.com>
+   Daniel P. Berrange <berrange@redhat.com>
+   Marc-André Lureau <marcandre.lureau@redhat.com>
+   Zeeshan Ali (Khattak) <zeeshanak@gnome.org>
+
+Patches have been received from:
+
+   Guido Günther <agx@sigxcpu.org>
+   Nirbheek Chauhan <nirbheek@gentoo.org>
+
+   ... send patches to get your name added ...
