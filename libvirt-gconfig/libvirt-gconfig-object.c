@@ -378,11 +378,13 @@ GVirConfigObject *gvir_config_object_new(GType type,
                                          const char *schema)
 {
     xmlDocPtr doc;
+    xmlNodePtr node;
 
     doc = xmlNewDoc((xmlChar *)"1.0");
-    doc->children = xmlNewDocNode(doc, NULL, (xmlChar *)root_name, NULL);
+    node = xmlNewDocNode(doc, NULL, (xmlChar *)root_name, NULL);
+    xmlDocSetRootElement(doc, node);
     return GVIR_CONFIG_OBJECT(g_object_new(type,
-                                           "node", doc->children,
+                                           "node", node,
                                            "schema", schema,
                                            NULL));
 }
