@@ -147,27 +147,23 @@ static void gvir_config_domain_init(GVirConfigDomain *conn)
 GVirConfigDomain *gvir_config_domain_new_from_xml(const gchar *xml,
                                                   GError **error)
 {
-    xmlNodePtr node;
+    GVirConfigObject *object;
 
-    node = gvir_config_xml_parse(xml, "domain", error);
-    if ((error != NULL) && (*error != NULL))
-        return NULL;
-    return GVIR_CONFIG_DOMAIN(g_object_new(GVIR_TYPE_CONFIG_DOMAIN,
-                                           "node", node,
-                                           "schema", DATADIR "/libvirt/schemas/domain.rng",
-                                           NULL));
+    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_DOMAIN,
+                                             "domain",
+                                             DATADIR "/libvirt/schemas/domain.rng",
+                                             xml, error);
+    return GVIR_CONFIG_DOMAIN(object);
 }
 
 GVirConfigDomain *gvir_config_domain_new(void)
 {
-    xmlDocPtr doc;
+    GVirConfigObject *object;
 
-    doc = xmlNewDoc((xmlChar *)"1.0");
-    doc->children = xmlNewDocNode(doc, NULL, (xmlChar *)"domain", NULL);
-    return GVIR_CONFIG_DOMAIN(g_object_new(GVIR_TYPE_CONFIG_DOMAIN,
-                                           "node", doc->children,
-                                           "schema", DATADIR "/libvirt/schemas/domain.rng",
-                                           NULL));
+    object = gvir_config_object_new(GVIR_TYPE_CONFIG_DOMAIN,
+                                    "domain",
+                                    DATADIR "/libvirt/schemas/domain.rng");
+    return GVIR_CONFIG_DOMAIN(object);
 }
 
 char *gvir_config_domain_get_name(GVirConfigDomain *domain)

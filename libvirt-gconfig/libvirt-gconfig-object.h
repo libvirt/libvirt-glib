@@ -59,6 +59,14 @@ struct _GVirConfigObjectClass
 
 GType gvir_config_object_get_type(void);
 
+GVirConfigObject *gvir_config_object_new(GType type,
+                                         const char *root_name,
+                                         const char *schema);
+GVirConfigObject *gvir_config_object_new_from_xml(GType type,
+                                                  const char *root_name,
+                                                  const char *schema,
+                                                  const gchar *xml,
+                                                  GError **error);
 void gvir_config_object_validate(GVirConfigObject *config,
                                  GError **err);
 

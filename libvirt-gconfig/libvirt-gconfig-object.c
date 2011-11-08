@@ -355,3 +355,34 @@ void gvir_config_object_set_node_content_uint64(GVirConfigObject *object,
     gvir_config_object_set_node_content(object, node_name, str);
     g_free(str);
 }
+
+GVirConfigObject *gvir_config_object_new_from_xml(GType type,
+                                                  const char *root_name,
+                                                  const char *schema,
+                                                  const gchar *xml,
+                                                  GError **error)
+{
+    xmlNodePtr node;
+
+    node = gvir_config_xml_parse(xml, root_name, error);
+    if ((error != NULL) && (*error != NULL))
+        return NULL;
+    return GVIR_CONFIG_OBJECT(g_object_new(type,
+                                           "node", node,
+                                           "schema", schema,
+                                           NULL));
+}
+
+GVirConfigObject *gvir_config_object_new(GType type,
+                                         const char *root_name,
+                                         const char *schema)
+{
+    xmlDocPtr doc;
+
+    doc = xmlNewDoc((xmlChar *)"1.0");
+    doc->children = xmlNewDocNode(doc, NULL, (xmlChar *)root_name, NULL);
+    return GVIR_CONFIG_OBJECT(g_object_new(type,
+                                           "node", doc->children,
+                                           "schema", schema,
+                                           NULL));
+}
