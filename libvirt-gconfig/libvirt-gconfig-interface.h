@@ -60,6 +60,8 @@ struct _GVirConfigInterfaceClass
 GType gvir_config_interface_get_type(void);
 
 GVirConfigInterface *gvir_config_interface_new(void);
+GVirConfigInterface *gvir_config_interface_new_from_xml(const gchar *xml,
+                                                        GError **error);
 
 G_END_DECLS
 

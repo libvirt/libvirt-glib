@@ -60,6 +60,8 @@ struct _GVirConfigNodeDeviceClass
 GType gvir_config_node_device_get_type(void);
 
 GVirConfigNodeDevice *gvir_config_node_device_new(void);
+GVirConfigNodeDevice *gvir_config_node_device_new_from_xml(const gchar *xml,
+                                                           GError **error);
 
 G_END_DECLS
 

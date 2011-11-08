@@ -60,6 +60,8 @@ struct _GVirConfigSecretClass
 GType gvir_config_secret_get_type(void);
 
 GVirConfigSecret *gvir_config_secret_new(void);
+GVirConfigSecret *gvir_config_secret_new_from_xml(const gchar *xml,
+                                                  GError **error);
 
 G_END_DECLS
 

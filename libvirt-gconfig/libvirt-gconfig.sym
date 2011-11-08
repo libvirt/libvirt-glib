@@ -2,6 +2,7 @@ LIBVIRT_GOBJECT_0.0.1 {
   global:
 	gvir_config_capabilities_get_type;
 	gvir_config_capabilities_new;
+	gvir_config_capabilities_new_from_xml;
 
 	gvir_config_domain_get_type;
 	gvir_config_domain_new;
@@ -15,18 +16,23 @@ LIBVIRT_GOBJECT_0.0.1 {
 
 	gvir_config_domain_snapshot_get_type;
 	gvir_config_domain_snapshot_new;
+	gvir_config_domain_snapshot_new_from_xml;
 
 	gvir_config_interface_get_type;
 	gvir_config_interface_new;
+	gvir_config_interface_new_from_xml;
 
 	gvir_config_network_get_type;
 	gvir_config_network_new;
+	gvir_config_network_new_from_xml;
 
 	gvir_config_network_filter_get_type;
 	gvir_config_network_filter_new;
+	gvir_config_network_filter_new_from_xml;
 
 	gvir_config_node_device_get_type;
 	gvir_config_node_device_new;
+	gvir_config_node_device_new_from_xml;
 
 	gvir_config_object_get_type;
 	gvir_config_object_error_quark;
@@ -38,12 +44,15 @@ LIBVIRT_GOBJECT_0.0.1 {
 
 	gvir_config_secret_get_type;
 	gvir_config_secret_new;
+	gvir_config_secret_new_from_xml;
 
 	gvir_config_storage_pool_get_type;
 	gvir_config_storage_pool_new;
+	gvir_config_storage_pool_new_from_xml;
 
 	gvir_config_storage_vol_get_type;
 	gvir_config_storage_vol_new;
+	gvir_config_storage_vol_new_from_xml;
 
   local:
         *;

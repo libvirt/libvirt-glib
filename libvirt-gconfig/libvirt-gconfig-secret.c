@@ -63,12 +63,22 @@ static void gvir_config_secret_init(GVirConfigSecret *conn)
 
 GVirConfigSecret *gvir_config_secret_new(void)
 {
-    xmlDocPtr doc;
+    GVirConfigObject *object;
 
-    doc = xmlNewDoc((xmlChar *)"1.0");
-    doc->children = xmlNewDocNode(doc, NULL, (xmlChar *)"secret", NULL);
-    return GVIR_CONFIG_SECRET(g_object_new(GVIR_TYPE_CONFIG_SECRET,
-                                           "node", doc->children,
-                                           "schema", DATADIR "/libvirt/schemas/secret.rng",
-                                           NULL));
+    object = gvir_config_object_new(GVIR_TYPE_CONFIG_SECRET,
+                                    "secret",
+                                    DATADIR "/libvirt/schemas/secret.rng");
+    return GVIR_CONFIG_SECRET(object);
+}
+
+GVirConfigSecret *gvir_config_secret_new_from_xml(const gchar *xml,
+                                                  GError **error)
+{
+    GVirConfigObject *object;
+
+    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_SECRET,
+                                             "secret",
+                                             DATADIR "/libvirt/schemas/secret.rng",
+                                             xml, error);
+    return GVIR_CONFIG_SECRET(object);
 }

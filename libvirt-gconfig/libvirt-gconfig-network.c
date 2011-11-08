@@ -63,12 +63,22 @@ static void gvir_config_network_init(GVirConfigNetwork *conn)
 
 GVirConfigNetwork *gvir_config_network_new(void)
 {
-    xmlDocPtr doc;
+    GVirConfigObject *object;
 
-    doc = xmlNewDoc((xmlChar *)"1.0");
-    doc->children = xmlNewDocNode(doc, NULL, (xmlChar *)"network", NULL);
-    return GVIR_CONFIG_NETWORK(g_object_new(GVIR_TYPE_CONFIG_NETWORK,
-                                           "node", doc->children,
-                                           "schema", DATADIR "/libvirt/schemas/network.rng",
-                                           NULL));
+    object = gvir_config_object_new(GVIR_TYPE_CONFIG_NETWORK,
+                                    "network",
+                                    DATADIR "/libvirt/schemas/network.rng");
+    return GVIR_CONFIG_NETWORK(object);
+}
+
+GVirConfigNetwork *gvir_config_network_new_from_xml(const gchar *xml,
+                                                    GError **error)
+{
+    GVirConfigObject *object;
+
+    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_NETWORK,
+                                             "network",
+                                             DATADIR "/libvirt/schemas/network.rng",
+                                             xml, error);
+    return GVIR_CONFIG_NETWORK(object);
 }

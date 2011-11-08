@@ -63,13 +63,22 @@ static void gvir_config_node_device_init(GVirConfigNodeDevice *conn)
 
 GVirConfigNodeDevice *gvir_config_node_device_new(void)
 {
-    xmlDocPtr doc;
+    GVirConfigObject *object;
 
-    doc = xmlNewDoc((xmlChar *)"1.0");
-    /* FIXME: correct node name ? */
-    doc->children = xmlNewDocNode(doc, NULL, (xmlChar *)"device", NULL);
-    return GVIR_CONFIG_NODE_DEVICE(g_object_new(GVIR_TYPE_CONFIG_NODE_DEVICE,
-                                                "node", doc->children,
-                                                "schema", DATADIR "/libvirt/schemas/nodedev.rng",
-                                                NULL));
+    object = gvir_config_object_new(GVIR_TYPE_CONFIG_NODE_DEVICE,
+                                    "device",
+                                    DATADIR "/libvirt/schemas/nodedev.rng");
+    return GVIR_CONFIG_NODE_DEVICE(object);
+}
+
+GVirConfigNodeDevice *gvir_config_node_device_new_from_xml(const gchar *xml,
+                                                           GError **error)
+{
+    GVirConfigObject *object;
+
+    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_NODE_DEVICE,
+                                             "device",
+                                             DATADIR "/libvirt/schemas/nodedev.rng",
+                                             xml, error);
+    return GVIR_CONFIG_NODE_DEVICE(object);
 }
