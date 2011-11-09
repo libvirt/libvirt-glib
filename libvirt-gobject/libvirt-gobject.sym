@@ -31,6 +31,10 @@ LIBVIRT_GOBJECT_0.0.1 {
 
 	gvir_domain_device_get_type;
 
+	gvir_domain_interface_get_type;
+	gvir_domain_interface_stats_get_type;
+	gvir_domain_interface_get_stats;
+
 	gvir_domain_get_type;
 	gvir_domain_handle_get_type;
 	gvir_domain_info_get_type;

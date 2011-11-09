@@ -31,6 +31,7 @@
 #include <libvirt-gobject/libvirt-gobject-enums.h>
 #include <libvirt-gobject/libvirt-gobject-stream.h>
 #include <libvirt-gobject/libvirt-gobject-domain-device.h>
+#include <libvirt-gobject/libvirt-gobject-domain-interface.h>
 #include <libvirt-gobject/libvirt-gobject-domain-snapshot.h>
 #include <libvirt-gobject/libvirt-gobject-domain.h>
 #include <libvirt-gobject/libvirt-gobject-interface.h>
