@@ -7,6 +7,7 @@ GOBJECT_HEADER_FILES = \
 			libvirt-gobject.h \
 			libvirt-gobject-main.h \
 			libvirt-gobject-domain-snapshot.h \
+			libvirt-gobject-domain-device.h \
 			libvirt-gobject-domain.h \
 			libvirt-gobject-interface.h \
 			libvirt-gobject-network.h \
@@ -21,6 +22,7 @@ GOBJECT_HEADER_FILES = \
 GOBJECT_SOURCE_FILES = \
 			libvirt-gobject-main.c \
 			libvirt-gobject-domain-snapshot.c \
+			libvirt-gobject-domain-device.c \
 			libvirt-gobject-domain.c \
 			libvirt-gobject-interface.c \
 			libvirt-gobject-network.c \
@@ -42,6 +44,7 @@ libvirt_gobject_1_0_la_HEADERS = \
 			$(GOBJECT_HEADER_FILES) \
 			libvirt-gobject-input-stream.h
 nodist_libvirt_gobject_1_0_la_HEADERS = \
+			libvirt-gobject-domain-device-private.h \
 			libvirt-gobject-enums.h
 libvirt_gobject_1_0_la_SOURCES = \
 			$(libvirt_gobject_1_0_la_HEADERS) \
