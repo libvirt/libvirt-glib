@@ -8,6 +8,7 @@ GOBJECT_HEADER_FILES = \
 			libvirt-gobject-main.h \
 			libvirt-gobject-domain-snapshot.h \
 			libvirt-gobject-domain-device.h \
+			libvirt-gobject-domain-disk.h \
 			libvirt-gobject-domain-interface.h \
 			libvirt-gobject-domain.h \
 			libvirt-gobject-interface.h \
@@ -24,6 +25,7 @@ GOBJECT_SOURCE_FILES = \
 			libvirt-gobject-main.c \
 			libvirt-gobject-domain-snapshot.c \
 			libvirt-gobject-domain-device.c \
+			libvirt-gobject-domain-disk.c \
 			libvirt-gobject-domain-interface.c \
 			libvirt-gobject-domain.c \
 			libvirt-gobject-interface.c \
