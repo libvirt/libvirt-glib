@@ -28,6 +28,7 @@
 
 #include "libvirt-glib/libvirt-glib.h"
 #include "libvirt-gobject/libvirt-gobject.h"
+#include "libvirt-gobject-compat.h"
 
 extern gboolean debugFlag;
 
@@ -148,27 +149,23 @@ static void gvir_storage_vol_init(GVirStorageVol *conn)
     memset(priv, 0, sizeof(*priv));
 }
 
-static gpointer
-gvir_storage_vol_handle_copy(gpointer src)
+typedef struct virStorageVol GVirStorageVolHandle;
+
+static GVirStorageVolHandle*
+gvir_storage_vol_handle_copy(GVirStorageVolHandle *src)
 {
-    virStorageVolRef(src);
+    virStorageVolRef((virStorageVolPtr)src);
     return src;
 }
 
-
-GType gvir_storage_vol_handle_get_type(void)
+static void
+gvir_storage_vol_handle_free(GVirStorageVolHandle *src)
 {
-    static GType handle_type = 0;
-
-    if (G_UNLIKELY(handle_type == 0))
-        handle_type = g_boxed_type_register_static
-            ("GVirStorageVolHandle",
-             gvir_storage_vol_handle_copy,
-             (GBoxedFreeFunc)virStorageVolFree);
-
-    return handle_type;
+    virStorageVolFree((virStorageVolPtr)src);
 }
 
+G_DEFINE_BOXED_TYPE(GVirStorageVolHandle, gvir_storage_vol_handle,
+                    gvir_storage_vol_handle_copy, gvir_storage_vol_handle_free)
 
 const gchar *gvir_storage_vol_get_name(GVirStorageVol *vol)
 {

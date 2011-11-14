@@ -28,6 +28,7 @@
 
 #include "libvirt-glib/libvirt-glib.h"
 #include "libvirt-gobject/libvirt-gobject.h"
+#include "libvirt-gobject-compat.h"
 
 extern gboolean debugFlag;
 
@@ -1119,26 +1120,23 @@ GVirStoragePool *gvir_connection_find_storage_pool_by_name(GVirConnection *conn,
     return NULL;
 }
 
-static gpointer
-gvir_connection_handle_copy(gpointer src)
+typedef struct virConnect GVirConnectionHandle;
+
+static GVirConnectionHandle*
+gvir_connection_handle_copy(GVirConnectionHandle *src)
 {
-    virConnectRef(src);
+    virConnectRef((virConnectPtr)src);
     return src;
 }
 
-
-GType gvir_connection_handle_get_type(void)
+static void
+gvir_connection_handle_free(GVirConnectionHandle *src)
 {
-    static GType handle_type = 0;
-
-    if (G_UNLIKELY(handle_type == 0))
-        handle_type = g_boxed_type_register_static
-            ("GVirConnectionHandle",
-             gvir_connection_handle_copy,
-             (GBoxedFreeFunc)virConnectClose);
-
-    return handle_type;
+    virConnectClose((virConnectPtr)src);
 }
+
+G_DEFINE_BOXED_TYPE(GVirConnectionHandle, gvir_connection_handle,
+                    gvir_connection_handle_copy, gvir_connection_handle_free)
 
 /**
  * gvir_connection_get_stream:

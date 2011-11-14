@@ -28,6 +28,7 @@
 
 #include "libvirt-glib/libvirt-glib.h"
 #include "libvirt-gobject/libvirt-gobject.h"
+#include "libvirt-gobject-compat.h"
 
 extern gboolean debugFlag;
 
@@ -148,27 +149,23 @@ static void gvir_node_device_init(GVirNodeDevice *conn)
     memset(priv, 0, sizeof(*priv));
 }
 
-static gpointer
-gvir_node_device_handle_copy(gpointer src)
+typedef struct virNodeDevice GVirNodeDeviceHandle;
+
+static GVirNodeDeviceHandle*
+gvir_node_device_handle_copy(GVirNodeDeviceHandle *src)
 {
-    virNodeDeviceRef(src);
+    virNodeDeviceRef((virNodeDevicePtr)src);
     return src;
 }
 
-
-GType gvir_node_device_handle_get_type(void)
+static void
+gvir_node_device_handle_free(GVirNodeDeviceHandle *src)
 {
-    static GType handle_type = 0;
-
-    if (G_UNLIKELY(handle_type == 0))
-        handle_type = g_boxed_type_register_static
-            ("GVirNodeDeviceHandle",
-             gvir_node_device_handle_copy,
-             (GBoxedFreeFunc)virNodeDeviceFree);
-
-    return handle_type;
+    virNodeDeviceFree((virNodeDevicePtr)src);
 }
 
+G_DEFINE_BOXED_TYPE(GVirNodeDeviceHandle, gvir_node_device_handle,
+                    gvir_node_device_handle_copy, gvir_node_device_handle_free)
 
 const gchar *gvir_node_device_get_name(GVirNodeDevice *device)
 {

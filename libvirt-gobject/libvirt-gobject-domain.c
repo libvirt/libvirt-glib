@@ -28,6 +28,7 @@
 
 #include "libvirt-glib/libvirt-glib.h"
 #include "libvirt-gobject/libvirt-gobject.h"
+#include "libvirt-gobject-compat.h"
 
 extern gboolean debugFlag;
 
@@ -223,26 +224,23 @@ static void gvir_domain_init(GVirDomain *conn)
     memset(priv, 0, sizeof(*priv));
 }
 
-static gpointer
-gvir_domain_handle_copy(gpointer src)
+typedef struct virDomain GVirDomainHandle;
+
+static GVirDomainHandle*
+gvir_domain_handle_copy(GVirDomainHandle *src)
 {
-    virDomainRef(src);
+    virDomainRef((virDomainPtr)src);
     return src;
 }
 
-
-GType gvir_domain_handle_get_type(void)
+static void
+gvir_domain_handle_free(GVirDomainHandle *src)
 {
-    static GType handle_type = 0;
-
-    if (G_UNLIKELY(handle_type == 0))
-        handle_type = g_boxed_type_register_static
-            ("GVirDomainHandle",
-             gvir_domain_handle_copy,
-             (GBoxedFreeFunc)virDomainFree);
-
-    return handle_type;
+    virDomainFree((virDomainPtr)src);
 }
+
+G_DEFINE_BOXED_TYPE(GVirDomainHandle, gvir_domain_handle,
+                    gvir_domain_handle_copy, gvir_domain_handle_free)
 
 static GVirDomainInfo *
 gvir_domain_info_copy(GVirDomainInfo *info)
@@ -258,18 +256,8 @@ gvir_domain_info_free(GVirDomainInfo *info)
 }
 
 
-GType gvir_domain_info_get_type(void)
-{
-    static GType info_type = 0;
-
-    if (G_UNLIKELY(info_type == 0))
-        info_type = g_boxed_type_register_static
-            ("GVirDomainInfo",
-             (GBoxedCopyFunc)gvir_domain_info_copy,
-             (GBoxedFreeFunc)gvir_domain_info_free);
-
-    return info_type;
-}
+G_DEFINE_BOXED_TYPE(GVirDomainInfo, gvir_domain_info,
+                    gvir_domain_info_copy, gvir_domain_info_free)
 
 
 const gchar *gvir_domain_get_name(GVirDomain *dom)

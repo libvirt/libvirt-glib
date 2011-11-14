@@ -148,27 +148,23 @@ static void gvir_interface_init(GVirInterface *conn)
     memset(priv, 0, sizeof(*priv));
 }
 
-static gpointer
-gvir_interface_handle_copy(gpointer src)
+typedef struct virInterface GVirInterfaceHandle;
+
+static GVirInterfaceHandle*
+gvir_interface_handle_copy(GVirInterfaceHandle *src)
 {
-    virInterfaceRef(src);
+    virInterfaceRef((virInterfacePtr)src);
     return src;
 }
 
-
-GType gvir_interface_handle_get_type(void)
+static void
+gvir_interface_handle_free(GVirInterfaceHandle *src)
 {
-    static GType handle_type = 0;
-
-    if (G_UNLIKELY(handle_type == 0))
-        handle_type = g_boxed_type_register_static
-            ("GVirInterfaceHandle",
-             gvir_interface_handle_copy,
-             (GBoxedFreeFunc)virInterfaceFree);
-
-    return handle_type;
+    virInterfaceFree((virInterfacePtr)src);
 }
 
+G_DEFINE_BOXED_TYPE(GVirInterfaceHandle, gvir_interface_handle,
+                    gvir_interface_handle_copy, gvir_interface_handle_free)
 
 const gchar *gvir_interface_get_name(GVirInterface *iface)
 {

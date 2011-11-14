@@ -28,6 +28,7 @@
 
 #include "libvirt-glib/libvirt-glib.h"
 #include "libvirt-gobject/libvirt-gobject.h"
+#include "libvirt-gobject-compat.h"
 
 extern gboolean debugFlag;
 
@@ -164,27 +165,23 @@ static void gvir_network_filter_init(GVirNetworkFilter *conn)
     memset(priv, 0, sizeof(*priv));
 }
 
-static gpointer
-gvir_network_filter_handle_copy(gpointer src)
+typedef struct virNWFilter GVirNetworkFilterHandle;
+
+static GVirNetworkFilterHandle*
+gvir_network_filter_handle_copy(GVirNetworkFilterHandle *src)
 {
-    virNWFilterRef(src);
+    virNWFilterRef((virNWFilterPtr)src);
     return src;
 }
 
-
-GType gvir_network_filter_handle_get_type(void)
+static void
+gvir_network_filter_handle_free(GVirNetworkFilterHandle *src)
 {
-    static GType handle_type = 0;
-
-    if (G_UNLIKELY(handle_type == 0))
-        handle_type = g_boxed_type_register_static
-            ("GVirNetworkFilterHandle",
-             gvir_network_filter_handle_copy,
-             (GBoxedFreeFunc)virNWFilterFree);
-
-    return handle_type;
+    virNWFilterFree((virNWFilterPtr)src);
 }
 
+G_DEFINE_BOXED_TYPE(GVirNetworkFilterHandle, gvir_network_filter_handle,
+                    gvir_network_filter_handle_copy, gvir_network_filter_handle_free)
 
 const gchar *gvir_network_filter_get_name(GVirNetworkFilter *filter)
 {

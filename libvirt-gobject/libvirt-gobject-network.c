@@ -28,6 +28,7 @@
 
 #include "libvirt-glib/libvirt-glib.h"
 #include "libvirt-gobject/libvirt-gobject.h"
+#include "libvirt-gobject-compat.h"
 
 extern gboolean debugFlag;
 
@@ -162,27 +163,23 @@ static void gvir_network_init(GVirNetwork *conn)
     memset(priv, 0, sizeof(*priv));
 }
 
-static gpointer
-gvir_network_handle_copy(gpointer src)
+typedef struct virNetwork GVirNetworkHandle;
+
+static GVirNetworkHandle*
+gvir_network_handle_copy(GVirNetworkHandle *src)
 {
-    virNetworkRef(src);
+    virNetworkRef((virNetworkPtr)src);
     return src;
 }
 
-
-GType gvir_network_handle_get_type(void)
+static void
+gvir_network_handle_free(GVirNetworkHandle *src)
 {
-    static GType handle_type = 0;
-
-    if (G_UNLIKELY(handle_type == 0))
-        handle_type = g_boxed_type_register_static
-            ("GVirNetworkHandle",
-             gvir_network_handle_copy,
-             (GBoxedFreeFunc)virNetworkFree);
-
-    return handle_type;
+    virNetworkFree((virNetworkPtr)src);
 }
 
+G_DEFINE_BOXED_TYPE(GVirNetworkHandle, gvir_network_handle,
+                    gvir_network_handle_copy, gvir_network_handle_free)
 
 const gchar *gvir_network_get_name(GVirNetwork *network)
 {

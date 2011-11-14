@@ -27,6 +27,7 @@
 
 #include "libvirt-glib/libvirt-glib.h"
 #include "libvirt-gobject/libvirt-gobject.h"
+#include "libvirt-gobject-compat.h"
 
 #include "libvirt-gobject/libvirt-gobject-domain-device-private.h"
 
@@ -151,18 +152,8 @@ gvir_domain_disk_stats_free(GVirDomainDiskStats *stats)
 }
 
 
-GType gvir_domain_disk_stats_get_type(void)
-{
-    static GType stats_type = 0;
-
-    if (G_UNLIKELY(stats_type == 0))
-        stats_type = g_boxed_type_register_static
-            ("GVirDomainDiskStats",
-             (GBoxedCopyFunc)gvir_domain_disk_stats_copy,
-             (GBoxedFreeFunc)gvir_domain_disk_stats_free);
-
-    return stats_type;
-}
+G_DEFINE_BOXED_TYPE(GVirDomainDiskStats, gvir_domain_disk_stats,
+                    gvir_domain_disk_stats_copy, gvir_domain_disk_stats_free)
 
 /**
  * gvir_domain_disk_get_stats:

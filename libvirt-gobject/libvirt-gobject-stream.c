@@ -29,6 +29,7 @@
 
 #include "libvirt-glib/libvirt-glib.h"
 #include "libvirt-gobject/libvirt-gobject.h"
+#include "libvirt-gobject-compat.h"
 
 #include "libvirt-gobject/libvirt-gobject-input-stream.h"
 
@@ -226,27 +227,23 @@ static void gvir_stream_init(GVirStream *self)
     self->priv = GVIR_STREAM_GET_PRIVATE(self);
 }
 
+typedef struct virStream GVirStreamHandle;
 
-static gpointer
-gvir_stream_handle_copy(gpointer src)
+static GVirStreamHandle*
+gvir_stream_handle_copy(GVirStreamHandle *src)
 {
-    virStreamRef(src);
+    virStreamRef((virStreamPtr)src);
     return src;
 }
 
-
-GType gvir_stream_handle_get_type(void)
+static void
+gvir_stream_handle_free(GVirStreamHandle *src)
 {
-    static GType handle_type = 0;
-
-    if (G_UNLIKELY(handle_type == 0))
-        handle_type = g_boxed_type_register_static
-            ("GVirStreamHandle",
-             gvir_stream_handle_copy,
-             (GBoxedFreeFunc)virStreamFree);
-
-    return handle_type;
+    virStreamFree((virStreamPtr)src);
 }
+
+G_DEFINE_BOXED_TYPE(GVirStreamHandle, gvir_stream_handle,
+                    gvir_stream_handle_copy, gvir_stream_handle_free)
 
 /**
  * gvir_stream_receive:

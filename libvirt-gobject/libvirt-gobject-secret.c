@@ -28,6 +28,7 @@
 
 #include "libvirt-glib/libvirt-glib.h"
 #include "libvirt-gobject/libvirt-gobject.h"
+#include "libvirt-gobject-compat.h"
 
 extern gboolean debugFlag;
 
@@ -164,27 +165,23 @@ static void gvir_secret_init(GVirSecret *conn)
     memset(priv, 0, sizeof(*priv));
 }
 
-static gpointer
-gvir_secret_handle_copy(gpointer src)
+typedef struct virSecret GVirSecretHandle;
+
+static GVirSecretHandle*
+gvir_secret_handle_copy(GVirSecretHandle *src)
 {
-    virSecretRef(src);
+    virSecretRef((virSecretPtr)src);
     return src;
 }
 
-
-GType gvir_secret_handle_get_type(void)
+static void
+gvir_secret_handle_free(GVirSecretHandle *src)
 {
-    static GType handle_type = 0;
-
-    if (G_UNLIKELY(handle_type == 0))
-        handle_type = g_boxed_type_register_static
-            ("GVirSecretHandle",
-             gvir_secret_handle_copy,
-             (GBoxedFreeFunc)virSecretFree);
-
-    return handle_type;
+    virSecretFree((virSecretPtr)src);
 }
 
+G_DEFINE_BOXED_TYPE(GVirSecretHandle, gvir_secret_handle,
+                    gvir_secret_handle_copy, gvir_secret_handle_free)
 
 const gchar *gvir_secret_get_uuid(GVirSecret *secret)
 {
