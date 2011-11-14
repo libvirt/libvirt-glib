@@ -48,6 +48,7 @@ libvirt_gobject_1_0_la_HEADERS = \
 			$(GOBJECT_HEADER_FILES) \
 			libvirt-gobject-input-stream.h
 nodist_libvirt_gobject_1_0_la_HEADERS = \
+			libvirt-gobject-compat.h \
 			libvirt-gobject-domain-device-private.h \
 			libvirt-gobject-enums.h
 libvirt_gobject_1_0_la_SOURCES = \
