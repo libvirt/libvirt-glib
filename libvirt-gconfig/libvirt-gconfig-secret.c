@@ -44,7 +44,6 @@ G_DEFINE_TYPE(GVirConfigSecret, gvir_config_secret, GVIR_TYPE_CONFIG_OBJECT);
 
 static void gvir_config_secret_class_init(GVirConfigSecretClass *klass)
 {
-
     g_type_class_add_private(klass, sizeof(GVirConfigSecretPrivate));
 }
 

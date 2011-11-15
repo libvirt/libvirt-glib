@@ -44,7 +44,6 @@ G_DEFINE_TYPE(GVirConfigNetwork, gvir_config_network, GVIR_TYPE_CONFIG_OBJECT);
 
 static void gvir_config_network_class_init(GVirConfigNetworkClass *klass)
 {
-
     g_type_class_add_private(klass, sizeof(GVirConfigNetworkPrivate));
 }
 

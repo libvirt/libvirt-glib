@@ -44,7 +44,6 @@ G_DEFINE_TYPE(GVirConfigInterface, gvir_config_interface, GVIR_TYPE_CONFIG_OBJEC
 
 static void gvir_config_interface_class_init(GVirConfigInterfaceClass *klass)
 {
-
     g_type_class_add_private(klass, sizeof(GVirConfigInterfacePrivate));
 }
 

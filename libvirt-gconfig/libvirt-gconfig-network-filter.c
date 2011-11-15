@@ -44,7 +44,6 @@ G_DEFINE_TYPE(GVirConfigNetworkFilter, gvir_config_network_filter, GVIR_TYPE_CON
 
 static void gvir_config_network_filter_class_init(GVirConfigNetworkFilterClass *klass)
 {
-
     g_type_class_add_private(klass, sizeof(GVirConfigNetworkFilterPrivate));
 }
 

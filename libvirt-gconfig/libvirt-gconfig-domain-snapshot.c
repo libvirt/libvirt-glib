@@ -44,7 +44,6 @@ G_DEFINE_TYPE(GVirConfigDomainSnapshot, gvir_config_domain_snapshot, GVIR_TYPE_C
 
 static void gvir_config_domain_snapshot_class_init(GVirConfigDomainSnapshotClass *klass)
 {
-
     g_type_class_add_private(klass, sizeof(GVirConfigDomainSnapshotPrivate));
 }
 

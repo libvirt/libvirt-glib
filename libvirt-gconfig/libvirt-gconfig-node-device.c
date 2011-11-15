@@ -44,7 +44,6 @@ G_DEFINE_TYPE(GVirConfigNodeDevice, gvir_config_node_device, GVIR_TYPE_CONFIG_OB
 
 static void gvir_config_node_device_class_init(GVirConfigNodeDeviceClass *klass)
 {
-
     g_type_class_add_private(klass, sizeof(GVirConfigNodeDevicePrivate));
 }
 

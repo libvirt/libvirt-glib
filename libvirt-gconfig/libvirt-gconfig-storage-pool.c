@@ -44,7 +44,6 @@ G_DEFINE_TYPE(GVirConfigStoragePool, gvir_config_storage_pool, GVIR_TYPE_CONFIG_
 
 static void gvir_config_storage_pool_class_init(GVirConfigStoragePoolClass *klass)
 {
-
     g_type_class_add_private(klass, sizeof(GVirConfigStoragePoolPrivate));
 }
 
