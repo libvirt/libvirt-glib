@@ -8,5 +8,5 @@ Version: @VERSION@
 Description: libvirt GObject library
 Requires: gobject-2.0 libvirt-gconfig-1.0
 Libs: -L${libdir} -lvirt-gobject-1.0
-Libs.private: @LIBVIRT_LIBS
+Libs.private: @LIBVIRT_LIBS@
 Cflags: -I${includedir}/libvirt-gobject-1.0
