@@ -9,7 +9,7 @@
 %if 0%{?fedora} < 15
 %define with_python 1
 %endif
-%if 0%{?rhel} >= 6
+%if 0%{?rhel} > 6
 %define with_introspection 1
 %endif
 %if 0%{?rhel} < 7
@@ -37,6 +37,9 @@ BuildRequires: gir-repository-devel
 %endif
 BuildRequires: gjs-devel
 %endif
+BuildRequires: libxml2-devel
+# Hack due to https://bugzilla.redhat.com/show_bug.cgi?id=613466
+BuildRequires: libtool
 
 %package devel
 Group: Development/Libraries
