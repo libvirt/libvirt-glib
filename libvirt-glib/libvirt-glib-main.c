@@ -63,6 +63,8 @@ gboolean gvir_init_check(int *argc G_GNUC_UNUSED,
     if (!g_thread_supported())
         g_thread_init(NULL);
 
+    virInitialize();
+
     return TRUE;
 }
 
