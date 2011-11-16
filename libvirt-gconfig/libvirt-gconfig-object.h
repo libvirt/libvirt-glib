@@ -85,9 +85,6 @@ void gvir_config_object_set_node_content_uint64(GVirConfigObject *object,
                                                 const char *node_name,
                                                 guint64 value);
 
-/* FIXME: move to a libvirt-gconfig-helpers.h file? */
-xmlNodePtr gvir_config_object_parse(const char *xml, const char *root_node, GError **err);
-
 G_END_DECLS
 
 #endif /* __LIBVIRT_GCONFIG_OBJECT_H__ */
