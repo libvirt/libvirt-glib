@@ -38,7 +38,6 @@ LIBVIRT_GOBJECT_0.0.1 {
 	gvir_config_object_error_quark;
 	gvir_config_object_new;
 	gvir_config_object_get_schema;
-	gvir_config_object_get_xml_node;
 	gvir_config_object_to_xml;
 	gvir_config_object_validate;
 

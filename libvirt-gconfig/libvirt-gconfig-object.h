@@ -73,17 +73,6 @@ void gvir_config_object_validate(GVirConfigObject *config,
 gchar *gvir_config_object_to_xml(GVirConfigObject *config);
 
 const gchar *gvir_config_object_get_schema(GVirConfigObject *config);
-xmlNodePtr gvir_config_object_get_xml_node(GVirConfigObject *config);
-char *gvir_config_object_get_node_content(GVirConfigObject *object,
-                                          const char *node_name);
-guint64 gvir_config_object_get_node_content_uint64(GVirConfigObject *object,
-                                                   const char *node_name);
-void gvir_config_object_set_node_content(GVirConfigObject *object,
-                                         const char *node_name,
-                                         const char *value);
-void gvir_config_object_set_node_content_uint64(GVirConfigObject *object,
-                                                const char *node_name,
-                                                guint64 value);
 
 G_END_DECLS
 

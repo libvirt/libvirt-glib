@@ -29,6 +29,7 @@
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
 #include "libvirt-gconfig/libvirt-gconfig-helpers-private.h"
+#include "libvirt-gconfig/libvirt-gconfig-object-private.h"
 
 
 //extern gboolean debugFlag;
@@ -277,13 +278,15 @@ const gchar *gvir_config_object_get_schema(GVirConfigObject *config)
 /* FIXME: will we always have one xmlNode per GConfig object? */
 /* FIXME: need to return the right node from subclasses */
 /* NB: the xmlNodePtr must not be freed by the caller */
-xmlNodePtr gvir_config_object_get_xml_node(GVirConfigObject *config)
+G_GNUC_INTERNAL xmlNodePtr
+gvir_config_object_get_xml_node(GVirConfigObject *config)
 {
     return config->priv->node;
 }
 
-char *gvir_config_object_get_node_content(GVirConfigObject *object,
-                                          const char *node_name)
+G_GNUC_INTERNAL char *
+gvir_config_object_get_node_content(GVirConfigObject *object,
+                                    const char *node_name)
 {
     xmlNodePtr node;
 
@@ -298,9 +301,10 @@ char *gvir_config_object_get_node_content(GVirConfigObject *object,
  * won't behave as expected. Should we get rid of the duplicated node names
  * here?
  */
-void gvir_config_object_set_node_content(GVirConfigObject *object,
-                                         const char *node_name,
-                                         const char *value)
+G_GNUC_INTERNAL void
+gvir_config_object_set_node_content(GVirConfigObject *object,
+                                    const char *node_name,
+                                    const char *value)
 {
     xmlNodePtr parent_node;
     xmlNodePtr old_node;
@@ -324,8 +328,9 @@ void gvir_config_object_set_node_content(GVirConfigObject *object,
 }
 
 /* FIXME: how to notify of errors/node not found? */
-guint64 gvir_config_object_get_node_content_uint64(GVirConfigObject *object,
-                                                   const char *node_name)
+G_GNUC_INTERNAL guint64
+gvir_config_object_get_node_content_uint64(GVirConfigObject *object,
+                                           const char *node_name)
 {
     xmlNodePtr node;
     xmlChar *str;
@@ -346,9 +351,10 @@ guint64 gvir_config_object_get_node_content_uint64(GVirConfigObject *object,
 }
 
 
-void gvir_config_object_set_node_content_uint64(GVirConfigObject *object,
-                                                const char *node_name,
-                                                guint64 value)
+G_GNUC_INTERNAL void
+gvir_config_object_set_node_content_uint64(GVirConfigObject *object,
+                                           const char *node_name,
+                                           guint64 value)
 {
     char *str;
     str = g_strdup_printf("%"G_GUINT64_FORMAT, value);

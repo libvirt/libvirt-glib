@@ -27,6 +27,7 @@
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
 #include "libvirt-gconfig/libvirt-gconfig-helpers-private.h"
+#include "libvirt-gconfig/libvirt-gconfig-object-private.h"
 
 extern gboolean debugFlag;
 
