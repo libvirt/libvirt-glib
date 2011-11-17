@@ -6,6 +6,6 @@ includedir=@includedir@
 Name: libvirt-gconfig
 Version: @VERSION@
 Description: libvirt GConfig library
-Requires: gobject-2.0
+Requires: gobject-2.0 libxml-2.0
 Libs: -L${libdir} -lvirt-gconfig-1.0
 Cflags: -I${includedir}/libvirt-gconfig-1.0
