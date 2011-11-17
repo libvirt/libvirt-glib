@@ -1,5 +1,5 @@
 
-import gtk
+from gi.repository import Gtk
 import libvirt
 import getopt
 import sys
@@ -47,16 +47,15 @@ def main():
 
     print "Using uri:" + uri
 
-    LibvirtGLib.init("")
+    LibvirtGLib.init(0, "")
     LibvirtGLib.event_register()
-#    libvirtglib.eventRegister()
     vc = libvirt.open(uri)
 
     #Add 2 callbacks to prove this works with more than just one
     vc.domainEventRegister(myDomainEventCallback1,None)
     vc.domainEventRegister(myDomainEventCallback2,None)
 
-    gtk.main()
+    Gtk.main()
 
 if __name__ == "__main__":
     main()
