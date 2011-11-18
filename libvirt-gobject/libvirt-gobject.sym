@@ -53,6 +53,7 @@ LIBVIRT_GOBJECT_0.0.1 {
 	gvir_domain_shutdown;
 	gvir_domain_reboot;
 	gvir_domain_get_config;
+	gvir_domain_set_config;
 	gvir_domain_get_info;
 	gvir_domain_screenshot;
 

@@ -449,6 +449,74 @@ GVirConfigDomain *gvir_domain_get_config(GVirDomain *dom,
     return conf;
 }
 
+/**
+ * gvir_domain_set_config:
+ * @domain: the domain
+ * @conf: the new configuration for the domain
+ * @err: (allow-none): Place-holder for error or NULL
+ *
+ * Resets configuration of an existing domain.
+ *
+ * Note: If domain is already running, the new configuration will not take
+ * affect until domain reboots.
+ *
+ * Returns: TRUE on success, FALSE if an error occurred.
+ */
+gboolean gvir_domain_set_config(GVirDomain *domain,
+                                GVirConfigDomain *conf,
+                                GError **err)
+{
+    gchar *xml;
+    virConnectPtr conn;
+    virDomainPtr handle;
+    gchar uuid[VIR_UUID_STRING_BUFLEN];
+    GVirDomainPrivate *priv = domain->priv;
+
+    g_return_val_if_fail(GVIR_IS_DOMAIN (domain), FALSE);
+    g_return_val_if_fail(GVIR_IS_CONFIG_DOMAIN (conf), FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
+
+    xml = gvir_config_object_to_xml(GVIR_CONFIG_OBJECT(conf));
+
+    g_return_val_if_fail(xml != NULL, FALSE);
+
+    if ((conn = virDomainGetConnect(priv->handle)) == NULL) {
+        if (err != NULL)
+            *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
+                                          0,
+                                          "Failed to get domain connection");
+        g_free (xml);
+
+        return FALSE;
+    }
+
+    handle = virDomainDefineXML(conn, xml);
+    g_free (xml);
+
+    if (handle == NULL) {
+        if (err != NULL)
+            *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
+                                          0,
+                                          "Failed to set "
+                                          "domain configuration");
+        return FALSE;
+    }
+
+    virDomainGetUUIDString(handle, uuid);
+    virDomainFree(handle);
+
+    if (g_strcmp0 (uuid, priv->uuid) != 0) {
+        if (err != NULL)
+            *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
+                                          0,
+                                          "Failed to set "
+                                          "domain configuration");
+
+        return FALSE;
+    }
+
+    return TRUE;
+}
 
 /**
  * gvir_domain_get_info:

@@ -123,6 +123,9 @@ GVirDomainInfo *gvir_domain_get_info(GVirDomain *dom,
 GVirConfigDomain *gvir_domain_get_config(GVirDomain *dom,
                                          guint64 flags,
                                          GError **err);
+gboolean gvir_domain_set_config(GVirDomain *domain,
+                                GVirConfigDomain *conf,
+                                GError **err);
 
 gchar *gvir_domain_screenshot(GVirDomain *dom,
                               GVirStream *stream,
