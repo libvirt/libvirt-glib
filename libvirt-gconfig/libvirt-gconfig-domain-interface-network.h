@@ -62,6 +62,9 @@ GType gvir_config_domain_interface_network_get_type(void);
 GVirConfigDomainInterfaceNetwork *gvir_config_domain_interface_network_new(void);
 GVirConfigDomainInterfaceNetwork *gvir_config_domain_interface_network_new_from_xml(const gchar *xml,
                                                                        GError **error);
+void gvir_config_domain_interface_network_set_source(GVirConfigDomainInterfaceNetwork *interface,
+                                                     const char *source);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GCONFIG_DOMAIN_INTERFACE_NETWORK_H__ */
