@@ -236,13 +236,10 @@ GVirConfigStoragePool *gvir_storage_pool_get_config(GVirStoragePool *pool,
         return NULL;
     }
 
-#if 0
-    GVirConfigStoragePool *conf = gvir_config_storage_pool_new(xml);
+    GVirConfigStoragePool *conf = gvir_config_storage_pool_new_from_xml(xml, err);
 
-    g_free(xml);
+    free(xml);
     return conf;
-#endif
-    return NULL;
 }
 
 typedef gint (* CountFunction) (virStoragePoolPtr vpool);

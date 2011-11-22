@@ -221,11 +221,8 @@ GVirConfigNetwork *gvir_network_get_config(GVirNetwork *network,
         return NULL;
     }
 
-#if 0
-    GVirConfigNetwork *conf = gvir_config_network_new(xml);
+    GVirConfigNetwork *conf = gvir_config_network_new_from_xml(xml, err);
 
-    g_free(xml);
+    free(xml);
     return conf;
-#endif
-    return NULL;
 }
