@@ -71,16 +71,33 @@ struct _GVirStreamClass
  * Returns: the number of bytes filled, 0 upon end
  * of file, or -1 upon error
  */
-typedef gint (* GVirStreamSinkFunc) (GVirStream *stream,
-                                     const gchar *buf,
-                                     gsize nbytes,
-                                     gpointer user_data);
+typedef gint (* GVirStreamSinkFunc)(GVirStream *stream,
+                                    const gchar *buf,
+                                    gsize nbytes,
+                                    gpointer user_data);
+
+/**
+ * GVirStreamSourceFunc:
+ * @stream: a #GVirStream
+ * @buf: (out) (array length=nbytes) (transfer none): data pointer
+ * @nbytes: data size
+ * @user_data: user data passed to the function
+ * Returns: the number of bytes filled, 0 upon end
+ * of file, or -1 upon error
+ */
+typedef gint (* GVirStreamSourceFunc)(GVirStream *stream,
+                                      gchar *buf,
+                                      gsize nbytes,
+                                      gpointer user_data);
 
 GType gvir_stream_get_type(void);
 GType gvir_stream_handle_get_type(void);
 
-gssize gvir_stream_receive_all(GVirStream *stream, GVirStreamSinkFunc func, gpointer user_data, GError **err);
+gssize gvir_stream_receive_all(GVirStream *stream, GVirStreamSinkFunc func, gpointer user_data, GError **error);
 gssize gvir_stream_receive(GVirStream *stream, gchar *buffer, gsize size, GCancellable *cancellable, GError **error);
+
+gssize gvir_stream_send_all(GVirStream *stream, GVirStreamSourceFunc func, gpointer user_data, GError **error);
+gssize gvir_stream_send(GVirStream *stream, const gchar *buffer, gsize size, GCancellable *cancellable, GError **error);
 
 G_END_DECLS
 

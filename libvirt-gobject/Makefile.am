@@ -45,8 +45,7 @@ GOBJECT_GENERATED_FILES = \
 
 libvirt_gobject_1_0_ladir = $(includedir)/libvirt-gobject-1.0/libvirt-gobject
 libvirt_gobject_1_0_la_HEADERS = \
-			$(GOBJECT_HEADER_FILES) \
-			libvirt-gobject-input-stream.h
+			$(GOBJECT_HEADER_FILES)
 nodist_libvirt_gobject_1_0_la_HEADERS = \
 			libvirt-gobject-enums.h
 libvirt_gobject_1_0_la_SOURCES = \
@@ -54,7 +53,10 @@ libvirt_gobject_1_0_la_SOURCES = \
 			$(GOBJECT_SOURCE_FILES) \
 			libvirt-gobject-domain-device-private.h \
 			libvirt-gobject-compat.h \
-			libvirt-gobject-input-stream.c
+			libvirt-gobject-input-stream.h \
+			libvirt-gobject-input-stream.c \
+			libvirt-gobject-output-stream.h \
+			libvirt-gobject-output-stream.c
 nodist_libvirt_gobject_1_0_la_SOURCES = \
 			$(GOBJECT_GENERATED_FILES)
 libvirt_gobject_1_0_la_CFLAGS = \

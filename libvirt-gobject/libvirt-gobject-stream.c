@@ -32,6 +32,7 @@
 #include "libvirt-gobject-compat.h"
 
 #include "libvirt-gobject/libvirt-gobject-input-stream.h"
+#include "libvirt-gobject/libvirt-gobject-output-stream.h"
 
 extern gboolean debugFlag;
 
@@ -44,7 +45,7 @@ struct _GVirStreamPrivate
 {
     virStreamPtr   handle;
     GInputStream  *input_stream;
-    gboolean       in_dispose;
+    GOutputStream  *output_stream;
 };
 
 G_DEFINE_TYPE(GVirStream, gvir_stream, G_TYPE_IO_STREAM);
@@ -77,6 +78,17 @@ static GInputStream* gvir_stream_get_input_stream(GIOStream *io_stream)
 }
 
 
+static GOutputStream* gvir_stream_get_output_stream(GIOStream *io_stream)
+{
+    GVirStream *self = GVIR_STREAM(io_stream);
+
+    if (self->priv->output_stream == NULL)
+        self->priv->output_stream = (GOutputStream *)_gvir_output_stream_new(self);
+
+    return self->priv->output_stream;
+}
+
+
 static gboolean gvir_stream_close(GIOStream *io_stream,
                                   GCancellable *cancellable, G_GNUC_UNUSED GError **error)
 {
@@ -85,8 +97,8 @@ static gboolean gvir_stream_close(GIOStream *io_stream,
     if (self->priv->input_stream)
         g_input_stream_close(self->priv->input_stream, cancellable, NULL);
 
-    if (self->priv->in_dispose)
-        return TRUE;
+    if (self->priv->output_stream)
+        g_output_stream_close(self->priv->output_stream, cancellable, NULL);
 
     return TRUE; /* FIXME: really close the stream? */
 }
@@ -201,6 +213,7 @@ static void gvir_stream_class_init(GVirStreamClass *klass)
     object_class->set_property = gvir_stream_set_property;
 
     stream_class->get_input_stream = gvir_stream_get_input_stream;
+    stream_class->get_output_stream = gvir_stream_get_output_stream;
     stream_class->close_fn = gvir_stream_close;
     stream_class->close_async = gvir_stream_close_async;
     stream_class->close_finish = gvir_stream_close_finish;
@@ -335,6 +348,102 @@ gvir_stream_receive_all(GVirStream *self, GVirStreamSinkFunc func, gpointer user
             *err = gvir_error_new_literal(GVIR_STREAM_ERROR,
                                           0,
                                           "Unable to perform RecvAll");
+    }
+
+    return r;
+}
+
+
+/**
+ * gvir_stream_send:
+ * @stream: the stream
+ * @buffer: a buffer to write data from (which should be at least @size
+ *     bytes long).
+ * @size: the number of bytes you want to write to the stream
+ * @cancellable: (allow-none): a %GCancellable or %NULL
+ * @error: #GError for error reporting, or %NULL to ignore.
+ *
+ * Send data (up to @size bytes) from a stream.
+ * On error -1 is returned and @error is set accordingly.
+ *
+ * gvir_stream_send() can return any number of bytes, up to
+ * @size. If more than @size bytes have been sendd, the additional
+ * data will be returned in future calls to gvir_stream_send().
+ *
+ * If there is no data available, a %G_IO_ERROR_WOULD_BLOCK error will be
+ * returned.
+ *
+ * Returns: Number of bytes read, or 0 if the end of stream reached,
+ * or -1 on error.
+ */
+gssize gvir_stream_send(GVirStream *self, const gchar *buffer, gsize size,
+                        GCancellable *cancellable, GError **error)
+{
+    int got;
+
+    g_return_val_if_fail(GVIR_IS_STREAM(self), -1);
+    g_return_val_if_fail(buffer != NULL, -1);
+
+    if (g_cancellable_set_error_if_cancelled (cancellable, error))
+        return -1;
+
+    got = virStreamSend(self->priv->handle, buffer, size);
+
+    if (got == -2) {  /* blocking */
+        g_set_error(error, G_IO_ERROR, G_IO_ERROR_WOULD_BLOCK, NULL);
+    } else if (got < 0) {
+        g_set_error(error, G_IO_ERROR, G_IO_ERROR_INVALID_ARGUMENT,
+                    "Got virStreamRecv error in %s", G_STRFUNC);
+    }
+
+    return got;
+}
+
+struct stream_source_helper {
+    GVirStream *self;
+    GVirStreamSourceFunc func;
+    gpointer user_data;
+};
+
+static int
+stream_source(virStreamPtr st G_GNUC_UNUSED,
+              char *bytes, size_t nbytes, void *opaque)
+{
+  struct stream_source_helper *helper = opaque;
+
+  return helper->func(helper->self, bytes, nbytes, helper->user_data);
+}
+
+/**
+ * gvir_stream_send_all:
+ * @stream: the stream
+ * @func: (scope notified): the callback for writing data to application
+ * @user_data: (closure): data to be passed to @callback
+ * Returns: the number of bytes consumed or -1 upon error
+ *
+ * Send the entire data stream, sending the data to the
+ * requested data source. This is simply a convenient alternative
+ * to virStreamRecv, for apps that do blocking-I/o.
+ */
+gssize
+gvir_stream_send_all(GVirStream *self, GVirStreamSourceFunc func, gpointer user_data, GError **err)
+{
+    struct stream_source_helper helper = {
+        .self = self,
+        .func = func,
+        .user_data = user_data
+    };
+    int r;
+
+    g_return_val_if_fail(GVIR_IS_STREAM(self), -1);
+    g_return_val_if_fail(func != NULL, -1);
+
+    r = virStreamSendAll(self->priv->handle, stream_source, &helper);
+    if (r < 0) {
+        if (err != NULL)
+            *err = gvir_error_new_literal(GVIR_STREAM_ERROR,
+                                          0,
+                                          "Unable to perform SendAll");
     }
 
     return r;
