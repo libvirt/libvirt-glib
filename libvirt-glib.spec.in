@@ -6,13 +6,13 @@
 %if 0%{?fedora} >= 15
 %define with_introspection 1
 %endif
-%if 0%{?fedora} < 15
+%if 0%{?fedora} && 0%{?fedora} < 15
 %define with_python 1
 %endif
 %if 0%{?rhel} > 6
 %define with_introspection 1
 %endif
-%if 0%{?rhel} < 7
+%if 0%{?rhel} && 0%{?rhel} < 7
 %define with_python 1
 %endif
 
@@ -24,7 +24,7 @@ Summary: libvirt glib integration for events
 Group: Development/Libraries
 License: LGPLv2+
 URL: http://libvirt.org/
-Source0: http://libvirt.org/%{name}/%{name}-%{version}.tar.gz
+Source0: ftp://libvirt.org/libvirt/glib/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: glib2-devel >= 2.10.0
@@ -35,7 +35,6 @@ BuildRequires: gobject-introspection-devel
 %if 0%{?fedora} == 12
 BuildRequires: gir-repository-devel
 %endif
-BuildRequires: gjs-devel
 %endif
 BuildRequires: libxml2-devel
 # Hack due to https://bugzilla.redhat.com/show_bug.cgi?id=613466
@@ -135,6 +134,18 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libvirt-gobject-1.0.la
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post -p /sbin/ldconfig
+
+%postun -p /sbin/ldconfig
+
+%post -n libvirt-gconfig -p /sbin/ldconfig
+
+%postun -n libvirt-gconfig -p /sbin/ldconfig
+
+%post -n libvirt-gobject -p /sbin/ldconfig
+
+%postun -n libvirt-gobject -p /sbin/ldconfig
+
 %files
 %defattr(-,root,root,-)
 %doc README COPYING AUTHORS ChangeLog NEWS
@@ -206,6 +217,3 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
-* Sun Oct 19 2008 Daniel P. Berrange <berrange@redhat.com> - 0.0.1-1
-- Initial release
-
