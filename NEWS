@@ -1,3 +1,15 @@
+0.0.2 - Nov 22, 2011
+====================
+
+- Add API to redefine an existing domain.
+- Expicitely call virInitialize() to avoid connection races.
+- Adjust example to latest pygobject-3.0.
+- Add missing deps on libxml2-devel & libtool.
+- Don't introspect on RHEL6.
+- Add download / mailing list links to README.
+- Fix parallel build with vala bindings.
+- Fix a typo in a pkg-config file.
+
 0.0.1 - Nov 16, 2011
 ====================
 
