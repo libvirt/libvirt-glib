@@ -1162,15 +1162,19 @@ GVirStream *gvir_connection_get_stream(GVirConnection *self,
 
 /**
  * gvir_connection_create_domain:
- * @conn: the connection on which to create the dmain
+ * @conn: the connection on which to create the domain
  * @conf: the configuration for the new domain
+ *
+ * Create the configuration file for a new persistent domain.
+ * The returned domain will initially be in the shutoff state.
+ *
  * Returns: (transfer full): the newly created domain
  */
 GVirDomain *gvir_connection_create_domain(GVirConnection *conn,
                                           GVirConfigDomain *conf,
                                           GError **err)
 {
-    const gchar *xml;
+    gchar *xml;
     virDomainPtr handle;
     GVirConnectionPrivate *priv = conn->priv;
 
@@ -1178,7 +1182,9 @@ GVirDomain *gvir_connection_create_domain(GVirConnection *conn,
 
     g_return_val_if_fail(xml != NULL, NULL);
 
-    if (!(handle = virDomainDefineXML(priv->conn, xml))) {
+    handle = virDomainDefineXML(priv->conn, xml);
+    g_free(xml);
+    if (!handle) {
         *err = gvir_error_new_literal(GVIR_CONNECTION_ERROR,
                                       0,
                                       "Failed to create domain");
@@ -1194,10 +1200,57 @@ GVirDomain *gvir_connection_create_domain(GVirConnection *conn,
     g_mutex_lock(priv->lock);
     g_hash_table_insert(priv->domains,
                         (gpointer)gvir_domain_get_uuid(domain),
-                        domain);
+                        g_object_ref(domain));
     g_mutex_unlock(priv->lock);
 
-    return g_object_ref(domain);
+    return domain;
+}
+
+/**
+ * gvir_connection_start_domain:
+ * @conn: the connection on which to create the domain
+ * @conf: the configuration for the new domain
+ *
+ * Start a new transient domain without persistent configuration.
+ * The returned domain will initially be running.
+ *
+ * Returns: (transfer full): the newly created domain
+ */
+GVirDomain *gvir_connection_start_domain(GVirConnection *conn,
+                                         GVirConfigDomain *conf,
+                                         guint flags,
+                                         GError **err)
+{
+    gchar *xml;
+    virDomainPtr handle;
+    GVirConnectionPrivate *priv = conn->priv;
+
+    xml = gvir_config_object_to_xml(GVIR_CONFIG_OBJECT(conf));
+
+    g_return_val_if_fail(xml != NULL, NULL);
+
+    handle = virDomainCreateXML(priv->conn, xml, flags);
+    g_free(xml);
+    if (!handle) {
+        *err = gvir_error_new_literal(GVIR_CONNECTION_ERROR,
+                                      0,
+                                      "Failed to create domain");
+        return NULL;
+    }
+
+    GVirDomain *domain;
+
+    domain = GVIR_DOMAIN(g_object_new(GVIR_TYPE_DOMAIN,
+                                       "handle", handle,
+                                       NULL));
+
+    g_mutex_lock(priv->lock);
+    g_hash_table_insert(priv->domains,
+                        (gpointer)gvir_domain_get_uuid(domain),
+                        g_object_ref(domain));
+    g_mutex_unlock(priv->lock);
+
+    return domain;
 }
 
 /**

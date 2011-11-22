@@ -110,6 +110,10 @@ GVirDomain *gvir_connection_find_domain_by_name(GVirConnection *conn,
 GVirDomain *gvir_connection_create_domain(GVirConnection *conn,
                                           GVirConfigDomain *conf,
                                           GError **err);
+GVirDomain *gvir_connection_start_domain(GVirConnection *conn,
+                                         GVirConfigDomain *conf,
+                                         guint flags,
+                                         GError **err);
 
 #if 0
 GList *gvir_connection_get_interfaces(GVirConnection *conn);

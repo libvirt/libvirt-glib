@@ -28,6 +28,7 @@ LIBVIRT_GOBJECT_0.0.1 {
 	gvir_connection_find_storage_pool_by_name;
 	gvir_connection_create_domain;
 	gvir_connection_create_storage_pool;
+	gvir_connection_start_domain;
 
 	gvir_domain_device_get_type;
 
