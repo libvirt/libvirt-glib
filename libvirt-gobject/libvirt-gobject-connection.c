@@ -234,9 +234,15 @@ static void gvir_connection_init(GVirConnection *conn)
 
     priv = conn->priv = GVIR_CONNECTION_GET_PRIVATE(conn);
 
-    memset(priv, 0, sizeof(*priv));
-
     priv->lock = g_mutex_new();
+    priv->domains = g_hash_table_new_full(g_str_hash,
+                                          g_str_equal,
+                                          NULL,
+                                          g_object_unref);
+    priv->pools = g_hash_table_new_full(g_str_hash,
+                                        g_str_equal,
+                                        NULL,
+                                        g_object_unref);
 }
 
 
