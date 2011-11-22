@@ -5,10 +5,14 @@
 - Expicitely call virInitialize() to avoid connection races.
 - Adjust example to latest pygobject-3.0.
 - Add missing deps on libxml2-devel & libtool.
-- Don't introspect on RHEL6.
-- Add download / mailing list links to README.
-- Fix parallel build with vala bindings.
-- Fix a typo in a pkg-config file.
+- Add support for writing to streams
+- Add API for creating transient domains
+- Change all flags parameters to be guint
+- Uncomment & fix code for returning object config
+- Ensure pools & domains hashes are non-NULL to avoid SEGV
+- Don't de-reference GError instances which are NULL
+- Update COPYING file to have latest FSF address
+- Update RPM specfile to include Fedora review feedback
 
 0.0.1 - Nov 16, 2011
 ====================
