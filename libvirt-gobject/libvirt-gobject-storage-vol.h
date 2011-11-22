@@ -65,7 +65,7 @@ const gchar *gvir_storage_vol_get_name(GVirStorageVol *vol);
 const gchar *gvir_storage_vol_get_path(GVirStorageVol *vol);
 
 GVirConfigStorageVol *gvir_storage_vol_get_config(GVirStorageVol *vol,
-                                                  guint64 flags,
+                                                  guint flags,
                                                   GError **err);
 
 G_END_DECLS

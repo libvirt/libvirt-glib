@@ -187,7 +187,7 @@ const gchar *gvir_node_device_get_name(GVirNodeDevice *device)
  * Returns: (transfer full): the config
  */
 GVirConfigNodeDevice *gvir_node_device_get_config(GVirNodeDevice *device,
-                                                  guint64 flags,
+                                                  guint flags,
                                                   GError **err)
 {
     GVirNodeDevicePrivate *priv = device->priv;

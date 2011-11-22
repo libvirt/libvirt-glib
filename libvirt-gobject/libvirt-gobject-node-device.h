@@ -64,7 +64,7 @@ GType gvir_node_device_handle_get_type(void);
 const gchar *gvir_node_device_get_name(GVirNodeDevice *device);
 
 GVirConfigNodeDevice *gvir_node_device_get_config(GVirNodeDevice *device,
-                                                  guint64 flags,
+                                                  guint flags,
                                                   GError **err);
 
 G_END_DECLS

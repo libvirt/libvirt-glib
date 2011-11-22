@@ -186,7 +186,7 @@ const gchar *gvir_interface_get_name(GVirInterface *iface)
  * Returns: (transfer full): the config
  */
 GVirConfigInterface *gvir_interface_get_config(GVirInterface *iface,
-                                               guint64 flags,
+                                               guint flags,
                                                GError **err)
 {
     GVirInterfacePrivate *priv = iface->priv;

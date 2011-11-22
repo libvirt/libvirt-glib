@@ -100,28 +100,28 @@ gint gvir_domain_get_id(GVirDomain *dom,
                         GError **err);
 
 gboolean gvir_domain_start(GVirDomain *dom,
-                           guint64 flags,
+                           guint flags,
                            GError **err);
 gboolean gvir_domain_resume(GVirDomain *dom,
                             GError **err);
 gboolean gvir_domain_stop(GVirDomain *dom,
-                          guint64 flags,
+                          guint flags,
                           GError **err);
 gboolean gvir_domain_delete(GVirDomain *dom,
-                            guint64 flags,
+                            guint flags,
                             GError **err);
 gboolean gvir_domain_shutdown(GVirDomain *dom,
-                              guint64 flags,
+                              guint flags,
                               GError **err);
 gboolean gvir_domain_reboot(GVirDomain *dom,
-                            guint64 flags,
+                            guint flags,
                             GError **err);
 
 GVirDomainInfo *gvir_domain_get_info(GVirDomain *dom,
                                      GError **err);
 
 GVirConfigDomain *gvir_domain_get_config(GVirDomain *dom,
-                                         guint64 flags,
+                                         guint flags,
                                          GError **err);
 gboolean gvir_domain_set_config(GVirDomain *domain,
                                 GVirConfigDomain *conf,
@@ -129,8 +129,8 @@ gboolean gvir_domain_set_config(GVirDomain *domain,
 
 gchar *gvir_domain_screenshot(GVirDomain *dom,
                               GVirStream *stream,
-                              guint64 monitor_id,
-                              guint64 flags,
+                              guint monitor_id,
+                              guint flags,
                               GError **err);
 
 G_END_DECLS

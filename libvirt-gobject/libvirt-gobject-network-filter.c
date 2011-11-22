@@ -212,7 +212,7 @@ const gchar *gvir_network_filter_get_uuid(GVirNetworkFilter *filter)
  */
 GVirConfigNetworkFilter *gvir_network_filter_get_config
                                 (GVirNetworkFilter *filter,
-                                 guint64 flags,
+                                 guint flags,
                                  GError **err)
 {
     GVirNetworkFilterPrivate *priv = filter->priv;

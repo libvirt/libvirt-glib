@@ -301,12 +301,17 @@ gint gvir_domain_get_id(GVirDomain *dom,
  * @flags:  the flags
  */
 gboolean gvir_domain_start(GVirDomain *dom,
-                           guint64 flags G_GNUC_UNUSED,
+                           guint flags,
                            GError **err)
 {
     GVirDomainPrivate *priv = dom->priv;
+    int ret;
 
-    if (virDomainCreate(priv->handle) < 0) {
+    if (flags)
+        ret = virDomainCreateWithFlags(priv->handle, flags);
+    else
+        ret = virDomainCreate(priv->handle);
+    if (ret < 0) {
         *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
                                       0,
                                       "Unable to start domain");
@@ -343,12 +348,17 @@ gboolean gvir_domain_resume(GVirDomain *dom,
  * @flags:  the flags
  */
 gboolean gvir_domain_stop(GVirDomain *dom,
-                          guint64 flags G_GNUC_UNUSED,
+                          guint flags,
                           GError **err)
 {
     GVirDomainPrivate *priv = dom->priv;
+    int ret;
 
-    if (virDomainDestroy(priv->handle) < 0) {
+    if (flags)
+        ret = virDomainDestroyFlags(priv->handle, flags);
+    else
+        ret = virDomainDestroy(priv->handle);
+    if (ret < 0) {
         *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
                                       0,
                                       "Unable to stop domain");
@@ -364,12 +374,17 @@ gboolean gvir_domain_stop(GVirDomain *dom,
  * @flags:  the flags
  */
 gboolean gvir_domain_delete(GVirDomain *dom,
-                            guint64 flags G_GNUC_UNUSED,
+                            guint flags,
                             GError **err)
 {
     GVirDomainPrivate *priv = dom->priv;
+    int ret;
 
-    if (virDomainUndefine(priv->handle) < 0) {
+    if (flags)
+        ret = virDomainUndefineFlags(priv->handle, flags);
+    else
+        ret = virDomainUndefine(priv->handle);
+    if (ret < 0) {
         *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
                                       0,
                                       "Unable to delete domain");
@@ -385,7 +400,7 @@ gboolean gvir_domain_delete(GVirDomain *dom,
  * @flags:  the flags
  */
 gboolean gvir_domain_shutdown(GVirDomain *dom,
-                              guint64 flags G_GNUC_UNUSED,
+                              guint flags G_GNUC_UNUSED,
                               GError **err)
 {
     GVirDomainPrivate *priv = dom->priv;
@@ -406,7 +421,7 @@ gboolean gvir_domain_shutdown(GVirDomain *dom,
  * @flags:  the flags
  */
 gboolean gvir_domain_reboot(GVirDomain *dom,
-                            guint64 flags,
+                            guint flags,
                             GError **err)
 {
     GVirDomainPrivate *priv = dom->priv;
@@ -428,7 +443,7 @@ gboolean gvir_domain_reboot(GVirDomain *dom,
  * Returns: (transfer full): the config
  */
 GVirConfigDomain *gvir_domain_get_config(GVirDomain *dom,
-                                         guint64 flags,
+                                         guint flags,
                                          GError **err)
 {
     GVirDomainPrivate *priv = dom->priv;
@@ -557,8 +572,8 @@ GVirDomainInfo *gvir_domain_get_info(GVirDomain *dom,
  */
 gchar *gvir_domain_screenshot(GVirDomain *dom,
                               GVirStream *stream,
-                              guint64 monitor_id,
-                              guint64 flags,
+                              guint monitor_id,
+                              guint flags,
                               GError **err)
 {
     GVirDomainPrivate *priv;

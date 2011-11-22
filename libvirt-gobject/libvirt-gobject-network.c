@@ -208,7 +208,7 @@ const gchar *gvir_network_get_uuid(GVirNetwork *network)
  * Returns: (transfer full): the config
  */
 GVirConfigNetwork *gvir_network_get_config(GVirNetwork *network,
-                                           guint64 flags,
+                                           guint flags,
                                            GError **err)
 {
     GVirNetworkPrivate *priv = network->priv;

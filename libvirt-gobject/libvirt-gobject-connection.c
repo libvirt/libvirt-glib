@@ -1145,7 +1145,7 @@ G_DEFINE_BOXED_TYPE(GVirConnectionHandle, gvir_connection_handle,
  * Return value: (transfer full): a #GVirStream stream, or NULL
  */
 GVirStream *gvir_connection_get_stream(GVirConnection *self,
-                                       gint flags)
+                                       guint flags)
 {
     GVirConnectionClass *klass;
 
@@ -1212,7 +1212,7 @@ GVirDomain *gvir_connection_create_domain(GVirConnection *conn,
 GVirStoragePool *gvir_connection_create_storage_pool
                                 (GVirConnection *conn,
                                  GVirConfigStoragePool *conf,
-                                 guint64 flags G_GNUC_UNUSED,
+                                 guint flags,
                                  GError **err) {
     const gchar *xml;
     virStoragePoolPtr handle;
@@ -1222,7 +1222,7 @@ GVirStoragePool *gvir_connection_create_storage_pool
 
     g_return_val_if_fail(xml != NULL, NULL);
 
-    if (!(handle = virStoragePoolDefineXML(priv->conn, xml, 0))) {
+    if (!(handle = virStoragePoolDefineXML(priv->conn, xml, flags))) {
         *err = gvir_error_new_literal(GVIR_CONNECTION_ERROR,
                                       flags,
                                       "Failed to create storage pool");

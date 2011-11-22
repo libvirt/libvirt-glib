@@ -66,7 +66,7 @@ const gchar *gvir_secret_get_name(GVirSecret *secret);
 const gchar *gvir_secret_get_uuid(GVirSecret *secret);
 
 GVirConfigSecret *gvir_secret_get_config(GVirSecret *secret,
-                                         guint64 flags,
+                                         guint flags,
                                          GError **err);
 
 G_END_DECLS

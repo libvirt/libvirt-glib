@@ -163,12 +163,12 @@ GVirStoragePool *gvir_connection_find_storage_pool_by_name(GVirConnection *conn,
 GVirStoragePool *gvir_connection_create_storage_pool
                                 (GVirConnection *conn,
                                  GVirConfigStoragePool *conf,
-                                 guint64 flags,
+                                 guint flags,
                                  GError **err);
 
 
 GVirStream *gvir_connection_get_stream(GVirConnection *conn,
-                                       gint flags);
+                                       guint flags);
 
 G_END_DECLS
 

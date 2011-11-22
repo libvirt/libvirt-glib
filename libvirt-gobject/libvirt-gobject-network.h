@@ -69,7 +69,7 @@ const gchar *gvir_network_get_name(GVirNetwork *network);
 const gchar *gvir_network_get_uuid(GVirNetwork *network);
 
 GVirConfigNetwork *gvir_network_get_config(GVirNetwork *network,
-                                           guint64 flags,
+                                           guint flags,
                                            GError **err);
 
 G_END_DECLS

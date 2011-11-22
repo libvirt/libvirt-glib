@@ -223,7 +223,7 @@ const gchar *gvir_storage_pool_get_uuid(GVirStoragePool *pool)
  * Returns: (transfer full): the config
  */
 GVirConfigStoragePool *gvir_storage_pool_get_config(GVirStoragePool *pool,
-                                                    guint64 flags,
+                                                    guint flags,
                                                     GError **err)
 {
     GVirStoragePoolPrivate *priv = pool->priv;
@@ -528,7 +528,7 @@ GVirStorageVol *gvir_storage_pool_create_volume
  * Return value: #True on success, #False otherwise.
  */
 gboolean gvir_storage_pool_build (GVirStoragePool *pool,
-                                  guint64 flags,
+                                  guint flags,
                                   GError **err)
 {
     if (virStoragePoolBuild(pool->priv->handle, flags)) {
@@ -542,7 +542,7 @@ gboolean gvir_storage_pool_build (GVirStoragePool *pool,
 }
 
 typedef struct {
-    guint64 flags;
+    guint flags;
 } StoragePoolBuildData;
 
 static void
@@ -574,7 +574,7 @@ gvir_storage_pool_build_helper(GSimpleAsyncResult *res,
  * @user_data: (closure): opaque data for callback
  */
 void gvir_storage_pool_build_async (GVirStoragePool *pool,
-                                    guint64 flags,
+                                    guint flags,
                                     GCancellable *cancellable,
                                     GAsyncReadyCallback callback,
                                     gpointer user_data)
@@ -632,7 +632,7 @@ gboolean gvir_storage_pool_build_finish(GVirStoragePool *pool,
  * Return value: #True on success, #False otherwise.
  */
 gboolean gvir_storage_pool_start (GVirStoragePool *pool,
-                                  guint64 flags,
+                                  guint flags,
                                   GError **err)
 {
     if (virStoragePoolCreate(pool->priv->handle, flags)) {
@@ -674,7 +674,7 @@ gvir_storage_pool_start_helper(GSimpleAsyncResult *res,
  * @user_data: (closure): opaque data for callback
  */
 void gvir_storage_pool_start_async (GVirStoragePool *pool,
-                                    guint64 flags,
+                                    guint flags,
                                     GCancellable *cancellable,
                                     GAsyncReadyCallback callback,
                                     gpointer user_data)

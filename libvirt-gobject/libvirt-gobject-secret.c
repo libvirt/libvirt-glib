@@ -198,7 +198,7 @@ const gchar *gvir_secret_get_uuid(GVirSecret *secret)
  * Returns: (transfer full): the config
  */
 GVirConfigSecret *gvir_secret_get_config(GVirSecret *secret,
-                                         guint64 flags,
+                                         guint flags,
                                          GError **err)
 {
     GVirSecretPrivate *priv = secret->priv;

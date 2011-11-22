@@ -66,7 +66,7 @@ const gchar *gvir_storage_pool_get_name(GVirStoragePool *pool);
 const gchar *gvir_storage_pool_get_uuid(GVirStoragePool *pool);
 
 GVirConfigStoragePool *gvir_storage_pool_get_config(GVirStoragePool *pool,
-                                                    guint64 flags,
+                                                    guint flags,
                                                     GError **err);
 
 gboolean gvir_storage_pool_refresh(GVirStoragePool *pool,
@@ -89,10 +89,10 @@ GVirStorageVol *gvir_storage_pool_create_volume
                                  GError **err);
 
 gboolean gvir_storage_pool_build (GVirStoragePool *pool,
-                                  guint64 flags,
+                                  guint flags,
                                   GError **err);
 void gvir_storage_pool_build_async (GVirStoragePool *pool,
-                                    guint64 flags,
+                                    guint flags,
                                     GCancellable *cancellable,
                                     GAsyncReadyCallback callback,
                                     gpointer user_data);
@@ -101,10 +101,10 @@ gboolean gvir_storage_pool_build_finish(GVirStoragePool *pool,
                                         GError **err);
 
 gboolean gvir_storage_pool_start (GVirStoragePool *pool,
-                                  guint64 flags,
+                                  guint flags,
                                   GError **err);
 void gvir_storage_pool_start_async (GVirStoragePool *pool,
-                                    guint64 flags,
+                                    guint flags,
                                     GCancellable *cancellable,
                                     GAsyncReadyCallback callback,
                                     gpointer user_data);

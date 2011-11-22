@@ -197,7 +197,7 @@ const gchar *gvir_domain_snapshot_get_name(GVirDomainSnapshot *snapshot)
  */
 GVirConfigDomainSnapshot *gvir_domain_snapshot_get_config
                                 (GVirDomainSnapshot *snapshot,
-                                 guint64 flags,
+                                 guint flags,
                                  GError **err)
 {
     GVirDomainSnapshotPrivate *priv = snapshot->priv;
