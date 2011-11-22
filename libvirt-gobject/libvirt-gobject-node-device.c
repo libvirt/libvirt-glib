@@ -194,9 +194,10 @@ GVirConfigNodeDevice *gvir_node_device_get_config(GVirNodeDevice *device,
     gchar *xml;
 
     if (!(xml = virNodeDeviceGetXMLDesc(priv->handle, flags))) {
-        *err = gvir_error_new_literal(GVIR_NODE_DEVICE_ERROR,
-                                      0,
-                                      "Unable to get node_device XML config");
+        if (err)
+            *err = gvir_error_new_literal(GVIR_NODE_DEVICE_ERROR,
+                                          0,
+                                          "Unable to get node_device XML config");
         return NULL;
     }
 

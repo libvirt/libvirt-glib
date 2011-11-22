@@ -205,9 +205,10 @@ GVirConfigSecret *gvir_secret_get_config(GVirSecret *secret,
     gchar *xml;
 
     if (!(xml = virSecretGetXMLDesc(priv->handle, flags))) {
-        *err = gvir_error_new_literal(GVIR_SECRET_ERROR,
-                                      0,
-                                      "Unable to get secret XML config");
+        if (err)
+            *err = gvir_error_new_literal(GVIR_SECRET_ERROR,
+                                          0,
+                                          "Unable to get secret XML config");
         return NULL;
     }
 

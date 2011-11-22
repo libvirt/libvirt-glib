@@ -287,9 +287,10 @@ gint gvir_domain_get_id(GVirDomain *dom,
     gint ret;
 
     if ((ret = virDomainGetID(priv->handle)) < 0) {
-        *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
-                                      0,
-                                      "Unable to get ID for domain");
+        if (err)
+            *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
+                                          0,
+                                          "Unable to get ID for domain");
     }
     return ret;
 }
@@ -312,9 +313,10 @@ gboolean gvir_domain_start(GVirDomain *dom,
     else
         ret = virDomainCreate(priv->handle);
     if (ret < 0) {
-        *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
-                                      0,
-                                      "Unable to start domain");
+        if (err)
+            *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
+                                          0,
+                                          "Unable to start domain");
         return FALSE;
     }
 
@@ -333,9 +335,10 @@ gboolean gvir_domain_resume(GVirDomain *dom,
     GVirDomainPrivate *priv = dom->priv;
 
     if (virDomainResume(priv->handle) < 0) {
-        *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
-                                      0,
-                                      "Unable to resume domain");
+        if (err)
+            *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
+                                          0,
+                                          "Unable to resume domain");
         return FALSE;
     }
 
@@ -359,9 +362,10 @@ gboolean gvir_domain_stop(GVirDomain *dom,
     else
         ret = virDomainDestroy(priv->handle);
     if (ret < 0) {
-        *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
-                                      0,
-                                      "Unable to stop domain");
+        if (err)
+            *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
+                                          0,
+                                          "Unable to stop domain");
         return FALSE;
     }
 
@@ -385,9 +389,10 @@ gboolean gvir_domain_delete(GVirDomain *dom,
     else
         ret = virDomainUndefine(priv->handle);
     if (ret < 0) {
-        *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
-                                      0,
-                                      "Unable to delete domain");
+        if (err)
+            *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
+                                          0,
+                                          "Unable to delete domain");
         return FALSE;
     }
 
@@ -406,9 +411,10 @@ gboolean gvir_domain_shutdown(GVirDomain *dom,
     GVirDomainPrivate *priv = dom->priv;
 
     if (virDomainShutdown(priv->handle) < 0) {
-        *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
-                                      0,
-                                      "Unable to shutdown domain");
+        if (err)
+            *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
+                                          0,
+                                          "Unable to shutdown domain");
         return FALSE;
     }
 
@@ -427,9 +433,10 @@ gboolean gvir_domain_reboot(GVirDomain *dom,
     GVirDomainPrivate *priv = dom->priv;
 
     if (virDomainReboot(priv->handle, flags) < 0) {
-        *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
-                                      0,
-                                      "Unable to reboot domain");
+        if (err)
+            *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
+                                          0,
+                                          "Unable to reboot domain");
         return FALSE;
     }
 
@@ -450,9 +457,10 @@ GVirConfigDomain *gvir_domain_get_config(GVirDomain *dom,
     gchar *xml;
 
     if (!(xml = virDomainGetXMLDesc(priv->handle, flags))) {
-        *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
-                                      0,
-                                      "Unable to get domain XML config");
+        if (err)
+            *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
+                                          0,
+                                          "Unable to get domain XML config");
         return NULL;
     }
 
@@ -546,9 +554,10 @@ GVirDomainInfo *gvir_domain_get_info(GVirDomain *dom,
     GVirDomainInfo *ret;
 
     if (virDomainGetInfo(priv->handle, &info) < 0) {
-        *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
-                                      0,
-                                      "Unable to get domain info");
+        if (err)
+            *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
+                                          0,
+                                          "Unable to get domain info");
         return NULL;
     }
 
@@ -590,9 +599,10 @@ gchar *gvir_domain_screenshot(GVirDomain *dom,
                                      st,
                                      monitor_id,
                                      flags))) {
-        *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
-                                      0,
-                                      "Unable to take a screenshot");
+        if (err)
+            *err = gvir_error_new_literal(GVIR_DOMAIN_ERROR,
+                                          0,
+                                          "Unable to take a screenshot");
         goto end;
     }
 end:
