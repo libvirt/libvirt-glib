@@ -50,13 +50,9 @@ static void gvir_config_node_device_class_init(GVirConfigNodeDeviceClass *klass)
 
 static void gvir_config_node_device_init(GVirConfigNodeDevice *conn)
 {
-    GVirConfigNodeDevicePrivate *priv;
-
     DEBUG("Init GVirConfigNodeDevice=%p", conn);
 
-    priv = conn->priv = GVIR_CONFIG_NODE_DEVICE_GET_PRIVATE(conn);
-
-    memset(priv, 0, sizeof(*priv));
+    conn->priv = GVIR_CONFIG_NODE_DEVICE_GET_PRIVATE(conn);
 }
 
 

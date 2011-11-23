@@ -50,13 +50,9 @@ static void gvir_config_network_class_init(GVirConfigNetworkClass *klass)
 
 static void gvir_config_network_init(GVirConfigNetwork *conn)
 {
-    GVirConfigNetworkPrivate *priv;
-
     DEBUG("Init GVirConfigNetwork=%p", conn);
 
-    priv = conn->priv = GVIR_CONFIG_NETWORK_GET_PRIVATE(conn);
-
-    memset(priv, 0, sizeof(*priv));
+    conn->priv = GVIR_CONFIG_NETWORK_GET_PRIVATE(conn);
 }
 
 

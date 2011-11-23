@@ -139,13 +139,9 @@ static void gvir_interface_class_init(GVirInterfaceClass *klass)
 
 static void gvir_interface_init(GVirInterface *conn)
 {
-    GVirInterfacePrivate *priv;
-
     DEBUG("Init GVirInterface=%p", conn);
 
-    priv = conn->priv = GVIR_INTERFACE_GET_PRIVATE(conn);
-
-    memset(priv, 0, sizeof(*priv));
+    conn->priv = GVIR_INTERFACE_GET_PRIVATE(conn);
 }
 
 typedef struct virInterface GVirInterfaceHandle;

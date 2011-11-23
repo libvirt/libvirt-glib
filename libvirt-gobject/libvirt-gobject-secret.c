@@ -156,13 +156,9 @@ static void gvir_secret_class_init(GVirSecretClass *klass)
 
 static void gvir_secret_init(GVirSecret *conn)
 {
-    GVirSecretPrivate *priv;
-
     DEBUG("Init GVirSecret=%p", conn);
 
-    priv = conn->priv = GVIR_SECRET_GET_PRIVATE(conn);
-
-    memset(priv, 0, sizeof(*priv));
+    conn->priv = GVIR_SECRET_GET_PRIVATE(conn);
 }
 
 typedef struct virSecret GVirSecretHandle;

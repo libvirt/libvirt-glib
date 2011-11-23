@@ -172,8 +172,6 @@ static void gvir_storage_pool_init(GVirStoragePool *pool)
 
     priv = pool->priv = GVIR_STORAGE_POOL_GET_PRIVATE(pool);
 
-    memset(priv, 0, sizeof(*priv));
-
     priv->lock = g_mutex_new();
 }
 

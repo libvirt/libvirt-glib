@@ -50,13 +50,9 @@ static void gvir_config_capabilities_class_init(GVirConfigCapabilitiesClass *kla
 
 static void gvir_config_capabilities_init(GVirConfigCapabilities *conn)
 {
-    GVirConfigCapabilitiesPrivate *priv;
-
     DEBUG("Init GVirConfigCapabilities=%p", conn);
 
-    priv = conn->priv = GVIR_CONFIG_CAPABILITIES_GET_PRIVATE(conn);
-
-    memset(priv, 0, sizeof(*priv));
+    conn->priv = GVIR_CONFIG_CAPABILITIES_GET_PRIVATE(conn);
 }
 
 

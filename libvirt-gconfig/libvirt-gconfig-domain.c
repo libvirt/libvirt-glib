@@ -151,13 +151,9 @@ static void gvir_config_domain_class_init(GVirConfigDomainClass *klass)
 
 static void gvir_config_domain_init(GVirConfigDomain *conn)
 {
-    GVirConfigDomainPrivate *priv;
-
     DEBUG("Init GVirConfigDomain=%p", conn);
 
-    priv = conn->priv = GVIR_CONFIG_DOMAIN_GET_PRIVATE(conn);
-
-    memset(priv, 0, sizeof(*priv));
+    conn->priv = GVIR_CONFIG_DOMAIN_GET_PRIVATE(conn);
 }
 
 

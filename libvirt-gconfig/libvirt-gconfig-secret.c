@@ -50,13 +50,9 @@ static void gvir_config_secret_class_init(GVirConfigSecretClass *klass)
 
 static void gvir_config_secret_init(GVirConfigSecret *conn)
 {
-    GVirConfigSecretPrivate *priv;
-
     DEBUG("Init GVirConfigSecret=%p", conn);
 
-    priv = conn->priv = GVIR_CONFIG_SECRET_GET_PRIVATE(conn);
-
-    memset(priv, 0, sizeof(*priv));
+    conn->priv = GVIR_CONFIG_SECRET_GET_PRIVATE(conn);
 }
 
 

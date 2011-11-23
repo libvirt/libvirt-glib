@@ -50,13 +50,9 @@ static void gvir_config_interface_class_init(GVirConfigInterfaceClass *klass)
 
 static void gvir_config_interface_init(GVirConfigInterface *conn)
 {
-    GVirConfigInterfacePrivate *priv;
-
     DEBUG("Init GVirConfigInterface=%p", conn);
 
-    priv = conn->priv = GVIR_CONFIG_INTERFACE_GET_PRIVATE(conn);
-
-    memset(priv, 0, sizeof(*priv));
+    conn->priv = GVIR_CONFIG_INTERFACE_GET_PRIVATE(conn);
 }
 
 

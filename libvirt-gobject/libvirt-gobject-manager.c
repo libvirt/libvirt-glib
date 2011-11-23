@@ -119,8 +119,6 @@ static void gvir_manager_init(GVirManager *conn)
 
     priv = conn->priv = GVIR_MANAGER_GET_PRIVATE(conn);
 
-    memset(priv, 0, sizeof(*priv));
-
     priv->lock = g_mutex_new();
 }
 

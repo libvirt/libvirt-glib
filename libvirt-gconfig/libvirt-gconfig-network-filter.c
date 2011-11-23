@@ -50,13 +50,9 @@ static void gvir_config_network_filter_class_init(GVirConfigNetworkFilterClass *
 
 static void gvir_config_network_filter_init(GVirConfigNetworkFilter *conn)
 {
-    GVirConfigNetworkFilterPrivate *priv;
-
     DEBUG("Init GVirConfigNetworkFilter=%p", conn);
 
-    priv = conn->priv = GVIR_CONFIG_NETWORK_FILTER_GET_PRIVATE(conn);
-
-    memset(priv, 0, sizeof(*priv));
+    conn->priv = GVIR_CONFIG_NETWORK_FILTER_GET_PRIVATE(conn);
 }
 
 

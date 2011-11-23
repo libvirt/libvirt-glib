@@ -53,13 +53,9 @@ static void gvir_config_domain_interface_network_class_init(GVirConfigDomainInte
 
 static void gvir_config_domain_interface_network_init(GVirConfigDomainInterfaceNetwork *conn)
 {
-    GVirConfigDomainInterfaceNetworkPrivate *priv;
-
     DEBUG("Init GVirConfigDomainInterfaceNetwork=%p", conn);
 
-    priv = conn->priv = GVIR_CONFIG_DOMAIN_INTERFACE_NETWORK_GET_PRIVATE(conn);
-
-    memset(priv, 0, sizeof(*priv));
+    conn->priv = GVIR_CONFIG_DOMAIN_INTERFACE_NETWORK_GET_PRIVATE(conn);
 }
 
 

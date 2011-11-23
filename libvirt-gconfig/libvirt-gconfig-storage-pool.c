@@ -50,13 +50,9 @@ static void gvir_config_storage_pool_class_init(GVirConfigStoragePoolClass *klas
 
 static void gvir_config_storage_pool_init(GVirConfigStoragePool *conn)
 {
-    GVirConfigStoragePoolPrivate *priv;
-
     DEBUG("Init GVirConfigStoragePool=%p", conn);
 
-    priv = conn->priv = GVIR_CONFIG_STORAGE_POOL_GET_PRIVATE(conn);
-
-    memset(priv, 0, sizeof(*priv));
+    conn->priv = GVIR_CONFIG_STORAGE_POOL_GET_PRIVATE(conn);
 }
 
 

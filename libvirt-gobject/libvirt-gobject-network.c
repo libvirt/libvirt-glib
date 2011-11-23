@@ -154,13 +154,9 @@ static void gvir_network_class_init(GVirNetworkClass *klass)
 
 static void gvir_network_init(GVirNetwork *conn)
 {
-    GVirNetworkPrivate *priv;
-
     DEBUG("Init GVirNetwork=%p", conn);
 
-    priv = conn->priv = GVIR_NETWORK_GET_PRIVATE(conn);
-
-    memset(priv, 0, sizeof(*priv));
+    conn->priv = GVIR_NETWORK_GET_PRIVATE(conn);
 }
 
 typedef struct virNetwork GVirNetworkHandle;

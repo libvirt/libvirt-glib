@@ -140,13 +140,9 @@ static void gvir_storage_vol_class_init(GVirStorageVolClass *klass)
 
 static void gvir_storage_vol_init(GVirStorageVol *conn)
 {
-    GVirStorageVolPrivate *priv;
-
     DEBUG("Init GVirStorageVol=%p", conn);
 
-    priv = conn->priv = GVIR_STORAGE_VOL_GET_PRIVATE(conn);
-
-    memset(priv, 0, sizeof(*priv));
+    conn->priv = GVIR_STORAGE_VOL_GET_PRIVATE(conn);
 }
 
 typedef struct virStorageVol GVirStorageVolHandle;

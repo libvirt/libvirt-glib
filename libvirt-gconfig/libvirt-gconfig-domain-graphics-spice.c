@@ -53,13 +53,9 @@ static void gvir_config_domain_graphics_spice_class_init(GVirConfigDomainGraphic
 
 static void gvir_config_domain_graphics_spice_init(GVirConfigDomainGraphicsSpice *graphics_spice)
 {
-    GVirConfigDomainGraphicsSpicePrivate *priv;
-
     DEBUG("Init GVirConfigDomainGraphicsSpice=%p", graphics_spice);
 
-    priv = graphics_spice->priv = GVIR_CONFIG_DOMAIN_GRAPHICS_SPICE_GET_PRIVATE(graphics_spice);
-
-    memset(priv, 0, sizeof(*priv));
+    graphics_spice->priv = GVIR_CONFIG_DOMAIN_GRAPHICS_SPICE_GET_PRIVATE(graphics_spice);
 }
 
 

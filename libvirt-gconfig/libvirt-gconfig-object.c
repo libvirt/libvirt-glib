@@ -178,13 +178,9 @@ static void gvir_config_object_class_init(GVirConfigObjectClass *klass)
 
 static void gvir_config_object_init(GVirConfigObject *conn)
 {
-    GVirConfigObjectPrivate *priv;
-
     DEBUG("Init GVirConfigObject=%p", conn);
 
-    priv = conn->priv = GVIR_CONFIG_OBJECT_GET_PRIVATE(conn);
-
-    memset(priv, 0, sizeof(*priv));
+    conn->priv = GVIR_CONFIG_OBJECT_GET_PRIVATE(conn);
 }
 
 void gvir_config_object_validate(GVirConfigObject *config,

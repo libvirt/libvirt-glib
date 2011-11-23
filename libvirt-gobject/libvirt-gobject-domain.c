@@ -215,13 +215,9 @@ static void gvir_domain_class_init(GVirDomainClass *klass)
 
 static void gvir_domain_init(GVirDomain *conn)
 {
-    GVirDomainPrivate *priv;
-
     DEBUG("Init GVirDomain=%p", conn);
 
-    priv = conn->priv = GVIR_DOMAIN_GET_PRIVATE(conn);
-
-    memset(priv, 0, sizeof(*priv));
+    conn->priv = GVIR_DOMAIN_GET_PRIVATE(conn);
 }
 
 typedef struct virDomain GVirDomainHandle;

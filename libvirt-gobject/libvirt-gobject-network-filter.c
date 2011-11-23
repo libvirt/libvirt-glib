@@ -156,13 +156,9 @@ static void gvir_network_filter_class_init(GVirNetworkFilterClass *klass)
 
 static void gvir_network_filter_init(GVirNetworkFilter *conn)
 {
-    GVirNetworkFilterPrivate *priv;
-
     DEBUG("Init GVirNetworkFilter=%p", conn);
 
-    priv = conn->priv = GVIR_NETWORK_FILTER_GET_PRIVATE(conn);
-
-    memset(priv, 0, sizeof(*priv));
+    conn->priv = GVIR_NETWORK_FILTER_GET_PRIVATE(conn);
 }
 
 typedef struct virNWFilter GVirNetworkFilterHandle;

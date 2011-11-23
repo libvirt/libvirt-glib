@@ -140,13 +140,9 @@ static void gvir_domain_snapshot_class_init(GVirDomainSnapshotClass *klass)
 
 static void gvir_domain_snapshot_init(GVirDomainSnapshot *conn)
 {
-    GVirDomainSnapshotPrivate *priv;
-
     DEBUG("Init GVirDomainSnapshot=%p", conn);
 
-    priv = conn->priv = GVIR_DOMAIN_SNAPSHOT_GET_PRIVATE(conn);
-
-    memset(priv, 0, sizeof(*priv));
+    conn->priv = GVIR_DOMAIN_SNAPSHOT_GET_PRIVATE(conn);
 }
 
 typedef struct virDomainSnapshot GVirDomainSnapshotHandle;

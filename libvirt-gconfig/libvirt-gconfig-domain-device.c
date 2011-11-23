@@ -51,11 +51,7 @@ static void gvir_config_domain_device_class_init(GVirConfigDomainDeviceClass *kl
 
 static void gvir_config_domain_device_init(GVirConfigDomainDevice *device)
 {
-    GVirConfigDomainDevicePrivate *priv;
-
     DEBUG("Init GVirConfigDomainDevice=%p", device);
 
-    priv = device->priv = GVIR_CONFIG_DOMAIN_DEVICE_GET_PRIVATE(device);
-
-    memset(priv, 0, sizeof(*priv));
+    device->priv = GVIR_CONFIG_DOMAIN_DEVICE_GET_PRIVATE(device);
 }

@@ -53,13 +53,9 @@ static void gvir_config_domain_os_class_init(GVirConfigDomainOsClass *klass)
 
 static void gvir_config_domain_os_init(GVirConfigDomainOs *os)
 {
-    GVirConfigDomainOsPrivate *priv;
-
     DEBUG("Init GVirConfigDomainOs=%p", os);
 
-    priv = os->priv = GVIR_CONFIG_DOMAIN_OS_GET_PRIVATE(os);
-
-    memset(priv, 0, sizeof(*priv));
+    os->priv = GVIR_CONFIG_DOMAIN_OS_GET_PRIVATE(os);
 }
 
 

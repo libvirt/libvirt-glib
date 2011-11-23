@@ -50,13 +50,9 @@ static void gvir_config_domain_snapshot_class_init(GVirConfigDomainSnapshotClass
 
 static void gvir_config_domain_snapshot_init(GVirConfigDomainSnapshot *conn)
 {
-    GVirConfigDomainSnapshotPrivate *priv;
-
     DEBUG("Init GVirConfigDomainSnapshot=%p", conn);
 
-    priv = conn->priv = GVIR_CONFIG_DOMAIN_SNAPSHOT_GET_PRIVATE(conn);
-
-    memset(priv, 0, sizeof(*priv));
+    conn->priv = GVIR_CONFIG_DOMAIN_SNAPSHOT_GET_PRIVATE(conn);
 }
 
 

@@ -140,13 +140,9 @@ static void gvir_node_device_class_init(GVirNodeDeviceClass *klass)
 
 static void gvir_node_device_init(GVirNodeDevice *conn)
 {
-    GVirNodeDevicePrivate *priv;
-
     DEBUG("Init GVirNodeDevice=%p", conn);
 
-    priv = conn->priv = GVIR_NODE_DEVICE_GET_PRIVATE(conn);
-
-    memset(priv, 0, sizeof(*priv));
+    conn->priv = GVIR_NODE_DEVICE_GET_PRIVATE(conn);
 }
 
 typedef struct virNodeDevice GVirNodeDeviceHandle;
