@@ -46,7 +46,19 @@ struct _GVirStreamPrivate
     virStreamPtr   handle;
     GInputStream  *input_stream;
     GOutputStream  *output_stream;
+
+    gboolean eventRegistered;
+    int eventLast;
+    GList *sources;
 };
+
+typedef struct {
+    GSource source;
+    GVirStreamIOCondition cond;
+    GVirStreamIOCondition newCond;
+    GVirStream *stream;
+} GVirStreamSource;
+
 
 G_DEFINE_TYPE(GVirStream, gvir_stream, G_TYPE_IO_STREAM);
 
@@ -186,6 +198,7 @@ static void gvir_stream_finalize(GObject *object)
 {
     GVirStream *self = GVIR_STREAM(object);
     GVirStreamPrivate *priv = self->priv;
+    GList *tmp;
 
     DEBUG("Finalize GVirStream=%p", self);
 
@@ -198,6 +211,14 @@ static void gvir_stream_finalize(GObject *object)
 
         virStreamFree(priv->handle);
     }
+
+    tmp = priv->sources;
+    while (tmp) {
+        GVirStreamSource *source = tmp->data;
+        g_source_destroy((GSource*)source);
+        tmp = tmp->next;
+    }
+    g_list_free(priv->sources);
 
     G_OBJECT_CLASS(gvir_stream_parent_class)->finalize(object);
 }
@@ -447,4 +468,158 @@ gvir_stream_send_all(GVirStream *self, GVirStreamSourceFunc func, gpointer user_
     }
 
     return r;
+}
+
+
+static void gvir_stream_handle_events(virStreamPtr st G_GNUC_UNUSED,
+                                      int events,
+                                      void *opaque)
+{
+    GVirStream *stream = GVIR_STREAM(opaque);
+    GVirStreamPrivate *priv = stream->priv;
+    GList *tmp = priv->sources;
+
+    while (tmp) {
+        GVirStreamSource *source = tmp->data;
+        source->newCond = 0;
+        if (source->cond & GVIR_STREAM_IO_CONDITION_READABLE) {
+            if (events & VIR_STREAM_EVENT_READABLE)
+                source->newCond |= GVIR_STREAM_IO_CONDITION_READABLE;
+            if (events & VIR_STREAM_EVENT_HANGUP)
+                source->newCond |= GVIR_STREAM_IO_CONDITION_HANGUP;
+            if (events & VIR_STREAM_EVENT_ERROR)
+                source->newCond |= GVIR_STREAM_IO_CONDITION_ERROR;
+        }
+        if (source->cond & GVIR_STREAM_IO_CONDITION_WRITABLE) {
+            if (events & VIR_STREAM_EVENT_WRITABLE)
+                source->newCond |= GVIR_STREAM_IO_CONDITION_WRITABLE;
+            if (events & VIR_STREAM_EVENT_HANGUP)
+                source->newCond |= GVIR_STREAM_IO_CONDITION_HANGUP;
+            if (events & VIR_STREAM_EVENT_ERROR)
+                source->newCond |= GVIR_STREAM_IO_CONDITION_ERROR;
+        }
+        tmp = tmp->next;
+    }
+
+}
+
+
+static void gvir_stream_update_events(GVirStream *stream)
+{
+    GVirStreamPrivate *priv = stream->priv;
+    int mask = 0;
+    GList *tmp = priv->sources;
+
+    while (tmp) {
+        GVirStreamSource *source = tmp->data;
+        if (source->cond & GVIR_STREAM_IO_CONDITION_READABLE)
+            mask |= VIR_STREAM_EVENT_READABLE;
+        if (source->cond & GVIR_STREAM_IO_CONDITION_WRITABLE)
+            mask |= VIR_STREAM_EVENT_WRITABLE;
+        tmp = tmp->next;
+    }
+
+    if (mask) {
+        if (priv->eventRegistered) {
+            virStreamEventUpdateCallback(priv->handle, mask);
+        } else {
+            virStreamEventAddCallback(priv->handle, mask,
+                                      gvir_stream_handle_events,
+                                      g_object_ref(stream),
+                                      g_object_unref);
+            priv->eventRegistered = TRUE;
+        }
+    } else {
+        if (priv->eventRegistered) {
+            virStreamEventRemoveCallback(priv->handle);
+            priv->eventRegistered = FALSE;
+        }
+    }
+}
+
+static gboolean gvir_stream_source_prepare(GSource *source,
+                                           gint *timeout)
+{
+    GVirStreamSource *gsource = (GVirStreamSource*)source;
+    if (gsource->newCond) {
+        *timeout = 0;
+        return TRUE;
+    }
+    *timeout = -1;
+    return FALSE;
+}
+
+static gboolean gvir_stream_source_check(GSource *source)
+{
+    GVirStreamSource *gsource = (GVirStreamSource*)source;
+    if (gsource->newCond)
+        return TRUE;
+    return FALSE;
+}
+
+static gboolean gvir_stream_source_dispatch(GSource *source,
+                                            GSourceFunc callback,
+                                            gpointer user_data)
+{
+    GVirStreamSource *gsource = (GVirStreamSource*)source;
+    GVirStreamIOFunc func = (GVirStreamIOFunc)callback;
+    gboolean ret;
+    ret = func(gsource->stream, gsource->newCond, user_data);
+    gsource->newCond = 0;
+    return ret;
+}
+
+static void gvir_stream_source_finalize(GSource *source)
+{
+    GVirStreamSource *gsource = (GVirStreamSource*)source;
+    GVirStreamPrivate *priv = gsource->stream->priv;
+
+    priv->sources = g_list_remove(priv->sources, source);
+
+    gvir_stream_update_events(gsource->stream);
+}
+
+GSourceFuncs gvir_stream_source_funcs = {
+    .prepare = gvir_stream_source_prepare,
+    .check = gvir_stream_source_check,
+    .dispatch = gvir_stream_source_dispatch,
+    .finalize = gvir_stream_source_finalize,
+};
+
+guint gvir_stream_add_watch(GVirStream *stream,
+                            GVirStreamIOCondition cond,
+                            GVirStreamIOFunc func,
+                            gpointer opaque)
+{
+    return gvir_stream_add_watch_full(stream,
+                                      cond,
+                                      func,
+                                      opaque,
+                                      NULL);
+}
+
+guint gvir_stream_add_watch_full(GVirStream *stream,
+                                 GVirStreamIOCondition cond,
+                                 GVirStreamIOFunc func,
+                                 gpointer opaque,
+                                 GDestroyNotify notify)
+{
+    GVirStreamPrivate *priv = stream->priv;
+    GVirStreamSource *source = (GVirStreamSource*)g_source_new(&gvir_stream_source_funcs,
+                                                               sizeof(GVirStreamSource));
+    guint ret;
+
+    source->stream = stream;
+    source->cond = cond;
+
+    priv->sources = g_list_append(priv->sources, source);
+
+    gvir_stream_update_events(source->stream);
+
+    g_source_set_callback((GSource*)source, (GSourceFunc)func, opaque, notify);
+    ret = g_source_attach((GSource*)source, g_main_context_default());
+
+    g_source_unref((GSource*)source);
+
+    return ret;
 }

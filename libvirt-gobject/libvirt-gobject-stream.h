@@ -93,6 +93,27 @@ typedef gint (* GVirStreamSourceFunc)(GVirStream *stream,
 GType gvir_stream_get_type(void);
 GType gvir_stream_handle_get_type(void);
 
+typedef enum {
+    GVIR_STREAM_IO_CONDITION_READABLE = (1 << 0),
+    GVIR_STREAM_IO_CONDITION_WRITABLE = (1 << 1),
+    GVIR_STREAM_IO_CONDITION_HANGUP   = (1 << 2),
+    GVIR_STREAM_IO_CONDITION_ERROR    = (1 << 3),
+} GVirStreamIOCondition;
+
+typedef gboolean (*GVirStreamIOFunc)(GVirStream *stream,
+                                     GVirStreamIOCondition cond,
+                                     gpointer opaque);
+
+guint gvir_stream_add_watch(GVirStream *stream,
+                            GVirStreamIOCondition cond,
+                            GVirStreamIOFunc func,
+                            gpointer opaque);
+guint gvir_stream_add_watch_full(GVirStream *stream,
+                                 GVirStreamIOCondition cond,
+                                 GVirStreamIOFunc func,
+                                 gpointer opaque,
+                                 GDestroyNotify notify);
+
 gssize gvir_stream_receive_all(GVirStream *stream, GVirStreamSinkFunc func, gpointer user_data, GError **error);
 gssize gvir_stream_receive(GVirStream *stream, gchar *buffer, gsize size, GCancellable *cancellable, GError **error);
 
