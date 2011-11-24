@@ -51,6 +51,7 @@ LIBVIRT_GOBJECT_0.0.1 {
 	gvir_config_domain_graphics_spice_new_from_xml;
 	gvir_config_domain_graphics_spice_set_port;
 
+	gvir_config_domain_input_bus_get_type;
 	gvir_config_domain_input_get_type;
 	gvir_config_domain_input_device_type_get_type;
 	gvir_config_domain_input_new;
@@ -78,6 +79,7 @@ LIBVIRT_GOBJECT_0.0.1 {
 	gvir_config_domain_os_bios_enable_serial;
 	gvir_config_domain_os_set_machine;
 	gvir_config_domain_os_set_arch;
+	gvir_config_domain_os_type_get_type;
 
 	gvir_config_domain_snapshot_get_type;
 	gvir_config_domain_snapshot_new;

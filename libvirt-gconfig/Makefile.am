@@ -51,7 +51,6 @@ GCONFIG_SOURCE_FILES = \
 			libvirt-gconfig-domain-snapshot.c \
 			libvirt-gconfig-domain-timer.c \
 			libvirt-gconfig-domain-video.c \
-			libvirt-gconfig-enum-types.c \
 			libvirt-gconfig-helpers.c \
 			libvirt-gconfig-interface.c \
 			libvirt-gconfig-network.c \
@@ -64,10 +63,11 @@ GCONFIG_SOURCE_FILES = \
 libvirt_gconfig_1_0_ladir = $(includedir)/libvirt-gconfig-1.0/libvirt-gconfig
 libvirt_gconfig_1_0_la_HEADERS = \
 			$(GCONFIG_HEADER_FILES) \
-			libvirt-gconfig-enum-types.h
+			$(builddir)/libvirt-gconfig-enum-types.h
 libvirt_gconfig_1_0_la_SOURCES = \
 			$(libvirt_gconfig_1_0_la_HEADERS) \
-			$(GCONFIG_SOURCE_FILES)
+			$(GCONFIG_SOURCE_FILES) \
+			$(builddir)/libvirt-gconfig-enum-types.c
 libvirt_gconfig_1_0_la_CFLAGS = \
 			-DDATADIR="\"$(datadir)\"" \
 			-DLIBVIRT_GCONFIG_BUILD \
@@ -92,15 +92,15 @@ BUILT_SOURCES = \
 		libvirt-gconfig-enum-types.c \
 		libvirt-gconfig-enum-types.h
 
+CLEANFILES = $(BUILT_SOURCES)
+
 libvirt-gconfig-enum-types.h: $(GCONFIG_HEADER_FILES) libvirt-gconfig-enum-types.h.template
-	$(AM_V_GEN) ( cd $(srcdir) \
-	    && $(GLIB_MKENUMS) --template libvirt-gconfig-enum-types.h.template $(GCONFIG_HEADER_FILES) ) >libvirt-gconfig-enum-types.h.tmp \
-	    && sed -e "s/G_TYPE_VIR/GVIR_TYPE/" -e "s/g_vir/gvir/" libvirt-gconfig-enum-types.h.tmp >libvirt-gconfig-enum-types.h
+	$(AM_V_GEN) ( $(GLIB_MKENUMS) --template $(srcdir)/libvirt-gconfig-enum-types.h.template $(GCONFIG_HEADER_FILES:%=$(srcdir)/%) ) | \
+	    sed -e "s/G_TYPE_VIR/GVIR_TYPE/" -e "s/g_vir/gvir/" > libvirt-gconfig-enum-types.h
 
 libvirt-gconfig-enum-types.c: $(GCONFIG_HEADER_FILES) libvirt-gconfig-enum-types.c.template
-	$(AM_V_GEN) ( cd $(srcdir) \
-	    && $(GLIB_MKENUMS) --template libvirt-gconfig-enum-types.c.template $(GCONFIG_HEADER_FILES) ) >libvirt-gconfig-enum-types.c.tmp \
-	    && sed -e "s/G_TYPE_VIR/GVIR_TYPE/" -e "s/g_vir/gvir/" libvirt-gconfig-enum-types.c.tmp >libvirt-gconfig-enum-types.c
+	$(AM_V_GEN) ( $(GLIB_MKENUMS) --template $(srcdir)/libvirt-gconfig-enum-types.c.template $(GCONFIG_HEADER_FILES:%=$(srcdir)/%) ) | \
+	    sed -e "s/G_TYPE_VIR/GVIR_TYPE/" -e "s/g_vir/gvir/" > libvirt-gconfig-enum-types.c
 
 if WITH_GOBJECT_INTROSPECTION
 
@@ -124,7 +124,10 @@ LibvirtGConfig-1.0.gir: libvirt-gconfig-1.0.la $(G_IR_SCANNER) Makefile.am
                 --pkg-export=libvirt-gconfig-1.0 \
 		$(srcdir)/libvirt-gconfig.h \
                 $(GCONFIG_SOURCE_FILES:%=$(srcdir)/%) \
-                $(GCONFIG_HEADER_FILES:%=$(srcdir)/%)
+                $(GCONFIG_HEADER_FILES:%=$(srcdir)/%) \
+		$(builddir)/libvirt-gconfig-enum-types.c \
+		$(builddir)/libvirt-gconfig-enum-types.h
+
 
 girdir = $(datadir)/gir-1.0
 gir_DATA = LibvirtGConfig-1.0.gir
@@ -138,6 +141,6 @@ typelibs_DATA = LibvirtGConfig-1.0.typelib
                 --includedir=$(girdir) \
                 -o $@ $<
 
-CLEANFILES = $(gir_DATA) $(typelibs_DATA)
+CLEANFILES += $(gir_DATA) $(typelibs_DATA)
 
 endif # WITH_GOBJECT_INTROSPECTION
