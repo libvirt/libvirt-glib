@@ -43,7 +43,7 @@ struct _GVirConfigObjectPrivate
     xmlNodePtr node;
 };
 
-G_DEFINE_ABSTRACT_TYPE(GVirConfigObject, gvir_config_object, G_TYPE_OBJECT);
+G_DEFINE_TYPE(GVirConfigObject, gvir_config_object, G_TYPE_OBJECT);
 
 enum {
     PROP_0,
