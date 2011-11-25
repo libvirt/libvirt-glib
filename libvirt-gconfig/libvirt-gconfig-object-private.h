@@ -42,6 +42,8 @@ xmlNodePtr gvir_config_object_replace_child(GVirConfigObject *object,
 void gvir_config_object_set_child(GVirConfigObject *object,
                                   xmlNodePtr child);
 
+void gvir_config_object_attach(GVirConfigObject *parent,
+                               GVirConfigObject *child);
 
 G_END_DECLS
 

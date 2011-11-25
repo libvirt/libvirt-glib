@@ -476,3 +476,20 @@ GVirConfigObject *gvir_config_object_new(GType type,
 
     return object;
 }
+
+G_GNUC_INTERNAL void
+gvir_config_object_attach(GVirConfigObject *parent, GVirConfigObject *child)
+{
+    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(parent));
+    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(child));
+
+    xmlUnlinkNode(child->priv->node);
+    xmlAddChild(parent->priv->node, child->priv->node);
+    if (child->priv->doc != NULL) {
+        g_object_unref(G_OBJECT(child->priv->doc));
+        child->priv->doc = NULL;
+    }
+    if (parent->priv->doc != NULL) {
+        child->priv->doc = g_object_ref(G_OBJECT(parent->priv->doc));
+    }
+}
