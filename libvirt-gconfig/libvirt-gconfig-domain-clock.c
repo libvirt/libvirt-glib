@@ -117,7 +117,7 @@ void gvir_config_domain_clock_set_variable_offset(GVirConfigDomainClock *klock,
 
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_CLOCK(klock));
 
-    node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(klock), "clock");
+    node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(klock));
     if (node == NULL)
         return;
 
