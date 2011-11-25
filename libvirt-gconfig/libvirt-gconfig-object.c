@@ -335,7 +335,7 @@ gvir_config_object_set_child(GVirConfigObject *object, xmlNodePtr child)
     gvir_config_object_set_child_internal(object, child, TRUE);
 }
 
-G_GNUC_INTERNAL xmlNodePtr
+G_GNUC_INTERNAL GVirConfigObject *
 gvir_config_object_add_child(GVirConfigObject *object,
                              const char *child_name)
 {
@@ -343,16 +343,23 @@ gvir_config_object_add_child(GVirConfigObject *object,
     xmlNodePtr old_node;
 
     g_return_val_if_fail(GVIR_IS_CONFIG_OBJECT(object), NULL);
+    g_return_val_if_fail(child_name != NULL, NULL);
 
     new_node = xmlNewDocNode(NULL, NULL, (xmlChar *)child_name, NULL);
     old_node = gvir_config_object_set_child_internal(object, new_node,
                                                      FALSE);
     if (old_node != NULL) {
         xmlFreeNode(new_node);
-        return old_node;
+        return GVIR_CONFIG_OBJECT(g_object_new(GVIR_TYPE_CONFIG_OBJECT,
+                                               "doc", object->priv->doc,
+                                               "node", old_node,
+                                               NULL));
     }
 
-    return new_node;
+    return GVIR_CONFIG_OBJECT(g_object_new(GVIR_TYPE_CONFIG_OBJECT,
+                                           "doc", object->priv->doc,
+                                           "node", new_node,
+                                           NULL));
 }
 
 G_GNUC_INTERNAL xmlNodePtr

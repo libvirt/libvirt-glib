@@ -138,44 +138,47 @@ void gvir_config_domain_disk_set_source(GVirConfigDomainDisk *disk,
 void gvir_config_domain_disk_set_driver_name(GVirConfigDomainDisk *disk,
                                              const char *driver_name)
 {
-    xmlNodePtr node;
+    GVirConfigObject *node;
 
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk));
     node = gvir_config_object_add_child(GVIR_CONFIG_OBJECT(disk), "driver");
-    g_return_if_fail(node != NULL);
-    xmlNewProp(node, (xmlChar*)"name", (xmlChar*)driver_name);
-
+    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
+    gvir_config_object_set_attribute(node, "name", driver_name, NULL);
+    g_object_unref(G_OBJECT(node));
 }
 
 void gvir_config_domain_disk_set_driver_type(GVirConfigDomainDisk *disk,
                                              const char *driver_type)
 {
-    xmlNodePtr node;
+    GVirConfigObject *node;
 
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk));
     node = gvir_config_object_add_child(GVIR_CONFIG_OBJECT(disk), "driver");
-    g_return_if_fail(node != NULL);
-    xmlNewProp(node, (xmlChar*)"type", (xmlChar*)driver_type);
+    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
+    gvir_config_object_set_attribute(node, "type", driver_type, NULL);
+    g_object_unref(G_OBJECT(node));
 }
 
 void gvir_config_domain_disk_set_target_bus(GVirConfigDomainDisk *disk,
                                             const char *bus)
 {
-    xmlNodePtr node;
+    GVirConfigObject *node;
 
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk));
     node = gvir_config_object_add_child(GVIR_CONFIG_OBJECT(disk), "target");
-    g_return_if_fail(node != NULL);
-    xmlNewProp(node, (xmlChar*)"bus", (xmlChar*)bus);
+    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
+    gvir_config_object_set_attribute(node, "bus", bus, NULL);
+    g_object_unref(G_OBJECT(node));
 }
 
 void gvir_config_domain_disk_set_target_dev(GVirConfigDomainDisk *disk,
                                             const char *dev)
 {
-    xmlNodePtr node;
+    GVirConfigObject *node;
 
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk));
     node = gvir_config_object_add_child(GVIR_CONFIG_OBJECT(disk), "target");
-    g_return_if_fail(node != NULL);
-    xmlNewProp(node, (xmlChar*)"dev", (xmlChar*)dev);
+    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
+    gvir_config_object_set_attribute(node, "dev", dev, NULL);
+    g_object_unref(G_OBJECT(node));
 }

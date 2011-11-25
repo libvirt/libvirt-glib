@@ -35,8 +35,8 @@ void gvir_config_object_set_node_content(GVirConfigObject *object,
 void gvir_config_object_set_node_content_uint64(GVirConfigObject *object,
                                                 const char *node_name,
                                                 guint64 value);
-xmlNodePtr gvir_config_object_add_child(GVirConfigObject *object,
-                                        const char *child_name);
+GVirConfigObject *gvir_config_object_add_child(GVirConfigObject *object,
+                                               const char *child_name);
 xmlNodePtr gvir_config_object_replace_child(GVirConfigObject *object,
                                             const char *child_name);
 void gvir_config_object_set_child(GVirConfigObject *object,
