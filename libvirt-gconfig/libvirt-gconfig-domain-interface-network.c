@@ -57,30 +57,25 @@ static void gvir_config_domain_interface_network_init(GVirConfigDomainInterfaceN
 
 GVirConfigDomainInterfaceNetwork *gvir_config_domain_interface_network_new(void)
 {
-    xmlDocPtr doc;
-    xmlNodePtr node;
+    GVirConfigObject *object;
 
-    doc = xmlNewDoc((xmlChar *)"1.0");
-    node= xmlNewDocNode(doc, NULL, (xmlChar *)"interface", NULL);
-    xmlNewProp(doc->children, (xmlChar*)"type", (xmlChar*)"network");
-    xmlDocSetRootElement(doc, node);
-    return GVIR_CONFIG_DOMAIN_INTERFACE_NETWORK(g_object_new(GVIR_TYPE_CONFIG_DOMAIN_INTERFACE_NETWORK,
-                                                "node", node,
-                                                NULL));
+    object = gvir_config_object_new(GVIR_TYPE_CONFIG_DOMAIN_INTERFACE_NETWORK,
+                                    "interface", NULL);
+    gvir_config_object_set_attribute(object, "type", "network", NULL);
+    return GVIR_CONFIG_DOMAIN_INTERFACE_NETWORK(object);
 }
 
 GVirConfigDomainInterfaceNetwork *gvir_config_domain_interface_network_new_from_xml(const gchar *xml,
                                                                              GError **error)
 {
-    xmlNodePtr node;
+    GVirConfigObject *object;
 
-    node = gvir_config_xml_parse(xml, "interface", error);
-    if ((error != NULL) && (*error != NULL))
+    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_DOMAIN_INTERFACE_NETWORK,
+                                             "interface", NULL, xml, error);
+    if (object == NULL)
         return NULL;
-    xmlNewProp(node, (xmlChar*)"type", (xmlChar*)"network");
-    return GVIR_CONFIG_DOMAIN_INTERFACE_NETWORK(g_object_new(GVIR_TYPE_CONFIG_DOMAIN_INTERFACE_NETWORK,
-                                                "node", node,
-                                                NULL));
+    gvir_config_object_set_attribute(object, "type", "network", NULL);
+    return GVIR_CONFIG_DOMAIN_INTERFACE_NETWORK(object);
 }
 
 void gvir_config_domain_interface_network_set_source(GVirConfigDomainInterfaceNetwork *interface,
