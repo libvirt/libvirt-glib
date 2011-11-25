@@ -57,30 +57,26 @@ static void gvir_config_domain_graphics_spice_init(GVirConfigDomainGraphicsSpice
 
 GVirConfigDomainGraphicsSpice *gvir_config_domain_graphics_spice_new(void)
 {
-    xmlDocPtr doc;
-    xmlNodePtr node;
+    GVirConfigObject *object;
 
-    doc = xmlNewDoc((xmlChar *)"1.0");
-    node= xmlNewDocNode(doc, NULL, (xmlChar *)"graphics", NULL);
-    xmlNewProp(doc->children, (xmlChar*)"type", (xmlChar*)"spice");
-    xmlDocSetRootElement(doc, node);
-    return GVIR_CONFIG_DOMAIN_GRAPHICS_SPICE(g_object_new(GVIR_TYPE_CONFIG_DOMAIN_GRAPHICS_SPICE,
-                                             "node", node,
-                                             NULL));
+    object = gvir_config_object_new(GVIR_TYPE_CONFIG_DOMAIN_GRAPHICS_SPICE,
+                                    "graphics", NULL);
+    gvir_config_object_set_attribute(object, "type", "spice", NULL);
+    return GVIR_CONFIG_DOMAIN_GRAPHICS_SPICE(object);
 }
 
-GVirConfigDomainGraphicsSpice *gvir_config_domain_graphics_spice_new_from_xml(const gchar *xml,
-                                                                 GError **error)
+GVirConfigDomainGraphicsSpice *
+gvir_config_domain_graphics_spice_new_from_xml(const gchar *xml,
+                                               GError **error)
 {
-    xmlNodePtr node;
+    GVirConfigObject *object;
 
-    node = gvir_config_xml_parse(xml, "graphics", error);
-    if ((error != NULL) && (*error != NULL))
+    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_DOMAIN_GRAPHICS_SPICE,
+                                             "graphics", NULL, xml, error);
+    if (object == NULL)
         return NULL;
-    xmlNewProp(node, (xmlChar*)"type", (xmlChar*)"spice");
-    return GVIR_CONFIG_DOMAIN_GRAPHICS_SPICE(g_object_new(GVIR_TYPE_CONFIG_DOMAIN_GRAPHICS_SPICE,
-                                                          "node", node,
-                                                          NULL));
+    gvir_config_object_set_attribute(object, "type", "spice", NULL);
+    return GVIR_CONFIG_DOMAIN_GRAPHICS_SPICE(object);
 }
 
 void gvir_config_domain_graphics_spice_set_port(GVirConfigDomainGraphicsSpice *graphics,
