@@ -478,6 +478,116 @@ GVirConfigObject *gvir_config_object_new(GType type,
 }
 
 G_GNUC_INTERNAL void
+gvir_config_object_set_attribute(GVirConfigObject *object, ...)
+{
+    xmlDocPtr doc;
+    va_list args;
+
+    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(object));
+
+    g_object_get(G_OBJECT(object->priv->doc), "doc", &doc, NULL);
+    va_start(args, object);
+    while (TRUE) {
+        const char *name;
+        const char *value;
+        xmlChar *encoded_value;
+
+        name = va_arg(args, const char *);
+        if (name == NULL) {
+            break;
+        }
+        value = va_arg(args, const char *);
+        if (value == NULL) {
+            g_warn_if_reached();
+            break;
+        }
+        encoded_value = xmlEncodeEntitiesReentrant(doc, (xmlChar*)value);
+        xmlNewProp(object->priv->node, (xmlChar *)name, encoded_value);
+        xmlFree(encoded_value);
+    }
+    va_end(args);
+}
+
+G_GNUC_INTERNAL void
+gvir_config_object_set_attribute_with_type(GVirConfigObject *object, ...)
+{
+    va_list args;
+
+    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(object));
+
+    va_start(args, object);
+    while (TRUE) {
+        const char *name;
+        GType attr_type;
+        char *str;
+
+
+        name = va_arg(args, const char *);
+        if (name == NULL) {
+            break;
+        }
+
+        attr_type = va_arg(args, GType);
+        if (G_TYPE_IS_ENUM(attr_type)) {
+            int val;
+            const char *enum_str;
+            val = va_arg(args, int);
+            enum_str = gvir_config_genum_get_nick(attr_type, val);
+            if (enum_str != NULL) {
+                str = g_strdup(enum_str);
+            } else {
+                str = NULL;
+            }
+        } else switch (attr_type) {
+            case G_TYPE_UINT64: {
+                guint64 val;
+                val = va_arg(args, guint64);
+                str = g_strdup_printf("%"G_GUINT64_FORMAT, val);
+                break;
+            }
+            case G_TYPE_UINT: {
+                guint val;
+                val = va_arg(args, guint);
+                str = g_strdup_printf("%u", val);
+                break;
+            }
+            case G_TYPE_INT: {
+                gint val;
+                val = va_arg(args, gint);
+                str = g_strdup_printf("%d", val);
+                break;
+            }
+            case G_TYPE_STRING: {
+                xmlDocPtr doc;
+                xmlChar *enc_str;
+
+                str = va_arg(args, char *);
+                g_object_get(G_OBJECT(object->priv->doc), "doc", &doc, NULL);
+                enc_str = xmlEncodeEntitiesReentrant(doc, (xmlChar*)str);
+                str = g_strdup((char *)enc_str);
+                xmlFree(enc_str);
+                break;
+            }
+            case G_TYPE_BOOLEAN: {
+                gboolean val;
+                val = va_arg(args, gboolean);
+                str = g_strdup_printf("%s", val?"yes":"no");
+                break;
+            }
+            default:
+                g_warning("Unhandled type: %s", g_type_name(attr_type));
+                g_assert_not_reached();
+        }
+
+        if (str != NULL) {
+            xmlNewProp(object->priv->node, (xmlChar *)name, (xmlChar *)str);
+            g_free(str);
+        }
+    }
+    va_end(args);
+}
+
+G_GNUC_INTERNAL void
 gvir_config_object_attach(GVirConfigObject *parent, GVirConfigObject *child)
 {
     g_return_if_fail(GVIR_IS_CONFIG_OBJECT(parent));
