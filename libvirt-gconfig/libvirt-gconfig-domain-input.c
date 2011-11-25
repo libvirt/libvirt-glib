@@ -77,29 +77,19 @@ GVirConfigDomainInput *gvir_config_domain_input_new_from_xml(const gchar *xml,
 void gvir_config_domain_input_set_device_type(GVirConfigDomainInput *input,
                                               GVirConfigDomainInputDeviceType type)
 {
-    xmlNodePtr node;
-    const char *type_str;
-
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_INPUT(input));
-    node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(input));
-    g_return_if_fail(node != NULL);
-    type_str = gvir_config_genum_get_nick(GVIR_TYPE_CONFIG_DOMAIN_INPUT_DEVICE_TYPE,
-                                          type);
-    g_return_if_fail(type_str != NULL);
-    xmlNewProp(node, (xmlChar*)"type", (xmlChar*)type_str);
+
+    gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(input), "type",
+                                               GVIR_TYPE_CONFIG_DOMAIN_INPUT_DEVICE_TYPE,
+                                               type, NULL);
 }
 
 void gvir_config_domain_input_set_bus(GVirConfigDomainInput *input,
                                       GVirConfigDomainInputBus bus)
 {
-    xmlNodePtr node;
-    const char *bus_str;
-
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_INPUT(input));
-    node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(input));
-    g_return_if_fail(node != NULL);
-    bus_str = gvir_config_genum_get_nick(GVIR_TYPE_CONFIG_DOMAIN_INPUT_BUS,
-                                         bus);
-    g_return_if_fail(bus_str != NULL);
-    xmlNewProp(node, (xmlChar*)"bus", (xmlChar*)bus_str);
+
+    gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(input), "bus",
+                                               GVIR_TYPE_CONFIG_DOMAIN_INPUT_BUS,
+                                               bus, NULL);
 }

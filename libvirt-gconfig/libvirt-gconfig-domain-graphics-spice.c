@@ -86,13 +86,9 @@ GVirConfigDomainGraphicsSpice *gvir_config_domain_graphics_spice_new_from_xml(co
 void gvir_config_domain_graphics_spice_set_port(GVirConfigDomainGraphicsSpice *graphics,
                                          unsigned int port)
 {
-    xmlNodePtr node;
-    char *port_str;
-
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_GRAPHICS_SPICE(graphics));
-    node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(graphics));
-    g_return_if_fail(node != NULL);
-    port_str = g_strdup_printf("%u", port);
-    xmlNewProp(node, (xmlChar*)"port", (xmlChar*)port_str);
-    g_free(port_str);
+
+    gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(graphics),
+                                               "port", G_TYPE_UINT, port,
+                                               NULL);
 }

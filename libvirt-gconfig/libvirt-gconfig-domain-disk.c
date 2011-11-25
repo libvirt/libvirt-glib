@@ -77,50 +77,32 @@ GVirConfigDomainDisk *gvir_config_domain_disk_new_from_xml(const gchar *xml,
 void gvir_config_domain_disk_set_type(GVirConfigDomainDisk *disk,
                                       GVirConfigDomainDiskType type)
 {
-    xmlNodePtr node;
-    const char *type_str;
-
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk));
 
-    node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(disk));
-    g_return_if_fail(node != NULL);
-    type_str = gvir_config_genum_get_nick(GVIR_TYPE_CONFIG_DOMAIN_DISK_TYPE,
-                                          type);
-    g_return_if_fail(type_str != NULL);
-    xmlNewProp(node, (xmlChar*)"type", (xmlChar*)type_str);
+    gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(disk), "type",
+                                               GVIR_TYPE_CONFIG_DOMAIN_DISK_TYPE,
+                                               type, NULL);
     disk->priv->type = type;
 }
 
 void gvir_config_domain_disk_set_guest_device_type(GVirConfigDomainDisk *disk,
                                                    GVirConfigDomainDiskGuestDeviceType type)
 {
-    xmlNodePtr node;
-    const char *type_str;
-
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk));
 
-    node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(disk));
-    g_return_if_fail(node != NULL);
-    type_str = gvir_config_genum_get_nick(GVIR_TYPE_CONFIG_DOMAIN_DISK_GUEST_DEVICE_TYPE,
-                                          type);
-    g_return_if_fail(type_str != NULL);
-    xmlNewProp(node, (xmlChar*)"device", (xmlChar*)type_str);
+    gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(disk), "device",
+                                               GVIR_TYPE_CONFIG_DOMAIN_DISK_GUEST_DEVICE_TYPE,
+                                               type, NULL);
 }
 
 void gvir_config_domain_disk_set_snapshot_type(GVirConfigDomainDisk *disk,
                                                GVirConfigDomainDiskSnapshotType type)
 {
-    xmlNodePtr node;
-    const char *type_str;
-
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk));
 
-    node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(disk));
-    g_return_if_fail(node != NULL);
-    type_str = gvir_config_genum_get_nick(GVIR_TYPE_CONFIG_DOMAIN_DISK_SNAPSHOT_TYPE,
-                                          type);
-    g_return_if_fail(type_str != NULL);
-    xmlNewProp(node, (xmlChar*)"snapshot", (xmlChar*)type_str);
+    gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(disk), "snapshot",
+                                               GVIR_TYPE_CONFIG_DOMAIN_DISK_SNAPSHOT_TYPE,
+                                               type, NULL);
 }
 
 void gvir_config_domain_disk_set_source(GVirConfigDomainDisk *disk,

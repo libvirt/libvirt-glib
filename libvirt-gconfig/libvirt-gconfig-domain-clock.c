@@ -77,52 +77,32 @@ GVirConfigDomainClock *gvir_config_domain_clock_new_from_xml(const gchar *xml,
 void gvir_config_domain_clock_set_offset(GVirConfigDomainClock *klock,
                                          GVirConfigDomainClockOffset offset)
 {
-    xmlNodePtr node;
-    const char *offset_str;
-
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_CLOCK(klock));
 
-    node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(klock));
-    g_return_if_fail(node != NULL);
-    offset_str = gvir_config_genum_get_nick(GVIR_TYPE_CONFIG_DOMAIN_CLOCK_OFFSET,
-                                             offset);
-    g_return_if_fail(offset_str != NULL);
-    xmlNewProp(node, (xmlChar*)"offset", (xmlChar*)offset_str);
+    gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(klock),
+                                               "offset",
+                                               GVIR_TYPE_CONFIG_DOMAIN_CLOCK_OFFSET,
+                                               offset,
+                                               NULL);
 }
 
 void gvir_config_domain_clock_set_timezone(GVirConfigDomainClock *klock,
                                            const char *tz)
 {
-    xmlNodePtr node;
-    xmlChar *encoded_tz;
-
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_CLOCK(klock));
     g_return_if_fail(tz != NULL);
 
-    node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(klock));
-    if (node == NULL)
-        return;
-
-    xmlNewProp(node, (xmlChar*)"offset", (xmlChar*)"timezone");
-    encoded_tz = xmlEncodeEntitiesReentrant(node->doc, (xmlChar*)tz);
-    xmlNewProp(node, (xmlChar*)"timezone", encoded_tz);
-    xmlFree(encoded_tz);
+    gvir_config_object_set_attribute(GVIR_CONFIG_OBJECT(klock),
+                                     "timezone", tz, NULL);
 }
 
 void gvir_config_domain_clock_set_variable_offset(GVirConfigDomainClock *klock,
                                                   gint seconds)
 {
-    xmlNodePtr node;
-    char *offset_str;
-
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_CLOCK(klock));
 
-    node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(klock));
-    if (node == NULL)
-        return;
-
-    xmlNewProp(node, (xmlChar*)"offset", (xmlChar*)"variable");
-    offset_str = g_strdup_printf("%d", seconds);
-    xmlNewProp(node, (xmlChar*)"adjustment", (xmlChar*)offset_str);
-    g_free(offset_str);
+    gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(klock),
+                                               "offset", G_TYPE_STRING,  "variable",
+                                               "adjustment", G_TYPE_INT, seconds,
+                                               NULL);
 }
