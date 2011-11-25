@@ -245,17 +245,19 @@ GStrv gvir_config_domain_get_features(GVirConfigDomain *domain)
 void gvir_config_domain_set_features(GVirConfigDomain *domain,
                                      const GStrv features)
 {
-    xmlNodePtr features_node;
+    GVirConfigObject *features_node;
     GStrv it;
 
     features_node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(domain),
                                                      "features");
+    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(features_node));
     for (it = features; *it != NULL; it++) {
-        xmlNodePtr node;
-
-        node = xmlNewDocNode(features_node->doc, NULL, (xmlChar *)*it, NULL);
-        xmlAddChild(features_node, node);
+        GVirConfigObject *feature;
+        feature = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(features_node),
+                                                   *it);
+        g_object_unref(G_OBJECT(feature));
     }
+    g_object_unref(G_OBJECT(features_node));
     g_object_notify(G_OBJECT(domain), "features");
 }
 

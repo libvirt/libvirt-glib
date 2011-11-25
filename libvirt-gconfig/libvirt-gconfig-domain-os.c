@@ -75,16 +75,15 @@ GVirConfigDomainOs *gvir_config_domain_os_new_from_xml(const gchar *xml, GError 
 void gvir_config_domain_os_set_os_type(GVirConfigDomainOs *os,
                                        GVirConfigDomainOsType type)
 {
-    xmlNodePtr node;
     const char *type_str;
 
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_OS(os));
 
-    node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(os), "type");
-    g_return_if_fail(node != NULL);
     type_str = gvir_config_genum_get_nick(GVIR_TYPE_CONFIG_DOMAIN_OS_TYPE, type);
     g_return_if_fail(type_str != NULL);
-    xmlNodeSetContent(node, (xmlChar*)type_str);
+
+    gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(os),
+                                        "type", type_str);
 }
 
 void gvir_config_domain_os_set_loader(GVirConfigDomainOs *os,
@@ -97,47 +96,46 @@ void gvir_config_domain_os_set_loader(GVirConfigDomainOs *os,
 void gvir_config_domain_os_enable_boot_menu(GVirConfigDomainOs *os,
                                             gboolean enable)
 {
-    xmlNodePtr node;
+    GVirConfigObject *node;
 
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_OS(os));
 
     node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(os), "bootmenu");
-    g_return_if_fail(node != NULL);
-    if (enable)
-        xmlNewProp(node, (xmlChar*)"enable", (xmlChar*)"yes");
-    else
-        xmlNewProp(node, (xmlChar*)"enable", (xmlChar*)"no");
+    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
+    gvir_config_object_set_attribute_with_type(node, "enable",
+                                               G_TYPE_BOOLEAN, enable,
+                                               NULL);
+    g_object_unref(G_OBJECT(node));
 }
 
 void gvir_config_domain_os_bios_enable_serial(GVirConfigDomainOs *os,
                                               gboolean enable)
 {
-    xmlNodePtr node;
+    GVirConfigObject *node;
 
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_OS(os));
 
     node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(os), "bios");
-    g_return_if_fail(node != NULL);
-    if (enable)
-        xmlNewProp(node, (xmlChar*)"useserial", (xmlChar*)"yes");
-    else
-        xmlNewProp(node, (xmlChar*)"useserial", (xmlChar*)"no");
+    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
+    gvir_config_object_set_attribute_with_type(node, "useserial",
+                                               G_TYPE_BOOLEAN, enable,
+                                               NULL);
+    g_object_unref(G_OBJECT(node));
 }
 
 void gvir_config_domain_os_set_smbios_mode(GVirConfigDomainOs *os,
-                                    GVirConfigDomainOsSmBiosMode mode)
+                                           GVirConfigDomainOsSmBiosMode mode)
 {
-    xmlNodePtr node;
-    const char *mode_str;
+    GVirConfigObject *node;
 
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_OS(os));
 
     node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(os), "smbios");
-    g_return_if_fail(node != NULL);
-    mode_str = gvir_config_genum_get_nick(GVIR_TYPE_CONFIG_DOMAIN_OS_SM_BIOS_MODE,
-                                          mode);
-    if (mode_str != NULL)
-        xmlNewProp(node, (xmlChar*)"mode", (xmlChar*)mode_str);
+    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
+    gvir_config_object_set_attribute_with_type(node, "mode",
+                                               GVIR_TYPE_CONFIG_DOMAIN_OS_SM_BIOS_MODE,
+                                               mode, NULL);
+    g_object_unref(G_OBJECT(node));
 }
 
 /**

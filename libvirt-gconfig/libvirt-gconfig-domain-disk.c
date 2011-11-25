@@ -108,13 +108,13 @@ void gvir_config_domain_disk_set_snapshot_type(GVirConfigDomainDisk *disk,
 void gvir_config_domain_disk_set_source(GVirConfigDomainDisk *disk,
                                         const char *source)
 {
-    xmlNodePtr source_node;
+    GVirConfigObject *source_node;
     const char *attribute_name;
 
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk));
     source_node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(disk),
                                                    "source");
-    g_return_if_fail(source_node != NULL);
+    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(source_node));
 
     switch (disk->priv->type) {
         case GVIR_CONFIG_DOMAIN_DISK_FILE:
@@ -132,7 +132,10 @@ void gvir_config_domain_disk_set_source(GVirConfigDomainDisk *disk,
         default:
             g_return_if_reached();
     }
-    xmlNewProp(source_node, (xmlChar*)attribute_name, (xmlChar*)source);
+    gvir_config_object_set_attribute(source_node,
+                                     attribute_name, source,
+                                     NULL);
+    g_object_unref(G_OBJECT(source_node));
 }
 
 void gvir_config_domain_disk_set_driver_name(GVirConfigDomainDisk *disk,

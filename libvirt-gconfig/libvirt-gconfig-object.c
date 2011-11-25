@@ -362,7 +362,7 @@ gvir_config_object_add_child(GVirConfigObject *object,
                                            NULL));
 }
 
-G_GNUC_INTERNAL xmlNodePtr
+G_GNUC_INTERNAL GVirConfigObject *
 gvir_config_object_replace_child(GVirConfigObject *object,
                                  const char *child_name)
 {
@@ -374,7 +374,10 @@ gvir_config_object_replace_child(GVirConfigObject *object,
     new_node = xmlNewDocNode(NULL, NULL, (xmlChar *)child_name, NULL);
     gvir_config_object_set_child_internal(object, new_node, TRUE);
 
-    return new_node;
+    return GVIR_CONFIG_OBJECT(g_object_new(GVIR_TYPE_CONFIG_OBJECT,
+                                           "doc", object->priv->doc,
+                                           "node", new_node,
+                                           NULL));
 }
 
 G_GNUC_INTERNAL void
@@ -382,8 +385,8 @@ gvir_config_object_set_node_content(GVirConfigObject *object,
                                     const char *node_name,
                                     const char *value)
 {
-    xmlNodePtr node;
     xmlChar *encoded_data;
+    GVirConfigObject *node;
 
     g_return_if_fail(GVIR_IS_CONFIG_OBJECT(object));
     g_return_if_fail(node_name != NULL);
@@ -391,10 +394,11 @@ gvir_config_object_set_node_content(GVirConfigObject *object,
 
     node = gvir_config_object_replace_child(object, node_name);
     g_return_if_fail(node != NULL);
-    encoded_data = xmlEncodeEntitiesReentrant(node->doc,
+    encoded_data = xmlEncodeEntitiesReentrant(node->priv->node->doc,
                                               (xmlChar *)value);
-    xmlNodeSetContent(node, encoded_data);
+    xmlNodeSetContent(node->priv->node, encoded_data);
     xmlFree(encoded_data);
+    g_object_unref(G_OBJECT(node));
 }
 
 G_GNUC_INTERNAL void

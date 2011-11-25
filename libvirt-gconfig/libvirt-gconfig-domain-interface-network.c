@@ -81,12 +81,13 @@ GVirConfigDomainInterfaceNetwork *gvir_config_domain_interface_network_new_from_
 void gvir_config_domain_interface_network_set_source(GVirConfigDomainInterfaceNetwork *interface,
                                                      const char *source)
 {
-    xmlNodePtr source_node;
+    GVirConfigObject *source_node;
 
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_INTERFACE_NETWORK(interface));
 
     source_node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(interface),
                                                    "source");
-    g_return_if_fail(source_node != NULL);
-    xmlNewProp(source_node, (xmlChar*)"network", (xmlChar*)source);
+    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(source_node));
+    gvir_config_object_set_attribute(source_node, "network", source, NULL);
+    g_object_unref(G_OBJECT(source_node));
 }

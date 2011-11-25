@@ -77,17 +77,17 @@ GVirConfigDomainVideo *gvir_config_domain_video_new_from_xml(const gchar *xml,
 void gvir_config_domain_video_set_model(GVirConfigDomainVideo *video,
                                         GVirConfigDomainVideoModel model)
 {
-    xmlNodePtr node;
-    const char *model_str;
+    GVirConfigObject *node;
 
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_VIDEO(video));
     node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(video),
                                             "model");
-    g_return_if_fail(node != NULL);
-    model_str = gvir_config_genum_get_nick(GVIR_TYPE_CONFIG_DOMAIN_VIDEO_MODEL,
-                                           model);
-    g_return_if_fail(model_str != NULL);
-    xmlNewProp(node, (xmlChar*)"type", (xmlChar*)model_str);
+    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
+    gvir_config_object_set_attribute_with_type(node, "type",
+                                               GVIR_TYPE_CONFIG_DOMAIN_VIDEO_MODEL,
+                                               model,
+                                               NULL);
+    g_object_unref(G_OBJECT(node));
 }
 
 void gvir_config_domain_video_set_vram(GVirConfigDomainVideo *video,
