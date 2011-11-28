@@ -29,10 +29,6 @@
 #include "libvirt-glib/libvirt-glib.h"
 #include "libvirt-gobject/libvirt-gobject.h"
 
-extern gboolean debugFlag;
-
-#define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
-
 #define GVIR_INTERFACE_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_INTERFACE, GVirInterfacePrivate))
 
@@ -104,7 +100,7 @@ static void gvir_interface_finalize(GObject *object)
     GVirInterface *conn = GVIR_INTERFACE(object);
     GVirInterfacePrivate *priv = conn->priv;
 
-    DEBUG("Finalize GVirInterface=%p", conn);
+    g_debug("Finalize GVirInterface=%p", conn);
 
     virInterfaceFree(priv->handle);
 
@@ -139,7 +135,7 @@ static void gvir_interface_class_init(GVirInterfaceClass *klass)
 
 static void gvir_interface_init(GVirInterface *conn)
 {
-    DEBUG("Init GVirInterface=%p", conn);
+    g_debug("Init GVirInterface=%p", conn);
 
     conn->priv = GVIR_INTERFACE_GET_PRIVATE(conn);
 }

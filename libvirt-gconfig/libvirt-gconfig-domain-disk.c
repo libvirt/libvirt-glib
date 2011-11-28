@@ -30,10 +30,6 @@
 #include "libvirt-gconfig/libvirt-gconfig-helpers-private.h"
 #include "libvirt-gconfig/libvirt-gconfig-object-private.h"
 
-extern gboolean debugFlag;
-
-#define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
-
 #define GVIR_CONFIG_DOMAIN_DISK_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_DISK, GVirConfigDomainDiskPrivate))
 
@@ -53,7 +49,7 @@ static void gvir_config_domain_disk_class_init(GVirConfigDomainDiskClass *klass)
 
 static void gvir_config_domain_disk_init(GVirConfigDomainDisk *disk)
 {
-    DEBUG("Init GVirConfigDomainDisk=%p", disk);
+    g_debug("Init GVirConfigDomainDisk=%p", disk);
 
     disk->priv = GVIR_CONFIG_DOMAIN_DISK_GET_PRIVATE(disk);
 }

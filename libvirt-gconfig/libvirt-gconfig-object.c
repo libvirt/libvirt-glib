@@ -31,12 +31,6 @@
 #include "libvirt-gconfig/libvirt-gconfig-helpers-private.h"
 #include "libvirt-gconfig/libvirt-gconfig-object-private.h"
 
-
-//extern gboolean debugFlag;
-gboolean debugFlag;
-
-#define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
-
 #define GVIR_CONFIG_OBJECT_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_OBJECT, GVirConfigObjectPrivate))
 
@@ -127,7 +121,7 @@ static void gvir_config_object_finalize(GObject *object)
     GVirConfigObject *conn = GVIR_CONFIG_OBJECT(object);
     GVirConfigObjectPrivate *priv = conn->priv;
 
-    DEBUG("Finalize GVirConfigObject=%p", conn);
+    g_debug("Finalize GVirConfigObject=%p", conn);
 
     g_free(priv->schema);
 
@@ -178,7 +172,7 @@ static void gvir_config_object_class_init(GVirConfigObjectClass *klass)
 
 static void gvir_config_object_init(GVirConfigObject *conn)
 {
-    DEBUG("Init GVirConfigObject=%p", conn);
+    g_debug("Init GVirConfigObject=%p", conn);
 
     conn->priv = GVIR_CONFIG_OBJECT_GET_PRIVATE(conn);
 }

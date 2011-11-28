@@ -27,10 +27,6 @@
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
 
-extern gboolean debugFlag;
-
-#define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
-
 #define GVIR_CONFIG_CAPABILITIES_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_CAPABILITIES, GVirConfigCapabilitiesPrivate))
 
@@ -50,7 +46,7 @@ static void gvir_config_capabilities_class_init(GVirConfigCapabilitiesClass *kla
 
 static void gvir_config_capabilities_init(GVirConfigCapabilities *conn)
 {
-    DEBUG("Init GVirConfigCapabilities=%p", conn);
+    g_debug("Init GVirConfigCapabilities=%p", conn);
 
     conn->priv = GVIR_CONFIG_CAPABILITIES_GET_PRIVATE(conn);
 }

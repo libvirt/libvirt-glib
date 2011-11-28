@@ -31,10 +31,6 @@
 
 #include "libvirt-glib/libvirt-glib.h"
 
-extern gboolean debugFlag;
-
-#define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
-
 struct gvir_event_handle
 {
     int watch;
@@ -83,7 +79,7 @@ gvir_event_handle_dispatch(GIOChannel *source G_GNUC_UNUSED,
     if (condition & G_IO_ERR)
         events |= VIR_EVENT_HANDLE_ERROR;
 
-    DEBUG("Dispatch handler %d %d %p\n", data->fd, events, data->opaque);
+    g_debug("Dispatch handler %d %d %p\n", data->fd, events, data->opaque);
 
     (data->cb)(data->watch, data->fd, events, data->opaque);
 
@@ -119,7 +115,7 @@ gvir_event_handle_add(int fd,
     data->channel = g_io_channel_unix_new(fd);
     data->ff = ff;
 
-    DEBUG("Add handle %d %d %p\n", data->fd, events, data->opaque);
+    g_debug("Add handle %d %d %p\n", data->fd, events, data->opaque);
 
     data->source = g_io_add_watch(data->channel,
                                   cond,
@@ -168,7 +164,7 @@ gvir_event_handle_update(int watch,
 
     data = gvir_event_handle_find(watch, NULL);
     if (!data) {
-        DEBUG("Update for missing handle watch %d", watch);
+        g_debug("Update for missing handle watch %d", watch);
         goto cleanup;
     }
 
@@ -227,11 +223,11 @@ gvir_event_handle_remove(int watch)
 
     data = gvir_event_handle_find(watch, &idx);
     if (!data) {
-        DEBUG("Remove of missing watch %d", watch);
+        g_debug("Remove of missing watch %d", watch);
         goto cleanup;
     }
 
-    DEBUG("Remove handle %d %d\n", watch, data->fd);
+    g_debug("Remove handle %d %d\n", watch, data->fd);
 
     if (!data->source)
         goto cleanup;
@@ -253,7 +249,7 @@ static gboolean
 gvir_event_timeout_dispatch(void *opaque)
 {
     struct gvir_event_timeout *data = opaque;
-    DEBUG("Dispatch timeout %p %p %d %p\n", data, data->cb, data->timer, data->opaque);
+    g_debug("Dispatch timeout %p %p %d %p\n", data, data->cb, data->timer, data->opaque);
     (data->cb)(data->timer, data->opaque);
 
     return TRUE;
@@ -283,7 +279,7 @@ gvir_event_timeout_add(int interval,
 
     g_ptr_array_add(timeouts, data);
 
-    DEBUG("Add timeout %p %d %p %p %d\n", data, interval, cb, opaque, data->timer);
+    g_debug("Add timeout %p %d %p %p %d\n", data, interval, cb, opaque, data->timer);
 
     ret = data->timer;
 
@@ -329,11 +325,11 @@ gvir_event_timeout_update(int timer,
 
     data = gvir_event_timeout_find(timer, NULL);
     if (!data) {
-        DEBUG("Update of missing timer %d", timer);
+        g_debug("Update of missing timer %d", timer);
         goto cleanup;
     }
 
-    DEBUG("Update timeout %p %d %d\n", data, timer, interval);
+    g_debug("Update timeout %p %d %d\n", data, timer, interval);
 
     if (interval >= 0) {
         if (data->source)
@@ -379,11 +375,11 @@ gvir_event_timeout_remove(int timer)
 
     data = gvir_event_timeout_find(timer, &idx);
     if (!data) {
-        DEBUG("Remove of missing timer %d", timer);
+        g_debug("Remove of missing timer %d", timer);
         goto cleanup;
     }
 
-    DEBUG("Remove timeout %p %d\n", data, timer);
+    g_debug("Remove timeout %p %d\n", data, timer);
 
     if (!data->source)
         goto cleanup;

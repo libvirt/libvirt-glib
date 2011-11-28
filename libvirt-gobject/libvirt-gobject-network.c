@@ -30,10 +30,6 @@
 #include "libvirt-gobject/libvirt-gobject.h"
 #include "libvirt-gobject-compat.h"
 
-extern gboolean debugFlag;
-
-#define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
-
 #define GVIR_NETWORK_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_NETWORK, GVirNetworkPrivate))
 
@@ -106,7 +102,7 @@ static void gvir_network_finalize(GObject *object)
     GVirNetwork *conn = GVIR_NETWORK(object);
     GVirNetworkPrivate *priv = conn->priv;
 
-    DEBUG("Finalize GVirNetwork=%p", conn);
+    g_debug("Finalize GVirNetwork=%p", conn);
 
     virNetworkFree(priv->handle);
 
@@ -154,7 +150,7 @@ static void gvir_network_class_init(GVirNetworkClass *klass)
 
 static void gvir_network_init(GVirNetwork *conn)
 {
-    DEBUG("Init GVirNetwork=%p", conn);
+    g_debug("Init GVirNetwork=%p", conn);
 
     conn->priv = GVIR_NETWORK_GET_PRIVATE(conn);
 }

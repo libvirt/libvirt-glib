@@ -30,10 +30,6 @@
 #include "libvirt-gobject/libvirt-gobject.h"
 #include "libvirt-gobject-compat.h"
 
-extern gboolean debugFlag;
-
-#define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
-
 #define GVIR_SECRET_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_SECRET, GVirSecretPrivate))
 
@@ -106,7 +102,7 @@ static void gvir_secret_finalize(GObject *object)
     GVirSecret *conn = GVIR_SECRET(object);
     GVirSecretPrivate *priv = conn->priv;
 
-    DEBUG("Finalize GVirSecret=%p", conn);
+    g_debug("Finalize GVirSecret=%p", conn);
 
     virSecretFree(priv->handle);
 
@@ -156,7 +152,7 @@ static void gvir_secret_class_init(GVirSecretClass *klass)
 
 static void gvir_secret_init(GVirSecret *conn)
 {
-    DEBUG("Init GVirSecret=%p", conn);
+    g_debug("Init GVirSecret=%p", conn);
 
     conn->priv = GVIR_SECRET_GET_PRIVATE(conn);
 }

@@ -34,10 +34,6 @@
 #include "libvirt-gobject/libvirt-gobject-input-stream.h"
 #include "libvirt-gobject/libvirt-gobject-output-stream.h"
 
-extern gboolean debugFlag;
-
-#define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
-
 #define GVIR_STREAM_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_STREAM, GVirStreamPrivate))
 
@@ -203,7 +199,7 @@ static void gvir_stream_finalize(GObject *object)
     GVirStreamPrivate *priv = self->priv;
     GList *tmp;
 
-    DEBUG("Finalize GVirStream=%p", self);
+    g_debug("Finalize GVirStream=%p", self);
 
     if (self->priv->input_stream)
         g_object_unref(self->priv->input_stream);

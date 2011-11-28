@@ -27,10 +27,6 @@
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
 
-extern gboolean debugFlag;
-
-#define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
-
 #define GVIR_CONFIG_NODE_DEVICE_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_NODE_DEVICE, GVirConfigNodeDevicePrivate))
 
@@ -50,7 +46,7 @@ static void gvir_config_node_device_class_init(GVirConfigNodeDeviceClass *klass)
 
 static void gvir_config_node_device_init(GVirConfigNodeDevice *conn)
 {
-    DEBUG("Init GVirConfigNodeDevice=%p", conn);
+    g_debug("Init GVirConfigNodeDevice=%p", conn);
 
     conn->priv = GVIR_CONFIG_NODE_DEVICE_GET_PRIVATE(conn);
 }

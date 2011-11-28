@@ -28,10 +28,6 @@
 #include "libvirt-glib/libvirt-glib.h"
 #include "libvirt-gobject/libvirt-gobject.h"
 
-gboolean debugFlag = FALSE;
-
-#define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
-
 /**
  * gvir_init_object:
  * @argc: (inout): pointer to application's argc
@@ -58,10 +54,6 @@ gboolean gvir_init_object_check(int *argc,
                                 char ***argv,
                                 GError **err)
 {
-    char *debugEnv = getenv("LIBVIRT_GOBJECT_DEBUG");
-    if (debugEnv && *debugEnv && *debugEnv != '0')
-        debugFlag = 1;
-
     g_type_init();
 
     gvir_event_register();

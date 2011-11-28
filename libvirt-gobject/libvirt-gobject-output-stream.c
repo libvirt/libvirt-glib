@@ -30,10 +30,6 @@
 #include "libvirt-gobject/libvirt-gobject.h"
 #include "libvirt-gobject-output-stream.h"
 
-extern gboolean debugFlag;
-
-#define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
-
 #define gvir_output_stream_get_type _gvir_output_stream_get_type
 G_DEFINE_TYPE(GVirOutputStream, gvir_output_stream, G_TYPE_OUTPUT_STREAM);
 
@@ -92,7 +88,7 @@ static void gvir_output_stream_finalize(GObject *object)
 {
     GVirOutputStream *stream = GVIR_OUTPUT_STREAM(object);
 
-    DEBUG("Finalize output stream GVirStream=%p", stream->priv->stream);
+    g_debug("Finalize output stream GVirStream=%p", stream->priv->stream);
     stream->priv->stream = NULL; // unowned
 
     if (G_OBJECT_CLASS(gvir_output_stream_parent_class)->finalize)

@@ -30,10 +30,6 @@
 #include "libvirt-gobject/libvirt-gobject.h"
 #include "libvirt-gobject-compat.h"
 
-extern gboolean debugFlag;
-
-#define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
-
 #define GVIR_DOMAIN_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_DOMAIN, GVirDomainPrivate))
 
@@ -116,7 +112,7 @@ static void gvir_domain_finalize(GObject *object)
     GVirDomain *conn = GVIR_DOMAIN(object);
     GVirDomainPrivate *priv = conn->priv;
 
-    DEBUG("Finalize GVirDomain=%p", conn);
+    g_debug("Finalize GVirDomain=%p", conn);
 
     virDomainFree(priv->handle);
 
@@ -215,7 +211,7 @@ static void gvir_domain_class_init(GVirDomainClass *klass)
 
 static void gvir_domain_init(GVirDomain *conn)
 {
-    DEBUG("Init GVirDomain=%p", conn);
+    g_debug("Init GVirDomain=%p", conn);
 
     conn->priv = GVIR_DOMAIN_GET_PRIVATE(conn);
 }

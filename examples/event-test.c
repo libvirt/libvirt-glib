@@ -6,8 +6,6 @@
 #include <libvirt/libvirt.h>
 #include <libvirt-glib/libvirt-glib.h>
 
-#define DEBUG0(fmt) printf("%s:%d :: " fmt "\n", __FUNCTION__, __LINE__)
-#define DEBUG(fmt, ...) printf("%s:%d: " fmt "\n", __FUNCTION__, __LINE__, __VA_ARGS__)
 #define STREQ(a,b) (strcmp((a),(b)) == 0)
 
 #ifndef ATTRIBUTE_UNUSED
@@ -171,7 +169,7 @@ int main(int argc, char **argv)
         return -1;
     }
 
-    DEBUG0("Registering domain event cbs");
+    g_debug("Registering domain event cbs");
 
     /* Add 2 callbacks to prove this works with more than just one */
     virConnectDomainEventRegister(dconn, myDomainEventCallback1, NULL, NULL);

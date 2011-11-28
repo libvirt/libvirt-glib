@@ -30,10 +30,6 @@
 #include "libvirt-gconfig/libvirt-gconfig-helpers-private.h"
 #include "libvirt-gconfig/libvirt-gconfig-object-private.h"
 
-extern gboolean debugFlag;
-
-#define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
-
 #define GVIR_CONFIG_DOMAIN_OS_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_OS, GVirConfigDomainOsPrivate))
 
@@ -53,7 +49,7 @@ static void gvir_config_domain_os_class_init(GVirConfigDomainOsClass *klass)
 
 static void gvir_config_domain_os_init(GVirConfigDomainOs *os)
 {
-    DEBUG("Init GVirConfigDomainOs=%p", os);
+    g_debug("Init GVirConfigDomainOs=%p", os);
 
     os->priv = GVIR_CONFIG_DOMAIN_OS_GET_PRIVATE(os);
 }

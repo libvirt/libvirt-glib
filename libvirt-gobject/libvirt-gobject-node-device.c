@@ -30,10 +30,6 @@
 #include "libvirt-gobject/libvirt-gobject.h"
 #include "libvirt-gobject-compat.h"
 
-extern gboolean debugFlag;
-
-#define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
-
 #define GVIR_NODE_DEVICE_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_NODE_DEVICE, GVirNodeDevicePrivate))
 
@@ -105,7 +101,7 @@ static void gvir_node_device_finalize(GObject *object)
     GVirNodeDevice *conn = GVIR_NODE_DEVICE(object);
     GVirNodeDevicePrivate *priv = conn->priv;
 
-    DEBUG("Finalize GVirNodeDevice=%p", conn);
+    g_debug("Finalize GVirNodeDevice=%p", conn);
 
     virNodeDeviceFree(priv->handle);
 
@@ -140,7 +136,7 @@ static void gvir_node_device_class_init(GVirNodeDeviceClass *klass)
 
 static void gvir_node_device_init(GVirNodeDevice *conn)
 {
-    DEBUG("Init GVirNodeDevice=%p", conn);
+    g_debug("Init GVirNodeDevice=%p", conn);
 
     conn->priv = GVIR_NODE_DEVICE_GET_PRIVATE(conn);
 }

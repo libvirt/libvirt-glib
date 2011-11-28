@@ -31,10 +31,6 @@
 
 #include "libvirt-gobject/libvirt-gobject-domain-device-private.h"
 
-extern gboolean debugFlag;
-
-#define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
-
 #define GVIR_DOMAIN_INTERFACE_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_DOMAIN_INTERFACE, GVirDomainInterfacePrivate))
 
@@ -103,7 +99,7 @@ static void gvir_domain_interface_finalize(GObject *object)
     GVirDomainInterface *self = GVIR_DOMAIN_INTERFACE(object);
     GVirDomainInterfacePrivate *priv = self->priv;
 
-    DEBUG("Finalize GVirDomainInterface=%p", self);
+    g_debug("Finalize GVirDomainInterface=%p", self);
 
     g_free(priv->path);
 
@@ -133,7 +129,7 @@ static void gvir_domain_interface_class_init(GVirDomainInterfaceClass *klass)
 
 static void gvir_domain_interface_init(GVirDomainInterface *self)
 {
-    DEBUG("Init GVirDomainInterface=%p", self);
+    g_debug("Init GVirDomainInterface=%p", self);
 
     self->priv = GVIR_DOMAIN_INTERFACE_GET_PRIVATE(self);
 }

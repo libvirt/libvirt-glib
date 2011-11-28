@@ -30,10 +30,6 @@
 #include "libvirt-gobject/libvirt-gobject.h"
 #include "libvirt-gobject-compat.h"
 
-extern gboolean debugFlag;
-
-#define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
-
 #define GVIR_CONNECTION_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONNECTION, GVirConnectionPrivate))
 
@@ -128,7 +124,7 @@ static void gvir_connection_finalize(GObject *object)
     GVirConnection *conn = GVIR_CONNECTION(object);
     GVirConnectionPrivate *priv = conn->priv;
 
-    DEBUG("Finalize GVirConnection=%p", conn);
+    g_debug("Finalize GVirConnection=%p", conn);
 
     if (gvir_connection_is_open(conn))
         gvir_connection_close(conn);
@@ -230,7 +226,7 @@ static void gvir_connection_init(GVirConnection *conn)
 {
     GVirConnectionPrivate *priv;
 
-    DEBUG("Init GVirConnection=%p", conn);
+    g_debug("Init GVirConnection=%p", conn);
 
     priv = conn->priv = GVIR_CONNECTION_GET_PRIVATE(conn);
 
@@ -271,7 +267,7 @@ static int domain_event_cb(virConnectPtr conn G_GNUC_UNUSED,
         return 0;
     }
 
-    DEBUG("%s: %s event:%d, detail:%d", G_STRFUNC, uuid, event, detail);
+    g_debug("%s: %s event:%d, detail:%d", G_STRFUNC, uuid, event, detail);
 
     g_mutex_lock(priv->lock);
     gdom = g_hash_table_lookup(priv->domains, uuid);
@@ -505,7 +501,7 @@ gboolean gvir_connection_is_open(GVirConnection *conn)
 void gvir_connection_close(GVirConnection *conn)
 {
     GVirConnectionPrivate *priv = conn->priv;
-    DEBUG("Close GVirConnection=%p", conn);
+    g_debug("Close GVirConnection=%p", conn);
 
     g_mutex_lock(priv->lock);
 

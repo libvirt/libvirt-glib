@@ -27,10 +27,6 @@
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
 
-extern gboolean debugFlag;
-
-#define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
-
 #define GVIR_CONFIG_NETWORK_FILTER_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_NETWORK_FILTER, GVirConfigNetworkFilterPrivate))
 
@@ -50,7 +46,7 @@ static void gvir_config_network_filter_class_init(GVirConfigNetworkFilterClass *
 
 static void gvir_config_network_filter_init(GVirConfigNetworkFilter *conn)
 {
-    DEBUG("Init GVirConfigNetworkFilter=%p", conn);
+    g_debug("Init GVirConfigNetworkFilter=%p", conn);
 
     conn->priv = GVIR_CONFIG_NETWORK_FILTER_GET_PRIVATE(conn);
 }

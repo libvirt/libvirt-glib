@@ -27,10 +27,6 @@
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
 
-extern gboolean debugFlag;
-
-#define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
-
 #define GVIR_CONFIG_DOMAIN_SNAPSHOT_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_SNAPSHOT, GVirConfigDomainSnapshotPrivate))
 
@@ -50,7 +46,7 @@ static void gvir_config_domain_snapshot_class_init(GVirConfigDomainSnapshotClass
 
 static void gvir_config_domain_snapshot_init(GVirConfigDomainSnapshot *conn)
 {
-    DEBUG("Init GVirConfigDomainSnapshot=%p", conn);
+    g_debug("Init GVirConfigDomainSnapshot=%p", conn);
 
     conn->priv = GVIR_CONFIG_DOMAIN_SNAPSHOT_GET_PRIVATE(conn);
 }

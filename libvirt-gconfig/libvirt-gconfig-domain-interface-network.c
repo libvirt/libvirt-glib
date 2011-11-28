@@ -30,10 +30,6 @@
 #include "libvirt-gconfig/libvirt-gconfig-helpers-private.h"
 #include "libvirt-gconfig/libvirt-gconfig-object-private.h"
 
-extern gboolean debugFlag;
-
-#define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
-
 #define GVIR_CONFIG_DOMAIN_INTERFACE_NETWORK_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_INTERFACE_NETWORK, GVirConfigDomainInterfaceNetworkPrivate))
 
@@ -53,7 +49,7 @@ static void gvir_config_domain_interface_network_class_init(GVirConfigDomainInte
 
 static void gvir_config_domain_interface_network_init(GVirConfigDomainInterfaceNetwork *conn)
 {
-    DEBUG("Init GVirConfigDomainInterfaceNetwork=%p", conn);
+    g_debug("Init GVirConfigDomainInterfaceNetwork=%p", conn);
 
     conn->priv = GVIR_CONFIG_DOMAIN_INTERFACE_NETWORK_GET_PRIVATE(conn);
 }

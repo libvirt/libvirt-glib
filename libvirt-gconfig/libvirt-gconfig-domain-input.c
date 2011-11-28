@@ -30,10 +30,6 @@
 #include "libvirt-gconfig/libvirt-gconfig-helpers-private.h"
 #include "libvirt-gconfig/libvirt-gconfig-object-private.h"
 
-extern gboolean debugFlag;
-
-#define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
-
 #define GVIR_CONFIG_DOMAIN_INPUT_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_INPUT, GVirConfigDomainInputPrivate))
 
@@ -53,7 +49,7 @@ static void gvir_config_domain_input_class_init(GVirConfigDomainInputClass *klas
 
 static void gvir_config_domain_input_init(GVirConfigDomainInput *device_input)
 {
-    DEBUG("Init GVirConfigDomainInput=%p", device_input);
+    g_debug("Init GVirConfigDomainInput=%p", device_input);
 
     device_input->priv = GVIR_CONFIG_DOMAIN_INPUT_GET_PRIVATE(device_input);
 }

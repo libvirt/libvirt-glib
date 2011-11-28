@@ -30,10 +30,6 @@
 #include "libvirt-gobject/libvirt-gobject.h"
 #include "libvirt-gobject-compat.h"
 
-extern gboolean debugFlag;
-
-#define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
-
 #define GVIR_DOMAIN_SNAPSHOT_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_DOMAIN_SNAPSHOT, GVirDomainSnapshotPrivate))
 
@@ -105,7 +101,7 @@ static void gvir_domain_snapshot_finalize(GObject *object)
     GVirDomainSnapshot *conn = GVIR_DOMAIN_SNAPSHOT(object);
     GVirDomainSnapshotPrivate *priv = conn->priv;
 
-    DEBUG("Finalize GVirDomainSnapshot=%p", conn);
+    g_debug("Finalize GVirDomainSnapshot=%p", conn);
 
     virDomainSnapshotFree(priv->handle);
 
@@ -140,7 +136,7 @@ static void gvir_domain_snapshot_class_init(GVirDomainSnapshotClass *klass)
 
 static void gvir_domain_snapshot_init(GVirDomainSnapshot *conn)
 {
-    DEBUG("Init GVirDomainSnapshot=%p", conn);
+    g_debug("Init GVirDomainSnapshot=%p", conn);
 
     conn->priv = GVIR_DOMAIN_SNAPSHOT_GET_PRIVATE(conn);
 }

@@ -30,10 +30,6 @@
 #include "libvirt-gobject/libvirt-gobject.h"
 #include "libvirt-gobject-compat.h"
 
-extern gboolean debugFlag;
-
-#define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
-
 #define GVIR_STORAGE_VOL_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_STORAGE_VOL, GVirStorageVolPrivate))
 
@@ -105,7 +101,7 @@ static void gvir_storage_vol_finalize(GObject *object)
     GVirStorageVol *conn = GVIR_STORAGE_VOL(object);
     GVirStorageVolPrivate *priv = conn->priv;
 
-    DEBUG("Finalize GVirStorageVol=%p", conn);
+    g_debug("Finalize GVirStorageVol=%p", conn);
 
     virStorageVolFree(priv->handle);
 
@@ -140,7 +136,7 @@ static void gvir_storage_vol_class_init(GVirStorageVolClass *klass)
 
 static void gvir_storage_vol_init(GVirStorageVol *conn)
 {
-    DEBUG("Init GVirStorageVol=%p", conn);
+    g_debug("Init GVirStorageVol=%p", conn);
 
     conn->priv = GVIR_STORAGE_VOL_GET_PRIVATE(conn);
 }

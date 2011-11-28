@@ -27,10 +27,6 @@
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
 
-extern gboolean debugFlag;
-
-#define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
-
 #define GVIR_CONFIG_STORAGE_POOL_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_STORAGE_POOL, GVirConfigStoragePoolPrivate))
 
@@ -50,7 +46,7 @@ static void gvir_config_storage_pool_class_init(GVirConfigStoragePoolClass *klas
 
 static void gvir_config_storage_pool_init(GVirConfigStoragePool *conn)
 {
-    DEBUG("Init GVirConfigStoragePool=%p", conn);
+    g_debug("Init GVirConfigStoragePool=%p", conn);
 
     conn->priv = GVIR_CONFIG_STORAGE_POOL_GET_PRIVATE(conn);
 }

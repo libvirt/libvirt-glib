@@ -30,10 +30,6 @@
 #include "libvirt-gobject/libvirt-gobject.h"
 #include "libvirt-gobject-compat.h"
 
-extern gboolean debugFlag;
-
-#define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
-
 #define GVIR_NETWORK_FILTER_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_NETWORK_FILTER, GVirNetworkFilterPrivate))
 
@@ -106,7 +102,7 @@ static void gvir_network_filter_finalize(GObject *object)
     GVirNetworkFilter *nf = GVIR_NETWORK_FILTER(object);
     GVirNetworkFilterPrivate *priv = nf->priv;
 
-    DEBUG("Finalize GVirNetworkFilter=%p", nf);
+    g_debug("Finalize GVirNetworkFilter=%p", nf);
 
     virNWFilterFree(priv->handle);
 
@@ -156,7 +152,7 @@ static void gvir_network_filter_class_init(GVirNetworkFilterClass *klass)
 
 static void gvir_network_filter_init(GVirNetworkFilter *conn)
 {
-    DEBUG("Init GVirNetworkFilter=%p", conn);
+    g_debug("Init GVirNetworkFilter=%p", conn);
 
     conn->priv = GVIR_NETWORK_FILTER_GET_PRIVATE(conn);
 }

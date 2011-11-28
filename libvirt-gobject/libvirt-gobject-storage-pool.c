@@ -30,10 +30,6 @@
 #include "libvirt-gobject/libvirt-gobject.h"
 #include "libvirt-gobject-compat.h"
 
-extern gboolean debugFlag;
-
-#define DEBUG(fmt, ...) do { if (G_UNLIKELY(debugFlag)) g_debug(fmt, ## __VA_ARGS__); } while (0)
-
 #define GVIR_STORAGE_POOL_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_STORAGE_POOL, GVirStoragePoolPrivate))
 
@@ -109,7 +105,7 @@ static void gvir_storage_pool_finalize(GObject *object)
     GVirStoragePool *pool = GVIR_STORAGE_POOL(object);
     GVirStoragePoolPrivate *priv = pool->priv;
 
-    DEBUG("Finalize GVirStoragePool=%p", pool);
+    g_debug("Finalize GVirStoragePool=%p", pool);
 
     if (priv->volumes) {
         g_hash_table_unref(priv->volumes);
@@ -168,7 +164,7 @@ static void gvir_storage_pool_init(GVirStoragePool *pool)
 {
     GVirStoragePoolPrivate *priv;
 
-    DEBUG("Init GVirStoragePool=%p", pool);
+    g_debug("Init GVirStoragePool=%p", pool);
 
     priv = pool->priv = GVIR_STORAGE_POOL_GET_PRIVATE(pool);
 
