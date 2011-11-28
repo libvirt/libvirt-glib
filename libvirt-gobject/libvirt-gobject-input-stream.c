@@ -54,9 +54,9 @@ struct _GVirInputStreamPrivate
     gsize count;
 };
 
-static void gvir_input_stream_get_property(GObject    *object,
-                                           guint       prop_id,
-                                           GValue     *value,
+static void gvir_input_stream_get_property(GObject *object,
+                                           guint prop_id,
+                                           GValue *value,
                                            GParamSpec *pspec)
 {
     GVirInputStream *stream = GVIR_INPUT_STREAM(object);
@@ -71,10 +71,10 @@ static void gvir_input_stream_get_property(GObject    *object,
     }
 }
 
-static void gvir_input_stream_set_property(GObject      *object,
-                                           guint         prop_id,
+static void gvir_input_stream_set_property(GObject *object,
+                                           guint prop_id,
                                            const GValue *value,
-                                           GParamSpec   *pspec)
+                                           GParamSpec *pspec)
 {
     GVirInputStream *stream = GVIR_INPUT_STREAM(object);
 
@@ -100,8 +100,9 @@ static void gvir_input_stream_finalize(GObject *object)
 }
 
 static void
-gvir_input_stream_read_ready (G_GNUC_UNUSED virStreamPtr st,
-                              int events, void *opaque)
+gvir_input_stream_read_ready(virStreamPtr st G_GNUC_UNUSED,
+                             int events,
+                             void *opaque)
 {
     GVirInputStream *stream = GVIR_INPUT_STREAM(opaque);
     GVirInputStreamPrivate *priv = stream->priv;
@@ -139,13 +140,13 @@ gvir_input_stream_read_ready (G_GNUC_UNUSED virStreamPtr st,
     return;
 }
 
-static void gvir_input_stream_read_async(GInputStream        *stream,
-                                         void                *buffer,
-                                         gsize                count,
-                                         G_GNUC_UNUSED int    io_priority,
-                                         GCancellable        *cancellable,
-                                         GAsyncReadyCallback  callback,
-                                         gpointer             user_data)
+static void gvir_input_stream_read_async(GInputStream *stream,
+                                         void *buffer,
+                                         gsize count,
+                                         int io_priority G_GNUC_UNUSED,
+                                         GCancellable *cancellable,
+                                         GAsyncReadyCallback callback,
+                                         gpointer user_data)
 {
     GVirInputStream *input_stream = GVIR_INPUT_STREAM(stream);
     virStreamPtr handle;
@@ -180,9 +181,9 @@ end:
 }
 
 
-static gssize gvir_input_stream_read_finish(GInputStream  *stream,
-                                            GAsyncResult  *result,
-                                            G_GNUC_UNUSED GError **error)
+static gssize gvir_input_stream_read_finish(GInputStream *stream,
+                                            GAsyncResult *result,
+                                            GError **error G_GNUC_UNUSED)
 {
     GVirInputStream *input_stream = GVIR_INPUT_STREAM(stream);
     GSimpleAsyncResult *simple;
@@ -233,7 +234,7 @@ static void gvir_input_stream_init(GVirInputStream *stream)
     stream->priv = G_TYPE_INSTANCE_GET_PRIVATE(stream, GVIR_TYPE_INPUT_STREAM, GVirInputStreamPrivate);
 }
 
-GVirInputStream* _gvir_input_stream_new(GVirStream *stream)
+GVirInputStream *_gvir_input_stream_new(GVirStream *stream)
 {
     return GVIR_INPUT_STREAM(g_object_new(GVIR_TYPE_INPUT_STREAM, "stream", stream, NULL));
 }

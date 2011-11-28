@@ -33,21 +33,16 @@
 
 G_BEGIN_DECLS
 
-#define GVIR_TYPE_INPUT_STREAM                          (_gvir_input_stream_get_type ())
-#define GVIR_INPUT_STREAM(inst)                         (G_TYPE_CHECK_INSTANCE_CAST ((inst), \
-                                                         GVIR_TYPE_INPUT_STREAM, GVirInputStream))
-#define GVIR_INPUT_STREAM_CLASS(class)                  (G_TYPE_CHECK_CLASS_CAST ((class), \
-                                                         GVIR_TYPE_INPUT_STREAM, GVirInputStreamClass))
-#define GVIR_IS_INPUT_STREAM(inst)                      (G_TYPE_CHECK_INSTANCE_TYPE ((inst), \
-                                                         GVIR_TYPE_INPUT_STREAM))
-#define GVIR_IS_INPUT_STREAM_CLASS(class)               (G_TYPE_CHECK_CLASS_TYPE ((class), \
-                                                         GVIR_TYPE_INPUT_STREAM))
-#define GVIR_INPUT_STREAM_GET_CLASS(inst)               (G_TYPE_INSTANCE_GET_CLASS ((inst), \
-                                                         GVIR_TYPE_INPUT_STREAM, GVirInputStreamClass))
+#define GVIR_TYPE_INPUT_STREAM            (_gvir_input_stream_get_type ())
+#define GVIR_INPUT_STREAM(inst)           (G_TYPE_CHECK_INSTANCE_CAST ((inst), GVIR_TYPE_INPUT_STREAM, GVirInputStream))
+#define GVIR_INPUT_STREAM_CLASS(class)    (G_TYPE_CHECK_CLASS_CAST ((class), GVIR_TYPE_INPUT_STREAM, GVirInputStreamClass))
+#define GVIR_IS_INPUT_STREAM(inst)        (G_TYPE_CHECK_INSTANCE_TYPE ((inst), GVIR_TYPE_INPUT_STREAM))
+#define GVIR_IS_INPUT_STREAM_CLASS(class) (G_TYPE_CHECK_CLASS_TYPE ((class), GVIR_TYPE_INPUT_STREAM))
+#define GVIR_INPUT_STREAM_GET_CLASS(inst) (G_TYPE_INSTANCE_GET_CLASS ((inst), GVIR_TYPE_INPUT_STREAM, GVirInputStreamClass))
 
-typedef struct _GVirInputStreamPrivate                   GVirInputStreamPrivate;
-typedef struct _GVirInputStreamClass                     GVirInputStreamClass;
-typedef struct _GVirInputStream                          GVirInputStream;
+typedef struct _GVirInputStreamPrivate GVirInputStreamPrivate;
+typedef struct _GVirInputStreamClass GVirInputStreamClass;
+typedef struct _GVirInputStream  GVirInputStream;
 
 struct _GVirInputStreamClass
 {
@@ -60,8 +55,8 @@ struct _GVirInputStream
     GVirInputStreamPrivate *priv;
 };
 
-GType                _gvir_input_stream_get_type                 (void) G_GNUC_CONST;
-GVirInputStream *    _gvir_input_stream_new                      (GVirStream *stream);
+GType _gvir_input_stream_get_type(void) G_GNUC_CONST;
+GVirInputStream *_gvir_input_stream_new(GVirStream *stream);
 
 G_END_DECLS
 

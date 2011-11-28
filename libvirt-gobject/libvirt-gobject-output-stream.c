@@ -54,9 +54,9 @@ struct _GVirOutputStreamPrivate
     gsize count;
 };
 
-static void gvir_output_stream_get_property(GObject    *object,
-                                            guint       prop_id,
-                                            GValue     *value,
+static void gvir_output_stream_get_property(GObject *object,
+                                            guint prop_id,
+                                            GValue *value,
                                             GParamSpec *pspec)
 {
     GVirOutputStream *stream = GVIR_OUTPUT_STREAM(object);
@@ -71,10 +71,10 @@ static void gvir_output_stream_get_property(GObject    *object,
     }
 }
 
-static void gvir_output_stream_set_property(GObject      *object,
-                                            guint         prop_id,
+static void gvir_output_stream_set_property(GObject *object,
+                                            guint prop_id,
                                             const GValue *value,
-                                            GParamSpec   *pspec)
+                                            GParamSpec *pspec)
 {
     GVirOutputStream *stream = GVIR_OUTPUT_STREAM(object);
 
@@ -181,8 +181,8 @@ end:
 }
 
 
-static gssize gvir_output_stream_write_finish(GOutputStream  *stream,
-                                              GAsyncResult  *result,
+static gssize gvir_output_stream_write_finish(GOutputStream *stream,
+                                              GAsyncResult *result,
                                               GError **error G_GNUC_UNUSED)
 {
     GVirOutputStream *output_stream = GVIR_OUTPUT_STREAM(stream);

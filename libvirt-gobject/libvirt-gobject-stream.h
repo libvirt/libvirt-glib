@@ -114,11 +114,25 @@ guint gvir_stream_add_watch_full(GVirStream *stream,
                                  gpointer opaque,
                                  GDestroyNotify notify);
 
-gssize gvir_stream_receive_all(GVirStream *stream, GVirStreamSinkFunc func, gpointer user_data, GError **error);
-gssize gvir_stream_receive(GVirStream *stream, gchar *buffer, gsize size, GCancellable *cancellable, GError **error);
+gssize gvir_stream_receive_all(GVirStream *stream,
+                               GVirStreamSinkFunc func,
+                               gpointer user_data,
+                               GError **error);
+gssize gvir_stream_receive(GVirStream *stream,
+                           gchar *buffer,
+                           gsize size,
+                           GCancellable *cancellable,
+                           GError **error);
 
-gssize gvir_stream_send_all(GVirStream *stream, GVirStreamSourceFunc func, gpointer user_data, GError **error);
-gssize gvir_stream_send(GVirStream *stream, const gchar *buffer, gsize size, GCancellable *cancellable, GError **error);
+gssize gvir_stream_send_all(GVirStream *stream,
+                            GVirStreamSourceFunc func,
+                            gpointer user_data,
+                            GError **error);
+gssize gvir_stream_send(GVirStream *stream,
+                        const gchar *buffer,
+                        gsize size,
+                        GCancellable *cancellable,
+                        GError **error);
 
 G_END_DECLS
 

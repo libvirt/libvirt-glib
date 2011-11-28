@@ -102,7 +102,8 @@ static GOutputStream* gvir_stream_get_output_stream(GIOStream *io_stream)
 
 
 static gboolean gvir_stream_close(GIOStream *io_stream,
-                                  GCancellable *cancellable, G_GNUC_UNUSED GError **error)
+                                  GCancellable *cancellable,
+                                  G_GNUC_UNUSED GError **error)
 {
     GVirStream *self = GVIR_STREAM(io_stream);
 
@@ -116,8 +117,10 @@ static gboolean gvir_stream_close(GIOStream *io_stream,
 }
 
 
-static void gvir_stream_close_async(GIOStream *stream, G_GNUC_UNUSED int io_priority,
-                                    GCancellable *cancellable, GAsyncReadyCallback callback,
+static void gvir_stream_close_async(GIOStream *stream,
+                                    int io_priority G_GNUC_UNUSED,
+                                    GCancellable *cancellable,
+                                    GAsyncReadyCallback callback,
                                     gpointer user_data)
 {
     GSimpleAsyncResult *res;
@@ -146,9 +149,9 @@ static void gvir_stream_close_async(GIOStream *stream, G_GNUC_UNUSED int io_prio
 
 
 static gboolean
-gvir_stream_close_finish(G_GNUC_UNUSED GIOStream *stream,
-                         G_GNUC_UNUSED GAsyncResult *result,
-                         G_GNUC_UNUSED GError **error)
+gvir_stream_close_finish(GIOStream *stream G_GNUC_UNUSED,
+                         GAsyncResult *result G_GNUC_UNUSED,
+                         GError **error G_GNUC_UNUSED)
 {
     return TRUE;
 }
@@ -301,8 +304,11 @@ G_DEFINE_BOXED_TYPE(GVirStreamHandle, gvir_stream_handle,
  * Returns: Number of bytes read, or 0 if the end of stream reached,
  * or -1 on error.
  */
-gssize gvir_stream_receive(GVirStream *self, gchar *buffer, gsize size,
-                           GCancellable *cancellable, GError **error)
+gssize gvir_stream_receive(GVirStream *self,
+                           gchar *buffer,
+                           gsize size,
+                           GCancellable *cancellable,
+                           GError **error)
 {
     int got;
 
@@ -332,7 +338,9 @@ struct stream_sink_helper {
 
 static int
 stream_sink(virStreamPtr st G_GNUC_UNUSED,
-            const char *bytes, size_t nbytes, void *opaque)
+            const char *bytes,
+            size_t nbytes,
+            void *opaque)
 {
   struct stream_sink_helper *helper = opaque;
 
@@ -351,7 +359,10 @@ stream_sink(virStreamPtr st G_GNUC_UNUSED,
  * to virStreamRecv, for apps that do blocking-I/o.
  */
 gssize
-gvir_stream_receive_all(GVirStream *self, GVirStreamSinkFunc func, gpointer user_data, GError **err)
+gvir_stream_receive_all(GVirStream *self,
+                        GVirStreamSinkFunc func,
+                        gpointer user_data,
+                        GError **err)
 {
     struct stream_sink_helper helper = {
         .self = self,
@@ -397,8 +408,11 @@ gvir_stream_receive_all(GVirStream *self, GVirStreamSinkFunc func, gpointer user
  * Returns: Number of bytes read, or 0 if the end of stream reached,
  * or -1 on error.
  */
-gssize gvir_stream_send(GVirStream *self, const gchar *buffer, gsize size,
-                        GCancellable *cancellable, GError **error)
+gssize gvir_stream_send(GVirStream *self,
+                        const gchar *buffer,
+                        gsize size,
+                        GCancellable *cancellable,
+                        GError **error)
 {
     int got;
 
@@ -428,7 +442,9 @@ struct stream_source_helper {
 
 static int
 stream_source(virStreamPtr st G_GNUC_UNUSED,
-              char *bytes, size_t nbytes, void *opaque)
+              char *bytes,
+              size_t nbytes,
+              void *opaque)
 {
   struct stream_source_helper *helper = opaque;
 
@@ -447,7 +463,10 @@ stream_source(virStreamPtr st G_GNUC_UNUSED,
  * to virStreamRecv, for apps that do blocking-I/o.
  */
 gssize
-gvir_stream_send_all(GVirStream *self, GVirStreamSourceFunc func, gpointer user_data, GError **err)
+gvir_stream_send_all(GVirStream *self,
+                     GVirStreamSourceFunc func,
+                     gpointer user_data,
+                     GError **err)
 {
     struct stream_source_helper helper = {
         .self = self,
