@@ -80,6 +80,14 @@ typedef enum {
 } GVirDomainState;
 
 
+typedef enum {
+    GVIR_DOMAIN_START_NONE         = 0,
+    GVIR_DOMAIN_START_PAUSED       = (1 << 0),
+    GVIR_DOMAIN_START_AUTODESTROY  = (1 << 1),
+    GVIR_DOMAIN_START_BYPASS_CACHE = (1 << 2),
+    GVIR_DOMAIN_START_FORCE_BOOT   = (1 << 3),
+} GVirDomainStartFlags;
+
 typedef struct _GVirDomainInfo GVirDomainInfo;
 struct _GVirDomainInfo
 {

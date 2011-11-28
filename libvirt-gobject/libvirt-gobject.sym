@@ -44,6 +44,7 @@ LIBVIRT_GOBJECT_0.0.1 {
 	gvir_domain_handle_get_type;
 	gvir_domain_info_get_type;
 	gvir_domain_state_get_type;
+	gvir_domain_start_flags_get_type;
 	gvir_domain_get_name;
 	gvir_domain_get_uuid;
 	gvir_domain_get_id;
