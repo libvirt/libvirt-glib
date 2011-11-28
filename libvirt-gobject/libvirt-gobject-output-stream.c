@@ -99,29 +99,39 @@ static void gvir_output_stream_finalize(GObject *object)
         (*G_OBJECT_CLASS(gvir_output_stream_parent_class)->finalize)(object);
 }
 
-static void
-gvir_output_stream_write_ready(virStreamPtr st G_GNUC_UNUSED,
-                               int events,
+static gboolean
+gvir_output_stream_write_ready(GVirStream *stream,
+                               GVirStreamIOCondition cond,
                                void *opaque)
 {
-    GVirOutputStream *stream = GVIR_OUTPUT_STREAM(opaque);
-    GVirOutputStreamPrivate *priv = stream->priv;
-    GSimpleAsyncResult *simple;
+    GVirOutputStream *output_stream = GVIR_OUTPUT_STREAM(opaque);
+    GVirOutputStreamPrivate *priv = output_stream->priv;
+    GSimpleAsyncResult *simple = priv->result;
     GError *error = NULL;
     gssize result;
 
-    g_return_if_fail(events & VIR_STREAM_EVENT_WRITABLE);
+    if (!(cond & GVIR_STREAM_IO_CONDITION_WRITABLE)) {
+        g_warn_if_reached();
+        g_simple_async_result_set_error(simple,
+                                        G_IO_ERROR,
+                                        G_IO_ERROR_INVALID_ARGUMENT,
+                                        "%s",
+                                        "Expected stream to be writable");
+        goto cleanup;
+    }
 
-    result  = gvir_stream_send(priv->stream, priv->buffer, priv->count,
+    result  = gvir_stream_send(stream, priv->buffer, priv->count,
                                priv->cancellable, &error);
 
     if (g_error_matches(error, G_IO_ERROR, G_IO_ERROR_WOULD_BLOCK)) {
         g_warn_if_reached();
-        return;
+        g_simple_async_result_set_error(simple,
+                                        G_IO_ERROR,
+                                        G_IO_ERROR_INVALID_ARGUMENT,
+                                        "%s",
+                                        "Expected stream to be writable");
+        goto cleanup;
     }
-
-    simple = stream->priv->result;
-    stream->priv->result = NULL;
 
     if (result >= 0)
         g_simple_async_result_set_op_res_gssize(simple, result);
@@ -130,14 +140,15 @@ gvir_output_stream_write_ready(virStreamPtr st G_GNUC_UNUSED,
         g_simple_async_result_take_error(simple, error);
 
     if (priv->cancellable) {
-        g_object_unref(stream->priv->cancellable);
+        g_object_unref(priv->cancellable);
         priv->cancellable = NULL;
     }
 
+cleanup:
+    priv->result = NULL;
     g_simple_async_result_complete(simple);
     g_object_unref(simple);
-
-    return;
+    return FALSE;
 }
 
 static void gvir_output_stream_write_async(GOutputStream *stream,
@@ -149,23 +160,15 @@ static void gvir_output_stream_write_async(GOutputStream *stream,
                                            gpointer user_data)
 {
     GVirOutputStream *output_stream = GVIR_OUTPUT_STREAM(stream);
-    virStreamPtr handle;
 
     g_return_if_fail(GVIR_IS_OUTPUT_STREAM(stream));
     g_return_if_fail(output_stream->priv->result == NULL);
 
-    g_object_get(output_stream->priv->stream, "handle", &handle, NULL);
-
-    if (virStreamEventAddCallback(handle, VIR_STREAM_EVENT_WRITABLE,
-                                  gvir_output_stream_write_ready, stream, NULL) < 0) {
-        g_simple_async_report_error_in_idle(G_OBJECT(stream),
-                                            callback,
-                                            user_data,
-                                            G_IO_ERROR, G_IO_ERROR_INVALID_ARGUMENT,
-                                            "Couldn't add event callback %s",
-                                            G_STRFUNC);
-        goto end;
-    }
+    gvir_stream_add_watch_full(output_stream->priv->stream,
+                               GVIR_STREAM_IO_CONDITION_WRITABLE,
+                               gvir_output_stream_write_ready,
+                               g_object_ref(stream),
+                               (GDestroyNotify)g_object_unref);
 
     output_stream->priv->result =
         g_simple_async_result_new(G_OBJECT(stream), callback, user_data,
@@ -175,9 +178,6 @@ static void gvir_output_stream_write_async(GOutputStream *stream,
     output_stream->priv->cancellable = cancellable;
     output_stream->priv->buffer = buffer;
     output_stream->priv->count = count;
-
-end:
-    virStreamFree(handle);
 }
 
 

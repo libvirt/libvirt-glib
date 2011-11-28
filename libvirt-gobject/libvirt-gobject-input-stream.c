@@ -99,29 +99,39 @@ static void gvir_input_stream_finalize(GObject *object)
         (*G_OBJECT_CLASS(gvir_input_stream_parent_class)->finalize)(object);
 }
 
-static void
-gvir_input_stream_read_ready(virStreamPtr st G_GNUC_UNUSED,
-                             int events,
+static gboolean
+gvir_input_stream_read_ready(GVirStream *stream,
+                             GVirStreamIOCondition cond,
                              void *opaque)
 {
-    GVirInputStream *stream = GVIR_INPUT_STREAM(opaque);
-    GVirInputStreamPrivate *priv = stream->priv;
-    GSimpleAsyncResult *simple;
+    GVirInputStream *input_stream = GVIR_INPUT_STREAM(opaque);
+    GVirInputStreamPrivate *priv = input_stream->priv;
+    GSimpleAsyncResult *simple = priv->result;
     GError *error = NULL;
     gssize result;
 
-    g_return_if_fail(events & VIR_STREAM_EVENT_READABLE);
+    if (!(cond & GVIR_STREAM_IO_CONDITION_READABLE)) {
+        g_warn_if_reached();
+        g_simple_async_result_set_error(simple,
+                                        G_IO_ERROR,
+                                        G_IO_ERROR_INVALID_ARGUMENT,
+                                        "%s",
+                                        "Expected stream to be readable");
+        goto cleanup;
+    }
 
-    result  = gvir_stream_receive(priv->stream, priv->buffer, priv->count,
+    result  = gvir_stream_receive(stream, priv->buffer, priv->count,
                                   priv->cancellable, &error);
 
     if (g_error_matches(error, G_IO_ERROR, G_IO_ERROR_WOULD_BLOCK)) {
         g_warn_if_reached();
-        return;
+        g_simple_async_result_set_error(simple,
+                                        G_IO_ERROR,
+                                        G_IO_ERROR_INVALID_ARGUMENT,
+                                        "%s",
+                                        "Expected stream to be readable");
+        goto cleanup;
     }
-
-    simple = stream->priv->result;
-    stream->priv->result = NULL;
 
     if (result >= 0)
         g_simple_async_result_set_op_res_gssize(simple, result);
@@ -130,14 +140,15 @@ gvir_input_stream_read_ready(virStreamPtr st G_GNUC_UNUSED,
         g_simple_async_result_take_error(simple, error);
 
     if (priv->cancellable) {
-        g_object_unref(stream->priv->cancellable);
+        g_object_unref(priv->cancellable);
         priv->cancellable = NULL;
     }
 
+cleanup:
+    priv->result = NULL;
     g_simple_async_result_complete(simple);
     g_object_unref(simple);
-
-    return;
+    return FALSE;
 }
 
 static void gvir_input_stream_read_async(GInputStream *stream,
@@ -149,23 +160,15 @@ static void gvir_input_stream_read_async(GInputStream *stream,
                                          gpointer user_data)
 {
     GVirInputStream *input_stream = GVIR_INPUT_STREAM(stream);
-    virStreamPtr handle;
 
     g_return_if_fail(GVIR_IS_INPUT_STREAM(stream));
     g_return_if_fail(input_stream->priv->result == NULL);
 
-    g_object_get(input_stream->priv->stream, "handle", &handle, NULL);
-
-    if (virStreamEventAddCallback(handle, VIR_STREAM_EVENT_READABLE,
-                                  gvir_input_stream_read_ready, stream, NULL) < 0) {
-        g_simple_async_report_error_in_idle(G_OBJECT(stream),
-                                            callback,
-                                            user_data,
-                                            G_IO_ERROR, G_IO_ERROR_INVALID_ARGUMENT,
-                                            "Couldn't add event callback %s",
-                                            G_STRFUNC);
-        goto end;
-    }
+    gvir_stream_add_watch_full(input_stream->priv->stream,
+                               GVIR_STREAM_IO_CONDITION_READABLE,
+                               gvir_input_stream_read_ready,
+                               g_object_ref(stream),
+                               (GDestroyNotify)g_object_unref);
 
     input_stream->priv->result =
         g_simple_async_result_new(G_OBJECT(stream), callback, user_data,
@@ -175,9 +178,6 @@ static void gvir_input_stream_read_async(GInputStream *stream,
     input_stream->priv->cancellable = cancellable;
     input_stream->priv->buffer = buffer;
     input_stream->priv->count = count;
-
-end:
-    virStreamFree(handle);
 }
 
 
