@@ -7,3 +7,221 @@ that need to be set:
 
    export GI_TYPELIB_PATH=`pwd`/libvirt-glib:`pwd`/libvirt-gconfig:`pwd`/libvirt-gobject
    export LD_LIBRARY_PATH=`pwd`/libvirt-glib/.libs:`pwd`/libvirt-gconfig/.libs:`pwd`/libvirt-gobject/.libs
+
+
+Coding style rules
+
+ - Opening & closing braces for functions should be at start of line
+
+     int foo(int bar)
+     {
+       ...
+     }
+
+   Not
+
+     int foo(int bar) {
+       ...
+     }
+
+
+
+ - Opening brace for if/while/for loops should be at the end of line
+
+     if (foo) {
+        bar;
+        wizz;
+     }
+
+   Not
+
+     if (foo)
+     {
+        bar;
+        wizz;
+     }
+
+   Rationale: putting every if/while/for opening brace on a new line
+   expands function length too much
+
+
+
+ - If a brace needs to be used for one clause in an if/else statement,
+   it should be used for both clauses, even if the other clauses are
+   only single statements. eg
+
+      if (foo) {
+         bar;
+         wizz;
+      } else {
+         eek;
+      }
+
+   Not
+
+      if (foo) {
+         bar;
+         wizz;
+      } else
+         eek;
+
+
+
+ - Function parameter attribute annotations should follow the parameter
+   name, eg
+
+      int foo(int bar G_GNUC_UNUSED)
+      {
+      }
+
+   Not
+
+      int foo(G_GNUC_UNUSED int bar)
+      {
+      }
+
+   Rationale: Adding / removing G_GNUC_UNUSED  should not cause the
+   rest of the line to move around since that obscures diffs.
+
+
+
+ - There should be no space between function names & open brackets eg
+
+      int foo(int bar)
+      {
+      }
+
+   Not
+
+      int foo (int bar)
+      {
+      }
+
+
+
+ - To keep lines under 80 characters (where practical), multiple parameters
+   should be on new lines. Do not attempt to line up parameters vertically
+   eg
+
+      int foo(int bar,
+              unsigned long wizz)
+      {
+      }
+
+   Not
+
+      int foo(int bar, unsigned long wizz)
+      {
+      }
+
+   Not
+
+      int foo(int           bar,
+              unsigned long wizz)
+      {
+      }
+
+    Rationale: attempting vertical alignment causes bigger diffs when
+    modifying code if type names change causing whitespace re-alignment.
+
+
+
+ - Function declarations in headers should not attempt to line up parameters
+   vertically
+
+    eg
+
+        int foo(int bar)
+        unsigned long eek(sometype wizz)
+
+    Not
+
+
+        int           foo(int      bar)
+        unsigned long eek(sometype wizz)
+
+   Rationale: when making changes to headers, existing vertical alignment
+   is often invalidated, requiring reindentation. This causes bigger
+   diffs which obscures code review.
+
+   Exception: the 6 common decls for defining a new GObject
+
+    #define GVIR_TYPE_INPUT_STREAM            (_gvir_input_stream_get_type ())
+    #define GVIR_INPUT_STREAM(inst)           (G_TYPE_CHECK_INSTANCE_CAST ((inst), GVIR_TYPE_INPUT_STREAM, GVirInputStream))
+    #define GVIR_INPUT_STREAM_CLASS(class)    (G_TYPE_CHECK_CLASS_CAST ((class), GVIR_TYPE_INPUT_STREAM, GVirInputStreamClass))
+    #define GVIR_IS_INPUT_STREAM(inst)        (G_TYPE_CHECK_INSTANCE_TYPE ((inst), GVIR_TYPE_INPUT_STREAM))
+    #define GVIR_IS_INPUT_STREAM_CLASS(class) (G_TYPE_CHECK_CLASS_TYPE ((class), GVIR_TYPE_INPUT_STREAM))
+    #define GVIR_INPUT_STREAM_GET_CLASS(inst) (G_TYPE_INSTANCE_GET_CLASS ((inst), GVIR_TYPE_INPUT_STREAM, GVirInputStreamClass))
+
+   Rationale: These decls never change once added so vertical
+   alignment of these 6 lines only, will not cause diff whitespace
+   problems later.
+
+
+ - Usage of goto should follow one of the following patterns, and
+   label naming conventions. In particular any exit path jumps should
+   obay the 'cleanup' vs 'error' label naming
+
+   * Interrupted system calls:
+
+      retry:
+        err = func()
+        if (err < 0 && errno == EINTR)
+            goto retry;
+
+     Alternate label name:  retry_func:
+
+
+   * Shared cleanup paths:
+
+       int foo(int bar)
+       {
+          int ret = -1;
+
+
+          if (something goes wrong)
+             goto cleanup;
+
+          ret = 0;
+        cleanup:
+          ...shared cleanup code...
+          return ret;
+       }
+
+
+   * Separate error exit paths:
+
+       int foo(int bar)
+       {
+          if (something goes wrong)
+             goto error;
+
+          return 0;
+
+        error:
+          ...error cleanup code...
+          return -1;
+       }
+
+
+   * Separate and shared error exit paths:
+
+       int foo(int bar)
+       {
+          int ret = -1;
+
+          if (something very bad goes wrong)
+             goto error;
+
+          if (something goes wrong)
+             goto cleanup;
+
+          ret = 0;
+        cleanup:
+          ...shared cleanup code...
+          return 0;
+
+        error:
+          ...error cleanup code...
+          return -1;
+       }
