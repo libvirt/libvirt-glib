@@ -124,7 +124,10 @@ LIBVIRT_GOBJECT_0.0.1 {
 	gvir_manager_find_connection_by_uri;
 
 	gvir_stream_get_type;
+	gvir_stream_receive;
 	gvir_stream_receive_all;
+	gvir_stream_send;
+	gvir_stream_send_all;
 	gvir_stream_handle_get_type;
 	gvir_stream_add_watch;
 	gvir_stream_add_watch_full;
