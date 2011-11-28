@@ -434,29 +434,45 @@ GVirConfigObject *gvir_config_object_new_from_xml(GType type,
                                                   const gchar *xml,
                                                   GError **error)
 {
+    GVirConfigObject *object;
+    GVirConfigXmlDoc *doc;
     xmlNodePtr node;
 
     node = gvir_config_xml_parse(xml, root_name, error);
     if ((error != NULL) && (*error != NULL))
         return NULL;
-    return GVIR_CONFIG_OBJECT(g_object_new(type,
-                                           "node", node,
-                                           "schema", schema,
-                                           NULL));
+    doc = gvir_config_xml_doc_new(node->doc);
+    object = GVIR_CONFIG_OBJECT(g_object_new(type,
+                                             "doc", doc,
+                                             "node", node,
+                                             "schema", schema,
+                                             NULL));
+    g_object_unref(G_OBJECT(doc));
+
+    return object;
 }
 
 GVirConfigObject *gvir_config_object_new(GType type,
                                          const char *root_name,
                                          const char *schema)
 {
-    xmlDocPtr doc;
+    GVirConfigObject *object;
+    GVirConfigXmlDoc *doc;
+    xmlDocPtr xml_doc;
     xmlNodePtr node;
 
-    doc = xmlNewDoc((xmlChar *)"1.0");
-    node = xmlNewDocNode(doc, NULL, (xmlChar *)root_name, NULL);
-    xmlDocSetRootElement(doc, node);
-    return GVIR_CONFIG_OBJECT(g_object_new(type,
-                                           "node", node,
-                                           "schema", schema,
-                                           NULL));
+    doc = gvir_config_xml_doc_new(NULL);
+    g_object_get(G_OBJECT(doc), "doc", &xml_doc, NULL);
+    g_assert(xml_doc != NULL);
+    node = xmlNewDocNode(xml_doc, NULL, (xmlChar *)root_name, NULL);
+    xmlDocSetRootElement(xml_doc, node);
+    object = GVIR_CONFIG_OBJECT(g_object_new(type,
+                                             "doc", doc,
+                                             "node", node,
+                                             "schema", schema,
+                                             NULL));
+
+    g_object_unref(G_OBJECT(doc));
+
+    return object;
 }
