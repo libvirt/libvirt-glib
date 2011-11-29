@@ -119,15 +119,15 @@ CLEANFILES = $(BUILT_SOURCES)
 if WITH_GOBJECT_INTROSPECTION
 
 LibvirtGObject-1.0.gir: libvirt-gobject-1.0.la $(G_IR_SCANNER) Makefile.am
-	$(AM_V_GEN)PKG_CONFIG_PATH=$(top_builddir) $(G_IR_SCANNER) \
+	$(AM_V_GEN)$(G_IR_SCANNER) \
                 --quiet \
                 --warn-all \
                 --namespace LibvirtGObject \
                 --nsversion 1.0 \
                 --include GObject-2.0 \
                 --include Gio-2.0 \
-                --include LibvirtGLib-1.0 \
-                --include LibvirtGConfig-1.0 \
+                --include-uninstalled $(top_builddir)/libvirt-glib/LibvirtGLib-1.0.gir \
+                --include-uninstalled $(top_builddir)/libvirt-gconfig/LibvirtGConfig-1.0.gir \
                 --identifier-prefix=GVir \
                 --symbol-prefix=gvir \
                 --library=$(builddir)/libvirt-gobject-1.0.la \
