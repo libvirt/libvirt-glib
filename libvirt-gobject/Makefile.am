@@ -65,15 +65,17 @@ libvirt_gobject_1_0_la_CFLAGS = \
 			-DLIBVIRT_GOBJECT_BUILD \
 			$(COVERAGE_CFLAGS) \
 			-I$(top_srcdir) \
-			$(LIBVIRT_CFLAGS) \
-			$(GOBJECT2_CFLAGS) \
 			$(GIO2_CFLAGS) \
+			$(GOBJECT2_CFLAGS) \
+			$(GTHREAD2_CFLAGS) \
+			$(LIBVIRT_CFLAGS) \
 			$(LIBXML2_CFLAGS) \
 			$(WARN_CFLAGS)
 libvirt_gobject_1_0_la_LIBADD = \
-			$(LIBVIRT_LIBS) \
-			$(GOBJECT2_LIBS) \
 			$(GIO2_LIBS) \
+			$(GOBJECT2_LIBS) \
+			$(GTHREAD2_LIBS) \
+			$(LIBVIRT_LIBS) \
 			../libvirt-glib/libvirt-glib-1.0.la \
 			../libvirt-gconfig/libvirt-gconfig-1.0.la \
 			$(CYGWIN_EXTRA_LIBADD)
