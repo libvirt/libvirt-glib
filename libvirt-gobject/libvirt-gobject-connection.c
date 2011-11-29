@@ -260,7 +260,6 @@ static int domain_event_cb(virConnectPtr conn G_GNUC_UNUSED,
     GVirConnection *gconn = opaque;
     GVirDomain *gdom;
     GVirConnectionPrivate *priv = gconn->priv;
-    gboolean was_unknown = FALSE;
 
     if (virDomainGetUUIDString(dom, uuid) < 0) {
         g_warning("Failed to get domain UUID on %p", dom);
@@ -279,8 +278,6 @@ static int domain_event_cb(virConnectPtr conn G_GNUC_UNUSED,
         g_mutex_lock(priv->lock);
         g_hash_table_insert(priv->domains, (gpointer)gvir_domain_get_uuid(gdom), gdom);
         g_mutex_unlock(priv->lock);
-
-        was_unknown = TRUE;
     }
 
     switch (event) {
@@ -307,8 +304,7 @@ static int domain_event_cb(virConnectPtr conn G_GNUC_UNUSED,
 
         case VIR_DOMAIN_EVENT_STARTED:
             if (detail == VIR_DOMAIN_EVENT_STARTED_BOOTED) {
-                if (was_unknown)
-                    /* Most probably a transient domain */
+                if (!virDomainIsPersistent(dom))
                     g_signal_emit(gconn, signals[VIR_DOMAIN_ADDED], 0, gdom);
                 g_signal_emit_by_name(gdom, "started::booted");
             } else if (detail == VIR_DOMAIN_EVENT_STARTED_MIGRATED)
