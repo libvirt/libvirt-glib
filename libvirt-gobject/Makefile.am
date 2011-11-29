@@ -130,6 +130,8 @@ LibvirtGObject-1.0.gir: libvirt-gobject-1.0.la $(G_IR_SCANNER) Makefile.am
                 --include-uninstalled $(top_builddir)/libvirt-gconfig/LibvirtGConfig-1.0.gir \
                 --identifier-prefix=GVir \
                 --symbol-prefix=gvir \
+                --library=$(top_builddir)/libvirt-glib/libvirt-glib-1.0.la \
+                --library=$(top_builddir)/libvirt-gconfig/libvirt-gconfig-1.0.la \
                 --library=$(builddir)/libvirt-gobject-1.0.la \
                 --output $@ \
                 -I$(top_builddir) \
