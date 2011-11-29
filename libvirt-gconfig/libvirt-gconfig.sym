@@ -76,7 +76,11 @@ LIBVIRT_GCONFIG_0.0.1 {
 	gvir_config_domain_os_new_from_xml;
 	gvir_config_domain_os_set_os_type;
 	gvir_config_domain_os_set_boot_devices;
+	gvir_config_domain_os_set_cmdline;
+	gvir_config_domain_os_set_init;
+	gvir_config_domain_os_set_kernel;
 	gvir_config_domain_os_set_loader;
+	gvir_config_domain_os_set_ramdisk;
 	gvir_config_domain_os_set_smbios_mode;
 	gvir_config_domain_os_enable_boot_menu;
 	gvir_config_domain_os_bios_enable_serial;

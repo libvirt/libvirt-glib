@@ -82,6 +82,10 @@ GVirConfigDomainOs *gvir_config_domain_os_new_from_xml(const gchar *xml, GError 
 void gvir_config_domain_os_set_os_type(GVirConfigDomainOs *os, GVirConfigDomainOsType type);
 void gvir_config_domain_os_set_arch(GVirConfigDomainOs *os, const char *arch);
 void gvir_config_domain_os_set_boot_devices(GVirConfigDomainOs *os, GList *boot_devices);
+void gvir_config_domain_os_set_kernel(GVirConfigDomainOs *os, const char *kernel);
+void gvir_config_domain_os_set_ramdisk(GVirConfigDomainOs *os, const char *ramdisk);
+void gvir_config_domain_os_set_cmdline(GVirConfigDomainOs *os, const char *cmdline);
+void gvir_config_domain_os_set_init(GVirConfigDomainOs *os, const char *init);
 void gvir_config_domain_os_set_loader(GVirConfigDomainOs *os, const char * loader);
 void gvir_config_domain_os_set_machine(GVirConfigDomainOs *os, const char *machine);
 void gvir_config_domain_os_set_smbios_mode(GVirConfigDomainOs *os,

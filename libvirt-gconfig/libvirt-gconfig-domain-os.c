@@ -86,6 +86,34 @@ void gvir_config_domain_os_set_os_type(GVirConfigDomainOs *os,
                                         "type", type_str);
 }
 
+void gvir_config_domain_os_set_kernel(GVirConfigDomainOs *os,
+                                      const char * kernel)
+{
+    gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(os),
+                                        "kernel", kernel);
+}
+
+void gvir_config_domain_os_set_ramdisk(GVirConfigDomainOs *os,
+                                       const char * ramdisk)
+{
+    gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(os),
+                                        "initrd", ramdisk);
+}
+
+void gvir_config_domain_os_set_cmdline(GVirConfigDomainOs *os,
+                                       const char * cmdline)
+{
+    gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(os),
+                                        "cmdline", cmdline);
+}
+
+void gvir_config_domain_os_set_init(GVirConfigDomainOs *os,
+                                    const char * init)
+{
+    gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(os),
+                                        "init", init);
+}
+
 void gvir_config_domain_os_set_loader(GVirConfigDomainOs *os,
                                       const char * loader)
 {
