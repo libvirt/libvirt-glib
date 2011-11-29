@@ -134,10 +134,10 @@ LibvirtGObject-1.0.gir: libvirt-gobject-1.0.la $(G_IR_SCANNER) Makefile.am
                 --output $@ \
                 -I$(top_builddir) \
                 -I$(top_srcdir) \
-                $(LIBXML2_CFLAGS) \
                 --verbose \
-                --pkg=gthread-2.0 \
                 --c-include="libvirt-gobject/libvirt-gobject.h" \
+                --pkg=gthread-2.0 \
+                --pkg=libxml-2.0 \
                 --pkg-export=libvirt-gobject-1.0 \
                 $(srcdir)/libvirt-gobject.h \
                 $(GOBJECT_SOURCE_FILES:%=$(srcdir)/%) \

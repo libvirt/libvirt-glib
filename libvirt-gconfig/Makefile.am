@@ -122,9 +122,9 @@ LibvirtGConfig-1.0.gir: libvirt-gconfig-1.0.la $(G_IR_SCANNER) Makefile.am
                 --output $@ \
                 -I$(top_builddir) \
                 -I$(top_srcdir) \
-                $(LIBXML2_CFLAGS) \
                 --verbose \
                 --c-include="libvirt-gconfig/libvirt-gconfig.h" \
+                --pkg=libxml-2.0 \
                 --pkg-export=libvirt-gconfig-1.0 \
                 $(srcdir)/libvirt-gconfig.h \
                 $(GCONFIG_SOURCE_FILES:%=$(srcdir)/%) \
