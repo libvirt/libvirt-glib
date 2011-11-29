@@ -362,6 +362,15 @@ static int domain_event_cb(virConnectPtr conn G_GNUC_UNUSED,
                 g_signal_emit_by_name(gdom, "stopped::from-snapshot");
             else
                 g_warn_if_reached();
+
+            if (virDomainIsPersistent(dom) != 1) {
+                g_mutex_lock(priv->lock);
+                g_hash_table_steal(priv->domains, uuid);
+                g_mutex_unlock(priv->lock);
+
+                g_signal_emit(gconn, signals[VIR_DOMAIN_REMOVED], 0, gdom);
+                g_object_unref(gdom);
+            }
             break;
 
         default:
