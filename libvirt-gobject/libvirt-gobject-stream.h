@@ -115,6 +115,7 @@ guint gvir_stream_add_watch_full(GVirStream *stream,
                                  GDestroyNotify notify);
 
 gssize gvir_stream_receive_all(GVirStream *stream,
+                               GCancellable *cancellable,
                                GVirStreamSinkFunc func,
                                gpointer user_data,
                                GError **error);
@@ -125,6 +126,7 @@ gssize gvir_stream_receive(GVirStream *stream,
                            GError **error);
 
 gssize gvir_stream_send_all(GVirStream *stream,
+                            GCancellable *cancellable,
                             GVirStreamSourceFunc func,
                             gpointer user_data,
                             GError **error);

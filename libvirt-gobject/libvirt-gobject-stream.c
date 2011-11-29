@@ -330,6 +330,7 @@ struct stream_sink_helper {
     GVirStream *self;
     GVirStreamSinkFunc func;
     gpointer user_data;
+    GCancellable *cancellable;
 };
 
 static int
@@ -340,12 +341,16 @@ stream_sink(virStreamPtr st G_GNUC_UNUSED,
 {
   struct stream_sink_helper *helper = opaque;
 
+  if (g_cancellable_is_cancelled(helper->cancellable))
+      return -1;
+
   return helper->func(helper->self, bytes, nbytes, helper->user_data);
 }
 
 /**
  * gvir_stream_receive_all:
  * @stream: the stream
+ * @cancellable: cancellation notifier
  * @func: (scope notified): the callback for writing data to application
  * @user_data: (closure): data to be passed to @callback
  * Returns: the number of bytes consumed or -1 upon error
@@ -356,6 +361,7 @@ stream_sink(virStreamPtr st G_GNUC_UNUSED,
  */
 gssize
 gvir_stream_receive_all(GVirStream *self,
+                        GCancellable *cancellable,
                         GVirStreamSinkFunc func,
                         gpointer user_data,
                         GError **err)
@@ -363,7 +369,8 @@ gvir_stream_receive_all(GVirStream *self,
     struct stream_sink_helper helper = {
         .self = self,
         .func = func,
-        .user_data = user_data
+        .user_data = user_data,
+        .cancellable = cancellable,
     };
     int r;
 
@@ -433,6 +440,7 @@ struct stream_source_helper {
     GVirStream *self;
     GVirStreamSourceFunc func;
     gpointer user_data;
+    GCancellable *cancellable;
 };
 
 static int
@@ -443,12 +451,16 @@ stream_source(virStreamPtr st G_GNUC_UNUSED,
 {
   struct stream_source_helper *helper = opaque;
 
+  if (g_cancellable_is_cancelled(helper->cancellable))
+      return -1;
+
   return helper->func(helper->self, bytes, nbytes, helper->user_data);
 }
 
 /**
  * gvir_stream_send_all:
  * @stream: the stream
+ * @cancellable: cancellation notifier
  * @func: (scope notified): the callback for writing data to application
  * @user_data: (closure): data to be passed to @callback
  * Returns: the number of bytes consumed or -1 upon error
@@ -459,6 +471,7 @@ stream_source(virStreamPtr st G_GNUC_UNUSED,
  */
 gssize
 gvir_stream_send_all(GVirStream *self,
+                     GCancellable *cancellable,
                      GVirStreamSourceFunc func,
                      gpointer user_data,
                      GError **err)
@@ -466,7 +479,8 @@ gvir_stream_send_all(GVirStream *self,
     struct stream_source_helper helper = {
         .self = self,
         .func = func,
-        .user_data = user_data
+        .user_data = user_data,
+        .cancellable = cancellable,
     };
     int r;
 
