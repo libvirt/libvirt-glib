@@ -64,11 +64,13 @@ GCONFIG_SOURCE_FILES = \
 
 libvirt_gconfig_1_0_ladir = $(includedir)/libvirt-gconfig-1.0/libvirt-gconfig
 libvirt_gconfig_1_0_la_HEADERS = \
-			$(GCONFIG_HEADER_FILES) \
+			$(GCONFIG_HEADER_FILES)
+nodist_libvirt_gconfig_1_0_la_HEADERS = \
 			$(builddir)/libvirt-gconfig-enum-types.h
 libvirt_gconfig_1_0_la_SOURCES = \
 			$(libvirt_gconfig_1_0_la_HEADERS) \
-			$(GCONFIG_SOURCE_FILES) \
+			$(GCONFIG_SOURCE_FILES)
+nodist_libvirt_gconfig_1_0_la_SOURCES = \
 			$(builddir)/libvirt-gconfig-enum-types.c
 libvirt_gconfig_1_0_la_CFLAGS = \
 			-DG_LOG_DOMAIN="\"Libvirt.GConfig\"" \
