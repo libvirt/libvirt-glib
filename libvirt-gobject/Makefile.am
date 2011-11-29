@@ -131,14 +131,11 @@ LibvirtGObject-1.0.gir: libvirt-gobject-1.0.la $(G_IR_SCANNER) Makefile.am
                 --identifier-prefix=GVir \
                 --symbol-prefix=gvir \
                 --library=$(builddir)/libvirt-gobject-1.0.la \
-                --add-include-path=$(top_builddir)/libvirt-glib \
-                --add-include-path=$(top_builddir)/libvirt-gconfig \
                 --output $@ \
-                -I$(top_srcdir) \
                 -I$(top_builddir) \
+                -I$(top_srcdir) \
                 $(LIBXML2_CFLAGS) \
                 --verbose \
-                --pkg=gobject-2.0 \
                 --pkg=gthread-2.0 \
                 --c-include="libvirt-gobject/libvirt-gobject.h" \
                 --pkg-export=libvirt-gobject-1.0 \

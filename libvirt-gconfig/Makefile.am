@@ -118,18 +118,17 @@ LibvirtGConfig-1.0.gir: libvirt-gconfig-1.0.la $(G_IR_SCANNER) Makefile.am
                 --symbol-prefix=gvir \
                 --library=$(builddir)/libvirt-gconfig-1.0.la \
                 --output $@ \
-                -I$(top_srcdir) \
                 -I$(top_builddir) \
+                -I$(top_srcdir) \
                 $(LIBXML2_CFLAGS) \
                 --verbose \
-                --pkg=gobject-2.0 \
                 --c-include="libvirt-gconfig/libvirt-gconfig.h" \
                 --pkg-export=libvirt-gconfig-1.0 \
-		$(srcdir)/libvirt-gconfig.h \
+                $(srcdir)/libvirt-gconfig.h \
                 $(GCONFIG_SOURCE_FILES:%=$(srcdir)/%) \
                 $(GCONFIG_HEADER_FILES:%=$(srcdir)/%) \
-		$(builddir)/libvirt-gconfig-enum-types.c \
-		$(builddir)/libvirt-gconfig-enum-types.h
+                $(builddir)/libvirt-gconfig-enum-types.c \
+                $(builddir)/libvirt-gconfig-enum-types.h
 
 
 girdir = $(datadir)/gir-1.0
