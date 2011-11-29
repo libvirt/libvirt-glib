@@ -47,6 +47,19 @@ LIBVIRT_GCONFIG_0.0.1 {
 	gvir_config_domain_disk_set_target_dev;
 	gvir_config_domain_disk_set_type;
 
+	gvir_config_domain_filesys_get_type;
+	gvir_config_domain_filesys_type_get_type;
+	gvir_config_domain_filesys_access_type_get_type;
+	gvir_config_domain_filesys_driver_type_get_type;
+	gvir_config_domain_filesys_new;
+	gvir_config_domain_filesys_new_from_xml;
+	gvir_config_domain_filesys_set_access_type;
+	gvir_config_domain_filesys_set_driver_type;
+	gvir_config_domain_filesys_set_readonly;
+	gvir_config_domain_filesys_set_source;
+	gvir_config_domain_filesys_set_target;
+	gvir_config_domain_filesys_set_type;
+
 	gvir_config_domain_graphics_get_type;
 
 	gvir_config_domain_graphics_spice_get_type;

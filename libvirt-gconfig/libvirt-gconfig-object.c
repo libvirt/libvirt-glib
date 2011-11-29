@@ -380,6 +380,31 @@ gvir_config_object_replace_child(GVirConfigObject *object,
                                            NULL));
 }
 
+
+G_GNUC_INTERNAL void
+gvir_config_object_delete_child(GVirConfigObject *object,
+                                const char *child_name)
+{
+    xmlNodePtr parent_node;
+    xmlNodePtr old_node;
+
+    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(object));
+    g_return_if_fail(child_name != NULL);
+
+    parent_node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(object));
+    g_return_if_fail(parent_node != NULL);
+
+    if (!(old_node = gvir_config_xml_get_element(parent_node, child_name, NULL)))
+        return;
+
+    /* FIXME: should we make sure there are no multiple occurrences
+     * of this node?
+     */
+    xmlUnlinkNode(old_node);
+    xmlFreeNode(old_node);
+}
+
+
 G_GNUC_INTERNAL void
 gvir_config_object_set_node_content(GVirConfigObject *object,
                                     const char *node_name,

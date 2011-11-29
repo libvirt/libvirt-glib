@@ -33,6 +33,7 @@
 #include <libvirt-gconfig/libvirt-gconfig-domain-clock.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-device.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-disk.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-filesys.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-graphics.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-graphics-spice.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-input.h>

@@ -39,6 +39,8 @@ GVirConfigObject *gvir_config_object_add_child(GVirConfigObject *object,
                                                const char *child_name);
 GVirConfigObject *gvir_config_object_replace_child(GVirConfigObject *object,
                                                    const char *child_name);
+void gvir_config_object_delete_child(GVirConfigObject *object,
+                                     const char *child_name);
 void gvir_config_object_set_child(GVirConfigObject *object,
                                   xmlNodePtr child);
 
