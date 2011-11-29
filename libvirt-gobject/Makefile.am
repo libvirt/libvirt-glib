@@ -60,6 +60,7 @@ libvirt_gobject_1_0_la_SOURCES = \
 nodist_libvirt_gobject_1_0_la_SOURCES = \
 			$(GOBJECT_GENERATED_FILES)
 libvirt_gobject_1_0_la_CFLAGS = \
+			-DG_LOG_DOMAIN="\"Libvirt.GObject\"" \
 			-DDATADIR="\"$(datadir)\"" \
 			-DLIBVIRT_GOBJECT_BUILD \
 			$(COVERAGE_CFLAGS) \

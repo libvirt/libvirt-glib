@@ -24,6 +24,7 @@
 #include <config.h>
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <libvirt/virterror.h>
 
 #include "libvirt-glib-main.h"
@@ -47,6 +48,16 @@ void gvir_init(int *argc,
 }
 
 
+static void gvir_log_handler(const gchar *log_domain G_GNUC_UNUSED,
+                             GLogLevelFlags log_level G_GNUC_UNUSED,
+                             const gchar *message,
+                             gpointer user_data)
+{
+    if (user_data)
+        fprintf(stderr, "%s\n", message);
+}
+
+
 gboolean gvir_init_check(int *argc G_GNUC_UNUSED,
                          char ***argv G_GNUC_UNUSED,
                          GError **err G_GNUC_UNUSED)
@@ -56,6 +67,20 @@ gboolean gvir_init_check(int *argc G_GNUC_UNUSED,
         g_thread_init(NULL);
 
     virInitialize();
+
+    /* GLib >= 2.31.0 debug is off by default, so we need to
+     * enable it. Older versions are on by default, so we need
+     * to disable it.
+     */
+#if GLIB_CHECK_VERSION(2, 31, 0)
+    if (getenv("LIBVIRT_GLIB_DEBUG"))
+        g_log_set_handler(G_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+                          gvir_log_handler, (void*)0x1);
+#else
+    if (!getenv("LIBVIRT_GLIB_DEBUG"))
+        g_log_set_handler(G_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
+                          gvir_log_handler, NULL);
+#endif
 
     return TRUE;
 }

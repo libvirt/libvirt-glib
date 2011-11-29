@@ -1,5 +1,8 @@
-LIBVIRT_GOBJECT_0.0.1 {
+LIBVIRT_GCONFIG_0.0.1 {
   global:
+	gvir_init_config_check;
+	gvir_init_config;
+
 	gvir_config_capabilities_get_type;
 	gvir_config_capabilities_new;
 	gvir_config_capabilities_new_from_xml;

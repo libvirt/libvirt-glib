@@ -9,6 +9,7 @@ lib_LTLIBRARIES = libvirt-gconfig-1.0.la
 
 GCONFIG_HEADER_FILES = \
 			libvirt-gconfig.h \
+			libvirt-gconfig-main.h \
 			libvirt-gconfig-object.h \
 			libvirt-gconfig-capabilities.h \
 			libvirt-gconfig-domain.h \
@@ -37,6 +38,7 @@ noinst_HEADERS = \
 			libvirt-gconfig-object-private.h
 GCONFIG_SOURCE_FILES = \
 			libvirt-gconfig-object.c \
+			libvirt-gconfig-main.c \
 			libvirt-gconfig-capabilities.c \
 			libvirt-gconfig-domain.c \
 			libvirt-gconfig-domain-clock.c \
@@ -69,6 +71,7 @@ libvirt_gconfig_1_0_la_SOURCES = \
 			$(GCONFIG_SOURCE_FILES) \
 			$(builddir)/libvirt-gconfig-enum-types.c
 libvirt_gconfig_1_0_la_CFLAGS = \
+			-DG_LOG_DOMAIN="\"Libvirt.GConfig\"" \
 			-DDATADIR="\"$(datadir)\"" \
 			-DLIBVIRT_GCONFIG_BUILD \
 			$(COVERAGE_CFLAGS) \

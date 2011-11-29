@@ -1,5 +1,5 @@
 /*
- * libvirt-gobject-main.c: libvirt gobject integration
+ * libvirt-gconfig-main.c: libvirt gconfig integration
  *
  * Copyright (C) 2008 Daniel P. Berrange
  * Copyright (C) 2010 Red Hat
@@ -27,19 +27,19 @@
 #include <stdio.h>
 
 #include "libvirt-glib/libvirt-glib.h"
-#include "libvirt-gobject/libvirt-gobject.h"
+#include "libvirt-gconfig/libvirt-gconfig.h"
 
 /**
- * gvir_init_object:
+ * gvir_init_config:
  * @argc: (inout): pointer to application's argc
  * @argv: (inout) (array length=argc) (allow-none): pointer to application's argv
  */
-void gvir_init_object(int *argc,
+void gvir_init_config(int *argc,
                       char ***argv)
 {
     GError *err = NULL;
-    if (!gvir_init_object_check(argc, argv, &err)) {
-        g_error("Could not initialize libvirt-gobject: %s\n",
+    if (!gvir_init_config_check(argc, argv, &err)) {
+        g_error("Could not initialize libvirt-gconfig: %s\n",
                 err->message);
     }
 }
@@ -55,35 +55,27 @@ static void gvir_log_handler(const gchar *log_domain G_GNUC_UNUSED,
 
 
 /**
- * gvir_init_object_check:
+ * gvir_init_config_check:
  * @argc: (inout): pointer to application's argc
  * @argv: (inout) (array length=argc) (allow-none): pointer to application's argv
  * @err: pointer to a #GError to which a message will be posted on error
  */
-gboolean gvir_init_object_check(int *argc,
-                                char ***argv,
-                                GError **err)
+gboolean gvir_init_config_check(int *argc G_GNUC_UNUSED,
+                                char ***argv G_GNUC_UNUSED,
+                                GError **err G_GNUC_UNUSED)
 {
     g_type_init();
-
-    gvir_event_register();
-
-    if (!gvir_init_check(argc, argv, err))
-        return FALSE;
-
-    if (!gvir_init_config_check(argc, argv, err))
-        return FALSE;
 
     /* GLib >= 2.31.0 debug is off by default, so we need to
      * enable it. Older versions are on by default, so we need
      * to disable it.
      */
 #if GLIB_CHECK_VERSION(2, 31, 0)
-    if (getenv("LIBVIRT_GOBJECT_DEBUG"))
+    if (getenv("LIBVIRT_GCONFIG_DEBUG"))
         g_log_set_handler(G_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
                           gvir_log_handler, (void*)0x1);
 #else
-    if (!getenv("LIBVIRT_GOBJECT_DEBUG"))
+    if (!getenv("LIBVIRT_GCONFIG_DEBUG"))
         g_log_set_handler(G_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
                           gvir_log_handler, NULL);
 #endif
