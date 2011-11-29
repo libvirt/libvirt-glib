@@ -420,6 +420,22 @@ gboolean gvir_connection_open(GVirConnection *conn,
         return FALSE;
     }
 
+    if (!priv->uri) {
+        char *uri = virConnectGetURI(priv->conn);
+        if (!uri) {
+            if (err)
+                *err = gvir_error_new(GVIR_CONNECTION_ERROR,
+                                      0,
+                                      "%s", "Unable to get connection URI");
+            virConnectClose(priv->conn);
+            priv->conn = NULL;
+            g_mutex_unlock(priv->lock);
+            return FALSE;
+        }
+        priv->uri = g_strdup(uri);
+        free(uri);
+    }
+
     if (virConnectDomainEventRegister(priv->conn, domain_event_cb, conn, NULL) != -1)
         priv->domain_event = TRUE;
     else
