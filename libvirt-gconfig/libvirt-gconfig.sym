@@ -65,10 +65,24 @@ LIBVIRT_GCONFIG_0.0.1 {
 
 	gvir_config_domain_graphics_get_type;
 
+	gvir_config_domain_graphics_sdl_get_type;
+	gvir_config_domain_graphics_sdl_new;
+	gvir_config_domain_graphics_sdl_new_from_xml;
+	gvir_config_domain_graphics_sdl_set_display;
+	gvir_config_domain_graphics_sdl_set_xauthority;
+
 	gvir_config_domain_graphics_spice_get_type;
 	gvir_config_domain_graphics_spice_new;
 	gvir_config_domain_graphics_spice_new_from_xml;
+	gvir_config_domain_graphics_spice_set_autoport;
 	gvir_config_domain_graphics_spice_set_port;
+	gvir_config_domain_graphics_spice_set_tls_port;
+
+	gvir_config_domain_graphics_vnc_get_type;
+	gvir_config_domain_graphics_vnc_new;
+	gvir_config_domain_graphics_vnc_new_from_xml;
+	gvir_config_domain_graphics_vnc_set_autoport;
+	gvir_config_domain_graphics_vnc_set_port;
 
 	gvir_config_domain_input_bus_get_type;
 	gvir_config_domain_input_get_type;

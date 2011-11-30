@@ -79,12 +79,32 @@ gvir_config_domain_graphics_spice_new_from_xml(const gchar *xml,
     return GVIR_CONFIG_DOMAIN_GRAPHICS_SPICE(object);
 }
 
-void gvir_config_domain_graphics_spice_set_port(GVirConfigDomainGraphicsSpice *graphics,
-                                         unsigned int port)
+void gvir_config_domain_graphics_spice_set_autoport(GVirConfigDomainGraphicsSpice *graphics,
+                                                    gboolean autoport)
 {
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_GRAPHICS_SPICE(graphics));
 
     gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(graphics),
-                                               "port", G_TYPE_UINT, port,
+                                               "autoport", G_TYPE_BOOLEAN, autoport,
+                                               NULL);
+}
+
+void gvir_config_domain_graphics_spice_set_port(GVirConfigDomainGraphicsSpice *graphics,
+                                                int port)
+{
+    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_GRAPHICS_SPICE(graphics));
+
+    gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(graphics),
+                                               "port", G_TYPE_INT, port,
+                                               NULL);
+}
+
+void gvir_config_domain_graphics_spice_set_tls_port(GVirConfigDomainGraphicsSpice *graphics,
+                                                    int port)
+{
+    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_GRAPHICS_SPICE(graphics));
+
+    gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(graphics),
+                                               "tlsPort", G_TYPE_INT, port,
                                                NULL);
 }

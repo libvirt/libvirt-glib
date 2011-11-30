@@ -18,7 +18,9 @@ GCONFIG_HEADER_FILES = \
 			libvirt-gconfig-domain-disk.h \
 			libvirt-gconfig-domain-filesys.h \
 			libvirt-gconfig-domain-graphics.h \
+			libvirt-gconfig-domain-graphics-sdl.h \
 			libvirt-gconfig-domain-graphics-spice.h \
+			libvirt-gconfig-domain-graphics-vnc.h \
 			libvirt-gconfig-domain-input.h \
 			libvirt-gconfig-domain-interface.h \
 			libvirt-gconfig-domain-interface-network.h \
@@ -48,7 +50,9 @@ GCONFIG_SOURCE_FILES = \
 			libvirt-gconfig-domain-disk.c \
 			libvirt-gconfig-domain-filesys.c \
 			libvirt-gconfig-domain-graphics.c \
+			libvirt-gconfig-domain-graphics-sdl.c \
 			libvirt-gconfig-domain-graphics-spice.c \
+			libvirt-gconfig-domain-graphics-vnc.c \
 			libvirt-gconfig-domain-input.c \
 			libvirt-gconfig-domain-interface.c \
 			libvirt-gconfig-domain-interface-network.c \

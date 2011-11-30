@@ -61,8 +61,15 @@ GType gvir_config_domain_graphics_spice_get_type(void);
 GVirConfigDomainGraphicsSpice *gvir_config_domain_graphics_spice_new(void);
 GVirConfigDomainGraphicsSpice *gvir_config_domain_graphics_spice_new_from_xml(const gchar *xml,
                                                                               GError **error);
+
+void gvir_config_domain_graphics_spice_set_autoport(GVirConfigDomainGraphicsSpice *graphics,
+                                                    gboolean autoport);
+
 void gvir_config_domain_graphics_spice_set_port(GVirConfigDomainGraphicsSpice *graphics,
-                                                unsigned int port);
+                                                int port);
+
+void gvir_config_domain_graphics_spice_set_tls_port(GVirConfigDomainGraphicsSpice *graphics,
+                                                    int port);
 
 G_END_DECLS
 

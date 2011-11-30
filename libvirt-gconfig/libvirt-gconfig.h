@@ -35,7 +35,9 @@
 #include <libvirt-gconfig/libvirt-gconfig-domain-disk.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-filesys.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-graphics.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-graphics-sdl.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-graphics-spice.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-graphics-vnc.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-input.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-interface.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-interface-network.h>
