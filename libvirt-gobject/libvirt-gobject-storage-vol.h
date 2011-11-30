@@ -36,6 +36,7 @@ G_BEGIN_DECLS
 #define GVIR_IS_STORAGE_VOL_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GVIR_TYPE_STORAGE_VOL))
 #define GVIR_STORAGE_VOL_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GVIR_TYPE_STORAGE_VOL, GVirStorageVolClass))
 
+#define GVIR_TYPE_STORAGE_VOL_INFO       (gvir_storage_vol_info_get_type())
 #define GVIR_TYPE_STORAGE_VOL_HANDLE     (gvir_storage_vol_handle_get_type())
 
 typedef struct _GVirStorageVol GVirStorageVol;
@@ -58,7 +59,22 @@ struct _GVirStorageVolClass
     gpointer padding[20];
 };
 
+typedef enum {
+    GVIR_STORAGE_VOL_STATE_FILE  = 0, /* Regular file based volume */
+    GVIR_STORAGE_VOL_STATE_BLOCK = 1, /* Block based volume */
+    GVIR_STORAGE_VOL_STATE_DIR   = 2, /* Directory-passthrough based volume */
+} GVirStorageVolType;
+
+typedef struct _GVirStorageVolInfo GVirStorageVolInfo;
+struct _GVirStorageVolInfo
+{
+    GVirStorageVolType type; /* Type flags */
+    guint64 capacity;        /* Logical size bytes */
+    guint64 allocation;      /* Current allocation bytes */
+};
+
 GType gvir_storage_vol_get_type(void);
+GType gvir_storage_vol_info_get_type(void);
 GType gvir_storage_vol_handle_get_type(void);
 
 const gchar *gvir_storage_vol_get_name(GVirStorageVol *vol);
@@ -67,6 +83,8 @@ const gchar *gvir_storage_vol_get_path(GVirStorageVol *vol);
 GVirConfigStorageVol *gvir_storage_vol_get_config(GVirStorageVol *vol,
                                                   guint flags,
                                                   GError **err);
+GVirStorageVolInfo *gvir_storage_vol_get_info(GVirStorageVol *vol,
+                                              GError **err);
 
 G_END_DECLS
 

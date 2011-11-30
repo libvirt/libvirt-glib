@@ -159,6 +159,21 @@ gvir_storage_vol_handle_free(GVirStorageVolHandle *src)
 G_DEFINE_BOXED_TYPE(GVirStorageVolHandle, gvir_storage_vol_handle,
                     gvir_storage_vol_handle_copy, gvir_storage_vol_handle_free)
 
+static GVirStorageVolInfo *
+gvir_storage_vol_info_copy(GVirStorageVolInfo *info)
+{
+    return g_slice_dup(GVirStorageVolInfo, info);
+}
+
+static void
+gvir_storage_vol_info_free(GVirStorageVolInfo *info)
+{
+    g_slice_free(GVirStorageVolInfo, info);
+}
+
+G_DEFINE_BOXED_TYPE(GVirStorageVolInfo, gvir_storage_vol_info,
+                    gvir_storage_vol_info_copy, gvir_storage_vol_info_free)
+
 const gchar *gvir_storage_vol_get_name(GVirStorageVol *vol)
 {
     GVirStorageVolPrivate *priv = vol->priv;
@@ -208,4 +223,32 @@ GVirConfigStorageVol *gvir_storage_vol_get_config(GVirStorageVol *vol,
 
     free(xml);
     return conf;
+}
+
+/**
+ * gvir_storage_vol_get_info:
+ * @vol: the storage_vol
+ * Returns: (transfer full): the info
+ */
+GVirStorageVolInfo *gvir_storage_vol_get_info(GVirStorageVol *vol,
+                                              GError **err)
+{
+    GVirStorageVolPrivate *priv = vol->priv;
+    virStorageVolInfo info;
+    GVirStorageVolInfo *ret;
+
+    if (virStorageVolGetInfo(priv->handle, &info) < 0) {
+        if (err)
+            *err = gvir_error_new_literal(GVIR_STORAGE_VOL_ERROR,
+                                          0,
+                                          "Unable to get storage vol info");
+        return NULL;
+    }
+
+    ret = g_slice_new(GVirStorageVolInfo);
+    ret->type = info.type;
+    ret->capacity = info.capacity;
+    ret->allocation = info.allocation;
+
+    return ret;
 }
