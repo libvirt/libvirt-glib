@@ -175,6 +175,17 @@ GVirConfigDomain *gvir_config_domain_new(void)
     return GVIR_CONFIG_DOMAIN(object);
 }
 
+
+void gvir_config_domain_set_virt_type(GVirConfigDomain *domain, GVirConfigDomainVirtType type)
+{
+    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN(domain));
+    gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(domain),
+                                               "type",
+                                               GVIR_TYPE_CONFIG_DOMAIN_VIRT_TYPE,
+                                               type, NULL);
+}
+
+
 char *gvir_config_domain_get_name(GVirConfigDomain *domain)
 {
     return gvir_config_object_get_node_content(GVIR_CONFIG_OBJECT(domain),

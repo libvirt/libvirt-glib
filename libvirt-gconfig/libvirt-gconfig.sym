@@ -21,6 +21,8 @@ LIBVIRT_GCONFIG_0.0.1 {
 	gvir_config_domain_set_os;
 	gvir_config_domain_get_vcpus;
 	gvir_config_domain_set_vcpus;
+	gvir_config_domain_set_virt_type;
+	gvir_config_domain_virt_type_get_type;
 
 	gvir_config_domain_clock_get_type;
 	gvir_config_domain_clock_offset_get_type;

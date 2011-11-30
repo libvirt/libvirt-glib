@@ -59,12 +59,20 @@ struct _GVirConfigDomainClass
     gpointer padding[20];
 };
 
+typedef enum {
+    GVIR_CONFIG_DOMAIN_VIRT_XEN,
+    GVIR_CONFIG_DOMAIN_VIRT_QEMU,
+    GVIR_CONFIG_DOMAIN_VIRT_KVM,
+    GVIR_CONFIG_DOMAIN_VIRT_KQEMU,
+    GVIR_CONFIG_DOMAIN_VIRT_LXC,
+} GVirConfigDomainVirtType;
 
 GType gvir_config_domain_get_type(void);
 
 GVirConfigDomain *gvir_config_domain_new_from_xml(const gchar *xml, GError **error);
 GVirConfigDomain *gvir_config_domain_new(void);
 
+void gvir_config_domain_set_virt_type(GVirConfigDomain *domain, GVirConfigDomainVirtType type);
 char *gvir_config_domain_get_name(GVirConfigDomain *domain);
 void gvir_config_domain_set_name(GVirConfigDomain *domain, const char *name);
 guint64 gvir_config_domain_get_memory(GVirConfigDomain *domain);
