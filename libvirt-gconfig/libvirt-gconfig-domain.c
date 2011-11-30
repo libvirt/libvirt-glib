@@ -292,6 +292,16 @@ void gvir_config_domain_set_os(GVirConfigDomain *domain,
                               GVIR_CONFIG_OBJECT(os));
 }
 
+void gvir_config_domain_set_seclabel(GVirConfigDomain *domain,
+                                     GVirConfigDomainSeclabel *seclabel)
+{
+    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN(domain));
+    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_SECLABEL(seclabel));
+
+    gvir_config_object_attach(GVIR_CONFIG_OBJECT(domain),
+                              GVIR_CONFIG_OBJECT(seclabel));
+}
+
 /**
  * gvir_config_domain_set_devices:
  * @devices: (in) (element-type LibvirtGConfig.DomainDevice):

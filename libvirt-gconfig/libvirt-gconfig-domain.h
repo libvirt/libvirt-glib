@@ -30,6 +30,7 @@
 #include <libvirt-gconfig/libvirt-gconfig-domain-clock.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-os.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-device.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-seclabel.h>
 
 G_BEGIN_DECLS
 
@@ -88,6 +89,8 @@ void gvir_config_domain_set_clock(GVirConfigDomain *domain,
                                   GVirConfigDomainClock *klock);
 void gvir_config_domain_set_os(GVirConfigDomain *domain,
                                GVirConfigDomainOs *os);
+void gvir_config_domain_set_seclabel(GVirConfigDomain *domain,
+                                     GVirConfigDomainSeclabel *seclabel);
 void gvir_config_domain_set_devices(GVirConfigDomain *domain,
                                     GList *devices);
 void gvir_config_domain_add_device(GVirConfigDomain *domain,

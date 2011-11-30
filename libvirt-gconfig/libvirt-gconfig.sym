@@ -20,6 +20,7 @@ LIBVIRT_GCONFIG_0.0.1 {
 	gvir_config_domain_get_name;
 	gvir_config_domain_set_name;
 	gvir_config_domain_set_os;
+	gvir_config_domain_set_seclabel;
 	gvir_config_domain_get_vcpus;
 	gvir_config_domain_set_vcpus;
 	gvir_config_domain_set_virt_type;
@@ -121,6 +122,15 @@ LIBVIRT_GCONFIG_0.0.1 {
 	gvir_config_domain_snapshot_get_type;
 	gvir_config_domain_snapshot_new;
 	gvir_config_domain_snapshot_new_from_xml;
+
+	gvir_config_domain_seclabel_get_type;
+	gvir_config_domain_seclabel_type_get_type;
+	gvir_config_domain_seclabel_new;
+	gvir_config_domain_seclabel_new_from_xml;
+	gvir_config_domain_seclabel_set_type;
+	gvir_config_domain_seclabel_set_model;
+	gvir_config_domain_seclabel_set_baselabel;
+	gvir_config_domain_seclabel_set_label;
 
 	gvir_config_domain_timer_get_type;
 	gvir_config_domain_timer_new;
