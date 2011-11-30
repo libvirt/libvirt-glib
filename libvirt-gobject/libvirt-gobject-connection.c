@@ -257,6 +257,7 @@ static int domain_event_cb(virConnectPtr conn G_GNUC_UNUSED,
                            void *opaque)
 {
     gchar uuid[VIR_UUID_STRING_BUFLEN];
+    GHashTable *doms;
     GVirConnection *gconn = opaque;
     GVirDomain *gdom;
     GVirConnectionPrivate *priv = gconn->priv;
@@ -269,14 +270,18 @@ static int domain_event_cb(virConnectPtr conn G_GNUC_UNUSED,
     g_debug("%s: %s event:%d, detail:%d", G_STRFUNC, uuid, event, detail);
 
     g_mutex_lock(priv->lock);
-    gdom = g_hash_table_lookup(priv->domains, uuid);
+    doms = g_hash_table_ref(priv->domains);
+    gdom = g_hash_table_lookup(doms, uuid);
+    if (gdom != NULL)
+        g_object_ref(G_OBJECT(gdom));
     g_mutex_unlock(priv->lock);
 
     if (gdom == NULL) {
         gdom = GVIR_DOMAIN(g_object_new(GVIR_TYPE_DOMAIN, "handle", dom, NULL));
 
         g_mutex_lock(priv->lock);
-        g_hash_table_insert(priv->domains, (gpointer)gvir_domain_get_uuid(gdom), gdom);
+        g_hash_table_insert(doms, (gpointer)gvir_domain_get_uuid(gdom),
+                            g_object_ref(G_OBJECT(gdom)));
         g_mutex_unlock(priv->lock);
     }
 
@@ -293,11 +298,10 @@ static int domain_event_cb(virConnectPtr conn G_GNUC_UNUSED,
         case VIR_DOMAIN_EVENT_UNDEFINED:
             if (detail == VIR_DOMAIN_EVENT_UNDEFINED_REMOVED) {
                 g_mutex_lock(priv->lock);
-                g_hash_table_steal(priv->domains, uuid);
+                g_hash_table_remove(doms, uuid);
                 g_mutex_unlock(priv->lock);
 
                 g_signal_emit(gconn, signals[VIR_DOMAIN_REMOVED], 0, gdom);
-                g_object_unref(gdom);
             } else
                 g_warn_if_reached();
             break;
@@ -365,11 +369,10 @@ static int domain_event_cb(virConnectPtr conn G_GNUC_UNUSED,
 
             if (virDomainIsPersistent(dom) != 1) {
                 g_mutex_lock(priv->lock);
-                g_hash_table_steal(priv->domains, uuid);
+                g_hash_table_remove(doms, uuid);
                 g_mutex_unlock(priv->lock);
 
                 g_signal_emit(gconn, signals[VIR_DOMAIN_REMOVED], 0, gdom);
-                g_object_unref(gdom);
             }
             break;
 
@@ -377,6 +380,8 @@ static int domain_event_cb(virConnectPtr conn G_GNUC_UNUSED,
             g_warn_if_reached();
     }
 
+    g_object_unref(G_OBJECT(gdom));
+    g_hash_table_unref(doms);
     return 0;
 }
 
