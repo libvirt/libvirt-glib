@@ -189,6 +189,21 @@ gvir_storage_pool_handle_free(GVirStoragePoolHandle *src)
 G_DEFINE_BOXED_TYPE(GVirStoragePoolHandle, gvir_storage_pool_handle,
                     gvir_storage_pool_handle_copy, gvir_storage_pool_handle_free)
 
+static GVirStoragePoolInfo *
+gvir_storage_pool_info_copy(GVirStoragePoolInfo *info)
+{
+    return g_slice_dup(GVirStoragePoolInfo, info);
+}
+
+static void
+gvir_storage_pool_info_free(GVirStoragePoolInfo *info)
+{
+    g_slice_free(GVirStoragePoolInfo, info);
+}
+
+G_DEFINE_BOXED_TYPE(GVirStoragePoolInfo, gvir_storage_pool_info,
+                    gvir_storage_pool_info_copy, gvir_storage_pool_info_free)
+
 const gchar *gvir_storage_pool_get_name(GVirStoragePool *pool)
 {
     GVirStoragePoolPrivate *priv = pool->priv;
@@ -235,6 +250,35 @@ GVirConfigStoragePool *gvir_storage_pool_get_config(GVirStoragePool *pool,
 
     free(xml);
     return conf;
+}
+
+/**
+ * gvir_storage_pool_get_info:
+ * @pool: the storage_pool
+ * Returns: (transfer full): the info
+ */
+GVirStoragePoolInfo *gvir_storage_pool_get_info(GVirStoragePool *pool,
+                                                GError **err)
+{
+    GVirStoragePoolPrivate *priv = pool->priv;
+    virStoragePoolInfo info;
+    GVirStoragePoolInfo *ret;
+
+    if (virStoragePoolGetInfo(priv->handle, &info) < 0) {
+        if (err)
+            *err = gvir_error_new_literal(GVIR_STORAGE_POOL_ERROR,
+                                          0,
+                                          "Unable to get storage pool info");
+        return NULL;
+    }
+
+    ret = g_slice_new(GVirStoragePoolInfo);
+    ret->state = info.state;
+    ret->capacity = info.capacity;
+    ret->allocation = info.allocation;
+    ret->available = info.available;
+
+    return ret;
 }
 
 typedef gint (* CountFunction) (virStoragePoolPtr vpool);

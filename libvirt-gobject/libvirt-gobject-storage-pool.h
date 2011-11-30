@@ -36,6 +36,7 @@ G_BEGIN_DECLS
 #define GVIR_IS_STORAGE_POOL_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GVIR_TYPE_STORAGE_POOL))
 #define GVIR_STORAGE_POOL_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GVIR_TYPE_STORAGE_POOL, GVirStoragePoolClass))
 
+#define GVIR_TYPE_STORAGE_POOL_INFO       (gvir_storage_pool_info_get_type())
 #define GVIR_TYPE_STORAGE_POOL_HANDLE     (gvir_storage_pool_handle_get_type())
 
 typedef struct _GVirStoragePool GVirStoragePool;
@@ -58,8 +59,25 @@ struct _GVirStoragePoolClass
     gpointer padding[20];
 };
 
+typedef enum {
+    GVIR_STORAGE_POOL_STATE_INACTIVE     = 0, /* Not running */
+    GVIR_STORAGE_POOL_STATE_BUILDING     = 1, /* Initializing pool, not available */
+    GVIR_STORAGE_POOL_STATE_RUNNING      = 2, /* Running normally */
+    GVIR_STORAGE_POOL_STATE_DEGRADED     = 3, /* Running degraded */
+    GVIR_STORAGE_POOL_STATE_INACCESSIBLE = 4, /* Running, but not accessible */
+} GVirStoragePoolState;
+
+typedef struct _GVirStoragePoolInfo GVirStoragePoolInfo;
+struct _GVirStoragePoolInfo
+{
+    GVirStoragePoolState state; /* the state */
+    guint64 capacity;           /* Logical size bytes */
+    guint64 allocation;         /* Current allocation bytes */
+    guint16 available;          /* Remaining free space bytes */
+};
 
 GType gvir_storage_pool_get_type(void);
+GType gvir_storage_pool_info_get_type(void);
 GType gvir_storage_pool_handle_get_type(void);
 
 const gchar *gvir_storage_pool_get_name(GVirStoragePool *pool);
@@ -68,6 +86,9 @@ const gchar *gvir_storage_pool_get_uuid(GVirStoragePool *pool);
 GVirConfigStoragePool *gvir_storage_pool_get_config(GVirStoragePool *pool,
                                                     guint flags,
                                                     GError **err);
+
+GVirStoragePoolInfo *gvir_storage_pool_get_info(GVirStoragePool *pool,
+                                                GError **err);
 
 gboolean gvir_storage_pool_refresh(GVirStoragePool *pool,
                                    GCancellable *cancellable,
