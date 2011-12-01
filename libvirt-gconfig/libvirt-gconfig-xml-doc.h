@@ -1,5 +1,5 @@
 /*
- * libvirt-gobject-xml-doc.h: libvirt gobject integration
+ * libvirt-gobject-xml-doc.h: libvirt XML document management
  *
  * Copyright (C) 2011 Red Hat
  *

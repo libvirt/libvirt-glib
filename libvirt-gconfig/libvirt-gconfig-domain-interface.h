@@ -1,5 +1,5 @@
 /*
- * libvirt-gconfig-domain-interface.h: libvirt gobject integration
+ * libvirt-gconfig-domain-interface.h: libvirt domain interface configuration
  *
  * Copyright (C) 2010 Red Hat
  *

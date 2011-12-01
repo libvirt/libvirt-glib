@@ -1,5 +1,5 @@
 /*
- * libvirt-gobject-secret-config.c: libvirt gobject integration
+ * libvirt-gconfig-secret.h: libvirt secret configuration
  *
  * Copyright (C) 2010 Red Hat
  *

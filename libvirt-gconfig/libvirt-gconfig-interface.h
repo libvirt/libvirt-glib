@@ -1,5 +1,5 @@
 /*
- * libvirt-gobject-interface-config.c: libvirt gobject integration
+ * libvirt-gconfig-interface.c: libvirt interface configuration
  *
  * Copyright (C) 2010 Red Hat
  *

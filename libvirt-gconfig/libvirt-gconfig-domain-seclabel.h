@@ -1,5 +1,5 @@
 /*
- * libvirt-gconfig-domain-seclabel.h: libvirt gobject integration
+ * libvirt-gconfig-domain-seclabel.h: libvirt domain security label configuration
  *
  * Copyright (C) 2011 Red Hat
  *

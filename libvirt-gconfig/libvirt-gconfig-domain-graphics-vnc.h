@@ -1,5 +1,5 @@
 /*
- * libvirt-gconfig-domain-graphics-vnc.h: libvirt gobject integration
+ * libvirt-gconfig-domain-graphics-vnc.h: libvirt domain VNC graphics configuration
  *
  * Copyright (C) 2011 Red Hat
  *

@@ -1,5 +1,5 @@
 /*
- * libvirt-gobject-config_capabilities.c: libvirt glib integration
+ * libvirt-gconfig-capabilities.c: libvirt capabilities configuration
  *
  * Copyright (C) 2008 Daniel P. Berrange
  * Copyright (C) 2010 Red Hat

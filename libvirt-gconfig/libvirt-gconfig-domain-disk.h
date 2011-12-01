@@ -1,5 +1,5 @@
 /*
- * libvirt-gobject-domain-disk.c: libvirt gobject integration
+ * libvirt-gconfig-domain-disk.h: libvirt domain disk configuration
  *
  * Copyright (C) 2011 Red Hat
  *

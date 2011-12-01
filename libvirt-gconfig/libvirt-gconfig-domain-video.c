@@ -1,5 +1,5 @@
 /*
- * libvirt-gobject-config-domain-video.c: libvirt glib integration
+ * libvirt-gconfig-domain-video.c: libvirt domain video configuration
  *
  * Copyright (C) 2011 Red Hat
  *

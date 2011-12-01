@@ -1,5 +1,5 @@
 /*
- * libvirt-gobject-config-domain-device.c: libvirt glib integration
+ * libvirt-gconfig-domain-device.c: libvirt domain device configuration
  *
  * Copyright (C) 2011 Red Hat
  *

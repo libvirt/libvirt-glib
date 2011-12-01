@@ -1,5 +1,5 @@
 /*
- * libvirt-gobject-domain-input.c: libvirt gobject integration
+ * libvirt-gconfig-domain-input.c: libvirt domain input configuration
  *
  * Copyright (C) 2011 Red Hat
  *

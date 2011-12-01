@@ -1,5 +1,5 @@
 /*
- * libvirt-gobject-domain-filesys.h: libvirt gobject integration
+ * libvirt-gconfig-domain-filesys.h: libvirt domain filesystem configuration
  *
  * Copyright (C) 2011 Red Hat
  *

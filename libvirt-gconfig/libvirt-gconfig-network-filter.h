@@ -1,5 +1,5 @@
 /*
- * libvirt-gobject-nwfilter-config.c: libvirt gobject integration
+ * libvirt-gconfig-network-filter.h: libvirt network filter configuration
  *
  * Copyright (C) 2010 Red Hat
  *

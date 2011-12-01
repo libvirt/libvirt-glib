@@ -1,5 +1,5 @@
 /*
- * libvirt-gobject-config-xml-node.c: libvirt glib integration
+ * libvirt-gconfig-xml-doc.c: libvirt XML document management
  *
  * Copyright (C) 2011 Red Hat
  *

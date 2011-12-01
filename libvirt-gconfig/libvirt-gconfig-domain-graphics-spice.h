@@ -1,5 +1,5 @@
 /*
- * libvirt-gconfig-domain-graphics-spice.h: libvirt gobject integration
+ * libvirt-gconfig-domain-graphics-spice.h: libvirt domain SPICE confiiguration
  *
  * Copyright (C) 2011 Red Hat
  *

@@ -1,5 +1,5 @@
 /*
- * libvirt-gobject-config_storage_vol.c: libvirt glib integration
+ * libvirt-gconfig-storage-vol.c: libvirt storage vol configuration
  *
  * Copyright (C) 2008 Daniel P. Berrange
  * Copyright (C) 2010 Red Hat

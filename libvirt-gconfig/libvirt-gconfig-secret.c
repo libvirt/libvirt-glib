@@ -1,5 +1,5 @@
 /*
- * libvirt-gobject-config_secret.c: libvirt glib integration
+ * libvirt-gconfig-secret.c: libvirt secret configuration
  *
  * Copyright (C) 2008 Daniel P. Berrange
  * Copyright (C) 2010 Red Hat

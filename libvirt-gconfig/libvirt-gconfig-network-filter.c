@@ -1,5 +1,5 @@
 /*
- * libvirt-gobject-config_network_filter.c: libvirt glib integration
+ * libvirt-gconfig-network-filter.c: libvirt network filter configuration
  *
  * Copyright (C) 2008 Daniel P. Berrange
  * Copyright (C) 2010 Red Hat

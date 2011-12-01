@@ -1,5 +1,5 @@
 /*
- * libvirt-gobject-config-domain-graphics.c: libvirt glib integration
+ * libvirt-gconfig-domain-graphics.c: libvirt domain graphics configuration
  *
  * Copyright (C) 2011 Red Hat
  *

@@ -1,5 +1,5 @@
 /*
- * libvirt-gconfig-config-object.c: base object for XML configuration
+ * libvirt-gconfig-object.h: base object for XML configuration
  *
  * Copyright (C) 2010 Red Hat
  *

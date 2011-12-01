@@ -1,5 +1,5 @@
 /*
- * libvirt-gobject-config-domain-graphics-sdl.c: libvirt glib integration
+ * libvirt-gconfig-domain-graphics-sdl.c: libvirt domain SDL configuration
  *
  * Copyright (C) 2011 Red Hat
  *

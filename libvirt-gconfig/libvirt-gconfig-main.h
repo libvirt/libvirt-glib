@@ -1,5 +1,5 @@
 /*
- * libvirt-gconfig-main.c: libvirt gconfig integration
+ * libvirt-gconfig-main.h: libvirt gconfig integration
  *
  * Copyright (C) 2008 Daniel P. Berrange
  * Copyright (C) 2010 Red Hat

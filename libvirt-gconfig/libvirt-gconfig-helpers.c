@@ -1,5 +1,5 @@
 /*
- * libvirt-gconfig-helpers.c: various GVirConfig helpers
+ * libvirt-gconfig-helpers.c: libvirt configuration helpers
  *
  * Copyright (C) 2010, 2011 Red Hat
  *

@@ -1,5 +1,5 @@
 /*
- * libvirt-gobject-network-config.c: libvirt gobject integration
+ * libvirt-gconfig-network.c: libvirt network configuration
  *
  * Copyright (C) 2010 Red Hat
  *

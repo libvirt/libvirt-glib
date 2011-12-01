@@ -1,5 +1,5 @@
 /*
- * libvirt-gobject-config-domain-timer.c: libvirt glib integration
+ * libvirt-gconfig-domain-timer.c: libvirt domain timer configuration
  *
  * Copyright (C) 2011 Red Hat
  *

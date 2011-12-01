@@ -1,5 +1,5 @@
 /*
- * libvirt-gconfig-domain-seclabel.c: libvirt glib integration
+ * libvirt-gconfig-domain-seclabel.c: libvirt domain security label configuration
  *
  * Copyright (C) 2011 Red Hat
  *

@@ -1,5 +1,5 @@
 /*
- * libvirt-gobject-config-device_input.c: libvirt glib integration
+ * libvirt-gconfig-device-input.c: libvirt domain input configuration
  *
  * Copyright (C) 2011 Red Hat
  *

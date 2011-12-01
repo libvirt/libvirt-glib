@@ -1,5 +1,5 @@
 /*
- * libvirt-gobject-storage-pool-config.c: libvirt gobject integration
+ * libvirt-gconfig-storage-pool.h: libvirt storage pool configuration
  *
  * Copyright (C) 2010 Red Hat
  *

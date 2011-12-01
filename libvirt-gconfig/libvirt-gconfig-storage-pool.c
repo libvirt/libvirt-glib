@@ -1,5 +1,5 @@
 /*
- * libvirt-gconfig-storage-pool.c: libvirt glib integration
+ * libvirt-gconfig-storage-pool.c: libvirt storage pool configuration
  *
  * Copyright (C) 2008 Daniel P. Berrange
  * Copyright (C) 2010 Red Hat

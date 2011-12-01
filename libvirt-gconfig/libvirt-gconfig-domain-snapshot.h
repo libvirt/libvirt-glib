@@ -1,5 +1,5 @@
 /*
- * libvirt-gobject-domain_snapshot-config.c: libvirt gobject integration
+ * libvirt-gconfig-domain-snapshot.h: libvirt domain snapshot configuration
  *
  * Copyright (C) 2010 Red Hat
  *

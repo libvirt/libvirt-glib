@@ -1,5 +1,5 @@
 /*
- * libvirt-gobject-nodedevice-config.c: libvirt gobject integration
+ * libvirt-gconfig-node-device.h: libvirt node device configuration
  *
  * Copyright (C) 2010 Red Hat
  *
