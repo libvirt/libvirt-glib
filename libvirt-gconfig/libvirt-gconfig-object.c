@@ -264,7 +264,7 @@ gchar *gvir_config_object_to_xml(GVirConfigObject *config)
     if (node == NULL)
         return NULL;
 
-    xmlDocDumpMemory(node->doc, &doc, &size);
+    xmlDocDumpFormatMemory(node->doc, &doc, &size, 1);
 
     output_doc = g_strdup((gchar *)doc);
     xmlFree(doc);
