@@ -58,7 +58,8 @@ struct _GVirConfigDomainOsClass
 
 typedef enum {
     GVIR_CONFIG_DOMAIN_OS_TYPE_HVM,
-    GVIR_CONFIG_DOMAIN_OS_TYPE_LINUX
+    GVIR_CONFIG_DOMAIN_OS_TYPE_LINUX,
+    GVIR_CONFIG_DOMAIN_OS_TYPE_EXE
 } GVirConfigDomainOsType;
 
 typedef enum {
