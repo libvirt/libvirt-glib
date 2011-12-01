@@ -1,7 +1,7 @@
 /*
  * libvirt-gconfig-domain-graphics-vnc.h: libvirt domain VNC graphics configuration
  *
- * Copyright (C) 2011 Red Hat
+ * Copyright (C) 2011 Red Hat, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public

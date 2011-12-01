@@ -1,7 +1,7 @@
 /*
  * libvirt-glib.c: Binding the glib event loop integration to python
  *
- * Copyright (C) 2008 Red Hat, Inc.
+ * Copyright (C) 2008 Red Hat, Inc., Inc.
  *
  * Daniel Berrange <berrange@redhat.com>
  */
