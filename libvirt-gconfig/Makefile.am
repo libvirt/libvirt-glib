@@ -39,7 +39,7 @@ GCONFIG_HEADER_FILES = \
 			libvirt-gconfig-storage-vol.h
 noinst_HEADERS = \
 			libvirt-gconfig-helpers-private.h \
-			libvirt-gconfig-object-private.h
+			libvirt-gconfig-object-private.h \
 			libvirt-gconfig-xml-doc.h
 GCONFIG_SOURCE_FILES = \
 			libvirt-gconfig-object.c \
