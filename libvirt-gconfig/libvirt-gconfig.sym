@@ -100,6 +100,12 @@ LIBVIRT_GCONFIG_0.0.1 {
 	gvir_config_domain_interface_network_new_from_xml;
 	gvir_config_domain_interface_network_set_source;
 
+	gvir_config_domain_memballoon_get_type;
+	gvir_config_domain_memballoon_model_get_type;
+	gvir_config_domain_memballoon_new;
+	gvir_config_domain_memballoon_new_from_xml;
+	gvir_config_domain_memballoon_set_model;
+
 	gvir_config_domain_os_get_type;
 	gvir_config_domain_os_boot_device_get_type;
 	gvir_config_domain_os_sm_bios_mode_get_type;
