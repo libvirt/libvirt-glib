@@ -138,8 +138,8 @@ if test "$with_python" != "no" ; then
     fi
     if test "$PYTHON_VERSION" != ""
     then
-	if test -r $with_python/include/python$PYTHON_VERSION/Python.h -a \
-	   -d $with_python/lib/python$PYTHON_VERSION/site-packages
+	if test -r $with_python/include/python$PYTHON_VERSION/Python.h && \
+	   test -d $with_python/lib/python$PYTHON_VERSION/site-packages
 	then
 	    PYTHON_INCLUDES=$with_python/include/python$PYTHON_VERSION
 	    PYTHON_SITE_PACKAGES=$libdir/python$PYTHON_VERSION/site-packages
