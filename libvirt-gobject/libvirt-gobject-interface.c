@@ -185,10 +185,9 @@ GVirConfigInterface *gvir_interface_get_config(GVirInterface *iface,
     gchar *xml;
 
     if (!(xml = virInterfaceGetXMLDesc(priv->handle, flags))) {
-        if (err)
-            *err = gvir_error_new_literal(GVIR_INTERFACE_ERROR,
-                                          0,
-                                          "Unable to get interface XML config");
+        gvir_set_error_literal(err, GVIR_INTERFACE_ERROR,
+                               0,
+                               "Unable to get interface XML config");
         return NULL;
     }
 

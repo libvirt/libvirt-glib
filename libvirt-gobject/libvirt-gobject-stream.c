@@ -372,10 +372,9 @@ gvir_stream_receive_all(GVirStream *self,
 
     r = virStreamRecvAll(self->priv->handle, stream_sink, &helper);
     if (r < 0) {
-        if (err != NULL)
-            *err = gvir_error_new_literal(GVIR_STREAM_ERROR,
-                                          0,
-                                          "Unable to perform RecvAll");
+        gvir_set_error_literal(err, GVIR_STREAM_ERROR,
+                               0,
+                               "Unable to perform RecvAll");
     }
 
     return r;
@@ -476,10 +475,9 @@ gvir_stream_send_all(GVirStream *self,
 
     r = virStreamSendAll(self->priv->handle, stream_source, &helper);
     if (r < 0) {
-        if (err != NULL)
-            *err = gvir_error_new_literal(GVIR_STREAM_ERROR,
-                                          0,
-                                          "Unable to perform SendAll");
+        gvir_set_error_literal(err, GVIR_STREAM_ERROR,
+                               0,
+                               "Unable to perform SendAll");
     }
 
     return r;

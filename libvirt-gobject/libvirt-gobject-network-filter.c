@@ -211,10 +211,9 @@ GVirConfigNetworkFilter *gvir_network_filter_get_config
     gchar *xml;
 
     if (!(xml = virNWFilterGetXMLDesc(priv->handle, flags))) {
-        if (err)
-            *err = gvir_error_new_literal(GVIR_NETWORK_FILTER_ERROR,
-                                          0,
-                                          "Unable to get network_filter XML config");
+        gvir_set_error_literal(err, GVIR_NETWORK_FILTER_ERROR,
+                               0,
+                               "Unable to get network_filter XML config");
         return NULL;
     }
 

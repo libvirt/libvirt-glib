@@ -126,3 +126,94 @@ GError *gvir_error_new_valist(GQuark domain,
 
     return err;
 }
+
+
+/**
+ * gvir_set_error: (skip)
+ * @error: pointer to error location
+ * @domain: error domain
+ * @code: error code
+ * @format: printf()-style format for error message
+ * @Varargs: parameters for message format
+ *
+ * If @error is NULL this does nothing. Otherwise it
+ * creates a new #GError with the given @domain and @code,
+ * and a message formatted with @format, and stores it
+ * in @error.
+ */
+void gvir_set_error(GError **error,
+                    GQuark domain,
+                    gint code,
+                    const gchar *format,
+                    ...)
+{
+    va_list args;
+    gchar *message;
+
+    if (!error)
+        return;
+
+    va_start(args, format);
+    message = g_strdup_vprintf(format, args);
+    va_end(args);
+
+    *error = gvir_error_new_literal(domain, code, message);
+
+    g_free(message);
+}
+
+
+/**
+ * gvir_set_error_literal: (skip)
+ * @error: pointer to error location
+ * @domain: error domain
+ * @code: error code
+ * @message: error message
+ *
+ * If @error is NULL this does nothing. Otherwise it
+ * creates a new #GError and stores it in @error; unlike
+ * gvir_set_error(), @message is not a printf()-style
+ * format string. Use this function if @message contains
+ * text you don't have control over, that could include
+ * printf() escape sequences.
+ */
+void gvir_set_error_literal(GError **error,
+                            GQuark domain,
+                            gint code,
+                            const gchar *message)
+{
+    if (!error)
+        return;
+
+    *error = gvir_error_new_literal(domain, code, message);
+}
+
+
+/**
+ * gvir_set_error_valist: (skip)
+ * @error: pointer to error location
+ * @domain: error domain
+ * @code: error code
+ * @format: printf()-style format for error message
+ * @args: #va_list of parameters for the message format
+ *
+ * If @error is NULL this does nothing. Otherwise it
+ * creates a new #GError with the given @domain and @code,
+ * and a message formatted with @format, and stores it
+ * in @error.
+ */
+void gvir_set_error_valist(GError **error,
+                           GQuark domain,
+                           gint code,
+                           const gchar *format,
+                           va_list args)
+{
+    gchar *message;
+    if (!error)
+        return;
+
+    message = g_strdup_vprintf(format, args);
+    *error = gvir_error_new_literal(domain, code, message);
+
+    g_free(message);
+}

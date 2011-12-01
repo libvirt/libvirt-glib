@@ -42,6 +42,24 @@ GError *gvir_error_new_valist(GQuark domain,
                               const gchar *format,
                               va_list args);
 
+void gvir_set_error(GError **error,
+                    GQuark domain,
+                    gint code,
+                    const gchar *format,
+                    ...);
+
+void gvir_set_error_literal(GError **error,
+                            GQuark domain,
+                            gint code,
+                            const gchar *message);
+
+void gvir_set_error_valist(GError **error,
+                           GQuark domain,
+                           gint code,
+                           const gchar *format,
+                           va_list args);
+
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GLIB_ERROR_H__ */

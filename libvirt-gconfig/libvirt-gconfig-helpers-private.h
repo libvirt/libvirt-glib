@@ -30,8 +30,18 @@
 
 G_BEGIN_DECLS
 
-GError *gvir_xml_error_new(GQuark domain, gint code,
+GError *gvir_config_error_new(GQuark domain, gint code,
+                              const gchar *format, ...);
+void gvir_config_set_error(GError **err,
+                           GQuark domain, gint code,
                            const gchar *format, ...);
+void gvir_config_set_error_literal(GError **err,
+                                   GQuark domain, gint code,
+                                   const gchar *message);
+void gvir_config_set_error_valist(GError **err,
+                                  GQuark domain, gint code,
+                                  const gchar *format,
+                                  va_list args);
 xmlNodePtr gvir_config_xml_parse(const char *xml,
                                  const char *root_node,
                                  GError **err);

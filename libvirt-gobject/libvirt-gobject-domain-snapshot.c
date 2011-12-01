@@ -196,9 +196,9 @@ GVirConfigDomainSnapshot *gvir_domain_snapshot_get_config
     gchar *xml;
 
     if (!(xml = virDomainSnapshotGetXMLDesc(priv->handle, flags))) {
-        *err = gvir_error_new_literal(GVIR_DOMAIN_SNAPSHOT_ERROR,
-                                      0,
-                                      "Unable to get domain_snapshot XML config");
+        gvir_set_error_literal(err, GVIR_DOMAIN_SNAPSHOT_ERROR,
+                               0,
+                               "Unable to get domain_snapshot XML config");
         return NULL;
     }
 

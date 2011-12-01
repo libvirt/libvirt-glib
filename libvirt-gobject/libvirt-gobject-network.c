@@ -207,10 +207,9 @@ GVirConfigNetwork *gvir_network_get_config(GVirNetwork *network,
     gchar *xml;
 
     if (!(xml = virNetworkGetXMLDesc(priv->handle, flags))) {
-        if (err)
-            *err = gvir_error_new_literal(GVIR_NETWORK_ERROR,
-                                          0,
-                                          "Unable to get network XML config");
+        gvir_set_error_literal(err, GVIR_NETWORK_ERROR,
+                               0,
+                               "Unable to get network XML config");
         return NULL;
     }
 

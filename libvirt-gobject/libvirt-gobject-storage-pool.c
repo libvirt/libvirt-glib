@@ -239,10 +239,9 @@ GVirConfigStoragePool *gvir_storage_pool_get_config(GVirStoragePool *pool,
     gchar *xml;
 
     if (!(xml = virStoragePoolGetXMLDesc(priv->handle, flags))) {
-        if (err)
-            *err = gvir_error_new_literal(GVIR_STORAGE_POOL_ERROR,
-                                          0,
-                                          "Unable to get storage_pool XML config");
+        gvir_set_error_literal(err, GVIR_STORAGE_POOL_ERROR,
+                               0,
+                               "Unable to get storage_pool XML config");
         return NULL;
     }
 
@@ -297,9 +296,9 @@ static gchar ** fetch_list(virStoragePoolPtr vpool,
     gint i;
 
     if ((n = count_func(vpool)) < 0) {
-        *err = gvir_error_new(GVIR_STORAGE_POOL_ERROR,
-                              0,
-                              "Unable to count %s", name);
+        gvir_set_error(err, GVIR_STORAGE_POOL_ERROR,
+                       0,
+                       "Unable to count %s", name);
         goto error;
     }
 
@@ -309,9 +308,9 @@ static gchar ** fetch_list(virStoragePoolPtr vpool,
 
         lst = g_new(gchar *, n);
         if ((n = list_func(vpool, lst, n)) < 0) {
-            *err = gvir_error_new(GVIR_STORAGE_POOL_ERROR,
-                                  0,
-                                  "Unable to list %s %d", name, n);
+            gvir_set_error(err, GVIR_STORAGE_POOL_ERROR,
+                           0,
+                           "Unable to list %s %d", name, n);
             goto error;
         }
     }
@@ -347,10 +346,9 @@ gboolean gvir_storage_pool_refresh(GVirStoragePool *pool,
     vpool = priv->handle;
 
     if (virStoragePoolRefresh(vpool, 0) < 0) {
-        if (err)
-            *err = gvir_error_new_literal(GVIR_STORAGE_POOL_ERROR,
-                                          0,
-                                          "Unable to refresh storage pool");
+        gvir_set_error_literal(err, GVIR_STORAGE_POOL_ERROR,
+                               0,
+                               "Unable to refresh storage pool");
         goto cleanup;
     }
 
@@ -539,10 +537,9 @@ GVirStorageVol *gvir_storage_pool_create_volume
     g_return_val_if_fail(xml != NULL, NULL);
 
     if (!(handle = virStorageVolCreateXML(priv->handle, xml, 0))) {
-        if (err)
-            *err = gvir_error_new_literal(GVIR_STORAGE_POOL_ERROR,
-                                          0,
-                                          "Failed to create volume");
+        gvir_set_error_literal(err, GVIR_STORAGE_POOL_ERROR,
+                               0,
+                               "Failed to create volume");
         return NULL;
     }
 
@@ -574,10 +571,9 @@ gboolean gvir_storage_pool_build (GVirStoragePool *pool,
                                   GError **err)
 {
     if (virStoragePoolBuild(pool->priv->handle, flags)) {
-        if (err)
-            *err = gvir_error_new_literal(GVIR_STORAGE_POOL_ERROR,
-                                          0,
-                                          "Failed to build storage pool");
+        gvir_set_error_literal(err, GVIR_STORAGE_POOL_ERROR,
+                               0,
+                               "Failed to build storage pool");
         return FALSE;
     }
 
@@ -679,10 +675,9 @@ gboolean gvir_storage_pool_start (GVirStoragePool *pool,
                                   GError **err)
 {
     if (virStoragePoolCreate(pool->priv->handle, flags)) {
-        if (err)
-            *err = gvir_error_new_literal(GVIR_STORAGE_POOL_ERROR,
-                                          0,
-                                          "Failed to start storage pool");
+        gvir_set_error_literal(err, GVIR_STORAGE_POOL_ERROR,
+                               0,
+                               "Failed to start storage pool");
         return FALSE;
     }
 

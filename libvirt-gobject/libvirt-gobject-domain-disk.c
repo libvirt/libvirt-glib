@@ -175,10 +175,9 @@ GVirDomainDiskStats *gvir_domain_disk_get_stats(GVirDomainDisk *self, GError **e
     handle = gvir_domain_device_get_domain_handle(GVIR_DOMAIN_DEVICE(self));
 
     if (virDomainBlockStats(handle, priv->path, &stats, sizeof (stats)) < 0) {
-        if (err)
-            *err = gvir_error_new_literal(GVIR_DOMAIN_DISK_ERROR,
-                                          0,
-                                          "Unable to get domain disk stats");
+        gvir_set_error_literal(err, GVIR_DOMAIN_DISK_ERROR,
+                               0,
+                               "Unable to get domain disk stats");
         goto end;
     }
 

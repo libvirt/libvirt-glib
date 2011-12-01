@@ -212,10 +212,9 @@ GVirConfigStorageVol *gvir_storage_vol_get_config(GVirStorageVol *vol,
     gchar *xml;
 
     if (!(xml = virStorageVolGetXMLDesc(priv->handle, flags))) {
-        if (err)
-            *err = gvir_error_new_literal(GVIR_STORAGE_VOL_ERROR,
-                                          0,
-                                          "Unable to get storage_vol XML config");
+        gvir_set_error_literal(err, GVIR_STORAGE_VOL_ERROR,
+                               0,
+                               "Unable to get storage_vol XML config");
         return NULL;
     }
 

@@ -36,9 +36,9 @@ gvir_config_object_error_quark(void)
     return g_quark_from_static_string("gvir-config-object");
 }
 
-static GError *gvir_xml_error_new_literal(GQuark domain,
-                                          gint code,
-                                          const gchar *message)
+static GError *gvir_config_error_new_literal(GQuark domain,
+                                             gint code,
+                                             const gchar *message)
 {
     xmlErrorPtr xerr = xmlGetLastError();
 
@@ -59,10 +59,10 @@ static GError *gvir_xml_error_new_literal(GQuark domain,
 }
 
 
-GError *gvir_xml_error_new(GQuark domain,
-                           gint code,
-                           const gchar *format,
-                           ...)
+GError *gvir_config_error_new(GQuark domain,
+                              gint code,
+                              const gchar *format,
+                              ...)
 {
     GError *err;
     va_list args;
@@ -72,11 +72,60 @@ GError *gvir_xml_error_new(GQuark domain,
     message = g_strdup_vprintf(format, args);
     va_end(args);
 
-    err = gvir_xml_error_new_literal(domain, code, message);
+    err = gvir_config_error_new_literal(domain, code, message);
 
     g_free(message);
 
     return err;
+}
+
+
+void gvir_config_set_error(GError **err,
+                           GQuark domain, gint code,
+                           const gchar *format, ...)
+{
+    va_list args;
+    gchar *message;
+
+    if (!err)
+        return;
+
+    va_start(args, format);
+    message = g_strdup_vprintf(format, args);
+    va_end(args);
+
+    *err = gvir_config_error_new_literal(domain, code, message);
+
+    g_free(message);
+}
+
+
+void gvir_config_set_error_literal(GError **err,
+                                   GQuark domain, gint code,
+                                   const gchar *message)
+{
+    if (!err)
+        return;
+
+    *err = gvir_config_error_new_literal(domain, code, message);
+}
+
+
+void gvir_config_set_error_valist(GError **err,
+                                  GQuark domain, gint code,
+                                  const gchar *format,
+                                  va_list args)
+{
+    gchar *message;
+
+    if (!err)
+        return;
+
+    message = g_strdup_vprintf(format, args);
+
+    *err = gvir_config_error_new_literal(domain, code, message);
+
+    g_free(message);
 }
 
 xmlNodePtr
@@ -94,17 +143,17 @@ gvir_config_xml_parse(const char *xml, const char *root_node, GError **err)
 
     doc = xmlParseMemory(xml, strlen(xml));
     if (!doc) {
-        *err = gvir_xml_error_new(GVIR_CONFIG_OBJECT_ERROR,
-                                  0,
-                                  "%s",
-                                  "Unable to parse configuration");
+        gvir_config_set_error_literal(err, GVIR_CONFIG_OBJECT_ERROR,
+                                      0,
+                                      "Unable to parse configuration");
         return NULL;
     }
     if ((!doc->children) || (strcmp((char *)doc->children->name, root_node) != 0)) {
-        *err = g_error_new(GVIR_CONFIG_OBJECT_ERROR,
-                           0,
-                           "XML data has no '%s' node",
-                           root_node);
+        g_set_error(err,
+                    GVIR_CONFIG_OBJECT_ERROR,
+                    0,
+                    "XML data has no '%s' node",
+                    root_node);
         xmlFreeDoc(doc);
         return NULL;
     }

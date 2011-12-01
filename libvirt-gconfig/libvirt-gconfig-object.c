@@ -202,28 +202,30 @@ void gvir_config_object_validate(GVirConfigObject *config,
     xmlSetStructuredErrorFunc(NULL, gvir_xml_structured_error_nop);
 
     if (!priv->node) {
-        *err = gvir_xml_error_new(GVIR_CONFIG_OBJECT_ERROR,
-                                  0,
-                                  "%s",
-                                  "No XML document associated with this config object");
+        gvir_config_set_error_literal(err,
+                                      GVIR_CONFIG_OBJECT_ERROR,
+                                      0,
+                                      "No XML document associated with this config object");
         return;
     }
 
     rngParser = xmlRelaxNGNewParserCtxt(priv->schema);
     if (!rngParser) {
-        *err = gvir_xml_error_new(GVIR_CONFIG_OBJECT_ERROR,
-                                  0,
-                                  "Unable to create RNG parser for %s",
-                                  priv->schema);
+        gvir_config_set_error(err,
+                              GVIR_CONFIG_OBJECT_ERROR,
+                              0,
+                              "Unable to create RNG parser for %s",
+                              priv->schema);
         return;
     }
 
     rng = xmlRelaxNGParse(rngParser);
     if (!rng) {
-        *err = gvir_xml_error_new(GVIR_CONFIG_OBJECT_ERROR,
-                                  0,
-                                  "Unable to parse RNG %s",
-                                  priv->schema);
+        gvir_config_set_error(err,
+                              GVIR_CONFIG_OBJECT_ERROR,
+                              0,
+                              "Unable to parse RNG %s",
+                              priv->schema);
         xmlRelaxNGFreeParserCtxt(rngParser);
         return;
     }
@@ -231,19 +233,20 @@ void gvir_config_object_validate(GVirConfigObject *config,
 
     rngValid = xmlRelaxNGNewValidCtxt(rng);
     if (!rngValid) {
-        *err = gvir_xml_error_new(GVIR_CONFIG_OBJECT_ERROR,
-                                  0,
-                                  "Unable to create RNG validation context %s",
-                                  priv->schema);
+        gvir_config_set_error(err,
+                              GVIR_CONFIG_OBJECT_ERROR,
+                              0,
+                              "Unable to create RNG validation context %s",
+                              priv->schema);
         xmlRelaxNGFree(rng);
         return;
     }
 
     if (xmlRelaxNGValidateDoc(rngValid, priv->node->doc) != 0) {
-        *err = gvir_xml_error_new(GVIR_CONFIG_OBJECT_ERROR,
-                                  0,
-                                  "%s",
-                                  "Unable to validate doc");
+        gvir_config_set_error_literal(err,
+                                      GVIR_CONFIG_OBJECT_ERROR,
+                                      0,
+                                      "Unable to validate doc");
         xmlRelaxNGFreeValidCtxt(rngValid);
         xmlRelaxNGFree(rng);
         return;

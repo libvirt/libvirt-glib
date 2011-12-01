@@ -175,10 +175,9 @@ GVirDomainInterfaceStats *gvir_domain_interface_get_stats(GVirDomainInterface *s
     handle = gvir_domain_device_get_domain_handle(GVIR_DOMAIN_DEVICE(self));
 
     if (virDomainInterfaceStats(handle, priv->path, &stats, sizeof (stats)) < 0) {
-        if (err)
-            *err = gvir_error_new_literal(GVIR_DOMAIN_INTERFACE_ERROR,
-                                          0,
-                                          "Unable to get domain interface stats");
+        gvir_set_error_literal(err, GVIR_DOMAIN_INTERFACE_ERROR,
+                               0,
+                               "Unable to get domain interface stats");
         goto end;
     }
 
