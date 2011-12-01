@@ -48,6 +48,8 @@ python/*pyc
 */*.gir
 */*.typelib
 build/
+libvirt-gconfig/libvirt-gconfig-enum-types.h
+libvirt-gconfig/libvirt-gconfig-enum-types.c
 libvirt-gobject/libvirt-gobject-enums.h
 libvirt-gobject/libvirt-gobject-enums.c
 docs/*/xml/
@@ -68,3 +70,5 @@ docs/*/*.signals
 docs/*/*.types
 *.tar.gz
 *.pc
+libvirt-gconfig/tests/test-domain-create
+libvirt-gconfig/tests/test-domain-parse
