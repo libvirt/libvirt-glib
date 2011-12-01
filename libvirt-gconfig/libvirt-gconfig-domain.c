@@ -317,3 +317,18 @@ void gvir_config_domain_set_devices(GVirConfigDomain *domain,
     gvir_config_object_attach(GVIR_CONFIG_OBJECT(domain), devices_node);
     g_object_unref(G_OBJECT(devices_node));
 }
+
+void gvir_config_domain_add_device(GVirConfigDomain *domain,
+                                   GVirConfigDomainDevice *device)
+{
+    GVirConfigObject *devices_node;
+
+    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN(domain));
+    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DEVICE(device));
+
+    devices_node = gvir_config_object_add_child(GVIR_CONFIG_OBJECT(domain),
+                                                "devices");
+
+    gvir_config_object_attach(devices_node, GVIR_CONFIG_OBJECT(device));
+    g_object_unref(G_OBJECT(devices_node));
+}

@@ -29,6 +29,7 @@
 
 #include <libvirt-gconfig/libvirt-gconfig-domain-clock.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-os.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-device.h>
 
 G_BEGIN_DECLS
 
@@ -89,6 +90,8 @@ void gvir_config_domain_set_os(GVirConfigDomain *domain,
                                GVirConfigDomainOs *os);
 void gvir_config_domain_set_devices(GVirConfigDomain *domain,
                                     GList *devices);
+void gvir_config_domain_add_device(GVirConfigDomain *domain,
+                                   GVirConfigDomainDevice *device);
 
 G_END_DECLS
 
