@@ -39,4 +39,3 @@ GTKDOC_LIBS = \
 	$(top_builddir)/libvirt-gconfig/libvirt-gconfig-1.0.la
 
 include $(top_srcdir)/gtk-doc.make
-

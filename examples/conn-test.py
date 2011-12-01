@@ -44,5 +44,3 @@ def done(conn, result, data):
 conn.open_async(canc, done, None)
 
 Gtk.main()
-
-

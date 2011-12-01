@@ -8,4 +8,3 @@ except:
 
 def event_register():
     libvirtglibmod.event_register()
-

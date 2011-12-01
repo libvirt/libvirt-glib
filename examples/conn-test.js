@@ -38,4 +38,3 @@ function done(conn, result, data) {
 conn.open_async(canc, done, null)
 
 gtk.main(null, null)
-

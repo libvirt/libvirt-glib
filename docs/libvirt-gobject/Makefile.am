@@ -41,4 +41,3 @@ GTKDOC_LIBS = \
 	$(top_builddir)/libvirt-gobject/libvirt-gobject-1.0.la
 
 include $(top_srcdir)/gtk-doc.make
-

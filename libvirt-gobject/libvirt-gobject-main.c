@@ -90,4 +90,3 @@ gboolean gvir_init_object_check(int *argc,
 
     return TRUE;
 }
-

@@ -194,4 +194,3 @@ GVirConnection *gvir_manager_find_connection_by_uri(GVirManager *man,
     }
     return NULL;
 }
-

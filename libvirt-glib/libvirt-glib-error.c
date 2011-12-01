@@ -126,4 +126,3 @@ GError *gvir_error_new_valist(GQuark domain,
 
     return err;
 }
-

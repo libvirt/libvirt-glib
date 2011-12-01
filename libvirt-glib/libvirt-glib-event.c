@@ -416,4 +416,3 @@ void gvir_event_register(void)
 
     g_once(&once, event_register_once, NULL);
 }
-

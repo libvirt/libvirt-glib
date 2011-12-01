@@ -71,4 +71,3 @@ GVirConfigInterface *gvir_config_interface_new_from_xml(const gchar *xml,
                                              xml, error);
     return GVIR_CONFIG_INTERFACE(object);
 }
-

@@ -82,4 +82,3 @@ gboolean gvir_init_config_check(int *argc G_GNUC_UNUSED,
 
     return TRUE;
 }
-
