@@ -25,6 +25,8 @@
  * Author: Christophe Fergeau <cfergeau@redhat.com>
  */
 
+#include <config.h>
+
 #include <string.h>
 #include <libvirt-gconfig/libvirt-gconfig.h>
 
