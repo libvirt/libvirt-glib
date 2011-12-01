@@ -83,8 +83,7 @@ static void gvir_config_xml_doc_finalize(GObject *object)
 
     g_debug("Finalize GVirConfigXmlDoc=%p", doc);
 
-    if (priv->doc)
-        xmlFreeDoc(priv->doc);
+    xmlFreeDoc(priv->doc);
 
     G_OBJECT_CLASS(gvir_config_xml_doc_parent_class)->finalize(object);
 }
