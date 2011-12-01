@@ -23,7 +23,7 @@ libvirtglibmod_la_LIBADD = ../libvirt-glib/libvirt-glib-1.0.la
 
 install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(pythondir)
-	@INSTALL@ -m 0644 $(srcdir)/libvirtglib.py $(DESTDIR)$(pythondir)
+	$(INSTALL) -m 0644 $(srcdir)/libvirtglib.py $(DESTDIR)$(pythondir)
 
 uninstall-local:
 	rm -f $(DESTDIR)$(pythondir)/libvirtglib.py
