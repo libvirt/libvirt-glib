@@ -22,10 +22,6 @@
 
 #include <config.h>
 
-#include <string.h>
-
-#include <libxml/tree.h>
-
 #include "libvirt-gconfig/libvirt-gconfig.h"
 
 #define GVIR_CONFIG_DOMAIN_DEVICE_GET_PRIVATE(obj)                         \

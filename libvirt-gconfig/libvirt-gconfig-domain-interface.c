@@ -23,8 +23,6 @@
 
 #include <config.h>
 
-#include <string.h>
-
 #include "libvirt-gconfig/libvirt-gconfig.h"
 
 #define GVIR_CONFIG_DOMAIN_INTERFACE_GET_PRIVATE(obj)                         \

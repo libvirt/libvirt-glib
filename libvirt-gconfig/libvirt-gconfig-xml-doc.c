@@ -24,8 +24,6 @@
 
 #include <string.h>
 
-#include <libxml/tree.h>
-
 #include "libvirt-gconfig/libvirt-gconfig.h"
 #include "libvirt-gconfig/libvirt-gconfig-xml-doc.h"
 
