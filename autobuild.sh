@@ -3,6 +3,9 @@
 set -e
 set -v
 
+test -n "$1" && RESULTS=$1 || RESULTS=results.log
+: ${AUTOBUILD_INSTALL_ROOT=$HOME/builder}
+
 # Make things clean.
 test -f Makefile && make -k distclean || :
 
@@ -15,6 +18,16 @@ cd build
 
 make
 make install
+
+# set -o pipefail is a bashism; this use of exec is the POSIX alternative
+exec 3>&1
+st=$(
+  exec 4>&1 >&3
+  { make check syntax-check 2>&1 3>&- 4>&-; echo $? >&4; } | tee "$RESULTS"
+)
+exec 3>&-
+test "$st" = 0
+
 
 rm -f *.tar.gz
 make dist
