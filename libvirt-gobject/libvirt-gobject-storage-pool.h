@@ -73,7 +73,7 @@ struct _GVirStoragePoolInfo
     GVirStoragePoolState state; /* the state */
     guint64 capacity;           /* Logical size bytes */
     guint64 allocation;         /* Current allocation bytes */
-    guint16 available;          /* Remaining free space bytes */
+    guint64 available;          /* Remaining free space bytes */
 };
 
 GType gvir_storage_pool_get_type(void);
