@@ -62,6 +62,10 @@ int main(void)
     }
     g_strfreev(feat);
 
+    gvir_config_domain_set_lifecycle(domain,
+                                     GVIR_CONFIG_DOMAIN_LIFECYCLE_ON_POWEROFF,
+                                     GVIR_CONFIG_DOMAIN_LIFECYCLE_RESTART);
+
     /* clock node */
     GVirConfigDomainClock *klock;
 

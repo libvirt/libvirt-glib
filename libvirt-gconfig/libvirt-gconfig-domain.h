@@ -69,6 +69,21 @@ typedef enum {
     GVIR_CONFIG_DOMAIN_VIRT_LXC,
 } GVirConfigDomainVirtType;
 
+typedef enum {
+    GVIR_CONFIG_DOMAIN_LIFECYCLE_ON_POWEROFF, /*< nick=on_poweroff >*/
+    GVIR_CONFIG_DOMAIN_LIFECYCLE_ON_REBOOT, /*< nick=on_reboot >*/
+    GVIR_CONFIG_DOMAIN_LIFECYCLE_ON_CRASH /*< nick=on_crash >*/
+} GVirConfigDomainLifecycleEvent;
+
+typedef enum {
+    GVIR_CONFIG_DOMAIN_LIFECYCLE_DESTROY,
+    GVIR_CONFIG_DOMAIN_LIFECYCLE_RESTART,
+    GVIR_CONFIG_DOMAIN_LIFECYCLE_PRESERVE,
+    GVIR_CONFIG_DOMAIN_LIFECYCLE_RENAME_RESTART,
+    GVIR_CONFIG_DOMAIN_LIFECYCLE_COREDUMP_DESTROY,
+    GVIR_CONFIG_DOMAIN_LIFECYCLE_COREDUMP_RESTART
+} GVirConfigDomainLifecycleAction;
+
 GType gvir_config_domain_get_type(void);
 
 GVirConfigDomain *gvir_config_domain_new_from_xml(const gchar *xml, GError **error);
@@ -95,6 +110,9 @@ void gvir_config_domain_set_devices(GVirConfigDomain *domain,
                                     GList *devices);
 void gvir_config_domain_add_device(GVirConfigDomain *domain,
                                    GVirConfigDomainDevice *device);
+void gvir_config_domain_set_lifecycle(GVirConfigDomain *domain,
+                                      GVirConfigDomainLifecycleEvent event,
+                                      GVirConfigDomainLifecycleAction action);
 
 G_END_DECLS
 

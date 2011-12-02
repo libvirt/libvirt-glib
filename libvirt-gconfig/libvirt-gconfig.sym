@@ -9,12 +9,15 @@ LIBVIRT_GCONFIG_0.0.1 {
 
 	gvir_config_domain_add_device;
 	gvir_config_domain_get_type;
+	gvir_config_domain_lifecycle_action_get_type;
+	gvir_config_domain_lifecycle_event_get_type;
 	gvir_config_domain_new;
 	gvir_config_domain_new_from_xml;
 	gvir_config_domain_set_clock;
 	gvir_config_domain_set_devices;
 	gvir_config_domain_get_features;
 	gvir_config_domain_set_features;
+	gvir_config_domain_set_lifecycle;
 	gvir_config_domain_get_memory;
 	gvir_config_domain_set_memory;
 	gvir_config_domain_get_name;

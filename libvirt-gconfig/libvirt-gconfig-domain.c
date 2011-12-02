@@ -300,6 +300,27 @@ void gvir_config_domain_set_seclabel(GVirConfigDomain *domain,
                               GVIR_CONFIG_OBJECT(seclabel));
 }
 
+void gvir_config_domain_set_lifecycle(GVirConfigDomain *domain,
+                                      GVirConfigDomainLifecycleEvent event,
+                                      GVirConfigDomainLifecycleAction action)
+{
+    const char *event_str;
+    const char *action_str;
+
+    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN(domain));
+    g_return_if_fail((event == GVIR_CONFIG_DOMAIN_LIFECYCLE_ON_CRASH) ||
+                     ((action != GVIR_CONFIG_DOMAIN_LIFECYCLE_COREDUMP_DESTROY) &&
+                      (action != GVIR_CONFIG_DOMAIN_LIFECYCLE_COREDUMP_RESTART)));
+
+    event_str = gvir_config_genum_get_nick(GVIR_TYPE_CONFIG_DOMAIN_LIFECYCLE_EVENT, event);
+    g_return_if_fail(event_str != NULL);
+    action_str = gvir_config_genum_get_nick(GVIR_TYPE_CONFIG_DOMAIN_LIFECYCLE_ACTION, action);
+    g_return_if_fail(action_str != NULL);
+
+    gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(domain),
+                                        event_str, action_str);
+}
+
 /**
  * gvir_config_domain_set_devices:
  * @devices: (in) (element-type LibvirtGConfig.DomainDevice):
