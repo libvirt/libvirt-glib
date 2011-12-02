@@ -136,6 +136,17 @@ int main(void)
                                        GVIR_CONFIG_DOMAIN_VIDEO_MODEL_QXL);
     devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(video));
 
+    /* console node */
+    GVirConfigDomainConsole *console;
+    GVirConfigDomainChardevSourcePty *pty;
+
+    console = gvir_config_domain_console_new();
+    pty = gvir_config_domain_chardev_source_pty_new();
+    gvir_config_domain_chardev_set_source(GVIR_CONFIG_DOMAIN_CHARDEV(console),
+                                          GVIR_CONFIG_DOMAIN_CHARDEV_SOURCE(pty));
+    g_object_unref(G_OBJECT(pty));
+    devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(console));
+
 
     gvir_config_domain_set_devices(domain, devices);
     g_list_foreach(devices, (GFunc)g_object_unref, NULL);
