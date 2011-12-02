@@ -30,7 +30,9 @@
 #include <libvirt-gconfig/libvirt-gconfig-object.h>
 #include <libvirt-gconfig/libvirt-gconfig-capabilities.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-chardev.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-clock.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-console.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-device.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-disk.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-filesys.h>

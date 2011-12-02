@@ -13,7 +13,9 @@ GCONFIG_HEADER_FILES = \
 			libvirt-gconfig-object.h \
 			libvirt-gconfig-capabilities.h \
 			libvirt-gconfig-domain.h \
+			libvirt-gconfig-domain-chardev.h \
 			libvirt-gconfig-domain-clock.h \
+			libvirt-gconfig-domain-console.h \
 			libvirt-gconfig-domain-device.h \
 			libvirt-gconfig-domain-disk.h \
 			libvirt-gconfig-domain-filesys.h \
@@ -47,7 +49,9 @@ GCONFIG_SOURCE_FILES = \
 			libvirt-gconfig-main.c \
 			libvirt-gconfig-capabilities.c \
 			libvirt-gconfig-domain.c \
+			libvirt-gconfig-domain-chardev.c \
 			libvirt-gconfig-domain-clock.c \
+			libvirt-gconfig-domain-console.c \
 			libvirt-gconfig-domain-device.c \
 			libvirt-gconfig-domain-disk.c \
 			libvirt-gconfig-domain-filesys.c \

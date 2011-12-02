@@ -29,6 +29,8 @@ LIBVIRT_GCONFIG_0.0.1 {
 	gvir_config_domain_set_virt_type;
 	gvir_config_domain_virt_type_get_type;
 
+	gvir_config_domain_chardev_get_type;
+
 	gvir_config_domain_clock_get_type;
 	gvir_config_domain_clock_offset_get_type;
 	gvir_config_domain_clock_new;
@@ -36,6 +38,10 @@ LIBVIRT_GCONFIG_0.0.1 {
 	gvir_config_domain_clock_set_offset;
 	gvir_config_domain_clock_set_timezone;
 	gvir_config_domain_clock_set_variable_offset;
+
+	gvir_config_domain_console_get_type;
+	gvir_config_domain_console_new;
+	gvir_config_domain_console_new_from_xml;
 
 	gvir_config_domain_device_get_type;
 
