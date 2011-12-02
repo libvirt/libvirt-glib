@@ -251,3 +251,28 @@ GVirStorageVolInfo *gvir_storage_vol_get_info(GVirStorageVol *vol,
 
     return ret;
 }
+
+/**
+ * gvir_storage_vol_delete:
+ * @vol: the storage volume to delete
+ * @flags: the flags
+ * @err: Return location for errors, or NULL
+ *
+ * Deletes the storage volume @vol.
+ *
+ * Returns: %TRUE on success, %FALSE otherwise
+ */
+gboolean gvir_storage_vol_delete(GVirStorageVol *vol,
+                                 guint flags,
+                                 GError **err)
+{
+    if (virStorageVolDelete(vol->priv->handle, flags) < 0) {
+        gvir_set_error_literal(err,
+                               GVIR_STORAGE_VOL_ERROR,
+                               0,
+                               "Unable to delete storage volume");
+        return FALSE;
+    }
+
+    return TRUE;
+}
