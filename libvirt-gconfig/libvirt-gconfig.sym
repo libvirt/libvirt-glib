@@ -30,6 +30,7 @@ LIBVIRT_GCONFIG_0.0.1 {
 	gvir_config_domain_virt_type_get_type;
 
 	gvir_config_domain_chardev_get_type;
+	gvir_config_domain_chardev_set_source;
 
 	gvir_config_domain_chardev_source_get_type;
 

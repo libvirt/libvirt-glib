@@ -27,6 +27,8 @@
 #ifndef __LIBVIRT_GCONFIG_DOMAIN_CHARDEV_H__
 #define __LIBVIRT_GCONFIG_DOMAIN_CHARDEV_H__
 
+#include <libvirt-gconfig/libvirt-gconfig-domain-chardev-source.h>
+
 G_BEGIN_DECLS
 
 #define GVIR_TYPE_CONFIG_DOMAIN_CHARDEV            (gvir_config_domain_chardev_get_type ())
@@ -58,6 +60,8 @@ struct _GVirConfigDomainChardevClass
 
 
 GType gvir_config_domain_chardev_get_type(void);
+void gvir_config_domain_chardev_set_source(GVirConfigDomainChardev *chardev,
+                                           GVirConfigDomainChardevSource *source);
 
 G_END_DECLS
 

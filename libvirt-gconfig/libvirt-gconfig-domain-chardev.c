@@ -23,6 +23,7 @@
 #include <config.h>
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
+#include "libvirt-gconfig/libvirt-gconfig-object-private.h"
 
 #define GVIR_CONFIG_DOMAIN_CHARDEV_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_CHARDEV, GVirConfigDomainChardevPrivate))
@@ -45,4 +46,43 @@ static void gvir_config_domain_chardev_init(GVirConfigDomainChardev *chardev)
     g_debug("Init GVirConfigDomainChardev=%p", chardev);
 
     chardev->priv = GVIR_CONFIG_DOMAIN_CHARDEV_GET_PRIVATE(chardev);
+}
+
+static void prepend_prop(xmlNodePtr node, xmlAttrPtr prop)
+{
+    if (node->properties == NULL) {
+        node->properties = prop;
+    } else {
+        prop->next = node->properties;
+        node->properties->prev = prop;
+        node->properties = prop;
+    }
+}
+
+void gvir_config_domain_chardev_set_source(GVirConfigDomainChardev *chardev,
+                                           GVirConfigDomainChardevSource *source)
+{
+    xmlNodePtr chardev_node;
+    xmlNodePtr source_node;
+    xmlNodePtr child;
+    xmlAttrPtr attr;
+
+    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_CHARDEV(chardev));
+    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_CHARDEV_SOURCE(source));
+
+    chardev_node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(chardev));
+    source_node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(source));
+
+    g_return_if_fail((chardev_node != NULL) && (source_node != NULL));
+
+    for (child = source_node->children; child != NULL; child = child->next) {
+        xmlUnlinkNode(child);
+        xmlAddChild(chardev_node, child);
+    }
+
+    for (attr = source_node->properties; attr != NULL; attr = attr->next) {
+        xmlAttrPtr new_attr;
+        new_attr = xmlCopyProp(chardev_node, attr);
+        prepend_prop(chardev_node, new_attr);
+    }
 }
