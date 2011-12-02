@@ -15,6 +15,7 @@ GCONFIG_HEADER_FILES = \
 			libvirt-gconfig-domain.h \
 			libvirt-gconfig-domain-chardev.h \
 			libvirt-gconfig-domain-chardev-source.h \
+			libvirt-gconfig-domain-chardev-source-pty.h \
 			libvirt-gconfig-domain-clock.h \
 			libvirt-gconfig-domain-console.h \
 			libvirt-gconfig-domain-device.h \
@@ -52,6 +53,7 @@ GCONFIG_SOURCE_FILES = \
 			libvirt-gconfig-domain.c \
 			libvirt-gconfig-domain-chardev.c \
 			libvirt-gconfig-domain-chardev-source.c \
+			libvirt-gconfig-domain-chardev-source-pty.c \
 			libvirt-gconfig-domain-clock.c \
 			libvirt-gconfig-domain-console.c \
 			libvirt-gconfig-domain-device.c \
