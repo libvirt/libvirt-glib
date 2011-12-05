@@ -24,6 +24,8 @@
 #include <config.h>
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
+#include "libvirt-gconfig/libvirt-gconfig-object-private.h"
+
 
 #define GVIR_CONFIG_STORAGE_VOL_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_STORAGE_VOL, GVirConfigStorageVolPrivate))
@@ -70,4 +72,31 @@ GVirConfigStorageVol *gvir_config_storage_vol_new_from_xml(const gchar *xml,
                                              DATADIR "/libvirt/schemas/storage_vol.rng",
                                              xml, error);
     return GVIR_CONFIG_STORAGE_VOL(object);
+}
+
+void gvir_config_storage_vol_set_name(GVirConfigStorageVol *vol,
+                                      const char *name)
+{
+    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_VOL(vol));
+
+    gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(vol),
+                                        "name", name);
+}
+
+void gvir_config_storage_vol_set_capacity(GVirConfigStorageVol *vol,
+                                          guint64 capacity)
+{
+    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_VOL(vol));
+
+    gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(vol),
+                                               "capacity", capacity);
+}
+
+void gvir_config_storage_vol_set_allocation(GVirConfigStorageVol *vol,
+                                            guint64 allocation)
+{
+    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_VOL(vol));
+
+    gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(vol),
+                                               "allocation", allocation);
 }

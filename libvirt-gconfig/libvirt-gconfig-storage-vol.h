@@ -63,6 +63,13 @@ GVirConfigStorageVol *gvir_config_storage_vol_new(void);
 GVirConfigStorageVol *gvir_config_storage_vol_new_from_xml(const gchar *xml,
                                                            GError **error);
 
+void gvir_config_storage_vol_set_allocation(GVirConfigStorageVol *vol,
+                                            guint64 allocation);
+void gvir_config_storage_vol_set_capacity(GVirConfigStorageVol *vol,
+                                          guint64 capacity);
+void gvir_config_storage_vol_set_name(GVirConfigStorageVol *vol,
+                                      const char *name);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GCONFIG_STORAGE_VOL_H__ */
