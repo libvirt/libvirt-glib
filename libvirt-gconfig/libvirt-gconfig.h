@@ -59,7 +59,12 @@
 #include <libvirt-gconfig/libvirt-gconfig-network-filter.h>
 #include <libvirt-gconfig/libvirt-gconfig-node-device.h>
 #include <libvirt-gconfig/libvirt-gconfig-secret.h>
+#include <libvirt-gconfig/libvirt-gconfig-storage-permissions.h>
 #include <libvirt-gconfig/libvirt-gconfig-storage-pool.h>
+#include <libvirt-gconfig/libvirt-gconfig-storage-pool-source.h>
+#include <libvirt-gconfig/libvirt-gconfig-storage-pool-target.h>
 #include <libvirt-gconfig/libvirt-gconfig-storage-vol.h>
+#include <libvirt-gconfig/libvirt-gconfig-storage-vol-backing-store.h>
+#include <libvirt-gconfig/libvirt-gconfig-storage-vol-target.h>
 
 #endif /* __LIBVIRT_GCONFIG_H__ */

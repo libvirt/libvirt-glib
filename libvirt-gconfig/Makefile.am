@@ -41,8 +41,13 @@ GCONFIG_HEADER_FILES = \
 			libvirt-gconfig-network-filter.h \
 			libvirt-gconfig-node-device.h \
 			libvirt-gconfig-secret.h \
+			libvirt-gconfig-storage-permissions.h \
 			libvirt-gconfig-storage-pool.h \
-			libvirt-gconfig-storage-vol.h
+			libvirt-gconfig-storage-pool-source.h \
+			libvirt-gconfig-storage-pool-target.h \
+			libvirt-gconfig-storage-vol.h \
+			libvirt-gconfig-storage-vol-backing-store.h \
+			libvirt-gconfig-storage-vol-target.h
 noinst_HEADERS = \
 			libvirt-gconfig-helpers-private.h \
 			libvirt-gconfig-object-private.h \
@@ -80,8 +85,13 @@ GCONFIG_SOURCE_FILES = \
 			libvirt-gconfig-network-filter.c \
 			libvirt-gconfig-node-device.c \
 			libvirt-gconfig-secret.c \
+			libvirt-gconfig-storage-permissions.c \
 			libvirt-gconfig-storage-pool.c \
+			libvirt-gconfig-storage-pool-source.c \
+			libvirt-gconfig-storage-pool-target.c \
 			libvirt-gconfig-storage-vol.c \
+			libvirt-gconfig-storage-vol-backing-store.c \
+			libvirt-gconfig-storage-vol-target.c \
 			libvirt-gconfig-xml-doc.c
 
 libvirt_gconfig_1_0_ladir = $(includedir)/libvirt-gconfig-1.0/libvirt-gconfig
