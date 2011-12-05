@@ -421,9 +421,9 @@ gboolean gvir_connection_open(GVirConnection *conn,
     if (!priv->uri) {
         char *uri = virConnectGetURI(priv->conn);
         if (!uri) {
-            gvir_set_error(err, GVIR_CONNECTION_ERROR,
+            gvir_set_error_literal(err, GVIR_CONNECTION_ERROR,
                            0,
-                           "%s", "Unable to get connection URI");
+                           "Unable to get connection URI");
             virConnectClose(priv->conn);
             priv->conn = NULL;
             g_mutex_unlock(priv->lock);
@@ -618,9 +618,9 @@ gboolean gvir_connection_fetch_domains(GVirConnection *conn,
 
     g_mutex_lock(priv->lock);
     if (!priv->conn) {
-        g_set_error(err, GVIR_CONNECTION_ERROR,
-                    0,
-                    "Connection is not open");
+        g_set_error_literal(err, GVIR_CONNECTION_ERROR,
+                            0,
+                            "Connection is not open");
         g_mutex_unlock(priv->lock);
         goto cleanup;
     }
@@ -633,9 +633,9 @@ gboolean gvir_connection_fetch_domains(GVirConnection *conn,
         goto cleanup;
 
     if ((nactive = virConnectNumOfDomains(vconn)) < 0) {
-        gvir_set_error(err, GVIR_CONNECTION_ERROR,
-                       0,
-                       "Unable to count domains");
+        gvir_set_error_literal(err, GVIR_CONNECTION_ERROR,
+                               0,
+                               "Unable to count domains");
         goto cleanup;
     }
     if (nactive) {
@@ -644,9 +644,9 @@ gboolean gvir_connection_fetch_domains(GVirConnection *conn,
 
         active = g_new(gint, nactive);
         if ((nactive = virConnectListDomains(vconn, active, nactive)) < 0) {
-            gvir_set_error(err, GVIR_CONNECTION_ERROR,
-                           0,
-                           "Unable to list domains");
+            gvir_set_error_literal(err, GVIR_CONNECTION_ERROR,
+                                   0,
+                                   "Unable to list domains");
             goto cleanup;
         }
     }
@@ -747,9 +747,9 @@ gboolean gvir_connection_fetch_storage_pools(GVirConnection *conn,
 
     g_mutex_lock(priv->lock);
     if (!priv->conn) {
-        g_set_error(err, GVIR_CONNECTION_ERROR,
-                    0,
-                    "Connection is not open");
+        g_set_error_literal(err, GVIR_CONNECTION_ERROR,
+                            0,
+                            "Connection is not open");
         g_mutex_unlock(priv->lock);
         goto cleanup;
     }
