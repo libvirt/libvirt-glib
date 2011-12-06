@@ -23,6 +23,7 @@
 #include <config.h>
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
+#include "libvirt-gconfig/libvirt-gconfig-object-private.h"
 
 #define GVIR_CONFIG_STORAGE_PERMISSIONS_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_STORAGE_PERMISSIONS, GVirConfigStoragePermissionsPrivate))
@@ -67,4 +68,40 @@ GVirConfigStoragePermissions *gvir_config_storage_permissions_new_from_xml(const
                                              "permissions", NULL,
                                              xml, error);
     return GVIR_CONFIG_STORAGE_PERMISSIONS(object);
+}
+
+void gvir_config_storage_permissions_set_group(GVirConfigStoragePermissions *perms,
+                                               guint group)
+{
+    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_PERMISSIONS(perms));
+
+    gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(perms),
+                                               "group", group);
+}
+
+void gvir_config_storage_permissions_set_label(GVirConfigStoragePermissions *perms,
+                                               const char *label)
+{
+    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_PERMISSIONS(perms));
+
+    gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(perms),
+                                        "label", label);
+}
+
+void gvir_config_storage_permissions_set_mode(GVirConfigStoragePermissions *perms,
+                                              guint mode)
+{
+    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_PERMISSIONS(perms));
+
+    gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(perms),
+                                               "mode", mode);
+}
+
+void gvir_config_storage_permissions_set_owner(GVirConfigStoragePermissions *perms,
+                                               guint owner)
+{
+    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_PERMISSIONS(perms));
+
+    gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(perms),
+                                               "owner", owner);
 }

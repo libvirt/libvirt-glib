@@ -63,6 +63,15 @@ GVirConfigStoragePermissions *gvir_config_storage_permissions_new(void);
 GVirConfigStoragePermissions *gvir_config_storage_permissions_new_from_xml(const gchar *xml,
                                                                            GError **error);
 
+void gvir_config_storage_permissions_set_group(GVirConfigStoragePermissions *perms,
+                                               guint group);
+void gvir_config_storage_permissions_set_label(GVirConfigStoragePermissions *perms,
+                                               const char *label);
+void gvir_config_storage_permissions_set_mode(GVirConfigStoragePermissions *perms,
+                                              guint mode);
+void gvir_config_storage_permissions_set_owner(GVirConfigStoragePermissions *perms,
+                                               guint owner);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GCONFIG_STORAGE_PERMISSIONS_H__ */
