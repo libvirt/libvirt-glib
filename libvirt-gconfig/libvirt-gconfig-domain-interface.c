@@ -19,11 +19,13 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307  USA
  *
  * Author: Daniel P. Berrange <berrange@redhat.com>
+ *         Christophe Fergeau <cfergeau@redhat.com>
  */
 
 #include <config.h>
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
+#include "libvirt-gconfig/libvirt-gconfig-object-private.h"
 
 #define GVIR_CONFIG_DOMAIN_INTERFACE_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_INTERFACE, GVirConfigDomainInterfacePrivate))
@@ -47,4 +49,64 @@ static void gvir_config_domain_interface_init(GVirConfigDomainInterface *interfa
     g_debug("Init GVirConfigDomainInterface=%p", interface);
 
     interface->priv = GVIR_CONFIG_DOMAIN_INTERFACE_GET_PRIVATE(interface);
+}
+
+void gvir_config_domain_interface_set_ifname(GVirConfigDomainInterface *interface,
+                                             const char *ifname)
+{
+    GVirConfigObject *node;
+
+    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_INTERFACE(interface));
+
+    node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(interface),
+                                            "target");
+    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
+    gvir_config_object_set_attribute(node, "device", ifname, NULL);
+    g_object_unref(G_OBJECT(node));
+}
+
+void gvir_config_domain_interface_set_link_state(GVirConfigDomainInterface *interface,
+                                                 GVirConfigDomainInterfaceLinkState state)
+{
+    GVirConfigObject *node;
+
+    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_INTERFACE(interface));
+
+    node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(interface),
+                                            "link");
+    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
+    gvir_config_object_set_attribute_with_type(node,
+                                               "state",
+                                               GVIR_TYPE_CONFIG_DOMAIN_INTERFACE_LINK_STATE,
+                                               state,
+                                               NULL);
+    g_object_unref(G_OBJECT(node));
+}
+
+void gvir_config_domain_interface_set_mac(GVirConfigDomainInterface *interface,
+                                          const char *mac_address)
+{
+    GVirConfigObject *node;
+
+    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_INTERFACE(interface));
+
+    node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(interface),
+                                            "mac");
+    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
+    gvir_config_object_set_attribute(node, "address", mac_address, NULL);
+    g_object_unref(G_OBJECT(node));
+}
+
+void gvir_config_domain_interface_set_model(GVirConfigDomainInterface *interface,
+                                            const char *model)
+{
+    GVirConfigObject *node;
+
+    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_INTERFACE(interface));
+
+    node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(interface),
+                                            "model");
+    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
+    gvir_config_object_set_attribute(node, "type", model, NULL);
+    g_object_unref(G_OBJECT(node));
 }

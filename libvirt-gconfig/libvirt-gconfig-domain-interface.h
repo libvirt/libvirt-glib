@@ -56,8 +56,22 @@ struct _GVirConfigDomainInterfaceClass
     gpointer padding[20];
 };
 
+typedef enum {
+    GVIR_CONFIG_DOMAIN_INTERFACE_LINK_STATE_DEFAULT,
+    GVIR_CONFIG_DOMAIN_INTERFACE_LINK_STATE_UP,
+    GVIR_CONFIG_DOMAIN_INTERFACE_LINK_STATE_DOWN
+} GVirConfigDomainInterfaceLinkState;
 
 GType gvir_config_domain_interface_get_type(void);
+
+void gvir_config_domain_interface_set_ifname(GVirConfigDomainInterface *interface,
+                                             const char *ifname);
+void gvir_config_domain_interface_set_link_state(GVirConfigDomainInterface *interface,
+                                                 GVirConfigDomainInterfaceLinkState state);
+void gvir_config_domain_interface_set_mac(GVirConfigDomainInterface *interface,
+                                          const char *mac_address);
+void gvir_config_domain_interface_set_model(GVirConfigDomainInterface *interface,
+                                            const char *model);
 
 G_END_DECLS
 

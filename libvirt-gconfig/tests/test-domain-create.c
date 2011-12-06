@@ -105,12 +105,22 @@ int main(void)
     devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(disk));
 
 
-    /* network interface node */
-    GVirConfigDomainInterfaceNetwork *interface;
+    /* network interfaces node */
+    GVirConfigDomainInterface *interface;
 
-    interface = gvir_config_domain_interface_network_new();
-    gvir_config_domain_interface_network_set_source(interface, "default");
+    interface = GVIR_CONFIG_DOMAIN_INTERFACE(gvir_config_domain_interface_network_new());
+    gvir_config_domain_interface_network_set_source(GVIR_CONFIG_DOMAIN_INTERFACE_NETWORK(interface),
+                                                    "default");
     devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(interface));
+
+    interface = GVIR_CONFIG_DOMAIN_INTERFACE(gvir_config_domain_interface_user_new());
+    gvir_config_domain_interface_set_ifname(interface, "eth0");
+    gvir_config_domain_interface_set_link_state(interface,
+                                                GVIR_CONFIG_DOMAIN_INTERFACE_LINK_STATE_UP);
+    gvir_config_domain_interface_set_mac(interface, "00:11:22:33:44:55");
+    gvir_config_domain_interface_set_model(interface, "foo");
+    devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(interface));
+
 
     /* input node */
     GVirConfigDomainInput *input;
