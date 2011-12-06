@@ -79,3 +79,13 @@ void gvir_config_storage_pool_target_set_path(GVirConfigStoragePoolTarget *targe
     gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(target),
                                         "path", path);
 }
+
+void gvir_config_storage_pool_target_set_permissions(GVirConfigStoragePoolTarget *target,
+                                                     GVirConfigStoragePermissions *perms)
+{
+    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL_TARGET(target));
+    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_PERMISSIONS(perms));
+
+    gvir_config_object_attach(GVIR_CONFIG_OBJECT(target),
+                              GVIR_CONFIG_OBJECT(perms));
+}

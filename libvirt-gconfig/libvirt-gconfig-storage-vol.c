@@ -100,3 +100,23 @@ void gvir_config_storage_vol_set_allocation(GVirConfigStorageVol *vol,
     gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(vol),
                                                "allocation", allocation);
 }
+
+void gvir_config_storage_vol_set_target(GVirConfigStorageVol *vol,
+                                        GVirConfigStorageVolTarget *target)
+{
+    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_VOL(vol));
+    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_VOL_TARGET(target));
+
+    gvir_config_object_attach(GVIR_CONFIG_OBJECT(vol),
+                              GVIR_CONFIG_OBJECT(target));
+}
+
+void gvir_config_storage_vol_set_backing_store(GVirConfigStorageVol *vol,
+                                               GVirConfigStorageVolBackingStore *backing_store)
+{
+    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_VOL(vol));
+    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_VOL_BACKING_STORE(backing_store));
+
+    gvir_config_object_attach(GVIR_CONFIG_OBJECT(vol),
+                              GVIR_CONFIG_OBJECT(backing_store));
+}

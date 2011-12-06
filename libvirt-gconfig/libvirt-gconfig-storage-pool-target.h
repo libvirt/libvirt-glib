@@ -65,6 +65,8 @@ GVirConfigStoragePoolTarget *gvir_config_storage_pool_target_new_from_xml(const 
 
 void gvir_config_storage_pool_target_set_path(GVirConfigStoragePoolTarget *target,
                                               const char *path);
+void gvir_config_storage_pool_target_set_permissions(GVirConfigStoragePoolTarget *target,
+                                                     GVirConfigStoragePermissions *perms);
 
 G_END_DECLS
 

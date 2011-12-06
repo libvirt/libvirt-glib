@@ -118,3 +118,23 @@ void gvir_config_storage_pool_set_available(GVirConfigStoragePool *pool,
     gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(pool),
                                                "available", available);
 }
+
+void gvir_config_storage_pool_set_source(GVirConfigStoragePool *pool,
+                                         GVirConfigStoragePoolSource *source)
+{
+    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL(pool));
+    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL_SOURCE(source));
+
+    gvir_config_object_attach(GVIR_CONFIG_OBJECT(pool),
+                              GVIR_CONFIG_OBJECT(source));
+}
+
+void gvir_config_storage_pool_set_target(GVirConfigStoragePool *pool,
+                                        GVirConfigStoragePoolTarget *target)
+{
+    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL(pool));
+    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL_TARGET(target));
+
+    gvir_config_object_attach(GVIR_CONFIG_OBJECT(pool),
+                              GVIR_CONFIG_OBJECT(target));
+}

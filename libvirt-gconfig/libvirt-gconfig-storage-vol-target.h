@@ -65,6 +65,8 @@ GVirConfigStorageVolTarget *gvir_config_storage_vol_target_new_from_xml(const gc
 
 void gvir_config_storage_vol_target_set_format(GVirConfigStorageVolTarget *target,
                                                const char *format);
+void gvir_config_storage_vol_target_set_permissions(GVirConfigStorageVolTarget *target,
+                                                    GVirConfigStoragePermissions *perms);
 
 G_END_DECLS
 

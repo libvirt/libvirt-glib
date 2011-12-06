@@ -83,3 +83,13 @@ void gvir_config_storage_vol_target_set_format(GVirConfigStorageVolTarget *targe
     gvir_config_object_set_attribute(node, "type", format, NULL);
     g_object_unref(G_OBJECT(node));
 }
+
+void gvir_config_storage_vol_target_set_permissions(GVirConfigStorageVolTarget *target,
+                                                    GVirConfigStoragePermissions *perms)
+{
+    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_VOL_TARGET(target));
+    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_PERMISSIONS(perms));
+
+    gvir_config_object_attach(GVIR_CONFIG_OBJECT(target),
+                              GVIR_CONFIG_OBJECT(perms));
+}

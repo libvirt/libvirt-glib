@@ -27,6 +27,9 @@
 #ifndef __LIBVIRT_GCONFIG_STORAGE_POOL_H__
 #define __LIBVIRT_GCONFIG_STORAGE_POOL_H__
 
+#include <libvirt-gconfig/libvirt-gconfig-storage-pool-source.h>
+#include <libvirt-gconfig/libvirt-gconfig-storage-pool-target.h>
+
 G_BEGIN_DECLS
 
 #define GVIR_TYPE_CONFIG_STORAGE_POOL            (gvir_config_storage_pool_get_type ())
@@ -71,6 +74,10 @@ void gvir_config_storage_pool_set_capacity(GVirConfigStoragePool *pool,
                                            guint64 capacity);
 void gvir_config_storage_pool_set_name(GVirConfigStoragePool *pool,
                                        const char *name);
+void gvir_config_storage_pool_set_source(GVirConfigStoragePool *pool,
+                                         GVirConfigStoragePoolSource *source);
+void gvir_config_storage_pool_set_target(GVirConfigStoragePool *pool,
+                                         GVirConfigStoragePoolTarget *target);
 void gvir_config_storage_pool_set_uuid(GVirConfigStoragePool *pool,
                                        const char *uuid);
 

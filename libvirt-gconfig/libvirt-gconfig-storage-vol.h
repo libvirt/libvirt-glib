@@ -27,6 +27,9 @@
 #ifndef __LIBVIRT_GCONFIG_STORAGE_VOL_H__
 #define __LIBVIRT_GCONFIG_STORAGE_VOL_H__
 
+#include <libvirt-gconfig/libvirt-gconfig-storage-vol-backing-store.h>
+#include <libvirt-gconfig/libvirt-gconfig-storage-vol-target.h>
+
 G_BEGIN_DECLS
 
 #define GVIR_TYPE_CONFIG_STORAGE_VOL            (gvir_config_storage_vol_get_type ())
@@ -65,10 +68,14 @@ GVirConfigStorageVol *gvir_config_storage_vol_new_from_xml(const gchar *xml,
 
 void gvir_config_storage_vol_set_allocation(GVirConfigStorageVol *vol,
                                             guint64 allocation);
+void gvir_config_storage_vol_set_backing_store(GVirConfigStorageVol *vol,
+                                               GVirConfigStorageVolBackingStore *backing_store);
 void gvir_config_storage_vol_set_capacity(GVirConfigStorageVol *vol,
                                           guint64 capacity);
 void gvir_config_storage_vol_set_name(GVirConfigStorageVol *vol,
                                       const char *name);
+void gvir_config_storage_vol_set_target(GVirConfigStorageVol *vol,
+                                        GVirConfigStorageVolTarget *target);
 
 G_END_DECLS
 
