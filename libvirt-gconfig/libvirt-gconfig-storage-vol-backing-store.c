@@ -70,3 +70,25 @@ GVirConfigStorageVolBackingStore *gvir_config_storage_vol_backing_store_new_from
                                              xml, error);
     return GVIR_CONFIG_STORAGE_VOL_BACKING_STORE(object);
 }
+
+void gvir_config_storage_vol_backing_store_set_format(GVirConfigStorageVolBackingStore *backing_store,
+                                                      const char *format)
+{
+    GVirConfigObject *node;
+
+    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_VOL_BACKING_STORE(backing_store));
+
+    node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(backing_store), "format");
+    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
+    gvir_config_object_set_attribute(node, "type", format, NULL);
+    g_object_unref(G_OBJECT(node));
+}
+
+void gvir_config_storage_vol_backing_store_set_path(GVirConfigStorageVolBackingStore *backing_store,
+                                                    const char *path)
+{
+    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_VOL_BACKING_STORE(backing_store));
+
+    gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(backing_store),
+                                        "path", path);
+}

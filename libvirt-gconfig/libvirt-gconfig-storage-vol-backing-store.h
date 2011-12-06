@@ -62,6 +62,10 @@ GType gvir_config_storage_vol_backing_store_get_type(void);
 GVirConfigStorageVolBackingStore *gvir_config_storage_vol_backing_store_new(void);
 GVirConfigStorageVolBackingStore *gvir_config_storage_vol_backing_store_new_from_xml(const gchar *xml,
                                                                                      GError **error);
+void gvir_config_storage_vol_backing_store_set_format(GVirConfigStorageVolBackingStore *backing_store,
+                                                      const char *format);
+void gvir_config_storage_vol_backing_store_set_path(GVirConfigStorageVolBackingStore *backing_store,
+                                                    const char *path);
 
 G_END_DECLS
 
