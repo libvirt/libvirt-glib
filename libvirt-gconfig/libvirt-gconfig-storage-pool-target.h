@@ -63,6 +63,9 @@ GVirConfigStoragePoolTarget *gvir_config_storage_pool_target_new(void);
 GVirConfigStoragePoolTarget *gvir_config_storage_pool_target_new_from_xml(const gchar *xml,
                                                                           GError **error);
 
+void gvir_config_storage_pool_target_set_path(GVirConfigStoragePoolTarget *target,
+                                              const char *path);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GCONFIG_STORAGE_POOL_TARGET_H__ */
