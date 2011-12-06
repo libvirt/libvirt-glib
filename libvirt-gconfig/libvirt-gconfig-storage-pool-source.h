@@ -63,6 +63,23 @@ GVirConfigStoragePoolSource *gvir_config_storage_pool_source_new(void);
 GVirConfigStoragePoolSource *gvir_config_storage_pool_source_new_from_xml(const gchar *xml,
                                                                           GError **error);
 
+void gvir_config_storage_pool_source_set_adapter(GVirConfigStoragePoolSource *source,
+                                                 const char *adapter);
+void gvir_config_storage_pool_source_set_device_path(GVirConfigStoragePoolSource *source,
+                                                     const char *device_path);
+void gvir_config_storage_pool_source_set_directory(GVirConfigStoragePoolSource *source,
+                                                   const char *directory);
+void gvir_config_storage_pool_source_set_format(GVirConfigStoragePoolSource *source,
+                                                const char *format);
+void gvir_config_storage_pool_source_set_host(GVirConfigStoragePoolSource *source,
+                                              const char *host);
+void gvir_config_storage_pool_source_set_name(GVirConfigStoragePoolSource *source,
+                                              const char *name);
+void gvir_config_storage_pool_source_set_product(GVirConfigStoragePoolSource *source,
+                                                 const char *product);
+void gvir_config_storage_pool_source_set_vendor(GVirConfigStoragePoolSource *source,
+                                                const char *vendor);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GCONFIG_STORAGE_POOL_SOURCE_H__ */
