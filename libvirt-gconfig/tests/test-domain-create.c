@@ -157,7 +157,6 @@ int main(void)
     g_object_unref(G_OBJECT(pty));
     devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(console));
 
-
     gvir_config_domain_set_devices(domain, devices);
     g_list_foreach(devices, (GFunc)g_object_unref, NULL);
     g_list_free(devices);
@@ -165,9 +164,68 @@ int main(void)
 
 
     xml = gvir_config_object_to_xml(GVIR_CONFIG_OBJECT(domain));
-    g_print("%s\n", xml);
+    g_print("%s\n\n", xml);
     g_free(xml);
     g_object_unref(G_OBJECT(domain));
+
+
+    /* storage pool */
+    GVirConfigStoragePool *pool;
+    GVirConfigStoragePoolSource *pool_source;
+    GVirConfigStoragePoolTarget *pool_target;
+    GVirConfigStoragePermissions *perms;
+
+    pool = gvir_config_storage_pool_new();
+
+    pool_source = gvir_config_storage_pool_source_new();
+    gvir_config_storage_pool_source_set_directory(pool_source, "/foo/bar");
+    gvir_config_storage_pool_set_source(pool, pool_source);
+    g_object_unref(G_OBJECT(pool_source));
+
+    perms = gvir_config_storage_permissions_new();
+    gvir_config_storage_permissions_set_owner(perms, 1001);
+    gvir_config_storage_permissions_set_group(perms, 1007);
+    gvir_config_storage_permissions_set_mode(perms, 0744);
+    gvir_config_storage_permissions_set_label(perms, "virt_image_t");
+
+    pool_target = gvir_config_storage_pool_target_new();
+    gvir_config_storage_pool_target_set_path(pool_target, "/dev/disk/by-path");
+    gvir_config_storage_pool_target_set_permissions(pool_target, perms);
+    g_object_unref(G_OBJECT(perms));
+    gvir_config_storage_pool_set_target(pool, pool_target);
+    g_object_unref(G_OBJECT(pool_target));
+
+    xml = gvir_config_object_to_xml(GVIR_CONFIG_OBJECT(pool));
+    g_print("%s\n\n", xml);
+    g_free(xml);
+    g_object_unref(G_OBJECT(pool));
+
+
+    /* storage volume */
+    GVirConfigStorageVol *vol;
+    GVirConfigStorageVolTarget *vol_target;
+
+    vol = gvir_config_storage_vol_new();
+    gvir_config_storage_vol_set_name(vol, "my-volume");
+    gvir_config_storage_vol_set_capacity(vol, 1000000);
+
+    perms = gvir_config_storage_permissions_new();
+    gvir_config_storage_permissions_set_owner(perms, 1001);
+    gvir_config_storage_permissions_set_group(perms, 1007);
+    gvir_config_storage_permissions_set_mode(perms, 0744);
+    gvir_config_storage_permissions_set_label(perms, "virt_image_t");
+
+    vol_target = gvir_config_storage_vol_target_new();
+    gvir_config_storage_vol_target_set_format(vol_target, "qcow2");
+    gvir_config_storage_vol_target_set_permissions(vol_target, perms);
+    g_object_unref(G_OBJECT(perms));
+    gvir_config_storage_vol_set_target(vol, vol_target);
+    g_object_unref(G_OBJECT(vol_target));
+
+    xml = gvir_config_object_to_xml(GVIR_CONFIG_OBJECT(vol));
+    g_print("%s\n\n", xml);
+    g_free(xml);
+    g_object_unref(G_OBJECT(vol));
 
     return 0;
 }
