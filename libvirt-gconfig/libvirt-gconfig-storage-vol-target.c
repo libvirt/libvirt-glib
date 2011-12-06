@@ -70,3 +70,16 @@ GVirConfigStorageVolTarget *gvir_config_storage_vol_target_new_from_xml(const gc
                                              xml, error);
     return GVIR_CONFIG_STORAGE_VOL_TARGET(object);
 }
+
+void gvir_config_storage_vol_target_set_format(GVirConfigStorageVolTarget *target,
+                                               const char *format)
+{
+    GVirConfigObject *node;
+
+    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_VOL_TARGET(target));
+
+    node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(target), "format");
+    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
+    gvir_config_object_set_attribute(node, "type", format, NULL);
+    g_object_unref(G_OBJECT(node));
+}
