@@ -63,6 +63,17 @@ GVirConfigStoragePool *gvir_config_storage_pool_new(void);
 GVirConfigStoragePool *gvir_config_storage_pool_new_from_xml(const gchar *xml,
                                                              GError **error);
 
+void gvir_config_storage_pool_set_allocation(GVirConfigStoragePool *pool,
+                                             guint64 allocation);
+void gvir_config_storage_pool_set_available(GVirConfigStoragePool *pool,
+                                            guint64 available);
+void gvir_config_storage_pool_set_capacity(GVirConfigStoragePool *pool,
+                                           guint64 capacity);
+void gvir_config_storage_pool_set_name(GVirConfigStoragePool *pool,
+                                       const char *name);
+void gvir_config_storage_pool_set_uuid(GVirConfigStoragePool *pool,
+                                       const char *uuid);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GCONFIG_STORAGE_POOL_H__ */

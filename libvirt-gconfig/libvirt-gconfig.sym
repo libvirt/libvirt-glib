@@ -210,6 +210,11 @@ LIBVIRT_GCONFIG_0.0.1 {
 	gvir_config_storage_pool_get_type;
 	gvir_config_storage_pool_new;
 	gvir_config_storage_pool_new_from_xml;
+	gvir_config_storage_pool_set_allocation;
+	gvir_config_storage_pool_set_available;
+	gvir_config_storage_pool_set_capacity;
+	gvir_config_storage_pool_set_name;
+	gvir_config_storage_pool_set_uuid;
 
 	gvir_config_storage_vol_get_type;
 	gvir_config_storage_vol_new;

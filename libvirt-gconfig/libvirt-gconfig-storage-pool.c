@@ -18,12 +18,14 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307  USA
  *
- * Author: Daniel P. Berrange <berrange@redhat.com>
+ * Authors: Daniel P. Berrange <berrange@redhat.com>
+ *          Christophe Fergeau <cfergeau@redhat.com>
  */
 
 #include <config.h>
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
+#include "libvirt-gconfig/libvirt-gconfig-object-private.h"
 
 #define GVIR_CONFIG_STORAGE_POOL_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_STORAGE_POOL, GVirConfigStoragePoolPrivate))
@@ -70,4 +72,49 @@ GVirConfigStoragePool *gvir_config_storage_pool_new_from_xml(const gchar *xml,
                                              DATADIR "/libvirt/schemas/storagepool.rng",
                                              xml, error);
     return GVIR_CONFIG_STORAGE_POOL(object);
+}
+
+void gvir_config_storage_pool_set_name(GVirConfigStoragePool *pool,
+                                       const char *name)
+{
+    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL(pool));
+
+    gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(pool),
+                                        "name", name);
+}
+
+void gvir_config_storage_pool_set_uuid(GVirConfigStoragePool *pool,
+                                       const char *uuid)
+{
+    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL(pool));
+
+    gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(pool),
+                                        "uuid", uuid);
+}
+
+void gvir_config_storage_pool_set_capacity(GVirConfigStoragePool *pool,
+                                           guint64 capacity)
+{
+    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL(pool));
+
+    gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(pool),
+                                               "capacity", capacity);
+}
+
+void gvir_config_storage_pool_set_allocation(GVirConfigStoragePool *pool,
+                                             guint64 allocation)
+{
+    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL(pool));
+
+    gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(pool),
+                                               "allocation", allocation);
+}
+
+void gvir_config_storage_pool_set_available(GVirConfigStoragePool *pool,
+                                            guint64 available)
+{
+    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL(pool));
+
+    gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(pool),
+                                               "available", available);
 }
