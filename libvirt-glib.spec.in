@@ -2,6 +2,7 @@
 
 %define with_introspection 0
 %define with_python 0
+%define with_vala 0
 
 %if 0%{?fedora} >= 15
 %define with_introspection 1
@@ -15,7 +16,9 @@
 %if 0%{?rhel} && 0%{?rhel} < 7
 %define with_python 1
 %endif
-
+%if 0%{with_introspection}
+%define with_vala 1
+%endif
 
 Name: @PACKAGE@
 Version: @VERSION@
@@ -39,6 +42,9 @@ BuildRequires: gir-repository-devel
 BuildRequires: libxml2-devel
 # Hack due to https://bugzilla.redhat.com/show_bug.cgi?id=613466
 BuildRequires: libtool
+%if %{with_vala}
+BuildRequires: vala-tools
+%endif
 
 %package devel
 Group: Development/Libraries
@@ -153,17 +159,27 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with_introspection}
 %{_libdir}/girepository-1.0/LibvirtGLib-1.0.typelib
 %endif
+%if %{with_vala}
+%{_datadir}/vala/vapi/libvirt-glib-1.0.vapi
+%endif
 
 %files -n libvirt-gconfig
 %{_libdir}/libvirt-gconfig-1.0.so.*
 %if %{with_introspection}
 %{_libdir}/girepository-1.0/LibvirtGConfig-1.0.typelib
 %endif
+%if %{with_vala}
+%{_datadir}/vala/vapi/libvirt-gconfig-1.0.vapi
+%endif
 
 %files -n libvirt-gobject
 %{_libdir}/libvirt-gobject-1.0.so.*
 %if %{with_introspection}
 %{_libdir}/girepository-1.0/LibvirtGObject-1.0.typelib
+%endif
+%if %{with_vala}
+%{_datadir}/vala/vapi/libvirt-gobject-1.0.deps
+%{_datadir}/vala/vapi/libvirt-gobject-1.0.vapi
 %endif
 
 %files devel
