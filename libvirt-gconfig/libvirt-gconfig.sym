@@ -117,6 +117,10 @@ LIBVIRT_GCONFIG_0.0.1 {
 	gvir_config_domain_interface_network_new_from_xml;
 	gvir_config_domain_interface_network_set_source;
 
+	gvir_config_domain_interface_user_get_type;
+	gvir_config_domain_interface_user_new;
+	gvir_config_domain_interface_user_new_from_xml;
+
 	gvir_config_domain_memballoon_get_type;
 	gvir_config_domain_memballoon_model_get_type;
 	gvir_config_domain_memballoon_new;
