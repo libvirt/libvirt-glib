@@ -100,7 +100,7 @@ int main(void)
     gvir_config_domain_disk_set_source(disk, "/tmp/foo/bar");
     gvir_config_domain_disk_set_driver_name(disk, "qemu");
     gvir_config_domain_disk_set_driver_type(disk, "qcow2");
-    gvir_config_domain_disk_set_target_bus(disk, "ide");
+    gvir_config_domain_disk_set_target_bus(disk, GVIR_CONFIG_DOMAIN_DISK_BUS_IDE);
     gvir_config_domain_disk_set_target_dev(disk, "hda");
     devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(disk));
 

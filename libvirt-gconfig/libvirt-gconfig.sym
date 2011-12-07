@@ -54,6 +54,7 @@ LIBVIRT_GCONFIG_0.0.1 {
 	gvir_config_domain_device_get_type;
 
 	gvir_config_domain_disk_get_type;
+	gvir_config_domain_disk_bus_get_type;
 	gvir_config_domain_disk_guest_device_type_get_type;
 	gvir_config_domain_disk_snapshot_type_get_type;
 	gvir_config_domain_disk_type_get_type;

@@ -64,6 +64,17 @@ typedef enum {
 } GVirConfigDomainDiskType;
 
 typedef enum {
+    GVIR_CONFIG_DOMAIN_DISK_BUS_IDE,
+    GVIR_CONFIG_DOMAIN_DISK_BUS_FDC,
+    GVIR_CONFIG_DOMAIN_DISK_BUS_SCSI,
+    GVIR_CONFIG_DOMAIN_DISK_BUS_VIRTIO,
+    GVIR_CONFIG_DOMAIN_DISK_BUS_XEN,
+    GVIR_CONFIG_DOMAIN_DISK_BUS_USB,
+    GVIR_CONFIG_DOMAIN_DISK_BUS_UML,
+    GVIR_CONFIG_DOMAIN_DISK_BUS_SATA
+} GVirConfigDomainDiskBus;
+
+typedef enum {
     GVIR_CONFIG_DOMAIN_DISK_GUEST_DEVICE_DISK,
     GVIR_CONFIG_DOMAIN_DISK_GUEST_DEVICE_FLOPPY,
     GVIR_CONFIG_DOMAIN_DISK_GUEST_DEVICE_CDROM
@@ -94,7 +105,7 @@ void gvir_config_domain_disk_set_driver_name(GVirConfigDomainDisk *disk,
 void gvir_config_domain_disk_set_driver_type(GVirConfigDomainDisk *disk,
                                              const char *driver_type);
 void gvir_config_domain_disk_set_target_bus(GVirConfigDomainDisk *disk,
-                                            const char *bus);
+                                            GVirConfigDomainDiskBus bus);
 void gvir_config_domain_disk_set_target_dev(GVirConfigDomainDisk *disk,
                                             const char *dev);
 G_END_DECLS

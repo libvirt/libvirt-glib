@@ -159,14 +159,18 @@ void gvir_config_domain_disk_set_driver_type(GVirConfigDomainDisk *disk,
 }
 
 void gvir_config_domain_disk_set_target_bus(GVirConfigDomainDisk *disk,
-                                            const char *bus)
+                                            GVirConfigDomainDiskBus bus)
 {
     GVirConfigObject *node;
 
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk));
     node = gvir_config_object_add_child(GVIR_CONFIG_OBJECT(disk), "target");
     g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
-    gvir_config_object_set_attribute(node, "bus", bus, NULL);
+    gvir_config_object_set_attribute_with_type(node,
+                                               "bus",
+                                               GVIR_TYPE_CONFIG_DOMAIN_DISK_BUS,
+                                               bus,
+                                               NULL);
     g_object_unref(G_OBJECT(node));
 }
 
