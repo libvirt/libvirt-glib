@@ -104,13 +104,9 @@ void gvir_config_domain_disk_set_snapshot_type(GVirConfigDomainDisk *disk,
 void gvir_config_domain_disk_set_source(GVirConfigDomainDisk *disk,
                                         const char *source)
 {
-    GVirConfigObject *source_node;
     const char *attribute_name;
 
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk));
-    source_node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(disk),
-                                                   "source");
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(source_node));
 
     switch (disk->priv->type) {
         case GVIR_CONFIG_DOMAIN_DISK_FILE:
@@ -128,60 +124,43 @@ void gvir_config_domain_disk_set_source(GVirConfigDomainDisk *disk,
         default:
             g_return_if_reached();
     }
-    gvir_config_object_set_attribute(source_node,
-                                     attribute_name, source,
-                                     NULL);
-    g_object_unref(G_OBJECT(source_node));
+    gvir_config_object_replace_child_with_attribute(GVIR_CONFIG_OBJECT(disk),
+                                                   "source",
+                                                   attribute_name, source);
 }
 
 void gvir_config_domain_disk_set_driver_name(GVirConfigDomainDisk *disk,
                                              const char *driver_name)
 {
-    GVirConfigObject *node;
-
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk));
-    node = gvir_config_object_add_child(GVIR_CONFIG_OBJECT(disk), "driver");
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
-    gvir_config_object_set_attribute(node, "name", driver_name, NULL);
-    g_object_unref(G_OBJECT(node));
+    gvir_config_object_add_child_with_attribute(GVIR_CONFIG_OBJECT(disk),
+                                                "driver", "name", driver_name);
 }
 
 void gvir_config_domain_disk_set_driver_type(GVirConfigDomainDisk *disk,
                                              const char *driver_type)
 {
-    GVirConfigObject *node;
-
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk));
-    node = gvir_config_object_add_child(GVIR_CONFIG_OBJECT(disk), "driver");
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
-    gvir_config_object_set_attribute(node, "type", driver_type, NULL);
-    g_object_unref(G_OBJECT(node));
+    gvir_config_object_add_child_with_attribute(GVIR_CONFIG_OBJECT(disk),
+                                                "driver", "type", driver_type);
 }
 
 void gvir_config_domain_disk_set_target_bus(GVirConfigDomainDisk *disk,
                                             GVirConfigDomainDiskBus bus)
 {
-    GVirConfigObject *node;
+    const char *bus_str;
 
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk));
-    node = gvir_config_object_add_child(GVIR_CONFIG_OBJECT(disk), "target");
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
-    gvir_config_object_set_attribute_with_type(node,
-                                               "bus",
-                                               GVIR_TYPE_CONFIG_DOMAIN_DISK_BUS,
-                                               bus,
-                                               NULL);
-    g_object_unref(G_OBJECT(node));
+    bus_str = gvir_config_genum_get_nick(GVIR_TYPE_CONFIG_DOMAIN_DISK_BUS, bus);
+    g_return_if_fail(bus_str != NULL);
+    gvir_config_object_add_child_with_attribute(GVIR_CONFIG_OBJECT(disk),
+                                                "target", "bus", bus_str);
 }
 
 void gvir_config_domain_disk_set_target_dev(GVirConfigDomainDisk *disk,
                                             const char *dev)
 {
-    GVirConfigObject *node;
-
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk));
-    node = gvir_config_object_add_child(GVIR_CONFIG_OBJECT(disk), "target");
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
-    gvir_config_object_set_attribute(node, "dev", dev, NULL);
-    g_object_unref(G_OBJECT(node));
+    gvir_config_object_add_child_with_attribute(GVIR_CONFIG_OBJECT(disk),
+                                                "target", "dev", dev);
 }

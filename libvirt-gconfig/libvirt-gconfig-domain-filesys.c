@@ -115,13 +115,9 @@ void gvir_config_domain_filesys_set_driver_type(GVirConfigDomainFilesys *filesys
 void gvir_config_domain_filesys_set_source(GVirConfigDomainFilesys *filesys,
                                            const char *source)
 {
-    GVirConfigObject *source_node;
     const char *attribute_name;
 
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_FILESYS(filesys));
-    source_node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(filesys),
-                                                   "source");
-    g_return_if_fail(source_node != NULL);
 
     switch (filesys->priv->type) {
         case GVIR_CONFIG_DOMAIN_FILESYS_MOUNT:
@@ -140,23 +136,18 @@ void gvir_config_domain_filesys_set_source(GVirConfigDomainFilesys *filesys,
             g_return_if_reached();
     }
 
-    gvir_config_object_set_attribute(source_node,
-                                     attribute_name, source,
-                                     NULL);
-    g_object_unref(G_OBJECT(source_node));
+    gvir_config_object_replace_child_with_attribute(GVIR_CONFIG_OBJECT(filesys),
+                                                    "source",
+                                                    attribute_name, source);
 }
 
 
 void gvir_config_domain_filesys_set_target(GVirConfigDomainFilesys *filesys,
                                            const char *path)
 {
-    GVirConfigObject *node;
-
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_FILESYS(filesys));
-    node = gvir_config_object_add_child(GVIR_CONFIG_OBJECT(filesys), "target");
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
-    gvir_config_object_set_attribute(node, "dir", path, NULL);
-    g_object_unref(G_OBJECT(node));
+    gvir_config_object_add_child_with_attribute(GVIR_CONFIG_OBJECT(filesys),
+                                                "target", "dir", path);
 }
 
 void gvir_config_domain_filesys_set_readonly(GVirConfigDomainFilesys *filesys,

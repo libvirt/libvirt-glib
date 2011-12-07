@@ -54,15 +54,10 @@ static void gvir_config_domain_interface_init(GVirConfigDomainInterface *interfa
 void gvir_config_domain_interface_set_ifname(GVirConfigDomainInterface *interface,
                                              const char *ifname)
 {
-    GVirConfigObject *node;
-
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_INTERFACE(interface));
 
-    node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(interface),
-                                            "target");
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
-    gvir_config_object_set_attribute(node, "device", ifname, NULL);
-    g_object_unref(G_OBJECT(node));
+    gvir_config_object_replace_child_with_attribute(GVIR_CONFIG_OBJECT(interface),
+                                                    "target", "device", ifname);
 }
 
 void gvir_config_domain_interface_set_link_state(GVirConfigDomainInterface *interface,
@@ -86,27 +81,17 @@ void gvir_config_domain_interface_set_link_state(GVirConfigDomainInterface *inte
 void gvir_config_domain_interface_set_mac(GVirConfigDomainInterface *interface,
                                           const char *mac_address)
 {
-    GVirConfigObject *node;
-
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_INTERFACE(interface));
 
-    node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(interface),
-                                            "mac");
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
-    gvir_config_object_set_attribute(node, "address", mac_address, NULL);
-    g_object_unref(G_OBJECT(node));
+    gvir_config_object_replace_child_with_attribute(GVIR_CONFIG_OBJECT(interface),
+                                                    "mac", "address", mac_address);
 }
 
 void gvir_config_domain_interface_set_model(GVirConfigDomainInterface *interface,
                                             const char *model)
 {
-    GVirConfigObject *node;
-
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_INTERFACE(interface));
 
-    node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(interface),
-                                            "model");
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
-    gvir_config_object_set_attribute(node, "type", model, NULL);
-    g_object_unref(G_OBJECT(node));
+    gvir_config_object_replace_child_with_attribute(GVIR_CONFIG_OBJECT(interface),
+                                                    "model", "type", model);
 }

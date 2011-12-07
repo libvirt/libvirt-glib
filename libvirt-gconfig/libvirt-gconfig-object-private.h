@@ -37,8 +37,16 @@ void gvir_config_object_set_node_content_uint64(GVirConfigObject *object,
                                                 guint64 value);
 GVirConfigObject *gvir_config_object_add_child(GVirConfigObject *object,
                                                const char *child_name);
+void gvir_config_object_add_child_with_attribute(GVirConfigObject *object,
+                                                 const char *child_name,
+                                                 const char *attr_name,
+                                                 const char *attr_value);
 GVirConfigObject *gvir_config_object_replace_child(GVirConfigObject *object,
                                                    const char *child_name);
+void gvir_config_object_replace_child_with_attribute(GVirConfigObject *object,
+                                                     const char *child_name,
+                                                     const char *attr_name,
+                                                     const char *attr_value);
 void gvir_config_object_delete_child(GVirConfigObject *object,
                                      const char *child_name);
 void gvir_config_object_set_child(GVirConfigObject *object,
