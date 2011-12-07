@@ -613,6 +613,18 @@ GSourceFuncs gvir_stream_source_funcs = {
     .finalize = gvir_stream_source_finalize,
 };
 
+
+/**
+ * gvir_stream_add_watch: (skip):
+ * @stream: the stream
+ * @cond: the conditions to watch for (bitfield of #GVirStreamIOCondition)
+ * @func: (closure opaque): the function to call when the condition is satisfied
+ * @opaque: (closure): user data to pass to @func
+ *
+ * Adds a watch for @stream to the mainloop
+ *
+ * Returns: the event source id
+ */
 guint gvir_stream_add_watch(GVirStream *stream,
                             GVirStreamIOCondition cond,
                             GVirStreamIOFunc func,
@@ -626,6 +638,20 @@ guint gvir_stream_add_watch(GVirStream *stream,
                                       NULL);
 }
 
+/**
+ * gvir_stream_add_watch_full:
+ * @stream: the stream
+ * @priority: the priority of the #GVirStream source
+ * @cond: the conditions to watch for (bitfield of #GVirStreamIOCondition)
+ * @func: (closure opaque): the function to call when the condition is satisfied
+ * @opaque: (closure): user data to pass to @func
+ * @notify: the function to call when the source is removed
+ *
+ * Adds a watch for @stream to the mainloop
+ *
+ * Returns: the event source id
+ * Rename to: gvir_stream_add_watch
+ */
 guint gvir_stream_add_watch_full(GVirStream *stream,
                                  gint priority,
                                  GVirStreamIOCondition cond,
