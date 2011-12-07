@@ -161,6 +161,7 @@ static void gvir_input_stream_read_async(GInputStream *stream,
     g_return_if_fail(input_stream->priv->result == NULL);
 
     gvir_stream_add_watch_full(input_stream->priv->stream,
+                               G_PRIORITY_DEFAULT,
                                GVIR_STREAM_IO_CONDITION_READABLE,
                                gvir_input_stream_read_ready,
                                g_object_ref(stream),

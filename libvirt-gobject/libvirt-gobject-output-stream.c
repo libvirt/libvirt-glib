@@ -161,6 +161,7 @@ static void gvir_output_stream_write_async(GOutputStream *stream,
     g_return_if_fail(output_stream->priv->result == NULL);
 
     gvir_stream_add_watch_full(output_stream->priv->stream,
+                               G_PRIORITY_DEFAULT,
                                GVIR_STREAM_IO_CONDITION_WRITABLE,
                                gvir_output_stream_write_ready,
                                g_object_ref(stream),

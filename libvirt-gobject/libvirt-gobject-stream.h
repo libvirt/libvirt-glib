@@ -109,6 +109,7 @@ guint gvir_stream_add_watch(GVirStream *stream,
                             GVirStreamIOFunc func,
                             gpointer opaque);
 guint gvir_stream_add_watch_full(GVirStream *stream,
+                                 gint priority,
                                  GVirStreamIOCondition cond,
                                  GVirStreamIOFunc func,
                                  gpointer opaque,

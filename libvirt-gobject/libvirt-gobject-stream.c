@@ -619,6 +619,7 @@ guint gvir_stream_add_watch(GVirStream *stream,
                             gpointer opaque)
 {
     return gvir_stream_add_watch_full(stream,
+                                      G_PRIORITY_DEFAULT,
                                       cond,
                                       func,
                                       opaque,
@@ -626,6 +627,7 @@ guint gvir_stream_add_watch(GVirStream *stream,
 }
 
 guint gvir_stream_add_watch_full(GVirStream *stream,
+                                 gint priority,
                                  GVirStreamIOCondition cond,
                                  GVirStreamIOFunc func,
                                  gpointer opaque,
@@ -638,6 +640,9 @@ guint gvir_stream_add_watch_full(GVirStream *stream,
 
     source->stream = stream;
     source->cond = cond;
+
+    if (priority != G_PRIORITY_DEFAULT)
+        g_source_set_priority((GSource*)source, priority);
 
     priv->sources = g_list_append(priv->sources, source);
 
