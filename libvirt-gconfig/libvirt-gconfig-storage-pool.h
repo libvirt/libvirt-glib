@@ -59,6 +59,16 @@ struct _GVirConfigStoragePoolClass
     gpointer padding[20];
 };
 
+typedef enum {
+    GVIR_CONFIG_STORAGE_POOL_TYPE_DIR,
+    GVIR_CONFIG_STORAGE_POOL_TYPE_FS,
+    GVIR_CONFIG_STORAGE_POOL_TYPE_NETFS,
+    GVIR_CONFIG_STORAGE_POOL_TYPE_LOGICAL,
+    GVIR_CONFIG_STORAGE_POOL_TYPE_DISK,
+    GVIR_CONFIG_STORAGE_POOL_TYPE_ISCSI,
+    GVIR_CONFIG_STORAGE_POOL_TYPE_SCSI,
+    GVIR_CONFIG_STORAGE_POOL_TYPE_MPATH
+} GVirConfigStoragePoolType;
 
 GType gvir_config_storage_pool_get_type(void);
 
@@ -74,6 +84,8 @@ void gvir_config_storage_pool_set_capacity(GVirConfigStoragePool *pool,
                                            guint64 capacity);
 void gvir_config_storage_pool_set_name(GVirConfigStoragePool *pool,
                                        const char *name);
+void gvir_config_storage_pool_set_pool_type(GVirConfigStoragePool *pool,
+                                            GVirConfigStoragePoolType type);
 void gvir_config_storage_pool_set_source(GVirConfigStoragePool *pool,
                                          GVirConfigStoragePoolSource *source);
 void gvir_config_storage_pool_set_target(GVirConfigStoragePool *pool,

@@ -176,6 +176,7 @@ int main(void)
     GVirConfigStoragePermissions *perms;
 
     pool = gvir_config_storage_pool_new();
+    gvir_config_storage_pool_set_pool_type(pool, GVIR_CONFIG_STORAGE_POOL_TYPE_DIR);
 
     pool_source = gvir_config_storage_pool_source_new();
     gvir_config_storage_pool_source_set_directory(pool_source, "/foo/bar");

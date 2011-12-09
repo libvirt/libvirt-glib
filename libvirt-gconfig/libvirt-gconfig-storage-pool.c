@@ -74,6 +74,18 @@ GVirConfigStoragePool *gvir_config_storage_pool_new_from_xml(const gchar *xml,
     return GVIR_CONFIG_STORAGE_POOL(object);
 }
 
+void gvir_config_storage_pool_set_pool_type(GVirConfigStoragePool *pool,
+                                            GVirConfigStoragePoolType type)
+{
+    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL(pool));
+
+    gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(pool),
+                                               "type",
+                                               GVIR_TYPE_CONFIG_STORAGE_POOL_TYPE,
+                                               type,
+                                               NULL);
+}
+
 void gvir_config_storage_pool_set_name(GVirConfigStoragePool *pool,
                                        const char *name)
 {
