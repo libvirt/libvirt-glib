@@ -589,3 +589,51 @@ end:
         virStreamFree(st);
     return mime;
 }
+
+
+/**
+ * gvir_domain_open_console:
+ * @dom: (transfer none): the domain
+ * @devname: (transfer none)(allow-none): the device name
+ * @stream: (transfer none): stream to use as output
+ * @flags: extra flags, currently unused
+ *
+ * Open a text console for the domain @dom, connecting it to the
+ * stream @stream. If @devname is NULL, the default console will
+ * be opened, otherwise @devname can be used to specify a non-default
+ * console device.
+ *
+ * Returns: TRUE if the console was opened, FALSE otherwise.
+ */
+gboolean gvir_domain_open_console(GVirDomain *dom,
+                                  GVirStream *stream,
+                                  const gchar *devname,
+                                  guint flags,
+                                  GError **err)
+{
+    GVirDomainPrivate *priv;
+    virStreamPtr st = NULL;
+    gboolean ret = FALSE;
+
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
+    g_return_val_if_fail(GVIR_IS_STREAM(stream), FALSE);
+
+    priv = dom->priv;
+    g_object_get(stream, "handle", &st, NULL);
+
+    if (virDomainOpenConsole(priv->handle,
+                             devname,
+                             st,
+                             flags) < 0) {
+        gvir_set_error_literal(err, GVIR_DOMAIN_ERROR,
+                               0,
+                               "Unable to open console");
+        goto cleanup;
+    }
+
+    ret = TRUE;
+cleanup:
+    if (st != NULL)
+        virStreamFree(st);
+    return ret;
+}

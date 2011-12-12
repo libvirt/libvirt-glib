@@ -141,6 +141,12 @@ gchar *gvir_domain_screenshot(GVirDomain *dom,
                               guint flags,
                               GError **err);
 
+gboolean gvir_domain_open_console(GVirDomain *dom,
+                                  GVirStream *stream,
+                                  const gchar *devname,
+                                  guint flags,
+                                  GError **err);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GOBJECT_DOMAIN_H__ */
