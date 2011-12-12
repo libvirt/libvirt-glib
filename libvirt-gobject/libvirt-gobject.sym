@@ -53,6 +53,7 @@ LIBVIRT_GOBJECT_0.0.1 {
 	gvir_domain_stop;
 	gvir_domain_delete;
 	gvir_domain_open_console;
+	gvir_domain_open_graphics;
 	gvir_domain_shutdown;
 	gvir_domain_reboot;
 	gvir_domain_get_config;

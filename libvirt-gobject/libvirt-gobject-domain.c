@@ -637,3 +637,44 @@ cleanup:
         virStreamFree(st);
     return ret;
 }
+
+
+/**
+ * gvir_domain_open_graphics:
+ * @dom: the domain
+ * @idx: the graphics index
+ * @fd: pre-opened socket pair
+ * @flags: extra flags, currently unused
+ *
+ * Open a connection to the local graphics display, connecting it to the
+ * socket pair file descriptor passed in as @fd.
+ *
+ * Returns: TRUE if the graphics connection was opened, FALSE otherwise.
+ */
+gboolean gvir_domain_open_graphics(GVirDomain *dom,
+                                   guint idx,
+                                   int fd,
+                                   unsigned int flags,
+                                   GError **err)
+{
+    GVirDomainPrivate *priv;
+    gboolean ret = FALSE;
+
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
+
+    priv = dom->priv;
+
+    if (virDomainOpenGraphics(priv->handle,
+                              idx,
+                              fd,
+                              flags) < 0) {
+        gvir_set_error_literal(err, GVIR_DOMAIN_ERROR,
+                               0,
+                               "Unable to open graphics");
+        goto cleanup;
+    }
+
+    ret = TRUE;
+cleanup:
+    return ret;
+}

@@ -147,6 +147,12 @@ gboolean gvir_domain_open_console(GVirDomain *dom,
                                   guint flags,
                                   GError **err);
 
+gboolean gvir_domain_open_graphics(GVirDomain *dom,
+                                   guint idx,
+                                   int fd,
+                                   unsigned int flags,
+                                   GError **err);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GOBJECT_DOMAIN_H__ */
