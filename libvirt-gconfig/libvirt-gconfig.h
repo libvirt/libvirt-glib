@@ -44,6 +44,7 @@
 #include <libvirt-gconfig/libvirt-gconfig-domain-graphics-vnc.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-input.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-interface.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-interface-bridge.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-interface-network.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-interface-user.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-memballoon.h>

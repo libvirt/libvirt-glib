@@ -118,6 +118,11 @@ LIBVIRT_GCONFIG_0.0.1 {
 	gvir_config_domain_interface_set_mac;
 	gvir_config_domain_interface_set_model;
 
+	gvir_config_domain_interface_bridge_get_type;
+	gvir_config_domain_interface_bridge_new;
+	gvir_config_domain_interface_bridge_new_from_xml;
+	gvir_config_domain_interface_bridge_set_source;
+
 	gvir_config_domain_interface_network_get_type;
 	gvir_config_domain_interface_network_new;
 	gvir_config_domain_interface_network_new_from_xml;

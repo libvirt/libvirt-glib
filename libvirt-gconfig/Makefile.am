@@ -27,6 +27,7 @@ GCONFIG_HEADER_FILES = \
 			libvirt-gconfig-domain-graphics-vnc.h \
 			libvirt-gconfig-domain-input.h \
 			libvirt-gconfig-domain-interface.h \
+			libvirt-gconfig-domain-interface-bridge.h \
 			libvirt-gconfig-domain-interface-network.h \
 			libvirt-gconfig-domain-interface-user.h \
 			libvirt-gconfig-domain-memballoon.h \
@@ -71,6 +72,7 @@ GCONFIG_SOURCE_FILES = \
 			libvirt-gconfig-domain-graphics-vnc.c \
 			libvirt-gconfig-domain-input.c \
 			libvirt-gconfig-domain-interface.c \
+			libvirt-gconfig-domain-interface-bridge.c \
 			libvirt-gconfig-domain-interface-network.c \
 			libvirt-gconfig-domain-interface-user.c \
 			libvirt-gconfig-domain-memballoon.c \
