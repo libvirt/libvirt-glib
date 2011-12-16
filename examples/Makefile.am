@@ -1,7 +1,7 @@
 
 noinst_PROGRAMS = event-test conn-test
 
-EXTRA_DIST = event-test.py
+EXTRA_DIST = event-test.py config-demo.py
 
 event_test_CFLAGS = \
 		$(WARN_CFLAGS) \
