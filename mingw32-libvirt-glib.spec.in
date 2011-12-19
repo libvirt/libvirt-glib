@@ -17,7 +17,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  mingw32-filesystem >= 23
 BuildRequires:  mingw32-glib2
-BuildRequires:  mingw32-libvirt >= 0.9.4
+BuildRequires:  mingw32-libvirt >= 0.9.7
 BuildRequires:  pkgconfig
 
 BuildArch:      noarch
