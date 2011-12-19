@@ -1,3 +1,24 @@
+0.0.3 - Dec 19, 2011
+====================
+
+- Flesh out API in libvirt-gconfig to allow basic domain
+  configuration
+- Don't memset private data fields, since glib already
+  ensures this
+- Fix VPATH builds
+- Add syntax-check rules ensuring coding style compliance
+- Describe coding style in HACKING file
+- Expand libvirt-gobject API to allow watches on streams
+- Simplify debug system with new glib
+- Fix libvirt-gobject pkg-config file
+- Fix domain event handlig wrt transient guests
+- Don't crash if given a NULL uri to connect to
+- Expand libvirt-gobject API for storage pools & volumes
+- Fix some crashes in error paths where GError instance
+  was NULL
+- Add vala files to the RPM
+- Add binding for open domain consoles & graphics
+
 0.0.2 - Nov 22, 2011
 ====================
 
