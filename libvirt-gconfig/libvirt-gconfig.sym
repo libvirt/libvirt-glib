@@ -272,6 +272,8 @@ LIBVIRT_GCONFIG_0.0.3 {
 	gvir_config_storage_vol_target_set_format;
 	gvir_config_storage_vol_target_set_permissions;
 
+	gvir_config_xml_doc_get_type;
+	gvir_config_xml_doc_new;
   local:
         *;
 };
