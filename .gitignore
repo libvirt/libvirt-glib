@@ -72,3 +72,4 @@ docs/*/*.types
 *.pc
 libvirt-gconfig/tests/test-domain-create
 libvirt-gconfig/tests/test-domain-parse
+vapi/*.vapi
