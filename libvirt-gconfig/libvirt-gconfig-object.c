@@ -514,6 +514,21 @@ GVirConfigObject *gvir_config_object_new_from_xml(GType type,
     return object;
 }
 
+G_GNUC_INTERNAL GVirConfigObject *
+gvir_config_object_new_from_tree(GType type, GVirConfigXmlDoc *doc,
+                                 const char *schema, xmlNodePtr tree)
+{
+    g_return_val_if_fail(g_type_is_a(type, GVIR_TYPE_CONFIG_OBJECT), NULL);
+    g_return_val_if_fail(GVIR_IS_CONFIG_XML_DOC(doc), NULL);
+    g_return_val_if_fail(tree != NULL, NULL);
+
+    return GVIR_CONFIG_OBJECT(g_object_new(type,
+                                           "doc", doc,
+                                           "node", tree,
+                                           "schema", schema,
+                                           NULL));
+}
+
 GVirConfigObject *gvir_config_object_new(GType type,
                                          const char *root_name,
                                          const char *schema)

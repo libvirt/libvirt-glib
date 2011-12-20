@@ -24,6 +24,12 @@
 
 G_BEGIN_DECLS
 
+#include <libvirt-gconfig/libvirt-gconfig-xml-doc.h>
+
+GVirConfigObject *gvir_config_object_new_from_tree(GType type,
+                                                   GVirConfigXmlDoc *doc,
+                                                   const char *schema,
+                                                   xmlNodePtr tree);
 xmlNodePtr gvir_config_object_get_xml_node(GVirConfigObject *config);
 char *gvir_config_object_get_node_content(GVirConfigObject *object,
                                           const char *node_name);
