@@ -61,13 +61,21 @@ LIBVIRT_GCONFIG_0.0.3 {
 	gvir_config_domain_disk_type_get_type;
 	gvir_config_domain_disk_new;
 	gvir_config_domain_disk_new_from_xml;
+	gvir_config_domain_disk_get_driver_name;
 	gvir_config_domain_disk_set_driver_name;
+	gvir_config_domain_disk_get_driver_type;
 	gvir_config_domain_disk_set_driver_type;
+	gvir_config_domain_disk_get_guest_device_type;
 	gvir_config_domain_disk_set_guest_device_type;
+	gvir_config_domain_disk_get_snapshot_type;
 	gvir_config_domain_disk_set_snapshot_type;
+	gvir_config_domain_disk_get_source;
 	gvir_config_domain_disk_set_source;
+	gvir_config_domain_disk_get_target_bus;
 	gvir_config_domain_disk_set_target_bus;
+	gvir_config_domain_disk_get_target_dev;
 	gvir_config_domain_disk_set_target_dev;
+	gvir_config_domain_disk_get_disk_type;
 	gvir_config_domain_disk_set_type;
 
 	gvir_config_domain_filesys_get_type;
