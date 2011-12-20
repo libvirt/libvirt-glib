@@ -210,22 +210,43 @@ gvir_config_xml_get_child_element_content (xmlNode    *node,
         return xmlNodeGetContent (child_node);
 }
 
+static char *libxml_str_to_glib(xmlChar *str)
+{
+    char *g_str;
+
+    if (str == NULL)
+        return NULL;
+    g_str = g_strdup((char *)str);
+    xmlFree(str);
+
+    return g_str;
+}
+
 char *
 gvir_config_xml_get_child_element_content_glib (xmlNode    *node,
                                                 const char *child_name)
 {
         xmlChar *content;
-        char *copy;
 
         content = gvir_config_xml_get_child_element_content (node, child_name);
-        if (!content)
-                return NULL;
 
-        copy = g_strdup ((char *) content);
+        return libxml_str_to_glib(content);
+}
 
-        xmlFree (content);
+G_GNUC_INTERNAL xmlChar *
+gvir_config_xml_get_attribute_content(xmlNodePtr node, const char *attr_name)
+{
+    return xmlGetProp(node, (const xmlChar*)attr_name);
+}
 
-        return copy;
+G_GNUC_INTERNAL char *
+gvir_config_xml_get_attribute_content_glib(xmlNodePtr node, const char *attr_name)
+{
+    xmlChar *attr;
+
+    attr = gvir_config_xml_get_attribute_content(node, attr_name);
+
+    return libxml_str_to_glib(attr);
 }
 
 const char *gvir_config_genum_get_nick (GType enum_type, gint value)
@@ -243,4 +264,24 @@ const char *gvir_config_genum_get_nick (GType enum_type, gint value)
         return enum_value->value_nick;
 
     g_return_val_if_reached(NULL);
+}
+
+G_GNUC_INTERNAL int
+gvir_config_genum_get_value (GType enum_type, const char *nick,
+                             gint default_value)
+{
+    GEnumClass *enum_class;
+    GEnumValue *enum_value;
+
+    g_return_val_if_fail(G_TYPE_IS_ENUM(enum_type), default_value);
+    g_return_val_if_fail(nick != NULL, default_value);
+
+    enum_class = g_type_class_ref(enum_type);
+    enum_value = g_enum_get_value_by_nick(enum_class, nick);
+    g_type_class_unref(enum_class);
+
+    if (enum_value != NULL)
+        return enum_value->value;
+
+    g_return_val_if_reached(default_value);
 }
