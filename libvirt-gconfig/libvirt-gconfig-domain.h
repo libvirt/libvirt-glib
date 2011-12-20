@@ -120,6 +120,7 @@ void gvir_config_domain_set_devices(GVirConfigDomain *domain,
                                     GList *devices);
 void gvir_config_domain_add_device(GVirConfigDomain *domain,
                                    GVirConfigDomainDevice *device);
+GList *gvir_config_domain_get_devices(GVirConfigDomain *domain);
 void gvir_config_domain_set_lifecycle(GVirConfigDomain *domain,
                                       GVirConfigDomainLifecycleEvent event,
                                       GVirConfigDomainLifecycleAction action);

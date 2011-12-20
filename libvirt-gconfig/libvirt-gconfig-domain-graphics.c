@@ -23,6 +23,7 @@
 #include <config.h>
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
+#include "libvirt-gconfig/libvirt-gconfig-private.h"
 
 #define GVIR_CONFIG_DOMAIN_GRAPHICS_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_GRAPHICS, GVirConfigDomainGraphicsPrivate))
@@ -46,4 +47,38 @@ static void gvir_config_domain_graphics_init(GVirConfigDomainGraphics *graphics)
     g_debug("Init GVirConfigDomainGraphics=%p", graphics);
 
     graphics->priv = GVIR_CONFIG_DOMAIN_GRAPHICS_GET_PRIVATE(graphics);
+}
+
+G_GNUC_INTERNAL GVirConfigDomainDevice *
+gvir_config_domain_graphics_new_from_tree(GVirConfigXmlDoc *doc,
+                                          xmlNodePtr tree)
+{
+    xmlChar *type;
+    GType gtype;
+
+    type = gvir_config_xml_get_attribute_content(tree, "type");
+    if (type == NULL)
+        return NULL;
+
+    if (xmlStrEqual(type, (xmlChar*)"sdl")) {
+        gtype = GVIR_TYPE_CONFIG_DOMAIN_GRAPHICS_SDL;
+    } else if (xmlStrEqual(type, (xmlChar*)"vnc")) {
+        gtype = GVIR_TYPE_CONFIG_DOMAIN_GRAPHICS_VNC;
+    } else if (xmlStrEqual(type, (xmlChar*)"spice")) {
+        gtype = GVIR_TYPE_CONFIG_DOMAIN_GRAPHICS_SPICE;
+    } else if (xmlStrEqual(type, (xmlChar*)"rdp")) {
+        goto unimplemented;
+    } else if (xmlStrEqual(type, (xmlChar*)"desktop")) {
+        goto unimplemented;
+    } else {
+        g_debug("Unknown graphics node: %s", type);
+        return NULL;
+    }
+    xmlFree(type);
+
+    return GVIR_CONFIG_DOMAIN_DEVICE(gvir_config_object_new_from_tree(gtype, doc, NULL, tree));
+
+unimplemented:
+    g_debug("Parsing of '%s' graphics nodes is unimplemented", type);
+    return NULL;
 }

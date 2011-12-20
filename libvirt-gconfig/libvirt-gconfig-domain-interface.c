@@ -95,3 +95,41 @@ void gvir_config_domain_interface_set_model(GVirConfigDomainInterface *interface
     gvir_config_object_replace_child_with_attribute(GVIR_CONFIG_OBJECT(interface),
                                                     "model", "type", model);
 }
+
+G_GNUC_INTERNAL GVirConfigDomainDevice *
+gvir_config_domain_interface_new_from_tree(GVirConfigXmlDoc *doc,
+                                           xmlNodePtr tree)
+{
+    xmlChar *type;
+    GType gtype;
+
+    type = gvir_config_xml_get_attribute_content(tree, "type");
+    if (type == NULL)
+        return NULL;
+
+    if (xmlStrEqual(type, (xmlChar*)"network")) {
+        gtype = GVIR_TYPE_CONFIG_DOMAIN_INTERFACE_NETWORK;
+    } else if (xmlStrEqual(type, (xmlChar*)"user")) {
+        gtype = GVIR_TYPE_CONFIG_DOMAIN_INTERFACE_USER;
+    } else if (xmlStrEqual(type, (xmlChar*)"bridge")) {
+        goto unimplemented;
+    } else if (xmlStrEqual(type, (xmlChar*)"direct")) {
+        goto unimplemented;
+    } else if (xmlStrEqual(type, (xmlChar*)"server")) {
+        goto unimplemented;
+    } else if (xmlStrEqual(type, (xmlChar*)"mcast")) {
+        goto unimplemented;
+    } else if (xmlStrEqual(type, (xmlChar*)"ethernet")) {
+        goto unimplemented;
+    } else {
+        g_debug("Unknown domain interface node: %s", type);
+        return NULL;
+    }
+    xmlFree(type);
+
+    return GVIR_CONFIG_DOMAIN_DEVICE(gvir_config_object_new_from_tree(gtype, doc, NULL, tree));
+
+unimplemented:
+    g_debug("Parsing of '%s' domain interface nodes is unimplemented", type);
+    return NULL;
+}

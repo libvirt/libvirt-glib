@@ -375,3 +375,47 @@ void gvir_config_domain_add_device(GVirConfigDomain *domain,
     gvir_config_object_attach(devices_node, GVIR_CONFIG_OBJECT(device));
     g_object_unref(G_OBJECT(devices_node));
 }
+
+struct GetDeviceData {
+    GVirConfigXmlDoc *doc;
+    GList *devices;
+};
+
+static gboolean add_device(xmlNodePtr node, gpointer opaque)
+{
+    struct GetDeviceData* data = (struct GetDeviceData*)opaque;
+    GVirConfigDomainDevice *device;
+
+    device = gvir_config_domain_device_new_from_tree(data->doc, node);
+    if (device != NULL)
+        data->devices = g_list_append(data->devices, device);
+    else
+        g_debug("Failed to parse %s node", node->name);
+
+    return TRUE;
+}
+
+/**
+ * gvir_config_domain_get_devices:
+ *
+ * Gets the list of devices attached to @domain
+ *
+ * Returns: (element-type LibvirtGConfig.DomainDevice) (transfer full):
+ * a newly allocated #GList of #GVirConfigDomainDevice.
+ */
+GList *gvir_config_domain_get_devices(GVirConfigDomain *domain)
+{
+    struct GetDeviceData data;
+
+    g_return_val_if_fail(GVIR_IS_CONFIG_DOMAIN(domain), NULL);
+
+    g_object_get(G_OBJECT(domain), "doc", &data.doc, NULL);
+    data.devices = NULL;
+    gvir_config_object_foreach_child(GVIR_CONFIG_OBJECT(domain), "devices",
+                                     add_device, &data);
+    if (data.doc != NULL) {
+        g_object_unref(G_OBJECT(data.doc));
+    }
+
+    return data.devices;
+}

@@ -63,10 +63,38 @@ GVirConfigDomainDisk *gvir_config_domain_disk_new_from_xml(const gchar *xml,
                                                            GError **error)
 {
     GVirConfigObject *object;
-
     object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_DOMAIN_DISK,
                                              "disk", NULL, xml, error);
+
     return GVIR_CONFIG_DOMAIN_DISK(object);
+}
+
+GVirConfigDomainDevice *
+gvir_config_domain_disk_new_from_tree(GVirConfigXmlDoc *doc,
+                                      xmlNodePtr tree)
+{
+    GVirConfigObject *object;
+    GVirConfigDomainDisk *disk;
+    GVirConfigDomainDiskType type;
+    xmlChar *type_str;
+
+    type_str = gvir_config_xml_get_attribute_content(tree, "type");
+    if (type_str == NULL)
+        return NULL;
+
+    type = gvir_config_genum_get_value(GVIR_TYPE_CONFIG_DOMAIN_DISK_TYPE,
+                                       (char *)type_str,
+                                       GVIR_CONFIG_DOMAIN_DISK_FILE);
+    xmlFree(type_str);
+    if (type == -1)
+        return NULL;
+
+    object = gvir_config_object_new_from_tree(GVIR_TYPE_CONFIG_DOMAIN_DISK,
+                                              doc, NULL, tree);
+    disk = GVIR_CONFIG_DOMAIN_DISK(object);
+    disk->priv->type = type;
+
+    return GVIR_CONFIG_DOMAIN_DEVICE(object);
 }
 
 void gvir_config_domain_disk_set_type(GVirConfigDomainDisk *disk,

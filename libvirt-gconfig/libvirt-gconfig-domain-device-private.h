@@ -1,5 +1,5 @@
 /*
- * libvirt-gconfig-private.h: libvirt domain device configuration
+ * libvirt-gconfig-domain-device-private.h: libvirt domain device configuration
  *
  * Copyright (C) 2011 Red Hat, Inc.
  *
@@ -20,12 +20,26 @@
  * Author: Christophe Fergeau <cfergeau@gmail.com>
  */
 
-#ifndef __LIBVIRT_GCONFIG_PRIVATE_H__
-#define __LIBVIRT_GCONFIG_PRIVATE_H__
+#ifndef __LIBVIRT_GCONFIG_DOMAIN_DEVICE_PRIVATE_H__
+#define __LIBVIRT_GCONFIG_DOMAIN_DEVICE_PRIVATE_H__
 
-#include <libvirt-gconfig/libvirt-gconfig-domain-device-private.h>
-#include <libvirt-gconfig/libvirt-gconfig-helpers-private.h>
-#include <libvirt-gconfig/libvirt-gconfig-object-private.h>
 #include <libvirt-gconfig/libvirt-gconfig-xml-doc.h>
 
-#endif /* __LIBVIRT_GCONFIG_PRIVATE_H__ */
+G_BEGIN_DECLS
+
+GVirConfigDomainDevice *
+gvir_config_domain_device_new_from_tree(GVirConfigXmlDoc *doc,
+                                        xmlNodePtr tree);
+GVirConfigDomainDevice *
+gvir_config_domain_disk_new_from_tree(GVirConfigXmlDoc *doc,
+                                      xmlNodePtr tree);
+GVirConfigDomainDevice *
+gvir_config_domain_graphics_new_from_tree(GVirConfigXmlDoc *doc,
+                                          xmlNodePtr tree);
+GVirConfigDomainDevice *
+gvir_config_domain_interface_new_from_tree(GVirConfigXmlDoc *doc,
+                                           xmlNodePtr tree);
+
+G_END_DECLS
+
+#endif /* __LIBVIRT_GCONFIG_DOMAIN_H__ */
