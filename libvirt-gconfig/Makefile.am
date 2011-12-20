@@ -51,6 +51,7 @@ GCONFIG_HEADER_FILES = \
 			libvirt-gconfig-storage-vol-backing-store.h \
 			libvirt-gconfig-storage-vol-target.h
 noinst_HEADERS = \
+			libvirt-gconfig-private.h \
 			libvirt-gconfig-helpers-private.h \
 			libvirt-gconfig-object-private.h \
 			libvirt-gconfig-xml-doc.h

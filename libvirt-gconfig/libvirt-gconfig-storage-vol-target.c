@@ -23,7 +23,7 @@
 #include <config.h>
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
-#include "libvirt-gconfig/libvirt-gconfig-object-private.h"
+#include "libvirt-gconfig/libvirt-gconfig-private.h"
 
 
 #define GVIR_CONFIG_STORAGE_VOL_TARGET_GET_PRIVATE(obj)                         \

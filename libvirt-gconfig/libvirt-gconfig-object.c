@@ -28,9 +28,7 @@
 #include <libxml/relaxng.h>
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
-#include "libvirt-gconfig/libvirt-gconfig-helpers-private.h"
-#include "libvirt-gconfig/libvirt-gconfig-object-private.h"
-#include "libvirt-gconfig/libvirt-gconfig-xml-doc.h"
+#include "libvirt-gconfig/libvirt-gconfig-private.h"
 
 #define GVIR_CONFIG_OBJECT_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_OBJECT, GVirConfigObjectPrivate))

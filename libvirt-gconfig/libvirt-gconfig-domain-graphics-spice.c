@@ -23,8 +23,7 @@
 #include <config.h>
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
-#include "libvirt-gconfig/libvirt-gconfig-helpers-private.h"
-#include "libvirt-gconfig/libvirt-gconfig-object-private.h"
+#include "libvirt-gconfig/libvirt-gconfig-private.h"
 
 #define GVIR_CONFIG_DOMAIN_GRAPHICS_SPICE_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_GRAPHICS_SPICE, GVirConfigDomainGraphicsSpicePrivate))
