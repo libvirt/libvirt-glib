@@ -157,10 +157,6 @@ LIBVIRT_GCONFIG_0.0.3 {
 	gvir_config_domain_os_set_arch;
 	gvir_config_domain_os_type_get_type;
 
-	gvir_config_domain_snapshot_get_type;
-	gvir_config_domain_snapshot_new;
-	gvir_config_domain_snapshot_new_from_xml;
-
 	gvir_config_domain_seclabel_get_type;
 	gvir_config_domain_seclabel_type_get_type;
 	gvir_config_domain_seclabel_new;
@@ -169,6 +165,16 @@ LIBVIRT_GCONFIG_0.0.3 {
 	gvir_config_domain_seclabel_set_model;
 	gvir_config_domain_seclabel_set_baselabel;
 	gvir_config_domain_seclabel_set_label;
+
+	gvir_config_domain_snapshot_get_type;
+	gvir_config_domain_snapshot_new;
+	gvir_config_domain_snapshot_new_from_xml;
+
+	gvir_config_domain_sound_get_type;
+	gvir_config_domain_sound_model_get_type;
+	gvir_config_domain_sound_new;
+	gvir_config_domain_sound_new_from_xml;
+	gvir_config_domain_sound_set_model;
 
 	gvir_config_domain_timer_get_type;
 	gvir_config_domain_timer_new;

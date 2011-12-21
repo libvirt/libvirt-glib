@@ -146,6 +146,14 @@ int main(void)
                                        GVIR_CONFIG_DOMAIN_VIDEO_MODEL_QXL);
     devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(video));
 
+    /* sound node */
+    GVirConfigDomainSound *sound;
+
+    sound = gvir_config_domain_sound_new();
+    gvir_config_domain_sound_set_model(sound,
+                                       GVIR_CONFIG_DOMAIN_SOUND_MODEL_ES1370);
+    devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(sound));
+
     /* console node */
     GVirConfigDomainConsole *console;
     GVirConfigDomainChardevSourcePty *pty;

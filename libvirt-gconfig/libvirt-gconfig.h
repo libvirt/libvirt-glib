@@ -51,6 +51,7 @@
 #include <libvirt-gconfig/libvirt-gconfig-domain-os.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-seclabel.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-snapshot.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-sound.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-timer.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-video.h>
 #include <libvirt-gconfig/libvirt-gconfig-enum-types.h>
