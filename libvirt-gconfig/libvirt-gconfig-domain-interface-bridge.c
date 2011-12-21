@@ -29,14 +29,14 @@
 #include "libvirt-gconfig/libvirt-gconfig-object-private.h"
 
 #define GVIR_CONFIG_DOMAIN_INTERFACE_BRIDGE_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_INTERFACE_BRIDGE, GVirConfigDomainInterfaceBridgePrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_DOMAIN_INTERFACE_BRIDGE, GVirConfigDomainInterfaceBridgePrivate))
 
 struct _GVirConfigDomainInterfaceBridgePrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainInterfaceBridge, gvir_config_domain_interface_bridge, GVIR_TYPE_CONFIG_DOMAIN_INTERFACE);
+G_DEFINE_TYPE(GVirConfigDomainInterfaceBridge, gvir_config_domain_interface_bridge, GVIR_CONFIG_TYPE_DOMAIN_INTERFACE);
 
 
 static void gvir_config_domain_interface_bridge_class_init(GVirConfigDomainInterfaceBridgeClass *klass)
@@ -57,7 +57,7 @@ GVirConfigDomainInterfaceBridge *gvir_config_domain_interface_bridge_new(void)
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new(GVIR_TYPE_CONFIG_DOMAIN_INTERFACE_BRIDGE,
+    object = gvir_config_object_new(GVIR_CONFIG_TYPE_DOMAIN_INTERFACE_BRIDGE,
                                     "interface", NULL);
     gvir_config_object_set_attribute(object, "type", "bridge", NULL);
     return GVIR_CONFIG_DOMAIN_INTERFACE_BRIDGE(object);
@@ -68,7 +68,7 @@ GVirConfigDomainInterfaceBridge *gvir_config_domain_interface_bridge_new_from_xm
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_DOMAIN_INTERFACE_BRIDGE,
+    object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_DOMAIN_INTERFACE_BRIDGE,
                                              "interface", NULL, xml, error);
     if (object == NULL)
         return NULL;
@@ -79,7 +79,7 @@ GVirConfigDomainInterfaceBridge *gvir_config_domain_interface_bridge_new_from_xm
 void gvir_config_domain_interface_bridge_set_source(GVirConfigDomainInterfaceBridge *interface,
                                                     const char *brname)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_INTERFACE_BRIDGE(interface));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_INTERFACE_BRIDGE(interface));
 
     gvir_config_object_replace_child_with_attribute(GVIR_CONFIG_OBJECT(interface),
                                                     "source", "bridge", brname);

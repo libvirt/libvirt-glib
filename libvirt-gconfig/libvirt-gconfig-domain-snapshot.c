@@ -26,14 +26,14 @@
 #include "libvirt-gconfig/libvirt-gconfig.h"
 
 #define GVIR_CONFIG_DOMAIN_SNAPSHOT_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_SNAPSHOT, GVirConfigDomainSnapshotPrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_DOMAIN_SNAPSHOT, GVirConfigDomainSnapshotPrivate))
 
 struct _GVirConfigDomainSnapshotPrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainSnapshot, gvir_config_domain_snapshot, GVIR_TYPE_CONFIG_OBJECT);
+G_DEFINE_TYPE(GVirConfigDomainSnapshot, gvir_config_domain_snapshot, GVIR_CONFIG_TYPE_OBJECT);
 
 
 static void gvir_config_domain_snapshot_class_init(GVirConfigDomainSnapshotClass *klass)
@@ -54,7 +54,7 @@ GVirConfigDomainSnapshot *gvir_config_domain_snapshot_new(void)
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new(GVIR_TYPE_CONFIG_DOMAIN_SNAPSHOT,
+    object = gvir_config_object_new(GVIR_CONFIG_TYPE_DOMAIN_SNAPSHOT,
                                     "domainsnapshot",
                                     DATADIR "/libvirt/schemas/domainsnapshot.rng");
     return GVIR_CONFIG_DOMAIN_SNAPSHOT(object);
@@ -65,7 +65,7 @@ GVirConfigDomainSnapshot *gvir_config_domain_snapshot_new_from_xml(const gchar *
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_DOMAIN_SNAPSHOT,
+    object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_DOMAIN_SNAPSHOT,
                                     "domainsnapshot",
                                     DATADIR "/libvirt/schemas/domainsnapshot.rng",
                                     xml, error);

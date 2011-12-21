@@ -26,14 +26,14 @@
 #include "libvirt-gconfig/libvirt-gconfig-private.h"
 
 #define GVIR_CONFIG_DOMAIN_OS_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_OS, GVirConfigDomainOsPrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_DOMAIN_OS, GVirConfigDomainOsPrivate))
 
 struct _GVirConfigDomainOsPrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainOs, gvir_config_domain_os, GVIR_TYPE_CONFIG_OBJECT);
+G_DEFINE_TYPE(GVirConfigDomainOs, gvir_config_domain_os, GVIR_CONFIG_TYPE_OBJECT);
 
 
 static void gvir_config_domain_os_class_init(GVirConfigDomainOsClass *klass)
@@ -54,7 +54,7 @@ GVirConfigDomainOs *gvir_config_domain_os_new(void)
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new(GVIR_TYPE_CONFIG_DOMAIN_OS, "os", NULL);
+    object = gvir_config_object_new(GVIR_CONFIG_TYPE_DOMAIN_OS, "os", NULL);
     return GVIR_CONFIG_DOMAIN_OS(object);
 }
 
@@ -62,7 +62,7 @@ GVirConfigDomainOs *gvir_config_domain_os_new_from_xml(const gchar *xml, GError 
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_DOMAIN_OS, "os",
+    object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_DOMAIN_OS, "os",
                                              NULL, xml, error);
     return GVIR_CONFIG_DOMAIN_OS(object);
 }
@@ -72,9 +72,9 @@ void gvir_config_domain_os_set_os_type(GVirConfigDomainOs *os,
 {
     const char *type_str;
 
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_OS(os));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_OS(os));
 
-    type_str = gvir_config_genum_get_nick(GVIR_TYPE_CONFIG_DOMAIN_OS_TYPE, type);
+    type_str = gvir_config_genum_get_nick(GVIR_CONFIG_TYPE_DOMAIN_OS_TYPE, type);
     g_return_if_fail(type_str != NULL);
 
     gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(os),
@@ -121,10 +121,10 @@ void gvir_config_domain_os_enable_boot_menu(GVirConfigDomainOs *os,
 {
     GVirConfigObject *node;
 
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_OS(os));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_OS(os));
 
     node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(os), "bootmenu");
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(node));
     gvir_config_object_set_attribute_with_type(node, "enable",
                                                G_TYPE_BOOLEAN, enable,
                                                NULL);
@@ -136,10 +136,10 @@ void gvir_config_domain_os_bios_enable_serial(GVirConfigDomainOs *os,
 {
     GVirConfigObject *node;
 
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_OS(os));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_OS(os));
 
     node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(os), "bios");
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(node));
     gvir_config_object_set_attribute_with_type(node, "useserial",
                                                G_TYPE_BOOLEAN, enable,
                                                NULL);
@@ -151,12 +151,12 @@ void gvir_config_domain_os_set_smbios_mode(GVirConfigDomainOs *os,
 {
     GVirConfigObject *node;
 
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_OS(os));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_OS(os));
 
     node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(os), "smbios");
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(node));
     gvir_config_object_set_attribute_with_type(node, "mode",
-                                               GVIR_TYPE_CONFIG_DOMAIN_OS_SM_BIOS_MODE,
+                                               GVIR_CONFIG_TYPE_DOMAIN_OS_SM_BIOS_MODE,
                                                mode, NULL);
     g_object_unref(G_OBJECT(node));
 }
@@ -171,7 +171,7 @@ void gvir_config_domain_os_set_boot_devices(GVirConfigDomainOs *os, GList *boot_
     xmlNodePtr os_node;
     xmlNodePtr node;
 
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_OS(os));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_OS(os));
 
     os_node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(os));
     g_return_if_fail(os_node != NULL);
@@ -190,7 +190,7 @@ void gvir_config_domain_os_set_boot_devices(GVirConfigDomainOs *os, GList *boot_
     for (it = boot_devices; it != NULL; it = it->next) {
         const char *dev;
 
-        dev = gvir_config_genum_get_nick(GVIR_TYPE_CONFIG_DOMAIN_OS_BOOT_DEVICE,
+        dev = gvir_config_genum_get_nick(GVIR_CONFIG_TYPE_DOMAIN_OS_BOOT_DEVICE,
                                          GPOINTER_TO_INT(it->data));
         g_warn_if_fail(dev != NULL);
         if (dev != NULL) {
@@ -206,7 +206,7 @@ void gvir_config_domain_os_set_arch(GVirConfigDomainOs *os, const char *arch)
     xmlNodePtr os_node;
     xmlNodePtr os_type_node;
 
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_OS(os));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_OS(os));
 
     os_node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(os));
     g_return_if_fail(os_node != NULL);
@@ -222,7 +222,7 @@ void gvir_config_domain_os_set_machine(GVirConfigDomainOs *os, const char *machi
     xmlNodePtr os_node;
     xmlNodePtr os_type_node;
 
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_OS(os));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_OS(os));
 
     os_node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(os));
     g_return_if_fail(os_node != NULL);

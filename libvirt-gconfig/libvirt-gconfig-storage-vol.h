@@ -32,12 +32,12 @@
 
 G_BEGIN_DECLS
 
-#define GVIR_TYPE_CONFIG_STORAGE_VOL            (gvir_config_storage_vol_get_type ())
-#define GVIR_CONFIG_STORAGE_VOL(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GVIR_TYPE_CONFIG_STORAGE_VOL, GVirConfigStorageVol))
-#define GVIR_CONFIG_STORAGE_VOL_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GVIR_TYPE_CONFIG_STORAGE_VOL, GVirConfigStorageVolClass))
-#define GVIR_IS_CONFIG_STORAGE_VOL(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GVIR_TYPE_CONFIG_STORAGE_VOL))
-#define GVIR_IS_CONFIG_STORAGE_VOL_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GVIR_TYPE_CONFIG_STORAGE_VOL))
-#define GVIR_CONFIG_STORAGE_VOL_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GVIR_TYPE_CONFIG_STORAGE_VOL, GVirConfigStorageVolClass))
+#define GVIR_CONFIG_TYPE_STORAGE_VOL            (gvir_config_storage_vol_get_type ())
+#define GVIR_CONFIG_STORAGE_VOL(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GVIR_CONFIG_TYPE_STORAGE_VOL, GVirConfigStorageVol))
+#define GVIR_CONFIG_STORAGE_VOL_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GVIR_CONFIG_TYPE_STORAGE_VOL, GVirConfigStorageVolClass))
+#define GVIR_CONFIG_IS_STORAGE_VOL(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GVIR_CONFIG_TYPE_STORAGE_VOL))
+#define GVIR_CONFIG_IS_STORAGE_VOL_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GVIR_CONFIG_TYPE_STORAGE_VOL))
+#define GVIR_CONFIG_STORAGE_VOL_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GVIR_CONFIG_TYPE_STORAGE_VOL, GVirConfigStorageVolClass))
 
 typedef struct _GVirConfigStorageVol GVirConfigStorageVol;
 typedef struct _GVirConfigStorageVolPrivate GVirConfigStorageVolPrivate;

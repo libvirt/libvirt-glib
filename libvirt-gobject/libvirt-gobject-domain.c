@@ -480,7 +480,7 @@ gboolean gvir_domain_set_config(GVirDomain *domain,
     GVirDomainPrivate *priv = domain->priv;
 
     g_return_val_if_fail(GVIR_IS_DOMAIN (domain), FALSE);
-    g_return_val_if_fail(GVIR_IS_CONFIG_DOMAIN (conf), FALSE);
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN (conf), FALSE);
     g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
 
     xml = gvir_config_object_to_xml(GVIR_CONFIG_OBJECT(conf));

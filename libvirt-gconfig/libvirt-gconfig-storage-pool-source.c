@@ -27,14 +27,14 @@
 
 
 #define GVIR_CONFIG_STORAGE_POOL_SOURCE_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_STORAGE_POOL_SOURCE, GVirConfigStoragePoolSourcePrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_STORAGE_POOL_SOURCE, GVirConfigStoragePoolSourcePrivate))
 
 struct _GVirConfigStoragePoolSourcePrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigStoragePoolSource, gvir_config_storage_pool_source, GVIR_TYPE_CONFIG_OBJECT);
+G_DEFINE_TYPE(GVirConfigStoragePoolSource, gvir_config_storage_pool_source, GVIR_CONFIG_TYPE_OBJECT);
 
 
 static void gvir_config_storage_pool_source_class_init(GVirConfigStoragePoolSourceClass *klass)
@@ -55,7 +55,7 @@ GVirConfigStoragePoolSource *gvir_config_storage_pool_source_new(void)
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new(GVIR_TYPE_CONFIG_STORAGE_POOL_SOURCE,
+    object = gvir_config_object_new(GVIR_CONFIG_TYPE_STORAGE_POOL_SOURCE,
                                     "source", NULL);
     return GVIR_CONFIG_STORAGE_POOL_SOURCE(object);
 }
@@ -65,7 +65,7 @@ GVirConfigStoragePoolSource *gvir_config_storage_pool_source_new_from_xml(const 
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_STORAGE_POOL_SOURCE,
+    object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_STORAGE_POOL_SOURCE,
                                              "source", NULL,
                                              xml, error);
     return GVIR_CONFIG_STORAGE_POOL_SOURCE(object);
@@ -76,10 +76,10 @@ void gvir_config_storage_pool_source_set_adapter(GVirConfigStoragePoolSource *so
 {
     GVirConfigObject *node;
 
-    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL_SOURCE(source));
+    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_POOL_SOURCE(source));
 
     node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(source), "adapter");
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(node));
     gvir_config_object_set_attribute(node, "name", adapter, NULL);
     g_object_unref(G_OBJECT(node));
 }
@@ -89,10 +89,10 @@ void gvir_config_storage_pool_source_set_device_path(GVirConfigStoragePoolSource
 {
     GVirConfigObject *node;
 
-    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL_SOURCE(source));
+    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_POOL_SOURCE(source));
 
     node = gvir_config_object_add_child(GVIR_CONFIG_OBJECT(source), "device");
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(node));
     gvir_config_object_set_attribute(node, "path", device_path, NULL);
     g_object_unref(G_OBJECT(node));
 }
@@ -102,10 +102,10 @@ void gvir_config_storage_pool_source_set_directory(GVirConfigStoragePoolSource *
 {
     GVirConfigObject *node;
 
-    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL_SOURCE(source));
+    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_POOL_SOURCE(source));
 
     node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(source), "directory");
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(node));
     gvir_config_object_set_attribute(node, "path", directory, NULL);
     g_object_unref(G_OBJECT(node));
 }
@@ -115,10 +115,10 @@ void gvir_config_storage_pool_source_set_format(GVirConfigStoragePoolSource *sou
 {
     GVirConfigObject *node;
 
-    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL_SOURCE(source));
+    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_POOL_SOURCE(source));
 
     node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(source), "format");
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(node));
     gvir_config_object_set_attribute(node, "type", format, NULL);
     g_object_unref(G_OBJECT(node));
 }
@@ -128,10 +128,10 @@ void gvir_config_storage_pool_source_set_host(GVirConfigStoragePoolSource *sourc
 {
     GVirConfigObject *node;
 
-    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL_SOURCE(source));
+    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_POOL_SOURCE(source));
 
     node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(source), "host");
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(node));
     gvir_config_object_set_attribute(node, "name", host, NULL);
     g_object_unref(G_OBJECT(node));
 }
@@ -139,7 +139,7 @@ void gvir_config_storage_pool_source_set_host(GVirConfigStoragePoolSource *sourc
 void gvir_config_storage_pool_source_set_name(GVirConfigStoragePoolSource *source,
                                               const char *name)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL_SOURCE(source));
+    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_POOL_SOURCE(source));
 
     gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(source),
                                         "name", name);
@@ -150,10 +150,10 @@ void gvir_config_storage_pool_source_set_product(GVirConfigStoragePoolSource *so
 {
     GVirConfigObject *node;
 
-    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL_SOURCE(source));
+    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_POOL_SOURCE(source));
 
     node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(source), "product");
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(node));
     gvir_config_object_set_attribute(node, "name", product, NULL);
     g_object_unref(G_OBJECT(node));
 }
@@ -163,10 +163,10 @@ void gvir_config_storage_pool_source_set_vendor(GVirConfigStoragePoolSource *sou
 {
     GVirConfigObject *node;
 
-    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL_SOURCE(source));
+    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_POOL_SOURCE(source));
 
     node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(source), "vendor");
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(node));
     gvir_config_object_set_attribute(node, "name", vendor, NULL);
     g_object_unref(G_OBJECT(node));
 }

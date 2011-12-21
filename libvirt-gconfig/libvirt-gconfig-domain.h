@@ -34,12 +34,12 @@
 
 G_BEGIN_DECLS
 
-#define GVIR_TYPE_CONFIG_DOMAIN            (gvir_config_domain_get_type ())
-#define GVIR_CONFIG_DOMAIN(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GVIR_TYPE_CONFIG_DOMAIN, GVirConfigDomain))
-#define GVIR_CONFIG_DOMAIN_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GVIR_TYPE_CONFIG_DOMAIN, GVirConfigDomainClass))
-#define GVIR_IS_CONFIG_DOMAIN(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GVIR_TYPE_CONFIG_DOMAIN))
-#define GVIR_IS_CONFIG_DOMAIN_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GVIR_TYPE_CONFIG_DOMAIN))
-#define GVIR_CONFIG_DOMAIN_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GVIR_TYPE_CONFIG_DOMAIN, GVirConfigDomainClass))
+#define GVIR_CONFIG_TYPE_DOMAIN            (gvir_config_domain_get_type ())
+#define GVIR_CONFIG_DOMAIN(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GVIR_CONFIG_TYPE_DOMAIN, GVirConfigDomain))
+#define GVIR_CONFIG_DOMAIN_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GVIR_CONFIG_TYPE_DOMAIN, GVirConfigDomainClass))
+#define GVIR_CONFIG_IS_DOMAIN(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GVIR_CONFIG_TYPE_DOMAIN))
+#define GVIR_CONFIG_IS_DOMAIN_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GVIR_CONFIG_TYPE_DOMAIN))
+#define GVIR_CONFIG_DOMAIN_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GVIR_CONFIG_TYPE_DOMAIN, GVirConfigDomainClass))
 
 typedef struct _GVirConfigDomain GVirConfigDomain;
 typedef struct _GVirConfigDomainPrivate GVirConfigDomainPrivate;

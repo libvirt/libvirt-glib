@@ -26,14 +26,14 @@
 #include "libvirt-gconfig/libvirt-gconfig-private.h"
 
 #define GVIR_CONFIG_DOMAIN_GRAPHICS_SDL_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_GRAPHICS_SDL, GVirConfigDomainGraphicsSdlPrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS_SDL, GVirConfigDomainGraphicsSdlPrivate))
 
 struct _GVirConfigDomainGraphicsSdlPrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainGraphicsSdl, gvir_config_domain_graphics_sdl, GVIR_TYPE_CONFIG_DOMAIN_GRAPHICS);
+G_DEFINE_TYPE(GVirConfigDomainGraphicsSdl, gvir_config_domain_graphics_sdl, GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS);
 
 
 static void gvir_config_domain_graphics_sdl_class_init(GVirConfigDomainGraphicsSdlClass *klass)
@@ -54,7 +54,7 @@ GVirConfigDomainGraphicsSdl *gvir_config_domain_graphics_sdl_new(void)
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new(GVIR_TYPE_CONFIG_DOMAIN_GRAPHICS_SDL,
+    object = gvir_config_object_new(GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS_SDL,
                                     "graphics", NULL);
     gvir_config_object_set_attribute(object, "type", "sdl", NULL);
     return GVIR_CONFIG_DOMAIN_GRAPHICS_SDL(object);
@@ -66,7 +66,7 @@ gvir_config_domain_graphics_sdl_new_from_xml(const gchar *xml,
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_DOMAIN_GRAPHICS_SDL,
+    object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS_SDL,
                                              "graphics", NULL, xml, error);
     if (object == NULL)
         return NULL;
@@ -77,7 +77,7 @@ gvir_config_domain_graphics_sdl_new_from_xml(const gchar *xml,
 void gvir_config_domain_graphics_sdl_set_xauthority(GVirConfigDomainGraphicsSdl *graphics,
                                                     const gchar *path)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_GRAPHICS_SDL(graphics));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_GRAPHICS_SDL(graphics));
 
     gvir_config_object_set_attribute(GVIR_CONFIG_OBJECT(graphics),
                                      "xauth", path,
@@ -87,7 +87,7 @@ void gvir_config_domain_graphics_sdl_set_xauthority(GVirConfigDomainGraphicsSdl 
 void gvir_config_domain_graphics_sdl_set_display(GVirConfigDomainGraphicsSdl *graphics,
                                                  const gchar *disp)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_GRAPHICS_SDL(graphics));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_GRAPHICS_SDL(graphics));
 
     gvir_config_object_set_attribute(GVIR_CONFIG_OBJECT(graphics),
                                      "display", disp,

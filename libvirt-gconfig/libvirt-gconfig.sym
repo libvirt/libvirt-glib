@@ -1,7 +1,7 @@
 LIBVIRT_GCONFIG_0.0.3 {
   global:
-	gvir_init_config_check;
-	gvir_init_config;
+	gvir_config_init_check;
+	gvir_config_init;
 
 	gvir_config_capabilities_get_type;
 	gvir_config_capabilities_new;

@@ -27,14 +27,14 @@
 
 
 #define GVIR_CONFIG_STORAGE_VOL_TARGET_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_STORAGE_VOL_TARGET, GVirConfigStorageVolTargetPrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_STORAGE_VOL_TARGET, GVirConfigStorageVolTargetPrivate))
 
 struct _GVirConfigStorageVolTargetPrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigStorageVolTarget, gvir_config_storage_vol_target, GVIR_TYPE_CONFIG_OBJECT);
+G_DEFINE_TYPE(GVirConfigStorageVolTarget, gvir_config_storage_vol_target, GVIR_CONFIG_TYPE_OBJECT);
 
 
 static void gvir_config_storage_vol_target_class_init(GVirConfigStorageVolTargetClass *klass)
@@ -55,7 +55,7 @@ GVirConfigStorageVolTarget *gvir_config_storage_vol_target_new(void)
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new(GVIR_TYPE_CONFIG_STORAGE_VOL_TARGET,
+    object = gvir_config_object_new(GVIR_CONFIG_TYPE_STORAGE_VOL_TARGET,
                                     "target", NULL);
     return GVIR_CONFIG_STORAGE_VOL_TARGET(object);
 }
@@ -65,7 +65,7 @@ GVirConfigStorageVolTarget *gvir_config_storage_vol_target_new_from_xml(const gc
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_STORAGE_VOL_TARGET,
+    object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_STORAGE_VOL_TARGET,
                                              "target", NULL,
                                              xml, error);
     return GVIR_CONFIG_STORAGE_VOL_TARGET(object);
@@ -76,10 +76,10 @@ void gvir_config_storage_vol_target_set_format(GVirConfigStorageVolTarget *targe
 {
     GVirConfigObject *node;
 
-    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_VOL_TARGET(target));
+    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_VOL_TARGET(target));
 
     node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(target), "format");
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(node));
     gvir_config_object_set_attribute(node, "type", format, NULL);
     g_object_unref(G_OBJECT(node));
 }
@@ -87,8 +87,8 @@ void gvir_config_storage_vol_target_set_format(GVirConfigStorageVolTarget *targe
 void gvir_config_storage_vol_target_set_permissions(GVirConfigStorageVolTarget *target,
                                                     GVirConfigStoragePermissions *perms)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_VOL_TARGET(target));
-    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_PERMISSIONS(perms));
+    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_VOL_TARGET(target));
+    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_PERMISSIONS(perms));
 
     gvir_config_object_attach(GVIR_CONFIG_OBJECT(target),
                               GVIR_CONFIG_OBJECT(perms));

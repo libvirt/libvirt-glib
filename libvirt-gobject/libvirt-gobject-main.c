@@ -71,7 +71,7 @@ gboolean gvir_init_object_check(int *argc,
     if (!gvir_init_check(argc, argv, err))
         return FALSE;
 
-    if (!gvir_init_config_check(argc, argv, err))
+    if (!gvir_config_init_check(argc, argv, err))
         return FALSE;
 
     /* GLib >= 2.31.0 debug is off by default, so we need to

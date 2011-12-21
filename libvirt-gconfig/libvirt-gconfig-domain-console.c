@@ -25,14 +25,14 @@
 #include "libvirt-gconfig/libvirt-gconfig.h"
 
 #define GVIR_CONFIG_DOMAIN_CONSOLE_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_CONSOLE, GVirConfigDomainConsolePrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_DOMAIN_CONSOLE, GVirConfigDomainConsolePrivate))
 
 struct _GVirConfigDomainConsolePrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainConsole, gvir_config_domain_console, GVIR_TYPE_CONFIG_DOMAIN_CHARDEV);
+G_DEFINE_TYPE(GVirConfigDomainConsole, gvir_config_domain_console, GVIR_CONFIG_TYPE_DOMAIN_CHARDEV);
 
 
 static void gvir_config_domain_console_class_init(GVirConfigDomainConsoleClass *klass)
@@ -52,7 +52,7 @@ GVirConfigDomainConsole *gvir_config_domain_console_new(void)
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new(GVIR_TYPE_CONFIG_DOMAIN_CONSOLE,
+    object = gvir_config_object_new(GVIR_CONFIG_TYPE_DOMAIN_CONSOLE,
                                     "console", NULL);
     return GVIR_CONFIG_DOMAIN_CONSOLE(object);
 }
@@ -62,7 +62,7 @@ GVirConfigDomainConsole *gvir_config_domain_console_new_from_xml(const gchar *xm
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_DOMAIN_CONSOLE,
+    object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_DOMAIN_CONSOLE,
                                              "console", NULL, xml, error);
     if (object == NULL)
         return NULL;

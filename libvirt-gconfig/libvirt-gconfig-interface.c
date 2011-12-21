@@ -26,14 +26,14 @@
 #include "libvirt-gconfig/libvirt-gconfig.h"
 
 #define GVIR_CONFIG_INTERFACE_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_INTERFACE, GVirConfigInterfacePrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_INTERFACE, GVirConfigInterfacePrivate))
 
 struct _GVirConfigInterfacePrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigInterface, gvir_config_interface, GVIR_TYPE_CONFIG_OBJECT);
+G_DEFINE_TYPE(GVirConfigInterface, gvir_config_interface, GVIR_CONFIG_TYPE_OBJECT);
 
 
 static void gvir_config_interface_class_init(GVirConfigInterfaceClass *klass)
@@ -54,7 +54,7 @@ GVirConfigInterface *gvir_config_interface_new(void)
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new(GVIR_TYPE_CONFIG_INTERFACE,
+    object = gvir_config_object_new(GVIR_CONFIG_TYPE_INTERFACE,
                                     "interface",
                                     DATADIR "/libvirt/schemas/interface.rng");
     return GVIR_CONFIG_INTERFACE(object);
@@ -65,7 +65,7 @@ GVirConfigInterface *gvir_config_interface_new_from_xml(const gchar *xml,
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_INTERFACE,
+    object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_INTERFACE,
                                              "interface",
                                              DATADIR "/libvirt/schemas/interface.rng",
                                              xml, error);

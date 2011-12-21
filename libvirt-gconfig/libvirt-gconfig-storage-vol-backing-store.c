@@ -27,14 +27,14 @@
 
 
 #define GVIR_CONFIG_STORAGE_VOL_BACKING_STORE_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_STORAGE_VOL_BACKING_STORE, GVirConfigStorageVolBackingStorePrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_STORAGE_VOL_BACKING_STORE, GVirConfigStorageVolBackingStorePrivate))
 
 struct _GVirConfigStorageVolBackingStorePrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigStorageVolBackingStore, gvir_config_storage_vol_backing_store, GVIR_TYPE_CONFIG_OBJECT);
+G_DEFINE_TYPE(GVirConfigStorageVolBackingStore, gvir_config_storage_vol_backing_store, GVIR_CONFIG_TYPE_OBJECT);
 
 
 static void gvir_config_storage_vol_backing_store_class_init(GVirConfigStorageVolBackingStoreClass *klass)
@@ -55,7 +55,7 @@ GVirConfigStorageVolBackingStore *gvir_config_storage_vol_backing_store_new(void
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new(GVIR_TYPE_CONFIG_STORAGE_VOL_BACKING_STORE,
+    object = gvir_config_object_new(GVIR_CONFIG_TYPE_STORAGE_VOL_BACKING_STORE,
                                     "backingStore", NULL);
     return GVIR_CONFIG_STORAGE_VOL_BACKING_STORE(object);
 }
@@ -65,7 +65,7 @@ GVirConfigStorageVolBackingStore *gvir_config_storage_vol_backing_store_new_from
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_STORAGE_VOL_BACKING_STORE,
+    object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_STORAGE_VOL_BACKING_STORE,
                                              "backingStore", NULL,
                                              xml, error);
     return GVIR_CONFIG_STORAGE_VOL_BACKING_STORE(object);
@@ -76,10 +76,10 @@ void gvir_config_storage_vol_backing_store_set_format(GVirConfigStorageVolBackin
 {
     GVirConfigObject *node;
 
-    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_VOL_BACKING_STORE(backing_store));
+    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_VOL_BACKING_STORE(backing_store));
 
     node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(backing_store), "format");
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(node));
     gvir_config_object_set_attribute(node, "type", format, NULL);
     g_object_unref(G_OBJECT(node));
 }
@@ -87,7 +87,7 @@ void gvir_config_storage_vol_backing_store_set_format(GVirConfigStorageVolBackin
 void gvir_config_storage_vol_backing_store_set_path(GVirConfigStorageVolBackingStore *backing_store,
                                                     const char *path)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_VOL_BACKING_STORE(backing_store));
+    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_VOL_BACKING_STORE(backing_store));
 
     gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(backing_store),
                                         "path", path);

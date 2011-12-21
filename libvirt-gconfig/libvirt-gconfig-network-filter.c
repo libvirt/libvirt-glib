@@ -26,14 +26,14 @@
 #include "libvirt-gconfig/libvirt-gconfig.h"
 
 #define GVIR_CONFIG_NETWORK_FILTER_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_NETWORK_FILTER, GVirConfigNetworkFilterPrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_NETWORK_FILTER, GVirConfigNetworkFilterPrivate))
 
 struct _GVirConfigNetworkFilterPrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigNetworkFilter, gvir_config_network_filter, GVIR_TYPE_CONFIG_OBJECT);
+G_DEFINE_TYPE(GVirConfigNetworkFilter, gvir_config_network_filter, GVIR_CONFIG_TYPE_OBJECT);
 
 
 static void gvir_config_network_filter_class_init(GVirConfigNetworkFilterClass *klass)
@@ -54,7 +54,7 @@ GVirConfigNetworkFilter *gvir_config_network_filter_new(void)
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new(GVIR_TYPE_CONFIG_NETWORK_FILTER,
+    object = gvir_config_object_new(GVIR_CONFIG_TYPE_NETWORK_FILTER,
                                     "filter",
                                     DATADIR "/libvirt/schemas/nwfilter.rng");
     return GVIR_CONFIG_NETWORK_FILTER(object);
@@ -65,7 +65,7 @@ GVirConfigNetworkFilter *gvir_config_network_filter_new_from_xml(const gchar *xm
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_NETWORK_FILTER,
+    object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_NETWORK_FILTER,
                                              "filter",
                                              DATADIR "/libvirt/schemas/nwfilter.rng",
                                              xml, error);

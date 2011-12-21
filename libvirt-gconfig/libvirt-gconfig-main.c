@@ -30,15 +30,15 @@
 #include "libvirt-gconfig/libvirt-gconfig.h"
 
 /**
- * gvir_init_config:
+ * gvirt_config_init:
  * @argc: (inout): pointer to application's argc
  * @argv: (inout) (array length=argc) (allow-none): pointer to application's argv
  */
-void gvir_init_config(int *argc,
+void gvir_config_init(int *argc,
                       char ***argv)
 {
     GError *err = NULL;
-    if (!gvir_init_config_check(argc, argv, &err)) {
+    if (!gvir_config_init_check(argc, argv, &err)) {
         g_error("Could not initialize libvirt-gconfig: %s\n",
                 err->message);
     }
@@ -55,12 +55,12 @@ static void gvir_log_handler(const gchar *log_domain G_GNUC_UNUSED,
 
 
 /**
- * gvir_init_config_check:
+ * gvir_config_init_check:
  * @argc: (inout): pointer to application's argc
  * @argv: (inout) (array length=argc) (allow-none): pointer to application's argv
  * @err: pointer to a #GError to which a message will be posted on error
  */
-gboolean gvir_init_config_check(int *argc G_GNUC_UNUSED,
+gboolean gvir_config_init_check(int *argc G_GNUC_UNUSED,
                                 char ***argv G_GNUC_UNUSED,
                                 GError **err G_GNUC_UNUSED)
 {

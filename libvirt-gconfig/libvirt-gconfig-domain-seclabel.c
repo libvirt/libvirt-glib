@@ -26,14 +26,14 @@
 #include "libvirt-gconfig/libvirt-gconfig-private.h"
 
 #define GVIR_CONFIG_DOMAIN_SECLABEL_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_SECLABEL, GVirConfigDomainSeclabelPrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_DOMAIN_SECLABEL, GVirConfigDomainSeclabelPrivate))
 
 struct _GVirConfigDomainSeclabelPrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainSeclabel, gvir_config_domain_seclabel, GVIR_TYPE_CONFIG_OBJECT);
+G_DEFINE_TYPE(GVirConfigDomainSeclabel, gvir_config_domain_seclabel, GVIR_CONFIG_TYPE_OBJECT);
 
 
 static void gvir_config_domain_seclabel_class_init(GVirConfigDomainSeclabelClass *klass)
@@ -54,7 +54,7 @@ GVirConfigDomainSeclabel *gvir_config_domain_seclabel_new(void)
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new(GVIR_TYPE_CONFIG_DOMAIN_SECLABEL, "seclabel", NULL);
+    object = gvir_config_object_new(GVIR_CONFIG_TYPE_DOMAIN_SECLABEL, "seclabel", NULL);
     return GVIR_CONFIG_DOMAIN_SECLABEL(object);
 }
 
@@ -62,7 +62,7 @@ GVirConfigDomainSeclabel *gvir_config_domain_seclabel_new_from_xml(const gchar *
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_DOMAIN_SECLABEL, "seclabel",
+    object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_DOMAIN_SECLABEL, "seclabel",
                                              NULL, xml, error);
     return GVIR_CONFIG_DOMAIN_SECLABEL(object);
 }
@@ -70,18 +70,18 @@ GVirConfigDomainSeclabel *gvir_config_domain_seclabel_new_from_xml(const gchar *
 void gvir_config_domain_seclabel_set_type(GVirConfigDomainSeclabel *seclabel,
                                           GVirConfigDomainSeclabelType type)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_SECLABEL(seclabel));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_SECLABEL(seclabel));
 
     gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(seclabel),
                                                "type",
-                                               GVIR_TYPE_CONFIG_DOMAIN_SECLABEL_TYPE,
+                                               GVIR_CONFIG_TYPE_DOMAIN_SECLABEL_TYPE,
                                                type, NULL);
 }
 
 void gvir_config_domain_seclabel_set_model(GVirConfigDomainSeclabel *seclabel,
                                            const gchar *model)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_SECLABEL(seclabel));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_SECLABEL(seclabel));
 
     gvir_config_object_set_attribute(GVIR_CONFIG_OBJECT(seclabel),
                                      "model", model,
@@ -92,7 +92,7 @@ void gvir_config_domain_seclabel_set_model(GVirConfigDomainSeclabel *seclabel,
 void gvir_config_domain_seclabel_set_baselabel(GVirConfigDomainSeclabel *seclabel,
                                                const char *label)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_SECLABEL(seclabel));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_SECLABEL(seclabel));
 
     gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(seclabel),
                                         "baselabel", label);
@@ -101,7 +101,7 @@ void gvir_config_domain_seclabel_set_baselabel(GVirConfigDomainSeclabel *seclabe
 void gvir_config_domain_seclabel_set_label(GVirConfigDomainSeclabel *seclabel,
                                            const char *label)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_SECLABEL(seclabel));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_SECLABEL(seclabel));
 
     gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(seclabel),
                                         "label", label);

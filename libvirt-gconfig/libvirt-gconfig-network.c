@@ -26,14 +26,14 @@
 #include "libvirt-gconfig/libvirt-gconfig.h"
 
 #define GVIR_CONFIG_NETWORK_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_NETWORK, GVirConfigNetworkPrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_NETWORK, GVirConfigNetworkPrivate))
 
 struct _GVirConfigNetworkPrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigNetwork, gvir_config_network, GVIR_TYPE_CONFIG_OBJECT);
+G_DEFINE_TYPE(GVirConfigNetwork, gvir_config_network, GVIR_CONFIG_TYPE_OBJECT);
 
 
 static void gvir_config_network_class_init(GVirConfigNetworkClass *klass)
@@ -54,7 +54,7 @@ GVirConfigNetwork *gvir_config_network_new(void)
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new(GVIR_TYPE_CONFIG_NETWORK,
+    object = gvir_config_object_new(GVIR_CONFIG_TYPE_NETWORK,
                                     "network",
                                     DATADIR "/libvirt/schemas/network.rng");
     return GVIR_CONFIG_NETWORK(object);
@@ -65,7 +65,7 @@ GVirConfigNetwork *gvir_config_network_new_from_xml(const gchar *xml,
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_NETWORK,
+    object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_NETWORK,
                                              "network",
                                              DATADIR "/libvirt/schemas/network.rng",
                                              xml, error);

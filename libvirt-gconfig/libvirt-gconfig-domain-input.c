@@ -26,14 +26,14 @@
 #include "libvirt-gconfig/libvirt-gconfig-private.h"
 
 #define GVIR_CONFIG_DOMAIN_INPUT_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_INPUT, GVirConfigDomainInputPrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_DOMAIN_INPUT, GVirConfigDomainInputPrivate))
 
 struct _GVirConfigDomainInputPrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainInput, gvir_config_domain_input, GVIR_TYPE_CONFIG_DOMAIN_DEVICE);
+G_DEFINE_TYPE(GVirConfigDomainInput, gvir_config_domain_input, GVIR_CONFIG_TYPE_DOMAIN_DEVICE);
 
 
 static void gvir_config_domain_input_class_init(GVirConfigDomainInputClass *klass)
@@ -54,7 +54,7 @@ GVirConfigDomainInput *gvir_config_domain_input_new(void)
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new(GVIR_TYPE_CONFIG_DOMAIN_INPUT,
+    object = gvir_config_object_new(GVIR_CONFIG_TYPE_DOMAIN_INPUT,
                                     "input", NULL);
     return GVIR_CONFIG_DOMAIN_INPUT(object);
 }
@@ -64,7 +64,7 @@ GVirConfigDomainInput *gvir_config_domain_input_new_from_xml(const gchar *xml,
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_DOMAIN_INPUT,
+    object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_DOMAIN_INPUT,
                                              "input", NULL, xml, error);
     return GVIR_CONFIG_DOMAIN_INPUT(object);
 }
@@ -72,19 +72,19 @@ GVirConfigDomainInput *gvir_config_domain_input_new_from_xml(const gchar *xml,
 void gvir_config_domain_input_set_device_type(GVirConfigDomainInput *input,
                                               GVirConfigDomainInputDeviceType type)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_INPUT(input));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_INPUT(input));
 
     gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(input), "type",
-                                               GVIR_TYPE_CONFIG_DOMAIN_INPUT_DEVICE_TYPE,
+                                               GVIR_CONFIG_TYPE_DOMAIN_INPUT_DEVICE_TYPE,
                                                type, NULL);
 }
 
 void gvir_config_domain_input_set_bus(GVirConfigDomainInput *input,
                                       GVirConfigDomainInputBus bus)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_INPUT(input));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_INPUT(input));
 
     gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(input), "bus",
-                                               GVIR_TYPE_CONFIG_DOMAIN_INPUT_BUS,
+                                               GVIR_CONFIG_TYPE_DOMAIN_INPUT_BUS,
                                                bus, NULL);
 }

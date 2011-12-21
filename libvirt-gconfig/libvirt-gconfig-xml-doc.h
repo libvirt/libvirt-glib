@@ -29,12 +29,12 @@
 
 G_BEGIN_DECLS
 
-#define GVIR_TYPE_CONFIG_XML_DOC            (gvir_config_xml_doc_get_type ())
-#define GVIR_CONFIG_XML_DOC(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GVIR_TYPE_CONFIG_XML_DOC, GVirConfigXmlDoc))
-#define GVIR_CONFIG_XML_DOC_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GVIR_TYPE_CONFIG_XML_DOC, GVirConfigXmlDocClass))
-#define GVIR_IS_CONFIG_XML_DOC(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GVIR_TYPE_CONFIG_XML_DOC))
-#define GVIR_IS_CONFIG_XML_DOC_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GVIR_TYPE_CONFIG_XML_DOC))
-#define GVIR_CONFIG_XML_DOC_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GVIR_TYPE_CONFIG_XML_DOC, GVirConfigXmlDocClass))
+#define GVIR_CONFIG_TYPE_XML_DOC            (gvir_config_xml_doc_get_type ())
+#define GVIR_CONFIG_XML_DOC(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GVIR_CONFIG_TYPE_XML_DOC, GVirConfigXmlDoc))
+#define GVIR_CONFIG_XML_DOC_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GVIR_CONFIG_TYPE_XML_DOC, GVirConfigXmlDocClass))
+#define GVIR_CONFIG_IS_XML_DOC(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GVIR_CONFIG_TYPE_XML_DOC))
+#define GVIR_CONFIG_IS_XML_DOC_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GVIR_CONFIG_TYPE_XML_DOC))
+#define GVIR_CONFIG_XML_DOC_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GVIR_CONFIG_TYPE_XML_DOC, GVirConfigXmlDocClass))
 
 typedef struct _GVirConfigXmlDoc GVirConfigXmlDoc;
 typedef struct _GVirConfigXmlDocPrivate GVirConfigXmlDocPrivate;

@@ -26,14 +26,14 @@
 #include "libvirt-gconfig/libvirt-gconfig-private.h"
 
 #define GVIR_CONFIG_DOMAIN_VIDEO_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_VIDEO, GVirConfigDomainVideoPrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_DOMAIN_VIDEO, GVirConfigDomainVideoPrivate))
 
 struct _GVirConfigDomainVideoPrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainVideo, gvir_config_domain_video, GVIR_TYPE_CONFIG_DOMAIN_DEVICE);
+G_DEFINE_TYPE(GVirConfigDomainVideo, gvir_config_domain_video, GVIR_CONFIG_TYPE_DOMAIN_DEVICE);
 
 
 static void gvir_config_domain_video_class_init(GVirConfigDomainVideoClass *klass)
@@ -54,7 +54,7 @@ GVirConfigDomainVideo *gvir_config_domain_video_new(void)
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new(GVIR_TYPE_CONFIG_DOMAIN_VIDEO,
+    object = gvir_config_object_new(GVIR_CONFIG_TYPE_DOMAIN_VIDEO,
                                     "video", NULL);
     return GVIR_CONFIG_DOMAIN_VIDEO(object);
 }
@@ -64,7 +64,7 @@ GVirConfigDomainVideo *gvir_config_domain_video_new_from_xml(const gchar *xml,
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_DOMAIN_VIDEO,
+    object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_DOMAIN_VIDEO,
                                              "video", NULL, xml, error);
     return GVIR_CONFIG_DOMAIN_VIDEO(object);
 }
@@ -74,12 +74,12 @@ void gvir_config_domain_video_set_model(GVirConfigDomainVideo *video,
 {
     GVirConfigObject *node;
 
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_VIDEO(video));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_VIDEO(video));
     node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(video),
                                             "model");
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(node));
     gvir_config_object_set_attribute_with_type(node, "type",
-                                               GVIR_TYPE_CONFIG_DOMAIN_VIDEO_MODEL,
+                                               GVIR_CONFIG_TYPE_DOMAIN_VIDEO_MODEL,
                                                model,
                                                NULL);
     g_object_unref(G_OBJECT(node));

@@ -28,14 +28,14 @@
 #include "libvirt-gconfig/libvirt-gconfig-private.h"
 
 #define GVIR_CONFIG_DOMAIN_INTERFACE_USER_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_INTERFACE_USER, GVirConfigDomainInterfaceUserPrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_DOMAIN_INTERFACE_USER, GVirConfigDomainInterfaceUserPrivate))
 
 struct _GVirConfigDomainInterfaceUserPrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainInterfaceUser, gvir_config_domain_interface_user, GVIR_TYPE_CONFIG_DOMAIN_INTERFACE);
+G_DEFINE_TYPE(GVirConfigDomainInterfaceUser, gvir_config_domain_interface_user, GVIR_CONFIG_TYPE_DOMAIN_INTERFACE);
 
 
 static void gvir_config_domain_interface_user_class_init(GVirConfigDomainInterfaceUserClass *klass)
@@ -56,7 +56,7 @@ GVirConfigDomainInterfaceUser *gvir_config_domain_interface_user_new(void)
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new(GVIR_TYPE_CONFIG_DOMAIN_INTERFACE_USER,
+    object = gvir_config_object_new(GVIR_CONFIG_TYPE_DOMAIN_INTERFACE_USER,
                                     "interface", NULL);
     gvir_config_object_set_attribute(object, "type", "user", NULL);
     return GVIR_CONFIG_DOMAIN_INTERFACE_USER(object);
@@ -67,7 +67,7 @@ GVirConfigDomainInterfaceUser *gvir_config_domain_interface_user_new_from_xml(co
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_DOMAIN_INTERFACE_USER,
+    object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_DOMAIN_INTERFACE_USER,
                                              "interface", NULL, xml, error);
     if (object == NULL)
         return NULL;

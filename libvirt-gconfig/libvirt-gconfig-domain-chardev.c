@@ -26,14 +26,14 @@
 #include "libvirt-gconfig/libvirt-gconfig-private.h"
 
 #define GVIR_CONFIG_DOMAIN_CHARDEV_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_CHARDEV, GVirConfigDomainChardevPrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_DOMAIN_CHARDEV, GVirConfigDomainChardevPrivate))
 
 struct _GVirConfigDomainChardevPrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_ABSTRACT_TYPE(GVirConfigDomainChardev, gvir_config_domain_chardev, GVIR_TYPE_CONFIG_DOMAIN_DEVICE)
+G_DEFINE_ABSTRACT_TYPE(GVirConfigDomainChardev, gvir_config_domain_chardev, GVIR_CONFIG_TYPE_DOMAIN_DEVICE)
 
 static void gvir_config_domain_chardev_class_init(GVirConfigDomainChardevClass *klass)
 {
@@ -67,8 +67,8 @@ void gvir_config_domain_chardev_set_source(GVirConfigDomainChardev *chardev,
     xmlNodePtr child;
     xmlAttrPtr attr;
 
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_CHARDEV(chardev));
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_CHARDEV_SOURCE(source));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_CHARDEV(chardev));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_CHARDEV_SOURCE(source));
 
     chardev_node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(chardev));
     source_node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(source));

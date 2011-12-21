@@ -26,14 +26,14 @@
 #include "libvirt-gconfig/libvirt-gconfig-private.h"
 
 #define GVIR_CONFIG_DOMAIN_GRAPHICS_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_GRAPHICS, GVirConfigDomainGraphicsPrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS, GVirConfigDomainGraphicsPrivate))
 
 struct _GVirConfigDomainGraphicsPrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_ABSTRACT_TYPE(GVirConfigDomainGraphics, gvir_config_domain_graphics, GVIR_TYPE_CONFIG_DOMAIN_DEVICE);
+G_DEFINE_ABSTRACT_TYPE(GVirConfigDomainGraphics, gvir_config_domain_graphics, GVIR_CONFIG_TYPE_DOMAIN_DEVICE);
 
 
 static void gvir_config_domain_graphics_class_init(GVirConfigDomainGraphicsClass *klass)
@@ -61,11 +61,11 @@ gvir_config_domain_graphics_new_from_tree(GVirConfigXmlDoc *doc,
         return NULL;
 
     if (xmlStrEqual(type, (xmlChar*)"sdl")) {
-        gtype = GVIR_TYPE_CONFIG_DOMAIN_GRAPHICS_SDL;
+        gtype = GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS_SDL;
     } else if (xmlStrEqual(type, (xmlChar*)"vnc")) {
-        gtype = GVIR_TYPE_CONFIG_DOMAIN_GRAPHICS_VNC;
+        gtype = GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS_VNC;
     } else if (xmlStrEqual(type, (xmlChar*)"spice")) {
-        gtype = GVIR_TYPE_CONFIG_DOMAIN_GRAPHICS_SPICE;
+        gtype = GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS_SPICE;
     } else if (xmlStrEqual(type, (xmlChar*)"rdp")) {
         goto unimplemented;
     } else if (xmlStrEqual(type, (xmlChar*)"desktop")) {

@@ -26,14 +26,14 @@
 #include "libvirt-gconfig/libvirt-gconfig-private.h"
 
 #define GVIR_CONFIG_DOMAIN_DISK_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_DISK, GVirConfigDomainDiskPrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_DOMAIN_DISK, GVirConfigDomainDiskPrivate))
 
 struct _GVirConfigDomainDiskPrivate
 {
     GVirConfigDomainDiskType type;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainDisk, gvir_config_domain_disk, GVIR_TYPE_CONFIG_DOMAIN_DEVICE);
+G_DEFINE_TYPE(GVirConfigDomainDisk, gvir_config_domain_disk, GVIR_CONFIG_TYPE_DOMAIN_DEVICE);
 
 
 static void gvir_config_domain_disk_class_init(GVirConfigDomainDiskClass *klass)
@@ -54,7 +54,7 @@ GVirConfigDomainDisk *gvir_config_domain_disk_new(void)
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new(GVIR_TYPE_CONFIG_DOMAIN_DISK,
+    object = gvir_config_object_new(GVIR_CONFIG_TYPE_DOMAIN_DISK,
                                     "disk", NULL);
     return GVIR_CONFIG_DOMAIN_DISK(object);
 }
@@ -63,7 +63,7 @@ GVirConfigDomainDisk *gvir_config_domain_disk_new_from_xml(const gchar *xml,
                                                            GError **error)
 {
     GVirConfigObject *object;
-    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_DOMAIN_DISK,
+    object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_DOMAIN_DISK,
                                              "disk", NULL, xml, error);
 
     return GVIR_CONFIG_DOMAIN_DISK(object);
@@ -82,14 +82,14 @@ gvir_config_domain_disk_new_from_tree(GVirConfigXmlDoc *doc,
     if (type_str == NULL)
         return NULL;
 
-    type = gvir_config_genum_get_value(GVIR_TYPE_CONFIG_DOMAIN_DISK_TYPE,
+    type = gvir_config_genum_get_value(GVIR_CONFIG_TYPE_DOMAIN_DISK_TYPE,
                                        (char *)type_str,
                                        GVIR_CONFIG_DOMAIN_DISK_FILE);
     xmlFree(type_str);
     if (type == -1)
         return NULL;
 
-    object = gvir_config_object_new_from_tree(GVIR_TYPE_CONFIG_DOMAIN_DISK,
+    object = gvir_config_object_new_from_tree(GVIR_CONFIG_TYPE_DOMAIN_DISK,
                                               doc, NULL, tree);
     disk = GVIR_CONFIG_DOMAIN_DISK(object);
     disk->priv->type = type;
@@ -100,10 +100,10 @@ gvir_config_domain_disk_new_from_tree(GVirConfigXmlDoc *doc,
 void gvir_config_domain_disk_set_type(GVirConfigDomainDisk *disk,
                                       GVirConfigDomainDiskType type)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_DISK(disk));
 
     gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(disk), "type",
-                                               GVIR_TYPE_CONFIG_DOMAIN_DISK_TYPE,
+                                               GVIR_CONFIG_TYPE_DOMAIN_DISK_TYPE,
                                                type, NULL);
     disk->priv->type = type;
 }
@@ -111,20 +111,20 @@ void gvir_config_domain_disk_set_type(GVirConfigDomainDisk *disk,
 void gvir_config_domain_disk_set_guest_device_type(GVirConfigDomainDisk *disk,
                                                    GVirConfigDomainDiskGuestDeviceType type)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_DISK(disk));
 
     gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(disk), "device",
-                                               GVIR_TYPE_CONFIG_DOMAIN_DISK_GUEST_DEVICE_TYPE,
+                                               GVIR_CONFIG_TYPE_DOMAIN_DISK_GUEST_DEVICE_TYPE,
                                                type, NULL);
 }
 
 void gvir_config_domain_disk_set_snapshot_type(GVirConfigDomainDisk *disk,
                                                GVirConfigDomainDiskSnapshotType type)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_DISK(disk));
 
     gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(disk), "snapshot",
-                                               GVIR_TYPE_CONFIG_DOMAIN_DISK_SNAPSHOT_TYPE,
+                                               GVIR_CONFIG_TYPE_DOMAIN_DISK_SNAPSHOT_TYPE,
                                                type, NULL);
 }
 
@@ -133,7 +133,7 @@ void gvir_config_domain_disk_set_source(GVirConfigDomainDisk *disk,
 {
     const char *attribute_name;
 
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_DISK(disk));
 
     switch (disk->priv->type) {
         case GVIR_CONFIG_DOMAIN_DISK_FILE:
@@ -159,7 +159,7 @@ void gvir_config_domain_disk_set_source(GVirConfigDomainDisk *disk,
 void gvir_config_domain_disk_set_driver_name(GVirConfigDomainDisk *disk,
                                              const char *driver_name)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_DISK(disk));
     gvir_config_object_add_child_with_attribute(GVIR_CONFIG_OBJECT(disk),
                                                 "driver", "name", driver_name);
 }
@@ -167,7 +167,7 @@ void gvir_config_domain_disk_set_driver_name(GVirConfigDomainDisk *disk,
 void gvir_config_domain_disk_set_driver_type(GVirConfigDomainDisk *disk,
                                              const char *driver_type)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_DISK(disk));
     gvir_config_object_add_child_with_attribute(GVIR_CONFIG_OBJECT(disk),
                                                 "driver", "type", driver_type);
 }
@@ -177,8 +177,8 @@ void gvir_config_domain_disk_set_target_bus(GVirConfigDomainDisk *disk,
 {
     const char *bus_str;
 
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk));
-    bus_str = gvir_config_genum_get_nick(GVIR_TYPE_CONFIG_DOMAIN_DISK_BUS, bus);
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_DISK(disk));
+    bus_str = gvir_config_genum_get_nick(GVIR_CONFIG_TYPE_DOMAIN_DISK_BUS, bus);
     g_return_if_fail(bus_str != NULL);
     gvir_config_object_add_child_with_attribute(GVIR_CONFIG_OBJECT(disk),
                                                 "target", "bus", bus_str);
@@ -187,7 +187,7 @@ void gvir_config_domain_disk_set_target_bus(GVirConfigDomainDisk *disk,
 void gvir_config_domain_disk_set_target_dev(GVirConfigDomainDisk *disk,
                                             const char *dev)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_DISK(disk));
     gvir_config_object_add_child_with_attribute(GVIR_CONFIG_OBJECT(disk),
                                                 "target", "dev", dev);
 }
@@ -201,26 +201,26 @@ gvir_config_domain_disk_get_disk_type(GVirConfigDomainDisk *disk)
 GVirConfigDomainDiskGuestDeviceType
 gvir_config_domain_disk_get_guest_device_type(GVirConfigDomainDisk *disk)
 {
-    g_return_val_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk),
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_DISK(disk),
                          GVIR_CONFIG_DOMAIN_DISK_GUEST_DEVICE_DISK);
 
     return gvir_config_object_get_attribute_genum(GVIR_CONFIG_OBJECT(disk),
                                                   NULL,
                                                   "device",
-                                                  GVIR_TYPE_CONFIG_DOMAIN_DISK_GUEST_DEVICE_TYPE,
+                                                  GVIR_CONFIG_TYPE_DOMAIN_DISK_GUEST_DEVICE_TYPE,
                                                   GVIR_CONFIG_DOMAIN_DISK_GUEST_DEVICE_DISK);
 }
 
 GVirConfigDomainDiskSnapshotType
 gvir_config_domain_disk_get_snapshot_type(GVirConfigDomainDisk *disk)
 {
-    g_return_val_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk),
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_DISK(disk),
                          GVIR_CONFIG_DOMAIN_DISK_SNAPSHOT_NO);
 
     return gvir_config_object_get_attribute_genum(GVIR_CONFIG_OBJECT(disk),
                                                   NULL,
                                                   "snapshot",
-                                                  GVIR_TYPE_CONFIG_DOMAIN_DISK_SNAPSHOT_TYPE,
+                                                  GVIR_CONFIG_TYPE_DOMAIN_DISK_SNAPSHOT_TYPE,
                                                   GVIR_CONFIG_DOMAIN_DISK_SNAPSHOT_NO);
 }
 
@@ -229,7 +229,7 @@ gvir_config_domain_disk_get_source(GVirConfigDomainDisk *disk)
 {
     const char *attribute_name;
 
-    g_return_val_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk), NULL);
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_DISK(disk), NULL);
 
     switch (disk->priv->type) {
         case GVIR_CONFIG_DOMAIN_DISK_FILE:
@@ -254,7 +254,7 @@ gvir_config_domain_disk_get_source(GVirConfigDomainDisk *disk)
 char *
 gvir_config_domain_disk_get_driver_name(GVirConfigDomainDisk *disk)
 {
-    g_return_val_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk), NULL);
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_DISK(disk), NULL);
 
     return gvir_config_object_get_attribute(GVIR_CONFIG_OBJECT(disk),
                                             "driver", "name");
@@ -263,7 +263,7 @@ gvir_config_domain_disk_get_driver_name(GVirConfigDomainDisk *disk)
 char *
 gvir_config_domain_disk_get_driver_type(GVirConfigDomainDisk *disk)
 {
-    g_return_val_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk), NULL);
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_DISK(disk), NULL);
 
     return gvir_config_object_get_attribute(GVIR_CONFIG_OBJECT(disk),
                                             "driver", "type");
@@ -275,19 +275,19 @@ gvir_config_domain_disk_get_target_bus(GVirConfigDomainDisk *disk)
     /* FIXME: the default value depends on the "name" attribute, should we
      * copy what libvirt is doing here?
      */
-    g_return_val_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk),
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_DISK(disk),
                          GVIR_CONFIG_DOMAIN_DISK_BUS_IDE);
 
     return gvir_config_object_get_attribute_genum(GVIR_CONFIG_OBJECT(disk),
                                                   "target", "snapshot",
-                                                  GVIR_TYPE_CONFIG_DOMAIN_DISK_BUS,
+                                                  GVIR_CONFIG_TYPE_DOMAIN_DISK_BUS,
                                                   GVIR_CONFIG_DOMAIN_DISK_BUS_IDE);
 }
 
 char *
 gvir_config_domain_disk_get_target_dev(GVirConfigDomainDisk *disk)
 {
-    g_return_val_if_fail(GVIR_IS_CONFIG_DOMAIN_DISK(disk), NULL);
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_DISK(disk), NULL);
 
     return gvir_config_object_get_attribute(GVIR_CONFIG_OBJECT(disk),
                                             "target", "dev");

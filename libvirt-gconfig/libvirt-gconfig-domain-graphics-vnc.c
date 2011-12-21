@@ -26,14 +26,14 @@
 #include "libvirt-gconfig/libvirt-gconfig-private.h"
 
 #define GVIR_CONFIG_DOMAIN_GRAPHICS_VNC_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_GRAPHICS_VNC, GVirConfigDomainGraphicsVncPrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS_VNC, GVirConfigDomainGraphicsVncPrivate))
 
 struct _GVirConfigDomainGraphicsVncPrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainGraphicsVnc, gvir_config_domain_graphics_vnc, GVIR_TYPE_CONFIG_DOMAIN_GRAPHICS);
+G_DEFINE_TYPE(GVirConfigDomainGraphicsVnc, gvir_config_domain_graphics_vnc, GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS);
 
 
 static void gvir_config_domain_graphics_vnc_class_init(GVirConfigDomainGraphicsVncClass *klass)
@@ -54,7 +54,7 @@ GVirConfigDomainGraphicsVnc *gvir_config_domain_graphics_vnc_new(void)
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new(GVIR_TYPE_CONFIG_DOMAIN_GRAPHICS_VNC,
+    object = gvir_config_object_new(GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS_VNC,
                                     "graphics", NULL);
     gvir_config_object_set_attribute(object, "type", "vnc", NULL);
     return GVIR_CONFIG_DOMAIN_GRAPHICS_VNC(object);
@@ -66,7 +66,7 @@ gvir_config_domain_graphics_vnc_new_from_xml(const gchar *xml,
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_DOMAIN_GRAPHICS_VNC,
+    object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS_VNC,
                                              "graphics", NULL, xml, error);
     if (object == NULL)
         return NULL;
@@ -78,7 +78,7 @@ gvir_config_domain_graphics_vnc_new_from_xml(const gchar *xml,
 void gvir_config_domain_graphics_vnc_set_autoport(GVirConfigDomainGraphicsVnc *graphics,
                                                   gboolean autoport)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_GRAPHICS_VNC(graphics));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_GRAPHICS_VNC(graphics));
 
     gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(graphics),
                                                "autoport", G_TYPE_BOOLEAN, autoport,
@@ -88,7 +88,7 @@ void gvir_config_domain_graphics_vnc_set_autoport(GVirConfigDomainGraphicsVnc *g
 void gvir_config_domain_graphics_vnc_set_port(GVirConfigDomainGraphicsVnc *graphics,
                                               int port)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_GRAPHICS_VNC(graphics));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_GRAPHICS_VNC(graphics));
 
     gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(graphics),
                                                "port", G_TYPE_INT, port,
@@ -98,7 +98,7 @@ void gvir_config_domain_graphics_vnc_set_port(GVirConfigDomainGraphicsVnc *graph
 void gvir_config_domain_graphics_vnc_set_password(GVirConfigDomainGraphicsVnc *graphics,
                                                   const char *password)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_GRAPHICS_VNC(graphics));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_GRAPHICS_VNC(graphics));
 
     gvir_config_object_set_attribute(GVIR_CONFIG_OBJECT(graphics),
                                      "passwd", password,

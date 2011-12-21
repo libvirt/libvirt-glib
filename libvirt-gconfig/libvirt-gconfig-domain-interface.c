@@ -28,14 +28,14 @@
 #include "libvirt-gconfig/libvirt-gconfig-private.h"
 
 #define GVIR_CONFIG_DOMAIN_INTERFACE_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_INTERFACE, GVirConfigDomainInterfacePrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_DOMAIN_INTERFACE, GVirConfigDomainInterfacePrivate))
 
 struct _GVirConfigDomainInterfacePrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_ABSTRACT_TYPE(GVirConfigDomainInterface, gvir_config_domain_interface, GVIR_TYPE_CONFIG_DOMAIN_DEVICE);
+G_DEFINE_ABSTRACT_TYPE(GVirConfigDomainInterface, gvir_config_domain_interface, GVIR_CONFIG_TYPE_DOMAIN_DEVICE);
 
 
 static void gvir_config_domain_interface_class_init(GVirConfigDomainInterfaceClass *klass)
@@ -54,7 +54,7 @@ static void gvir_config_domain_interface_init(GVirConfigDomainInterface *interfa
 void gvir_config_domain_interface_set_ifname(GVirConfigDomainInterface *interface,
                                              const char *ifname)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_INTERFACE(interface));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_INTERFACE(interface));
 
     gvir_config_object_replace_child_with_attribute(GVIR_CONFIG_OBJECT(interface),
                                                     "target", "device", ifname);
@@ -65,14 +65,14 @@ void gvir_config_domain_interface_set_link_state(GVirConfigDomainInterface *inte
 {
     GVirConfigObject *node;
 
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_INTERFACE(interface));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_INTERFACE(interface));
 
     node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(interface),
                                             "link");
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(node));
     gvir_config_object_set_attribute_with_type(node,
                                                "state",
-                                               GVIR_TYPE_CONFIG_DOMAIN_INTERFACE_LINK_STATE,
+                                               GVIR_CONFIG_TYPE_DOMAIN_INTERFACE_LINK_STATE,
                                                state,
                                                NULL);
     g_object_unref(G_OBJECT(node));
@@ -81,7 +81,7 @@ void gvir_config_domain_interface_set_link_state(GVirConfigDomainInterface *inte
 void gvir_config_domain_interface_set_mac(GVirConfigDomainInterface *interface,
                                           const char *mac_address)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_INTERFACE(interface));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_INTERFACE(interface));
 
     gvir_config_object_replace_child_with_attribute(GVIR_CONFIG_OBJECT(interface),
                                                     "mac", "address", mac_address);
@@ -90,7 +90,7 @@ void gvir_config_domain_interface_set_mac(GVirConfigDomainInterface *interface,
 void gvir_config_domain_interface_set_model(GVirConfigDomainInterface *interface,
                                             const char *model)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_INTERFACE(interface));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_INTERFACE(interface));
 
     gvir_config_object_replace_child_with_attribute(GVIR_CONFIG_OBJECT(interface),
                                                     "model", "type", model);
@@ -108,9 +108,9 @@ gvir_config_domain_interface_new_from_tree(GVirConfigXmlDoc *doc,
         return NULL;
 
     if (xmlStrEqual(type, (xmlChar*)"network")) {
-        gtype = GVIR_TYPE_CONFIG_DOMAIN_INTERFACE_NETWORK;
+        gtype = GVIR_CONFIG_TYPE_DOMAIN_INTERFACE_NETWORK;
     } else if (xmlStrEqual(type, (xmlChar*)"user")) {
-        gtype = GVIR_TYPE_CONFIG_DOMAIN_INTERFACE_USER;
+        gtype = GVIR_CONFIG_TYPE_DOMAIN_INTERFACE_USER;
     } else if (xmlStrEqual(type, (xmlChar*)"bridge")) {
         goto unimplemented;
     } else if (xmlStrEqual(type, (xmlChar*)"direct")) {

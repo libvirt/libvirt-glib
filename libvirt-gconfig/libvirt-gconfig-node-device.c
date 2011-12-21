@@ -26,14 +26,14 @@
 #include "libvirt-gconfig/libvirt-gconfig.h"
 
 #define GVIR_CONFIG_NODE_DEVICE_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_NODE_DEVICE, GVirConfigNodeDevicePrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_NODE_DEVICE, GVirConfigNodeDevicePrivate))
 
 struct _GVirConfigNodeDevicePrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigNodeDevice, gvir_config_node_device, GVIR_TYPE_CONFIG_OBJECT);
+G_DEFINE_TYPE(GVirConfigNodeDevice, gvir_config_node_device, GVIR_CONFIG_TYPE_OBJECT);
 
 
 static void gvir_config_node_device_class_init(GVirConfigNodeDeviceClass *klass)
@@ -54,7 +54,7 @@ GVirConfigNodeDevice *gvir_config_node_device_new(void)
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new(GVIR_TYPE_CONFIG_NODE_DEVICE,
+    object = gvir_config_object_new(GVIR_CONFIG_TYPE_NODE_DEVICE,
                                     "device",
                                     DATADIR "/libvirt/schemas/nodedev.rng");
     return GVIR_CONFIG_NODE_DEVICE(object);
@@ -65,7 +65,7 @@ GVirConfigNodeDevice *gvir_config_node_device_new_from_xml(const gchar *xml,
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_NODE_DEVICE,
+    object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_NODE_DEVICE,
                                              "device",
                                              DATADIR "/libvirt/schemas/nodedev.rng",
                                              xml, error);

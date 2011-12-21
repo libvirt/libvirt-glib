@@ -29,12 +29,12 @@
 
 G_BEGIN_DECLS
 
-#define GVIR_TYPE_CONFIG_DOMAIN_TIMER            (gvir_config_domain_timer_get_type ())
-#define GVIR_CONFIG_DOMAIN_TIMER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GVIR_TYPE_CONFIG_DOMAIN_TIMER, GVirConfigDomainTimer))
-#define GVIR_CONFIG_DOMAIN_TIMER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GVIR_TYPE_CONFIG_DOMAIN_TIMER, GVirConfigDomainTimerClass))
-#define GVIR_IS_CONFIG_DOMAIN_TIMER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GVIR_TYPE_CONFIG_DOMAIN_TIMER))
-#define GVIR_IS_CONFIG_DOMAIN_TIMER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GVIR_TYPE_CONFIG_DOMAIN_TIMER))
-#define GVIR_CONFIG_DOMAIN_TIMER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GVIR_TYPE_CONFIG_DOMAIN_TIMER, GVirConfigDomainTimerClass))
+#define GVIR_CONFIG_TYPE_DOMAIN_TIMER            (gvir_config_domain_timer_get_type ())
+#define GVIR_CONFIG_DOMAIN_TIMER(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GVIR_CONFIG_TYPE_DOMAIN_TIMER, GVirConfigDomainTimer))
+#define GVIR_CONFIG_DOMAIN_TIMER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GVIR_CONFIG_TYPE_DOMAIN_TIMER, GVirConfigDomainTimerClass))
+#define GVIR_CONFIG_IS_DOMAIN_TIMER(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GVIR_CONFIG_TYPE_DOMAIN_TIMER))
+#define GVIR_CONFIG_IS_DOMAIN_TIMER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GVIR_CONFIG_TYPE_DOMAIN_TIMER))
+#define GVIR_CONFIG_DOMAIN_TIMER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GVIR_CONFIG_TYPE_DOMAIN_TIMER, GVirConfigDomainTimerClass))
 
 typedef struct _GVirConfigDomainTimer GVirConfigDomainTimer;
 typedef struct _GVirConfigDomainTimerPrivate GVirConfigDomainTimerPrivate;

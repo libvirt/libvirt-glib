@@ -26,14 +26,14 @@
 #include "libvirt-gconfig/libvirt-gconfig-private.h"
 
 #define GVIR_CONFIG_DOMAIN_MEMBALLOON_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_MEMBALLOON, GVirConfigDomainMemballoonPrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_DOMAIN_MEMBALLOON, GVirConfigDomainMemballoonPrivate))
 
 struct _GVirConfigDomainMemballoonPrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainMemballoon, gvir_config_domain_memballoon, GVIR_TYPE_CONFIG_DOMAIN_DEVICE);
+G_DEFINE_TYPE(GVirConfigDomainMemballoon, gvir_config_domain_memballoon, GVIR_CONFIG_TYPE_DOMAIN_DEVICE);
 
 
 static void gvir_config_domain_memballoon_class_init(GVirConfigDomainMemballoonClass *klass)
@@ -54,7 +54,7 @@ GVirConfigDomainMemballoon *gvir_config_domain_memballoon_new(void)
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new(GVIR_TYPE_CONFIG_DOMAIN_MEMBALLOON,
+    object = gvir_config_object_new(GVIR_CONFIG_TYPE_DOMAIN_MEMBALLOON,
                                     "memballoon", NULL);
     return GVIR_CONFIG_DOMAIN_MEMBALLOON(object);
 }
@@ -64,7 +64,7 @@ GVirConfigDomainMemballoon *gvir_config_domain_memballoon_new_from_xml(const gch
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_DOMAIN_MEMBALLOON,
+    object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_DOMAIN_MEMBALLOON,
                                              "memballoon", NULL, xml, error);
     return GVIR_CONFIG_DOMAIN_MEMBALLOON(object);
 }
@@ -72,10 +72,10 @@ GVirConfigDomainMemballoon *gvir_config_domain_memballoon_new_from_xml(const gch
 void gvir_config_domain_memballoon_set_model(GVirConfigDomainMemballoon *memballoon,
                                              GVirConfigDomainMemballoonModel model)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_MEMBALLOON(memballoon));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_MEMBALLOON(memballoon));
     gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(memballoon),
                                                "model",
-                                               GVIR_TYPE_CONFIG_DOMAIN_MEMBALLOON_MODEL,
+                                               GVIR_CONFIG_TYPE_DOMAIN_MEMBALLOON_MODEL,
                                                model,
                                                NULL);
 }

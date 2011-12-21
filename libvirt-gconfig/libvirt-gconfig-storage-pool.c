@@ -28,14 +28,14 @@
 #include "libvirt-gconfig/libvirt-gconfig-private.h"
 
 #define GVIR_CONFIG_STORAGE_POOL_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_STORAGE_POOL, GVirConfigStoragePoolPrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_STORAGE_POOL, GVirConfigStoragePoolPrivate))
 
 struct _GVirConfigStoragePoolPrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigStoragePool, gvir_config_storage_pool, GVIR_TYPE_CONFIG_OBJECT);
+G_DEFINE_TYPE(GVirConfigStoragePool, gvir_config_storage_pool, GVIR_CONFIG_TYPE_OBJECT);
 
 
 static void gvir_config_storage_pool_class_init(GVirConfigStoragePoolClass *klass)
@@ -56,7 +56,7 @@ GVirConfigStoragePool *gvir_config_storage_pool_new(void)
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new(GVIR_TYPE_CONFIG_STORAGE_POOL,
+    object = gvir_config_object_new(GVIR_CONFIG_TYPE_STORAGE_POOL,
                                     "pool",
                                     DATADIR "/libvirt/schemas/storagepool.rng");
     return GVIR_CONFIG_STORAGE_POOL(object);
@@ -67,7 +67,7 @@ GVirConfigStoragePool *gvir_config_storage_pool_new_from_xml(const gchar *xml,
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_STORAGE_POOL,
+    object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_STORAGE_POOL,
                                              "pool",
                                              DATADIR "/libvirt/schemas/storagepool.rng",
                                              xml, error);
@@ -77,11 +77,11 @@ GVirConfigStoragePool *gvir_config_storage_pool_new_from_xml(const gchar *xml,
 void gvir_config_storage_pool_set_pool_type(GVirConfigStoragePool *pool,
                                             GVirConfigStoragePoolType type)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL(pool));
+    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_POOL(pool));
 
     gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(pool),
                                                "type",
-                                               GVIR_TYPE_CONFIG_STORAGE_POOL_TYPE,
+                                               GVIR_CONFIG_TYPE_STORAGE_POOL_TYPE,
                                                type,
                                                NULL);
 }
@@ -89,7 +89,7 @@ void gvir_config_storage_pool_set_pool_type(GVirConfigStoragePool *pool,
 void gvir_config_storage_pool_set_name(GVirConfigStoragePool *pool,
                                        const char *name)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL(pool));
+    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_POOL(pool));
 
     gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(pool),
                                         "name", name);
@@ -98,7 +98,7 @@ void gvir_config_storage_pool_set_name(GVirConfigStoragePool *pool,
 void gvir_config_storage_pool_set_uuid(GVirConfigStoragePool *pool,
                                        const char *uuid)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL(pool));
+    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_POOL(pool));
 
     gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(pool),
                                         "uuid", uuid);
@@ -107,7 +107,7 @@ void gvir_config_storage_pool_set_uuid(GVirConfigStoragePool *pool,
 void gvir_config_storage_pool_set_capacity(GVirConfigStoragePool *pool,
                                            guint64 capacity)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL(pool));
+    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_POOL(pool));
 
     gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(pool),
                                                "capacity", capacity);
@@ -116,7 +116,7 @@ void gvir_config_storage_pool_set_capacity(GVirConfigStoragePool *pool,
 void gvir_config_storage_pool_set_allocation(GVirConfigStoragePool *pool,
                                              guint64 allocation)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL(pool));
+    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_POOL(pool));
 
     gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(pool),
                                                "allocation", allocation);
@@ -125,7 +125,7 @@ void gvir_config_storage_pool_set_allocation(GVirConfigStoragePool *pool,
 void gvir_config_storage_pool_set_available(GVirConfigStoragePool *pool,
                                             guint64 available)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL(pool));
+    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_POOL(pool));
 
     gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(pool),
                                                "available", available);
@@ -134,8 +134,8 @@ void gvir_config_storage_pool_set_available(GVirConfigStoragePool *pool,
 void gvir_config_storage_pool_set_source(GVirConfigStoragePool *pool,
                                          GVirConfigStoragePoolSource *source)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL(pool));
-    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL_SOURCE(source));
+    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_POOL(pool));
+    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_POOL_SOURCE(source));
 
     gvir_config_object_attach(GVIR_CONFIG_OBJECT(pool),
                               GVIR_CONFIG_OBJECT(source));
@@ -144,8 +144,8 @@ void gvir_config_storage_pool_set_source(GVirConfigStoragePool *pool,
 void gvir_config_storage_pool_set_target(GVirConfigStoragePool *pool,
                                         GVirConfigStoragePoolTarget *target)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL(pool));
-    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_POOL_TARGET(target));
+    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_POOL(pool));
+    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_POOL_TARGET(target));
 
     gvir_config_object_attach(GVIR_CONFIG_OBJECT(pool),
                               GVIR_CONFIG_OBJECT(target));

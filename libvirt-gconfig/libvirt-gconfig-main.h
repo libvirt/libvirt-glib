@@ -30,9 +30,9 @@
 
 G_BEGIN_DECLS
 
-void gvir_init_config(int *argc,
+void gvir_config_init(int *argc,
                       char ***argv);
-gboolean gvir_init_config_check(int *argc,
+gboolean gvir_config_init_check(int *argc,
                                 char ***argv,
                                 GError **err);
 

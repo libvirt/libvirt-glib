@@ -40,7 +40,7 @@ int main(int argc, char **argv)
     unsigned int i;
     char *xml;
 
-    gvir_init_config(&argc, &argv);
+    gvir_config_init(&argc, &argv);
 
     domain = gvir_config_domain_new();
     g_assert(domain != NULL);

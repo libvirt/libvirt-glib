@@ -27,14 +27,14 @@
 #include "libvirt-gconfig/libvirt-gconfig-private.h"
 
 #define GVIR_CONFIG_DOMAIN_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN, GVirConfigDomainPrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_DOMAIN, GVirConfigDomainPrivate))
 
 struct _GVirConfigDomainPrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomain, gvir_config_domain, GVIR_TYPE_CONFIG_OBJECT);
+G_DEFINE_TYPE(GVirConfigDomain, gvir_config_domain, GVIR_CONFIG_TYPE_OBJECT);
 
 enum {
     PROP_0,
@@ -155,7 +155,7 @@ GVirConfigDomain *gvir_config_domain_new_from_xml(const gchar *xml,
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_DOMAIN,
+    object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_DOMAIN,
                                              "domain",
                                              DATADIR "/libvirt/schemas/domain.rng",
                                              xml, error);
@@ -166,7 +166,7 @@ GVirConfigDomain *gvir_config_domain_new(void)
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new(GVIR_TYPE_CONFIG_DOMAIN,
+    object = gvir_config_object_new(GVIR_CONFIG_TYPE_DOMAIN,
                                     "domain",
                                     DATADIR "/libvirt/schemas/domain.rng");
     return GVIR_CONFIG_DOMAIN(object);
@@ -175,10 +175,10 @@ GVirConfigDomain *gvir_config_domain_new(void)
 
 void gvir_config_domain_set_virt_type(GVirConfigDomain *domain, GVirConfigDomainVirtType type)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN(domain));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN(domain));
     gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(domain),
                                                "type",
-                                               GVIR_TYPE_CONFIG_DOMAIN_VIRT_TYPE,
+                                               GVIR_CONFIG_TYPE_DOMAIN_VIRT_TYPE,
                                                type, NULL);
 }
 
@@ -255,7 +255,7 @@ GStrv gvir_config_domain_get_features(GVirConfigDomain *domain)
 {
     GPtrArray *features;
 
-    g_return_val_if_fail(GVIR_IS_CONFIG_DOMAIN(domain), NULL);
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN(domain), NULL);
 
     features = g_ptr_array_new();
     gvir_config_object_foreach_child(GVIR_CONFIG_OBJECT(domain), "features",
@@ -273,7 +273,7 @@ void gvir_config_domain_set_features(GVirConfigDomain *domain,
 
     features_node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(domain),
                                                      "features");
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(features_node));
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(features_node));
     for (it = features; *it != NULL; it++) {
         GVirConfigObject *feature;
         feature = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(features_node),
@@ -287,8 +287,8 @@ void gvir_config_domain_set_features(GVirConfigDomain *domain,
 void gvir_config_domain_set_clock(GVirConfigDomain *domain,
                                   GVirConfigDomainClock *klock)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN(domain));
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_CLOCK(klock));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN(domain));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_CLOCK(klock));
 
     gvir_config_object_attach(GVIR_CONFIG_OBJECT(domain),
                               GVIR_CONFIG_OBJECT(klock));
@@ -297,8 +297,8 @@ void gvir_config_domain_set_clock(GVirConfigDomain *domain,
 void gvir_config_domain_set_os(GVirConfigDomain *domain,
                                GVirConfigDomainOs *os)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN(domain));
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_OS(os));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN(domain));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_OS(os));
 
     gvir_config_object_attach(GVIR_CONFIG_OBJECT(domain),
                               GVIR_CONFIG_OBJECT(os));
@@ -307,8 +307,8 @@ void gvir_config_domain_set_os(GVirConfigDomain *domain,
 void gvir_config_domain_set_seclabel(GVirConfigDomain *domain,
                                      GVirConfigDomainSeclabel *seclabel)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN(domain));
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_SECLABEL(seclabel));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN(domain));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_SECLABEL(seclabel));
 
     gvir_config_object_attach(GVIR_CONFIG_OBJECT(domain),
                               GVIR_CONFIG_OBJECT(seclabel));
@@ -321,14 +321,14 @@ void gvir_config_domain_set_lifecycle(GVirConfigDomain *domain,
     const char *event_str;
     const char *action_str;
 
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN(domain));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN(domain));
     g_return_if_fail((event == GVIR_CONFIG_DOMAIN_LIFECYCLE_ON_CRASH) ||
                      ((action != GVIR_CONFIG_DOMAIN_LIFECYCLE_COREDUMP_DESTROY) &&
                       (action != GVIR_CONFIG_DOMAIN_LIFECYCLE_COREDUMP_RESTART)));
 
-    event_str = gvir_config_genum_get_nick(GVIR_TYPE_CONFIG_DOMAIN_LIFECYCLE_EVENT, event);
+    event_str = gvir_config_genum_get_nick(GVIR_CONFIG_TYPE_DOMAIN_LIFECYCLE_EVENT, event);
     g_return_if_fail(event_str != NULL);
-    action_str = gvir_config_genum_get_nick(GVIR_TYPE_CONFIG_DOMAIN_LIFECYCLE_ACTION, action);
+    action_str = gvir_config_genum_get_nick(GVIR_CONFIG_TYPE_DOMAIN_LIFECYCLE_ACTION, action);
     g_return_if_fail(action_str != NULL);
 
     gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(domain),
@@ -345,12 +345,12 @@ void gvir_config_domain_set_devices(GVirConfigDomain *domain,
     GVirConfigObject *devices_node;
     GList *it;
 
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN(domain));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN(domain));
 
-    devices_node = gvir_config_object_new(GVIR_TYPE_CONFIG_OBJECT,
+    devices_node = gvir_config_object_new(GVIR_CONFIG_TYPE_OBJECT,
                                           "devices", NULL);
     for (it = devices; it != NULL; it = it->next) {
-        if (!GVIR_IS_CONFIG_DOMAIN_DEVICE(it->data)) {
+        if (!GVIR_CONFIG_IS_DOMAIN_DEVICE(it->data)) {
             g_warn_if_reached();
             continue;
         }
@@ -366,8 +366,8 @@ void gvir_config_domain_add_device(GVirConfigDomain *domain,
 {
     GVirConfigObject *devices_node;
 
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN(domain));
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_DEVICE(device));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN(domain));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_DEVICE(device));
 
     devices_node = gvir_config_object_add_child(GVIR_CONFIG_OBJECT(domain),
                                                 "devices");
@@ -407,7 +407,7 @@ GList *gvir_config_domain_get_devices(GVirConfigDomain *domain)
 {
     struct GetDeviceData data;
 
-    g_return_val_if_fail(GVIR_IS_CONFIG_DOMAIN(domain), NULL);
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN(domain), NULL);
 
     g_object_get(G_OBJECT(domain), "doc", &data.doc, NULL);
     data.devices = NULL;

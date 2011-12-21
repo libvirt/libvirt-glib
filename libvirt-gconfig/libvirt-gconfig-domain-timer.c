@@ -25,14 +25,14 @@
 #include "libvirt-gconfig/libvirt-gconfig.h"
 
 #define GVIR_CONFIG_DOMAIN_TIMER_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_TIMER, GVirConfigDomainTimerPrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_DOMAIN_TIMER, GVirConfigDomainTimerPrivate))
 
 struct _GVirConfigDomainTimerPrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainTimer, gvir_config_domain_timer, GVIR_TYPE_CONFIG_OBJECT);
+G_DEFINE_TYPE(GVirConfigDomainTimer, gvir_config_domain_timer, GVIR_CONFIG_TYPE_OBJECT);
 
 
 static void gvir_config_domain_timer_class_init(GVirConfigDomainTimerClass *klass)
@@ -53,7 +53,7 @@ GVirConfigDomainTimer *gvir_config_domain_timer_new(void)
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new(GVIR_TYPE_CONFIG_DOMAIN_TIMER, "timer", NULL);
+    object = gvir_config_object_new(GVIR_CONFIG_TYPE_DOMAIN_TIMER, "timer", NULL);
     return GVIR_CONFIG_DOMAIN_TIMER(object);
 }
 
@@ -63,7 +63,7 @@ GVirConfigDomainTimer *gvir_config_domain_timer_new_from_xml(const gchar *xml,
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_DOMAIN_TIMER,
+    object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_DOMAIN_TIMER,
                                              "timer", NULL, xml, error);
     return GVIR_CONFIG_DOMAIN_TIMER(object);
 }

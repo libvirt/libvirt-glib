@@ -29,12 +29,12 @@
 
 G_BEGIN_DECLS
 
-#define GVIR_TYPE_CONFIG_DOMAIN_SOUND            (gvir_config_domain_sound_get_type ())
-#define GVIR_CONFIG_DOMAIN_SOUND(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GVIR_TYPE_CONFIG_DOMAIN_SOUND, GVirConfigDomainSound))
-#define GVIR_CONFIG_DOMAIN_SOUND_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GVIR_TYPE_CONFIG_DOMAIN_SOUND, GVirConfigDomainSoundClass))
-#define GVIR_IS_CONFIG_DOMAIN_SOUND(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GVIR_TYPE_CONFIG_DOMAIN_SOUND))
-#define GVIR_IS_CONFIG_DOMAIN_SOUND_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GVIR_TYPE_CONFIG_DOMAIN_SOUND))
-#define GVIR_CONFIG_DOMAIN_SOUND_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GVIR_TYPE_CONFIG_DOMAIN_SOUND, GVirConfigDomainSoundClass))
+#define GVIR_CONFIG_TYPE_DOMAIN_SOUND            (gvir_config_domain_sound_get_type ())
+#define GVIR_CONFIG_DOMAIN_SOUND(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GVIR_CONFIG_TYPE_DOMAIN_SOUND, GVirConfigDomainSound))
+#define GVIR_CONFIG_DOMAIN_SOUND_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GVIR_CONFIG_TYPE_DOMAIN_SOUND, GVirConfigDomainSoundClass))
+#define GVIR_CONFIG_IS_DOMAIN_SOUND(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GVIR_CONFIG_TYPE_DOMAIN_SOUND))
+#define GVIR_CONFIG_IS_DOMAIN_SOUND_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GVIR_CONFIG_TYPE_DOMAIN_SOUND))
+#define GVIR_CONFIG_DOMAIN_SOUND_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GVIR_CONFIG_TYPE_DOMAIN_SOUND, GVirConfigDomainSoundClass))
 
 typedef struct _GVirConfigDomainSound GVirConfigDomainSound;
 typedef struct _GVirConfigDomainSoundPrivate GVirConfigDomainSoundPrivate;

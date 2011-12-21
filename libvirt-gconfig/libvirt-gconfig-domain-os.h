@@ -29,12 +29,12 @@
 
 G_BEGIN_DECLS
 
-#define GVIR_TYPE_CONFIG_DOMAIN_OS            (gvir_config_domain_os_get_type ())
-#define GVIR_CONFIG_DOMAIN_OS(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GVIR_TYPE_CONFIG_DOMAIN_OS, GVirConfigDomainOs))
-#define GVIR_CONFIG_DOMAIN_OS_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GVIR_TYPE_CONFIG_DOMAIN_OS, GVirConfigDomainOsClass))
-#define GVIR_IS_CONFIG_DOMAIN_OS(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GVIR_TYPE_CONFIG_DOMAIN_OS))
-#define GVIR_IS_CONFIG_DOMAIN_OS_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GVIR_TYPE_CONFIG_DOMAIN_OS))
-#define GVIR_CONFIG_DOMAIN_OS_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GVIR_TYPE_CONFIG_DOMAIN_OS, GVirConfigDomainOsClass))
+#define GVIR_CONFIG_TYPE_DOMAIN_OS            (gvir_config_domain_os_get_type ())
+#define GVIR_CONFIG_DOMAIN_OS(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GVIR_CONFIG_TYPE_DOMAIN_OS, GVirConfigDomainOs))
+#define GVIR_CONFIG_DOMAIN_OS_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GVIR_CONFIG_TYPE_DOMAIN_OS, GVirConfigDomainOsClass))
+#define GVIR_CONFIG_IS_DOMAIN_OS(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GVIR_CONFIG_TYPE_DOMAIN_OS))
+#define GVIR_CONFIG_IS_DOMAIN_OS_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GVIR_CONFIG_TYPE_DOMAIN_OS))
+#define GVIR_CONFIG_DOMAIN_OS_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GVIR_CONFIG_TYPE_DOMAIN_OS, GVirConfigDomainOsClass))
 
 typedef struct _GVirConfigDomainOs GVirConfigDomainOs;
 typedef struct _GVirConfigDomainOsPrivate GVirConfigDomainOsPrivate;

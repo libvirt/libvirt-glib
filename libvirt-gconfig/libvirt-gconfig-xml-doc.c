@@ -30,7 +30,7 @@
 extern gboolean debugFlag;
 
 #define GVIR_CONFIG_XML_DOC_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_XML_DOC, GVirConfigXmlDocPrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_XML_DOC, GVirConfigXmlDocPrivate))
 
 struct _GVirConfigXmlDocPrivate
 {
@@ -126,7 +126,7 @@ GVirConfigXmlDoc *gvir_config_xml_doc_new(xmlDocPtr doc)
     if (doc == NULL) {
         doc = xmlNewDoc((xmlChar *)"1.0");
     }
-    return GVIR_CONFIG_XML_DOC(g_object_new(GVIR_TYPE_CONFIG_XML_DOC,
+    return GVIR_CONFIG_XML_DOC(g_object_new(GVIR_CONFIG_TYPE_XML_DOC,
                                              "doc", doc,
                                              NULL));
 }

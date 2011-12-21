@@ -26,14 +26,14 @@
 #include "libvirt-gconfig/libvirt-gconfig-private.h"
 
 #define GVIR_CONFIG_DOMAIN_CLOCK_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_CLOCK, GVirConfigDomainClockPrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_DOMAIN_CLOCK, GVirConfigDomainClockPrivate))
 
 struct _GVirConfigDomainClockPrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainClock, gvir_config_domain_clock, GVIR_TYPE_CONFIG_OBJECT);
+G_DEFINE_TYPE(GVirConfigDomainClock, gvir_config_domain_clock, GVIR_CONFIG_TYPE_OBJECT);
 
 
 static void gvir_config_domain_clock_class_init(GVirConfigDomainClockClass *klass)
@@ -54,7 +54,7 @@ GVirConfigDomainClock *gvir_config_domain_clock_new(void)
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new(GVIR_TYPE_CONFIG_DOMAIN_CLOCK,
+    object = gvir_config_object_new(GVIR_CONFIG_TYPE_DOMAIN_CLOCK,
                                     "clock", NULL);
     return GVIR_CONFIG_DOMAIN_CLOCK(object);
 }
@@ -64,7 +64,7 @@ GVirConfigDomainClock *gvir_config_domain_clock_new_from_xml(const gchar *xml,
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_DOMAIN_CLOCK,
+    object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_DOMAIN_CLOCK,
                                              "clock", NULL, xml, error);
     return GVIR_CONFIG_DOMAIN_CLOCK(object);
 }
@@ -72,11 +72,11 @@ GVirConfigDomainClock *gvir_config_domain_clock_new_from_xml(const gchar *xml,
 void gvir_config_domain_clock_set_offset(GVirConfigDomainClock *klock,
                                          GVirConfigDomainClockOffset offset)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_CLOCK(klock));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_CLOCK(klock));
 
     gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(klock),
                                                "offset",
-                                               GVIR_TYPE_CONFIG_DOMAIN_CLOCK_OFFSET,
+                                               GVIR_CONFIG_TYPE_DOMAIN_CLOCK_OFFSET,
                                                offset,
                                                NULL);
 }
@@ -84,7 +84,7 @@ void gvir_config_domain_clock_set_offset(GVirConfigDomainClock *klock,
 void gvir_config_domain_clock_set_timezone(GVirConfigDomainClock *klock,
                                            const char *tz)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_CLOCK(klock));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_CLOCK(klock));
     g_return_if_fail(tz != NULL);
 
     gvir_config_object_set_attribute(GVIR_CONFIG_OBJECT(klock),
@@ -94,7 +94,7 @@ void gvir_config_domain_clock_set_timezone(GVirConfigDomainClock *klock,
 void gvir_config_domain_clock_set_variable_offset(GVirConfigDomainClock *klock,
                                                   gint seconds)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_CLOCK(klock));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_CLOCK(klock));
 
     gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(klock),
                                                "offset", G_TYPE_STRING,  "variable",

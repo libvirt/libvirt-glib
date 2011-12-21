@@ -29,12 +29,12 @@
 
 G_BEGIN_DECLS
 
-#define GVIR_TYPE_CONFIG_NODE_DEVICE            (gvir_config_node_device_get_type ())
-#define GVIR_CONFIG_NODE_DEVICE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GVIR_TYPE_CONFIG_NODE_DEVICE, GVirConfigNodeDevice))
-#define GVIR_CONFIG_NODE_DEVICE_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GVIR_TYPE_CONFIG_NODE_DEVICE, GVirConfigNodeDeviceClass))
-#define GVIR_IS_CONFIG_NODE_DEVICE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GVIR_TYPE_CONFIG_NODE_DEVICE))
-#define GVIR_IS_CONFIG_NODE_DEVICE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GVIR_TYPE_CONFIG_NODE_DEVICE))
-#define GVIR_CONFIG_NODE_DEVICE_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GVIR_TYPE_CONFIG_NODE_DEVICE, GVirConfigNodeDeviceClass))
+#define GVIR_CONFIG_TYPE_NODE_DEVICE            (gvir_config_node_device_get_type ())
+#define GVIR_CONFIG_NODE_DEVICE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GVIR_CONFIG_TYPE_NODE_DEVICE, GVirConfigNodeDevice))
+#define GVIR_CONFIG_NODE_DEVICE_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GVIR_CONFIG_TYPE_NODE_DEVICE, GVirConfigNodeDeviceClass))
+#define GVIR_CONFIG_IS_NODE_DEVICE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GVIR_CONFIG_TYPE_NODE_DEVICE))
+#define GVIR_CONFIG_IS_NODE_DEVICE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GVIR_CONFIG_TYPE_NODE_DEVICE))
+#define GVIR_CONFIG_NODE_DEVICE_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GVIR_CONFIG_TYPE_NODE_DEVICE, GVirConfigNodeDeviceClass))
 
 typedef struct _GVirConfigNodeDevice GVirConfigNodeDevice;
 typedef struct _GVirConfigNodeDevicePrivate GVirConfigNodeDevicePrivate;

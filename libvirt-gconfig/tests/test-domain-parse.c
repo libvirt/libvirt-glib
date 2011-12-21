@@ -39,7 +39,7 @@ int main(int argc, char **argv)
     char *xml;
     GError *error = NULL;
 
-    gvir_init_config(&argc, &argv);
+    gvir_config_init(&argc, &argv);
     if (argc != 2) {
         g_print("Usage: %s filename\n", argv[0]);
         g_print("Attempt to parse the libvirt XML definition from filename\n");

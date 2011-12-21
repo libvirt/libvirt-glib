@@ -26,14 +26,14 @@
 #include "libvirt-gconfig/libvirt-gconfig-private.h"
 
 #define GVIR_CONFIG_DOMAIN_CHARDEV_SOURCE_PTY_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_CHARDEV_SOURCE_PTY, GVirConfigDomainChardevSourcePtyPrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_DOMAIN_CHARDEV_SOURCE_PTY, GVirConfigDomainChardevSourcePtyPrivate))
 
 struct _GVirConfigDomainChardevSourcePtyPrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainChardevSourcePty, gvir_config_domain_chardev_source_pty, GVIR_TYPE_CONFIG_DOMAIN_CHARDEV_SOURCE);
+G_DEFINE_TYPE(GVirConfigDomainChardevSourcePty, gvir_config_domain_chardev_source_pty, GVIR_CONFIG_TYPE_DOMAIN_CHARDEV_SOURCE);
 
 
 static void gvir_config_domain_chardev_source_pty_class_init(GVirConfigDomainChardevSourcePtyClass *klass)
@@ -58,7 +58,7 @@ GVirConfigDomainChardevSourcePty *gvir_config_domain_chardev_source_pty_new(void
      * overwritten when the GVirConfigDomainChardevSourcePty is attached to a
      * GVirConfigDomainChardevSourcePty
      */
-    object = gvir_config_object_new(GVIR_TYPE_CONFIG_DOMAIN_CHARDEV_SOURCE_PTY, "dummy", NULL);
+    object = gvir_config_object_new(GVIR_CONFIG_TYPE_DOMAIN_CHARDEV_SOURCE_PTY, "dummy", NULL);
     gvir_config_object_set_attribute(object, "type", "pty", NULL);
     return GVIR_CONFIG_DOMAIN_CHARDEV_SOURCE_PTY(object);
 }
@@ -73,7 +73,7 @@ GVirConfigDomainChardevSourcePty *gvir_config_domain_chardev_source_pty_new_from
      * overwritten when the GVirConfigDomainChardevSourcePty is attached to a
      * GVirConfigDomainChardevSourcePty
      */
-    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_DOMAIN_CHARDEV_SOURCE_PTY,
+    object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_DOMAIN_CHARDEV_SOURCE_PTY,
                                              "dummy", NULL, xml, error);
     gvir_config_object_set_attribute(object, "type", "pty", NULL);
     return GVIR_CONFIG_DOMAIN_CHARDEV_SOURCE_PTY(object);
@@ -83,11 +83,11 @@ void gvir_config_domain_source_pty_set_path(GVirConfigDomainChardevSourcePty *pt
                                             const char *path)
 {
     GVirConfigObject *source;
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_CHARDEV_SOURCE_PTY(pty));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_CHARDEV_SOURCE_PTY(pty));
 
     source = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(pty),
                                               "source");
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(source));
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(source));
     gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(source),
                                         "path", path);
     g_object_unref(G_OBJECT(source));

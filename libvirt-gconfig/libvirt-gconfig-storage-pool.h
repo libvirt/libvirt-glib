@@ -32,12 +32,12 @@
 
 G_BEGIN_DECLS
 
-#define GVIR_TYPE_CONFIG_STORAGE_POOL            (gvir_config_storage_pool_get_type ())
-#define GVIR_CONFIG_STORAGE_POOL(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GVIR_TYPE_CONFIG_STORAGE_POOL, GVirConfigStoragePool))
-#define GVIR_CONFIG_STORAGE_POOL_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GVIR_TYPE_CONFIG_STORAGE_POOL, GVirConfigStoragePoolClass))
-#define GVIR_IS_CONFIG_STORAGE_POOL(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GVIR_TYPE_CONFIG_STORAGE_POOL))
-#define GVIR_IS_CONFIG_STORAGE_POOL_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GVIR_TYPE_CONFIG_STORAGE_POOL))
-#define GVIR_CONFIG_STORAGE_POOL_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GVIR_TYPE_CONFIG_STORAGE_POOL, GVirConfigStoragePoolClass))
+#define GVIR_CONFIG_TYPE_STORAGE_POOL            (gvir_config_storage_pool_get_type ())
+#define GVIR_CONFIG_STORAGE_POOL(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GVIR_CONFIG_TYPE_STORAGE_POOL, GVirConfigStoragePool))
+#define GVIR_CONFIG_STORAGE_POOL_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GVIR_CONFIG_TYPE_STORAGE_POOL, GVirConfigStoragePoolClass))
+#define GVIR_CONFIG_IS_STORAGE_POOL(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GVIR_CONFIG_TYPE_STORAGE_POOL))
+#define GVIR_CONFIG_IS_STORAGE_POOL_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GVIR_CONFIG_TYPE_STORAGE_POOL))
+#define GVIR_CONFIG_STORAGE_POOL_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GVIR_CONFIG_TYPE_STORAGE_POOL, GVirConfigStoragePoolClass))
 
 typedef struct _GVirConfigStoragePool GVirConfigStoragePool;
 typedef struct _GVirConfigStoragePoolPrivate GVirConfigStoragePoolPrivate;

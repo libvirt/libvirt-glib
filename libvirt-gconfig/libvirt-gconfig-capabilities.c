@@ -26,14 +26,14 @@
 #include "libvirt-gconfig/libvirt-gconfig.h"
 
 #define GVIR_CONFIG_CAPABILITIES_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_CAPABILITIES, GVirConfigCapabilitiesPrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_CAPABILITIES, GVirConfigCapabilitiesPrivate))
 
 struct _GVirConfigCapabilitiesPrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigCapabilities, gvir_config_capabilities, GVIR_TYPE_CONFIG_OBJECT);
+G_DEFINE_TYPE(GVirConfigCapabilities, gvir_config_capabilities, GVIR_CONFIG_TYPE_OBJECT);
 
 
 static void gvir_config_capabilities_class_init(GVirConfigCapabilitiesClass *klass)
@@ -56,7 +56,7 @@ GVirConfigCapabilities *gvir_config_capabilities_new(void)
 
     /* FIXME: what is the XML root of the capability node? I suspect it is
      * either 'guest' or 'host' */
-    object = gvir_config_object_new(GVIR_TYPE_CONFIG_CAPABILITIES,
+    object = gvir_config_object_new(GVIR_CONFIG_TYPE_CAPABILITIES,
                                     "capabilities",
                                     DATADIR "/libvirt/schemas/capability.rng");
     return GVIR_CONFIG_CAPABILITIES(object);
@@ -69,7 +69,7 @@ GVirConfigCapabilities *gvir_config_capabilities_new_from_xml(const gchar *xml,
 
     /* FIXME: what is the XML root of the capability node? I suspect it is
      * either 'guest' or 'host' */
-    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_CAPABILITIES,
+    object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_CAPABILITIES,
                                              "capabilities",
                                              DATADIR "/libvirt/schemas/capability.rng",
                                              xml, error);

@@ -25,14 +25,14 @@
 #include "libvirt-gconfig/libvirt-gconfig.h"
 
 #define GVIR_CONFIG_DOMAIN_CHARDEV_SOURCE_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_CHARDEV_SOURCE, GVirConfigDomainChardevSourcePrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_DOMAIN_CHARDEV_SOURCE, GVirConfigDomainChardevSourcePrivate))
 
 struct _GVirConfigDomainChardevSourcePrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_ABSTRACT_TYPE(GVirConfigDomainChardevSource, gvir_config_domain_chardev_source, GVIR_TYPE_CONFIG_OBJECT);
+G_DEFINE_ABSTRACT_TYPE(GVirConfigDomainChardevSource, gvir_config_domain_chardev_source, GVIR_CONFIG_TYPE_OBJECT);
 
 
 static void gvir_config_domain_chardev_source_class_init(GVirConfigDomainChardevSourceClass *klass)

@@ -26,14 +26,14 @@
 #include "libvirt-gconfig/libvirt-gconfig-private.h"
 
 #define GVIR_CONFIG_DOMAIN_DEVICE_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_DEVICE, GVirConfigDomainDevicePrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_DOMAIN_DEVICE, GVirConfigDomainDevicePrivate))
 
 struct _GVirConfigDomainDevicePrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_ABSTRACT_TYPE(GVirConfigDomainDevice, gvir_config_domain_device, GVIR_TYPE_CONFIG_OBJECT);
+G_DEFINE_ABSTRACT_TYPE(GVirConfigDomainDevice, gvir_config_domain_device, GVIR_CONFIG_TYPE_OBJECT);
 
 
 static void gvir_config_domain_device_class_init(GVirConfigDomainDeviceClass *klass)
@@ -55,14 +55,14 @@ gvir_config_domain_device_new_from_tree(GVirConfigXmlDoc *doc,
 {
     GType type;
 
-    g_return_val_if_fail(GVIR_IS_CONFIG_XML_DOC(doc), NULL);
+    g_return_val_if_fail(GVIR_CONFIG_IS_XML_DOC(doc), NULL);
     g_return_val_if_fail(tree != NULL, NULL);
     g_return_val_if_fail(tree->name != NULL, NULL);
 
     if (xmlStrEqual(tree->name, (xmlChar*)"disk")) {
         return gvir_config_domain_disk_new_from_tree(doc, tree);
     } else if (xmlStrEqual(tree->name, (xmlChar*)"filesystem")) {
-        type = GVIR_TYPE_CONFIG_DOMAIN_FILESYS;
+        type = GVIR_CONFIG_TYPE_DOMAIN_FILESYS;
     } else if (xmlStrEqual(tree->name, (xmlChar*)"controller")) {
         goto unimplemented;
     } else if (xmlStrEqual(tree->name, (xmlChar*)"lease")) {
@@ -76,33 +76,33 @@ gvir_config_domain_device_new_from_tree(GVirConfigXmlDoc *doc,
     } else if (xmlStrEqual(tree->name, (xmlChar*)"interface")) {
         return gvir_config_domain_interface_new_from_tree(doc, tree);
     } else if (xmlStrEqual(tree->name, (xmlChar*)"input")) {
-        type = GVIR_TYPE_CONFIG_DOMAIN_INPUT;
+        type = GVIR_CONFIG_TYPE_DOMAIN_INPUT;
     } else if (xmlStrEqual(tree->name, (xmlChar*)"hub")) {
         goto unimplemented;
     } else if (xmlStrEqual(tree->name, (xmlChar*)"graphics")) {
         return gvir_config_domain_graphics_new_from_tree(doc, tree);
     } else if (xmlStrEqual(tree->name, (xmlChar*)"video")) {
-        type = GVIR_TYPE_CONFIG_DOMAIN_VIDEO;
+        type = GVIR_CONFIG_TYPE_DOMAIN_VIDEO;
     } else if (xmlStrEqual(tree->name, (xmlChar*)"parallel")) {
         goto unimplemented;
     } else if (xmlStrEqual(tree->name, (xmlChar*)"serial")) {
         goto unimplemented;
     } else if (xmlStrEqual(tree->name, (xmlChar*)"console")) {
-        type = GVIR_TYPE_CONFIG_DOMAIN_CONSOLE;
+        type = GVIR_CONFIG_TYPE_DOMAIN_CONSOLE;
     } else if (xmlStrEqual(tree->name, (xmlChar*)"channel")) {
         goto unimplemented;
     } else if (xmlStrEqual(tree->name, (xmlChar*)"watchdog")) {
         goto unimplemented;
     } else if (xmlStrEqual(tree->name, (xmlChar*)"sound")) {
-        type = GVIR_TYPE_CONFIG_DOMAIN_SOUND;
+        type = GVIR_CONFIG_TYPE_DOMAIN_SOUND;
     } else if (xmlStrEqual(tree->name, (xmlChar*)"memballoon")) {
-        type = GVIR_TYPE_CONFIG_DOMAIN_MEMBALLOON;
+        type = GVIR_CONFIG_TYPE_DOMAIN_MEMBALLOON;
     } else {
         g_debug("Unknown device node: %s", tree->name);
         return NULL;
     }
 
-    g_return_val_if_fail(g_type_is_a(type, GVIR_TYPE_CONFIG_DOMAIN_DEVICE), NULL);
+    g_return_val_if_fail(g_type_is_a(type, GVIR_CONFIG_TYPE_DOMAIN_DEVICE), NULL);
 
     return GVIR_CONFIG_DOMAIN_DEVICE(gvir_config_object_new_from_tree(type, doc, NULL, tree));
 unimplemented:

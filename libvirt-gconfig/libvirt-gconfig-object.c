@@ -31,7 +31,7 @@
 #include "libvirt-gconfig/libvirt-gconfig-private.h"
 
 #define GVIR_CONFIG_OBJECT_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_OBJECT, GVirConfigObjectPrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_OBJECT, GVirConfigObjectPrivate))
 
 struct _GVirConfigObjectPrivate
 {
@@ -172,7 +172,7 @@ static void gvir_config_object_class_init(GVirConfigObjectClass *klass)
                                     g_param_spec_object("doc",
                                                         "XML Doc",
                                                         "The XML doc this config object corresponds to",
-                                                        GVIR_TYPE_CONFIG_XML_DOC,
+                                                        GVIR_CONFIG_TYPE_XML_DOC,
                                                         G_PARAM_READWRITE |
                                                         G_PARAM_CONSTRUCT_ONLY |
                                                         G_PARAM_STATIC_STRINGS));
@@ -367,7 +367,7 @@ gvir_config_object_foreach_child(GVirConfigObject *object,
     xmlNodePtr root_node;
     xmlNodePtr node;
 
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(object));
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(object));
 
     root_node = gvir_config_object_get_xml_node(object);
     g_return_if_fail(root_node != NULL);
@@ -386,7 +386,7 @@ gvir_config_object_add_child(GVirConfigObject *object,
     xmlNodePtr new_node;
     xmlNodePtr old_node;
 
-    g_return_val_if_fail(GVIR_IS_CONFIG_OBJECT(object), NULL);
+    g_return_val_if_fail(GVIR_CONFIG_IS_OBJECT(object), NULL);
     g_return_val_if_fail(child_name != NULL, NULL);
 
     new_node = xmlNewDocNode(NULL, NULL, (xmlChar *)child_name, NULL);
@@ -394,13 +394,13 @@ gvir_config_object_add_child(GVirConfigObject *object,
                                                      FALSE);
     if (old_node != NULL) {
         xmlFreeNode(new_node);
-        return GVIR_CONFIG_OBJECT(g_object_new(GVIR_TYPE_CONFIG_OBJECT,
+        return GVIR_CONFIG_OBJECT(g_object_new(GVIR_CONFIG_TYPE_OBJECT,
                                                "doc", object->priv->doc,
                                                "node", old_node,
                                                NULL));
     }
 
-    return GVIR_CONFIG_OBJECT(g_object_new(GVIR_TYPE_CONFIG_OBJECT,
+    return GVIR_CONFIG_OBJECT(g_object_new(GVIR_CONFIG_TYPE_OBJECT,
                                            "doc", object->priv->doc,
                                            "node", new_node,
                                            NULL));
@@ -425,13 +425,13 @@ gvir_config_object_replace_child(GVirConfigObject *object,
 {
     xmlNodePtr new_node;
 
-    g_return_val_if_fail(GVIR_IS_CONFIG_OBJECT(object), NULL);
+    g_return_val_if_fail(GVIR_CONFIG_IS_OBJECT(object), NULL);
     g_return_val_if_fail(child_name != NULL, NULL);
 
     new_node = xmlNewDocNode(NULL, NULL, (xmlChar *)child_name, NULL);
     gvir_config_object_set_child_internal(object, new_node, TRUE);
 
-    return GVIR_CONFIG_OBJECT(g_object_new(GVIR_TYPE_CONFIG_OBJECT,
+    return GVIR_CONFIG_OBJECT(g_object_new(GVIR_CONFIG_TYPE_OBJECT,
                                            "doc", object->priv->doc,
                                            "node", new_node,
                                            NULL));
@@ -457,7 +457,7 @@ gvir_config_object_delete_child(GVirConfigObject *object,
     xmlNodePtr parent_node;
     xmlNodePtr old_node;
 
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(object));
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(object));
     g_return_if_fail(child_name != NULL);
 
     parent_node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(object));
@@ -482,7 +482,7 @@ gvir_config_object_set_node_content(GVirConfigObject *object,
     xmlChar *encoded_data;
     GVirConfigObject *node;
 
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(object));
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(object));
     g_return_if_fail(node_name != NULL);
     g_return_if_fail(value != NULL);
 
@@ -502,7 +502,7 @@ gvir_config_object_set_node_content_uint64(GVirConfigObject *object,
 {
     char *str;
 
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(object));
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(object));
     g_return_if_fail(node_name != NULL);
 
     str = g_strdup_printf("%"G_GUINT64_FORMAT, value);
@@ -619,8 +619,8 @@ G_GNUC_INTERNAL GVirConfigObject *
 gvir_config_object_new_from_tree(GType type, GVirConfigXmlDoc *doc,
                                  const char *schema, xmlNodePtr tree)
 {
-    g_return_val_if_fail(g_type_is_a(type, GVIR_TYPE_CONFIG_OBJECT), NULL);
-    g_return_val_if_fail(GVIR_IS_CONFIG_XML_DOC(doc), NULL);
+    g_return_val_if_fail(g_type_is_a(type, GVIR_CONFIG_TYPE_OBJECT), NULL);
+    g_return_val_if_fail(GVIR_CONFIG_IS_XML_DOC(doc), NULL);
     g_return_val_if_fail(tree != NULL, NULL);
 
     return GVIR_CONFIG_OBJECT(g_object_new(type,
@@ -661,7 +661,7 @@ gvir_config_object_set_attribute(GVirConfigObject *object, ...)
     xmlDocPtr doc;
     va_list args;
 
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(object));
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(object));
 
     g_object_get(G_OBJECT(object->priv->doc), "doc", &doc, NULL);
     va_start(args, object);
@@ -692,7 +692,7 @@ gvir_config_object_set_attribute_with_type(GVirConfigObject *object, ...)
 {
     va_list args;
 
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(object));
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(object));
 
     va_start(args, object);
     while (TRUE) {
@@ -770,8 +770,8 @@ gvir_config_object_set_attribute_with_type(GVirConfigObject *object, ...)
 G_GNUC_INTERNAL void
 gvir_config_object_attach(GVirConfigObject *parent, GVirConfigObject *child)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(parent));
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(child));
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(parent));
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(child));
 
     xmlUnlinkNode(child->priv->node);
     xmlAddChild(parent->priv->node, child->priv->node);

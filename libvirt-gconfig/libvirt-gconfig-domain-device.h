@@ -29,12 +29,12 @@
 
 G_BEGIN_DECLS
 
-#define GVIR_TYPE_CONFIG_DOMAIN_DEVICE            (gvir_config_domain_device_get_type ())
-#define GVIR_CONFIG_DOMAIN_DEVICE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GVIR_TYPE_CONFIG_DOMAIN_DEVICE, GVirConfigDomainDevice))
-#define GVIR_CONFIG_DOMAIN_DEVICE_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GVIR_TYPE_CONFIG_DOMAIN_DEVICE, GVirConfigDomainDeviceClass))
-#define GVIR_IS_CONFIG_DOMAIN_DEVICE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GVIR_TYPE_CONFIG_DOMAIN_DEVICE))
-#define GVIR_IS_CONFIG_DOMAIN_DEVICE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GVIR_TYPE_CONFIG_DOMAIN_DEVICE))
-#define GVIR_CONFIG_DOMAIN_DEVICE_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GVIR_TYPE_CONFIG_DOMAIN_DEVICE, GVirConfigDomainDeviceClass))
+#define GVIR_CONFIG_TYPE_DOMAIN_DEVICE            (gvir_config_domain_device_get_type ())
+#define GVIR_CONFIG_DOMAIN_DEVICE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GVIR_CONFIG_TYPE_DOMAIN_DEVICE, GVirConfigDomainDevice))
+#define GVIR_CONFIG_DOMAIN_DEVICE_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GVIR_CONFIG_TYPE_DOMAIN_DEVICE, GVirConfigDomainDeviceClass))
+#define GVIR_CONFIG_IS_DOMAIN_DEVICE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GVIR_CONFIG_TYPE_DOMAIN_DEVICE))
+#define GVIR_CONFIG_IS_DOMAIN_DEVICE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GVIR_CONFIG_TYPE_DOMAIN_DEVICE))
+#define GVIR_CONFIG_DOMAIN_DEVICE_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GVIR_CONFIG_TYPE_DOMAIN_DEVICE, GVirConfigDomainDeviceClass))
 
 typedef struct _GVirConfigDomainDevice GVirConfigDomainDevice;
 typedef struct _GVirConfigDomainDevicePrivate GVirConfigDomainDevicePrivate;

@@ -26,14 +26,14 @@
 #include "libvirt-gconfig/libvirt-gconfig-private.h"
 
 #define GVIR_CONFIG_STORAGE_PERMISSIONS_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_STORAGE_PERMISSIONS, GVirConfigStoragePermissionsPrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_STORAGE_PERMISSIONS, GVirConfigStoragePermissionsPrivate))
 
 struct _GVirConfigStoragePermissionsPrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigStoragePermissions, gvir_config_storage_permissions, GVIR_TYPE_CONFIG_OBJECT);
+G_DEFINE_TYPE(GVirConfigStoragePermissions, gvir_config_storage_permissions, GVIR_CONFIG_TYPE_OBJECT);
 
 
 static void gvir_config_storage_permissions_class_init(GVirConfigStoragePermissionsClass *klass)
@@ -54,7 +54,7 @@ GVirConfigStoragePermissions *gvir_config_storage_permissions_new(void)
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new(GVIR_TYPE_CONFIG_STORAGE_PERMISSIONS,
+    object = gvir_config_object_new(GVIR_CONFIG_TYPE_STORAGE_PERMISSIONS,
                                     "permissions", NULL);
     return GVIR_CONFIG_STORAGE_PERMISSIONS(object);
 }
@@ -64,7 +64,7 @@ GVirConfigStoragePermissions *gvir_config_storage_permissions_new_from_xml(const
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_STORAGE_PERMISSIONS,
+    object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_STORAGE_PERMISSIONS,
                                              "permissions", NULL,
                                              xml, error);
     return GVIR_CONFIG_STORAGE_PERMISSIONS(object);
@@ -73,7 +73,7 @@ GVirConfigStoragePermissions *gvir_config_storage_permissions_new_from_xml(const
 void gvir_config_storage_permissions_set_group(GVirConfigStoragePermissions *perms,
                                                guint group)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_PERMISSIONS(perms));
+    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_PERMISSIONS(perms));
 
     gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(perms),
                                                "group", group);
@@ -82,7 +82,7 @@ void gvir_config_storage_permissions_set_group(GVirConfigStoragePermissions *per
 void gvir_config_storage_permissions_set_label(GVirConfigStoragePermissions *perms,
                                                const char *label)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_PERMISSIONS(perms));
+    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_PERMISSIONS(perms));
 
     gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(perms),
                                         "label", label);
@@ -91,7 +91,7 @@ void gvir_config_storage_permissions_set_label(GVirConfigStoragePermissions *per
 void gvir_config_storage_permissions_set_mode(GVirConfigStoragePermissions *perms,
                                               guint mode)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_PERMISSIONS(perms));
+    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_PERMISSIONS(perms));
 
     gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(perms),
                                                "mode", mode);
@@ -100,7 +100,7 @@ void gvir_config_storage_permissions_set_mode(GVirConfigStoragePermissions *perm
 void gvir_config_storage_permissions_set_owner(GVirConfigStoragePermissions *perms,
                                                guint owner)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_STORAGE_PERMISSIONS(perms));
+    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_PERMISSIONS(perms));
 
     gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(perms),
                                                "owner", owner);

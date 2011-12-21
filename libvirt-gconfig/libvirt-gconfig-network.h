@@ -29,12 +29,12 @@
 
 G_BEGIN_DECLS
 
-#define GVIR_TYPE_CONFIG_NETWORK            (gvir_config_network_get_type ())
-#define GVIR_CONFIG_NETWORK(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GVIR_TYPE_CONFIG_NETWORK, GVirConfigNetwork))
-#define GVIR_CONFIG_NETWORK_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GVIR_TYPE_CONFIG_NETWORK, GVirConfigNetworkClass))
-#define GVIR_IS_CONFIG_NETWORK(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GVIR_TYPE_CONFIG_NETWORK))
-#define GVIR_IS_CONFIG_NETWORK_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GVIR_TYPE_CONFIG_NETWORK))
-#define GVIR_CONFIG_NETWORK_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GVIR_TYPE_CONFIG_NETWORK, GVirConfigNetworkClass))
+#define GVIR_CONFIG_TYPE_NETWORK            (gvir_config_network_get_type ())
+#define GVIR_CONFIG_NETWORK(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GVIR_CONFIG_TYPE_NETWORK, GVirConfigNetwork))
+#define GVIR_CONFIG_NETWORK_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GVIR_CONFIG_TYPE_NETWORK, GVirConfigNetworkClass))
+#define GVIR_CONFIG_IS_NETWORK(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GVIR_CONFIG_TYPE_NETWORK))
+#define GVIR_CONFIG_IS_NETWORK_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GVIR_CONFIG_TYPE_NETWORK))
+#define GVIR_CONFIG_NETWORK_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GVIR_CONFIG_TYPE_NETWORK, GVirConfigNetworkClass))
 
 typedef struct _GVirConfigNetwork GVirConfigNetwork;
 typedef struct _GVirConfigNetworkPrivate GVirConfigNetworkPrivate;

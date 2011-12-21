@@ -26,14 +26,14 @@
 #include "libvirt-gconfig/libvirt-gconfig.h"
 
 #define GVIR_CONFIG_SECRET_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_SECRET, GVirConfigSecretPrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_SECRET, GVirConfigSecretPrivate))
 
 struct _GVirConfigSecretPrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigSecret, gvir_config_secret, GVIR_TYPE_CONFIG_OBJECT);
+G_DEFINE_TYPE(GVirConfigSecret, gvir_config_secret, GVIR_CONFIG_TYPE_OBJECT);
 
 
 static void gvir_config_secret_class_init(GVirConfigSecretClass *klass)
@@ -54,7 +54,7 @@ GVirConfigSecret *gvir_config_secret_new(void)
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new(GVIR_TYPE_CONFIG_SECRET,
+    object = gvir_config_object_new(GVIR_CONFIG_TYPE_SECRET,
                                     "secret",
                                     DATADIR "/libvirt/schemas/secret.rng");
     return GVIR_CONFIG_SECRET(object);
@@ -65,7 +65,7 @@ GVirConfigSecret *gvir_config_secret_new_from_xml(const gchar *xml,
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_SECRET,
+    object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_SECRET,
                                              "secret",
                                              DATADIR "/libvirt/schemas/secret.rng",
                                              xml, error);

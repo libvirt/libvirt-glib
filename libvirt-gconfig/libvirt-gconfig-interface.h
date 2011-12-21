@@ -29,12 +29,12 @@
 
 G_BEGIN_DECLS
 
-#define GVIR_TYPE_CONFIG_INTERFACE            (gvir_config_interface_get_type ())
-#define GVIR_CONFIG_INTERFACE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GVIR_TYPE_CONFIG_INTERFACE, GVirConfigInterface))
-#define GVIR_CONFIG_INTERFACE_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GVIR_TYPE_CONFIG_INTERFACE, GVirConfigInterfaceClass))
-#define GVIR_IS_CONFIG_INTERFACE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GVIR_TYPE_CONFIG_INTERFACE))
-#define GVIR_IS_CONFIG_INTERFACE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GVIR_TYPE_CONFIG_INTERFACE))
-#define GVIR_CONFIG_INTERFACE_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GVIR_TYPE_CONFIG_INTERFACE, GVirConfigInterfaceClass))
+#define GVIR_CONFIG_TYPE_INTERFACE            (gvir_config_interface_get_type ())
+#define GVIR_CONFIG_INTERFACE(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GVIR_CONFIG_TYPE_INTERFACE, GVirConfigInterface))
+#define GVIR_CONFIG_INTERFACE_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GVIR_CONFIG_TYPE_INTERFACE, GVirConfigInterfaceClass))
+#define GVIR_CONFIG_IS_INTERFACE(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GVIR_CONFIG_TYPE_INTERFACE))
+#define GVIR_CONFIG_IS_INTERFACE_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GVIR_CONFIG_TYPE_INTERFACE))
+#define GVIR_CONFIG_INTERFACE_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GVIR_CONFIG_TYPE_INTERFACE, GVirConfigInterfaceClass))
 
 typedef struct _GVirConfigInterface GVirConfigInterface;
 typedef struct _GVirConfigInterfacePrivate GVirConfigInterfacePrivate;

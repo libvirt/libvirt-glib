@@ -29,12 +29,12 @@
 
 G_BEGIN_DECLS
 
-#define GVIR_TYPE_CONFIG_DOMAIN_VIDEO            (gvir_config_domain_video_get_type ())
-#define GVIR_CONFIG_DOMAIN_VIDEO(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GVIR_TYPE_CONFIG_DOMAIN_VIDEO, GVirConfigDomainVideo))
-#define GVIR_CONFIG_DOMAIN_VIDEO_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GVIR_TYPE_CONFIG_DOMAIN_VIDEO, GVirConfigDomainVideoClass))
-#define GVIR_IS_CONFIG_DOMAIN_VIDEO(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GVIR_TYPE_CONFIG_DOMAIN_VIDEO))
-#define GVIR_IS_CONFIG_DOMAIN_VIDEO_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GVIR_TYPE_CONFIG_DOMAIN_VIDEO))
-#define GVIR_CONFIG_DOMAIN_VIDEO_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GVIR_TYPE_CONFIG_DOMAIN_VIDEO, GVirConfigDomainVideoClass))
+#define GVIR_CONFIG_TYPE_DOMAIN_VIDEO            (gvir_config_domain_video_get_type ())
+#define GVIR_CONFIG_DOMAIN_VIDEO(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GVIR_CONFIG_TYPE_DOMAIN_VIDEO, GVirConfigDomainVideo))
+#define GVIR_CONFIG_DOMAIN_VIDEO_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), GVIR_CONFIG_TYPE_DOMAIN_VIDEO, GVirConfigDomainVideoClass))
+#define GVIR_CONFIG_IS_DOMAIN_VIDEO(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GVIR_CONFIG_TYPE_DOMAIN_VIDEO))
+#define GVIR_CONFIG_IS_DOMAIN_VIDEO_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), GVIR_CONFIG_TYPE_DOMAIN_VIDEO))
+#define GVIR_CONFIG_DOMAIN_VIDEO_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), GVIR_CONFIG_TYPE_DOMAIN_VIDEO, GVirConfigDomainVideoClass))
 
 typedef struct _GVirConfigDomainVideo GVirConfigDomainVideo;
 typedef struct _GVirConfigDomainVideoPrivate GVirConfigDomainVideoPrivate;

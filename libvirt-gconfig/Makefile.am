@@ -139,11 +139,11 @@ CLEANFILES = $(BUILT_SOURCES)
 
 libvirt-gconfig-enum-types.h: $(GCONFIG_HEADER_FILES) libvirt-gconfig-enum-types.h.template
 	$(AM_V_GEN) ( $(GLIB_MKENUMS) --template $(srcdir)/libvirt-gconfig-enum-types.h.template $(GCONFIG_HEADER_FILES:%=$(srcdir)/%) ) | \
-	    sed -e "s/G_TYPE_VIR/GVIR_TYPE/" -e "s/g_vir/gvir/" > libvirt-gconfig-enum-types.h
+	    sed -e "s/G_TYPE_VIR_CONFIG/GVIR_CONFIG_TYPE/" -e "s/g_vir/gvir/" > libvirt-gconfig-enum-types.h
 
 libvirt-gconfig-enum-types.c: $(GCONFIG_HEADER_FILES) libvirt-gconfig-enum-types.c.template
 	$(AM_V_GEN) ( $(GLIB_MKENUMS) --template $(srcdir)/libvirt-gconfig-enum-types.c.template $(GCONFIG_HEADER_FILES:%=$(srcdir)/%) ) | \
-	    sed -e "s/G_TYPE_VIR/GVIR_TYPE/" -e "s/g_vir/gvir/" > libvirt-gconfig-enum-types.c
+	    sed -e "s/G_TYPE_VIR_CONFIG/GVIR_CONFIG_TYPE/" -e "s/g_vir/gvir/" > libvirt-gconfig-enum-types.c
 
 if WITH_GOBJECT_INTROSPECTION
 
@@ -155,7 +155,7 @@ LibvirtGConfig-1.0.gir: libvirt-gconfig-1.0.la $(G_IR_SCANNER) Makefile.am
                 --nsversion 1.0 \
                 --include GObject-2.0 \
                 --identifier-prefix=GVirConfig \
-                --symbol-prefix=gvir \
+                --symbol-prefix=gvir_config \
                 --library=$(builddir)/libvirt-gconfig-1.0.la \
                 --output $@ \
                 -I$(top_builddir) \

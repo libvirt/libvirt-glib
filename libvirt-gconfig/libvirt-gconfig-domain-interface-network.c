@@ -28,14 +28,14 @@
 #include "libvirt-gconfig/libvirt-gconfig-private.h"
 
 #define GVIR_CONFIG_DOMAIN_INTERFACE_NETWORK_GET_PRIVATE(obj)                         \
-        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_CONFIG_DOMAIN_INTERFACE_NETWORK, GVirConfigDomainInterfaceNetworkPrivate))
+        (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_DOMAIN_INTERFACE_NETWORK, GVirConfigDomainInterfaceNetworkPrivate))
 
 struct _GVirConfigDomainInterfaceNetworkPrivate
 {
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainInterfaceNetwork, gvir_config_domain_interface_network, GVIR_TYPE_CONFIG_DOMAIN_INTERFACE);
+G_DEFINE_TYPE(GVirConfigDomainInterfaceNetwork, gvir_config_domain_interface_network, GVIR_CONFIG_TYPE_DOMAIN_INTERFACE);
 
 
 static void gvir_config_domain_interface_network_class_init(GVirConfigDomainInterfaceNetworkClass *klass)
@@ -56,7 +56,7 @@ GVirConfigDomainInterfaceNetwork *gvir_config_domain_interface_network_new(void)
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new(GVIR_TYPE_CONFIG_DOMAIN_INTERFACE_NETWORK,
+    object = gvir_config_object_new(GVIR_CONFIG_TYPE_DOMAIN_INTERFACE_NETWORK,
                                     "interface", NULL);
     gvir_config_object_set_attribute(object, "type", "network", NULL);
     return GVIR_CONFIG_DOMAIN_INTERFACE_NETWORK(object);
@@ -67,7 +67,7 @@ GVirConfigDomainInterfaceNetwork *gvir_config_domain_interface_network_new_from_
 {
     GVirConfigObject *object;
 
-    object = gvir_config_object_new_from_xml(GVIR_TYPE_CONFIG_DOMAIN_INTERFACE_NETWORK,
+    object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_DOMAIN_INTERFACE_NETWORK,
                                              "interface", NULL, xml, error);
     if (object == NULL)
         return NULL;
@@ -78,7 +78,7 @@ GVirConfigDomainInterfaceNetwork *gvir_config_domain_interface_network_new_from_
 void gvir_config_domain_interface_network_set_source(GVirConfigDomainInterfaceNetwork *interface,
                                                      const char *source)
 {
-    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_INTERFACE_NETWORK(interface));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_INTERFACE_NETWORK(interface));
 
     gvir_config_object_replace_child_with_attribute(GVIR_CONFIG_OBJECT(interface),
                                                     "source", "network", source);
