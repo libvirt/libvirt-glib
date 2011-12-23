@@ -155,6 +155,17 @@ gboolean gvir_domain_open_graphics(GVirDomain *dom,
 
 gboolean gvir_domain_suspend (GVirDomain *dom,
                               GError **err);
+gboolean gvir_domain_save (GVirDomain *dom,
+                           unsigned int flags,
+                           GError **err);
+void gvir_domain_save_async (GVirDomain *dom,
+                             unsigned int flags,
+                             GCancellable *cancellable,
+                             GAsyncReadyCallback callback,
+                             gpointer user_data);
+gboolean gvir_domain_save_finish (GVirDomain *dom,
+                                  GAsyncResult *result,
+                                  GError **err);
 
 G_END_DECLS
 

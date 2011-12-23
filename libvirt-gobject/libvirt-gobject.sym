@@ -52,6 +52,9 @@ LIBVIRT_GOBJECT_0.0.3 {
 	gvir_domain_resume;
 	gvir_domain_stop;
 	gvir_domain_suspend;
+	gvir_domain_save;
+	gvir_domain_save_async;
+	gvir_domain_save_finish;
 	gvir_domain_delete;
 	gvir_domain_open_console;
 	gvir_domain_open_graphics;

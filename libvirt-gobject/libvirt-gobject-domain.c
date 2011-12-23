@@ -708,3 +708,119 @@ gboolean gvir_domain_suspend (GVirDomain *dom,
 cleanup:
     return ret;
 }
+
+/**
+ * gvir_domain_save:
+ * @dom: the domain to save and suspend
+ * @flags: extra flags, currently unused
+ * @err: Place-holder for possible errors
+ *
+ * Just like #gvir_domain_suspend but also saves the state of the domain on disk
+ * and therefore makes it possible to restore the domain to its previous state
+ * even after shutdown/reboot of host machine.
+ *
+ * Returns: TRUE if domain was saved and suspended successfully, FALSE otherwise.
+ */
+gboolean gvir_domain_save (GVirDomain *dom,
+                           unsigned int flags,
+                           GError **err)
+{
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
+
+    if (virDomainManagedSave(dom->priv->handle, flags) < 0) {
+        gvir_set_error_literal(err, GVIR_DOMAIN_ERROR,
+                               0,
+                               "Unable to save and suspend domain");
+        return FALSE;
+    }
+
+    return TRUE;
+}
+
+typedef struct {
+    guint flags;
+} DomainSaveData;
+
+static void domain_save_data_free(DomainSaveData *data)
+{
+    g_slice_free (DomainSaveData, data);
+}
+
+static void
+gvir_domain_save_helper(GSimpleAsyncResult *res,
+                        GObject *object,
+                        GCancellable *cancellable G_GNUC_UNUSED)
+{
+    GVirDomain *dom = GVIR_DOMAIN(object);
+    DomainSaveData *data;
+    GError *err = NULL;
+
+    data = g_simple_async_result_get_op_res_gpointer (res);
+
+    if (!gvir_domain_save(dom, data->flags, &err))
+        g_simple_async_result_take_error(res, err);
+}
+
+/**
+ * gir_domain_save_async:
+ * @dom: the domain to save and suspend
+ * @flags: extra flags, currently unused
+ * @cancellable: (allow-none)(transfer none): cancellation object
+ * @callback: (scope async): completion callback
+ * @user_data: (closure): opaque data for callback
+ *
+ * Asynchronous variant of #gvir_domain_save.
+ */
+void gvir_domain_save_async (GVirDomain *dom,
+                             unsigned int flags,
+                             GCancellable *cancellable,
+                             GAsyncReadyCallback callback,
+                             gpointer user_data)
+{
+    GSimpleAsyncResult *res;
+    DomainSaveData *data;
+
+    g_return_if_fail(GVIR_IS_DOMAIN(dom));
+
+    data = g_slice_new0(DomainSaveData);
+    data->flags = flags;
+
+    res = g_simple_async_result_new(G_OBJECT(dom),
+                                    callback,
+                                    user_data,
+                                    gvir_domain_save);
+    g_simple_async_result_set_op_res_gpointer (res, data, (GDestroyNotify) domain_save_data_free);
+    g_simple_async_result_run_in_thread(res,
+                                        gvir_domain_save_helper,
+                                        G_PRIORITY_DEFAULT,
+                                        cancellable);
+    g_object_unref(res);
+}
+
+/**
+ * gir_domain_save_finish:
+ * @dom: the domain to save and suspend
+ * @result: (transfer none): async method result
+ * @err: Place-holder for possible errors
+ *
+ * Finishes the operation started by #gvir_domain_save_async.
+ *
+ * Returns: TRUE if domain was saved and suspended successfully, FALSE otherwise.
+ */
+gboolean gvir_domain_save_finish (GVirDomain *dom,
+                                  GAsyncResult *result,
+                                  GError **err)
+{
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
+    g_return_val_if_fail(G_IS_ASYNC_RESULT(result), FALSE);
+
+    if (G_IS_SIMPLE_ASYNC_RESULT(result)) {
+        GSimpleAsyncResult *simple = G_SIMPLE_ASYNC_RESULT(result);
+        g_warn_if_fail (g_simple_async_result_get_source_tag(simple) ==
+                        gvir_domain_save);
+        if (g_simple_async_result_propagate_error(simple, err))
+            return FALSE;
+    }
+
+    return TRUE;
+}
