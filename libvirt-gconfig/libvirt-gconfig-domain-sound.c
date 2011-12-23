@@ -72,15 +72,9 @@ GVirConfigDomainSound *gvir_config_domain_sound_new_from_xml(const gchar *xml,
 void gvir_config_domain_sound_set_model(GVirConfigDomainSound *sound,
                                         GVirConfigDomainSoundModel model)
 {
-    GVirConfigObject *node;
-
     g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_SOUND(sound));
-    node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(sound),
-                                            "sound");
-    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(node));
-    gvir_config_object_set_attribute_with_type(node, "model",
+    gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(sound), "model",
                                                GVIR_TYPE_CONFIG_DOMAIN_SOUND_MODEL,
                                                model,
                                                NULL);
-    g_object_unref(G_OBJECT(node));
 }
