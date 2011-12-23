@@ -153,6 +153,9 @@ gboolean gvir_domain_open_graphics(GVirDomain *dom,
                                    unsigned int flags,
                                    GError **err);
 
+gboolean gvir_domain_suspend (GVirDomain *dom,
+                              GError **err);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GOBJECT_DOMAIN_H__ */

@@ -678,3 +678,33 @@ gboolean gvir_domain_open_graphics(GVirDomain *dom,
 cleanup:
     return ret;
 }
+
+/**
+ * gir_domain_suspend:
+ * @dom: the domain to suspend
+ * @err: Place-holder for possible errors
+ *
+ * Suspends an active domain, the process is frozen without further access to
+ * CPU resources and I/O but the memory used by the domain at the hypervisor
+ * level will stay allocated. Use gvir_domain_resume() to reactivate the domain.
+ *
+ * Returns: TRUE if domain was suspended successfully, FALSE otherwise.
+ */
+gboolean gvir_domain_suspend (GVirDomain *dom,
+                              GError **err)
+{
+    gboolean ret = FALSE;
+
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
+
+    if (virDomainSuspend(dom->priv->handle) < 0) {
+        gvir_set_error_literal(err, GVIR_DOMAIN_ERROR,
+                               0,
+                               "Unable to suspend domain");
+        goto cleanup;
+    }
+
+    ret = TRUE;
+cleanup:
+    return ret;
+}
