@@ -96,6 +96,7 @@ LIBVIRT_GCONFIG_0.0.3 {
 	gvir_config_domain_graphics_spice_set_autoport;
 	gvir_config_domain_graphics_spice_set_port;
 	gvir_config_domain_graphics_spice_set_tls_port;
+	gvir_config_domain_graphics_spice_set_password;
 
 	gvir_config_domain_graphics_vnc_get_type;
 	gvir_config_domain_graphics_vnc_new;

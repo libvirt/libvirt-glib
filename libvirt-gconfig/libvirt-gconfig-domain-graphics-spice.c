@@ -85,6 +85,16 @@ void gvir_config_domain_graphics_spice_set_autoport(GVirConfigDomainGraphicsSpic
                                                NULL);
 }
 
+void gvir_config_domain_graphics_spice_set_password(GVirConfigDomainGraphicsSpice *graphics,
+                                                    const char *password)
+{
+    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_GRAPHICS_SPICE(graphics));
+
+    gvir_config_object_set_attribute(GVIR_CONFIG_OBJECT(graphics),
+                                     "passwd", password,
+                                     NULL);
+}
+
 void gvir_config_domain_graphics_spice_set_port(GVirConfigDomainGraphicsSpice *graphics,
                                                 int port)
 {

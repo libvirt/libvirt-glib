@@ -65,6 +65,9 @@ GVirConfigDomainGraphicsSpice *gvir_config_domain_graphics_spice_new_from_xml(co
 void gvir_config_domain_graphics_spice_set_autoport(GVirConfigDomainGraphicsSpice *graphics,
                                                     gboolean autoport);
 
+void gvir_config_domain_graphics_spice_set_password(GVirConfigDomainGraphicsSpice *graphics,
+                                                    const char *password);
+
 void gvir_config_domain_graphics_spice_set_port(GVirConfigDomainGraphicsSpice *graphics,
                                                 int port);
 
