@@ -95,3 +95,13 @@ void gvir_config_domain_graphics_vnc_set_port(GVirConfigDomainGraphicsVnc *graph
                                                "port", G_TYPE_INT, port,
                                                NULL);
 }
+
+void gvir_config_domain_graphics_vnc_set_password(GVirConfigDomainGraphicsVnc *graphics,
+                                                  const char *password)
+{
+    g_return_if_fail(GVIR_IS_CONFIG_DOMAIN_GRAPHICS_VNC(graphics));
+
+    gvir_config_object_set_attribute(GVIR_CONFIG_OBJECT(graphics),
+                                     "passwd", password,
+                                     NULL);
+}

@@ -68,6 +68,9 @@ void gvir_config_domain_graphics_vnc_set_autoport(GVirConfigDomainGraphicsVnc *g
 void gvir_config_domain_graphics_vnc_set_port(GVirConfigDomainGraphicsVnc *graphics,
                                               int port);
 
+void gvir_config_domain_graphics_vnc_set_password(GVirConfigDomainGraphicsVnc *graphics,
+                                                  const char *password);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GCONFIG_DOMAIN_GRAPHICS_VNC_H__ */

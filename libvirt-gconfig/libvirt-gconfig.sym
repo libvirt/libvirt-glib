@@ -102,6 +102,7 @@ LIBVIRT_GCONFIG_0.0.3 {
 	gvir_config_domain_graphics_vnc_new;
 	gvir_config_domain_graphics_vnc_new_from_xml;
 	gvir_config_domain_graphics_vnc_set_autoport;
+	gvir_config_domain_graphics_vnc_set_password;
 	gvir_config_domain_graphics_vnc_set_port;
 
 	gvir_config_domain_input_bus_get_type;
