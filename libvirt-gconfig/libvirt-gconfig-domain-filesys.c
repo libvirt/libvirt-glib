@@ -107,7 +107,8 @@ void gvir_config_domain_filesys_set_driver_type(GVirConfigDomainFilesys *filesys
             node, "type",
             GVIR_TYPE_CONFIG_DOMAIN_FILESYS_DRIVER_TYPE,
             type, NULL);
-    /* else XXX delete existing attribute ? */
+    else
+        gvir_config_object_remove_attribute(node, "type");
     g_object_unref(G_OBJECT(node));
 }
 
