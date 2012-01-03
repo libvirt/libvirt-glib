@@ -301,6 +301,28 @@ gvir_config_object_get_node_content(GVirConfigObject *object,
     return gvir_config_xml_get_child_element_content_glib(node, node_name);
 }
 
+G_GNUC_INTERNAL char *
+gvir_config_object_get_attribute(GVirConfigObject *object,
+                                 const char *node_name,
+                                 const char *attr_name)
+{
+    xmlNodePtr node;
+
+    g_return_val_if_fail(attr_name != NULL, NULL);
+
+    node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(object));
+    if (node == NULL)
+        return NULL;
+
+    if (node_name != NULL) {
+        node = gvir_config_xml_get_element(node, node_name, NULL);
+        if (node == NULL)
+            return NULL;
+    }
+
+    return gvir_config_xml_get_attribute_content_glib(node, attr_name);
+}
+
 static xmlNodePtr
 gvir_config_object_set_child_internal(GVirConfigObject *object,
                                       xmlNodePtr child,
@@ -507,6 +529,64 @@ gvir_config_object_get_node_content_uint64(GVirConfigObject *object,
 
     value = g_ascii_strtoull((char *)str, NULL, 0);
     xmlFree(str);
+
+    return value;
+}
+
+G_GNUC_INTERNAL gint
+gvir_config_object_get_node_content_genum(GVirConfigObject *object,
+                                          const char *node_name,
+                                          GType enum_type,
+                                          gint default_value)
+{
+    xmlNodePtr node;
+    xmlChar *str;
+    gint value;
+
+    node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(object));
+    if (node == NULL)
+        return default_value;
+
+    str = gvir_config_xml_get_child_element_content(node, node_name);
+    if (!str)
+        return default_value;
+
+    value = gvir_config_genum_get_value(enum_type, (char *)str, default_value);
+    xmlFree(str);
+
+    return value;
+}
+
+G_GNUC_INTERNAL gint
+gvir_config_object_get_attribute_genum(GVirConfigObject *object,
+                                       const char *node_name,
+                                       const char *attr_name,
+                                       GType enum_type,
+                                       gint default_value)
+{
+    xmlNodePtr node;
+    xmlChar *attr_val;
+    gint value;
+
+    g_return_val_if_fail(attr_name != NULL, default_value);
+
+    node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(object));
+    if (node == NULL)
+        return default_value;
+
+    if (node_name != NULL) {
+        node = gvir_config_xml_get_element(node, node_name, NULL);
+        if (node == NULL)
+            return default_value;
+    }
+
+    attr_val = gvir_config_xml_get_attribute_content(node, attr_name);
+    if (attr_val == NULL)
+        return default_value;
+
+    value = gvir_config_genum_get_value(enum_type, (char *)attr_val,
+                                        default_value);
+    xmlFree(attr_val);
 
     return value;
 }
