@@ -98,6 +98,8 @@ int main(int argc, char **argv)
     gvir_config_domain_disk_set_type(disk, GVIR_CONFIG_DOMAIN_DISK_FILE);
     gvir_config_domain_disk_set_guest_device_type(disk, GVIR_CONFIG_DOMAIN_DISK_GUEST_DEVICE_DISK);
     gvir_config_domain_disk_set_source(disk, "/tmp/foo/bar");
+    gvir_config_domain_disk_set_driver_name(disk, "foo");
+    gvir_config_domain_disk_set_driver_type(disk, "bar");
     gvir_config_domain_disk_set_driver_name(disk, "qemu");
     gvir_config_domain_disk_set_driver_type(disk, "qcow2");
     gvir_config_domain_disk_set_target_bus(disk, GVIR_CONFIG_DOMAIN_DISK_BUS_IDE);

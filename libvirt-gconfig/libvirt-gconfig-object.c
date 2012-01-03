@@ -535,6 +535,7 @@ gvir_config_object_set_attribute(GVirConfigObject *object, ...)
         if (name == NULL) {
             break;
         }
+        gvir_config_object_remove_attribute(object, name);
         value = va_arg(args, const char *);
         if (value == NULL) {
             g_warn_if_reached();
@@ -565,6 +566,7 @@ gvir_config_object_set_attribute_with_type(GVirConfigObject *object, ...)
         if (name == NULL) {
             break;
         }
+        gvir_config_object_remove_attribute(object, name);
 
         attr_type = va_arg(args, GType);
         if (G_TYPE_IS_ENUM(attr_type)) {
