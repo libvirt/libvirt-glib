@@ -32,7 +32,7 @@
 
 const char *features[] = { "foo", "bar", "baz", NULL };
 
-int main(void)
+int main(int argc, char **argv)
 {
     GVirConfigDomain *domain;
     char *name;
@@ -40,7 +40,7 @@ int main(void)
     unsigned int i;
     char *xml;
 
-    g_type_init();
+    gvir_init_config(&argc, &argv);
 
     domain = gvir_config_domain_new();
     g_assert(domain != NULL);
