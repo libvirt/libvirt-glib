@@ -642,3 +642,14 @@ gvir_config_object_attach(GVirConfigObject *parent, GVirConfigObject *child)
         child->priv->doc = g_object_ref(G_OBJECT(parent->priv->doc));
     }
 }
+
+G_GNUC_INTERNAL void
+gvir_config_object_remove_attribute(GVirConfigObject *object,
+                                    const char *attr_name)
+{
+    int status;
+
+    do {
+        status = xmlUnsetProp(object->priv->node, (xmlChar *)attr_name);
+    } while (status == 0);
+}
