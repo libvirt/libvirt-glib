@@ -235,6 +235,18 @@ void gvir_config_domain_set_vcpus(GVirConfigDomain *domain, guint64 vcpu_count)
     g_object_notify(G_OBJECT(domain), "vcpu");
 }
 
+static gboolean add_feature(xmlNodePtr node, gpointer opaque)
+{
+    GPtrArray *features;
+    g_return_val_if_fail(opaque != NULL, FALSE);
+
+    features = (GPtrArray *)opaque;
+
+    g_ptr_array_add(features, g_strdup((char *)node->name));
+
+    return TRUE;
+}
+
 /**
  * gvir_config_domain_get_features:
  * Returns: (transfer full):
@@ -242,22 +254,12 @@ void gvir_config_domain_set_vcpus(GVirConfigDomain *domain, guint64 vcpu_count)
 GStrv gvir_config_domain_get_features(GVirConfigDomain *domain)
 {
     GPtrArray *features;
-    xmlNodePtr parent_node;
-    xmlNodePtr node;
-    xmlNodePtr it;
 
-    parent_node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(domain));
-    if (parent_node == NULL)
-        return NULL;
-
-    node = gvir_config_xml_get_element(parent_node, "features", NULL);
-    if (node == NULL)
-        return NULL;
+    g_return_val_if_fail(GVIR_IS_CONFIG_DOMAIN(domain), NULL);
 
     features = g_ptr_array_new();
-    for (it = node->children; it != NULL; it = it->next) {
-        g_ptr_array_add(features, g_strdup((char *)it->name));
-    }
+    gvir_config_object_foreach_child(GVIR_CONFIG_OBJECT(domain), "features",
+                                     add_feature, features);
     g_ptr_array_add(features, NULL);
 
     return (GStrv)g_ptr_array_free(features, FALSE);

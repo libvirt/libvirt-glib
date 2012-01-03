@@ -45,6 +45,10 @@ void gvir_config_set_error_valist(GError **err,
 xmlNodePtr gvir_config_xml_parse(const char *xml,
                                  const char *root_node,
                                  GError **err);
+typedef gboolean (*GVirConfigXmlNodeIterator)(xmlNodePtr node, gpointer opaque);
+void gvir_config_xml_foreach_child(xmlNodePtr node,
+                                   GVirConfigXmlNodeIterator iter_func,
+                                   gpointer opaque);
 xmlNode * gvir_config_xml_get_element (xmlNode *node, ...);
 xmlChar * gvir_config_xml_get_child_element_content (xmlNode    *node,
                                                      const char *child_name);

@@ -161,6 +161,24 @@ gvir_config_xml_parse(const char *xml, const char *root_node, GError **err)
     return doc->children;
 }
 
+void gvir_config_xml_foreach_child(xmlNodePtr node,
+                                   GVirConfigXmlNodeIterator iter_func,
+                                   gpointer opaque)
+{
+    xmlNodePtr it;
+
+    g_return_if_fail(iter_func != NULL);
+
+    for (it = node->children; it != NULL; it = it->next) {
+        gboolean cont;
+
+        if (xmlIsBlankNode(it))
+            continue;
+        cont = iter_func(it, opaque);
+        if (!cont)
+            break;
+    }
+}
 
 /*
  * gvir_config_xml_get_element, gvir_config_xml_get_child_element_content

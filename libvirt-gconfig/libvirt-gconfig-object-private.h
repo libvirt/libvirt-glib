@@ -66,6 +66,10 @@ void gvir_config_object_set_attribute_with_type(GVirConfigObject *object,
                                                 ...) G_GNUC_NULL_TERMINATED;
 void gvir_config_object_remove_attribute(GVirConfigObject *object,
                                          const char *attr_name);
+void gvir_config_object_foreach_child(GVirConfigObject *object,
+                                      const char *parent_name,
+                                      GVirConfigXmlNodeIterator iter_func,
+                                      gpointer opaque);
 
 G_END_DECLS
 

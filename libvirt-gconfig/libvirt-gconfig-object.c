@@ -336,6 +336,27 @@ gvir_config_object_set_child(GVirConfigObject *object, xmlNodePtr child)
     gvir_config_object_set_child_internal(object, child, TRUE);
 }
 
+G_GNUC_INTERNAL void
+gvir_config_object_foreach_child(GVirConfigObject *object,
+                                 const char *parent_name,
+                                 GVirConfigXmlNodeIterator iter_func,
+                                 gpointer opaque)
+{
+    xmlNodePtr root_node;
+    xmlNodePtr node;
+
+    g_return_if_fail(GVIR_IS_CONFIG_OBJECT(object));
+
+    root_node = gvir_config_object_get_xml_node(object);
+    g_return_if_fail(root_node != NULL);
+
+    node = gvir_config_xml_get_element(root_node, parent_name, NULL);
+    if (node == NULL)
+        return;
+
+    gvir_config_xml_foreach_child(node, iter_func, opaque);
+}
+
 G_GNUC_INTERNAL GVirConfigObject *
 gvir_config_object_add_child(GVirConfigObject *object,
                              const char *child_name)
