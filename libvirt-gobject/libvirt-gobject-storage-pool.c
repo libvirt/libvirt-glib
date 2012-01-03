@@ -477,7 +477,7 @@ static void gvir_storage_vol_ref(gpointer obj, gpointer ignore G_GNUC_UNUSED)
  * gvir_storage_pool_get_volumes:
  * @pool: the storage pool
  *
- * Return value: (element-type LibvirtGObject.StoragePool) (transfer full): List
+ * Return value: (element-type LibvirtGObject.StorageVol) (transfer full): List
  * of #GVirStorageVol
  */
 GList *gvir_storage_pool_get_volumes(GVirStoragePool *pool)
