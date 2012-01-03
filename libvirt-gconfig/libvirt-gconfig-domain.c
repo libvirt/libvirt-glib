@@ -197,12 +197,25 @@ void gvir_config_domain_set_name(GVirConfigDomain *domain, const char *name)
     g_object_notify(G_OBJECT(domain), "name");
 }
 
+/**
+ * gvir_config_domain_get_memory:
+ * @domain: A domain configuration object.
+ *
+ * Returns: amount of RAM in kilobytes (i.e. blocks of 1024 bytes).
+ */
 guint64 gvir_config_domain_get_memory(GVirConfigDomain *domain)
 {
     return gvir_config_object_get_node_content_uint64(GVIR_CONFIG_OBJECT(domain),
                                                       "memory");
 }
 
+/**
+ * gvir_config_domain_set_memory:
+ * @domain: A domain configuration object.
+ * @memory: The amount of RAM in kilobytes.
+ *
+ * Sets the amount of RAM allocated to @domain in kilobytes (i.e. blocks of 1024 bytes).
+ */
 void gvir_config_domain_set_memory(GVirConfigDomain *domain, guint64 memory)
 {
     gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(domain),
