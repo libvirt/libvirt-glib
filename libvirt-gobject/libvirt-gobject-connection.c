@@ -478,7 +478,7 @@ void gvir_connection_open_async(GVirConnection *conn,
     res = g_simple_async_result_new(G_OBJECT(conn),
                                     callback,
                                     user_data,
-                                    gvir_connection_open);
+                                    gvir_connection_open_async);
     g_simple_async_result_run_in_thread(res,
                                         gvir_connection_open_helper,
                                         G_PRIORITY_DEFAULT,
@@ -501,7 +501,7 @@ gboolean gvir_connection_open_finish(GVirConnection *conn,
 
     if (G_IS_SIMPLE_ASYNC_RESULT(result)) {
         GSimpleAsyncResult *simple = G_SIMPLE_ASYNC_RESULT(result);
-        g_warn_if_fail (g_simple_async_result_get_source_tag(simple) == gvir_connection_open);
+        g_warn_if_fail (g_simple_async_result_get_source_tag(simple) == gvir_connection_open_async);
         if (g_simple_async_result_propagate_error(simple, err))
             return FALSE;
     }
@@ -886,7 +886,7 @@ void gvir_connection_fetch_domains_async(GVirConnection *conn,
     res = g_simple_async_result_new(G_OBJECT(conn),
                                     callback,
                                     user_data,
-                                    gvir_connection_fetch_domains);
+                                    gvir_connection_fetch_domains_async);
     g_simple_async_result_run_in_thread(res,
                                         gvir_connection_fetch_domains_helper,
                                         G_PRIORITY_DEFAULT,
@@ -908,7 +908,7 @@ gboolean gvir_connection_fetch_domains_finish(GVirConnection *conn,
 
     if (G_IS_SIMPLE_ASYNC_RESULT(result)) {
         GSimpleAsyncResult *simple = G_SIMPLE_ASYNC_RESULT(result);
-        g_warn_if_fail (g_simple_async_result_get_source_tag(simple) == gvir_connection_fetch_domains);
+        g_warn_if_fail (g_simple_async_result_get_source_tag(simple) == gvir_connection_fetch_domains_async);
         if (g_simple_async_result_propagate_error(simple, err))
             return FALSE;
     }
@@ -947,7 +947,7 @@ void gvir_connection_fetch_storage_pools_async(GVirConnection *conn,
     res = g_simple_async_result_new(G_OBJECT(conn),
                                     callback,
                                     user_data,
-                                    gvir_connection_fetch_storage_pools);
+                                    gvir_connection_fetch_storage_pools_async);
     g_simple_async_result_run_in_thread(res,
                                         gvir_connection_fetch_pools_helper,
                                         G_PRIORITY_DEFAULT,
@@ -970,7 +970,7 @@ gboolean gvir_connection_fetch_storage_pools_finish(GVirConnection *conn,
     if (G_IS_SIMPLE_ASYNC_RESULT(result)) {
         GSimpleAsyncResult *simple = G_SIMPLE_ASYNC_RESULT(result);
         g_warn_if_fail (g_simple_async_result_get_source_tag(simple) ==
-                        gvir_connection_fetch_storage_pools);
+                        gvir_connection_fetch_storage_pools_async);
         if (g_simple_async_result_propagate_error(simple, err))
             return FALSE;
     }

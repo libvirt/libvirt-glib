@@ -788,7 +788,7 @@ void gvir_domain_save_async (GVirDomain *dom,
     res = g_simple_async_result_new(G_OBJECT(dom),
                                     callback,
                                     user_data,
-                                    gvir_domain_save);
+                                    gvir_domain_save_async);
     g_simple_async_result_set_op_res_gpointer (res, data, (GDestroyNotify) domain_save_data_free);
     g_simple_async_result_run_in_thread(res,
                                         gvir_domain_save_helper,
@@ -817,7 +817,7 @@ gboolean gvir_domain_save_finish (GVirDomain *dom,
     if (G_IS_SIMPLE_ASYNC_RESULT(result)) {
         GSimpleAsyncResult *simple = G_SIMPLE_ASYNC_RESULT(result);
         g_warn_if_fail (g_simple_async_result_get_source_tag(simple) ==
-                        gvir_domain_save);
+                        gvir_domain_save_async);
         if (g_simple_async_result_propagate_error(simple, err))
             return FALSE;
     }

@@ -437,7 +437,7 @@ void gvir_storage_pool_refresh_async(GVirStoragePool *pool,
     res = g_simple_async_result_new(G_OBJECT(pool),
                                     callback,
                                     user_data,
-                                    gvir_storage_pool_refresh);
+                                    gvir_storage_pool_refresh_async);
     g_simple_async_result_run_in_thread(res,
                                         gvir_storage_pool_refresh_helper,
                                         G_PRIORITY_DEFAULT,
@@ -460,7 +460,7 @@ gboolean gvir_storage_pool_refresh_finish(GVirStoragePool *pool,
     if (G_IS_SIMPLE_ASYNC_RESULT(result)) {
         GSimpleAsyncResult *simple = G_SIMPLE_ASYNC_RESULT(result);
         g_warn_if_fail (g_simple_async_result_get_source_tag(simple) ==
-                        gvir_storage_pool_refresh);
+                        gvir_storage_pool_refresh_async);
         if (g_simple_async_result_propagate_error(simple, err))
             return FALSE;
     }
@@ -627,7 +627,7 @@ void gvir_storage_pool_build_async (GVirStoragePool *pool,
     res = g_simple_async_result_new(G_OBJECT(pool),
                                     callback,
                                     user_data,
-                                    gvir_storage_pool_build);
+                                    gvir_storage_pool_build_async);
     g_object_set_data(G_OBJECT(res), "StoragePoolBuildData", data);
     g_simple_async_result_run_in_thread(res,
                                         gvir_storage_pool_build_helper,
@@ -654,7 +654,7 @@ gboolean gvir_storage_pool_build_finish(GVirStoragePool *pool,
     if (G_IS_SIMPLE_ASYNC_RESULT(result)) {
         GSimpleAsyncResult *simple = G_SIMPLE_ASYNC_RESULT(result);
         g_warn_if_fail (g_simple_async_result_get_source_tag(simple) ==
-                        gvir_storage_pool_build);
+                        gvir_storage_pool_build_async);
         if (g_simple_async_result_propagate_error(simple, err))
             return FALSE;
     }
@@ -727,7 +727,7 @@ void gvir_storage_pool_start_async (GVirStoragePool *pool,
     res = g_simple_async_result_new(G_OBJECT(pool),
                                     callback,
                                     user_data,
-                                    gvir_storage_pool_start);
+                                    gvir_storage_pool_start_async);
     g_object_set_data(G_OBJECT(res), "StoragePoolBuildData", data);
     g_simple_async_result_run_in_thread(res,
                                         gvir_storage_pool_start_helper,
@@ -754,7 +754,7 @@ gboolean gvir_storage_pool_start_finish(GVirStoragePool *pool,
     if (G_IS_SIMPLE_ASYNC_RESULT(result)) {
         GSimpleAsyncResult *simple = G_SIMPLE_ASYNC_RESULT(result);
         g_warn_if_fail (g_simple_async_result_get_source_tag(simple) ==
-                        gvir_storage_pool_start);
+                        gvir_storage_pool_start_async);
         if (g_simple_async_result_propagate_error(simple, err))
             return FALSE;
     }
