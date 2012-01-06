@@ -812,15 +812,12 @@ gboolean gvir_domain_save_finish (GVirDomain *dom,
                                   GError **err)
 {
     g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
-    g_return_val_if_fail(G_IS_ASYNC_RESULT(result), FALSE);
+    g_return_val_if_fail(g_simple_async_result_is_valid(result, G_OBJECT(dom),
+                                                        gvir_domain_save_async),
+                         FALSE);
 
-    if (G_IS_SIMPLE_ASYNC_RESULT(result)) {
-        GSimpleAsyncResult *simple = G_SIMPLE_ASYNC_RESULT(result);
-        g_warn_if_fail (g_simple_async_result_get_source_tag(simple) ==
-                        gvir_domain_save_async);
-        if (g_simple_async_result_propagate_error(simple, err))
-            return FALSE;
-    }
+    if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result), err))
+        return FALSE;
 
     return TRUE;
 }

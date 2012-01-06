@@ -188,11 +188,12 @@ static gssize gvir_output_stream_write_finish(GOutputStream *stream,
     gssize count;
 
     g_return_val_if_fail(GVIR_IS_OUTPUT_STREAM(stream), -1);
+    g_return_val_if_fail(g_simple_async_result_is_valid(result, G_OBJECT(stream),
+                                                        gvir_output_stream_write_async),
+                         -1);
     g_object_get(output_stream->priv->stream, "handle", &handle, NULL);
 
     simple = G_SIMPLE_ASYNC_RESULT(result);
-
-    g_warn_if_fail(g_simple_async_result_get_source_tag(simple) == gvir_output_stream_write_async);
 
     count = g_simple_async_result_get_op_res_gssize(simple);
 

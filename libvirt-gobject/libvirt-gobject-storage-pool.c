@@ -455,15 +455,13 @@ gboolean gvir_storage_pool_refresh_finish(GVirStoragePool *pool,
                                           GError **err)
 {
     g_return_val_if_fail(GVIR_IS_STORAGE_POOL(pool), FALSE);
-    g_return_val_if_fail(G_IS_ASYNC_RESULT(result), FALSE);
+    g_return_val_if_fail(g_simple_async_result_is_valid(result, G_OBJECT(pool),
+                                                        gvir_storage_pool_refresh_async),
+                         FALSE);
 
-    if (G_IS_SIMPLE_ASYNC_RESULT(result)) {
-        GSimpleAsyncResult *simple = G_SIMPLE_ASYNC_RESULT(result);
-        g_warn_if_fail (g_simple_async_result_get_source_tag(simple) ==
-                        gvir_storage_pool_refresh_async);
-        if (g_simple_async_result_propagate_error(simple, err))
-            return FALSE;
-    }
+    if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result),
+                                              err))
+        return FALSE;
 
     return TRUE;
 }
@@ -649,15 +647,13 @@ gboolean gvir_storage_pool_build_finish(GVirStoragePool *pool,
                                         GError **err)
 {
     g_return_val_if_fail(GVIR_IS_STORAGE_POOL(pool), FALSE);
-    g_return_val_if_fail(G_IS_ASYNC_RESULT(result), FALSE);
+    g_return_val_if_fail(g_simple_async_result_is_valid(result, G_OBJECT(pool),
+                                                        gvir_storage_pool_build_async),
+                         FALSE);
 
-    if (G_IS_SIMPLE_ASYNC_RESULT(result)) {
-        GSimpleAsyncResult *simple = G_SIMPLE_ASYNC_RESULT(result);
-        g_warn_if_fail (g_simple_async_result_get_source_tag(simple) ==
-                        gvir_storage_pool_build_async);
-        if (g_simple_async_result_propagate_error(simple, err))
-            return FALSE;
-    }
+    if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result),
+                                              err))
+        return FALSE;
 
     return TRUE;
 }
@@ -749,15 +745,13 @@ gboolean gvir_storage_pool_start_finish(GVirStoragePool *pool,
                                         GError **err)
 {
     g_return_val_if_fail(GVIR_IS_STORAGE_POOL(pool), FALSE);
-    g_return_val_if_fail(G_IS_ASYNC_RESULT(result), FALSE);
+    g_return_val_if_fail(g_simple_async_result_is_valid(result, G_OBJECT(pool),
+                                                        gvir_storage_pool_start_async),
+                         FALSE);
 
-    if (G_IS_SIMPLE_ASYNC_RESULT(result)) {
-        GSimpleAsyncResult *simple = G_SIMPLE_ASYNC_RESULT(result);
-        g_warn_if_fail (g_simple_async_result_get_source_tag(simple) ==
-                        gvir_storage_pool_start_async);
-        if (g_simple_async_result_propagate_error(simple, err))
-            return FALSE;
-    }
+    if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result),
+                                              err))
+        return FALSE;
 
     return TRUE;
 }
