@@ -621,7 +621,7 @@ void gvir_storage_pool_build_async (GVirStoragePool *pool,
     GSimpleAsyncResult *res;
     StoragePoolBuildData *data;
 
-    data = g_new0(StoragePoolBuildData, 1);
+    data = g_slice_new0(StoragePoolBuildData);
     data->flags = flags;
 
     res = g_simple_async_result_new(G_OBJECT(pool),
@@ -721,7 +721,7 @@ void gvir_storage_pool_start_async (GVirStoragePool *pool,
     GSimpleAsyncResult *res;
     StoragePoolBuildData *data;
 
-    data = g_new0(StoragePoolBuildData, 1);
+    data = g_slice_new0(StoragePoolBuildData);
     data->flags = flags;
 
     res = g_simple_async_result_new(G_OBJECT(pool),
