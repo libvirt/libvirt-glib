@@ -197,7 +197,6 @@ static gssize gvir_input_stream_read_finish(GInputStream *stream,
 
     count = g_simple_async_result_get_op_res_gssize(simple);
 
-    virStreamEventRemoveCallback(handle);
     virStreamFree(handle);
 
     return count;
