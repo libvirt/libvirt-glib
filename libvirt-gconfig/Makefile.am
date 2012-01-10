@@ -13,6 +13,7 @@ GCONFIG_HEADER_FILES = \
 			libvirt-gconfig-object.h \
 			libvirt-gconfig-capabilities.h \
 			libvirt-gconfig-domain.h \
+			libvirt-gconfig-domain-channel.h \
 			libvirt-gconfig-domain-chardev.h \
 			libvirt-gconfig-domain-chardev-source.h \
 			libvirt-gconfig-domain-chardev-source-pty.h \
@@ -32,7 +33,9 @@ GCONFIG_HEADER_FILES = \
 			libvirt-gconfig-domain-interface-user.h \
 			libvirt-gconfig-domain-memballoon.h \
 			libvirt-gconfig-domain-os.h \
+			libvirt-gconfig-domain-parallel.h \
 			libvirt-gconfig-domain-seclabel.h \
+			libvirt-gconfig-domain-serial.h \
 			libvirt-gconfig-domain-snapshot.h \
 			libvirt-gconfig-domain-sound.h \
 			libvirt-gconfig-domain-timer.h \
@@ -61,6 +64,7 @@ GCONFIG_SOURCE_FILES = \
 			libvirt-gconfig-main.c \
 			libvirt-gconfig-capabilities.c \
 			libvirt-gconfig-domain.c \
+			libvirt-gconfig-domain-channel.c \
 			libvirt-gconfig-domain-chardev.c \
 			libvirt-gconfig-domain-chardev-source.c \
 			libvirt-gconfig-domain-chardev-source-pty.c \
@@ -80,7 +84,9 @@ GCONFIG_SOURCE_FILES = \
 			libvirt-gconfig-domain-interface-user.c \
 			libvirt-gconfig-domain-memballoon.c \
 			libvirt-gconfig-domain-os.c \
+			libvirt-gconfig-domain-parallel.c \
 			libvirt-gconfig-domain-seclabel.c \
+			libvirt-gconfig-domain-serial.c \
 			libvirt-gconfig-domain-snapshot.c \
 			libvirt-gconfig-domain-sound.c \
 			libvirt-gconfig-domain-timer.c \

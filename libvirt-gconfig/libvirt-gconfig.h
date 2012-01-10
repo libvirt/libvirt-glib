@@ -33,6 +33,7 @@
 #include <libvirt-gconfig/libvirt-gconfig-domain-chardev.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-chardev-source.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-chardev-source-pty.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-channel.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-clock.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-console.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-device.h>
@@ -49,7 +50,9 @@
 #include <libvirt-gconfig/libvirt-gconfig-domain-interface-user.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-memballoon.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-os.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-parallel.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-seclabel.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-serial.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-snapshot.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-sound.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-timer.h>

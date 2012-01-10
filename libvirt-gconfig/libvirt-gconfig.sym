@@ -30,6 +30,10 @@ LIBVIRT_GCONFIG_0.0.3 {
 	gvir_config_domain_set_virt_type;
 	gvir_config_domain_virt_type_get_type;
 
+	gvir_config_domain_channel_get_type;
+	gvir_config_domain_channel_new;
+	gvir_config_domain_channel_new_from_xml;
+
 	gvir_config_domain_chardev_get_type;
 	gvir_config_domain_chardev_set_source;
 
@@ -168,6 +172,10 @@ LIBVIRT_GCONFIG_0.0.3 {
 	gvir_config_domain_os_set_arch;
 	gvir_config_domain_os_type_get_type;
 
+	gvir_config_domain_parallel_get_type;
+	gvir_config_domain_parallel_new;
+	gvir_config_domain_parallel_new_from_xml;
+
 	gvir_config_domain_seclabel_get_type;
 	gvir_config_domain_seclabel_type_get_type;
 	gvir_config_domain_seclabel_new;
@@ -176,6 +184,10 @@ LIBVIRT_GCONFIG_0.0.3 {
 	gvir_config_domain_seclabel_set_model;
 	gvir_config_domain_seclabel_set_baselabel;
 	gvir_config_domain_seclabel_set_label;
+
+	gvir_config_domain_serial_get_type;
+	gvir_config_domain_serial_new;
+	gvir_config_domain_serial_new_from_xml;
 
 	gvir_config_domain_snapshot_get_type;
 	gvir_config_domain_snapshot_new;
