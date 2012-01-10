@@ -376,6 +376,9 @@ static int domain_event_cb(virConnectPtr conn G_GNUC_UNUSED,
             }
             break;
 
+        case VIR_DOMAIN_EVENT_SHUTDOWN:
+            break;
+
         default:
             g_warn_if_reached();
     }
