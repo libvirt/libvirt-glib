@@ -166,6 +166,7 @@ void gvir_domain_save_async (GVirDomain *dom,
 gboolean gvir_domain_save_finish (GVirDomain *dom,
                                   GAsyncResult *result,
                                   GError **err);
+gboolean gvir_domain_get_persistent(GVirDomain *dom);
 
 G_END_DECLS
 

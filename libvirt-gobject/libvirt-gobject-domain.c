@@ -45,6 +45,7 @@ G_DEFINE_TYPE(GVirDomain, gvir_domain, G_TYPE_OBJECT);
 enum {
     PROP_0,
     PROP_HANDLE,
+    PROP_PERSISTENT,
 };
 
 enum {
@@ -78,6 +79,10 @@ static void gvir_domain_get_property(GObject *object,
     switch (prop_id) {
     case PROP_HANDLE:
         g_value_set_boxed(value, priv->handle);
+        break;
+
+    case PROP_PERSISTENT:
+        g_value_set_boolean(value, gvir_domain_get_persistent (conn));
         break;
 
     default:
@@ -155,6 +160,17 @@ static void gvir_domain_class_init(GVirDomainClass *klass)
                                                        G_PARAM_STATIC_NAME |
                                                        G_PARAM_STATIC_NICK |
                                                        G_PARAM_STATIC_BLURB));
+
+    g_object_class_install_property(object_class,
+                                    PROP_PERSISTENT,
+                                    g_param_spec_boolean("persistent",
+                                                         "Persistent",
+                                                         "If domain is persistent",
+                                                         TRUE,
+                                                         G_PARAM_READABLE |
+                                                         G_PARAM_STATIC_NAME |
+                                                         G_PARAM_STATIC_NICK |
+                                                         G_PARAM_STATIC_BLURB));
 
     signals[VIR_STARTED] = g_signal_new("started",
                                         G_OBJECT_CLASS_TYPE(object_class),
@@ -820,4 +836,17 @@ gboolean gvir_domain_save_finish (GVirDomain *dom,
         return FALSE;
 
     return TRUE;
+}
+
+/**
+ * gvir_domain_get_persistent:
+ * @dom: the domain
+ *
+ * Returns: TRUE if domain is persistent, FALSE otherwise.
+ */
+gboolean gvir_domain_get_persistent(GVirDomain *dom)
+{
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
+
+    return virDomainIsPersistent(dom->priv->handle);
 }
