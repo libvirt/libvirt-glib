@@ -1,3 +1,20 @@
+0.0.4 - Jan 12, 2012
+====================
+
+- Add support for configuring sound, serial, parallel
+  and channel devices
+- Add support for newer libvirt shutdown event
+- Add support for setting SPICE/VNC passwords
+- Fix storage pool annotations
+- Improve docs for memory APIs
+- Fix problem with duplicated attributes
+- Many internal XML helper API cleanups/additions
+- Add API for retrieving list of all devices
+- Fix mixup between g_new0/g_slice_free
+- Change namespace for GVirConfig APIs (breaks ABI
+  and API)
+- New APIs for save/suspend
+
 0.0.3 - Dec 19, 2011
 ====================
 
