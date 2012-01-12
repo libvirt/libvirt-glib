@@ -23,6 +23,7 @@
 #include <config.h>
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
+#include "libvirt-gconfig/libvirt-gconfig-private.h"
 
 #define GVIR_CONFIG_DOMAIN_CHANNEL_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_DOMAIN_CHANNEL, GVirConfigDomainChannelPrivate))
@@ -67,4 +68,26 @@ GVirConfigDomainChannel *gvir_config_domain_channel_new_from_xml(const gchar *xm
     if (object == NULL)
         return NULL;
     return GVIR_CONFIG_DOMAIN_CHANNEL(object);
+}
+
+
+void gvir_config_domain_channel_set_target_type(GVirConfigDomainChannel *channel,
+                                                GVirConfigDomainChannelTargetType type)
+{
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_CHANNEL(channel));
+
+    gvir_config_object_add_child_with_attribute_enum(GVIR_CONFIG_OBJECT(channel),
+                                                     "target", "type",
+                                                     GVIR_CONFIG_TYPE_DOMAIN_CHANNEL_TARGET_TYPE,
+                                                     type);
+}
+
+
+void gvir_config_domain_channel_set_target_name(GVirConfigDomainChannel *channel,
+                                                const gchar *name)
+{
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_CHANNEL(channel));
+
+    gvir_config_object_add_child_with_attribute(GVIR_CONFIG_OBJECT(channel),
+                                                "target", "name", name);
 }

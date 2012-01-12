@@ -56,11 +56,22 @@ struct _GVirConfigDomainChannelClass
     gpointer padding[20];
 };
 
+typedef enum {
+    GVIR_CONFIG_DOMAIN_CONSOLE_TARGET_GUESTFWD,
+    GVIR_CONFIG_DOMAIN_CHANNEL_TARGET_VIRTIO,
+} GVirConfigDomainChannelTargetType;
+
 
 GType gvir_config_domain_channel_get_type(void);
 GVirConfigDomainChannel *gvir_config_domain_channel_new(void);
 GVirConfigDomainChannel *gvir_config_domain_channel_new_from_xml(const gchar *xml,
                                                                  GError **error);
+
+void gvir_config_domain_channel_set_target_type(GVirConfigDomainChannel *channel,
+                                                GVirConfigDomainChannelTargetType type);
+void gvir_config_domain_channel_set_target_name(GVirConfigDomainChannel *channel,
+                                                const gchar *name);
+
 
 G_END_DECLS
 

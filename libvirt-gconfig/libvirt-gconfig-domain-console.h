@@ -57,10 +57,22 @@ struct _GVirConfigDomainConsoleClass
 };
 
 
+typedef enum {
+    GVIR_CONFIG_DOMAIN_CONSOLE_TARGET_XEN,
+    GVIR_CONFIG_DOMAIN_CONSOLE_TARGET_SERIAL,
+    GVIR_CONFIG_DOMAIN_CONSOLE_TARGET_UML,
+    GVIR_CONFIG_DOMAIN_CONSOLE_TARGET_VIRTIO,
+    GVIR_CONFIG_DOMAIN_CONSOLE_TARGET_LXC,
+    GVIR_CONFIG_DOMAIN_CONSOLE_TARGET_OPENVZ,
+} GVirConfigDomainConsoleTargetType;
+
 GType gvir_config_domain_console_get_type(void);
 GVirConfigDomainConsole *gvir_config_domain_console_new(void);
 GVirConfigDomainConsole *gvir_config_domain_console_new_from_xml(const gchar *xml,
                                                                  GError **error);
+
+void gvir_config_domain_console_set_target_type(GVirConfigDomainConsole *console,
+                                                GVirConfigDomainConsoleTargetType type);
 
 G_END_DECLS
 

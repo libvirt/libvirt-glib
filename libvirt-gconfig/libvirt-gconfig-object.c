@@ -419,6 +419,21 @@ gvir_config_object_add_child_with_attribute(GVirConfigObject *object,
     g_object_unref(G_OBJECT(child));
 }
 
+
+void gvir_config_object_add_child_with_attribute_enum(GVirConfigObject *object,
+                                                      const char *child_name,
+                                                      const char *attr_name,
+                                                      GType attr_type,
+                                                      unsigned int attr_value)
+{
+    GVirConfigObject *child;
+
+    child = gvir_config_object_add_child(object, child_name);
+    gvir_config_object_set_attribute_with_type(child, attr_name, attr_type, attr_value, NULL);
+    g_object_unref(G_OBJECT(child));
+}
+
+
 G_GNUC_INTERNAL GVirConfigObject *
 gvir_config_object_replace_child(GVirConfigObject *object,
                                  const char *child_name)

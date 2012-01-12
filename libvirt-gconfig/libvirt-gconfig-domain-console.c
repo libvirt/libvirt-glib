@@ -23,6 +23,7 @@
 #include <config.h>
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
+#include "libvirt-gconfig/libvirt-gconfig-private.h"
 
 #define GVIR_CONFIG_DOMAIN_CONSOLE_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_DOMAIN_CONSOLE, GVirConfigDomainConsolePrivate))
@@ -67,4 +68,15 @@ GVirConfigDomainConsole *gvir_config_domain_console_new_from_xml(const gchar *xm
     if (object == NULL)
         return NULL;
     return GVIR_CONFIG_DOMAIN_CONSOLE(object);
+}
+
+void gvir_config_domain_console_set_target_type(GVirConfigDomainConsole *console,
+                                                GVirConfigDomainConsoleTargetType type)
+{
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_CONSOLE(console));
+
+    gvir_config_object_add_child_with_attribute_enum(GVIR_CONFIG_OBJECT(console),
+                                                     "target", "type",
+                                                     GVIR_CONFIG_TYPE_DOMAIN_CONSOLE_TARGET_TYPE,
+                                                     type);
 }
