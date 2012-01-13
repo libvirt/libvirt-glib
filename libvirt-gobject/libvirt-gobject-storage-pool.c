@@ -152,9 +152,8 @@ static void gvir_storage_pool_class_init(GVirStoragePoolClass *klass)
                                                        G_PARAM_READABLE |
                                                        G_PARAM_WRITABLE |
                                                        G_PARAM_CONSTRUCT_ONLY |
-                                                       G_PARAM_STATIC_NAME |
-                                                       G_PARAM_STATIC_NICK |
-                                                       G_PARAM_STATIC_BLURB));
+                                                       G_PARAM_STATIC_STRINGS));
+
 
     g_type_class_add_private(klass, sizeof(GVirStoragePoolPrivate));
 }

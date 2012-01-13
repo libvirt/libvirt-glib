@@ -163,9 +163,18 @@ static void gvir_connection_class_init(GVirConnectionClass *klass)
                                                         G_PARAM_READABLE |
                                                         G_PARAM_WRITABLE |
                                                         G_PARAM_CONSTRUCT_ONLY |
-                                                        G_PARAM_STATIC_NAME |
-                                                        G_PARAM_STATIC_NICK |
-                                                        G_PARAM_STATIC_BLURB));
+                                                        G_PARAM_STATIC_STRINGS));
+
+    g_object_class_install_property(object_class,
+                                    PROP_HANDLE,
+                                    g_param_spec_boxed("handle",
+                                                       "Handle",
+                                                       "The connection handle",
+                                                       GVIR_TYPE_CONNECTION_HANDLE,
+                                                       G_PARAM_READABLE |
+                                                       G_PARAM_WRITABLE |
+                                                       G_PARAM_CONSTRUCT_ONLY |
+                                                       G_PARAM_STATIC_STRINGS));
 
     signals[VIR_CONNECTION_OPENED] = g_signal_new("connection-opened",
                  G_OBJECT_CLASS_TYPE(object_class),
@@ -204,19 +213,6 @@ static void gvir_connection_class_init(GVirConnectionClass *klass)
                  G_TYPE_NONE,
                  1,
                  GVIR_TYPE_DOMAIN);
-
-    g_object_class_install_property(object_class,
-                                    PROP_HANDLE,
-                                    g_param_spec_boxed("handle",
-                                                       "Handle",
-                                                       "The connection handle",
-                                                       GVIR_TYPE_CONNECTION_HANDLE,
-                                                       G_PARAM_READABLE |
-                                                       G_PARAM_WRITABLE |
-                                                       G_PARAM_CONSTRUCT_ONLY |
-                                                       G_PARAM_STATIC_NAME |
-                                                       G_PARAM_STATIC_NICK |
-                                                       G_PARAM_STATIC_BLURB));
 
     g_type_class_add_private(klass, sizeof(GVirConnectionPrivate));
 }

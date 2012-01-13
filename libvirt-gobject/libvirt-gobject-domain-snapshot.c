@@ -126,9 +126,7 @@ static void gvir_domain_snapshot_class_init(GVirDomainSnapshotClass *klass)
                                                        G_PARAM_READABLE |
                                                        G_PARAM_WRITABLE |
                                                        G_PARAM_CONSTRUCT_ONLY |
-                                                       G_PARAM_STATIC_NAME |
-                                                       G_PARAM_STATIC_NICK |
-                                                       G_PARAM_STATIC_BLURB));
+                                                       G_PARAM_STATIC_STRINGS));
 
     g_type_class_add_private(klass, sizeof(GVirDomainSnapshotPrivate));
 }

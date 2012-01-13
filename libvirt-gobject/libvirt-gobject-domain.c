@@ -157,9 +157,7 @@ static void gvir_domain_class_init(GVirDomainClass *klass)
                                                        G_PARAM_READABLE |
                                                        G_PARAM_WRITABLE |
                                                        G_PARAM_CONSTRUCT_ONLY |
-                                                       G_PARAM_STATIC_NAME |
-                                                       G_PARAM_STATIC_NICK |
-                                                       G_PARAM_STATIC_BLURB));
+                                                       G_PARAM_STATIC_STRINGS));
 
     g_object_class_install_property(object_class,
                                     PROP_PERSISTENT,
@@ -168,9 +166,7 @@ static void gvir_domain_class_init(GVirDomainClass *klass)
                                                          "If domain is persistent",
                                                          TRUE,
                                                          G_PARAM_READABLE |
-                                                         G_PARAM_STATIC_NAME |
-                                                         G_PARAM_STATIC_NICK |
-                                                         G_PARAM_STATIC_BLURB));
+                                                         G_PARAM_STATIC_STRINGS));
 
     signals[VIR_STARTED] = g_signal_new("started",
                                         G_OBJECT_CLASS_TYPE(object_class),
