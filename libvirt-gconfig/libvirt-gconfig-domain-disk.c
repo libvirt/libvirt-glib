@@ -292,3 +292,14 @@ gvir_config_domain_disk_get_target_dev(GVirConfigDomainDisk *disk)
     return gvir_config_object_get_attribute(GVIR_CONFIG_OBJECT(disk),
                                             "target", "dev");
 }
+
+void
+gvir_config_domain_disk_set_readonly(GVirConfigDomainDisk *disk,
+                                     gboolean readonly)
+{
+    if (readonly) {
+        GVirConfigObject *node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(disk), "readonly");
+        g_object_unref(node);
+    } else
+        gvir_config_object_delete_child(GVIR_CONFIG_OBJECT(disk), "readonly");
+}

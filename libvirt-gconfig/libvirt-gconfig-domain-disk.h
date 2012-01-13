@@ -117,6 +117,8 @@ char *gvir_config_domain_disk_get_driver_name(GVirConfigDomainDisk *disk);
 char *gvir_config_domain_disk_get_driver_type(GVirConfigDomainDisk *disk);
 GVirConfigDomainDiskBus gvir_config_domain_disk_get_target_bus(GVirConfigDomainDisk *disk);
 char *gvir_config_domain_disk_get_target_dev(GVirConfigDomainDisk *disk);
+void gvir_config_domain_disk_set_readonly(GVirConfigDomainDisk *disk,
+                                          gboolean readonly);
 
 G_END_DECLS
 

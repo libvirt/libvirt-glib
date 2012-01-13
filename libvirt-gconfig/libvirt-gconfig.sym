@@ -85,6 +85,7 @@ LIBVIRT_GCONFIG_0.0.4 {
 	gvir_config_domain_disk_get_target_dev;
 	gvir_config_domain_disk_set_target_dev;
 	gvir_config_domain_disk_get_disk_type;
+	gvir_config_domain_disk_set_readonly;
 	gvir_config_domain_disk_set_type;
 
 	gvir_config_domain_filesys_get_type;
