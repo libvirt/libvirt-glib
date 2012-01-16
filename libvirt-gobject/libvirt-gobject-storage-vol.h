@@ -78,7 +78,7 @@ GType gvir_storage_vol_info_get_type(void);
 GType gvir_storage_vol_handle_get_type(void);
 
 const gchar *gvir_storage_vol_get_name(GVirStorageVol *vol);
-const gchar *gvir_storage_vol_get_path(GVirStorageVol *vol);
+const gchar *gvir_storage_vol_get_path(GVirStorageVol *vol, GError **error);
 
 gboolean gvir_storage_vol_delete(GVirStorageVol *vol,
                                  guint flags,

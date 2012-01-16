@@ -184,13 +184,16 @@ const gchar *gvir_storage_vol_get_name(GVirStorageVol *vol)
     return name;
 }
 
-const gchar *gvir_storage_vol_get_path(GVirStorageVol *vol)
+const gchar *gvir_storage_vol_get_path(GVirStorageVol *vol, GError **error)
 {
     GVirStorageVolPrivate *priv = vol->priv;
     const char *path;
 
     if (!(path = virStorageVolGetPath(priv->handle))) {
-        g_error("Failed to get storage_vol path on %p", priv->handle);
+        gvir_set_error(error, GVIR_STORAGE_VOL_ERROR, 0,
+                       "Failed to get storage_vol path on %p",
+                       priv->handle);
+        return NULL;
     }
 
     return path;
