@@ -134,7 +134,14 @@ static void gvir_domain_constructed(GObject *object)
 
     /* xxx we may want to turn this into an initable */
     if (virDomainGetUUIDString(priv->handle, priv->uuid) < 0) {
-        g_error("Failed to get domain UUID on %p", priv->handle);
+        virErrorPtr verr = virGetLastError();
+        if (verr) {
+            g_warning("Failed to get domain UUID on %p: %s",
+                      priv->handle, verr->message);
+        } else {
+            g_warning("Failed to get domain UUID on %p",
+                      priv->handle);
+        }
     }
 }
 

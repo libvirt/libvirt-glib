@@ -118,7 +118,14 @@ static void gvir_network_constructed(GObject *object)
 
     /* xxx we may want to turn this into an initable */
     if (virNetworkGetUUIDString(priv->handle, priv->uuid) < 0) {
-        g_error("Failed to get network UUID on %p", priv->handle);
+        virErrorPtr verr = virGetLastError();
+        if (verr) {
+            g_warning("Failed to get network UUID on %p: %s",
+                      priv->handle, verr->message);
+        } else {
+            g_warning("Failed to get network UUID on %p",
+                      priv->handle);
+        }
     }
 }
 

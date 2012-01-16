@@ -129,7 +129,13 @@ static void gvir_storage_pool_constructed(GObject *object)
 
     /* xxx we may want to turn this into an initable */
     if (virStoragePoolGetUUIDString(priv->handle, priv->uuid) < 0) {
-        g_error("Failed to get storage pool UUID on %p", priv->handle);
+        virErrorPtr verr = virGetLastError();
+        if (verr) {
+            g_warning("Failed to get storage pool UUID on %p: %s",
+                      priv->handle, verr->message);
+        } else {
+            g_warning("Failed to get storage pool UUID on %p", priv->handle);
+        }
     }
 }
 

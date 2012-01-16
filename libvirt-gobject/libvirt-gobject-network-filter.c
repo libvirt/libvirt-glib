@@ -119,7 +119,14 @@ static void gvir_network_filter_constructed(GObject *object)
 
     /* xxx we may want to turn this into an initable */
     if (virNWFilterGetUUIDString(priv->handle, priv->uuid) < 0) {
-        g_error("Failed to get network filter UUID on %p", priv->handle);
+        virErrorPtr verr = virGetLastError();
+        if (verr) {
+            g_warning("Failed to get network filter UUID on %p: %s",
+                      priv->handle, verr->message);
+        } else {
+            g_warning("Failed to get network filter UUID on %p",
+                      priv->handle);
+        }
     }
 }
 
