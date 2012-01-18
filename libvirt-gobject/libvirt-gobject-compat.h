@@ -24,6 +24,7 @@
 #define __LIBVIRT_GOBJECT_COMPAT_H__
 
 #include <glib-object.h>
+#include <gio/gio.h>
 
 #if !GLIB_CHECK_VERSION(2,26,0)
 #define G_DEFINE_BOXED_TYPE(TypeName, type_name, copy_func, free_func) G_DEFINE_BOXED_TYPE_WITH_CODE (TypeName, type_name, copy_func, free_func, {})
@@ -68,5 +69,34 @@ type_name##_get_type (void) \
       { /* custom code follows */
 #endif /* __GNUC__ */
 #endif /* glib 2.26 */
+
+#if !GLIB_CHECK_VERSION(2,28,0)
+#define g_clear_object(object_ptr) \
+  G_STMT_START {                                                             \
+    /* Only one access, please */                                            \
+    gpointer *_p = (gpointer) (object_ptr);                                  \
+    gpointer _o;                                                             \
+                                                                             \
+    do                                                                       \
+      _o = g_atomic_pointer_get (_p);                                        \
+    while G_UNLIKELY (!g_atomic_pointer_compare_and_exchange (_p, _o, NULL));\
+                                                                             \
+    if (_o)                                                                  \
+      g_object_unref (_o);                                                   \
+  } G_STMT_END
+
+void
+g_simple_async_result_take_error(GSimpleAsyncResult *simple,
+                                 GError             *error);
+GSimpleAsyncResult *g_simple_async_result_new_take_error (GObject                 *source_object,
+                                                          GAsyncReadyCallback      callback,
+                                                          gpointer                 user_data,
+                                                          GError                  *error);
+void g_simple_async_report_take_gerror_in_idle (GObject            *object,
+                                                GAsyncReadyCallback callback,
+                                                gpointer            user_data,
+                                                GError             *error);
+#endif /* glib 2.28 */
+
 
 #endif /* __LIBVIRT_GOBJECT_COMPAT_H__ */

@@ -53,6 +53,7 @@ libvirt_gobject_1_0_la_SOURCES = \
 			$(GOBJECT_SOURCE_FILES) \
 			libvirt-gobject-domain-device-private.h \
 			libvirt-gobject-compat.h \
+			libvirt-gobject-compat.c \
 			libvirt-gobject-input-stream.h \
 			libvirt-gobject-input-stream.c \
 			libvirt-gobject-output-stream.h \

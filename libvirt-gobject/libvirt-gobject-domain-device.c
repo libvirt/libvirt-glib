@@ -27,6 +27,7 @@
 
 #include "libvirt-glib/libvirt-glib.h"
 #include "libvirt-gobject/libvirt-gobject.h"
+#include "libvirt-gobject-compat.h"
 
 #include "libvirt-gobject/libvirt-gobject-domain-device-private.h"
 

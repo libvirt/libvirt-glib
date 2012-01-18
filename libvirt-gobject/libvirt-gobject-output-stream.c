@@ -29,6 +29,7 @@
 #include "libvirt-glib/libvirt-glib.h"
 #include "libvirt-gobject/libvirt-gobject.h"
 #include "libvirt-gobject-output-stream.h"
+#include "libvirt-gobject-compat.h"
 
 #define gvir_output_stream_get_type _gvir_output_stream_get_type
 G_DEFINE_TYPE(GVirOutputStream, gvir_output_stream, G_TYPE_OUTPUT_STREAM);
