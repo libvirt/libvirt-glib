@@ -39,6 +39,7 @@ G_DEFINE_TYPE(GVirConfigDomain, gvir_config_domain, GVIR_CONFIG_TYPE_OBJECT);
 enum {
     PROP_0,
     PROP_NAME,
+    PROP_DESCRIPTION,
     PROP_MEMORY,
     PROP_VCPU,
     PROP_FEATURES
@@ -54,6 +55,9 @@ static void gvir_config_domain_get_property(GObject *object,
     switch (prop_id) {
     case PROP_NAME:
         g_value_take_string(value, gvir_config_domain_get_name(domain));
+        break;
+    case PROP_DESCRIPTION:
+        g_value_take_string(value, gvir_config_domain_get_description(domain));
         break;
     case PROP_MEMORY:
         g_value_set_uint64(value, gvir_config_domain_get_memory(domain));
@@ -80,6 +84,9 @@ static void gvir_config_domain_set_property(GObject *object,
     switch (prop_id) {
     case PROP_NAME:
         gvir_config_domain_set_name(domain, g_value_get_string(value));
+        break;
+    case PROP_DESCRIPTION:
+        gvir_config_domain_set_description(domain, g_value_get_string(value));
         break;
     case PROP_MEMORY:
         gvir_config_domain_set_memory(domain, g_value_get_uint64(value));
@@ -110,6 +117,14 @@ static void gvir_config_domain_class_init(GVirConfigDomainClass *klass)
                                     g_param_spec_string("name",
                                                         "Name",
                                                         "Domain Name",
+                                                        NULL,
+                                                        G_PARAM_READWRITE |
+                                                        G_PARAM_STATIC_STRINGS));
+    g_object_class_install_property(object_class,
+                                    PROP_DESCRIPTION,
+                                    g_param_spec_string("description",
+                                                        "Description",
+                                                        "Some human readable description (could be anything).",
                                                         NULL,
                                                         G_PARAM_READWRITE |
                                                         G_PARAM_STATIC_STRINGS));
@@ -194,6 +209,19 @@ void gvir_config_domain_set_name(GVirConfigDomain *domain, const char *name)
     gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(domain),
                                         "name", name);
     g_object_notify(G_OBJECT(domain), "name");
+}
+
+char *gvir_config_domain_get_description(GVirConfigDomain *domain)
+{
+    return gvir_config_object_get_node_content(GVIR_CONFIG_OBJECT(domain),
+                                               "description");
+}
+
+void gvir_config_domain_set_description(GVirConfigDomain *domain, const char *description)
+{
+    gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(domain),
+                                        "description", description);
+    g_object_notify(G_OBJECT(domain), "description");
 }
 
 /**

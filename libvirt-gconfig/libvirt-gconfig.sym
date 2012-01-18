@@ -14,6 +14,8 @@ LIBVIRT_GCONFIG_0.0.4 {
 	gvir_config_domain_new;
 	gvir_config_domain_new_from_xml;
 	gvir_config_domain_set_clock;
+	gvir_config_domain_get_description;
+	gvir_config_domain_set_description;
 	gvir_config_domain_get_devices;
 	gvir_config_domain_set_devices;
 	gvir_config_domain_get_features;
