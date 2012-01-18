@@ -107,8 +107,8 @@ void gvir_config_storage_vol_set_target(GVirConfigStorageVol *vol,
     g_return_if_fail(GVIR_CONFIG_IS_STORAGE_VOL(vol));
     g_return_if_fail(GVIR_CONFIG_IS_STORAGE_VOL_TARGET(target));
 
-    gvir_config_object_attach(GVIR_CONFIG_OBJECT(vol),
-                              GVIR_CONFIG_OBJECT(target));
+    gvir_config_object_attach_replace(GVIR_CONFIG_OBJECT(vol),
+                                      GVIR_CONFIG_OBJECT(target));
 }
 
 void gvir_config_storage_vol_set_backing_store(GVirConfigStorageVol *vol,
@@ -117,6 +117,6 @@ void gvir_config_storage_vol_set_backing_store(GVirConfigStorageVol *vol,
     g_return_if_fail(GVIR_CONFIG_IS_STORAGE_VOL(vol));
     g_return_if_fail(GVIR_CONFIG_IS_STORAGE_VOL_BACKING_STORE(backing_store));
 
-    gvir_config_object_attach(GVIR_CONFIG_OBJECT(vol),
-                              GVIR_CONFIG_OBJECT(backing_store));
+    gvir_config_object_attach_replace(GVIR_CONFIG_OBJECT(vol),
+                                      GVIR_CONFIG_OBJECT(backing_store));
 }

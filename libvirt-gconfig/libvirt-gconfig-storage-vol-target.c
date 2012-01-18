@@ -90,6 +90,6 @@ void gvir_config_storage_vol_target_set_permissions(GVirConfigStorageVolTarget *
     g_return_if_fail(GVIR_CONFIG_IS_STORAGE_VOL_TARGET(target));
     g_return_if_fail(GVIR_CONFIG_IS_STORAGE_PERMISSIONS(perms));
 
-    gvir_config_object_attach(GVIR_CONFIG_OBJECT(target),
-                              GVIR_CONFIG_OBJECT(perms));
+    gvir_config_object_attach_replace(GVIR_CONFIG_OBJECT(target),
+                                      GVIR_CONFIG_OBJECT(perms));
 }

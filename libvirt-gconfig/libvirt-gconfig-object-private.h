@@ -76,8 +76,10 @@ void gvir_config_object_delete_children(GVirConfigObject *object, const char *ch
 void gvir_config_object_set_child(GVirConfigObject *object,
                                   xmlNodePtr child);
 
-void gvir_config_object_attach(GVirConfigObject *parent,
-                               GVirConfigObject *child);
+void gvir_config_object_attach_add(GVirConfigObject *parent,
+                                   GVirConfigObject *child);
+void gvir_config_object_attach_replace(GVirConfigObject *parent,
+                                       GVirConfigObject *child);
 void gvir_config_object_set_attribute(GVirConfigObject *object,
                                       ...) G_GNUC_NULL_TERMINATED;
 void gvir_config_object_set_attribute_with_type(GVirConfigObject *object,

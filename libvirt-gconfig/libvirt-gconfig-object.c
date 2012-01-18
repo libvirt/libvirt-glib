@@ -803,12 +803,16 @@ gvir_config_object_set_attribute_with_type(GVirConfigObject *object, ...)
     va_end(args);
 }
 
-G_GNUC_INTERNAL void
-gvir_config_object_attach(GVirConfigObject *parent, GVirConfigObject *child)
+static void
+gvir_config_object_attach(GVirConfigObject *parent, GVirConfigObject *child, gboolean replace)
 {
     g_return_if_fail(GVIR_CONFIG_IS_OBJECT(parent));
     g_return_if_fail(GVIR_CONFIG_IS_OBJECT(child));
 
+    if (replace) {
+        gvir_config_object_delete_children(parent,
+                                           (char *)child->priv->node->name);
+    }
     xmlUnlinkNode(child->priv->node);
     xmlAddChild(parent->priv->node, child->priv->node);
     if (child->priv->doc != NULL) {
@@ -818,6 +822,18 @@ gvir_config_object_attach(GVirConfigObject *parent, GVirConfigObject *child)
     if (parent->priv->doc != NULL) {
         child->priv->doc = g_object_ref(G_OBJECT(parent->priv->doc));
     }
+}
+
+G_GNUC_INTERNAL void
+gvir_config_object_attach_replace(GVirConfigObject *parent, GVirConfigObject *child)
+{
+    gvir_config_object_attach(parent, child, TRUE);
+}
+
+G_GNUC_INTERNAL void
+gvir_config_object_attach_add(GVirConfigObject *parent, GVirConfigObject *child)
+{
+    gvir_config_object_attach(parent, child, FALSE);
 }
 
 G_GNUC_INTERNAL void

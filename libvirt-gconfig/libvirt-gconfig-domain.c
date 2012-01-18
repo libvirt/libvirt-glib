@@ -318,8 +318,8 @@ void gvir_config_domain_set_clock(GVirConfigDomain *domain,
     g_return_if_fail(GVIR_CONFIG_IS_DOMAIN(domain));
     g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_CLOCK(klock));
 
-    gvir_config_object_attach(GVIR_CONFIG_OBJECT(domain),
-                              GVIR_CONFIG_OBJECT(klock));
+    gvir_config_object_attach_replace(GVIR_CONFIG_OBJECT(domain),
+                                      GVIR_CONFIG_OBJECT(klock));
 }
 
 void gvir_config_domain_set_os(GVirConfigDomain *domain,
@@ -328,8 +328,8 @@ void gvir_config_domain_set_os(GVirConfigDomain *domain,
     g_return_if_fail(GVIR_CONFIG_IS_DOMAIN(domain));
     g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_OS(os));
 
-    gvir_config_object_attach(GVIR_CONFIG_OBJECT(domain),
-                              GVIR_CONFIG_OBJECT(os));
+    gvir_config_object_attach_replace(GVIR_CONFIG_OBJECT(domain),
+                                      GVIR_CONFIG_OBJECT(os));
 }
 
 void gvir_config_domain_set_seclabel(GVirConfigDomain *domain,
@@ -338,8 +338,8 @@ void gvir_config_domain_set_seclabel(GVirConfigDomain *domain,
     g_return_if_fail(GVIR_CONFIG_IS_DOMAIN(domain));
     g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_SECLABEL(seclabel));
 
-    gvir_config_object_attach(GVIR_CONFIG_OBJECT(domain),
-                              GVIR_CONFIG_OBJECT(seclabel));
+    gvir_config_object_attach_replace(GVIR_CONFIG_OBJECT(domain),
+                                      GVIR_CONFIG_OBJECT(seclabel));
 }
 
 void gvir_config_domain_set_lifecycle(GVirConfigDomain *domain,
@@ -382,10 +382,12 @@ void gvir_config_domain_set_devices(GVirConfigDomain *domain,
             g_warn_if_reached();
             continue;
         }
-        gvir_config_object_attach(devices_node, GVIR_CONFIG_OBJECT(it->data));
+        gvir_config_object_attach_add(devices_node,
+                                      GVIR_CONFIG_OBJECT(it->data));
     }
 
-    gvir_config_object_attach(GVIR_CONFIG_OBJECT(domain), devices_node);
+    gvir_config_object_attach_replace(GVIR_CONFIG_OBJECT(domain),
+                                      devices_node);
     g_object_unref(G_OBJECT(devices_node));
 }
 
@@ -400,7 +402,7 @@ void gvir_config_domain_add_device(GVirConfigDomain *domain,
     devices_node = gvir_config_object_add_child(GVIR_CONFIG_OBJECT(domain),
                                                 "devices");
 
-    gvir_config_object_attach(devices_node, GVIR_CONFIG_OBJECT(device));
+    gvir_config_object_attach_add(devices_node, GVIR_CONFIG_OBJECT(device));
     g_object_unref(G_OBJECT(devices_node));
 }
 
