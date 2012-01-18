@@ -241,8 +241,6 @@ LIBVIRT_GCONFIG_0.0.4 {
 	gvir_config_object_get_schema;
 	gvir_config_object_to_xml;
 	gvir_config_object_validate;
-	gvir_config_object_set_attribute;
-	gvir_config_object_set_attribute_with_type;
 
 	gvir_config_secret_get_type;
 	gvir_config_secret_new;
