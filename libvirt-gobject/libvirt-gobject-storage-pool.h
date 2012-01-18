@@ -102,8 +102,8 @@ gboolean gvir_storage_pool_refresh_finish(GVirStoragePool *pool,
                                           GError **err);
 
 GList *gvir_storage_pool_get_volumes(GVirStoragePool *pool);
-GVirStoragePool *gvir_storage_pool_get_volume(GVirStoragePool *pool,
-                                              const gchar *name);
+GVirStorageVol *gvir_storage_pool_get_volume(GVirStoragePool *pool,
+                                             const gchar *name);
 GVirStorageVol *gvir_storage_pool_create_volume
                                 (GVirStoragePool *pool,
                                  GVirConfigStorageVol *conf,

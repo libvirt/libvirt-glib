@@ -499,11 +499,11 @@ GList *gvir_storage_pool_get_volumes(GVirStoragePool *pool)
  *
  * Return value: (transfer full): the #GVirStorageVol, or NULL
  */
-GVirStoragePool *gvir_storage_pool_get_volume(GVirStoragePool *pool,
-                                              const gchar *name)
+GVirStorageVol *gvir_storage_pool_get_volume(GVirStoragePool *pool,
+                                             const gchar *name)
 {
     GVirStoragePoolPrivate *priv = pool->priv;
-    GVirStoragePool *volume;
+    GVirStorageVol *volume;
 
     g_mutex_lock(priv->lock);
     volume = g_hash_table_lookup(priv->volumes, name);
