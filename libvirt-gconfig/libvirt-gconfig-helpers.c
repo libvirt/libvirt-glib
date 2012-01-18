@@ -169,14 +169,17 @@ void gvir_config_xml_foreach_child(xmlNodePtr node,
 
     g_return_if_fail(iter_func != NULL);
 
-    for (it = node->children; it != NULL; it = it->next) {
+    it = node->children;
+    while (it != NULL) {
         gboolean cont;
+        xmlNodePtr next = it->next;
 
         if (xmlIsBlankNode(it))
             continue;
         cont = iter_func(it, opaque);
         if (!cont)
             break;
+        it = next;
     }
 }
 

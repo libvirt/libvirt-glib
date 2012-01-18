@@ -465,27 +465,35 @@ gvir_config_object_replace_child_with_attribute(GVirConfigObject *object,
     g_object_unref(G_OBJECT(child));
 }
 
+static gboolean maybe_unlink_node(xmlNodePtr node, const char *name)
+{
+    if (g_strcmp0((char *)node->name, name) == 0) {
+        xmlUnlinkNode(node);
+        xmlFreeNode(node);
+
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
+static gboolean remove_oneshot(xmlNodePtr node, gpointer opaque)
+{
+    return !maybe_unlink_node(node, opaque);
+}
+
 G_GNUC_INTERNAL void
 gvir_config_object_delete_child(GVirConfigObject *object,
                                 const char *child_name)
 {
-    xmlNodePtr parent_node;
-    xmlNodePtr old_node;
-
     g_return_if_fail(GVIR_CONFIG_IS_OBJECT(object));
     g_return_if_fail(child_name != NULL);
 
-    parent_node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(object));
-    g_return_if_fail(parent_node != NULL);
+    gvir_config_object_foreach_child(object, NULL, remove_oneshot,
+                                     (gpointer)child_name);
+}
 
-    if (!(old_node = gvir_config_xml_get_element(parent_node, child_name, NULL)))
-        return;
 
-    /* FIXME: should we make sure there are no multiple occurrences
-     * of this node?
-     */
-    xmlUnlinkNode(old_node);
-    xmlFreeNode(old_node);
 }
 
 
