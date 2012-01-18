@@ -72,6 +72,7 @@ void gvir_config_object_replace_child_with_attribute(GVirConfigObject *object,
                                                      const char *attr_value);
 void gvir_config_object_delete_child(GVirConfigObject *object,
                                      const char *child_name);
+void gvir_config_object_delete_children(GVirConfigObject *object, const char *child_name);
 void gvir_config_object_set_child(GVirConfigObject *object,
                                   xmlNodePtr child);
 

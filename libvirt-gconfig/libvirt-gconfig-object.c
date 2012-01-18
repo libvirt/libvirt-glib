@@ -493,9 +493,22 @@ gvir_config_object_delete_child(GVirConfigObject *object,
                                      (gpointer)child_name);
 }
 
+static gboolean remove_always(xmlNodePtr node, gpointer opaque)
+{
+    maybe_unlink_node(node, opaque);
 
+    return TRUE;
 }
 
+G_GNUC_INTERNAL void
+gvir_config_object_delete_children(GVirConfigObject *object, const char *child_name)
+{
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(object));
+    g_return_if_fail(child_name != NULL);
+
+    gvir_config_object_foreach_child(object, NULL, remove_always,
+                                     (gpointer)child_name);
+}
 
 G_GNUC_INTERNAL void
 gvir_config_object_set_node_content(GVirConfigObject *object,
