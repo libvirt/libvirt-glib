@@ -844,5 +844,5 @@ gboolean gvir_domain_get_persistent(GVirDomain *dom)
 {
     g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
 
-    return virDomainIsPersistent(dom->priv->handle);
+    return virDomainIsPersistent(dom->priv->handle) == 1;
 }
