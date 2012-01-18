@@ -1,18 +1,19 @@
-/* -*- Mode: C; c-basic-offset: 4; indent-tabs-mode: nil -*- */
 /*
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Lesser General Public
-   License as published by the Free Software Foundation; either
-   version 2.1 of the License, or (at your option) any later version.
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, see <http://www.gnu.org/licenses/>.
+ */
 
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Lesser General Public License for more details.
-
-   You should have received a copy of the GNU Lesser General Public
-   License along with this library; if not, see <http://www.gnu.org/licenses/>.
-*/
+#include <config.h>
 
 #include "libvirt-gobject-compat.h"
 
@@ -53,21 +54,21 @@ g_simple_async_result_take_error (GSimpleAsyncResult *simple,
  * Since: 2.28
  **/
 GSimpleAsyncResult *
-g_simple_async_result_new_take_error (GObject             *source_object,
-                                      GAsyncReadyCallback  callback,
-                                      gpointer             user_data,
-                                      GError              *error)
+g_simple_async_result_new_take_error(GObject *source_object,
+                                     GAsyncReadyCallback callback,
+                                     gpointer user_data,
+                                     GError *error)
 {
-  GSimpleAsyncResult *simple;
+    GSimpleAsyncResult *simple;
 
-  g_return_val_if_fail (!source_object || G_IS_OBJECT (source_object), NULL);
+    g_return_val_if_fail(!source_object || G_IS_OBJECT(source_object), NULL);
 
-  simple = g_simple_async_result_new (source_object,
-				      callback,
-				      user_data, NULL);
-  g_simple_async_result_take_error (simple, error);
+    simple = g_simple_async_result_new(source_object,
+                                       callback,
+                                       user_data, NULL);
+    g_simple_async_result_take_error(simple, error);
 
-  return simple;
+    return simple;
 }
 
 /**
@@ -84,21 +85,21 @@ g_simple_async_result_new_take_error (GObject             *source_object,
  * Since: 2.28
  **/
 void
-g_simple_async_report_take_gerror_in_idle (GObject *object,
-                                           GAsyncReadyCallback callback,
-                                           gpointer user_data,
-                                           GError *error)
+g_simple_async_report_take_gerror_in_idle(GObject *object,
+                                          GAsyncReadyCallback callback,
+                                          gpointer user_data,
+                                          GError *error)
 {
-  GSimpleAsyncResult *simple;
+    GSimpleAsyncResult *simple;
 
-  g_return_if_fail (!object || G_IS_OBJECT (object));
-  g_return_if_fail (error != NULL);
+    g_return_if_fail(!object || G_IS_OBJECT(object));
+    g_return_if_fail(error != NULL);
 
-  simple = g_simple_async_result_new_take_error (object,
-                                                 callback,
-                                                 user_data,
-                                                 error);
-  g_simple_async_result_complete_in_idle (simple);
-  g_object_unref (simple);
+    simple = g_simple_async_result_new_take_error(object,
+                                                  callback,
+                                                  user_data,
+                                                  error);
+    g_simple_async_result_complete_in_idle(simple);
+    g_object_unref(simple);
 }
 #endif
