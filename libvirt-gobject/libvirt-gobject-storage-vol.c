@@ -36,6 +36,8 @@
 struct _GVirStorageVolPrivate
 {
     virStorageVolPtr handle;
+
+    GVirStoragePool *pool;
 };
 
 G_DEFINE_TYPE(GVirStorageVol, gvir_storage_vol, G_TYPE_OBJECT);
@@ -44,6 +46,7 @@ G_DEFINE_TYPE(GVirStorageVol, gvir_storage_vol, G_TYPE_OBJECT);
 enum {
     PROP_0,
     PROP_HANDLE,
+    PROP_POOL,
 };
 
 
@@ -69,6 +72,10 @@ static void gvir_storage_vol_get_property(GObject *object,
         g_value_set_boxed(value, priv->handle);
         break;
 
+    case PROP_POOL:
+        g_value_set_object(value, priv->pool);
+        break;
+
     default:
         G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
     }
@@ -88,6 +95,9 @@ static void gvir_storage_vol_set_property(GObject *object,
         if (priv->handle)
             virStorageVolFree(priv->handle);
         priv->handle = g_value_dup_boxed(value);
+        break;
+    case PROP_POOL:
+        priv->pool = g_value_get_object(value);
         break;
 
     default:
@@ -127,6 +137,17 @@ static void gvir_storage_vol_class_init(GVirStorageVolClass *klass)
                                                        G_PARAM_WRITABLE |
                                                        G_PARAM_CONSTRUCT_ONLY |
                                                        G_PARAM_STATIC_STRINGS));
+
+    g_object_class_install_property(object_class,
+                                    PROP_POOL,
+                                    g_param_spec_object("pool",
+                                                        "Pool",
+                                                        "The containing storage pool",
+                                                        GVIR_TYPE_STORAGE_POOL,
+                                                        G_PARAM_READABLE |
+                                                        G_PARAM_WRITABLE |
+                                                        G_PARAM_CONSTRUCT_ONLY |
+                                                        G_PARAM_STATIC_STRINGS));
 
     g_type_class_add_private(klass, sizeof(GVirStorageVolPrivate));
 }

@@ -392,6 +392,7 @@ gboolean gvir_storage_pool_refresh(GVirStoragePool *pool,
 
         volume = GVIR_STORAGE_VOL(g_object_new(GVIR_TYPE_STORAGE_VOL,
                                                "handle", vvolume,
+                                               "pool", pool,
                                                NULL));
 
         g_hash_table_insert(vol_hash, g_strdup(volumes[i]), volume);
@@ -552,6 +553,7 @@ GVirStorageVol *gvir_storage_pool_create_volume
 
     volume = GVIR_STORAGE_VOL(g_object_new(GVIR_TYPE_STORAGE_VOL,
                                            "handle", handle,
+                                           "pool", pool,
                                            NULL));
     name = gvir_storage_vol_get_name(volume);
     if (name == NULL) {
