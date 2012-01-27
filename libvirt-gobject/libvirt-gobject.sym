@@ -126,6 +126,7 @@ LIBVIRT_GOBJECT_0.0.4 {
 	gvir_storage_vol_get_config;
 	gvir_storage_vol_get_info;
 	gvir_storage_vol_delete;
+	gvir_storage_vol_resize;
 
 	gvir_connection_handle_get_type;
 

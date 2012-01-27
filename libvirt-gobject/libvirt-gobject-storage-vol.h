@@ -23,6 +23,7 @@
 #if !defined(__LIBVIRT_GOBJECT_H__) && !defined(LIBVIRT_GOBJECT_BUILD)
 #error "Only <libvirt-gobject/libvirt-gobject.h> can be included directly."
 #endif
+#include <libvirt/libvirt.h>
 
 #ifndef __LIBVIRT_GOBJECT_STORAGE_VOL_H__
 #define __LIBVIRT_GOBJECT_STORAGE_VOL_H__
@@ -65,6 +66,21 @@ typedef enum {
     GVIR_STORAGE_VOL_STATE_DIR   = 2, /* Directory-passthrough based volume */
 } GVirStorageVolType;
 
+/**
+ * GVirStorageVolResizeFlags:
+ * @GVIR_STORAGE_VOL_RESIZE_NONE: No flags
+ * @GVIR_STORAGE_VOL_RESIZE_ALLOCATE: force allocation of new size
+ * @GVIR_STORAGE_VOL_RESIZE_DELTA: size is relative to current
+ * @GVIR_STORAGE_VOL_RESIZE_SHRINK: allow decrease in capacity. This combined
+ * with #GVIR_STORAGE_VOL_RESIZE_DELTA, implies a negative delta.
+ */
+typedef enum {
+    GVIR_STORAGE_VOL_RESIZE_NONE     = 0,
+    GVIR_STORAGE_VOL_RESIZE_ALLOCATE = VIR_STORAGE_VOL_RESIZE_ALLOCATE,
+    GVIR_STORAGE_VOL_RESIZE_DELTA    = VIR_STORAGE_VOL_RESIZE_DELTA,
+    GVIR_STORAGE_VOL_RESIZE_SHRINK   = VIR_STORAGE_VOL_RESIZE_SHRINK,
+} GVirStorageVolResizeFlags;
+
 typedef struct _GVirStorageVolInfo GVirStorageVolInfo;
 struct _GVirStorageVolInfo
 {
@@ -89,6 +105,10 @@ GVirConfigStorageVol *gvir_storage_vol_get_config(GVirStorageVol *vol,
                                                   GError **err);
 GVirStorageVolInfo *gvir_storage_vol_get_info(GVirStorageVol *vol,
                                               GError **err);
+gboolean gvir_storage_vol_resize(GVirStorageVol *vol,
+                                 guint64 capacity,
+                                 guint flags,
+                                 GError **err);
 
 G_END_DECLS
 

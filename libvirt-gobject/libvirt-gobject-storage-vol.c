@@ -299,3 +299,30 @@ gboolean gvir_storage_vol_delete(GVirStorageVol *vol,
 
     return TRUE;
 }
+
+/**
+ * gvir_storage_vol_resize:
+ * @vol: the storage volume to resize
+ * @capacity: the new capacity of the volume
+ * @flags: (type GVirStorageVolResizeFlags): the flags
+ * @err: Return location for errors, or NULL
+ *
+ * Changes the capacity of the storage volume @vol to @capacity.
+ *
+ * Returns: #TRUE success, #FALSE otherwise
+ */
+gboolean gvir_storage_vol_resize(GVirStorageVol *vol,
+                                 guint64 capacity,
+                                 guint flags,
+                                 GError **err)
+{
+    if (virStorageVolResize(vol->priv->handle, capacity, flags) < 0) {
+        gvir_set_error_literal(err,
+                               GVIR_STORAGE_VOL_ERROR,
+                               0,
+                               "Unable to resize volume storage");
+        return FALSE;
+    }
+
+    return TRUE;
+}
