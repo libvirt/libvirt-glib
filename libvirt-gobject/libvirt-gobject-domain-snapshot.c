@@ -166,7 +166,8 @@ const gchar *gvir_domain_snapshot_get_name(GVirDomainSnapshot *snapshot)
     const char *name;
 
     if (!(name = virDomainSnapshotGetName(priv->handle))) {
-        g_error("Failed to get domain_snapshot name on %p", priv->handle);
+        g_warning("Failed to get domain_snapshot name on %p", priv->handle);
+        return NULL;
     }
 
     return name;

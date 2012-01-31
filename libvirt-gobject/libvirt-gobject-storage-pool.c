@@ -209,7 +209,8 @@ const gchar *gvir_storage_pool_get_name(GVirStoragePool *pool)
     const char *name;
 
     if (!(name = virStoragePoolGetName(priv->handle))) {
-        g_error("Failed to get storage_pool name on %p", priv->handle);
+        g_warning("Failed to get storage_pool name on %p", priv->handle);
+        return NULL;
     }
 
     return name;
@@ -541,15 +542,19 @@ GVirStorageVol *gvir_storage_pool_create_volume
     }
 
     GVirStorageVol *volume;
+    char *name;
 
     volume = GVIR_STORAGE_VOL(g_object_new(GVIR_TYPE_STORAGE_VOL,
                                            "handle", handle,
                                            NULL));
+    name = gvir_storage_vol_get_name(volume);
+    if (name == NULL) {
+        g_object_unref(G_OBJECT(volume));
+        return NULL;
+    }
 
     g_mutex_lock(priv->lock);
-    g_hash_table_insert(priv->volumes,
-                        g_strdup(gvir_storage_vol_get_name(volume)),
-                        volume);
+    g_hash_table_insert(priv->volumes, g_strdup(name), volume);
     g_mutex_unlock(priv->lock);
 
     return g_object_ref(volume);

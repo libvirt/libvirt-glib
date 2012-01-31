@@ -179,7 +179,8 @@ const gchar *gvir_network_filter_get_name(GVirNetworkFilter *filter)
     const char *name;
 
     if (!(name = virNWFilterGetName(priv->handle))) {
-        g_error("Failed to get network_filter name on %p", priv->handle);
+        g_warning("Failed to get network_filter name on %p", priv->handle);
+        return NULL;
     }
 
     return name;

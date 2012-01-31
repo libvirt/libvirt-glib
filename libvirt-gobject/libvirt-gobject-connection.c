@@ -1114,6 +1114,9 @@ GVirDomain *gvir_connection_find_domain_by_name(GVirConnection *conn,
         GVirDomain *dom = value;
         const gchar *thisname = gvir_domain_get_name(dom);
 
+        if (thisname == NULL)
+            continue;
+
         if (strcmp(thisname, name) == 0) {
             g_object_ref(dom);
             g_mutex_unlock(priv->lock);
@@ -1144,6 +1147,9 @@ GVirStoragePool *gvir_connection_find_storage_pool_by_name(GVirConnection *conn,
     while (g_hash_table_iter_next(&iter, &key, &value)) {
         GVirStoragePool *pool = value;
         const gchar *thisname = gvir_storage_pool_get_name(pool);
+
+        if (thisname == NULL)
+            continue;
 
         if (strcmp(thisname, name) == 0) {
             g_object_ref(pool);

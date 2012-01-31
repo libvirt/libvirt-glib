@@ -270,7 +270,8 @@ const gchar *gvir_domain_get_name(GVirDomain *dom)
     const char *name;
 
     if (!(name = virDomainGetName(priv->handle))) {
-        g_error("Failed to get domain name on %p", priv->handle);
+        g_warning("Failed to get domain name on %p", priv->handle);
+        return NULL;
     }
 
     return name;

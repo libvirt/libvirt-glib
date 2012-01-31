@@ -177,7 +177,8 @@ const gchar *gvir_network_get_name(GVirNetwork *network)
     const char *name;
 
     if (!(name = virNetworkGetName(priv->handle))) {
-        g_error("Failed to get network name on %p", priv->handle);
+        g_warning("Failed to get network name on %p", priv->handle);
+        return NULL;
     }
 
     return name;

@@ -178,7 +178,8 @@ const gchar *gvir_storage_vol_get_name(GVirStorageVol *vol)
     const char *name;
 
     if (!(name = virStorageVolGetName(priv->handle))) {
-        g_error("Failed to get storage_vol name on %p", priv->handle);
+        g_warning("Failed to get storage_vol name on %p", priv->handle);
+        return NULL;
     }
 
     return name;

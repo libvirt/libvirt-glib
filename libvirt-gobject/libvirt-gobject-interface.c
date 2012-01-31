@@ -163,7 +163,8 @@ const gchar *gvir_interface_get_name(GVirInterface *iface)
     const char *name;
 
     if (!(name = virInterfaceGetName(priv->handle))) {
-        g_error("Failed to get interface name on %p", priv->handle);
+        g_warning("Failed to get interface name on %p", priv->handle);
+        return NULL;
     }
 
     return name;
