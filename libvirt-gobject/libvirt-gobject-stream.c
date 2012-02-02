@@ -67,6 +67,7 @@ enum {
 
 #define GVIR_STREAM_ERROR gvir_stream_error_quark()
 
+static void gvir_stream_update_events(GVirStream *stream);
 
 static GQuark
 gvir_stream_error_quark(void)
@@ -204,13 +205,6 @@ static void gvir_stream_finalize(GObject *object)
     if (self->priv->input_stream)
         g_object_unref(self->priv->input_stream);
 
-    if (priv->handle) {
-        if (virStreamFinish(priv->handle) < 0)
-            g_critical("cannot finish stream");
-
-        virStreamFree(priv->handle);
-    }
-
     tmp = priv->sources;
     while (tmp) {
         GVirStreamSource *source = tmp->data;
@@ -218,6 +212,16 @@ static void gvir_stream_finalize(GObject *object)
         tmp = tmp->next;
     }
     g_list_free(priv->sources);
+    priv->sources = NULL;
+
+    if (priv->handle) {
+        gvir_stream_update_events(self);
+
+        if (virStreamFinish(priv->handle) < 0)
+            g_critical("cannot finish stream");
+
+        virStreamFree(priv->handle);
+    }
 
     G_OBJECT_CLASS(gvir_stream_parent_class)->finalize(object);
 }
@@ -550,8 +554,8 @@ static void gvir_stream_update_events(GVirStream *stream)
         } else {
             virStreamEventAddCallback(priv->handle, mask,
                                       gvir_stream_handle_events,
-                                      g_object_ref(stream),
-                                      g_object_unref);
+                                      stream,
+                                      NULL);
             priv->eventRegistered = TRUE;
         }
     } else {
@@ -600,8 +604,9 @@ static void gvir_stream_source_finalize(GSource *source)
     GVirStreamPrivate *priv = gsource->stream->priv;
 
     priv->sources = g_list_remove(priv->sources, source);
-
     gvir_stream_update_events(gsource->stream);
+
+    g_clear_object(&gsource->stream);
 }
 
 GSourceFuncs gvir_stream_source_funcs = {
@@ -657,12 +662,14 @@ guint gvir_stream_add_watch_full(GVirStream *stream,
                                  gpointer opaque,
                                  GDestroyNotify notify)
 {
+    g_return_val_if_fail(GVIR_IS_STREAM(stream), 0);
+
     GVirStreamPrivate *priv = stream->priv;
     GVirStreamSource *source = (GVirStreamSource*)g_source_new(&gvir_stream_source_funcs,
                                                                sizeof(GVirStreamSource));
     guint ret;
 
-    source->stream = stream;
+    source->stream = g_object_ref(stream);
     source->cond = cond;
 
     if (priority != G_PRIORITY_DEFAULT)
