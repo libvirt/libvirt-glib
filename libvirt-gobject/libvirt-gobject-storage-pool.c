@@ -548,7 +548,7 @@ GVirStorageVol *gvir_storage_pool_create_volume
     }
 
     GVirStorageVol *volume;
-    char *name;
+    const char *name;
 
     volume = GVIR_STORAGE_VOL(g_object_new(GVIR_TYPE_STORAGE_VOL,
                                            "handle", handle,
