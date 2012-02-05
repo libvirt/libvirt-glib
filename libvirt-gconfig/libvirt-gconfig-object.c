@@ -636,10 +636,13 @@ GVirConfigObject *gvir_config_object_new_from_xml(GType type,
     GVirConfigObject *object;
     GVirConfigXmlDoc *doc;
     xmlNodePtr node;
+    GError *tmp_error = NULL;
 
-    node = gvir_config_xml_parse(xml, root_name, error);
-    if ((error != NULL) && (*error != NULL))
+    node = gvir_config_xml_parse(xml, root_name, &tmp_error);
+    if (tmp_error != NULL) {
+        g_propagate_error(error, tmp_error);
         return NULL;
+    }
     doc = gvir_config_xml_doc_new(node->doc);
     object = GVIR_CONFIG_OBJECT(g_object_new(type,
                                              "doc", doc,
