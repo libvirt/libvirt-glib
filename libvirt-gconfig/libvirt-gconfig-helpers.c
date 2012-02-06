@@ -308,3 +308,23 @@ gvir_config_genum_get_value (GType enum_type, const char *nick,
 
     g_return_val_if_reached(default_value);
 }
+
+G_GNUC_INTERNAL char *
+gvir_config_xml_node_to_string(xmlNodePtr node)
+{
+    xmlBufferPtr xmlbuf;
+    char *xml;
+
+    if (node == NULL)
+        return NULL;
+
+    xmlbuf = xmlBufferCreate();
+    if (xmlNodeDump(xmlbuf, node->doc, node, 0, 1) < 0)
+        return NULL;
+    else
+        xml = g_strndup((gchar *)xmlBufferContent(xmlbuf), xmlBufferLength(xmlbuf));
+
+    xmlBufferFree(xmlbuf);
+
+    return xml;
+}

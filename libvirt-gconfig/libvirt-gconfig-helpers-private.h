@@ -56,6 +56,7 @@ char *gvir_config_xml_get_child_element_content_glib (xmlNode    *node,
                                                       const char *child_name);
 xmlChar *gvir_config_xml_get_attribute_content(xmlNodePtr node,
                                                const char *attr_name);
+char *gvir_config_xml_node_to_string(xmlNodePtr node);
 char *gvir_config_xml_get_attribute_content_glib(xmlNodePtr node,
                                                  const char *attr_name);
 const char *gvir_config_genum_get_nick (GType enum_type, gint value);
