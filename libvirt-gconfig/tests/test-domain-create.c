@@ -172,6 +172,13 @@ int main(int argc, char **argv)
     g_list_free(devices);
     devices = NULL;
 
+    gvir_config_domain_set_custom_xml(domain, "<foo/>", "ns", "http://foo", NULL);
+    gvir_config_domain_set_custom_xml(domain, "<foo/>", "nsbar", "http://bar", NULL);
+    gvir_config_domain_set_custom_xml(domain, "<foo/>", "ns", "http://bar", NULL);
+    gvir_config_domain_set_custom_xml(domain, "<bar/>", "ns", "http://foo", NULL);
+
+    g_assert(g_strcmp0(gvir_config_domain_get_custom_xml(domain, "http://foo"), "<ns:bar xmlns:ns=\"http://foo\"/>") == 0);
+    g_assert(g_strcmp0(gvir_config_domain_get_custom_xml(domain, "http://bar"), "<ns:foo xmlns:ns=\"http://bar\"/>") == 0);
 
     xml = gvir_config_object_to_xml(GVIR_CONFIG_OBJECT(domain));
     g_print("%s\n\n", xml);
