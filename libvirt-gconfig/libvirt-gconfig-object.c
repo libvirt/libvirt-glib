@@ -256,21 +256,7 @@ void gvir_config_object_validate(GVirConfigObject *config,
 
 gchar *gvir_config_object_to_xml(GVirConfigObject *config)
 {
-    xmlChar *doc;
-    int size;
-    xmlNodePtr node;
-    gchar *output_doc;
-
-    node = gvir_config_object_get_xml_node(config);
-    if (node == NULL)
-        return NULL;
-
-    xmlDocDumpFormatMemory(node->doc, &doc, &size, 1);
-
-    output_doc = g_strdup((gchar *)doc);
-    xmlFree(doc);
-
-    return output_doc;
+    return gvir_config_xml_node_to_string(config->priv->node);
 }
 
 const gchar *gvir_config_object_get_schema(GVirConfigObject *config)
