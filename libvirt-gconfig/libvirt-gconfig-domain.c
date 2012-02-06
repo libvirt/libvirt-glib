@@ -479,6 +479,7 @@ gboolean gvir_config_domain_set_custom_xml(GVirConfigDomain *domain,
     gvir_config_object_delete_children(metadata, NULL, ns_uri);
     gvir_config_object_attach_add(metadata, custom_xml);
     g_object_unref(G_OBJECT(metadata));
+    g_object_unref(G_OBJECT(custom_xml));
 
     return TRUE;
 }
