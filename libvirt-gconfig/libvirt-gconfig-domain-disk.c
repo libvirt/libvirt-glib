@@ -301,5 +301,5 @@ gvir_config_domain_disk_set_readonly(GVirConfigDomainDisk *disk,
         GVirConfigObject *node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(disk), "readonly");
         g_object_unref(node);
     } else
-        gvir_config_object_delete_child(GVIR_CONFIG_OBJECT(disk), "readonly");
+        gvir_config_object_delete_child(GVIR_CONFIG_OBJECT(disk), "readonly", NULL);
 }

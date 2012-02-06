@@ -156,6 +156,6 @@ void gvir_config_domain_filesys_set_readonly(GVirConfigDomainFilesys *filesys,
         GVirConfigObject *node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(filesys), "readonly");
         g_object_unref(node);
     } else {
-        gvir_config_object_delete_child(GVIR_CONFIG_OBJECT(filesys), "readonly");
+        gvir_config_object_delete_child(GVIR_CONFIG_OBJECT(filesys), "readonly", NULL);
     }
 }
