@@ -148,7 +148,8 @@ gvir_config_xml_parse(const char *xml, const char *root_node, GError **err)
                                       "Unable to parse configuration");
         return NULL;
     }
-    if ((!doc->children) || (strcmp((char *)doc->children->name, root_node) != 0)) {
+    if ((!doc->children) ||
+         ((root_node != NULL) && g_strcmp0((char *)doc->children->name, root_node) != 0)) {
         g_set_error(err,
                     GVIR_CONFIG_OBJECT_ERROR,
                     0,
