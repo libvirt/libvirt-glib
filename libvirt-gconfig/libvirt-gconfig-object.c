@@ -857,3 +857,23 @@ gvir_config_object_remove_attribute(GVirConfigObject *object,
         status = xmlUnsetProp(object->priv->node, (xmlChar *)attr_name);
     } while (status == 0);
 }
+
+G_GNUC_INTERNAL gboolean
+gvir_config_object_set_namespace(GVirConfigObject *object, const char *ns,
+                                 const char *ns_uri)
+{
+    xmlNsPtr namespace;
+
+    g_return_val_if_fail(GVIR_CONFIG_IS_OBJECT(object), FALSE);
+    g_return_val_if_fail(ns != NULL, FALSE);
+    g_return_val_if_fail(ns_uri != NULL, FALSE);
+
+    namespace = xmlNewNs(object->priv->node,
+                         (xmlChar *)ns_uri, (xmlChar *)ns);
+    if (namespace == NULL)
+        return FALSE;
+
+    xmlSetNs(object->priv->node, namespace);
+
+    return TRUE;
+}

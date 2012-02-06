@@ -93,6 +93,9 @@ void gvir_config_object_foreach_child(GVirConfigObject *object,
                                       const char *parent_name,
                                       GVirConfigXmlNodeIterator iter_func,
                                       gpointer opaque);
+gboolean gvir_config_object_set_namespace(GVirConfigObject *object,
+                                          const char *ns,
+                                          const char *ns_uri);
 
 G_END_DECLS
 
