@@ -172,6 +172,18 @@ void gvir_config_domain_disk_set_driver_type(GVirConfigDomainDisk *disk,
                                                 "driver", "type", driver_type);
 }
 
+void gvir_config_domain_disk_set_driver_cache(GVirConfigDomainDisk *disk,
+                                              GVirConfigDomainDiskCacheType cache_type)
+{
+    const char *cache_str;
+
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_DISK(disk));
+    cache_str = gvir_config_genum_get_nick(GVIR_CONFIG_TYPE_DOMAIN_DISK_CACHE_TYPE, cache_type);
+    g_return_if_fail(cache_str != NULL);
+    gvir_config_object_add_child_with_attribute(GVIR_CONFIG_OBJECT(disk),
+                                                "driver", "cache", cache_str);
+}
+
 void gvir_config_domain_disk_set_target_bus(GVirConfigDomainDisk *disk,
                                             GVirConfigDomainDiskBus bus)
 {
@@ -269,6 +281,17 @@ gvir_config_domain_disk_get_driver_type(GVirConfigDomainDisk *disk)
                                             "driver", "type");
 }
 
+GVirConfigDomainDiskCacheType
+gvir_config_domain_disk_get_driver_cache(GVirConfigDomainDisk *disk)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_DISK(disk),
+                         GVIR_CONFIG_DOMAIN_DISK_CACHE_DEFAULT);
+
+    return gvir_config_object_get_attribute_genum(GVIR_CONFIG_OBJECT(disk),
+                                                  "driver", "cache",
+                                                  GVIR_CONFIG_TYPE_DOMAIN_DISK_CACHE_TYPE,
+                                                  GVIR_CONFIG_DOMAIN_DISK_CACHE_DEFAULT);
+}
 GVirConfigDomainDiskBus
 gvir_config_domain_disk_get_target_bus(GVirConfigDomainDisk *disk)
 {

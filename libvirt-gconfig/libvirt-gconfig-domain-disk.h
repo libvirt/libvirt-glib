@@ -75,6 +75,15 @@ typedef enum {
 } GVirConfigDomainDiskBus;
 
 typedef enum {
+    GVIR_CONFIG_DOMAIN_DISK_CACHE_DEFAULT,
+    GVIR_CONFIG_DOMAIN_DISK_CACHE_NONE,
+    GVIR_CONFIG_DOMAIN_DISK_CACHE_WRITETHROUGH,
+    GVIR_CONFIG_DOMAIN_DISK_CACHE_WRITEBACK,
+    GVIR_CONFIG_DOMAIN_DISK_CACHE_DIRECTSYNC,
+    GVIR_CONFIG_DOMAIN_DISK_CACHE_UNSAFE
+} GVirConfigDomainDiskCacheType;
+
+typedef enum {
     GVIR_CONFIG_DOMAIN_DISK_GUEST_DEVICE_DISK,
     GVIR_CONFIG_DOMAIN_DISK_GUEST_DEVICE_FLOPPY,
     GVIR_CONFIG_DOMAIN_DISK_GUEST_DEVICE_CDROM
@@ -100,6 +109,8 @@ void gvir_config_domain_disk_set_snapshot_type(GVirConfigDomainDisk *disk,
                                                GVirConfigDomainDiskSnapshotType type);
 void gvir_config_domain_disk_set_source(GVirConfigDomainDisk *disk,
                                         const char *source);
+void gvir_config_domain_disk_set_driver_cache(GVirConfigDomainDisk *disk,
+                                              GVirConfigDomainDiskCacheType cache_type);
 void gvir_config_domain_disk_set_driver_name(GVirConfigDomainDisk *disk,
                                              const char *driver_name);
 void gvir_config_domain_disk_set_driver_type(GVirConfigDomainDisk *disk,
@@ -113,6 +124,7 @@ GVirConfigDomainDiskType gvir_config_domain_disk_get_disk_type(GVirConfigDomainD
 GVirConfigDomainDiskGuestDeviceType gvir_config_domain_disk_get_guest_device_type(GVirConfigDomainDisk *disk);
 GVirConfigDomainDiskSnapshotType gvir_config_domain_disk_get_snapshot_type(GVirConfigDomainDisk *disk);
 char *gvir_config_domain_disk_get_source(GVirConfigDomainDisk *disk);
+GVirConfigDomainDiskCacheType gvir_config_domain_disk_get_driver_cache(GVirConfigDomainDisk *disk);
 char *gvir_config_domain_disk_get_driver_name(GVirConfigDomainDisk *disk);
 char *gvir_config_domain_disk_get_driver_type(GVirConfigDomainDisk *disk);
 GVirConfigDomainDiskBus gvir_config_domain_disk_get_target_bus(GVirConfigDomainDisk *disk);
