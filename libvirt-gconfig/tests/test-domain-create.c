@@ -32,10 +32,16 @@
 
 const char *features[] = { "foo", "bar", "baz", NULL };
 
+#define g_str_check(str1, str2) G_STMT_START { \
+    char *alloced_str = (str1); \
+    g_assert(alloced_str != NULL); \
+    g_assert(g_strcmp0(alloced_str, (str2)) == 0); \
+    g_free(alloced_str); \
+} G_STMT_END
+
 int main(int argc, char **argv)
 {
     GVirConfigDomain *domain;
-    char *name;
     GStrv feat;
     unsigned int i;
     char *xml;
@@ -45,14 +51,12 @@ int main(int argc, char **argv)
     domain = gvir_config_domain_new();
     g_assert(domain != NULL);
     gvir_config_domain_set_name(domain, "foo");
-    name = gvir_config_domain_get_name(domain);
-    g_assert(name != NULL);
-    g_assert(strcmp(name, "foo") == 0);
-    g_free(name);
+    g_str_check(gvir_config_domain_get_name(domain), "foo");
 
     gvir_config_domain_set_memory(domain, 1234);
-    gvir_config_domain_set_vcpus(domain, 3);
     g_assert(gvir_config_domain_get_memory(domain) == 1234);
+    gvir_config_domain_set_vcpus(domain, 3);
+    g_assert(gvir_config_domain_get_vcpus(domain) == 3);
 
     gvir_config_domain_set_features(domain, (const GStrv)features);
     feat = gvir_config_domain_get_features(domain);
@@ -102,11 +106,19 @@ int main(int argc, char **argv)
     gvir_config_domain_disk_set_driver_type(disk, "bar");
     gvir_config_domain_disk_set_driver_name(disk, "qemu");
     gvir_config_domain_disk_set_driver_cache(disk, GVIR_CONFIG_DOMAIN_DISK_CACHE_NONE);
-    g_assert(gvir_config_domain_disk_get_driver_cache(disk) == GVIR_CONFIG_DOMAIN_DISK_CACHE_NONE);
     gvir_config_domain_disk_set_driver_type(disk, "qcow2");
     gvir_config_domain_disk_set_target_bus(disk, GVIR_CONFIG_DOMAIN_DISK_BUS_IDE);
     gvir_config_domain_disk_set_target_dev(disk, "hda");
     devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(disk));
+
+    g_assert(gvir_config_domain_disk_get_disk_type(disk) == GVIR_CONFIG_DOMAIN_DISK_FILE);
+    g_assert(gvir_config_domain_disk_get_guest_device_type(disk) == GVIR_CONFIG_DOMAIN_DISK_GUEST_DEVICE_DISK);
+    g_str_check(gvir_config_domain_disk_get_source(disk), "/tmp/foo/bar");
+    g_assert(gvir_config_domain_disk_get_driver_cache(disk) == GVIR_CONFIG_DOMAIN_DISK_CACHE_NONE);
+    g_str_check(gvir_config_domain_disk_get_driver_name(disk), "qemu");
+    g_str_check(gvir_config_domain_disk_get_driver_type(disk), "qcow2");
+    g_assert(gvir_config_domain_disk_get_target_bus(disk) == GVIR_CONFIG_DOMAIN_DISK_BUS_IDE);
+    g_str_check(gvir_config_domain_disk_get_target_dev(disk), "hda");
 
 
     /* network interfaces node */
@@ -179,12 +191,8 @@ int main(int argc, char **argv)
     gvir_config_domain_set_custom_xml(domain, "<foo/>", "ns", "http://bar", NULL);
     gvir_config_domain_set_custom_xml(domain, "<bar/>", "ns", "http://foo", NULL);
 
-    xml = gvir_config_domain_get_custom_xml(domain, "http://foo");
-    g_assert(g_strcmp0(xml, "<ns:bar xmlns:ns=\"http://foo\"/>") == 0);
-    g_free(xml);
-    xml = gvir_config_domain_get_custom_xml(domain, "http://bar");
-    g_assert(g_strcmp0(xml, "<ns:foo xmlns:ns=\"http://bar\"/>") == 0);
-    g_free(xml);
+    g_str_check(gvir_config_domain_get_custom_xml(domain, "http://foo"), "<ns:bar xmlns:ns=\"http://foo\"/>");
+    g_str_check(gvir_config_domain_get_custom_xml(domain, "http://bar"), "<ns:foo xmlns:ns=\"http://bar\"/>");
 
     xml = gvir_config_object_to_xml(GVIR_CONFIG_OBJECT(domain));
     g_print("%s\n\n", xml);
