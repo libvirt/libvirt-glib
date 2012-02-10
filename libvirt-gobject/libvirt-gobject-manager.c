@@ -46,9 +46,9 @@ enum {
 };
 
 
+#if 0
 #define GVIR_MANAGER_ERROR gvir_manager_error_quark()
 
-#if 0
 static GQuark
 gvir_manager_error_quark(void)
 {
