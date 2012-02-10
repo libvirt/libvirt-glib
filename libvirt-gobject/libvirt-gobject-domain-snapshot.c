@@ -172,7 +172,7 @@ const gchar *gvir_domain_snapshot_get_name(GVirDomainSnapshot *snapshot)
 
     return name;
 #else
-    if (snapshot || !snapshot)
+    if (snapshot)
         return NULL;
 #endif
 
