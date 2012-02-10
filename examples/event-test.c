@@ -72,6 +72,8 @@ static const char *eventDetailToString(int event, int detail) {
         case VIR_DOMAIN_EVENT_STARTED_RESTORED:
             ret = "Restored";
             break;
+        default:
+            break;
         }
         break;
     case VIR_DOMAIN_EVENT_SUSPENDED:
@@ -106,7 +108,11 @@ static const char *eventDetailToString(int event, int detail) {
         case VIR_DOMAIN_EVENT_STOPPED_FAILED:
             ret = "Failed";
             break;
+        default:
+            break;
         }
+        break;
+    default:
         break;
     }
     return ret;
