@@ -458,22 +458,22 @@ struct NodeMatch {
 
 static gboolean maybe_unlink_node(xmlNodePtr node, void *opaque)
 {
-    gboolean unlink = TRUE;
+    gboolean dounlink = TRUE;
     struct NodeMatch *match = (struct NodeMatch *)opaque;
 
     if (match->ns != NULL) {
-        unlink = unlink && (g_strcmp0(match->ns, (char *)node->ns->href) == 0);
+        dounlink = dounlink && (g_strcmp0(match->ns, (char *)node->ns->href) == 0);
     }
 
     if (match->name != NULL) {
-        unlink = unlink && (g_strcmp0(match->name, (char *)node->name) == 0);
+        dounlink = dounlink && (g_strcmp0(match->name, (char *)node->name) == 0);
     }
-    if (unlink) {
+    if (dounlink) {
         xmlUnlinkNode(node);
         xmlFreeNode(node);
     }
 
-    return unlink;
+    return dounlink;
 }
 
 static gboolean remove_oneshot(xmlNodePtr node, gpointer opaque)
