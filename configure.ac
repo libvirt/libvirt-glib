@@ -51,7 +51,7 @@ m4_if(m4_version_compare([2.61a.100],
       [AC_CONFIG_LINKS([$GNUmakefile:$GNUmakefile], [],
         [GNUmakefile=$GNUmakefile])])
 
-LIBVIRT_GLIB_COMPILE_WARNINGS([maximum])
+LIBVIRT_GLIB_COMPILE_WARNINGS
 
 PKG_CHECK_MODULES(LIBVIRT, libvirt >= $LIBVIRT_REQUIRED)
 PKG_CHECK_MODULES(GLIB2, glib-2.0 >= $GLIB2_REQUIRED)
@@ -101,11 +101,11 @@ AC_ARG_ENABLE([test-coverage],
 enable_coverage=$enableval
 
 if test "${enable_coverage}" = yes; then
-  gl_COMPILER_FLAGS(-fprofile-arcs)
-  gl_COMPILER_FLAGS(-ftest-coverage)
-  AC_SUBST([COVERAGE_CFLAGS], [$COMPILER_FLAGS])
-  AC_SUBST([COVERAGE_LDFLAGS], [$COMPILER_FLAGS])
-  COMPILER_FLAGS=
+  gl_WARN_ADD([-fprofile-arcs], COV_FLAGS)
+  gl_WARN_ADD([-ftest-coverage], COV_FLAGS)
+  AC_SUBST([COVERAGE_CFLAGS], [$COV_FLAGS])
+  AC_SUBST([COVERAGE_LDFLAGS], [$COV_FLAGS])
+  COV_FLAGS=
 fi
 
 dnl

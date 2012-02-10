@@ -38,7 +38,7 @@ fi
 
 mkdir -p build-aux
 libtoolize --copy --force
-aclocal
+aclocal -I m4
 autoheader
 automake --add-missing
 autoconf
@@ -57,7 +57,7 @@ if test "x$1" = "x--system"; then
     EXTRA_ARGS="--prefix=$prefix --sysconfdir=$sysconfdir --localstatedir=$localstatedir --libdir=$libdir"
 fi
 
-$srcdir/configure --enable-compile-warnings=maximum $EXTRA_ARGS "$@" && {
+$srcdir/configure $EXTRA_ARGS "$@" && {
     echo
     echo "Now type 'make' to compile libvirt-glib."
 }
