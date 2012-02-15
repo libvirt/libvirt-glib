@@ -63,8 +63,12 @@ gboolean gvir_init_check(int *argc G_GNUC_UNUSED,
                          GError **err G_GNUC_UNUSED)
 {
     virSetErrorFunc(NULL, gvir_error_func);
+
+    /* Threading is always enabled from 2.31.0 onwards */
+#if !GLIB_CHECK_VERSION(2, 31, 0)
     if (!g_thread_supported())
         g_thread_init(NULL);
+#endif
 
     virInitialize();
 

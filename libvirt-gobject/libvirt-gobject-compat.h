@@ -26,6 +26,11 @@
 #include <glib-object.h>
 #include <gio/gio.h>
 
+#if GLIB_CHECK_VERSION(2, 31, 0)
+#define g_mutex_new() g_new0(GMutex, 1)
+#define g_mutex_free(m) g_free(m)
+#endif
+
 #if !GLIB_CHECK_VERSION(2,26,0)
 #define G_DEFINE_BOXED_TYPE(TypeName, type_name, copy_func, free_func) G_DEFINE_BOXED_TYPE_WITH_CODE (TypeName, type_name, copy_func, free_func, {})
 #define G_DEFINE_BOXED_TYPE_WITH_CODE(TypeName, type_name, copy_func, free_func, _C_) _G_DEFINE_BOXED_TYPE_BEGIN (TypeName, type_name, copy_func, free_func) {_C_;} _G_DEFINE_TYPE_EXTENDED_END()

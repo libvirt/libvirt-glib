@@ -28,6 +28,7 @@
 
 #include "libvirt-glib/libvirt-glib.h"
 #include "libvirt-gobject/libvirt-gobject.h"
+#include "libvirt-gobject/libvirt-gobject-compat.h"
 
 #define GVIR_MANAGER_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_MANAGER, GVirManagerPrivate))
