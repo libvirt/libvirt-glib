@@ -39,6 +39,8 @@ AC_DEFUN([LIBVIRT_GLIB_COMPILE_WARNINGS],[
     dontwarn="$dontwarn -Wdeclaration-after-statement"
     # Using long long is fine
     dontwarn="$dontwarn -Wlong-long"
+    # Unused macros are ok
+    dontwarn="$dontwarn -Wunused-macros"
 
 
     # g_clear_object & G_ATOMIC_OP_USE_GCC_BUILTINS causes
