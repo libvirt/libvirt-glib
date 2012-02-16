@@ -731,15 +731,15 @@ cleanup:
 
 /**
  * gvir_domain_save:
- * @dom: the domain to save and suspend
+ * @dom: the domain to save
  * @flags: extra flags, currently unused
  * @err: Place-holder for possible errors
  *
- * Just like #gvir_domain_suspend but also saves the state of the domain on disk
- * and therefore makes it possible to restore the domain to its previous state
+ * Saves the state of the domain on disk and stops it. Use #gvir_domain_resume
+ * to restore the saved state of the domain. A saved domain can be restored
  * even after shutdown/reboot of host machine.
  *
- * Returns: TRUE if domain was saved and suspended successfully, FALSE otherwise.
+ * Returns: TRUE if domain was saved successfully, FALSE otherwise.
  */
 gboolean gvir_domain_save (GVirDomain *dom,
                            unsigned int flags,
@@ -750,7 +750,7 @@ gboolean gvir_domain_save (GVirDomain *dom,
     if (virDomainManagedSave(dom->priv->handle, flags) < 0) {
         gvir_set_error_literal(err, GVIR_DOMAIN_ERROR,
                                0,
-                               "Unable to save and suspend domain");
+                               "Unable to save domain");
         return FALSE;
     }
 
@@ -783,7 +783,7 @@ gvir_domain_save_helper(GSimpleAsyncResult *res,
 
 /**
  * gir_domain_save_async:
- * @dom: the domain to save and suspend
+ * @dom: the domain to save
  * @flags: extra flags, currently unused
  * @cancellable: (allow-none)(transfer none): cancellation object
  * @callback: (scope async): completion callback
@@ -819,13 +819,13 @@ void gvir_domain_save_async (GVirDomain *dom,
 
 /**
  * gir_domain_save_finish:
- * @dom: the domain to save and suspend
+ * @dom: the domain to save
  * @result: (transfer none): async method result
  * @err: Place-holder for possible errors
  *
  * Finishes the operation started by #gvir_domain_save_async.
  *
- * Returns: TRUE if domain was saved and suspended successfully, FALSE otherwise.
+ * Returns: TRUE if domain was saved successfully, FALSE otherwise.
  */
 gboolean gvir_domain_save_finish (GVirDomain *dom,
                                   GAsyncResult *result,
