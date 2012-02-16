@@ -64,6 +64,7 @@ LIBVIRT_GOBJECT_0.0.4 {
 	gvir_domain_set_config;
 	gvir_domain_get_info;
 	gvir_domain_get_persistent;
+	gvir_domain_get_saved;
 	gvir_domain_screenshot;
 
 	gvir_domain_snapshot_get_type;

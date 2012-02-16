@@ -854,3 +854,17 @@ gboolean gvir_domain_get_persistent(GVirDomain *dom)
 
     return virDomainIsPersistent(dom->priv->handle) == 1;
 }
+
+/**
+ * gvir_domain_get_saved:
+ * @dom: the domain
+ *
+ * Returns: TRUE if a stopped domain has a saved state to which it can be
+ * restored to using #gvir_domain_resume, FALSE otherwise.
+ */
+gboolean gvir_domain_get_saved(GVirDomain *dom)
+{
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
+
+    return virDomainHasManagedSaveImage(dom->priv->handle, 0) == 1;
+}

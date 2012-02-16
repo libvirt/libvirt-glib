@@ -167,6 +167,7 @@ gboolean gvir_domain_save_finish (GVirDomain *dom,
                                   GAsyncResult *result,
                                   GError **err);
 gboolean gvir_domain_get_persistent(GVirDomain *dom);
+gboolean gvir_domain_get_saved(GVirDomain *dom);
 
 G_END_DECLS
 
