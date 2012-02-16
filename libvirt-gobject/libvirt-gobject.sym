@@ -4,6 +4,7 @@ LIBVIRT_GOBJECT_0.0.4 {
         gvir_init_object_check;
 
 	gvir_connection_get_type;
+	gvir_node_info_get_type;
 	gvir_connection_new;
 	gvir_connection_open;
 	gvir_connection_open_async;
@@ -29,6 +30,7 @@ LIBVIRT_GOBJECT_0.0.4 {
 	gvir_connection_create_domain;
 	gvir_connection_create_storage_pool;
 	gvir_connection_start_domain;
+	gvir_connection_get_node_info;
 
 	gvir_domain_device_get_type;
 

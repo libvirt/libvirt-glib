@@ -38,6 +38,19 @@ G_BEGIN_DECLS
 
 #define GVIR_TYPE_CONNECTION_HANDLE      (gvir_connection_handle_get_type ())
 
+typedef struct _GVirNodeInfo GVirNodeInfo;
+struct _GVirNodeInfo
+{
+    gchar model[32]; /* string indicating the CPU model */
+    gulong memory;   /* memory size in kilobytes */
+    guint cpus;      /* the number of active CPUs */
+    guint mhz;       /* expected CPU frequency */
+    guint nodes;     /* the number of NUMA cell, 1 for unusual NUMA topologies or uniform memo */
+    guint sockets;   /* number of CPU sockets per node if nodes > 1, total number of CPU socke */
+    guint cores;     /* number of cores per socket */
+    guint threads;   /* number of threads per core */
+};
+
 typedef struct _GVirConnection GVirConnection;
 typedef struct _GVirConnectionPrivate GVirConnectionPrivate;
 typedef struct _GVirConnectionClass GVirConnectionClass;
@@ -69,6 +82,7 @@ struct _GVirConnectionClass
 
 GType gvir_connection_get_type(void);
 GType gvir_connection_handle_get_type(void);
+GType gvir_node_info_get_type(void);
 
 GVirConnection *gvir_connection_new(const char *uri);
 gboolean gvir_connection_open(GVirConnection *conn,
@@ -173,6 +187,9 @@ GVirStoragePool *gvir_connection_create_storage_pool
 
 GVirStream *gvir_connection_get_stream(GVirConnection *conn,
                                        guint flags);
+
+GVirNodeInfo *gvir_connection_get_node_info(GVirConnection *conn,
+                                            GError **err);
 
 G_END_DECLS
 

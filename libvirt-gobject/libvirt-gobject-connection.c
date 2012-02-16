@@ -71,6 +71,21 @@ gvir_connection_error_quark(void)
     return g_quark_from_static_string("gvir-connection");
 }
 
+static GVirNodeInfo *
+gvir_node_info_copy(GVirNodeInfo *info)
+{
+    return g_slice_dup(GVirNodeInfo, info);
+}
+
+static void
+gvir_node_info_free(GVirNodeInfo *info)
+{
+    g_slice_free(GVirNodeInfo, info);
+}
+
+G_DEFINE_BOXED_TYPE(GVirNodeInfo, gvir_node_info,
+                    gvir_node_info_copy, gvir_node_info_free)
+
 static void gvir_connection_get_property(GObject *object,
                                          guint prop_id,
                                          GValue *value,
@@ -1337,4 +1352,38 @@ GVirStoragePool *gvir_connection_create_storage_pool
     g_mutex_unlock(priv->lock);
 
     return g_object_ref(pool);
+}
+
+/**
+ * gvir_connection_get_node_info:
+ * @conn: the connection
+ * @err: return location for any #GError
+ *
+ * Returns: (transfer full): the info
+ */
+GVirNodeInfo *gvir_connection_get_node_info(GVirConnection *conn,
+                                            GError **err)
+{
+    GVirConnectionPrivate *priv = conn->priv;
+    virNodeInfo info;
+    GVirNodeInfo *ret;
+
+    if (virNodeGetInfo(priv->conn, &info) < 0) {
+        gvir_set_error_literal(err, GVIR_CONNECTION_ERROR,
+                               0,
+                               "Unable to get node info");
+        return NULL;
+    }
+
+    ret = g_slice_new(GVirNodeInfo);
+    g_utf8_strncpy (ret->model, info.model, sizeof (ret->model));
+    ret->memory = info.memory;
+    ret->cpus = info.cpus;
+    ret->mhz = info.mhz;
+    ret->nodes = info.nodes;
+    ret->sockets = info.sockets;
+    ret->cores = info.cores;
+    ret->threads = info.threads;
+
+    return ret;
 }
