@@ -30,6 +30,7 @@
 G_BEGIN_DECLS
 
 #include <libvirt-gobject/libvirt-gobject-stream.h>
+#include <libvirt/libvirt.h>
 
 #define GVIR_TYPE_DOMAIN            (gvir_domain_get_type ())
 #define GVIR_DOMAIN(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GVIR_TYPE_DOMAIN, GVirDomain))
@@ -87,6 +88,19 @@ typedef enum {
     GVIR_DOMAIN_START_BYPASS_CACHE = (1 << 2),
     GVIR_DOMAIN_START_FORCE_BOOT   = (1 << 3),
 } GVirDomainStartFlags;
+
+/**
+ * GVirDomainDeleteFlags:
+ * @GVIR_DOMAIN_DELETE_NONE: No flags
+ * @GVIR_DOMAIN_DELETE_SAVED_STATE: Also remove associated saved state (if present).
+ * @GVIR_DOMAIN_DELETE_SNAPSHOTS_METADATA: If last use of domain, then also
+ *                                         remove any snapshot metadata.
+ */
+typedef enum {
+    GVIR_DOMAIN_DELETE_NONE               = 0,
+    GVIR_DOMAIN_DELETE_SAVED_STATE        = VIR_DOMAIN_UNDEFINE_MANAGED_SAVE,
+    GVIR_DOMAIN_DELETE_SNAPSHOTS_METADATA = VIR_DOMAIN_UNDEFINE_SNAPSHOTS_METADATA,
+} GVirDomainDeleteFlags;
 
 typedef struct _GVirDomainInfo GVirDomainInfo;
 struct _GVirDomainInfo
