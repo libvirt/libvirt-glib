@@ -1,3 +1,25 @@
+                 libvirt-glib News
+                 =================
+
+0.0.5 - Feb 20, 2012
+====================
+
+- Require libvirt >= 0.9.10
+- Fix error after finishing a stream
+- Use G_PARAM_STATIC_STRINGS
+- Add config for readonly disks
+- Add config for description/metadata
+- Fix type when creating storage volumes
+- Remove some bogus g_error usage
+- Import GNULIB's compiler warning flags support & fix
+  problems
+- Add API for resizing storage volumes
+- Add API to check if a domain is saved
+- Add config for disk cache method
+- Add APIs to get node information
+- Add flags for deleting domains
+
+
 0.0.4 - Jan 12, 2012
 ====================
 
@@ -14,6 +36,7 @@
 - Change namespace for GVirConfig APIs (breaks ABI
   and API)
 - New APIs for save/suspend
+
 
 0.0.3 - Dec 19, 2011
 ====================
@@ -36,6 +59,7 @@
 - Add vala files to the RPM
 - Add binding for open domain consoles & graphics
 
+
 0.0.2 - Nov 22, 2011
 ====================
 
@@ -51,6 +75,7 @@
 - Don't de-reference GError instances which are NULL
 - Update COPYING file to have latest FSF address
 - Update RPM specfile to include Fedora review feedback
+
 
 0.0.1 - Nov 16, 2011
 ====================
