@@ -1376,7 +1376,7 @@ GVirNodeInfo *gvir_connection_get_node_info(GVirConnection *conn,
     }
 
     ret = g_slice_new(GVirNodeInfo);
-    g_utf8_strncpy (ret->model, info.model, sizeof (ret->model));
+    strncpy (ret->model, info.model, sizeof (ret->model));
     ret->memory = info.memory;
     ret->cpus = info.cpus;
     ret->mhz = info.mhz;
