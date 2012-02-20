@@ -735,7 +735,7 @@ cleanup:
  * @flags: extra flags, currently unused
  * @err: Place-holder for possible errors
  *
- * Saves the state of the domain on disk and stops it. Use #gvir_domain_resume
+ * Saves the state of the domain on disk and stops it. Use #gvir_domain_start
  * to restore the saved state of the domain. A saved domain can be restored
  * even after shutdown/reboot of host machine.
  *
@@ -860,7 +860,7 @@ gboolean gvir_domain_get_persistent(GVirDomain *dom)
  * @dom: the domain
  *
  * Returns: TRUE if a stopped domain has a saved state to which it can be
- * restored to using #gvir_domain_resume, FALSE otherwise.
+ * restored to using #gvir_domain_start, FALSE otherwise.
  */
 gboolean gvir_domain_get_saved(GVirDomain *dom)
 {
