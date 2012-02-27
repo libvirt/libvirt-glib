@@ -37,6 +37,7 @@ LIBVIRT_GOBJECT_0.0.4 {
 	gvir_domain_disk_get_type;
 	gvir_domain_disk_stats_get_type;
 	gvir_domain_disk_get_stats;
+	gvir_domain_disk_resize;
 
 	gvir_domain_interface_get_type;
 	gvir_domain_interface_stats_get_type;

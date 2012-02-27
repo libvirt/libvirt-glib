@@ -192,3 +192,41 @@ end:
     virDomainFree(handle);
     return ret;
 }
+
+/**
+ * gvir_domain_disk_resize:
+ * @self: the domain disk
+ * @size: new size of the block image in kilobytes
+ * @flags: flags, currently unused. Pass '0'.
+ * @err: placeholder for an error, or NULL
+ *
+ * This function resize the disk of a running domain.
+ *
+ * Returns: TRUE if size was successfully changed, FALSE otherwise.
+ **/
+gboolean gvir_domain_disk_resize(GVirDomainDisk *self,
+                                 guint64 size,
+                                 guint flags,
+                                 GError **err)
+{
+    gboolean ret = FALSE;
+    virDomainPtr handle;
+
+    g_return_val_if_fail(GVIR_IS_DOMAIN_DISK(self), FALSE);
+    g_return_val_if_fail(err == NULL || *err != NULL, FALSE);
+
+    handle = gvir_domain_device_get_domain_handle(GVIR_DOMAIN_DEVICE(self));
+
+    if (virDomainBlockResize(handle, self->priv->path, size, flags) < 0) {
+        gvir_set_error_literal(err, GVIR_DOMAIN_DISK_ERROR,
+                               0,
+                               "Failed to resize domain disk");
+        goto end;
+    }
+
+    ret = TRUE;
+
+end:
+    virDomainFree(handle);
+    return ret;
+}

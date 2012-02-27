@@ -72,6 +72,10 @@ GType gvir_domain_disk_get_type(void);
 GType gvir_domain_disk_stats_get_type(void);
 
 GVirDomainDiskStats *gvir_domain_disk_get_stats(GVirDomainDisk *self, GError **err);
+gboolean gvir_domain_disk_resize(GVirDomainDisk *self,
+                                 guint64 size,
+                                 guint flags,
+                                 GError **err);
 
 G_END_DECLS
 
