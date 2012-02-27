@@ -134,3 +134,14 @@ virDomainPtr gvir_domain_device_get_domain_handle(GVirDomainDevice *self)
 
     return handle;
 }
+
+/**
+ * gvir_domain_device_get_domain:
+ * @device: the domain device
+ *
+ * Returns: (transfer full): the associated domain
+ */
+GVirDomain *gvir_domain_device_get_domain(GVirDomainDevice *device)
+{
+    return g_object_ref (device->priv->domain);
+}

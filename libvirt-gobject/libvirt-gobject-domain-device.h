@@ -27,6 +27,8 @@
 #ifndef __LIBVIRT_GOBJECT_DOMAIN_DEVICE_H__
 #define __LIBVIRT_GOBJECT_DOMAIN_DEVICE_H__
 
+#include <libvirt-gobject/libvirt-gobject-domain.h>
+
 G_BEGIN_DECLS
 
 #define GVIR_TYPE_DOMAIN_DEVICE            (gvir_domain_device_get_type ())
@@ -58,6 +60,7 @@ struct _GVirDomainDeviceClass
 
 
 GType gvir_domain_device_get_type(void);
+GVirDomain *gvir_domain_device_get_domain(GVirDomainDevice *device);
 
 G_END_DECLS
 
