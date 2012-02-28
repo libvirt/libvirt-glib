@@ -183,6 +183,9 @@ gboolean gvir_domain_save_finish (GVirDomain *dom,
 gboolean gvir_domain_get_persistent(GVirDomain *dom);
 gboolean gvir_domain_get_saved(GVirDomain *dom);
 
+GList *gvir_domain_get_devices(GVirDomain *domain,
+                               GError **err);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GOBJECT_DOMAIN_H__ */

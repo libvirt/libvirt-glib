@@ -178,3 +178,25 @@ GVirConfigDomainDevice *gvir_domain_device_get_config(GVirDomainDevice *device)
 {
     return g_object_ref (device->priv->config);
 }
+
+G_GNUC_INTERNAL GVirDomainDevice *gvir_domain_device_new(GVirDomain *domain,
+                                                         GVirConfigDomainDevice *config)
+{
+    GType type;
+
+    g_return_val_if_fail(GVIR_IS_DOMAIN(domain), NULL);
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_DEVICE(config), NULL);
+
+    if (GVIR_CONFIG_IS_DOMAIN_DISK(config)) {
+        type = GVIR_TYPE_DOMAIN_DISK;
+    } else if (GVIR_CONFIG_IS_DOMAIN_INTERFACE(config)) {
+        type = GVIR_TYPE_DOMAIN_INTERFACE;
+    } else {
+        g_debug("Unknown device type: %s", G_OBJECT_TYPE_NAME(config));
+        return NULL;
+    }
+
+    return GVIR_DOMAIN_DEVICE(g_object_new(type,
+                                           "config", config,
+                                           "domain", domain, NULL));
+}

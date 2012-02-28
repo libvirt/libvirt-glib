@@ -29,6 +29,7 @@
 #include "libvirt-glib/libvirt-glib.h"
 #include "libvirt-gobject/libvirt-gobject.h"
 #include "libvirt-gobject-compat.h"
+#include "libvirt-gobject/libvirt-gobject-domain-device-private.h"
 
 #define GVIR_DOMAIN_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_DOMAIN, GVirDomainPrivate))
@@ -867,4 +868,46 @@ gboolean gvir_domain_get_saved(GVirDomain *dom)
     g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
 
     return virDomainHasManagedSaveImage(dom->priv->handle, 0) == 1;
+}
+
+/**
+ * gvir_domain_get_devices:
+ * @domain: the domain
+ * @err: place-holder for possible errors, or NULL
+ *
+ * Gets the list of devices attached to @domain
+ *
+ * Returns: (element-type LibvirtGObject.DomainDevice) (transfer full): a newly
+ * allocated #GList of #GVirDomainDevice.
+ */
+GList *gvir_domain_get_devices(GVirDomain *domain,
+                               GError **err)
+{
+    GVirConfigDomain *config;
+    GList *config_devices;
+    GList *node;
+    GList *ret = NULL;
+
+    g_return_val_if_fail(GVIR_IS_DOMAIN(domain), NULL);
+    g_return_val_if_fail(err == NULL || *err == NULL, NULL);
+
+    config = gvir_domain_get_config(domain, 0, err);
+    if (config == NULL)
+        return NULL;
+
+    config_devices = gvir_config_domain_get_devices(config);
+    for (node = config_devices; node != NULL; node = node->next) {
+        GVirConfigDomainDevice *device_config;
+        GVirDomainDevice *device;
+
+        device_config = GVIR_CONFIG_DOMAIN_DEVICE(node->data);
+        device = gvir_domain_device_new(domain, device_config);
+        if (device != NULL)
+             ret = g_list_prepend(ret, device);
+
+        g_object_unref (device_config);
+    }
+    g_list_free (config_devices);
+
+    return ret;
 }

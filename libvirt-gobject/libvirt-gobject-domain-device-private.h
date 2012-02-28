@@ -24,6 +24,8 @@
 
 G_BEGIN_DECLS
 
+G_GNUC_INTERNAL GVirDomainDevice *gvir_domain_device_new(GVirDomain *domain,
+                                                         GVirConfigDomainDevice *config);
 virDomainPtr gvir_domain_device_get_domain_handle(GVirDomainDevice *self);
 
 G_END_DECLS
