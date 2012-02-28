@@ -142,9 +142,13 @@ LIBVIRT_GCONFIG_0.0.4 {
 	gvir_config_domain_interface_get_type;
 	gvir_config_domain_interface_link_state_get_type;
 	gvir_config_domain_interface_set_ifname;
+	gvir_config_domain_interface_get_ifname;
 	gvir_config_domain_interface_set_link_state;
+	gvir_config_domain_interface_get_link_state;
 	gvir_config_domain_interface_set_mac;
+	gvir_config_domain_interface_get_mac;
 	gvir_config_domain_interface_set_model;
+	gvir_config_domain_interface_get_model;
 
 	gvir_config_domain_interface_bridge_get_type;
 	gvir_config_domain_interface_bridge_new;
