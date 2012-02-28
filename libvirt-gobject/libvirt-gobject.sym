@@ -34,6 +34,7 @@ LIBVIRT_GOBJECT_0.0.4 {
 
 	gvir_domain_device_get_type;
 	gvir_domain_device_get_domain;
+	gvir_domain_device_get_config;
 
 	gvir_domain_disk_get_type;
 	gvir_domain_disk_stats_get_type;

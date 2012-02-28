@@ -61,6 +61,7 @@ struct _GVirDomainDeviceClass
 
 GType gvir_domain_device_get_type(void);
 GVirDomain *gvir_domain_device_get_domain(GVirDomainDevice *device);
+GVirConfigDomainDevice *gvir_domain_device_get_config(GVirDomainDevice *device);
 
 G_END_DECLS
 
