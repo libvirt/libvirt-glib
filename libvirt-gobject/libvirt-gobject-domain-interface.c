@@ -36,18 +36,12 @@
 
 struct _GVirDomainInterfacePrivate
 {
-    gchar *path;
+    gboolean unused;
 };
 
 G_DEFINE_TYPE(GVirDomainInterface, gvir_domain_interface, GVIR_TYPE_DOMAIN_DEVICE);
 
-enum {
-    PROP_0,
-    PROP_PATH,
-};
-
 #define GVIR_DOMAIN_INTERFACE_ERROR gvir_domain_interface_error_quark()
-
 
 static GQuark
 gvir_domain_interface_error_quark(void)
@@ -55,53 +49,11 @@ gvir_domain_interface_error_quark(void)
     return g_quark_from_static_string("gvir-domain-interface");
 }
 
-static void gvir_domain_interface_get_property(GObject *object,
-                                               guint prop_id,
-                                               GValue *value,
-                                               GParamSpec *pspec)
-{
-    GVirDomainInterface *self = GVIR_DOMAIN_INTERFACE(object);
-    GVirDomainInterfacePrivate *priv = self->priv;
-
-    switch (prop_id) {
-    case PROP_PATH:
-        g_value_set_string(value, priv->path);
-        break;
-
-    default:
-        G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
-    }
-}
-
-
-static void gvir_domain_interface_set_property(GObject *object,
-                                          guint prop_id,
-                                          const GValue *value,
-                                          GParamSpec *pspec)
-{
-    GVirDomainInterface *self = GVIR_DOMAIN_INTERFACE(object);
-    GVirDomainInterfacePrivate *priv = self->priv;
-
-    switch (prop_id) {
-    case PROP_PATH:
-        g_free(priv->path);
-        priv->path = g_value_dup_string(value);
-        break;
-
-    default:
-        G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
-    }
-}
-
-
 static void gvir_domain_interface_finalize(GObject *object)
 {
     GVirDomainInterface *self = GVIR_DOMAIN_INTERFACE(object);
-    GVirDomainInterfacePrivate *priv = self->priv;
 
     g_debug("Finalize GVirDomainInterface=%p", self);
-
-    g_free(priv->path);
 
     G_OBJECT_CLASS(gvir_domain_interface_parent_class)->finalize(object);
 }
@@ -111,19 +63,6 @@ static void gvir_domain_interface_class_init(GVirDomainInterfaceClass *klass)
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
     object_class->finalize = gvir_domain_interface_finalize;
-    object_class->get_property = gvir_domain_interface_get_property;
-    object_class->set_property = gvir_domain_interface_set_property;
-
-    g_object_class_install_property(object_class,
-                                    PROP_PATH,
-                                    g_param_spec_string("path",
-                                                        "Path",
-                                                        "The interface path",
-                                                        NULL,
-                                                        G_PARAM_READWRITE |
-                                                        G_PARAM_CONSTRUCT_ONLY |
-                                                        G_PARAM_STATIC_STRINGS));
-
     g_type_class_add_private(klass, sizeof(GVirDomainInterfacePrivate));
 }
 
@@ -140,16 +79,27 @@ gvir_domain_interface_stats_copy(GVirDomainInterfaceStats *stats)
     return g_slice_dup(GVirDomainInterfaceStats, stats);
 }
 
-
 static void
 gvir_domain_interface_stats_free(GVirDomainInterfaceStats *stats)
 {
     g_slice_free(GVirDomainInterfaceStats, stats);
 }
 
-
 G_DEFINE_BOXED_TYPE(GVirDomainInterfaceStats, gvir_domain_interface_stats,
                     gvir_domain_interface_stats_copy, gvir_domain_interface_stats_free)
+
+static gchar *gvir_domain_interface_get_path(GVirDomainInterface *self)
+{
+    GVirConfigDomainDevice *config;
+    gchar *path = NULL;
+
+    config = gvir_domain_device_get_config(GVIR_DOMAIN_DEVICE(self));
+    path = gvir_config_domain_interface_get_ifname(GVIR_CONFIG_DOMAIN_INTERFACE (config));
+
+    g_object_unref (config);
+
+    return path;
+}
 
 /**
  * gvir_domain_interface_get_stats:
@@ -166,15 +116,15 @@ GVirDomainInterfaceStats *gvir_domain_interface_get_stats(GVirDomainInterface *s
 {
     GVirDomainInterfaceStats *ret = NULL;
     virDomainInterfaceStatsStruct stats;
-    GVirDomainInterfacePrivate *priv;
     virDomainPtr handle;
+    gchar *path;
 
     g_return_val_if_fail(GVIR_IS_DOMAIN_INTERFACE(self), NULL);
 
-    priv = self->priv;
     handle = gvir_domain_device_get_domain_handle(GVIR_DOMAIN_DEVICE(self));
+    path = gvir_domain_interface_get_path (self);
 
-    if (virDomainInterfaceStats(handle, priv->path, &stats, sizeof (stats)) < 0) {
+    if (virDomainInterfaceStats(handle, path, &stats, sizeof (stats)) < 0) {
         gvir_set_error_literal(err, GVIR_DOMAIN_INTERFACE_ERROR,
                                0,
                                "Unable to get domain interface stats");
@@ -193,5 +143,6 @@ GVirDomainInterfaceStats *gvir_domain_interface_get_stats(GVirDomainInterface *s
 
 end:
     virDomainFree(handle);
+    g_free(path);
     return ret;
 }
