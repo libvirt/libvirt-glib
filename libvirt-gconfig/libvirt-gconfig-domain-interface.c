@@ -57,7 +57,7 @@ void gvir_config_domain_interface_set_ifname(GVirConfigDomainInterface *interfac
     g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_INTERFACE(interface));
 
     gvir_config_object_replace_child_with_attribute(GVIR_CONFIG_OBJECT(interface),
-                                                    "target", "device", ifname);
+                                                    "target", "dev", ifname);
 }
 
 void gvir_config_domain_interface_set_link_state(GVirConfigDomainInterface *interface,
