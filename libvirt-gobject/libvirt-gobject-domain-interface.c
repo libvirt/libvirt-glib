@@ -94,7 +94,11 @@ static gchar *gvir_domain_interface_get_path(GVirDomainInterface *self)
     gchar *path = NULL;
 
     config = gvir_domain_device_get_config(GVIR_DOMAIN_DEVICE(self));
-    path = gvir_config_domain_interface_get_ifname(GVIR_CONFIG_DOMAIN_INTERFACE (config));
+    if (GVIR_CONFIG_IS_DOMAIN_INTERFACE_USER(self))
+        /* FIXME: One of the limitations of user-mode networking of libvirt */
+        g_debug("Statistics gathering for user-mode network not yet supported");
+    else
+        path = gvir_config_domain_interface_get_ifname(GVIR_CONFIG_DOMAIN_INTERFACE (config));
 
     g_object_unref (config);
 
@@ -123,6 +127,10 @@ GVirDomainInterfaceStats *gvir_domain_interface_get_stats(GVirDomainInterface *s
 
     handle = gvir_domain_device_get_domain_handle(GVIR_DOMAIN_DEVICE(self));
     path = gvir_domain_interface_get_path (self);
+    if (path == NULL) {
+        ret = g_slice_new0(GVirDomainInterfaceStats);
+        goto end;
+    }
 
     if (virDomainInterfaceStats(handle, path, &stats, sizeof (stats)) < 0) {
         gvir_set_error_literal(err, GVIR_DOMAIN_INTERFACE_ERROR,
