@@ -167,7 +167,7 @@ gboolean gvir_domain_disk_resize(GVirDomainDisk *self,
     gchar *path;
 
     g_return_val_if_fail(GVIR_IS_DOMAIN_DISK(self), FALSE);
-    g_return_val_if_fail(err == NULL || *err != NULL, FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
 
     handle = gvir_domain_device_get_domain_handle(GVIR_DOMAIN_DEVICE(self));
     path = gvir_domain_disk_get_path (self);
