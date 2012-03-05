@@ -1,6 +1,25 @@
                  libvirt-glib News
                  =================
 
+0.0.6 - Mar 05, 2012
+====================
+
+- Add binding for virDomainBlockResize(): gvir_domain_disk_resize().
+- Set correct target node attribute for domain interface.
+  gvir_config_domain_interface_set_ifname() should be setting 'dev' attribute
+  under 'target', not 'device'.
+- Getter for the associated domain of a domain device.
+- Getters for GVirConfigDomainInterface attributes.
+- GVirDomainDevice now has an associated GVirConfigDomainDevice.
+- Remove now redundant 'path' property from GVirDomainDevice subclasses.
+- Add gvir_domain_get_devices().
+- Empty statistics for user-mode interfaces. One of the limitations of user-mode
+  networking of libvirt is that you can't get statistics for it (not yet, at
+  least). Instead of erroring-out in that case, simply return empty statistics
+  result and spit a debug message.
+- Fix a GVirStream leak.
+- Also distribute GNUmakefile, cfg.mk and maint.mk files.
+
 0.0.5 - Feb 20, 2012
 ====================
 
