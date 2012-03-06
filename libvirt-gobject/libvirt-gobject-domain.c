@@ -909,5 +909,5 @@ GList *gvir_domain_get_devices(GVirDomain *domain,
     }
     g_list_free (config_devices);
 
-    return ret;
+    return g_list_reverse (ret);
 }
