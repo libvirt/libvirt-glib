@@ -198,6 +198,20 @@ int main(int argc, char **argv)
     g_object_unref(G_OBJECT(spicevmc));
     devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(channel));
 
+    /* spice usb redirection */
+    GVirConfigDomainRedirdev *redirdev;
+
+    redirdev = gvir_config_domain_redirdev_new();
+    gvir_config_domain_redirdev_set_bus(redirdev,
+                                        GVIR_CONFIG_DOMAIN_REDIRDEV_BUS_USB);
+    gvir_config_domain_channel_set_target_type(channel,
+                                               GVIR_CONFIG_DOMAIN_CHANNEL_TARGET_VIRTIO);
+    spicevmc = gvir_config_domain_chardev_source_spicevmc_new();
+    gvir_config_domain_chardev_set_source(GVIR_CONFIG_DOMAIN_CHARDEV(redirdev),
+                                          GVIR_CONFIG_DOMAIN_CHARDEV_SOURCE(spicevmc));
+    g_object_unref(G_OBJECT(spicevmc));
+    devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(redirdev));
+
 
     gvir_config_domain_set_devices(domain, devices);
     g_list_foreach(devices, (GFunc)g_object_unref, NULL);

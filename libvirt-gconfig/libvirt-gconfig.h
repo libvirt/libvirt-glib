@@ -52,6 +52,7 @@
 #include <libvirt-gconfig/libvirt-gconfig-domain-memballoon.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-os.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-parallel.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-redirdev.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-seclabel.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-serial.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-snapshot.h>

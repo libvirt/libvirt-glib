@@ -197,6 +197,12 @@ LIBVIRT_GCONFIG_0.0.4 {
 	gvir_config_domain_parallel_new;
 	gvir_config_domain_parallel_new_from_xml;
 
+	gvir_config_domain_redirdev_get_type;
+	gvir_config_domain_redirdev_bus_get_type;
+	gvir_config_domain_redirdev_new;
+	gvir_config_domain_redirdev_new_from_xml;
+	gvir_config_domain_redirdev_set_bus;
+
 	gvir_config_domain_seclabel_get_type;
 	gvir_config_domain_seclabel_type_get_type;
 	gvir_config_domain_seclabel_new;
