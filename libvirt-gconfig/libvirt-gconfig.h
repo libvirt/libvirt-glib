@@ -33,6 +33,7 @@
 #include <libvirt-gconfig/libvirt-gconfig-domain-chardev.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-chardev-source.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-chardev-source-pty.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-chardev-source-spicevmc.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-channel.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-clock.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-console.h>
