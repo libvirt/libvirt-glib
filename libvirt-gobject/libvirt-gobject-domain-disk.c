@@ -90,10 +90,10 @@ gvir_domain_disk_stats_free(GVirDomainDiskStats *stats)
 G_DEFINE_BOXED_TYPE(GVirDomainDiskStats, gvir_domain_disk_stats,
                     gvir_domain_disk_stats_copy, gvir_domain_disk_stats_free)
 
-static gchar *gvir_domain_disk_get_path(GVirDomainDisk *self)
+static const gchar *gvir_domain_disk_get_path(GVirDomainDisk *self)
 {
     GVirConfigDomainDevice *config;
-    gchar *path;
+    const gchar *path;
 
     config = gvir_domain_device_get_config(GVIR_DOMAIN_DEVICE(self));
     path = gvir_config_domain_disk_get_target_dev(GVIR_CONFIG_DOMAIN_DISK(config));
@@ -119,7 +119,7 @@ GVirDomainDiskStats *gvir_domain_disk_get_stats(GVirDomainDisk *self, GError **e
     GVirDomainDiskStats *ret = NULL;
     virDomainBlockStatsStruct stats;
     virDomainPtr handle;
-    gchar *path;
+    const gchar *path;
 
     g_return_val_if_fail(GVIR_IS_DOMAIN_DISK(self), NULL);
 
@@ -142,7 +142,6 @@ GVirDomainDiskStats *gvir_domain_disk_get_stats(GVirDomainDisk *self, GError **e
 
 end:
     virDomainFree(handle);
-    g_free(path);
     return ret;
 }
 
@@ -164,7 +163,7 @@ gboolean gvir_domain_disk_resize(GVirDomainDisk *self,
 {
     gboolean ret = FALSE;
     virDomainPtr handle;
-    gchar *path;
+    const gchar *path;
 
     g_return_val_if_fail(GVIR_IS_DOMAIN_DISK(self), FALSE);
     g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
@@ -183,6 +182,5 @@ gboolean gvir_domain_disk_resize(GVirDomainDisk *self,
 
 end:
     virDomainFree(handle);
-    g_free(path);
     return ret;
 }

@@ -32,10 +32,14 @@
 
 const char *features[] = { "foo", "bar", "baz", NULL };
 
+#define g_str_const_check(str1, str2) G_STMT_START { \
+    g_assert((str1) != NULL); \
+    g_assert(g_strcmp0((str1), (str2)) == 0); \
+} G_STMT_END
+
 #define g_str_check(str1, str2) G_STMT_START { \
     char *alloced_str = (str1); \
-    g_assert(alloced_str != NULL); \
-    g_assert(g_strcmp0(alloced_str, (str2)) == 0); \
+    g_str_const_check(alloced_str, (str2)); \
     g_free(alloced_str); \
 } G_STMT_END
 
@@ -51,7 +55,7 @@ int main(int argc, char **argv)
     domain = gvir_config_domain_new();
     g_assert(domain != NULL);
     gvir_config_domain_set_name(domain, "foo");
-    g_str_check(gvir_config_domain_get_name(domain), "foo");
+    g_str_const_check(gvir_config_domain_get_name(domain), "foo");
 
     gvir_config_domain_set_memory(domain, 1234);
     g_assert(gvir_config_domain_get_memory(domain) == 1234);
@@ -113,12 +117,12 @@ int main(int argc, char **argv)
 
     g_assert(gvir_config_domain_disk_get_disk_type(disk) == GVIR_CONFIG_DOMAIN_DISK_FILE);
     g_assert(gvir_config_domain_disk_get_guest_device_type(disk) == GVIR_CONFIG_DOMAIN_DISK_GUEST_DEVICE_DISK);
-    g_str_check(gvir_config_domain_disk_get_source(disk), "/tmp/foo/bar");
+    g_str_const_check(gvir_config_domain_disk_get_source(disk), "/tmp/foo/bar");
     g_assert(gvir_config_domain_disk_get_driver_cache(disk) == GVIR_CONFIG_DOMAIN_DISK_CACHE_NONE);
-    g_str_check(gvir_config_domain_disk_get_driver_name(disk), "qemu");
-    g_str_check(gvir_config_domain_disk_get_driver_type(disk), "qcow2");
+    g_str_const_check(gvir_config_domain_disk_get_driver_name(disk), "qemu");
+    g_str_const_check(gvir_config_domain_disk_get_driver_type(disk), "qcow2");
     g_assert(gvir_config_domain_disk_get_target_bus(disk) == GVIR_CONFIG_DOMAIN_DISK_BUS_IDE);
-    g_str_check(gvir_config_domain_disk_get_target_dev(disk), "hda");
+    g_str_const_check(gvir_config_domain_disk_get_target_dev(disk), "hda");
 
 
     /* network interfaces node */

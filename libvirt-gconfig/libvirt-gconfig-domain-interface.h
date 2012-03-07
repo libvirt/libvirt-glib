@@ -72,10 +72,10 @@ void gvir_config_domain_interface_set_mac(GVirConfigDomainInterface *interface,
                                           const char *mac_address);
 void gvir_config_domain_interface_set_model(GVirConfigDomainInterface *interface,
                                             const char *model);
-char *gvir_config_domain_interface_get_ifname(GVirConfigDomainInterface *interface);
+const char *gvir_config_domain_interface_get_ifname(GVirConfigDomainInterface *interface);
 GVirConfigDomainInterfaceLinkState gvir_config_domain_interface_get_link_state(GVirConfigDomainInterface *interface);
-char *gvir_config_domain_interface_get_mac(GVirConfigDomainInterface *interface);
-char *gvir_config_domain_interface_get_model(GVirConfigDomainInterface *interface);
+const char *gvir_config_domain_interface_get_mac(GVirConfigDomainInterface *interface);
+const char *gvir_config_domain_interface_get_model(GVirConfigDomainInterface *interface);
 
 G_END_DECLS
 

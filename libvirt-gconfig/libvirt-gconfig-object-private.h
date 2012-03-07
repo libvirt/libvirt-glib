@@ -31,17 +31,17 @@ GVirConfigObject *gvir_config_object_new_from_tree(GType type,
                                                    const char *schema,
                                                    xmlNodePtr tree);
 xmlNodePtr gvir_config_object_get_xml_node(GVirConfigObject *config);
-char *gvir_config_object_get_node_content(GVirConfigObject *object,
-                                          const char *node_name);
+const char *gvir_config_object_get_node_content(GVirConfigObject *object,
+                                                const char *node_name);
 guint64 gvir_config_object_get_node_content_uint64(GVirConfigObject *object,
                                                    const char *node_name);
 gint gvir_config_object_get_node_content_genum(GVirConfigObject *object,
                                                const char *node_name,
                                                GType enum_type,
                                                gint default_value);
-char *gvir_config_object_get_attribute(GVirConfigObject *object,
-                                       const char *node_name,
-                                       const char *attr_name);
+const char *gvir_config_object_get_attribute(GVirConfigObject *object,
+                                             const char *node_name,
+                                             const char *attr_name);
 gint gvir_config_object_get_attribute_genum(GVirConfigObject *object,
                                             const char *node_name,
                                             const char *attr_name,

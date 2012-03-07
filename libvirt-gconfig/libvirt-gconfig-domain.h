@@ -100,9 +100,9 @@ GVirConfigDomain *gvir_config_domain_new_from_xml(const gchar *xml, GError **err
 GVirConfigDomain *gvir_config_domain_new(void);
 
 void gvir_config_domain_set_virt_type(GVirConfigDomain *domain, GVirConfigDomainVirtType type);
-char *gvir_config_domain_get_name(GVirConfigDomain *domain);
+const char *gvir_config_domain_get_name(GVirConfigDomain *domain);
 void gvir_config_domain_set_name(GVirConfigDomain *domain, const char *name);
-char *gvir_config_domain_get_description(GVirConfigDomain *domain);
+const char *gvir_config_domain_get_description(GVirConfigDomain *domain);
 void gvir_config_domain_set_description(GVirConfigDomain *domain, const char *description);
 guint64 gvir_config_domain_get_memory(GVirConfigDomain *domain);
 void gvir_config_domain_set_memory(GVirConfigDomain *domain, guint64 memory);

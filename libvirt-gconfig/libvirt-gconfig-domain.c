@@ -54,10 +54,10 @@ static void gvir_config_domain_get_property(GObject *object,
 
     switch (prop_id) {
     case PROP_NAME:
-        g_value_take_string(value, gvir_config_domain_get_name(domain));
+        g_value_set_string(value, gvir_config_domain_get_name(domain));
         break;
     case PROP_DESCRIPTION:
-        g_value_take_string(value, gvir_config_domain_get_description(domain));
+        g_value_set_string(value, gvir_config_domain_get_description(domain));
         break;
     case PROP_MEMORY:
         g_value_set_uint64(value, gvir_config_domain_get_memory(domain));
@@ -198,7 +198,7 @@ void gvir_config_domain_set_virt_type(GVirConfigDomain *domain, GVirConfigDomain
 }
 
 
-char *gvir_config_domain_get_name(GVirConfigDomain *domain)
+const char *gvir_config_domain_get_name(GVirConfigDomain *domain)
 {
     return gvir_config_object_get_node_content(GVIR_CONFIG_OBJECT(domain),
                                                "name");
@@ -211,7 +211,7 @@ void gvir_config_domain_set_name(GVirConfigDomain *domain, const char *name)
     g_object_notify(G_OBJECT(domain), "name");
 }
 
-char *gvir_config_domain_get_description(GVirConfigDomain *domain)
+const char *gvir_config_domain_get_description(GVirConfigDomain *domain)
 {
     return gvir_config_object_get_node_content(GVIR_CONFIG_OBJECT(domain),
                                                "description");

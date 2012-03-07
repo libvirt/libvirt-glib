@@ -53,7 +53,7 @@ G_GNUC_INTERNAL GVirConfigDomainDevice *
 gvir_config_domain_graphics_new_from_tree(GVirConfigXmlDoc *doc,
                                           xmlNodePtr tree)
 {
-    xmlChar *type;
+    const xmlChar *type;
     GType gtype;
 
     type = gvir_config_xml_get_attribute_content(tree, "type");
@@ -74,7 +74,6 @@ gvir_config_domain_graphics_new_from_tree(GVirConfigXmlDoc *doc,
         g_debug("Unknown graphics node: %s", type);
         return NULL;
     }
-    xmlFree(type);
 
     return GVIR_CONFIG_DOMAIN_DEVICE(gvir_config_object_new_from_tree(gtype, doc, NULL, tree));
 

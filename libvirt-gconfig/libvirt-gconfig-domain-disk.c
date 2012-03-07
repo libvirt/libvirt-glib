@@ -76,16 +76,15 @@ gvir_config_domain_disk_new_from_tree(GVirConfigXmlDoc *doc,
     GVirConfigObject *object;
     GVirConfigDomainDisk *disk;
     GVirConfigDomainDiskType type;
-    xmlChar *type_str;
+    const xmlChar *type_str;
 
     type_str = gvir_config_xml_get_attribute_content(tree, "type");
     if (type_str == NULL)
         return NULL;
 
     type = gvir_config_genum_get_value(GVIR_CONFIG_TYPE_DOMAIN_DISK_TYPE,
-                                       (char *)type_str,
+                                       (const char *)type_str,
                                        GVIR_CONFIG_DOMAIN_DISK_FILE);
-    xmlFree(type_str);
     if (type == -1)
         return NULL;
 
@@ -236,7 +235,7 @@ gvir_config_domain_disk_get_snapshot_type(GVirConfigDomainDisk *disk)
                                                   GVIR_CONFIG_DOMAIN_DISK_SNAPSHOT_NO);
 }
 
-char *
+const char *
 gvir_config_domain_disk_get_source(GVirConfigDomainDisk *disk)
 {
     const char *attribute_name;
@@ -263,7 +262,7 @@ gvir_config_domain_disk_get_source(GVirConfigDomainDisk *disk)
                                             "source", attribute_name);
 }
 
-char *
+const char *
 gvir_config_domain_disk_get_driver_name(GVirConfigDomainDisk *disk)
 {
     g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_DISK(disk), NULL);
@@ -272,7 +271,7 @@ gvir_config_domain_disk_get_driver_name(GVirConfigDomainDisk *disk)
                                             "driver", "name");
 }
 
-char *
+const char *
 gvir_config_domain_disk_get_driver_type(GVirConfigDomainDisk *disk)
 {
     g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_DISK(disk), NULL);
@@ -307,7 +306,7 @@ gvir_config_domain_disk_get_target_bus(GVirConfigDomainDisk *disk)
                                                   GVIR_CONFIG_DOMAIN_DISK_BUS_IDE);
 }
 
-char *
+const char *
 gvir_config_domain_disk_get_target_dev(GVirConfigDomainDisk *disk)
 {
     g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_DISK(disk), NULL);

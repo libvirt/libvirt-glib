@@ -123,12 +123,12 @@ void gvir_config_domain_disk_set_target_dev(GVirConfigDomainDisk *disk,
 GVirConfigDomainDiskType gvir_config_domain_disk_get_disk_type(GVirConfigDomainDisk *disk);
 GVirConfigDomainDiskGuestDeviceType gvir_config_domain_disk_get_guest_device_type(GVirConfigDomainDisk *disk);
 GVirConfigDomainDiskSnapshotType gvir_config_domain_disk_get_snapshot_type(GVirConfigDomainDisk *disk);
-char *gvir_config_domain_disk_get_source(GVirConfigDomainDisk *disk);
+const char *gvir_config_domain_disk_get_source(GVirConfigDomainDisk *disk);
 GVirConfigDomainDiskCacheType gvir_config_domain_disk_get_driver_cache(GVirConfigDomainDisk *disk);
-char *gvir_config_domain_disk_get_driver_name(GVirConfigDomainDisk *disk);
-char *gvir_config_domain_disk_get_driver_type(GVirConfigDomainDisk *disk);
+const char *gvir_config_domain_disk_get_driver_name(GVirConfigDomainDisk *disk);
+const char *gvir_config_domain_disk_get_driver_type(GVirConfigDomainDisk *disk);
 GVirConfigDomainDiskBus gvir_config_domain_disk_get_target_bus(GVirConfigDomainDisk *disk);
-char *gvir_config_domain_disk_get_target_dev(GVirConfigDomainDisk *disk);
+const char *gvir_config_domain_disk_get_target_dev(GVirConfigDomainDisk *disk);
 void gvir_config_domain_disk_set_readonly(GVirConfigDomainDisk *disk,
                                           gboolean readonly);
 

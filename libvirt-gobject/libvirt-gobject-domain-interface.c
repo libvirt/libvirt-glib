@@ -88,10 +88,10 @@ gvir_domain_interface_stats_free(GVirDomainInterfaceStats *stats)
 G_DEFINE_BOXED_TYPE(GVirDomainInterfaceStats, gvir_domain_interface_stats,
                     gvir_domain_interface_stats_copy, gvir_domain_interface_stats_free)
 
-static gchar *gvir_domain_interface_get_path(GVirDomainInterface *self)
+static const gchar *gvir_domain_interface_get_path(GVirDomainInterface *self)
 {
     GVirConfigDomainDevice *config;
-    gchar *path = NULL;
+    const gchar *path = NULL;
 
     config = gvir_domain_device_get_config(GVIR_DOMAIN_DEVICE(self));
     if (GVIR_CONFIG_IS_DOMAIN_INTERFACE_USER(self))
@@ -121,7 +121,7 @@ GVirDomainInterfaceStats *gvir_domain_interface_get_stats(GVirDomainInterface *s
     GVirDomainInterfaceStats *ret = NULL;
     virDomainInterfaceStatsStruct stats;
     virDomainPtr handle;
-    gchar *path;
+    const gchar *path;
 
     g_return_val_if_fail(GVIR_IS_DOMAIN_INTERFACE(self), NULL);
 
@@ -151,6 +151,5 @@ GVirDomainInterfaceStats *gvir_domain_interface_get_stats(GVirDomainInterface *s
 
 end:
     virDomainFree(handle);
-    g_free(path);
     return ret;
 }

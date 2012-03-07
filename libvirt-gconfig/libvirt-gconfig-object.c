@@ -274,7 +274,7 @@ gvir_config_object_get_xml_node(GVirConfigObject *config)
     return config->priv->node;
 }
 
-G_GNUC_INTERNAL char *
+G_GNUC_INTERNAL const char *
 gvir_config_object_get_node_content(GVirConfigObject *object,
                                     const char *node_name)
 {
@@ -287,7 +287,7 @@ gvir_config_object_get_node_content(GVirConfigObject *object,
     return gvir_config_xml_get_child_element_content_glib(node, node_name);
 }
 
-G_GNUC_INTERNAL char *
+G_GNUC_INTERNAL const char *
 gvir_config_object_get_attribute(GVirConfigObject *object,
                                  const char *node_name,
                                  const char *attr_name)
@@ -559,7 +559,7 @@ gvir_config_object_get_node_content_uint64(GVirConfigObject *object,
                                            const char *node_name)
 {
     xmlNodePtr node;
-    xmlChar *str;
+    const xmlChar *str;
     guint64 value;
 
     node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(object));
@@ -571,7 +571,6 @@ gvir_config_object_get_node_content_uint64(GVirConfigObject *object,
         return 0;
 
     value = g_ascii_strtoull((char *)str, NULL, 0);
-    xmlFree(str);
 
     return value;
 }
@@ -583,7 +582,7 @@ gvir_config_object_get_node_content_genum(GVirConfigObject *object,
                                           gint default_value)
 {
     xmlNodePtr node;
-    xmlChar *str;
+    const xmlChar *str;
     gint value;
 
     node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(object));
@@ -595,7 +594,6 @@ gvir_config_object_get_node_content_genum(GVirConfigObject *object,
         return default_value;
 
     value = gvir_config_genum_get_value(enum_type, (char *)str, default_value);
-    xmlFree(str);
 
     return value;
 }
@@ -608,7 +606,7 @@ gvir_config_object_get_attribute_genum(GVirConfigObject *object,
                                        gint default_value)
 {
     xmlNodePtr node;
-    xmlChar *attr_val;
+    const xmlChar *attr_val;
     gint value;
 
     g_return_val_if_fail(attr_name != NULL, default_value);
@@ -629,7 +627,6 @@ gvir_config_object_get_attribute_genum(GVirConfigObject *object,
 
     value = gvir_config_genum_get_value(enum_type, (char *)attr_val,
                                         default_value);
-    xmlFree(attr_val);
 
     return value;
 }

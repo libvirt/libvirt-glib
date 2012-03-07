@@ -220,56 +220,50 @@ gvir_config_xml_get_element (xmlNode *node, ...)
         return node;
 }
 
-xmlChar *
-gvir_config_xml_get_child_element_content (xmlNode    *node,
+const xmlChar *
+gvir_config_xml_get_child_element_content (xmlNode *node,
                                            const char *child_name)
 {
-        xmlNode *child_node;
+    xmlNode *child_node;
 
-        child_node = gvir_config_xml_get_element (node, child_name, NULL);
-        if (!child_node)
-                return NULL;
-
-        return xmlNodeGetContent (child_node);
-}
-
-static char *libxml_str_to_glib(xmlChar *str)
-{
-    char *g_str;
-
-    if (str == NULL)
+    child_node = gvir_config_xml_get_element(node, child_name, NULL);
+    if (!child_node || !(child_node->children))
         return NULL;
-    g_str = g_strdup((char *)str);
-    xmlFree(str);
 
-    return g_str;
+    return child_node->children->content;
 }
 
-char *
-gvir_config_xml_get_child_element_content_glib (xmlNode    *node,
+const char *
+gvir_config_xml_get_child_element_content_glib (xmlNode *node,
                                                 const char *child_name)
 {
-        xmlChar *content;
+    const xmlChar *content;
 
-        content = gvir_config_xml_get_child_element_content (node, child_name);
+    content = gvir_config_xml_get_child_element_content(node, child_name);
 
-        return libxml_str_to_glib(content);
+    return (const char *)content;
 }
 
-G_GNUC_INTERNAL xmlChar *
+G_GNUC_INTERNAL const xmlChar *
 gvir_config_xml_get_attribute_content(xmlNodePtr node, const char *attr_name)
 {
-    return xmlGetProp(node, (const xmlChar*)attr_name);
+    xmlAttr *attr;
+
+    for (attr = node->properties; attr; attr = attr->next)
+        if (g_strcmp0 (attr_name, (char *)attr->name) == 0)
+            return attr->children->content;
+
+    return NULL;
 }
 
-G_GNUC_INTERNAL char *
+G_GNUC_INTERNAL const char *
 gvir_config_xml_get_attribute_content_glib(xmlNodePtr node, const char *attr_name)
 {
-    xmlChar *attr;
+    const xmlChar *attr;
 
     attr = gvir_config_xml_get_attribute_content(node, attr_name);
 
-    return libxml_str_to_glib(attr);
+    return (const char *) attr;
 }
 
 const char *gvir_config_genum_get_nick (GType enum_type, gint value)

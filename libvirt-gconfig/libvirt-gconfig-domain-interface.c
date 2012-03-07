@@ -96,7 +96,7 @@ void gvir_config_domain_interface_set_model(GVirConfigDomainInterface *interface
                                                     "model", "type", model);
 }
 
-char *gvir_config_domain_interface_get_ifname(GVirConfigDomainInterface *interface)
+const char *gvir_config_domain_interface_get_ifname(GVirConfigDomainInterface *interface)
 {
     g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_INTERFACE(interface), NULL);
 
@@ -115,7 +115,7 @@ GVirConfigDomainInterfaceLinkState gvir_config_domain_interface_get_link_state(G
                                                   GVIR_CONFIG_DOMAIN_INTERFACE_LINK_STATE_DEFAULT);
 }
 
-char *gvir_config_domain_interface_get_mac(GVirConfigDomainInterface *interface)
+const char *gvir_config_domain_interface_get_mac(GVirConfigDomainInterface *interface)
 {
     g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_INTERFACE(interface), NULL);
 
@@ -123,7 +123,7 @@ char *gvir_config_domain_interface_get_mac(GVirConfigDomainInterface *interface)
                                             "mac", "address");
 }
 
-char *gvir_config_domain_interface_get_model(GVirConfigDomainInterface *interface)
+const char *gvir_config_domain_interface_get_model(GVirConfigDomainInterface *interface)
 {
     g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_INTERFACE(interface), NULL);
 
@@ -135,7 +135,7 @@ G_GNUC_INTERNAL GVirConfigDomainDevice *
 gvir_config_domain_interface_new_from_tree(GVirConfigXmlDoc *doc,
                                            xmlNodePtr tree)
 {
-    xmlChar *type;
+    const xmlChar *type;
     GType gtype;
 
     type = gvir_config_xml_get_attribute_content(tree, "type");
@@ -160,7 +160,6 @@ gvir_config_domain_interface_new_from_tree(GVirConfigXmlDoc *doc,
         g_debug("Unknown domain interface node: %s", type);
         return NULL;
     }
-    xmlFree(type);
 
     return GVIR_CONFIG_DOMAIN_DEVICE(gvir_config_object_new_from_tree(gtype, doc, NULL, tree));
 
