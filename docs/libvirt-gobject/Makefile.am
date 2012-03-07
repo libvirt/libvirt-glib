@@ -3,9 +3,7 @@ DOC_MODULE=Libvirt-gobject
 
 DOC_MAIN_SGML_FILE=$(DOC_MODULE)-docs.xml
 
-# Must not use $(top_srcdir) since gtkdoc-scan runs
-# from the srcdir already, not the builddir
-DOC_SOURCE_DIR=../../libvirt-gobject
+DOC_SOURCE_DIR=$(top_srcdir)/libvirt-gobject
 
 SCANGOBJ_OPTIONS=
 
