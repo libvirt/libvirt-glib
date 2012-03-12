@@ -76,14 +76,14 @@ gvir_config_domain_disk_new_from_tree(GVirConfigXmlDoc *doc,
     GVirConfigObject *object;
     GVirConfigDomainDisk *disk;
     GVirConfigDomainDiskType type;
-    const xmlChar *type_str;
+    const char *type_str;
 
     type_str = gvir_config_xml_get_attribute_content(tree, "type");
     if (type_str == NULL)
         return NULL;
 
     type = gvir_config_genum_get_value(GVIR_CONFIG_TYPE_DOMAIN_DISK_TYPE,
-                                       (const char *)type_str,
+                                       type_str,
                                        GVIR_CONFIG_DOMAIN_DISK_FILE);
     if (type == -1)
         return NULL;

@@ -186,8 +186,7 @@ void gvir_config_xml_foreach_child(xmlNodePtr node,
 }
 
 /*
- * gvir_config_xml_get_element, gvir_config_xml_get_child_element_content
- * and gvir_config_xml_get_child_element_content_glib are:
+ * gvir_config_xml_get_element is
  *
  * Copyright (C) 2006, 2007 OpenedHand Ltd.
  *
@@ -220,7 +219,7 @@ gvir_config_xml_get_element (xmlNode *node, ...)
         return node;
 }
 
-const xmlChar *
+G_GNUC_INTERNAL const char *
 gvir_config_xml_get_child_element_content (xmlNode *node,
                                            const char *child_name)
 {
@@ -230,40 +229,19 @@ gvir_config_xml_get_child_element_content (xmlNode *node,
     if (!child_node || !(child_node->children))
         return NULL;
 
-    return child_node->children->content;
+    return (const char *)child_node->children->content;
 }
 
-const char *
-gvir_config_xml_get_child_element_content_glib (xmlNode *node,
-                                                const char *child_name)
-{
-    const xmlChar *content;
-
-    content = gvir_config_xml_get_child_element_content(node, child_name);
-
-    return (const char *)content;
-}
-
-G_GNUC_INTERNAL const xmlChar *
+G_GNUC_INTERNAL const char *
 gvir_config_xml_get_attribute_content(xmlNodePtr node, const char *attr_name)
 {
     xmlAttr *attr;
 
     for (attr = node->properties; attr; attr = attr->next)
         if (g_strcmp0 (attr_name, (char *)attr->name) == 0)
-            return attr->children->content;
+            return (const char *)attr->children->content;
 
     return NULL;
-}
-
-G_GNUC_INTERNAL const char *
-gvir_config_xml_get_attribute_content_glib(xmlNodePtr node, const char *attr_name)
-{
-    const xmlChar *attr;
-
-    attr = gvir_config_xml_get_attribute_content(node, attr_name);
-
-    return (const char *) attr;
 }
 
 const char *gvir_config_genum_get_nick (GType enum_type, gint value)

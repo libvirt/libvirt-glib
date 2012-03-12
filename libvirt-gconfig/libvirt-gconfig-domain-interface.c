@@ -135,26 +135,26 @@ G_GNUC_INTERNAL GVirConfigDomainDevice *
 gvir_config_domain_interface_new_from_tree(GVirConfigXmlDoc *doc,
                                            xmlNodePtr tree)
 {
-    const xmlChar *type;
+    const char *type;
     GType gtype;
 
     type = gvir_config_xml_get_attribute_content(tree, "type");
     if (type == NULL)
         return NULL;
 
-    if (xmlStrEqual(type, (xmlChar*)"network")) {
+    if (g_str_equal(type, "network")) {
         gtype = GVIR_CONFIG_TYPE_DOMAIN_INTERFACE_NETWORK;
-    } else if (xmlStrEqual(type, (xmlChar*)"user")) {
+    } else if (g_str_equal(type, "user")) {
         gtype = GVIR_CONFIG_TYPE_DOMAIN_INTERFACE_USER;
-    } else if (xmlStrEqual(type, (xmlChar*)"bridge")) {
+    } else if (g_str_equal(type, "bridge")) {
         goto unimplemented;
-    } else if (xmlStrEqual(type, (xmlChar*)"direct")) {
+    } else if (g_str_equal(type, "direct")) {
         goto unimplemented;
-    } else if (xmlStrEqual(type, (xmlChar*)"server")) {
+    } else if (g_str_equal(type, "server")) {
         goto unimplemented;
-    } else if (xmlStrEqual(type, (xmlChar*)"mcast")) {
+    } else if (g_str_equal(type, "mcast")) {
         goto unimplemented;
-    } else if (xmlStrEqual(type, (xmlChar*)"ethernet")) {
+    } else if (g_str_equal(type, "ethernet")) {
         goto unimplemented;
     } else {
         g_debug("Unknown domain interface node: %s", type);

@@ -50,15 +50,11 @@ void gvir_config_xml_foreach_child(xmlNodePtr node,
                                    GVirConfigXmlNodeIterator iter_func,
                                    gpointer opaque);
 xmlNode * gvir_config_xml_get_element (xmlNode *node, ...);
-const xmlChar * gvir_config_xml_get_child_element_content (xmlNode *node,
-                                                           const char *child_name);
-const char *gvir_config_xml_get_child_element_content_glib (xmlNode *node,
-                                                            const char *child_name);
-const xmlChar *gvir_config_xml_get_attribute_content(xmlNodePtr node,
-                                                     const char *attr_name);
+const char * gvir_config_xml_get_child_element_content (xmlNode *node,
+                                                        const char *child_name);
+const char *gvir_config_xml_get_attribute_content(xmlNodePtr node,
+                                                  const char *attr_name);
 char *gvir_config_xml_node_to_string(xmlNodePtr node);
-const char *gvir_config_xml_get_attribute_content_glib(xmlNodePtr node,
-                                                       const char *attr_name);
 const char *gvir_config_genum_get_nick (GType enum_type, gint value);
 int gvir_config_genum_get_value (GType enum_type, const char *nick, gint default_value);
 G_END_DECLS
