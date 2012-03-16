@@ -204,8 +204,6 @@ int main(int argc, char **argv)
     redirdev = gvir_config_domain_redirdev_new();
     gvir_config_domain_redirdev_set_bus(redirdev,
                                         GVIR_CONFIG_DOMAIN_REDIRDEV_BUS_USB);
-    gvir_config_domain_channel_set_target_type(channel,
-                                               GVIR_CONFIG_DOMAIN_CHANNEL_TARGET_VIRTIO);
     spicevmc = gvir_config_domain_chardev_source_spicevmc_new();
     gvir_config_domain_chardev_set_source(GVIR_CONFIG_DOMAIN_CHARDEV(redirdev),
                                           GVIR_CONFIG_DOMAIN_CHARDEV_SOURCE(spicevmc));
