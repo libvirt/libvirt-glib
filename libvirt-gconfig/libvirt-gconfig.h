@@ -37,6 +37,7 @@
 #include <libvirt-gconfig/libvirt-gconfig-domain-channel.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-clock.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-console.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-controller.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-device.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-disk.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-filesys.h>

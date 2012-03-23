@@ -69,6 +69,8 @@ LIBVIRT_GCONFIG_0.0.8 {
 	gvir_config_domain_console_set_target_type;
 	gvir_config_domain_console_target_type_get_type;
 
+	gvir_config_domain_controller_get_type;
+
 	gvir_config_domain_device_get_type;
 
 	gvir_config_domain_disk_get_type;
