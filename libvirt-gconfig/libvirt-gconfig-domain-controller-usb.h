@@ -56,11 +56,26 @@ struct _GVirConfigDomainControllerUsbClass
     gpointer padding[20];
 };
 
+typedef enum {
+    GVIR_CONFIG_DOMAIN_CONTROLLER_USB_MODEL_PIIX3_UHCI,
+    GVIR_CONFIG_DOMAIN_CONTROLLER_USB_MODEL_PIIX4_UHCI,
+    GVIR_CONFIG_DOMAIN_CONTROLLER_USB_MODEL_EHCI,
+    GVIR_CONFIG_DOMAIN_CONTROLLER_USB_MODEL_ICH9_EHCI1,
+    GVIR_CONFIG_DOMAIN_CONTROLLER_USB_MODEL_ICH9_UHCI1,
+    GVIR_CONFIG_DOMAIN_CONTROLLER_USB_MODEL_ICH9_UHCI2,
+    GVIR_CONFIG_DOMAIN_CONTROLLER_USB_MODEL_ICH9_UHCI3,
+    GVIR_CONFIG_DOMAIN_CONTROLLER_USB_MODEL_VT82C686B_UHCI,
+    GVIR_CONFIG_DOMAIN_CONTROLLER_USB_MODEL_PCI_OHCI
+} GVirConfigDomainControllerUsbModel;
+
 GType gvir_config_domain_controller_usb_get_type(void);
 
 GVirConfigDomainControllerUsb *gvir_config_domain_controller_usb_new(void);
 GVirConfigDomainControllerUsb *gvir_config_domain_controller_usb_new_from_xml(const gchar *xml,
                                                                               GError **error);
+void gvir_config_domain_controller_usb_set_model(GVirConfigDomainControllerUsb *controller,
+                                                 GVirConfigDomainControllerUsbModel model);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GCONFIG_DOMAIN_CONTROLLER_USB_H__ */

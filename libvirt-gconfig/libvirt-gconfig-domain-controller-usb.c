@@ -70,3 +70,16 @@ GVirConfigDomainControllerUsb *gvir_config_domain_controller_usb_new_from_xml(co
     gvir_config_object_set_attribute(object, "type", "usb", NULL);
     return GVIR_CONFIG_DOMAIN_CONTROLLER_USB(object);
 }
+
+void gvir_config_domain_controller_usb_set_model(GVirConfigDomainControllerUsb *controller,
+                                                 GVirConfigDomainControllerUsbModel model)
+{
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_CONTROLLER_USB(controller));
+
+    gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(controller),
+                                               "model",
+                                               GVIR_CONFIG_TYPE_DOMAIN_CONTROLLER_USB_MODEL,
+                                               model,
+                                               NULL);
+
+}
