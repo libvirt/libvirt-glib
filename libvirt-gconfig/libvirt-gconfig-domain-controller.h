@@ -58,6 +58,10 @@ struct _GVirConfigDomainControllerClass
 
 GType gvir_config_domain_controller_get_type(void);
 
+void gvir_config_domain_controller_set_index(GVirConfigDomainController *controller,
+                                             guint index);
+guint gvir_config_domain_controller_get_index(GVirConfigDomainController *controller);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GCONFIG_DOMAIN_CONTROLLER_H__ */

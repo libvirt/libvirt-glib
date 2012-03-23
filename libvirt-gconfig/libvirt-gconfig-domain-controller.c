@@ -48,3 +48,32 @@ static void gvir_config_domain_controller_init(GVirConfigDomainController *contr
 
     controller->priv = GVIR_CONFIG_DOMAIN_CONTROLLER_GET_PRIVATE(controller);
 }
+
+void gvir_config_domain_controller_set_index(GVirConfigDomainController *controller,
+                                             guint index)
+{
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_CONTROLLER(controller));
+
+    gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(controller),
+                                               "index", G_TYPE_UINT,
+                                               index, NULL);
+}
+
+guint gvir_config_domain_controller_get_index(GVirConfigDomainController *controller)
+{
+    const char *index_str;
+    char *end;
+    guint index;
+
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_CONTROLLER(controller), 0);
+
+    index_str = gvir_config_object_get_attribute(GVIR_CONFIG_OBJECT(controller),
+                                                 NULL, "index");
+    if (index_str == 0)
+        return 0;
+
+    index = strtoul(index_str, &end, 0);
+    g_return_val_if_fail(*end == '\0', 0);
+
+    return index;
+}
