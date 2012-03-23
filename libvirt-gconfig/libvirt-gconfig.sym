@@ -73,6 +73,10 @@ LIBVIRT_GCONFIG_0.0.8 {
 	gvir_config_domain_controller_get_index;
 	gvir_config_domain_controller_set_index;
 
+	gvir_config_domain_controller_usb_get_type;
+	gvir_config_domain_controller_usb_new;
+	gvir_config_domain_controller_usb_new_from_xml;
+
 	gvir_config_domain_device_get_type;
 
 	gvir_config_domain_disk_get_type;
