@@ -201,7 +201,32 @@ int main(int argc, char **argv)
     devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(channel));
 
     /* spice usb redirection */
+    GVirConfigDomainControllerUsb *ehci;
+    GVirConfigDomainControllerUsb *uhci1;
+    GVirConfigDomainControllerUsb *uhci2;
+    GVirConfigDomainControllerUsb *uhci3;
     GVirConfigDomainRedirdev *redirdev;
+
+    ehci = gvir_config_domain_controller_usb_new();
+    gvir_config_domain_controller_usb_set_model(ehci,
+                                                GVIR_CONFIG_DOMAIN_CONTROLLER_USB_MODEL_ICH9_EHCI1);
+    gvir_config_domain_controller_set_index(GVIR_CONFIG_DOMAIN_CONTROLLER(ehci), 7);
+    uhci1 = gvir_config_domain_controller_usb_new();
+    gvir_config_domain_controller_usb_set_model(uhci1,
+                                                GVIR_CONFIG_DOMAIN_CONTROLLER_USB_MODEL_ICH9_UHCI1);
+    gvir_config_domain_controller_usb_set_master(uhci1, ehci, 0);
+    uhci2 = gvir_config_domain_controller_usb_new();
+    gvir_config_domain_controller_usb_set_model(uhci2,
+                                                GVIR_CONFIG_DOMAIN_CONTROLLER_USB_MODEL_ICH9_UHCI2);
+    gvir_config_domain_controller_usb_set_master(uhci2, ehci, 2);
+    uhci3 = gvir_config_domain_controller_usb_new();
+    gvir_config_domain_controller_usb_set_model(uhci3,
+                                                GVIR_CONFIG_DOMAIN_CONTROLLER_USB_MODEL_ICH9_UHCI3);
+    gvir_config_domain_controller_usb_set_master(uhci3, ehci, 4);
+    devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(ehci));
+    devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(uhci1));
+    devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(uhci2));
+    devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(uhci3));
 
     redirdev = gvir_config_domain_redirdev_new();
     gvir_config_domain_redirdev_set_bus(redirdev,
