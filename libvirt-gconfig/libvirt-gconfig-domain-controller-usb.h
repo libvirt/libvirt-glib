@@ -75,6 +75,9 @@ GVirConfigDomainControllerUsb *gvir_config_domain_controller_usb_new_from_xml(co
                                                                               GError **error);
 void gvir_config_domain_controller_usb_set_model(GVirConfigDomainControllerUsb *controller,
                                                  GVirConfigDomainControllerUsbModel model);
+void gvir_config_domain_controller_usb_set_master(GVirConfigDomainControllerUsb *controller,
+                                                  GVirConfigDomainControllerUsb *master,
+                                                  guint startport);
 
 G_END_DECLS
 

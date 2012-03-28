@@ -83,3 +83,24 @@ void gvir_config_domain_controller_usb_set_model(GVirConfigDomainControllerUsb *
                                                NULL);
 
 }
+
+void gvir_config_domain_controller_usb_set_master(GVirConfigDomainControllerUsb *controller,
+                                                  GVirConfigDomainControllerUsb *master,
+                                                  guint startport)
+{
+    guint index;
+    char *startport_str;
+
+
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_CONTROLLER_USB(controller));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_CONTROLLER_USB(master));
+
+    index = gvir_config_domain_controller_get_index(GVIR_CONFIG_DOMAIN_CONTROLLER(master));
+    gvir_config_domain_controller_set_index(GVIR_CONFIG_DOMAIN_CONTROLLER(controller), index);
+    startport_str = g_strdup_printf("%d", startport);
+    gvir_config_object_replace_child_with_attribute(GVIR_CONFIG_OBJECT(controller),
+                                                    "master",
+                                                    "startport",
+                                                    startport_str);
+    g_free(startport_str);
+}

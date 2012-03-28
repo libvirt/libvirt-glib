@@ -77,6 +77,7 @@ LIBVIRT_GCONFIG_0.0.8 {
 	gvir_config_domain_controller_usb_model_get_type;
 	gvir_config_domain_controller_usb_new;
 	gvir_config_domain_controller_usb_new_from_xml;
+	gvir_config_domain_controller_usb_set_master;
 	gvir_config_domain_controller_usb_set_model;
 
 	gvir_config_domain_device_get_type;
