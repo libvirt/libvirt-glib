@@ -14,6 +14,7 @@ GCONFIG_HEADER_FILES = \
 			libvirt-gconfig-capabilities.h \
 			libvirt-gconfig-domain.h \
 			libvirt-gconfig-domain-address.h \
+			libvirt-gconfig-domain-address-pci.h \
 			libvirt-gconfig-domain-channel.h \
 			libvirt-gconfig-domain-chardev.h \
 			libvirt-gconfig-domain-chardev-source.h \
@@ -70,6 +71,7 @@ GCONFIG_SOURCE_FILES = \
 			libvirt-gconfig-capabilities.c \
 			libvirt-gconfig-domain.c \
 			libvirt-gconfig-domain-address.c \
+			libvirt-gconfig-domain-address-pci.c \
 			libvirt-gconfig-domain-channel.c \
 			libvirt-gconfig-domain-chardev.c \
 			libvirt-gconfig-domain-chardev-source.c \
