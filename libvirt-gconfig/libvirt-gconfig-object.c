@@ -711,7 +711,6 @@ gvir_config_object_set_attribute(GVirConfigObject *object, ...)
     while (TRUE) {
         const char *name;
         const char *value;
-        xmlChar *encoded_value;
 
         name = va_arg(args, const char *);
         if (name == NULL) {
@@ -723,9 +722,7 @@ gvir_config_object_set_attribute(GVirConfigObject *object, ...)
             g_warn_if_reached();
             break;
         }
-        encoded_value = xmlEncodeEntitiesReentrant(doc, (xmlChar*)value);
-        xmlNewProp(object->priv->node, (xmlChar *)name, encoded_value);
-        xmlFree(encoded_value);
+        xmlNewProp(object->priv->node, (xmlChar *)name, (xmlChar *)value);
     }
     va_end(args);
 }
@@ -780,17 +777,11 @@ gvir_config_object_set_attribute_with_type(GVirConfigObject *object, ...)
                 str = g_strdup_printf("%d", val);
                 break;
             }
-            case G_TYPE_STRING: {
-                xmlDocPtr doc;
-                xmlChar *enc_str;
-
+            case G_TYPE_STRING:
                 str = va_arg(args, char *);
-                g_object_get(G_OBJECT(object->priv->doc), "doc", &doc, NULL);
-                enc_str = xmlEncodeEntitiesReentrant(doc, (xmlChar*)str);
-                str = g_strdup((char *)enc_str);
-                xmlFree(enc_str);
+                xmlNewProp(object->priv->node, (xmlChar *)name, (xmlChar *)str);
+                str = NULL;
                 break;
-            }
             case G_TYPE_BOOLEAN: {
                 gboolean val;
                 val = va_arg(args, gboolean);
