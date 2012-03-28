@@ -81,6 +81,7 @@ LIBVIRT_GCONFIG_0.0.8 {
 	gvir_config_domain_console_target_type_get_type;
 
 	gvir_config_domain_controller_get_type;
+	gvir_config_domain_controller_set_address;
 	gvir_config_domain_controller_get_index;
 	gvir_config_domain_controller_set_index;
 
