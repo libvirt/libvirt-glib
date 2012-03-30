@@ -1,6 +1,17 @@
                  libvirt-glib News
                  =================
 
+0.0.7 - Mar 30, 2012
+====================
+
+- Fix typo in filesystem access mode constant
+- Remove incorrect encoding of XML attributes
+- Add support for USB redirection devices
+- Add support for SPICE agent device
+- Fix typo in channel device target constant
+- Make all string getters return a const string
+- Keep list of devices sorted in original XML order
+
 0.0.6 - Mar 05, 2012
 ====================
 
