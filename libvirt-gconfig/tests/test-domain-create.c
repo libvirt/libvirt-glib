@@ -72,6 +72,34 @@ create_usb_controller(GVirConfigDomainControllerUsbModel model, guint index,
     return controller;
 }
 
+static GVirConfigDomainRedirdev *
+create_redirdev(guint bus, guint port)
+{
+    GVirConfigDomainRedirdev *redirdev;
+    GVirConfigDomainAddressUsb *address;
+    GVirConfigDomainChardevSourceSpiceVmc *spicevmc;
+    gchar *port_str;
+
+    redirdev = gvir_config_domain_redirdev_new();
+    gvir_config_domain_redirdev_set_bus(redirdev,
+                                        GVIR_CONFIG_DOMAIN_REDIRDEV_BUS_USB);
+    spicevmc = gvir_config_domain_chardev_source_spicevmc_new();
+    gvir_config_domain_chardev_set_source(GVIR_CONFIG_DOMAIN_CHARDEV(redirdev),
+                                          GVIR_CONFIG_DOMAIN_CHARDEV_SOURCE(spicevmc));
+    g_object_unref(G_OBJECT(spicevmc));
+
+    address = gvir_config_domain_address_usb_new();
+    gvir_config_domain_address_usb_set_bus(address, bus);
+    port_str = g_strdup_printf("%d", port);
+    gvir_config_domain_address_usb_set_port(address, port_str);
+    g_free(port_str);
+    gvir_config_domain_redirdev_set_address(redirdev,
+                                            GVIR_CONFIG_DOMAIN_ADDRESS(address));
+    g_object_unref(G_OBJECT(address));
+
+    return redirdev;
+}
+
 int main(int argc, char **argv)
 {
     GVirConfigDomain *domain;
@@ -250,15 +278,17 @@ int main(int argc, char **argv)
     g_assert(gvir_config_domain_controller_get_index(GVIR_CONFIG_DOMAIN_CONTROLLER(uhci1)) == 1);
     devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(uhci3));
 
-    redirdev = gvir_config_domain_redirdev_new();
-    gvir_config_domain_redirdev_set_bus(redirdev,
-                                        GVIR_CONFIG_DOMAIN_REDIRDEV_BUS_USB);
-    spicevmc = gvir_config_domain_chardev_source_spicevmc_new();
-    gvir_config_domain_chardev_set_source(GVIR_CONFIG_DOMAIN_CHARDEV(redirdev),
-                                          GVIR_CONFIG_DOMAIN_CHARDEV_SOURCE(spicevmc));
-    g_object_unref(G_OBJECT(spicevmc));
-    devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(redirdev));
 
+    /* three redirdev channels allows to redirect a maximum of 3 USB
+     * devices at a time. The address which create_redirdev assigns to the
+     * redirdev object is optional
+     */
+    redirdev = create_redirdev(0, 3);
+    devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(redirdev));
+    redirdev = create_redirdev(0, 4);
+    devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(redirdev));
+    redirdev = create_redirdev(0, 5);
+    devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(redirdev));
 
     gvir_config_domain_set_devices(domain, devices);
     g_list_foreach(devices, (GFunc)g_object_unref, NULL);
