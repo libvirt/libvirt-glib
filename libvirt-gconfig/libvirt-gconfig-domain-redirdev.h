@@ -67,6 +67,8 @@ GVirConfigDomainRedirdev *gvir_config_domain_redirdev_new_from_xml(const gchar *
                                                                    GError **error);
 void gvir_config_domain_redirdev_set_bus(GVirConfigDomainRedirdev *redirdev,
                                          GVirConfigDomainRedirdevBus bus);
+void gvir_config_domain_redirdev_set_address(GVirConfigDomainRedirdev *redirdev,
+                                             GVirConfigDomainAddress *address);
 
 G_END_DECLS
 

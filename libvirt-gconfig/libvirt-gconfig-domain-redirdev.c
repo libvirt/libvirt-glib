@@ -80,3 +80,13 @@ void gvir_config_domain_redirdev_set_bus(GVirConfigDomainRedirdev *redirdev,
                                                bus,
                                                NULL);
 }
+
+void gvir_config_domain_redirdev_set_address(GVirConfigDomainRedirdev *redirdev,
+                                             GVirConfigDomainAddress *address)
+{
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_REDIRDEV(redirdev));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_ADDRESS(address));
+
+    gvir_config_object_attach_replace(GVIR_CONFIG_OBJECT(redirdev),
+                                      GVIR_CONFIG_OBJECT(address));
+}

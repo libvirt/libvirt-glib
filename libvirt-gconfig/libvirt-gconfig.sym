@@ -233,6 +233,7 @@ LIBVIRT_GCONFIG_0.0.8 {
 	gvir_config_domain_redirdev_bus_get_type;
 	gvir_config_domain_redirdev_new;
 	gvir_config_domain_redirdev_new_from_xml;
+	gvir_config_domain_redirdev_set_address;
 	gvir_config_domain_redirdev_set_bus;
 
 	gvir_config_domain_seclabel_get_type;
