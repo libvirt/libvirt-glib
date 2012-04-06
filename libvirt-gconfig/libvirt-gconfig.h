@@ -32,6 +32,7 @@
 #include <libvirt-gconfig/libvirt-gconfig-domain.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-address.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-address-pci.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-address-usb.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-chardev.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-chardev-source.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-chardev-source-pty.h>

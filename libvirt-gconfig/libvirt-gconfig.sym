@@ -45,6 +45,12 @@ LIBVIRT_GCONFIG_0.0.8 {
 	gvir_config_domain_address_pci_set_multifunction;
 	gvir_config_domain_address_pci_set_slot;
 
+	gvir_config_domain_address_usb_get_type;
+	gvir_config_domain_address_usb_new;
+	gvir_config_domain_address_usb_new_from_xml;
+	gvir_config_domain_address_usb_set_bus;
+	gvir_config_domain_address_usb_set_port;
+
 	gvir_config_domain_channel_get_type;
 	gvir_config_domain_channel_new;
 	gvir_config_domain_channel_new_from_xml;
