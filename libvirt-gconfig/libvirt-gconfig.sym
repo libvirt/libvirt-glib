@@ -1,4 +1,4 @@
-LIBVIRT_GCONFIG_0.0.4 {
+LIBVIRT_GCONFIG_0.0.7 {
   global:
 	gvir_config_init_check;
 	gvir_config_init;

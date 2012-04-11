@@ -1,4 +1,4 @@
-LIBVIRT_GLIB_0.0.4 {
+LIBVIRT_GLIB_0.0.7 {
   global:
         gvir_init;
         gvir_init_check;
