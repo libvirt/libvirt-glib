@@ -127,6 +127,18 @@ void gvir_config_domain_disk_set_snapshot_type(GVirConfigDomainDisk *disk,
                                                type, NULL);
 }
 
+void gvir_config_domain_disk_set_startup_policy(GVirConfigDomainDisk *disk,
+                                                GVirConfigDomainDiskStartupPolicy policy)
+{
+    const char *str;
+
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_DISK(disk));
+    str = gvir_config_genum_get_nick(GVIR_CONFIG_TYPE_DOMAIN_DISK_STARTUP_POLICY, policy);
+    g_return_if_fail(str != NULL);
+    gvir_config_object_add_child_with_attribute(GVIR_CONFIG_OBJECT(disk),
+                                                "source", "startupPolicy", str);
+}
+
 void gvir_config_domain_disk_set_source(GVirConfigDomainDisk *disk,
                                         const char *source)
 {
@@ -235,6 +247,19 @@ gvir_config_domain_disk_get_snapshot_type(GVirConfigDomainDisk *disk)
                                                   GVIR_CONFIG_DOMAIN_DISK_SNAPSHOT_NO);
 }
 
+GVirConfigDomainDiskStartupPolicy
+gvir_config_domain_disk_get_startup_policy(GVirConfigDomainDisk *disk)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_DISK(disk),
+                         GVIR_CONFIG_DOMAIN_DISK_STARTUP_POLICY_MANDATORY);
+
+    return gvir_config_object_get_attribute_genum
+                (GVIR_CONFIG_OBJECT(disk),
+                 "source", "startupPolicy",
+                 GVIR_CONFIG_TYPE_DOMAIN_DISK_STARTUP_POLICY,
+                 GVIR_CONFIG_DOMAIN_DISK_STARTUP_POLICY_MANDATORY);
+}
+
 const char *
 gvir_config_domain_disk_get_source(GVirConfigDomainDisk *disk)
 {
@@ -291,6 +316,7 @@ gvir_config_domain_disk_get_driver_cache(GVirConfigDomainDisk *disk)
                                                   GVIR_CONFIG_TYPE_DOMAIN_DISK_CACHE_TYPE,
                                                   GVIR_CONFIG_DOMAIN_DISK_CACHE_DEFAULT);
 }
+
 GVirConfigDomainDiskBus
 gvir_config_domain_disk_get_target_bus(GVirConfigDomainDisk *disk)
 {

@@ -95,6 +95,12 @@ typedef enum {
     GVIR_CONFIG_DOMAIN_DISK_SNAPSHOT_EXTERNAL
 } GVirConfigDomainDiskSnapshotType;
 
+typedef enum {
+    GVIR_CONFIG_DOMAIN_DISK_STARTUP_POLICY_MANDATORY,
+    GVIR_CONFIG_DOMAIN_DISK_STARTUP_POLICY_REQUISITE,
+    GVIR_CONFIG_DOMAIN_DISK_STARTUP_POLICY_OPTIONAL
+} GVirConfigDomainDiskStartupPolicy;
+
 GType gvir_config_domain_disk_get_type(void);
 
 GVirConfigDomainDisk *gvir_config_domain_disk_new(void);
@@ -107,6 +113,8 @@ void gvir_config_domain_disk_set_guest_device_type(GVirConfigDomainDisk *disk,
                                                    GVirConfigDomainDiskGuestDeviceType type);
 void gvir_config_domain_disk_set_snapshot_type(GVirConfigDomainDisk *disk,
                                                GVirConfigDomainDiskSnapshotType type);
+void gvir_config_domain_disk_set_startup_policy(GVirConfigDomainDisk *disk,
+                                                GVirConfigDomainDiskStartupPolicy policy);
 void gvir_config_domain_disk_set_source(GVirConfigDomainDisk *disk,
                                         const char *source);
 void gvir_config_domain_disk_set_driver_cache(GVirConfigDomainDisk *disk,
@@ -123,6 +131,7 @@ void gvir_config_domain_disk_set_target_dev(GVirConfigDomainDisk *disk,
 GVirConfigDomainDiskType gvir_config_domain_disk_get_disk_type(GVirConfigDomainDisk *disk);
 GVirConfigDomainDiskGuestDeviceType gvir_config_domain_disk_get_guest_device_type(GVirConfigDomainDisk *disk);
 GVirConfigDomainDiskSnapshotType gvir_config_domain_disk_get_snapshot_type(GVirConfigDomainDisk *disk);
+GVirConfigDomainDiskStartupPolicy gvir_config_domain_disk_get_startup_policy(GVirConfigDomainDisk *disk);
 const char *gvir_config_domain_disk_get_source(GVirConfigDomainDisk *disk);
 GVirConfigDomainDiskCacheType gvir_config_domain_disk_get_driver_cache(GVirConfigDomainDisk *disk);
 const char *gvir_config_domain_disk_get_driver_name(GVirConfigDomainDisk *disk);

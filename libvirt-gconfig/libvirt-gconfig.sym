@@ -1,4 +1,4 @@
-LIBVIRT_GCONFIG_0.0.7 {
+LIBVIRT_GCONFIG_0.0.8 {
   global:
 	gvir_config_init_check;
 	gvir_config_init;
@@ -76,6 +76,7 @@ LIBVIRT_GCONFIG_0.0.7 {
 	gvir_config_domain_disk_cache_type_get_type;
 	gvir_config_domain_disk_guest_device_type_get_type;
 	gvir_config_domain_disk_snapshot_type_get_type;
+	gvir_config_domain_disk_startup_policy_get_type;
 	gvir_config_domain_disk_type_get_type;
 	gvir_config_domain_disk_new;
 	gvir_config_domain_disk_new_from_xml;
@@ -91,6 +92,8 @@ LIBVIRT_GCONFIG_0.0.7 {
 	gvir_config_domain_disk_set_snapshot_type;
 	gvir_config_domain_disk_get_source;
 	gvir_config_domain_disk_set_source;
+	gvir_config_domain_disk_get_startup_policy;
+	gvir_config_domain_disk_set_startup_policy;
 	gvir_config_domain_disk_get_target_bus;
 	gvir_config_domain_disk_set_target_bus;
 	gvir_config_domain_disk_get_target_dev;
