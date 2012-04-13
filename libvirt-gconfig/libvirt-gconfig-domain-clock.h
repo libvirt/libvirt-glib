@@ -27,6 +27,8 @@
 #ifndef __LIBVIRT_GCONFIG_DOMAIN_CLOCK_H__
 #define __LIBVIRT_GCONFIG_DOMAIN_CLOCK_H__
 
+#include <libvirt-gconfig/libvirt-gconfig-domain-timer.h>
+
 G_BEGIN_DECLS
 
 #define GVIR_CONFIG_TYPE_DOMAIN_CLOCK            (gvir_config_domain_clock_get_type ())
@@ -74,6 +76,8 @@ void gvir_config_domain_clock_set_timezone(GVirConfigDomainClock *klock,
                                            const char *tz);
 void gvir_config_domain_clock_set_variable_offset(GVirConfigDomainClock *klock,
                                                   gint seconds);
+void gvir_config_domain_clock_add_timer(GVirConfigDomainClock *klock,
+                                        GVirConfigDomainTimer *timer);
 
 
 G_END_DECLS

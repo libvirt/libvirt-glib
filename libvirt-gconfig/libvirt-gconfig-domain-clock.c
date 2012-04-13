@@ -101,3 +101,13 @@ void gvir_config_domain_clock_set_variable_offset(GVirConfigDomainClock *klock,
                                                "adjustment", G_TYPE_INT, seconds,
                                                NULL);
 }
+
+void gvir_config_domain_clock_add_timer(GVirConfigDomainClock *klock,
+                                        GVirConfigDomainTimer *timer)
+{
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_CLOCK(klock));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_TIMER(timer));
+
+    gvir_config_object_attach_add(GVIR_CONFIG_OBJECT(klock),
+                                  GVIR_CONFIG_OBJECT(timer));
+}
