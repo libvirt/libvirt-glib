@@ -133,9 +133,18 @@ int main(int argc, char **argv)
 
     /* clock node */
     GVirConfigDomainClock *klock;
+    GVirConfigDomainTimerRtc *rtc;
 
     klock = gvir_config_domain_clock_new();
     gvir_config_domain_clock_set_offset(klock, GVIR_CONFIG_DOMAIN_CLOCK_UTC);
+
+    rtc = gvir_config_domain_timer_rtc_new();
+    gvir_config_domain_timer_set_tick_policy(GVIR_CONFIG_DOMAIN_TIMER(rtc),
+                                             GVIR_CONFIG_DOMAIN_TIMER_TICK_POLICY_CATCHUP);
+    gvir_config_domain_clock_add_timer(klock, GVIR_CONFIG_DOMAIN_TIMER(rtc));
+    g_assert(gvir_config_domain_timer_get_tick_policy(GVIR_CONFIG_DOMAIN_TIMER(rtc)) == GVIR_CONFIG_DOMAIN_TIMER_TICK_POLICY_CATCHUP);
+    g_object_unref(G_OBJECT(rtc));
+
     gvir_config_domain_set_clock(domain, klock);
     g_object_unref(G_OBJECT(klock));
 
