@@ -265,6 +265,10 @@ LIBVIRT_GCONFIG_0.0.8 {
 	gvir_config_domain_timer_get_tick_policy;
 	gvir_config_domain_timer_set_tick_policy;
 
+	gvir_config_domain_timer_pit_get_type;
+	gvir_config_domain_timer_pit_new;
+	gvir_config_domain_timer_pit_new_from_xml;
+
 	gvir_config_domain_timer_rtc_get_type;
 	gvir_config_domain_timer_rtc_new;
 	gvir_config_domain_timer_rtc_new_from_xml;

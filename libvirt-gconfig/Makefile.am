@@ -46,6 +46,7 @@ GCONFIG_HEADER_FILES = \
 			libvirt-gconfig-domain-snapshot.h \
 			libvirt-gconfig-domain-sound.h \
 			libvirt-gconfig-domain-timer.h \
+			libvirt-gconfig-domain-timer-pit.h \
 			libvirt-gconfig-domain-timer-rtc.h \
 			libvirt-gconfig-domain-video.h \
 			libvirt-gconfig-helpers.h \
@@ -105,6 +106,7 @@ GCONFIG_SOURCE_FILES = \
 			libvirt-gconfig-domain-snapshot.c \
 			libvirt-gconfig-domain-sound.c \
 			libvirt-gconfig-domain-timer.c \
+			libvirt-gconfig-domain-timer-pit.c \
 			libvirt-gconfig-domain-timer-rtc.c \
 			libvirt-gconfig-domain-video.c \
 			libvirt-gconfig-helpers.c \

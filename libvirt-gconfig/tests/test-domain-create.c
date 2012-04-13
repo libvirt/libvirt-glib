@@ -133,10 +133,18 @@ int main(int argc, char **argv)
 
     /* clock node */
     GVirConfigDomainClock *klock;
+    GVirConfigDomainTimerPit *pit;
     GVirConfigDomainTimerRtc *rtc;
 
     klock = gvir_config_domain_clock_new();
     gvir_config_domain_clock_set_offset(klock, GVIR_CONFIG_DOMAIN_CLOCK_UTC);
+
+    pit = gvir_config_domain_timer_pit_new();
+    gvir_config_domain_timer_set_tick_policy(GVIR_CONFIG_DOMAIN_TIMER(pit),
+                                             GVIR_CONFIG_DOMAIN_TIMER_TICK_POLICY_DELAY);
+    gvir_config_domain_clock_add_timer(klock, GVIR_CONFIG_DOMAIN_TIMER(pit));
+    g_assert(gvir_config_domain_timer_get_tick_policy(GVIR_CONFIG_DOMAIN_TIMER(pit)) == GVIR_CONFIG_DOMAIN_TIMER_TICK_POLICY_DELAY);
+    g_object_unref(G_OBJECT(pit));
 
     rtc = gvir_config_domain_timer_rtc_new();
     gvir_config_domain_timer_set_tick_policy(GVIR_CONFIG_DOMAIN_TIMER(rtc),
