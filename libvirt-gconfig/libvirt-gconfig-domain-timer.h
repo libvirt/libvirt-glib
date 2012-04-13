@@ -56,8 +56,17 @@ struct _GVirConfigDomainTimerClass
     gpointer padding[20];
 };
 
+typedef enum {
+    GVIR_CONFIG_DOMAIN_TIMER_TICK_POLICY_DELAY,
+    GVIR_CONFIG_DOMAIN_TIMER_TICK_POLICY_CATCHUP,
+    GVIR_CONFIG_DOMAIN_TIMER_TICK_POLICY_MERGE,
+    GVIR_CONFIG_DOMAIN_TIMER_TICK_POLICY_DISCARD
+} GVirConfigDomainTimerTickPolicy;
 
 GType gvir_config_domain_timer_get_type(void);
+
+GVirConfigDomainTimerTickPolicy gvir_config_domain_timer_get_tick_policy(GVirConfigDomainTimer *timer);
+void gvir_config_domain_timer_set_tick_policy(GVirConfigDomainTimer *timer, GVirConfigDomainTimerTickPolicy policy);
 
 G_END_DECLS
 

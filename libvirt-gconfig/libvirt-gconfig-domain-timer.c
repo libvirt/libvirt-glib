@@ -23,6 +23,7 @@
 #include <config.h>
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
+#include "libvirt-gconfig/libvirt-gconfig-private.h"
 
 #define GVIR_CONFIG_DOMAIN_TIMER_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_DOMAIN_TIMER, GVirConfigDomainTimerPrivate))
@@ -46,4 +47,29 @@ static void gvir_config_domain_timer_init(GVirConfigDomainTimer *timer)
     g_debug("Init GVirConfigDomainTimer=%p", timer);
 
     timer->priv = GVIR_CONFIG_DOMAIN_TIMER_GET_PRIVATE(timer);
+}
+
+void gvir_config_domain_timer_set_tick_policy(GVirConfigDomainTimer *timer,
+                                              GVirConfigDomainTimerTickPolicy policy)
+{
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_TIMER(timer));
+
+    gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(timer),
+                                               "tickpolicy",
+                                               GVIR_CONFIG_TYPE_DOMAIN_TIMER_TICK_POLICY,
+                                               policy,
+                                               NULL);
+}
+
+GVirConfigDomainTimerTickPolicy
+gvir_config_domain_timer_get_tick_policy(GVirConfigDomainTimer *timer)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_TIMER(timer),
+                         GVIR_CONFIG_DOMAIN_TIMER_TICK_POLICY_DELAY);
+
+    return gvir_config_object_get_attribute_genum(GVIR_CONFIG_OBJECT(timer),
+                                                  NULL,
+                                                  "tickpolicy",
+                                                  GVIR_CONFIG_TYPE_DOMAIN_TIMER_TICK_POLICY,
+                                                  GVIR_CONFIG_DOMAIN_TIMER_TICK_POLICY_DELAY);
 }
