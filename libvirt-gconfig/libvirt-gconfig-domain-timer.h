@@ -59,10 +59,6 @@ struct _GVirConfigDomainTimerClass
 
 GType gvir_config_domain_timer_get_type(void);
 
-GVirConfigDomainTimer *gvir_config_domain_timer_new(void);
-GVirConfigDomainTimer *gvir_config_domain_timer_new_from_xml(const gchar *xml,
-                                                      GError **error);
-
 G_END_DECLS
 
 #endif /* __LIBVIRT_GCONFIG_DOMAIN_TIMER_H__ */

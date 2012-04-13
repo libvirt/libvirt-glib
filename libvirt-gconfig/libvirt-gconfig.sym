@@ -260,8 +260,6 @@ LIBVIRT_GCONFIG_0.0.8 {
 	gvir_config_domain_sound_set_model;
 
 	gvir_config_domain_timer_get_type;
-	gvir_config_domain_timer_new;
-	gvir_config_domain_timer_new_from_xml;
 
 	gvir_config_domain_video_get_type;
 	gvir_config_domain_video_model_get_type;
