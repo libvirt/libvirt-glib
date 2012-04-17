@@ -64,7 +64,7 @@ gvir_config_domain_device_new_from_tree(GVirConfigXmlDoc *doc,
     } else if (xmlStrEqual(tree->name, (xmlChar*)"filesystem")) {
         type = GVIR_CONFIG_TYPE_DOMAIN_FILESYS;
     } else if (xmlStrEqual(tree->name, (xmlChar*)"controller")) {
-        goto unimplemented;
+        return gvir_config_domain_controller_new_from_tree(doc, tree);
     } else if (xmlStrEqual(tree->name, (xmlChar*)"lease")) {
         goto unimplemented;
     } else if (xmlStrEqual(tree->name, (xmlChar*)"hostdev")) {

@@ -31,6 +31,9 @@ GVirConfigDomainDevice *
 gvir_config_domain_device_new_from_tree(GVirConfigXmlDoc *doc,
                                         xmlNodePtr tree);
 GVirConfigDomainDevice *
+gvir_config_domain_controller_new_from_tree(GVirConfigXmlDoc *doc,
+                                            xmlNodePtr tree);
+GVirConfigDomainDevice *
 gvir_config_domain_disk_new_from_tree(GVirConfigXmlDoc *doc,
                                       xmlNodePtr tree);
 GVirConfigDomainDevice *

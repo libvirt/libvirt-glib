@@ -49,6 +49,43 @@ static void gvir_config_domain_controller_init(GVirConfigDomainController *contr
     controller->priv = GVIR_CONFIG_DOMAIN_CONTROLLER_GET_PRIVATE(controller);
 }
 
+G_GNUC_INTERNAL GVirConfigDomainDevice *
+gvir_config_domain_controller_new_from_tree(GVirConfigXmlDoc *doc,
+                                            xmlNodePtr tree)
+{
+    const char *type;
+    GType gtype;
+
+    type = gvir_config_xml_get_attribute_content(tree, "type");
+    if (type == NULL)
+        return NULL;
+
+    if (g_str_equal(type, "ide")) {
+        goto unimplemented;
+    } else if (g_str_equal(type, "fdc")) {
+        goto unimplemented;
+    } else if (g_str_equal(type, "scsi")) {
+        goto unimplemented;
+    } else if (g_str_equal(type, "sata")) {
+        goto unimplemented;
+    } else if (g_str_equal(type, "usb")) {
+        gtype = GVIR_CONFIG_TYPE_DOMAIN_CONTROLLER_USB;;
+    } else if (g_str_equal(type, "ccid")) {
+        goto unimplemented;
+    } else if (g_str_equal(type, "virtio-serial")) {
+        goto unimplemented;
+    } else {
+        g_debug("Unknown domain controller node: %s", type);
+        return NULL;
+    }
+
+    return GVIR_CONFIG_DOMAIN_DEVICE(gvir_config_object_new_from_tree(gtype, doc, NULL, tree));
+
+unimplemented:
+    g_debug("Parsing of '%s' domain controller nodes is unimplemented", type);
+    return NULL;
+}
+
 void gvir_config_domain_controller_set_index(GVirConfigDomainController *controller,
                                              guint index)
 {
