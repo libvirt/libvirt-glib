@@ -70,7 +70,7 @@ gvir_config_domain_device_new_from_tree(GVirConfigXmlDoc *doc,
     } else if (xmlStrEqual(tree->name, (xmlChar*)"hostdev")) {
         goto unimplemented;
     } else if (xmlStrEqual(tree->name, (xmlChar*)"redirdev")) {
-        goto unimplemented;
+        type = GVIR_CONFIG_TYPE_DOMAIN_REDIRDEV;
     } else if (xmlStrEqual(tree->name, (xmlChar*)"smartcard")) {
         goto unimplemented;
     } else if (xmlStrEqual(tree->name, (xmlChar*)"interface")) {
