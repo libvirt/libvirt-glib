@@ -141,6 +141,13 @@ gboolean gvir_domain_reboot(GVirDomain *dom,
 
 GVirDomainInfo *gvir_domain_get_info(GVirDomain *dom,
                                      GError **err);
+void gvir_domain_get_info_async(GVirDomain *dom,
+                                GCancellable *cancellable,
+                                GAsyncReadyCallback callback,
+                                gpointer user_data);
+GVirDomainInfo *gvir_domain_get_info_finish(GVirDomain *dom,
+                                            GAsyncResult *result,
+                                            GError **err);
 
 GVirConfigDomain *gvir_domain_get_config(GVirDomain *dom,
                                          guint flags,

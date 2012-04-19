@@ -572,6 +572,86 @@ GVirDomainInfo *gvir_domain_get_info(GVirDomain *dom,
     return ret;
 }
 
+static void
+gvir_domain_get_info_helper(GSimpleAsyncResult *res,
+                            GObject *object,
+                            GCancellable *cancellable G_GNUC_UNUSED)
+{
+    GVirDomain *dom = GVIR_DOMAIN(object);
+    GVirDomainInfo *info;
+    GError *err = NULL;
+
+    info = gvir_domain_get_info(dom, &err);
+    if (err)
+        g_simple_async_result_take_error(res, err);
+    else
+        g_simple_async_result_set_op_res_gpointer
+                                (res,
+                                 info,
+                                 (GDestroyNotify) gvir_domain_info_free);
+}
+
+/**
+ * gvir_domain_get_info_async:
+ * @dom: the domain
+ * @cancellable: (allow-none)(transfer none): cancellation object
+ * @callback: (scope async): completion callback
+ * @user_data: (closure): opaque data for callback
+ *
+ * Asynchronous variant of #gvir_domain_get_info.
+ */
+void gvir_domain_get_info_async(GVirDomain *dom,
+                                GCancellable *cancellable,
+                                GAsyncReadyCallback callback,
+                                gpointer user_data)
+{
+    GSimpleAsyncResult *res;
+
+    g_return_if_fail(GVIR_IS_DOMAIN(dom));
+
+    res = g_simple_async_result_new(G_OBJECT(dom),
+                                    callback,
+                                    user_data,
+                                    gvir_domain_get_info_async);
+    g_simple_async_result_run_in_thread(res,
+                                        gvir_domain_get_info_helper,
+                                        G_PRIORITY_DEFAULT,
+                                        cancellable);
+    g_object_unref(res);
+}
+
+/**
+ * gvir_domain_get_info_finish:
+ * @dom: the domain
+ * @result: (transfer none): async method result
+ * @err: Place-holder for possible errors
+ *
+ * Finishes the operation started by #gvir_domain_get_info_async.
+ *
+ * Returns: (transfer full): the info
+ */
+GVirDomainInfo *gvir_domain_get_info_finish(GVirDomain *dom,
+                                            GAsyncResult *result,
+                                            GError **err)
+{
+    GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT(result);
+    GVirDomainInfo *ret;
+
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), NULL);
+    g_return_val_if_fail
+                (g_simple_async_result_is_valid(result,
+                                                G_OBJECT(dom),
+                                                gvir_domain_get_info_async),
+                 NULL);
+
+    if (g_simple_async_result_propagate_error(res, err))
+        return NULL;
+
+    ret = g_simple_async_result_get_op_res_gpointer(res);
+
+    return gvir_domain_info_copy (ret);
+}
+
 /**
  * gvir_domain_screenshot:
  * @stream: stream to use as output
