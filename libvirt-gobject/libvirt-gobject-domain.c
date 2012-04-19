@@ -701,7 +701,7 @@ cleanup:
 }
 
 /**
- * gir_domain_suspend:
+ * gvir_domain_suspend:
  * @dom: the domain to suspend
  * @err: Place-holder for possible errors
  *
@@ -783,7 +783,7 @@ gvir_domain_save_helper(GSimpleAsyncResult *res,
 }
 
 /**
- * gir_domain_save_async:
+ * gvir_domain_save_async:
  * @dom: the domain to save
  * @flags: extra flags, currently unused
  * @cancellable: (allow-none)(transfer none): cancellation object
@@ -819,7 +819,7 @@ void gvir_domain_save_async (GVirDomain *dom,
 }
 
 /**
- * gir_domain_save_finish:
+ * gvir_domain_save_finish:
  * @dom: the domain to save
  * @result: (transfer none): async method result
  * @err: Place-holder for possible errors
