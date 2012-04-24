@@ -45,7 +45,7 @@ const char *features[] = { "foo", "bar", "baz", NULL };
 
 
 static GVirConfigDomainControllerUsb *
-create_usb_controller(GVirConfigDomainControllerUsbModel model, guint index,
+create_usb_controller(GVirConfigDomainControllerUsbModel model, guint indx,
                       GVirConfigDomainControllerUsb *master, guint start_port,
                       guint domain, guint bus, guint slot, guint function,
                       gboolean multifunction)
@@ -55,7 +55,7 @@ create_usb_controller(GVirConfigDomainControllerUsbModel model, guint index,
 
     controller = gvir_config_domain_controller_usb_new();
     gvir_config_domain_controller_usb_set_model(controller, model);
-    gvir_config_domain_controller_set_index(GVIR_CONFIG_DOMAIN_CONTROLLER(controller), index);
+    gvir_config_domain_controller_set_index(GVIR_CONFIG_DOMAIN_CONTROLLER(controller), indx);
     if (master)
         gvir_config_domain_controller_usb_set_master(controller, master, start_port);
     address = gvir_config_domain_address_pci_new();
