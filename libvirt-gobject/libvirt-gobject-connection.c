@@ -1383,3 +1383,105 @@ GVirNodeInfo *gvir_connection_get_node_info(GVirConnection *conn,
 
     return ret;
 }
+
+/**
+ * gvir_connection_get_capabilities:
+ * @conn: the connection
+ * @err: return location for any #GError
+ *
+ * Return value: (transfer full): a #GVirConfigCapabilities or NULL
+ */
+GVirConfigCapabilities *gvir_connection_get_capabilities(GVirConnection *conn,
+                                                         GError **err)
+{
+    GVirConfigCapabilities *caps;
+    char *caps_xml;
+
+    g_return_val_if_fail(GVIR_IS_CONNECTION(conn), NULL);
+    g_return_val_if_fail(err == NULL || *err == NULL, NULL);
+    g_return_val_if_fail(conn->priv->conn, NULL);
+
+    caps_xml = virConnectGetCapabilities(conn->priv->conn);
+    if (caps_xml == NULL) {
+        gvir_set_error_literal(err, GVIR_CONNECTION_ERROR,
+                               0,
+                               "Unable to get capabilities");
+        return NULL;
+    }
+
+    caps = gvir_config_capabilities_new_from_xml(caps_xml, err);
+    free(caps_xml);
+
+    return caps;
+}
+
+static void
+gvir_connection_get_capabilities_helper(GSimpleAsyncResult *res,
+                                        GObject *object,
+                                        GCancellable *cancellable)
+{
+    GVirConnection *conn = GVIR_CONNECTION(object);
+    GError *err = NULL;
+    GVirConfigCapabilities *caps;
+
+    caps = gvir_connection_get_capabilities(conn, &err);
+    if (caps == NULL) {
+        g_simple_async_result_take_error(res, err);
+
+        return;
+    }
+
+    g_simple_async_result_set_op_res_gpointer(res, caps, g_object_unref);
+}
+
+/**
+ * gvir_connection_get_capabilities_async:
+ * @conn: the connection
+ * @cancellable: (allow-none)(transfer none): cancellation object
+ * @callback: (scope async): completion callback
+ * @user_data: (closure): opaque data for callback
+ */
+void gvir_connection_get_capabilities_async(GVirConnection *conn,
+                                            GCancellable *cancellable,
+                                            GAsyncReadyCallback callback,
+                                            gpointer user_data)
+{
+    GSimpleAsyncResult *res;
+
+    res = g_simple_async_result_new(G_OBJECT(conn),
+                                    callback,
+                                    user_data,
+                                    gvir_connection_get_capabilities_async);
+    g_simple_async_result_run_in_thread(res,
+                                        gvir_connection_get_capabilities_helper,
+                                        G_PRIORITY_DEFAULT,
+                                        cancellable);
+    g_object_unref(res);
+}
+
+/**
+ * gvir_connection_get_capabilities_finish:
+ * @conn: the connection
+ * @result: (transfer none): async method result
+ *
+ * Return value: (transfer full): a #GVirConfigCapabilities or NULL.
+ */
+GVirConfigCapabilities *
+gvir_connection_get_capabilities_finish(GVirConnection *conn,
+                                        GAsyncResult *result,
+                                        GError **err)
+{
+    GVirConfigCapabilities *caps;
+
+    g_return_val_if_fail(GVIR_IS_CONNECTION(conn), NULL);
+    g_return_val_if_fail(g_simple_async_result_is_valid(result, G_OBJECT(conn),
+                                                        gvir_connection_get_capabilities_async),
+                         NULL);
+
+    if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result), err))
+        return NULL;
+
+    caps = g_simple_async_result_get_op_res_gpointer(G_SIMPLE_ASYNC_RESULT(result));
+
+    return g_object_ref(caps);
+}

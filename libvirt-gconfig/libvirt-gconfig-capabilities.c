@@ -42,11 +42,11 @@ static void gvir_config_capabilities_class_init(GVirConfigCapabilitiesClass *kla
 }
 
 
-static void gvir_config_capabilities_init(GVirConfigCapabilities *conn)
+static void gvir_config_capabilities_init(GVirConfigCapabilities *caps)
 {
-    g_debug("Init GVirConfigCapabilities=%p", conn);
+    g_debug("Init GVirConfigCapabilities=%p", caps);
 
-    conn->priv = GVIR_CONFIG_CAPABILITIES_GET_PRIVATE(conn);
+    caps->priv = GVIR_CONFIG_CAPABILITIES_GET_PRIVATE(caps);
 }
 
 
@@ -54,8 +54,6 @@ GVirConfigCapabilities *gvir_config_capabilities_new(void)
 {
     GVirConfigObject *object;
 
-    /* FIXME: what is the XML root of the capability node? I suspect it is
-     * either 'guest' or 'host' */
     object = gvir_config_object_new(GVIR_CONFIG_TYPE_CAPABILITIES,
                                     "capabilities",
                                     DATADIR "/libvirt/schemas/capability.rng");
@@ -67,8 +65,6 @@ GVirConfigCapabilities *gvir_config_capabilities_new_from_xml(const gchar *xml,
 {
     GVirConfigObject *object;
 
-    /* FIXME: what is the XML root of the capability node? I suspect it is
-     * either 'guest' or 'host' */
     object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_CAPABILITIES,
                                              "capabilities",
                                              DATADIR "/libvirt/schemas/capability.rng",

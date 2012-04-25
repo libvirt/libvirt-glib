@@ -191,6 +191,17 @@ GVirStream *gvir_connection_get_stream(GVirConnection *conn,
 GVirNodeInfo *gvir_connection_get_node_info(GVirConnection *conn,
                                             GError **err);
 
+GVirConfigCapabilities *gvir_connection_get_capabilities(GVirConnection *conn,
+                                                         GError **err);
+void gvir_connection_get_capabilities_async(GVirConnection *conn,
+                                            GCancellable *cancellable,
+                                            GAsyncReadyCallback callback,
+                                            gpointer user_data);
+GVirConfigCapabilities *
+gvir_connection_get_capabilities_finish(GVirConnection *conn,
+                                        GAsyncResult *result,
+                                        GError **err);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GOBJECT_CONNECTION_H__ */
