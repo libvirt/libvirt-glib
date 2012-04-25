@@ -175,6 +175,8 @@ const gchar *gvir_node_device_get_name(GVirNodeDevice *device)
  * gvir_node_device_get_config:
  * @device: the node_device
  * @flags: the flags
+ * @err: Place-holder for possible errors
+ *
  * Returns: (transfer full): the config
  */
 GVirConfigNodeDevice *gvir_node_device_get_config(GVirNodeDevice *device,

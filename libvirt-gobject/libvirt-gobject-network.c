@@ -203,6 +203,8 @@ const gchar *gvir_network_get_uuid(GVirNetwork *network)
  * gvir_network_get_config:
  * @network: the network
  * @flags: the flags
+ * @err: Place-holder for possible errors
+ *
  * Returns: (transfer full): the config
  */
 GVirConfigNetwork *gvir_network_get_config(GVirNetwork *network,

@@ -235,6 +235,8 @@ const gchar *gvir_storage_pool_get_uuid(GVirStoragePool *pool)
  * gvir_storage_pool_get_config:
  * @pool: the storage_pool
  * @flags: the flags
+ * @err: Place-holder for possible errors
+ *
  * Returns: (transfer full): the config
  */
 GVirConfigStoragePool *gvir_storage_pool_get_config(GVirStoragePool *pool,
@@ -260,6 +262,8 @@ GVirConfigStoragePool *gvir_storage_pool_get_config(GVirStoragePool *pool,
 /**
  * gvir_storage_pool_get_info:
  * @pool: the storage_pool
+ * @err: Place-holder for possible errors
+ *
  * Returns: (transfer full): the info
  */
 GVirStoragePoolInfo *gvir_storage_pool_get_info(GVirStoragePool *pool,
@@ -526,6 +530,8 @@ GVirStorageVol *gvir_storage_pool_get_volume(GVirStoragePool *pool,
  * gvir_storage_pool_create_volume:
  * @pool: the storage pool in which to create the volume
  * @conf: the configuration for the new volume
+ * @err: Place-holder for possible errors
+ *
  * Returns: (transfer full): the newly created volume
  */
 GVirStorageVol *gvir_storage_pool_create_volume

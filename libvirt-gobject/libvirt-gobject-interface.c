@@ -175,6 +175,8 @@ const gchar *gvir_interface_get_name(GVirInterface *iface)
  * gvir_interface_get_config:
  * @iface: the interface
  * @flags: the flags
+ * @err: Place-holder for possible errors
+ *
  * Returns: (transfer full): the config
  */
 GVirConfigInterface *gvir_interface_get_config(GVirInterface *iface,

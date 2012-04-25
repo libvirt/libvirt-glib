@@ -184,6 +184,7 @@ const gchar *gvir_domain_snapshot_get_name(GVirDomainSnapshot *snapshot)
  * gvir_domain_snapshot_get_config:
  * @snapshot: the domain_snapshot
  * @flags: the flags
+ *
  * Returns: (transfer full): the config
  */
 GVirConfigDomainSnapshot *gvir_domain_snapshot_get_config

@@ -206,6 +206,8 @@ const gchar *gvir_network_filter_get_uuid(GVirNetworkFilter *filter)
  * gvir_network_filter_get_config:
  * @filter: the network_filter
  * @flags: the flags
+ * @err: Place-holder for possible errors
+ *
  * Returns: (transfer full): the config
  */
 GVirConfigNetworkFilter *gvir_network_filter_get_config

@@ -160,6 +160,7 @@ void gvir_manager_remove_connection(GVirManager *man,
 
 /**
  * gvir_manager_get_connections:
+ *
  * Returns: (transfer full)(element-type GVirConnection): the connections
  */
 GList *gvir_manager_get_connections(GVirManager *man)
@@ -179,6 +180,7 @@ GList *gvir_manager_get_connections(GVirManager *man)
 
 /**
  * gvir_manager_find_connection_by_uri:
+ *
  * Returns: (transfer full)(allow-none): the connection,or NULL
  */
 GVirConnection *gvir_manager_find_connection_by_uri(GVirManager *man,

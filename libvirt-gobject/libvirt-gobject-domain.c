@@ -337,6 +337,7 @@ gboolean gvir_domain_start(GVirDomain *dom,
 /**
  * gvir_domain_resume:
  * @dom: the domain
+ * @err: Place-holder for possible errors
  *
  * Returns: TRUE on success
  */
@@ -453,6 +454,7 @@ gboolean gvir_domain_reboot(GVirDomain *dom,
  * gvir_domain_get_config:
  * @dom: the domain
  * @flags:  the flags
+ *
  * Returns: (transfer full): the config
  */
 GVirConfigDomain *gvir_domain_get_config(GVirDomain *dom,
@@ -546,6 +548,7 @@ gboolean gvir_domain_set_config(GVirDomain *domain,
 /**
  * gvir_domain_get_info:
  * @dom: the domain
+ *
  * Returns: (transfer full): the info
  */
 GVirDomainInfo *gvir_domain_get_info(GVirDomain *dom,

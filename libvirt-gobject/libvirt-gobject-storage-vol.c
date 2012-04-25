@@ -225,6 +225,8 @@ const gchar *gvir_storage_vol_get_path(GVirStorageVol *vol, GError **error)
  * gvir_storage_vol_get_config:
  * @vol: the storage_vol
  * @flags: the flags
+ * @err: Place-holder for possible errors
+ *
  * Returns: (transfer full): the config
  */
 GVirConfigStorageVol *gvir_storage_vol_get_config(GVirStorageVol *vol,
@@ -250,6 +252,8 @@ GVirConfigStorageVol *gvir_storage_vol_get_config(GVirStorageVol *vol,
 /**
  * gvir_storage_vol_get_info:
  * @vol: the storage_vol
+ * @err: Place-holder for possible errors
+ *
  * Returns: (transfer full): the info
  */
 GVirStorageVolInfo *gvir_storage_vol_get_info(GVirStorageVol *vol,

@@ -277,6 +277,7 @@ static gboolean add_feature(xmlNodePtr node, gpointer opaque)
 
 /**
  * gvir_config_domain_get_features:
+ *
  * Returns: (transfer full):
  */
 GStrv gvir_config_domain_get_features(GVirConfigDomain *domain)
