@@ -378,6 +378,19 @@ LIBVIRT_GCONFIG_0.0.9 {
   global:
 	gvir_config_domain_get_os;
 	gvir_config_domain_os_get_boot_devices;
+
+	gvir_config_capabilities_get_host;
+
+	gvir_config_capabilities_cpu_get_type;
+	gvir_config_capabilities_cpu_get_arch;
+	gvir_config_capabilities_cpu_get_features;
+
+	gvir_config_capabilities_cpu_feature_get_type;
+	gvir_config_capabilities_cpu_feature_get_name;
+
+	gvir_config_capabilities_host_get_type;
+	gvir_config_capabilities_host_get_uuid;
+	gvir_config_capabilities_host_get_cpu;
 } LIBVIRT_GCONFIG_0.0.8;
 
 # .... define new API here using predicted next version number ....

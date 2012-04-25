@@ -27,6 +27,8 @@
 #ifndef __LIBVIRT_GCONFIG_CAPABILITIES_H__
 #define __LIBVIRT_GCONFIG_CAPABILITIES_H__
 
+#include "libvirt-gconfig/libvirt-gconfig-capabilities-host.h"
+
 G_BEGIN_DECLS
 
 #define GVIR_CONFIG_TYPE_CAPABILITIES            (gvir_config_capabilities_get_type ())
@@ -56,12 +58,13 @@ struct _GVirConfigCapabilitiesClass
     gpointer padding[20];
 };
 
-
 GType gvir_config_capabilities_get_type(void);
 
 GVirConfigCapabilities *gvir_config_capabilities_new(void);
 GVirConfigCapabilities *gvir_config_capabilities_new_from_xml(const gchar *xml,
                                                               GError **error);
+GVirConfigCapabilitiesHost *
+gvir_config_capabilities_get_host(GVirConfigCapabilities *caps);
 
 G_END_DECLS
 

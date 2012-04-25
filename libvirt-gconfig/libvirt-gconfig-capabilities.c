@@ -24,6 +24,7 @@
 #include <config.h>
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
+#include "libvirt-gconfig/libvirt-gconfig-private.h"
 
 #define GVIR_CONFIG_CAPABILITIES_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_CAPABILITIES, GVirConfigCapabilitiesPrivate))
@@ -70,4 +71,26 @@ GVirConfigCapabilities *gvir_config_capabilities_new_from_xml(const gchar *xml,
                                              DATADIR "/libvirt/schemas/capability.rng",
                                              xml, error);
     return GVIR_CONFIG_CAPABILITIES(object);
+}
+
+/**
+ * gvir_config_capabilities_get_host:
+ *
+ * Gets the host capabilities.
+ *
+ * Returns: (transfer full): a new #GVirConfigCapabilitiesHost.
+ */
+GVirConfigCapabilitiesHost *
+gvir_config_capabilities_get_host(GVirConfigCapabilities *caps)
+{
+    GVirConfigObject *object;
+
+    g_return_val_if_fail(GVIR_CONFIG_IS_CAPABILITIES(caps), NULL);
+
+    object = gvir_config_object_get_child_with_type
+                                (GVIR_CONFIG_OBJECT(caps),
+                                 "host",
+                                 GVIR_CONFIG_TYPE_CAPABILITIES_HOST);
+
+    return GVIR_CONFIG_CAPABILITIES_HOST(object);
 }

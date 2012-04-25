@@ -12,6 +12,9 @@ GCONFIG_HEADER_FILES = \
 			libvirt-gconfig-main.h \
 			libvirt-gconfig-object.h \
 			libvirt-gconfig-capabilities.h \
+			libvirt-gconfig-capabilities-host.h \
+			libvirt-gconfig-capabilities-cpu.h \
+			libvirt-gconfig-capabilities-cpu-feature.h \
 			libvirt-gconfig-domain.h \
 			libvirt-gconfig-domain-address.h \
 			libvirt-gconfig-domain-address-pci.h \
@@ -72,6 +75,9 @@ GCONFIG_SOURCE_FILES = \
 			libvirt-gconfig-object.c \
 			libvirt-gconfig-main.c \
 			libvirt-gconfig-capabilities.c \
+			libvirt-gconfig-capabilities-host.c \
+			libvirt-gconfig-capabilities-cpu.c \
+			libvirt-gconfig-capabilities-cpu-feature.c \
 			libvirt-gconfig-domain.c \
 			libvirt-gconfig-domain-address.c \
 			libvirt-gconfig-domain-address-pci.c \
