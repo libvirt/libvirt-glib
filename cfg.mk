@@ -124,7 +124,7 @@ sc_check_author_list:
 	test $$fail = 0
 
 
-exclude_file_name_regexp--sc_bindtextdomain = ^(libvirt-gconfig/tests|examples)/
+exclude_file_name_regexp--sc_bindtextdomain = ^(libvirt-gconfig/tests|examples)/|libvirt-glib/libvirt-glib-event.c|libvirt-glib/libvirt-glib-main.c
 
 exclude_file_name_regexp--sc_preprocessor_indentation = ^*/*.[ch]
 

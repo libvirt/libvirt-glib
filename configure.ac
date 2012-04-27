@@ -259,6 +259,7 @@ AC_OUTPUT(Makefile
           vapi/Makefile
           docs/Makefile
           docs/libvirt-glib/Makefile
+          docs/libvirt-glib/version.xml
           docs/libvirt-gobject/Makefile
           docs/libvirt-gconfig/Makefile
           libvirt-glib-1.0.pc

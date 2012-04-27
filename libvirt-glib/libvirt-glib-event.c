@@ -31,6 +31,53 @@
 
 #include "libvirt-glib/libvirt-glib.h"
 
+/**
+ * SECTION:libvirt-glib-event
+ * @short_description: Integrate libvirt with the GMain event framework
+ * @title: Event loop
+ * @stability: Stable
+ * @include: libvirt-glib/libvirt-glib.h
+ *
+ * The libvirt API has the ability to provide applications with asynchronous
+ * notifications of interesting events. To enable this functionality though,
+ * applications must provide libvirt with an event loop implementation. The
+ * libvirt-glib API provides such an implementation, which naturally integrates
+ * with the GMain event loop framework.
+ *
+ * To enable use of the GMain event loop glue, the <code>gvir_event_register()</code>
+ * should be invoked. Once this is done, it is mandatory to have the default
+ * GMain event loop run by a thread in the application, usually the primary
+ * thread, eg by using <code>gtk_main()</code> or <code>g_application_run()</code>
+ *
+ * <example>
+ * <title>Registering for events with a GTK application</title>
+ * <programlisting><![CDATA[
+ * int main(int argc, char **argv) {
+ *   ...setup...
+ *   gvir_event_register();
+ *   ...more setup...
+ *   gtk_main();
+ *   return 0;
+ * }
+ * ]]></programlisting>
+ * </example>
+ *
+ * <example>
+ * <title>Registering for events using Appplication</title>
+ * <programlisting><![CDATA[
+ * int main(int argc, char **argv) {
+ *   ...setup...
+ *   GApplication *app = ...create some impl of GApplication...
+ *   gvir_event_register();
+ *   ...more setup...
+ *   g_application_run(app);
+ *   return 0;
+ * }
+ * ]]></programlisting>
+ * </example>
+ */
+
+
 #if GLIB_CHECK_VERSION(2, 31, 0)
 #define g_mutex_new() g_new0(GMutex, 1)
 #endif
@@ -414,6 +461,24 @@ static gpointer event_register_once(gpointer data G_GNUC_UNUSED)
     return NULL;
 }
 
+
+/**
+ * gvir_event_register:
+ *
+ * Registers a libvirt event loop implementation that is backed
+ * by the default <code>GMain</code> context. If invoked more
+ * than once this method will be a no-op. Applications should,
+ * however, take care not to register any another non-GLib
+ * event loop with libvirt.
+ *
+ * After invoking this method, it is mandatory to run the
+ * default GMain event loop. Typically this can be satisfied
+ * by invoking <code>gtk_main</code> or <code>g_application_run</code>
+ * in the application's main thread. Failure to run the event
+ * loop will mean no libvirt events get dispatched, and the
+ * libvirt keepalive timer will kill off libvirt connections
+ * frequently.
+ */
 void gvir_event_register(void)
 {
     static GOnce once = G_ONCE_INIT;

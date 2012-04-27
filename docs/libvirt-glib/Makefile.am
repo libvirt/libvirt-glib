@@ -39,3 +39,5 @@ GTKDOC_LIBS = \
 	$(top_builddir)/libvirt-glib/libvirt-glib-1.0.la
 
 include $(top_srcdir)/gtk-doc.make
+
+EXTRA_DIST += version.xml.in

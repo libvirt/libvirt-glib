@@ -29,11 +29,51 @@
 #include "libvirt-glib/libvirt-glib.h"
 
 /**
- * gvir_error_new: (skip)
+ * SECTION:libvirt-glib-error
+ * @short_description: Convert libvirt error reports to GLib error reports
+ * @title: Error reporting
+ * @stability: Stable
+ * @include: libvirt-glib/libvirt-glib.h
+ *
+ * The libvirt API uses the <code>virError</code> structure for reporting
+ * errors back to the application programmer. The libvirt API errors are
+ * provided in thread-local variables, while the GLib standard practice is
+ * to return errors via out parameters. This library provides a simple way
+ * to fill in <code>GError **</code> output parameters with the contents
+ * of the most recent libvirt error object in the current thread.
+ *
+ * The <code>gvir_error_new</code>, <code>gvir_error_new_literal</code> and
+ * <code>gvir_error_new_valist</code> methods all return a newly created
+ * <code>GError *</code> object instance, differing only in the way the
+ * message needs to be provided. For most usage though, it is preferrable
+ * to use the <code>gvir_set_error</code>, <code>gvir_set_error_literal</code>
+ * and <code>gvir_set_error_valist</code> methods. These all accept a
+ * <code>GError **</code> argument and take care to only fill it if it
+ * points to a non-NULL location.
+ *
+ * <example>
+ * <title>Reporting GLib errors with libvirt APIs</title>
+ * <programlisting><![CDATA[
+ * gboolean myapp_start_guest(const gchar *xml, GError **error)
+ * {
+ *     if (virDomainCreate(conn, xml, 0) &lt; 0) {
+ *         gvir_set_error_literal(error, "Unable to start virtual machine");
+ *        return FALSE;
+ *     }
+ *
+ *     return TRUE;
+ * }
+ * ]]></programlisting>
+ * </example>
+ *
+ */
+
+/**
+ * gvir_error_new:
  * @domain: error domain
  * @code: error code
  * @format: printf()-style format for error message
- * @Varargs: parameters for message format
+ * @...: parameters for message format
  *
  * Creates a new #GError with the given @domain and @code,
  * and a message formatted with @format.
@@ -61,7 +101,7 @@ GError *gvir_error_new(GQuark domain,
 }
 
 /**
- * gvir_error_new_literal: (skip)
+ * gvir_error_new_literal:
  * @domain: error domain
  * @code: error code
  * @message: error message
@@ -99,7 +139,7 @@ GError *gvir_error_new_literal(GQuark domain,
 }
 
 /**
- * gvir_error_new_valist: (skip)
+ * gvir_error_new_valist:
  * @domain: error domain
  * @code: error code
  * @format: printf()-style format for error message
@@ -129,12 +169,12 @@ GError *gvir_error_new_valist(GQuark domain,
 
 
 /**
- * gvir_set_error: (skip)
+ * gvir_set_error:
  * @error: pointer to error location
  * @domain: error domain
  * @code: error code
  * @format: printf()-style format for error message
- * @Varargs: parameters for message format
+ * @...: parameters for message format
  *
  * If @error is NULL this does nothing. Otherwise it
  * creates a new #GError with the given @domain and @code,
@@ -164,7 +204,7 @@ void gvir_set_error(GError **error,
 
 
 /**
- * gvir_set_error_literal: (skip)
+ * gvir_set_error_literal:
  * @error: pointer to error location
  * @domain: error domain
  * @code: error code
@@ -190,7 +230,7 @@ void gvir_set_error_literal(GError **error,
 
 
 /**
- * gvir_set_error_valist: (skip)
+ * gvir_set_error_valist:
  * @error: pointer to error location
  * @domain: error domain
  * @code: error code
