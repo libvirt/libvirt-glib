@@ -1,6 +1,18 @@
                  libvirt-glib News
                  =================
 
+0.0.8 - Apr 27, 2012
+====================
+
+- Fix build of test suites with Debian's libtool
+- Add API for disk source startup policy
+- Add API for domain controller devices
+- Add APIs for USB controllers
+- Add APIs for USB / PCI device addressing schemes
+- Add APIs for USB redirection devices
+- Add ASync API for fetching domain info
+- Add APIs for domain timer configuration
+
 0.0.7 - Mar 30, 2012
 ====================
 
