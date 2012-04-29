@@ -29,8 +29,12 @@
 #include <libvirt-gconfig/libvirt-gconfig-main.h>
 #include <libvirt-gconfig/libvirt-gconfig-object.h>
 #include <libvirt-gconfig/libvirt-gconfig-capabilities.h>
-#include <libvirt-gconfig/libvirt-gconfig-capabilities-cpu-feature.h>
 #include <libvirt-gconfig/libvirt-gconfig-capabilities-cpu.h>
+#include <libvirt-gconfig/libvirt-gconfig-capabilities-cpu-feature.h>
+#include <libvirt-gconfig/libvirt-gconfig-capabilities-guest.h>
+#include <libvirt-gconfig/libvirt-gconfig-capabilities-guest-arch.h>
+#include <libvirt-gconfig/libvirt-gconfig-capabilities-guest-domain.h>
+#include <libvirt-gconfig/libvirt-gconfig-capabilities-guest-feature.h>
 #include <libvirt-gconfig/libvirt-gconfig-capabilities-host.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-address.h>

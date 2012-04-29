@@ -94,3 +94,58 @@ gvir_config_capabilities_get_host(GVirConfigCapabilities *caps)
 
     return GVIR_CONFIG_CAPABILITIES_HOST(object);
 }
+
+struct GetGuestData {
+    GVirConfigXmlDoc *doc;
+    const gchar *schema;
+    GList *guests;
+};
+
+static gboolean add_guest(xmlNodePtr node, gpointer opaque)
+{
+    struct GetGuestData* data = (struct GetGuestData*)opaque;
+    GVirConfigObject *object;
+
+    if (g_strcmp0((const gchar *)node->name, "guest") != 0)
+        return TRUE;
+
+    object = gvir_config_object_new_from_tree(GVIR_CONFIG_TYPE_CAPABILITIES_GUEST,
+                                              data->doc,
+                                              data->schema,
+                                              node);
+    if (object != NULL)
+        data->guests = g_list_append(data->guests, object);
+    else
+        g_debug("Failed to parse %s node", node->name);
+
+    return TRUE;
+}
+
+/**
+ * gvir_config_capabilities_get_guests:
+ *
+ * Gets the list of guest capabilities.
+ *
+ * Returns: (element-type LibvirtGConfig.CapabilitiesGuest) (transfer full):
+ * a newly allocated #GList of #GVirConfigCapabilitiesGuest.
+ */
+GList *
+gvir_config_capabilities_get_guests(GVirConfigCapabilities *caps)
+{
+    struct GetGuestData data;
+
+    g_return_val_if_fail(GVIR_CONFIG_IS_CAPABILITIES(caps), NULL);
+
+    g_object_get(G_OBJECT(caps), "doc", &data.doc, NULL);
+    data.schema = gvir_config_object_get_schema(GVIR_CONFIG_OBJECT(caps));
+    data.guests = NULL;
+
+    gvir_config_object_foreach_child(GVIR_CONFIG_OBJECT(caps),
+                                     NULL,
+                                     add_guest,
+                                     &data);
+
+    g_clear_object(&data.doc);
+
+    return data.guests;
+}

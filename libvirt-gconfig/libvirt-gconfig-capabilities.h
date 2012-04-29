@@ -65,6 +65,7 @@ GVirConfigCapabilities *gvir_config_capabilities_new_from_xml(const gchar *xml,
                                                               GError **error);
 GVirConfigCapabilitiesHost *
 gvir_config_capabilities_get_host(GVirConfigCapabilities *caps);
+GList *gvir_config_capabilities_get_guests(GVirConfigCapabilities *caps);
 
 G_END_DECLS
 
