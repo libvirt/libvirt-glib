@@ -1,4 +1,4 @@
-noinst_PROGRAMS = test-domain-create test-domain-parse
+noinst_PROGRAMS = test-domain-create test-domain-parse test-capabilities-parse
 
 AM_CFLAGS = \
 		$(GOBJECT2_CFLAGS) \
@@ -14,3 +14,5 @@ LDADD = \
 test_domain_create_SOURCES = test-domain-create.c
 
 test_domain_parse_SOURCES = test-domain-parse.c
+
+test_capabilities_parse_SOURCES = test-capabilities-parse.c
