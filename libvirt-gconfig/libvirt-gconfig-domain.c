@@ -323,6 +323,26 @@ void gvir_config_domain_set_clock(GVirConfigDomain *domain,
                                       GVIR_CONFIG_OBJECT(klock));
 }
 
+/**
+ * gvir_config_domain_get_os:
+ *
+ * Gets the operating system configuration of @domain
+ *
+ * Returns: (transfer full):
+ */
+GVirConfigDomainOs *gvir_config_domain_get_os(GVirConfigDomain *domain)
+{
+    GVirConfigObject *object;
+
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN(domain), NULL);
+
+    object = gvir_config_object_get_child_with_type(GVIR_CONFIG_OBJECT(domain),
+                                                    "os",
+                                                    GVIR_CONFIG_TYPE_DOMAIN_OS);
+
+    return GVIR_CONFIG_DOMAIN_OS(object);
+}
+
 void gvir_config_domain_set_os(GVirConfigDomain *domain,
                                GVirConfigDomainOs *os)
 {

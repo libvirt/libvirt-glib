@@ -114,6 +114,7 @@ void gvir_config_domain_set_features(GVirConfigDomain *domain,
                                      const GStrv features);
 void gvir_config_domain_set_clock(GVirConfigDomain *domain,
                                   GVirConfigDomainClock *klock);
+GVirConfigDomainOs *gvir_config_domain_get_os(GVirConfigDomain *domain);
 void gvir_config_domain_set_os(GVirConfigDomain *domain,
                                GVirConfigDomainOs *os);
 void gvir_config_domain_set_seclabel(GVirConfigDomain *domain,

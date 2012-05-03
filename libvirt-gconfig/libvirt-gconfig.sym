@@ -374,4 +374,9 @@ LIBVIRT_GCONFIG_0.0.8 {
         *;
 };
 
+LIBVIRT_GCONFIG_0.0.9 {
+  global:
+	gvir_config_domain_get_os;
+} LIBVIRT_GCONFIG_0.0.8;
+
 # .... define new API here using predicted next version number ....
