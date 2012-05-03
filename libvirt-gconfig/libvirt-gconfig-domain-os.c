@@ -221,6 +221,51 @@ void gvir_config_domain_os_set_boot_devices(GVirConfigDomainOs *os, GList *boot_
     }
 }
 
+static gboolean add_boot_device(xmlNodePtr node, gpointer opaque)
+{
+    GList **devices = (GList **)opaque;
+    const gchar *value;
+
+    if (g_strcmp0((const gchar *)node->name, "boot") != 0)
+        return TRUE;
+
+    value = gvir_config_xml_get_attribute_content(node, "dev");
+    if (value != NULL) {
+        GVirConfigDomainOsBootDevice device;
+
+        device = gvir_config_genum_get_value
+                        (GVIR_CONFIG_TYPE_DOMAIN_OS_BOOT_DEVICE,
+                         value,
+                         GVIR_CONFIG_DOMAIN_OS_BOOT_DEVICE_HD);
+        *devices = g_list_append(*devices, GINT_TO_POINTER(device));
+    } else
+        g_debug("Failed to parse attribute 'dev' of node 'boot'");
+
+    return TRUE;
+}
+
+/**
+ * gvir_config_domain_os_get_boot_devices:
+ *
+ * Gets the list of devices attached to @os
+ *
+ * Returns: (element-type LibvirtGConfig.DomainOsBootDevice) (transfer full):
+ * a newly allocated #GList of #GVirConfigDomainOsBootDevice.
+ */
+GList *gvir_config_domain_os_get_boot_devices(GVirConfigDomainOs *os)
+{
+    GList *devices = NULL;
+
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_OS(os), NULL);
+
+    gvir_config_object_foreach_child(GVIR_CONFIG_OBJECT(os),
+                                     NULL,
+                                     add_boot_device,
+                                     &devices);
+
+    return devices;
+}
+
 void gvir_config_domain_os_set_arch(GVirConfigDomainOs *os, const char *arch)
 {
     xmlNodePtr os_node;
