@@ -41,7 +41,6 @@ struct _GVirConnectionPrivate
 
     GHashTable *domains;
     GHashTable *pools;
-    gboolean    domain_event;
 };
 
 G_DEFINE_TYPE(GVirConnection, gvir_connection, G_TYPE_OBJECT);
@@ -447,9 +446,7 @@ gboolean gvir_connection_open(GVirConnection *conn,
         free(uri);
     }
 
-    if (virConnectDomainEventRegister(priv->conn, domain_event_cb, conn, NULL) != -1)
-        priv->domain_event = TRUE;
-    else
+    if (virConnectDomainEventRegister(priv->conn, domain_event_cb, conn, NULL) == -1)
         g_warning("Failed to register domain events, ignoring");
 
     g_mutex_unlock(priv->lock);
@@ -552,7 +549,6 @@ void gvir_connection_close(GVirConnection *conn)
 
     if (priv->conn) {
         virConnectDomainEventDeregister(priv->conn, domain_event_cb);
-        priv->domain_event = FALSE;
         virConnectClose(priv->conn);
         priv->conn = NULL;
     }
