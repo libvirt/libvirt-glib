@@ -865,3 +865,31 @@ gvir_config_object_set_namespace(GVirConfigObject *object, const char *ns,
 
     return TRUE;
 }
+
+G_GNUC_INTERNAL GVirConfigObject *
+gvir_config_object_get_child_with_type(GVirConfigObject *object,
+                                       const gchar *child_name,
+                                       GType child_type)
+{
+    xmlNodePtr node;
+
+    g_return_val_if_fail(GVIR_CONFIG_IS_OBJECT(object), NULL);
+    g_return_val_if_fail(child_name != NULL, NULL);
+
+    node = gvir_config_xml_get_element(object->priv->node, child_name, NULL);
+    g_return_val_if_fail(node != NULL, NULL);
+
+    return gvir_config_object_new_from_tree(child_type,
+                                            object->priv->doc,
+                                            object->priv->schema,
+                                            node);
+}
+
+G_GNUC_INTERNAL GVirConfigObject *
+gvir_config_object_get_child(GVirConfigObject *object,
+                             const gchar *child_name)
+{
+    return gvir_config_object_get_child_with_type(object,
+                                                  child_name,
+                                                  GVIR_CONFIG_TYPE_OBJECT);
+}
