@@ -82,13 +82,10 @@ GVirConfigDomainChardevSourcePty *gvir_config_domain_chardev_source_pty_new_from
 void gvir_config_domain_source_pty_set_path(GVirConfigDomainChardevSourcePty *pty,
                                             const char *path)
 {
-    GVirConfigObject *source;
     g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_CHARDEV_SOURCE_PTY(pty));
 
-    source = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(pty),
-                                              "source");
-    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(source));
-    gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(source),
-                                        "path", path);
-    g_object_unref(G_OBJECT(source));
+    gvir_config_object_replace_child_with_attribute(GVIR_CONFIG_OBJECT(pty),
+                                                    "source",
+                                                    "path",
+                                                    path);
 }
