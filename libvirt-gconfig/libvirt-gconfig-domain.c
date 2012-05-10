@@ -204,6 +204,10 @@ const char *gvir_config_domain_get_name(GVirConfigDomain *domain)
                                                "name");
 }
 
+/**
+ * gvir_config_domain_set_name:
+ * @name: (allow-none):
+ */
 void gvir_config_domain_set_name(GVirConfigDomain *domain, const char *name)
 {
     gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(domain),
@@ -217,6 +221,10 @@ const char *gvir_config_domain_get_description(GVirConfigDomain *domain)
                                                "description");
 }
 
+/**
+ * gvir_config_domain_set_description:
+ * @description: (allow-none):
+ */
 void gvir_config_domain_set_description(GVirConfigDomain *domain, const char *description)
 {
     gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(domain),

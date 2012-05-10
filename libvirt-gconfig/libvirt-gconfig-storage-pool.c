@@ -86,6 +86,10 @@ void gvir_config_storage_pool_set_pool_type(GVirConfigStoragePool *pool,
                                                NULL);
 }
 
+/**
+ * gvir_config_storage_pool_set_name:
+ * @name: (allow-none):
+ */
 void gvir_config_storage_pool_set_name(GVirConfigStoragePool *pool,
                                        const char *name)
 {
@@ -95,6 +99,10 @@ void gvir_config_storage_pool_set_name(GVirConfigStoragePool *pool,
                                         "name", name);
 }
 
+/**
+ * gvir_config_storage_pool_set_uuid:
+ * @uuid: (allow-none):
+ */
 void gvir_config_storage_pool_set_uuid(GVirConfigStoragePool *pool,
                                        const char *uuid)
 {

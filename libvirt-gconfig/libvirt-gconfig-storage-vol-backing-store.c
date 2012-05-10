@@ -84,6 +84,10 @@ void gvir_config_storage_vol_backing_store_set_format(GVirConfigStorageVolBackin
     g_object_unref(G_OBJECT(node));
 }
 
+/**
+ * gvir_config_storage_vol_backing_store_set_path:
+ * @path: (allow-none):
+ */
 void gvir_config_storage_vol_backing_store_set_path(GVirConfigStorageVolBackingStore *backing_store,
                                                     const char *path)
 {

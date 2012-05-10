@@ -71,6 +71,10 @@ GVirConfigStoragePoolTarget *gvir_config_storage_pool_target_new_from_xml(const 
     return GVIR_CONFIG_STORAGE_POOL_TARGET(object);
 }
 
+/**
+ * gvir_config_storage_pool_target_set_path:
+ * @path: (allow-none):
+ */
 void gvir_config_storage_pool_target_set_path(GVirConfigStoragePoolTarget *target,
                                               const char *path)
 {

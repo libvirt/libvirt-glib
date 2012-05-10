@@ -79,6 +79,10 @@ void gvir_config_storage_permissions_set_group(GVirConfigStoragePermissions *per
                                                "group", group);
 }
 
+/**
+ * gvir_config_storage_permissions_set_label:
+ * @label: (allow-none):
+ */
 void gvir_config_storage_permissions_set_label(GVirConfigStoragePermissions *perms,
                                                const char *label)
 {

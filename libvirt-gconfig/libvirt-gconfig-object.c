@@ -527,7 +527,12 @@ gvir_config_object_set_node_content(GVirConfigObject *object,
 
     g_return_if_fail(GVIR_CONFIG_IS_OBJECT(object));
     g_return_if_fail(node_name != NULL);
-    g_return_if_fail(value != NULL);
+
+    if (value == NULL) {
+        gvir_config_object_delete_child(object, node_name, NULL);
+
+        return;
+    }
 
     node = gvir_config_object_replace_child(object, node_name);
     g_return_if_fail(node != NULL);

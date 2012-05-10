@@ -136,6 +136,10 @@ void gvir_config_storage_pool_source_set_host(GVirConfigStoragePoolSource *sourc
     g_object_unref(G_OBJECT(node));
 }
 
+/**
+ * gvir_config_storage_pool_source_set_name:
+ * @name: (allow-none):
+ */
 void gvir_config_storage_pool_source_set_name(GVirConfigStoragePoolSource *source,
                                               const char *name)
 {

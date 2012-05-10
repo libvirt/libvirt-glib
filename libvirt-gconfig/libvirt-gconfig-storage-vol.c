@@ -74,6 +74,10 @@ GVirConfigStorageVol *gvir_config_storage_vol_new_from_xml(const gchar *xml,
     return GVIR_CONFIG_STORAGE_VOL(object);
 }
 
+/**
+ * gvir_config_storage_vol_set_name:
+ * @name: (allow-none):
+ */
 void gvir_config_storage_vol_set_name(GVirConfigStorageVol *vol,
                                       const char *name)
 {

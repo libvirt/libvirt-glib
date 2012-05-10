@@ -89,6 +89,10 @@ void gvir_config_domain_seclabel_set_model(GVirConfigDomainSeclabel *seclabel,
 
 }
 
+/**
+ * gvir_config_domain_seclabel_set_baselabel:
+ * @label: (allow-none):
+ */
 void gvir_config_domain_seclabel_set_baselabel(GVirConfigDomainSeclabel *seclabel,
                                                const char *label)
 {
@@ -98,6 +102,10 @@ void gvir_config_domain_seclabel_set_baselabel(GVirConfigDomainSeclabel *seclabe
                                         "baselabel", label);
 }
 
+/**
+ * gvir_config_domain_seclabel_set_label:
+ * @label: (allow-none):
+ */
 void gvir_config_domain_seclabel_set_label(GVirConfigDomainSeclabel *seclabel,
                                            const char *label)
 {

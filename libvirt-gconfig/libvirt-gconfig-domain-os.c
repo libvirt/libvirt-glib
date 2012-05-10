@@ -81,6 +81,10 @@ void gvir_config_domain_os_set_os_type(GVirConfigDomainOs *os,
                                         "type", type_str);
 }
 
+/**
+ * gvir_config_domain_os_set_kernel:
+ * @kernel: (allow-none): The kernel path
+ */
 void gvir_config_domain_os_set_kernel(GVirConfigDomainOs *os,
                                       const char * kernel)
 {
@@ -88,6 +92,10 @@ void gvir_config_domain_os_set_kernel(GVirConfigDomainOs *os,
                                         "kernel", kernel);
 }
 
+/**
+ * gvir_config_domain_os_set_ramdisk:
+ * @ramdisk: (allow-none): The ramdisk path
+ */
 void gvir_config_domain_os_set_ramdisk(GVirConfigDomainOs *os,
                                        const char * ramdisk)
 {
@@ -95,6 +103,10 @@ void gvir_config_domain_os_set_ramdisk(GVirConfigDomainOs *os,
                                         "initrd", ramdisk);
 }
 
+/**
+ * gvir_config_domain_os_set_cmdline:
+ * @cmdline: (allow-none): The direct boot commandline
+ */
 void gvir_config_domain_os_set_cmdline(GVirConfigDomainOs *os,
                                        const char * cmdline)
 {
@@ -102,6 +114,10 @@ void gvir_config_domain_os_set_cmdline(GVirConfigDomainOs *os,
                                         "cmdline", cmdline);
 }
 
+/**
+ * gvir_config_domain_os_set_init:
+ * @init: (allow-none):
+ */
 void gvir_config_domain_os_set_init(GVirConfigDomainOs *os,
                                     const char * init)
 {
@@ -109,6 +125,10 @@ void gvir_config_domain_os_set_init(GVirConfigDomainOs *os,
                                         "init", init);
 }
 
+/**
+ * gvir_config_domain_os_set_loader:
+ * @loader: (allow-none):
+ */
 void gvir_config_domain_os_set_loader(GVirConfigDomainOs *os,
                                       const char * loader)
 {
