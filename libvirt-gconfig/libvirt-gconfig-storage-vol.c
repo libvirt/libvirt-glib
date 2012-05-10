@@ -105,22 +105,34 @@ void gvir_config_storage_vol_set_allocation(GVirConfigStorageVol *vol,
                                                "allocation", allocation);
 }
 
+/**
+ * gvir_config_storage_vol_set_target:
+ * @target: (allow-none):
+ */
 void gvir_config_storage_vol_set_target(GVirConfigStorageVol *vol,
                                         GVirConfigStorageVolTarget *target)
 {
     g_return_if_fail(GVIR_CONFIG_IS_STORAGE_VOL(vol));
-    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_VOL_TARGET(target));
+    g_return_if_fail(target == NULL ||
+                     GVIR_CONFIG_IS_STORAGE_VOL_TARGET(target));
 
     gvir_config_object_attach_replace(GVIR_CONFIG_OBJECT(vol),
+                                      "target",
                                       GVIR_CONFIG_OBJECT(target));
 }
 
+/**
+ * gvir_config_storage_vol_set_backing_store:
+ * @backing_store: (allow-none):
+ */
 void gvir_config_storage_vol_set_backing_store(GVirConfigStorageVol *vol,
                                                GVirConfigStorageVolBackingStore *backing_store)
 {
     g_return_if_fail(GVIR_CONFIG_IS_STORAGE_VOL(vol));
-    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_VOL_BACKING_STORE(backing_store));
+    g_return_if_fail(backing_store == NULL ||
+                     GVIR_CONFIG_IS_STORAGE_VOL_BACKING_STORE(backing_store));
 
     gvir_config_object_attach_replace(GVIR_CONFIG_OBJECT(vol),
+                                      "backingStore",
                                       GVIR_CONFIG_OBJECT(backing_store));
 }

@@ -81,12 +81,17 @@ void gvir_config_domain_redirdev_set_bus(GVirConfigDomainRedirdev *redirdev,
                                                NULL);
 }
 
+/**
+ * gvir_config_domain_redirdev_set_address:
+ * @address: (allow-none):
+ */
 void gvir_config_domain_redirdev_set_address(GVirConfigDomainRedirdev *redirdev,
                                              GVirConfigDomainAddress *address)
 {
     g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_REDIRDEV(redirdev));
-    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_ADDRESS(address));
+    g_return_if_fail(address == NULL || GVIR_CONFIG_IS_DOMAIN_ADDRESS(address));
 
     gvir_config_object_attach_replace(GVIR_CONFIG_OBJECT(redirdev),
+                                      "address",
                                       GVIR_CONFIG_OBJECT(address));
 }

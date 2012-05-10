@@ -829,9 +829,16 @@ gvir_config_object_attach(GVirConfigObject *parent, GVirConfigObject *child, gbo
 }
 
 G_GNUC_INTERNAL void
-gvir_config_object_attach_replace(GVirConfigObject *parent, GVirConfigObject *child)
+gvir_config_object_attach_replace(GVirConfigObject *parent,
+                                  const char *child_name,
+                                  GVirConfigObject *child)
 {
-    gvir_config_object_attach(parent, child, TRUE);
+    g_return_if_fail(child_name != NULL);
+
+    if (child == NULL)
+        gvir_config_object_delete_children(parent, child_name, NULL);
+    else
+        gvir_config_object_attach(parent, child, TRUE);
 }
 
 G_GNUC_INTERNAL void

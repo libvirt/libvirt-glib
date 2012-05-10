@@ -82,6 +82,7 @@ void gvir_config_object_set_child(GVirConfigObject *object,
 void gvir_config_object_attach_add(GVirConfigObject *parent,
                                    GVirConfigObject *child);
 void gvir_config_object_attach_replace(GVirConfigObject *parent,
+                                       const char *child_name,
                                        GVirConfigObject *child);
 void gvir_config_object_set_attribute(GVirConfigObject *object,
                                       ...) G_GNUC_NULL_TERMINATED;

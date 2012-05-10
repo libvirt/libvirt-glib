@@ -321,13 +321,18 @@ void gvir_config_domain_set_features(GVirConfigDomain *domain,
     g_object_notify(G_OBJECT(domain), "features");
 }
 
+/**
+ * gvir_config_domain_set_clock:
+ * @klock: (allow-none):
+ */
 void gvir_config_domain_set_clock(GVirConfigDomain *domain,
                                   GVirConfigDomainClock *klock)
 {
     g_return_if_fail(GVIR_CONFIG_IS_DOMAIN(domain));
-    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_CLOCK(klock));
+    g_return_if_fail(klock != NULL || GVIR_CONFIG_IS_DOMAIN_CLOCK(klock));
 
     gvir_config_object_attach_replace(GVIR_CONFIG_OBJECT(domain),
+                                      "clock",
                                       GVIR_CONFIG_OBJECT(klock));
 }
 
@@ -351,23 +356,34 @@ GVirConfigDomainOs *gvir_config_domain_get_os(GVirConfigDomain *domain)
     return GVIR_CONFIG_DOMAIN_OS(object);
 }
 
+/**
+ * gvir_config_domain_set_os:
+ * @os: (allow-none):
+ */
 void gvir_config_domain_set_os(GVirConfigDomain *domain,
                                GVirConfigDomainOs *os)
 {
     g_return_if_fail(GVIR_CONFIG_IS_DOMAIN(domain));
-    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_OS(os));
+    g_return_if_fail(os == NULL || GVIR_CONFIG_IS_DOMAIN_OS(os));
 
     gvir_config_object_attach_replace(GVIR_CONFIG_OBJECT(domain),
+                                      "os",
                                       GVIR_CONFIG_OBJECT(os));
 }
 
+/**
+ * gvir_config_domain_set_seclabel:
+ * @seclabel: (allow-none):
+ */
 void gvir_config_domain_set_seclabel(GVirConfigDomain *domain,
                                      GVirConfigDomainSeclabel *seclabel)
 {
     g_return_if_fail(GVIR_CONFIG_IS_DOMAIN(domain));
-    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_SECLABEL(seclabel));
+    g_return_if_fail(seclabel == NULL ||
+                     GVIR_CONFIG_IS_DOMAIN_SECLABEL(seclabel));
 
     gvir_config_object_attach_replace(GVIR_CONFIG_OBJECT(domain),
+                                      "seclabel",
                                       GVIR_CONFIG_OBJECT(seclabel));
 }
 
@@ -404,8 +420,15 @@ void gvir_config_domain_set_devices(GVirConfigDomain *domain,
 
     g_return_if_fail(GVIR_CONFIG_IS_DOMAIN(domain));
 
+    if (devices == NULL) {
+        gvir_config_object_delete_children(GVIR_CONFIG_OBJECT(domain),
+                                           "devices",
+                                           NULL);
+        return;
+    }
     devices_node = gvir_config_object_new(GVIR_CONFIG_TYPE_OBJECT,
                                           "devices", NULL);
+
     for (it = devices; it != NULL; it = it->next) {
         if (!GVIR_CONFIG_IS_DOMAIN_DEVICE(it->data)) {
             g_warn_if_reached();
@@ -416,6 +439,7 @@ void gvir_config_domain_set_devices(GVirConfigDomain *domain,
     }
 
     gvir_config_object_attach_replace(GVIR_CONFIG_OBJECT(domain),
+                                      "devices",
                                       devices_node);
     g_object_unref(G_OBJECT(devices_node));
 }

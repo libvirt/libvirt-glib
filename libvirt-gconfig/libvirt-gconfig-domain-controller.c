@@ -115,12 +115,17 @@ guint gvir_config_domain_controller_get_index(GVirConfigDomainController *contro
     return index;
 }
 
+/**
+ * gvir_config_domain_controller_set_address:
+ * @address: (allow-none):
+ */
 void gvir_config_domain_controller_set_address(GVirConfigDomainController *controller,
                                                GVirConfigDomainAddress *address)
 {
     g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_CONTROLLER(controller));
-    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_ADDRESS(address));
+    g_return_if_fail(address == NULL || GVIR_CONFIG_IS_DOMAIN_ADDRESS(address));
 
     gvir_config_object_attach_replace(GVIR_CONFIG_OBJECT(controller),
+                                      "address",
                                       GVIR_CONFIG_OBJECT(address));
 }
