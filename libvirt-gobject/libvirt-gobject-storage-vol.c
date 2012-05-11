@@ -227,7 +227,8 @@ const gchar *gvir_storage_vol_get_path(GVirStorageVol *vol, GError **error)
  * @flags: the flags
  * @err: Place-holder for possible errors
  *
- * Returns: (transfer full): the config
+ * Returns: (transfer full): the config. The returned object should be
+ * unreffed with g_object_unref() when no longer needed.
  */
 GVirConfigStorageVol *gvir_storage_vol_get_config(GVirStorageVol *vol,
                                                   guint flags,
@@ -254,7 +255,8 @@ GVirConfigStorageVol *gvir_storage_vol_get_config(GVirStorageVol *vol,
  * @vol: the storage_vol
  * @err: Place-holder for possible errors
  *
- * Returns: (transfer full): the info
+ * Returns: (transfer full): the info. The returned object should be
+ * unreffed with g_object_unref() when no longer needed.
  */
 GVirStorageVolInfo *gvir_storage_vol_get_info(GVirStorageVol *vol,
                                               GError **err)

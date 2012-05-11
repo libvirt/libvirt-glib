@@ -193,7 +193,9 @@ const gchar *gvir_secret_get_uuid(GVirSecret *secret)
  * @flags: the flags
  * @err: Place-holder for possible errors
  *
- * Returns: (transfer full): the config
+ * Returns: (transfer full): the config. The returned object should be
+ * unreffed with g_object_unref() when no longer needed.
+
  */
 GVirConfigSecret *gvir_secret_get_config(GVirSecret *secret,
                                          guint flags,

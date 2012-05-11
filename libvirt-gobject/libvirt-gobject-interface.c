@@ -177,7 +177,8 @@ const gchar *gvir_interface_get_name(GVirInterface *iface)
  * @flags: the flags
  * @err: Place-holder for possible errors
  *
- * Returns: (transfer full): the config
+ * Returns: (transfer full): the config. The returned object should be
+ * unreffed with g_object_unref() when no longer needed.
  */
 GVirConfigInterface *gvir_interface_get_config(GVirInterface *iface,
                                                guint flags,

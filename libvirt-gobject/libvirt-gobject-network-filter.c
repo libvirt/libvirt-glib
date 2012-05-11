@@ -208,7 +208,9 @@ const gchar *gvir_network_filter_get_uuid(GVirNetworkFilter *filter)
  * @flags: the flags
  * @err: Place-holder for possible errors
  *
- * Returns: (transfer full): the config
+ * Returns: (transfer full): the config. The returned object should be
+ * unreffed with g_object_unref() when no longer needed.
+
  */
 GVirConfigNetworkFilter *gvir_network_filter_get_config
                                 (GVirNetworkFilter *filter,

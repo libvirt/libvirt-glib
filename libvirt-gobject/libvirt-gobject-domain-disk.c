@@ -112,7 +112,9 @@ static const gchar *gvir_domain_disk_get_path(GVirDomainDisk *self)
  * within the stats structure may be returned as -1, which indicates
  * that the hypervisor does not support that particular statistic.
  *
- * Returns: (transfer full): the stats or %NULL in case of error
+ * Returns: (transfer full): the stats or %NULL in case of error.The
+ * returned object should be unreffed with g_object_unref() when no longer
+ * needed.
  **/
 GVirDomainDiskStats *gvir_domain_disk_get_stats(GVirDomainDisk *self, GError **err)
 {

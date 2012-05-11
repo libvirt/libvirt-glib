@@ -455,7 +455,8 @@ gboolean gvir_domain_reboot(GVirDomain *dom,
  * @dom: the domain
  * @flags:  the flags
  *
- * Returns: (transfer full): the config
+ * Returns: (transfer full): the config. The returned object should be
+ * unreffed with g_object_unref() when no longer needed.
  */
 GVirConfigDomain *gvir_domain_get_config(GVirDomain *dom,
                                          guint flags,
@@ -549,7 +550,8 @@ gboolean gvir_domain_set_config(GVirDomain *domain,
  * gvir_domain_get_info:
  * @dom: the domain
  *
- * Returns: (transfer full): the info
+ * Returns: (transfer full): the info. The returned object should be
+ * unreffed with g_object_unref() when no longer needed.
  */
 GVirDomainInfo *gvir_domain_get_info(GVirDomain *dom,
                                      GError **err)
@@ -631,7 +633,8 @@ void gvir_domain_get_info_async(GVirDomain *dom,
  *
  * Finishes the operation started by #gvir_domain_get_info_async.
  *
- * Returns: (transfer full): the info
+ * Returns: (transfer full): the info. The returned object should be
+ * unreffed with g_object_unref() when no longer needed.
  */
 GVirDomainInfo *gvir_domain_get_info_finish(GVirDomain *dom,
                                             GAsyncResult *result,
@@ -661,7 +664,8 @@ GVirDomainInfo *gvir_domain_get_info_finish(GVirDomain *dom,
  * @monitor_id: monitor ID to take screenshot from
  * @flags: extra flags, currently unused
  *
- * Returns: (transfer full): mime-type of the image format, or NULL upon error.
+ * Returns: (transfer full): a newly allocated string containing the
+ * mime-type of the image format, or NULL upon error.
  */
 gchar *gvir_domain_screenshot(GVirDomain *dom,
                               GVirStream *stream,
@@ -958,7 +962,9 @@ gboolean gvir_domain_get_saved(GVirDomain *dom)
  * @domain: the domain
  * @err: place-holder for possible errors, or NULL
  *
- * Gets the list of devices attached to @domain
+ * Gets the list of devices attached to @domain. The returned list should
+ * be freed with g_list_free(), after its elements have been unreffed with
+ * g_object_unref().
  *
  * Returns: (element-type LibvirtGObject.DomainDevice) (transfer full): a newly
  * allocated #GList of #GVirDomainDevice.

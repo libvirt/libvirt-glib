@@ -206,6 +206,7 @@ const char *gvir_config_domain_get_name(GVirConfigDomain *domain)
 
 /**
  * gvir_config_domain_set_name:
+ * @domain: a #GVirConfigDomain
  * @name: (allow-none):
  */
 void gvir_config_domain_set_name(GVirConfigDomain *domain, const char *name)
@@ -223,6 +224,7 @@ const char *gvir_config_domain_get_description(GVirConfigDomain *domain)
 
 /**
  * gvir_config_domain_set_description:
+ * @domain: a #GVirConfigDomain
  * @description: (allow-none):
  */
 void gvir_config_domain_set_description(GVirConfigDomain *domain, const char *description)
@@ -234,7 +236,7 @@ void gvir_config_domain_set_description(GVirConfigDomain *domain, const char *de
 
 /**
  * gvir_config_domain_get_memory:
- * @domain: A domain configuration object.
+ * @domain: a #GVirConfigDomain
  *
  * Returns: amount of RAM in kilobytes (i.e. blocks of 1024 bytes).
  */
@@ -246,7 +248,7 @@ guint64 gvir_config_domain_get_memory(GVirConfigDomain *domain)
 
 /**
  * gvir_config_domain_set_memory:
- * @domain: A domain configuration object.
+ * @domain: a #GVirConfigDomain
  * @memory: The amount of RAM in kilobytes.
  *
  * Sets the amount of RAM allocated to @domain in kilobytes (i.e. blocks of 1024 bytes).
@@ -285,8 +287,11 @@ static gboolean add_feature(xmlNodePtr node, gpointer opaque)
 
 /**
  * gvir_config_domain_get_features:
+ * @domain: a #GVirConfigDomain
  *
- * Returns: (transfer full):
+ * Returns: (transfer full): The returned list should be freed with
+ * g_strfreev() when no longer needed.
+
  */
 GStrv gvir_config_domain_get_features(GVirConfigDomain *domain)
 {
@@ -323,6 +328,7 @@ void gvir_config_domain_set_features(GVirConfigDomain *domain,
 
 /**
  * gvir_config_domain_set_clock:
+ * @domain: a #GVirConfigDomain
  * @klock: (allow-none):
  */
 void gvir_config_domain_set_clock(GVirConfigDomain *domain,
@@ -338,10 +344,12 @@ void gvir_config_domain_set_clock(GVirConfigDomain *domain,
 
 /**
  * gvir_config_domain_get_os:
+ * @domain: a #GVirConfigDomain
  *
  * Gets the operating system configuration of @domain
  *
- * Returns: (transfer full):
+ * Returns: (transfer full): A #GVirConfigDomainOs. The returned
+ * object should be unreffed with g_object_unref() when no longer needed.
  */
 GVirConfigDomainOs *gvir_config_domain_get_os(GVirConfigDomain *domain)
 {
@@ -358,7 +366,8 @@ GVirConfigDomainOs *gvir_config_domain_get_os(GVirConfigDomain *domain)
 
 /**
  * gvir_config_domain_set_os:
- * @os: (allow-none):
+ * @domain: a #GVirConfigDomain
+ * @os: (allow-none): the os configuration to set
  */
 void gvir_config_domain_set_os(GVirConfigDomain *domain,
                                GVirConfigDomainOs *os)
@@ -373,7 +382,8 @@ void gvir_config_domain_set_os(GVirConfigDomain *domain,
 
 /**
  * gvir_config_domain_set_seclabel:
- * @seclabel: (allow-none):
+ * @domain: a #GVirConfigDomain
+ * @seclabel: (allow-none): the security label configuration to set
  */
 void gvir_config_domain_set_seclabel(GVirConfigDomain *domain,
                                      GVirConfigDomainSeclabel *seclabel)
@@ -410,6 +420,7 @@ void gvir_config_domain_set_lifecycle(GVirConfigDomain *domain,
 
 /**
  * gvir_config_domain_set_devices:
+ * @domain: a #GVirConfigDomain
  * @devices: (in) (element-type LibvirtGConfig.DomainDevice):
  */
 void gvir_config_domain_set_devices(GVirConfigDomain *domain,
@@ -480,8 +491,11 @@ static gboolean add_device(xmlNodePtr node, gpointer opaque)
 
 /**
  * gvir_config_domain_get_devices:
+ * @domain: a #GVirConfigDomain
  *
- * Gets the list of devices attached to @domain
+ * Gets the list of devices attached to @domain.  The returned list should
+ * be freed with g_list_free(), after its elements have been unreffed with
+ * g_object_unref().
  *
  * Returns: (element-type LibvirtGConfig.DomainDevice) (transfer full):
  * a newly allocated #GList of #GVirConfigDomainDevice.

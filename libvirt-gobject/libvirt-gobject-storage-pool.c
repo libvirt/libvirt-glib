@@ -237,7 +237,8 @@ const gchar *gvir_storage_pool_get_uuid(GVirStoragePool *pool)
  * @flags: the flags
  * @err: Place-holder for possible errors
  *
- * Returns: (transfer full): the config
+ * Returns: (transfer full): the config. The returned object should be
+ * unreffed with g_object_unref() when no longer needed.
  */
 GVirConfigStoragePool *gvir_storage_pool_get_config(GVirStoragePool *pool,
                                                     guint flags,
@@ -264,7 +265,8 @@ GVirConfigStoragePool *gvir_storage_pool_get_config(GVirStoragePool *pool,
  * @pool: the storage_pool
  * @err: Place-holder for possible errors
  *
- * Returns: (transfer full): the info
+ * Returns: (transfer full): the info. The returned object should be
+ * unreffed with g_object_unref() when no longer needed.
  */
 GVirStoragePoolInfo *gvir_storage_pool_get_info(GVirStoragePool *pool,
                                                 GError **err)
@@ -486,8 +488,10 @@ static void gvir_storage_vol_ref(gpointer obj, gpointer ignore G_GNUC_UNUSED)
  * gvir_storage_pool_get_volumes:
  * @pool: the storage pool
  *
- * Return value: (element-type LibvirtGObject.StorageVol) (transfer full): List
- * of #GVirStorageVol
+ * Return value: (element-type LibvirtGObject.StorageVol) (transfer full):
+ * List of #GVirStorageVol.  The returned list should be freed with
+ * g_list_free(), after its elements have been unreffed with
+ * g_object_unref().
  */
 GList *gvir_storage_pool_get_volumes(GVirStoragePool *pool)
 {
@@ -509,7 +513,9 @@ GList *gvir_storage_pool_get_volumes(GVirStoragePool *pool)
  * @pool: the storage pool
  * @name: Name of the requested storage volume
  *
- * Return value: (transfer full): the #GVirStorageVol, or NULL
+ * Return value: (transfer full): the #GVirStorageVol, or NULL. The
+ * returned object should be unreffed with g_object_unref() when no longer
+ * needed.
  */
 GVirStorageVol *gvir_storage_pool_get_volume(GVirStoragePool *pool,
                                              const gchar *name)
@@ -532,7 +538,8 @@ GVirStorageVol *gvir_storage_pool_get_volume(GVirStoragePool *pool,
  * @conf: the configuration for the new volume
  * @err: Place-holder for possible errors
  *
- * Returns: (transfer full): the newly created volume
+ * Returns: (transfer full): the newly created volume. The returned object
+ * should be unreffed with g_object_unref() when no longer needed.
  */
 GVirStorageVol *gvir_storage_pool_create_volume
                                 (GVirStoragePool *pool,

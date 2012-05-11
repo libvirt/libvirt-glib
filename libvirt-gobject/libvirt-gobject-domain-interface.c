@@ -114,7 +114,9 @@ static const gchar *gvir_domain_interface_get_path(GVirDomainInterface *self)
  * within the stats structure may be returned as -1, which indicates
  * that the hypervisor does not support that particular statistic.
  *
- * Returns: (transfer full): the stats or %NULL in case of error
+ * Returns: (transfer full): the stats or %NULL in case of error. The
+ * returned object should be unreffed with g_object_unref() when no longer
+ * needed.
  **/
 GVirDomainInterfaceStats *gvir_domain_interface_get_stats(GVirDomainInterface *self, GError **err)
 {

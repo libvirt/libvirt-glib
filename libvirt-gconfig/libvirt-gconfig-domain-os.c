@@ -83,6 +83,7 @@ void gvir_config_domain_os_set_os_type(GVirConfigDomainOs *os,
 
 /**
  * gvir_config_domain_os_set_kernel:
+ * @os: a #GVirConfigDomainOs
  * @kernel: (allow-none): The kernel path
  */
 void gvir_config_domain_os_set_kernel(GVirConfigDomainOs *os,
@@ -94,6 +95,7 @@ void gvir_config_domain_os_set_kernel(GVirConfigDomainOs *os,
 
 /**
  * gvir_config_domain_os_set_ramdisk:
+ * @os: a #GVirConfigDomainOs
  * @ramdisk: (allow-none): The ramdisk path
  */
 void gvir_config_domain_os_set_ramdisk(GVirConfigDomainOs *os,
@@ -105,6 +107,7 @@ void gvir_config_domain_os_set_ramdisk(GVirConfigDomainOs *os,
 
 /**
  * gvir_config_domain_os_set_cmdline:
+ * @os: a #GVirConfigDomainOs
  * @cmdline: (allow-none): The direct boot commandline
  */
 void gvir_config_domain_os_set_cmdline(GVirConfigDomainOs *os,
@@ -116,6 +119,7 @@ void gvir_config_domain_os_set_cmdline(GVirConfigDomainOs *os,
 
 /**
  * gvir_config_domain_os_set_init:
+ * @os: a #GVirConfigDomainOs
  * @init: (allow-none):
  */
 void gvir_config_domain_os_set_init(GVirConfigDomainOs *os,
@@ -127,6 +131,7 @@ void gvir_config_domain_os_set_init(GVirConfigDomainOs *os,
 
 /**
  * gvir_config_domain_os_set_loader:
+ * @os: a #GVirConfigDomainOs
  * @loader: (allow-none):
  */
 void gvir_config_domain_os_set_loader(GVirConfigDomainOs *os,
@@ -183,6 +188,7 @@ void gvir_config_domain_os_set_smbios_mode(GVirConfigDomainOs *os,
 
 /**
  * gvir_config_domain_os_set_boot_devices:
+ * @os: a #GVirConfigDomainOs
  * @boot_devices: (in) (element-type LibvirtGConfig.DomainOsBootDevice):
  */
 void gvir_config_domain_os_set_boot_devices(GVirConfigDomainOs *os, GList *boot_devices)
@@ -246,8 +252,11 @@ static gboolean add_boot_device(xmlNodePtr node, gpointer opaque)
 
 /**
  * gvir_config_domain_os_get_boot_devices:
+ * @os: a #GVirConfigDomainOs
  *
- * Gets the list of devices attached to @os
+ * Gets the list of devices attached to @os. The returned list should be
+ * freed with g_list_free(), after its elements have been unreffed with
+ * g_object_unref().
  *
  * Returns: (element-type LibvirtGConfig.DomainOsBootDevice) (transfer full):
  * a newly allocated #GList of #GVirConfigDomainOsBootDevice.

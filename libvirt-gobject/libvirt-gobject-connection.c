@@ -400,7 +400,7 @@ static int domain_event_cb(virConnectPtr conn G_GNUC_UNUSED,
 
 /**
  * gvir_connection_open:
- * @conn: the connection
+ * @conn: a #GVirConnection
  * @cancellable: (allow-none)(transfer none): cancellation object
  */
 gboolean gvir_connection_open(GVirConnection *conn,
@@ -474,7 +474,7 @@ gvir_connection_open_helper(GSimpleAsyncResult *res,
 
 /**
  * gvir_connection_open_async:
- * @conn: the connection
+ * @conn: a #GVirConnection
  * @cancellable: (allow-none)(transfer none): cancellation object
  * @callback: (scope async): completion callback
  * @user_data: (closure): opaque data for callback
@@ -500,7 +500,7 @@ void gvir_connection_open_async(GVirConnection *conn,
 
 /**
  * gvir_connection_open_finish:
- * @conn: the connection
+ * @conn: a #GVirConnection
  * @result: (transfer none): async method result
  */
 gboolean gvir_connection_open_finish(GVirConnection *conn,
@@ -606,7 +606,7 @@ error:
 
 /**
  * gvir_connection_fetch_domains:
- * @conn: the connection
+ * @conn: a #GVirConnection
  * @cancellable: (allow-none)(transfer none): cancellation object
  */
 gboolean gvir_connection_fetch_domains(GVirConnection *conn,
@@ -735,7 +735,7 @@ cleanup:
 
 /**
  * gvir_connection_fetch_storage_pools:
- * @conn: the connection
+ * @conn: a #GVirConnection
  * @cancellable: (allow-none)(transfer none): cancellation object
  */
 gboolean gvir_connection_fetch_storage_pools(GVirConnection *conn,
@@ -879,7 +879,7 @@ gvir_connection_fetch_domains_helper(GSimpleAsyncResult *res,
 
 /**
  * gvir_connection_fetch_domains_async:
- * @conn: the connection
+ * @conn: a #GVirConnection
  * @cancellable: (allow-none)(transfer none): cancellation object
  * @callback: (scope async): completion callback
  * @user_data: (closure): opaque data for callback
@@ -904,7 +904,7 @@ void gvir_connection_fetch_domains_async(GVirConnection *conn,
 
 /**
  * gvir_connection_fetch_domains_finish:
- * @conn: the connection
+ * @conn: a #GVirConnection
  * @result: (transfer none): async method result
  */
 gboolean gvir_connection_fetch_domains_finish(GVirConnection *conn,
@@ -938,7 +938,7 @@ gvir_connection_fetch_pools_helper(GSimpleAsyncResult *res,
 
 /**
  * gvir_connection_fetch_storage_pools_async:
- * @conn: the connection
+ * @conn: a #GVirConnection
  * @cancellable: (allow-none)(transfer none): cancellation object
  * @callback: (scope async): completion callback
  * @user_data: (closure): opaque data for callback
@@ -963,7 +963,7 @@ void gvir_connection_fetch_storage_pools_async(GVirConnection *conn,
 
 /**
  * gvir_connection_fetch_storage_pools_finish:
- * @conn: the connection
+ * @conn: a #GVirConnection
  * @result: (transfer none): async method result
  */
 gboolean gvir_connection_fetch_storage_pools_finish(GVirConnection *conn,
@@ -994,8 +994,13 @@ static void gvir_domain_ref(gpointer obj, gpointer ignore G_GNUC_UNUSED)
 
 /**
  * gvir_connection_get_domains:
+ * @conn: a #GVirConnection
  *
- * Return value: (element-type LibvirtGObject.Domain) (transfer full): List of #GVirDomain
+ * Gets a list of the domains available through @conn.
+ *
+ * Return value: (element-type LibvirtGObject.Domain) (transfer full): List
+ * of #GVirDomain. The returned list should be freed with g_list_free(),
+ * after its elements have been unreffed with g_object_unref().
  */
 GList *gvir_connection_get_domains(GVirConnection *conn)
 {
@@ -1014,9 +1019,14 @@ GList *gvir_connection_get_domains(GVirConnection *conn)
 
 /**
  * gvir_connection_get_storage_pools:
+ * @conn: a #GVirConnection
+ *
+ * Gets a list of the storage pools available through @conn.
  *
  * Return value: (element-type LibvirtGObject.StoragePool) (transfer full): List
- * of #GVirStoragePool
+ * of #GVirStoragePool. The returned list should be freed with
+ * g_list_free(), after its elements have been unreffed with
+ * g_object_unref().
  */
 GList *gvir_connection_get_storage_pools(GVirConnection *conn)
 {
@@ -1035,9 +1045,11 @@ GList *gvir_connection_get_storage_pools(GVirConnection *conn)
 
 /**
  * gvir_connection_get_domain:
+ * @conn: a #GVirConnection
  * @uuid: uuid string of the requested domain
  *
- * Return value: (transfer full): the #GVirDomain, or NULL
+ * Return value: (transfer full): the #GVirDomain, or NULL. The returned
+ * object should be unreffed with g_object_unref() when no longer needed.
  */
 GVirDomain *gvir_connection_get_domain(GVirConnection *conn,
                                        const gchar *uuid)
@@ -1054,9 +1066,11 @@ GVirDomain *gvir_connection_get_domain(GVirConnection *conn,
 
 /**
  * gvir_connection_get_storage_pool:
+ * @conn: a #GVirConnection
  * @uuid: uuid string of the requested storage pool
  *
- * Return value: (transfer full): the #GVirStoragePool, or NULL
+ * Return value: (transfer full): the #GVirStoragePool, or NULL. The returned
+ * object should be unreffed with g_object_unref() when no longer needed.
  */
 GVirStoragePool *gvir_connection_get_storage_pool(GVirConnection *conn,
                                                   const gchar *uuid)
@@ -1075,9 +1089,11 @@ GVirStoragePool *gvir_connection_get_storage_pool(GVirConnection *conn,
 
 /**
  * gvir_connection_find_domain_by_id:
+ * @conn: a #GVirConnection
  * @id: id of the requested domain
  *
- * Return value: (transfer full): the #GVirDomain, or NULL
+ * Return value: (transfer full): the #GVirDomain, or NULL. The returned
+ * object should be unreffed with g_object_unref() when no longer needed.
  */
 GVirDomain *gvir_connection_find_domain_by_id(GVirConnection *conn,
                                               gint id)
@@ -1107,9 +1123,11 @@ GVirDomain *gvir_connection_find_domain_by_id(GVirConnection *conn,
 
 /**
  * gvir_connection_find_domain_by_name:
+ * @conn: a #GVirConnection
  * @name: name of the requested domain
  *
- * Return value: (transfer full): the #GVirDomain, or NULL
+ * Return value: (transfer full): the #GVirDomain, or NULL. The returned
+ * object should be unreffed with g_object_unref() when no longer needed.
  */
 GVirDomain *gvir_connection_find_domain_by_name(GVirConnection *conn,
                                                 const gchar *name)
@@ -1141,9 +1159,11 @@ GVirDomain *gvir_connection_find_domain_by_name(GVirConnection *conn,
 
 /**
  * gvir_connection_find_storage_pool_by_name:
+ * @conn: a #GVirConnection
  * @name: name of the requested storage pool
  *
- * Return value: (transfer full): the #GVirStoragePool, or NULL
+ * Return value: (transfer full): the #GVirStoragePool, or NULL. The returned
+ * object should be unreffed with g_object_unref() when no longer needed.
  */
 GVirStoragePool *gvir_connection_find_storage_pool_by_name(GVirConnection *conn,
                                                            const gchar *name)
@@ -1193,9 +1213,11 @@ G_DEFINE_BOXED_TYPE(GVirConnectionHandle, gvir_connection_handle,
 
 /**
  * gvir_connection_get_stream:
+ * @conn: a #GVirConnection
  * @flags: flags to use for the stream
  *
- * Return value: (transfer full): a #GVirStream stream, or NULL
+ * Return value: (transfer full): a #GVirStream stream, or NULL.The returned
+ * object should be unreffed with g_object_unref() when no longer needed.
  */
 GVirStream *gvir_connection_get_stream(GVirConnection *self,
                                        guint flags)
@@ -1215,13 +1237,15 @@ GVirStream *gvir_connection_get_stream(GVirConnection *self,
 
 /**
  * gvir_connection_create_domain:
- * @conn: the connection on which to create the domain
+ * @conn: a #GVirConnection on which to create the domain
  * @conf: the configuration for the new domain
  *
  * Create the configuration file for a new persistent domain.
  * The returned domain will initially be in the shutoff state.
  *
- * Returns: (transfer full): the newly created domain
+ * Returns: (transfer full): the newly created domain, or NULL if an error
+ * occurred. The returned object should be unreffed with g_object_unref()
+ * when no longer needed.
  */
 GVirDomain *gvir_connection_create_domain(GVirConnection *conn,
                                           GVirConfigDomain *conf,
@@ -1261,13 +1285,15 @@ GVirDomain *gvir_connection_create_domain(GVirConnection *conn,
 
 /**
  * gvir_connection_start_domain:
- * @conn: the connection on which to create the domain
+ * @conn: a #GVirConnection on which to create the domain
  * @conf: the configuration for the new domain
  *
  * Start a new transient domain without persistent configuration.
  * The returned domain will initially be running.
  *
- * Returns: (transfer full): the newly created domain
+ * Returns: (transfer full): the newly created domain, or NULL if an error
+ * occurred. The returned object should be unreffed with g_object_unref()
+ * when no longer needed.
  */
 GVirDomain *gvir_connection_start_domain(GVirConnection *conn,
                                          GVirConfigDomain *conf,
@@ -1308,12 +1334,14 @@ GVirDomain *gvir_connection_start_domain(GVirConnection *conn,
 
 /**
  * gvir_connection_create_storage_pool:
- * @conn: the connection on which to create the pool
+ * @conn: a #GVirConnection on which to create the pool
  * @conf: the configuration for the new storage pool
  * @flags:  the flags
  * @err: return location for any #GError
  *
- * Returns: (transfer full): the newly created storage pool
+ * Returns: (transfer full): the newly created storage pool, or NULL if an
+ * error occurred. The returned list should be freed with g_list_free(),
+ * after its elements have been unreffed with g_object_unref().
  */
 GVirStoragePool *gvir_connection_create_storage_pool
                                 (GVirConnection *conn,
@@ -1352,10 +1380,12 @@ GVirStoragePool *gvir_connection_create_storage_pool
 
 /**
  * gvir_connection_get_node_info:
- * @conn: the connection
+ * @conn: a #GVirConnection
  * @err: return location for any #GError
  *
- * Returns: (transfer full): the info
+ * Returns: (transfer full): the info, or NULL if an error occurred. The
+ * returned object should be unreffed with g_object_unref() when no longer
+ * needed.
  */
 GVirNodeInfo *gvir_connection_get_node_info(GVirConnection *conn,
                                             GError **err)
@@ -1386,10 +1416,12 @@ GVirNodeInfo *gvir_connection_get_node_info(GVirConnection *conn,
 
 /**
  * gvir_connection_get_capabilities:
- * @conn: the connection
+ * @conn: a #GVirConnection
  * @err: return location for any #GError
  *
- * Return value: (transfer full): a #GVirConfigCapabilities or NULL
+ * Return value: (transfer full): a #GVirConfigCapabilities or NULL.  The
+ * returned object should be unreffed with g_object_unref() when no longer
+ * needed.
  */
 GVirConfigCapabilities *gvir_connection_get_capabilities(GVirConnection *conn,
                                                          GError **err)
@@ -1436,7 +1468,7 @@ gvir_connection_get_capabilities_helper(GSimpleAsyncResult *res,
 
 /**
  * gvir_connection_get_capabilities_async:
- * @conn: the connection
+ * @conn: a #GVirConnection
  * @cancellable: (allow-none)(transfer none): cancellation object
  * @callback: (scope async): completion callback
  * @user_data: (closure): opaque data for callback
@@ -1461,10 +1493,12 @@ void gvir_connection_get_capabilities_async(GVirConnection *conn,
 
 /**
  * gvir_connection_get_capabilities_finish:
- * @conn: the connection
+ * @conn: a #GVirConnection
  * @result: (transfer none): async method result
  *
- * Return value: (transfer full): a #GVirConfigCapabilities or NULL.
+ * Return value: (transfer full): a #GVirConfigCapabilities or NULL. The
+ * returned object should be unreffed with g_object_unref() when no longer
+ * needed.
  */
 GVirConfigCapabilities *
 gvir_connection_get_capabilities_finish(GVirConnection *conn,

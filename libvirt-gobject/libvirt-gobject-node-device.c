@@ -177,7 +177,9 @@ const gchar *gvir_node_device_get_name(GVirNodeDevice *device)
  * @flags: the flags
  * @err: Place-holder for possible errors
  *
- * Returns: (transfer full): the config
+ * Returns: (transfer full): the config. The returned object should be
+ * unreffed with g_object_unref() when no longer needed.
+
  */
 GVirConfigNodeDevice *gvir_node_device_get_config(GVirNodeDevice *device,
                                                   guint flags,

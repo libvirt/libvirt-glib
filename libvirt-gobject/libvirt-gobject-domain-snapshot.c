@@ -185,7 +185,9 @@ const gchar *gvir_domain_snapshot_get_name(GVirDomainSnapshot *snapshot)
  * @snapshot: the domain_snapshot
  * @flags: the flags
  *
- * Returns: (transfer full): the config
+ * Returns: (transfer full): the config. The returned object should be
+ * unreffed with g_object_unref() when no longer needed.
+
  */
 GVirConfigDomainSnapshot *gvir_domain_snapshot_get_config
                                 (GVirDomainSnapshot *snapshot,

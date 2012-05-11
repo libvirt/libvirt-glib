@@ -161,7 +161,9 @@ void gvir_manager_remove_connection(GVirManager *man,
 /**
  * gvir_manager_get_connections:
  *
- * Returns: (transfer full)(element-type GVirConnection): the connections
+ * Returns: (transfer full)(element-type GVirConnection): the connections.
+ * The returned list should be freed with g_list_free(), after its elements
+ * have been unreffed with g_object_unref().
  */
 GList *gvir_manager_get_connections(GVirManager *man)
 {
@@ -181,7 +183,9 @@ GList *gvir_manager_get_connections(GVirManager *man)
 /**
  * gvir_manager_find_connection_by_uri:
  *
- * Returns: (transfer full)(allow-none): the connection,or NULL
+ * Returns: (transfer full)(allow-none): the connection,or NULL. The
+ * returned object should be unreffed with g_object_unref() when no longer
+ * needed.
  */
 GVirConnection *gvir_manager_find_connection_by_uri(GVirManager *man,
                                                     const gchar *uri)
