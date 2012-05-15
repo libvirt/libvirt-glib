@@ -51,6 +51,7 @@ static void verify_host_caps(GVirConfigCapabilitiesHost *host_caps)
         g_object_unref(G_OBJECT(iter->data));
     }
     g_list_free(features);
+    g_object_unref(G_OBJECT(cpu_caps));
 }
 
 static void verify_guest_caps(GVirConfigCapabilitiesGuest *guest_caps)
@@ -96,7 +97,8 @@ static void verify_guest_caps(GVirConfigCapabilitiesGuest *guest_caps)
                   g_strcmp0(str, "/usr/bin/qemu-kvm") == 0));
         g_object_unref(G_OBJECT(domain_caps));
     }
-    g_list_free(features);
+    g_list_free(domains);
+    g_object_unref(G_OBJECT(arch_caps));
 }
 
 int main(int argc, char **argv)
@@ -120,9 +122,8 @@ int main(int argc, char **argv)
         return 2;
     }
 
-    g_type_init();
-
     caps = gvir_config_capabilities_new_from_xml(xml, &error);
+    g_free(xml);
     if (error != NULL) {
         g_print("Couldn't parse %s: %s\n", argv[1], error->message);
         return 3;
@@ -147,8 +148,6 @@ int main(int argc, char **argv)
         g_object_unref(G_OBJECT(guest_caps));
     }
     g_list_free(guests_caps);
-
-    g_free(xml);
 
     xml = gvir_config_object_to_xml(GVIR_CONFIG_OBJECT(caps));
     g_print("%s\n", xml);
