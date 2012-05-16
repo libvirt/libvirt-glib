@@ -377,6 +377,8 @@ LIBVIRT_GCONFIG_0.0.8 {
 LIBVIRT_GCONFIG_0.0.9 {
   global:
 	gvir_config_domain_get_os;
+	gvir_config_domain_get_virt_type;
+
 	gvir_config_domain_os_get_boot_devices;
 
 	gvir_config_capabilities_get_host;

@@ -187,6 +187,18 @@ GVirConfigDomain *gvir_config_domain_new(void)
     return GVIR_CONFIG_DOMAIN(object);
 }
 
+GVirConfigDomainVirtType gvir_config_domain_get_virt_type(GVirConfigDomain *domain)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN(domain),
+                         GVIR_CONFIG_DOMAIN_VIRT_QEMU);
+
+    return gvir_config_object_get_attribute_genum
+                                (GVIR_CONFIG_OBJECT(domain),
+                                 NULL,
+                                 "type",
+                                 GVIR_CONFIG_TYPE_DOMAIN_VIRT_TYPE,
+                                 GVIR_CONFIG_DOMAIN_VIRT_QEMU);
+}
 
 void gvir_config_domain_set_virt_type(GVirConfigDomain *domain, GVirConfigDomainVirtType type)
 {

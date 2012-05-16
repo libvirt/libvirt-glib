@@ -99,6 +99,7 @@ GType gvir_config_domain_get_type(void);
 GVirConfigDomain *gvir_config_domain_new_from_xml(const gchar *xml, GError **error);
 GVirConfigDomain *gvir_config_domain_new(void);
 
+GVirConfigDomainVirtType gvir_config_domain_get_virt_type(GVirConfigDomain *domain);
 void gvir_config_domain_set_virt_type(GVirConfigDomain *domain, GVirConfigDomainVirtType type);
 const char *gvir_config_domain_get_name(GVirConfigDomain *domain);
 void gvir_config_domain_set_name(GVirConfigDomain *domain, const char *name);
