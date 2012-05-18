@@ -191,10 +191,15 @@ static void gvir_config_object_init(GVirConfigObject *conn)
 void gvir_config_object_validate(GVirConfigObject *config,
                                  GError **err)
 {
-    GVirConfigObjectPrivate *priv = config->priv;
+    GVirConfigObjectPrivate *priv;
     xmlRelaxNGParserCtxtPtr rngParser = NULL;
     xmlRelaxNGPtr rng = NULL;
     xmlRelaxNGValidCtxtPtr rngValid = NULL;
+
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(config));
+    g_return_if_fail(err == NULL || *err == NULL);
+
+    priv = config->priv;
 
     xmlSetGenericErrorFunc(NULL, gvir_xml_generic_error_nop);
     xmlSetStructuredErrorFunc(NULL, gvir_xml_structured_error_nop);
@@ -256,13 +261,16 @@ void gvir_config_object_validate(GVirConfigObject *config,
 
 gchar *gvir_config_object_to_xml(GVirConfigObject *config)
 {
+    g_return_val_if_fail(GVIR_CONFIG_IS_OBJECT(config), NULL);
+
     return gvir_config_xml_node_to_string(config->priv->node);
 }
 
 const gchar *gvir_config_object_get_schema(GVirConfigObject *config)
 {
-    GVirConfigObjectPrivate *priv = config->priv;
-    return priv->schema;
+    g_return_val_if_fail(GVIR_CONFIG_IS_OBJECT(config), NULL);
+
+    return config->priv->schema;
 }
 
 /* FIXME: will we always have one xmlNode per GConfig object? */
