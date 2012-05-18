@@ -159,11 +159,12 @@ G_DEFINE_BOXED_TYPE(GVirInterfaceHandle, gvir_interface_handle,
 
 const gchar *gvir_interface_get_name(GVirInterface *iface)
 {
-    GVirInterfacePrivate *priv = iface->priv;
     const char *name;
 
-    if (!(name = virInterfaceGetName(priv->handle))) {
-        g_warning("Failed to get interface name on %p", priv->handle);
+    g_return_val_if_fail(GVIR_IS_INTERFACE(iface), NULL);
+
+    if (!(name = virInterfaceGetName(iface->priv->handle))) {
+        g_warning("Failed to get interface name on %p", iface->priv->handle);
         return NULL;
     }
 
@@ -184,9 +185,13 @@ GVirConfigInterface *gvir_interface_get_config(GVirInterface *iface,
                                                guint flags,
                                                GError **err)
 {
-    GVirInterfacePrivate *priv = iface->priv;
+    GVirInterfacePrivate *priv;
     gchar *xml;
 
+    g_return_val_if_fail(GVIR_IS_INTERFACE(iface), NULL);
+    g_return_val_if_fail(err == NULL || *err == NULL, NULL);
+
+    priv = iface->priv;
     if (!(xml = virInterfaceGetXMLDesc(priv->handle, flags))) {
         gvir_set_error_literal(err, GVIR_INTERFACE_ERROR,
                                0,

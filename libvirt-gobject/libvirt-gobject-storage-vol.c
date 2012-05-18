@@ -195,11 +195,12 @@ G_DEFINE_BOXED_TYPE(GVirStorageVolInfo, gvir_storage_vol_info,
 
 const gchar *gvir_storage_vol_get_name(GVirStorageVol *vol)
 {
-    GVirStorageVolPrivate *priv = vol->priv;
     const char *name;
 
-    if (!(name = virStorageVolGetName(priv->handle))) {
-        g_warning("Failed to get storage_vol name on %p", priv->handle);
+    g_return_val_if_fail(GVIR_IS_STORAGE_VOL(vol), NULL);
+
+    if (!(name = virStorageVolGetName(vol->priv->handle))) {
+        g_warning("Failed to get storage_vol name on %p", vol->priv->handle);
         return NULL;
     }
 
@@ -208,13 +209,15 @@ const gchar *gvir_storage_vol_get_name(GVirStorageVol *vol)
 
 const gchar *gvir_storage_vol_get_path(GVirStorageVol *vol, GError **error)
 {
-    GVirStorageVolPrivate *priv = vol->priv;
     const char *path;
 
-    if (!(path = virStorageVolGetPath(priv->handle))) {
+    g_return_val_if_fail(GVIR_IS_STORAGE_VOL(vol), NULL);
+    g_return_val_if_fail(error == NULL || *error == NULL, NULL);
+
+    if (!(path = virStorageVolGetPath(vol->priv->handle))) {
         gvir_set_error(error, GVIR_STORAGE_VOL_ERROR, 0,
                        "Failed to get storage_vol path on %p",
-                       priv->handle);
+                       vol->priv->handle);
         return NULL;
     }
 
@@ -234,9 +237,13 @@ GVirConfigStorageVol *gvir_storage_vol_get_config(GVirStorageVol *vol,
                                                   guint flags,
                                                   GError **err)
 {
-    GVirStorageVolPrivate *priv = vol->priv;
+    GVirStorageVolPrivate *priv;
     gchar *xml;
 
+    g_return_val_if_fail(GVIR_IS_STORAGE_VOL(vol), NULL);
+    g_return_val_if_fail(err == NULL || *err == NULL, NULL);
+
+    priv = vol->priv;
     if (!(xml = virStorageVolGetXMLDesc(priv->handle, flags))) {
         gvir_set_error_literal(err, GVIR_STORAGE_VOL_ERROR,
                                0,
@@ -261,10 +268,14 @@ GVirConfigStorageVol *gvir_storage_vol_get_config(GVirStorageVol *vol,
 GVirStorageVolInfo *gvir_storage_vol_get_info(GVirStorageVol *vol,
                                               GError **err)
 {
-    GVirStorageVolPrivate *priv = vol->priv;
+    GVirStorageVolPrivate *priv;
     virStorageVolInfo info;
     GVirStorageVolInfo *ret;
 
+    g_return_val_if_fail(GVIR_IS_STORAGE_VOL(vol), NULL);
+    g_return_val_if_fail(err == NULL || *err == NULL, NULL);
+
+    priv = vol->priv;
     if (virStorageVolGetInfo(priv->handle, &info) < 0) {
         if (err)
             *err = gvir_error_new_literal(GVIR_STORAGE_VOL_ERROR,
@@ -295,6 +306,9 @@ gboolean gvir_storage_vol_delete(GVirStorageVol *vol,
                                  guint flags,
                                  GError **err)
 {
+    g_return_val_if_fail(GVIR_IS_STORAGE_VOL(vol), FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
+
     if (virStorageVolDelete(vol->priv->handle, flags) < 0) {
         gvir_set_error_literal(err,
                                GVIR_STORAGE_VOL_ERROR,
@@ -322,6 +336,9 @@ gboolean gvir_storage_vol_resize(GVirStorageVol *vol,
                                  guint flags,
                                  GError **err)
 {
+    g_return_val_if_fail(GVIR_IS_STORAGE_VOL(vol), FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
+
     if (virStorageVolResize(vol->priv->handle, capacity, flags) < 0) {
         gvir_set_error_literal(err,
                                GVIR_STORAGE_VOL_ERROR,

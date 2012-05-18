@@ -126,6 +126,7 @@ GVirDomainInterfaceStats *gvir_domain_interface_get_stats(GVirDomainInterface *s
     const gchar *path;
 
     g_return_val_if_fail(GVIR_IS_DOMAIN_INTERFACE(self), NULL);
+    g_return_val_if_fail(err == NULL || *err == NULL, NULL);
 
     handle = gvir_domain_device_get_domain_handle(GVIR_DOMAIN_DEVICE(self));
     path = gvir_domain_interface_get_path (self);

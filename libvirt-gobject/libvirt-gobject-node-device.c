@@ -159,11 +159,13 @@ G_DEFINE_BOXED_TYPE(GVirNodeDeviceHandle, gvir_node_device_handle,
 
 const gchar *gvir_node_device_get_name(GVirNodeDevice *device)
 {
-    GVirNodeDevicePrivate *priv = device->priv;
     const char *name;
 
-    if (!(name = virNodeDeviceGetName(priv->handle))) {
-        g_warning("Failed to get node_device name on %p", priv->handle);
+    g_return_val_if_fail(GVIR_IS_NODE_DEVICE(device), NULL);
+
+    if (!(name = virNodeDeviceGetName(device->priv->handle))) {
+        g_warning("Failed to get node_device name on %p",
+                  device->priv->handle);
         return NULL;
     }
 
@@ -185,9 +187,13 @@ GVirConfigNodeDevice *gvir_node_device_get_config(GVirNodeDevice *device,
                                                   guint flags,
                                                   GError **err)
 {
-    GVirNodeDevicePrivate *priv = device->priv;
+    GVirNodeDevicePrivate *priv;
     gchar *xml;
 
+    g_return_val_if_fail(GVIR_IS_NODE_DEVICE(device), NULL);
+    g_return_val_if_fail(err == NULL || *err == NULL, NULL);
+
+    priv = device->priv;
     if (!(xml = virNodeDeviceGetXMLDesc(priv->handle, flags))) {
         gvir_set_error_literal(err, GVIR_NODE_DEVICE_ERROR,
                                0,

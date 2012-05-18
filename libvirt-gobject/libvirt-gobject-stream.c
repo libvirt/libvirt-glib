@@ -379,7 +379,9 @@ gvir_stream_receive_all(GVirStream *self,
     int r;
 
     g_return_val_if_fail(GVIR_IS_STREAM(self), -1);
+    g_return_val_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable), -1);
     g_return_val_if_fail(func != NULL, -1);
+    g_return_val_if_fail(error == NULL || *error == NULL, -1);
 
     r = virStreamRecvAll(self->priv->handle, stream_sink, &helper);
     if (r < 0) {
@@ -424,6 +426,8 @@ gssize gvir_stream_send(GVirStream *self,
 
     g_return_val_if_fail(GVIR_IS_STREAM(self), -1);
     g_return_val_if_fail(buffer != NULL, -1);
+    g_return_val_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable), -1);
+    g_return_val_if_fail(error == NULL || *error == NULL, -1);
 
     if (g_cancellable_set_error_if_cancelled (cancellable, error))
         return -1;
@@ -491,7 +495,9 @@ gvir_stream_send_all(GVirStream *self,
     int r;
 
     g_return_val_if_fail(GVIR_IS_STREAM(self), -1);
+    g_return_val_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable), -1);
     g_return_val_if_fail(func != NULL, -1);
+    g_return_val_if_fail(error == NULL || *error == NULL, -1);
 
     r = virStreamSendAll(self->priv->handle, stream_source, &helper);
     if (r < 0) {

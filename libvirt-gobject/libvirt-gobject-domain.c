@@ -274,9 +274,12 @@ G_DEFINE_BOXED_TYPE(GVirDomainInfo, gvir_domain_info,
 
 const gchar *gvir_domain_get_name(GVirDomain *dom)
 {
-    GVirDomainPrivate *priv = dom->priv;
+    GVirDomainPrivate *priv;
     const char *name;
 
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), NULL);
+
+    priv = dom->priv;
     if (!(name = virDomainGetName(priv->handle))) {
         g_warning("Failed to get domain name on %p", priv->handle);
         return NULL;
@@ -296,9 +299,13 @@ const gchar *gvir_domain_get_uuid(GVirDomain *dom)
 gint gvir_domain_get_id(GVirDomain *dom,
                         GError **err)
 {
-    GVirDomainPrivate *priv = dom->priv;
+    GVirDomainPrivate *priv;
     gint ret;
 
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), -1);
+    g_return_val_if_fail(err == NULL || *err == NULL, -1);
+
+    priv = dom->priv;
     if ((ret = virDomainGetID(priv->handle)) < 0) {
         gvir_set_error_literal(err, GVIR_DOMAIN_ERROR,
                                0,
@@ -317,9 +324,13 @@ gboolean gvir_domain_start(GVirDomain *dom,
                            guint flags,
                            GError **err)
 {
-    GVirDomainPrivate *priv = dom->priv;
+    GVirDomainPrivate *priv;
     int ret;
 
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
+
+    priv = dom->priv;
     if (flags)
         ret = virDomainCreateWithFlags(priv->handle, flags);
     else
@@ -344,8 +355,12 @@ gboolean gvir_domain_start(GVirDomain *dom,
 gboolean gvir_domain_resume(GVirDomain *dom,
                             GError **err)
 {
-    GVirDomainPrivate *priv = dom->priv;
+    GVirDomainPrivate *priv;
 
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
+
+    priv = dom->priv;
     if (virDomainResume(priv->handle) < 0) {
         gvir_set_error_literal(err, GVIR_DOMAIN_ERROR,
                                0,
@@ -365,9 +380,13 @@ gboolean gvir_domain_stop(GVirDomain *dom,
                           guint flags,
                           GError **err)
 {
-    GVirDomainPrivate *priv = dom->priv;
+    GVirDomainPrivate *priv;
     int ret;
 
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
+
+    priv = dom->priv;
     if (flags)
         ret = virDomainDestroyFlags(priv->handle, flags);
     else
@@ -391,9 +410,13 @@ gboolean gvir_domain_delete(GVirDomain *dom,
                             guint flags,
                             GError **err)
 {
-    GVirDomainPrivate *priv = dom->priv;
+    GVirDomainPrivate *priv;
     int ret;
 
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
+
+    priv = dom->priv;
     if (flags)
         ret = virDomainUndefineFlags(priv->handle, flags);
     else
@@ -417,8 +440,12 @@ gboolean gvir_domain_shutdown(GVirDomain *dom,
                               guint flags G_GNUC_UNUSED,
                               GError **err)
 {
-    GVirDomainPrivate *priv = dom->priv;
+    GVirDomainPrivate *priv;
 
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
+
+    priv = dom->priv;
     if (virDomainShutdown(priv->handle) < 0) {
         gvir_set_error_literal(err, GVIR_DOMAIN_ERROR,
                                0,
@@ -438,8 +465,12 @@ gboolean gvir_domain_reboot(GVirDomain *dom,
                             guint flags,
                             GError **err)
 {
-    GVirDomainPrivate *priv = dom->priv;
+    GVirDomainPrivate *priv;
 
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
+
+    priv = dom->priv;
     if (virDomainReboot(priv->handle, flags) < 0) {
         gvir_set_error_literal(err, GVIR_DOMAIN_ERROR,
                                0,
@@ -462,9 +493,13 @@ GVirConfigDomain *gvir_domain_get_config(GVirDomain *dom,
                                          guint flags,
                                          GError **err)
 {
-    GVirDomainPrivate *priv = dom->priv;
+    GVirDomainPrivate *priv;
     gchar *xml;
 
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), NULL);
+    g_return_val_if_fail(err == NULL || *err == NULL, NULL);
+
+    priv = dom->priv;
     if (!(xml = virDomainGetXMLDesc(priv->handle, flags))) {
         gvir_set_error_literal(err, GVIR_DOMAIN_ERROR,
                                0,
@@ -501,12 +536,13 @@ gboolean gvir_domain_set_config(GVirDomain *domain,
     virConnectPtr conn;
     virDomainPtr handle;
     gchar uuid[VIR_UUID_STRING_BUFLEN];
-    GVirDomainPrivate *priv = domain->priv;
+    GVirDomainPrivate *priv;
 
     g_return_val_if_fail(GVIR_IS_DOMAIN (domain), FALSE);
     g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN (conf), FALSE);
     g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
 
+    priv = domain->priv;
     xml = gvir_config_object_to_xml(GVIR_CONFIG_OBJECT(conf));
 
     g_return_val_if_fail(xml != NULL, FALSE);
@@ -556,10 +592,14 @@ gboolean gvir_domain_set_config(GVirDomain *domain,
 GVirDomainInfo *gvir_domain_get_info(GVirDomain *dom,
                                      GError **err)
 {
-    GVirDomainPrivate *priv = dom->priv;
+    GVirDomainPrivate *priv;
     virDomainInfo info;
     GVirDomainInfo *ret;
 
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), NULL);
+    g_return_val_if_fail(err == NULL || *err == NULL, NULL);
+
+    priv = dom->priv;
     if (virDomainGetInfo(priv->handle, &info) < 0) {
         gvir_set_error_literal(err, GVIR_DOMAIN_ERROR,
                                0,
@@ -613,6 +653,7 @@ void gvir_domain_get_info_async(GVirDomain *dom,
     GSimpleAsyncResult *res;
 
     g_return_if_fail(GVIR_IS_DOMAIN(dom));
+    g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
 
     res = g_simple_async_result_new(G_OBJECT(dom),
                                     callback,
@@ -679,6 +720,7 @@ gchar *gvir_domain_screenshot(GVirDomain *dom,
 
     g_return_val_if_fail(GVIR_IS_DOMAIN(dom), NULL);
     g_return_val_if_fail(GVIR_IS_STREAM(stream), NULL);
+    g_return_val_if_fail(err == NULL || *err == NULL, NULL);
 
     priv = dom->priv;
     g_object_get(stream, "handle", &st, NULL);
@@ -725,6 +767,7 @@ gboolean gvir_domain_open_console(GVirDomain *dom,
 
     g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
     g_return_val_if_fail(GVIR_IS_STREAM(stream), FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
 
     priv = dom->priv;
     g_object_get(stream, "handle", &st, NULL);
@@ -769,6 +812,7 @@ gboolean gvir_domain_open_graphics(GVirDomain *dom,
     gboolean ret = FALSE;
 
     g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
 
     priv = dom->priv;
 
@@ -804,6 +848,7 @@ gboolean gvir_domain_suspend (GVirDomain *dom,
     gboolean ret = FALSE;
 
     g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
 
     if (virDomainSuspend(dom->priv->handle) < 0) {
         gvir_set_error_literal(err, GVIR_DOMAIN_ERROR,
@@ -834,6 +879,7 @@ gboolean gvir_domain_save (GVirDomain *dom,
                            GError **err)
 {
     g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
 
     if (virDomainManagedSave(dom->priv->handle, flags) < 0) {
         gvir_set_error_literal(err, GVIR_DOMAIN_ERROR,
@@ -889,6 +935,7 @@ void gvir_domain_save_async (GVirDomain *dom,
     DomainSaveData *data;
 
     g_return_if_fail(GVIR_IS_DOMAIN(dom));
+    g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
 
     data = g_slice_new0(DomainSaveData);
     data->flags = flags;
@@ -923,6 +970,7 @@ gboolean gvir_domain_save_finish (GVirDomain *dom,
     g_return_val_if_fail(g_simple_async_result_is_valid(result, G_OBJECT(dom),
                                                         gvir_domain_save_async),
                          FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
 
     if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result), err))
         return FALSE;

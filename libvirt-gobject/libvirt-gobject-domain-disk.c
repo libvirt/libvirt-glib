@@ -124,6 +124,7 @@ GVirDomainDiskStats *gvir_domain_disk_get_stats(GVirDomainDisk *self, GError **e
     const gchar *path;
 
     g_return_val_if_fail(GVIR_IS_DOMAIN_DISK(self), NULL);
+    g_return_val_if_fail((err == NULL) || (*err == NULL), NULL);
 
     handle = gvir_domain_device_get_domain_handle(GVIR_DOMAIN_DEVICE(self));
     path = gvir_domain_disk_get_path (self);

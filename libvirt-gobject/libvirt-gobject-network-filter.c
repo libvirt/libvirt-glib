@@ -182,11 +182,13 @@ G_DEFINE_BOXED_TYPE(GVirNetworkFilterHandle, gvir_network_filter_handle,
 
 const gchar *gvir_network_filter_get_name(GVirNetworkFilter *filter)
 {
-    GVirNetworkFilterPrivate *priv = filter->priv;
     const char *name;
 
-    if (!(name = virNWFilterGetName(priv->handle))) {
-        g_warning("Failed to get network_filter name on %p", priv->handle);
+    g_return_val_if_fail(GVIR_IS_NETWORK_FILTER(filter), NULL);
+
+    if (!(name = virNWFilterGetName(filter->priv->handle))) {
+        g_warning("Failed to get network_filter name on %p",
+                  filter->priv->handle);
         return NULL;
     }
 
@@ -217,9 +219,13 @@ GVirConfigNetworkFilter *gvir_network_filter_get_config
                                  guint flags,
                                  GError **err)
 {
-    GVirNetworkFilterPrivate *priv = filter->priv;
+    GVirNetworkFilterPrivate *priv;
     gchar *xml;
 
+    g_return_val_if_fail(GVIR_IS_NETWORK_FILTER(filter), NULL);
+    g_return_val_if_fail(err == NULL || *err == NULL, NULL);
+
+    priv = filter->priv;
     if (!(xml = virNWFilterGetXMLDesc(priv->handle, flags))) {
         gvir_set_error_literal(err, GVIR_NETWORK_FILTER_ERROR,
                                0,

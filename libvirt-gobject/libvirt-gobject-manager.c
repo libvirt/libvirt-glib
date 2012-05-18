@@ -131,8 +131,12 @@ GVirManager *gvir_manager_new(void)
 void gvir_manager_add_connection(GVirManager *man,
                                  GVirConnection *conn)
 {
-    GVirManagerPrivate *priv = man->priv;
+    GVirManagerPrivate *priv;
 
+    g_return_if_fail(GVIR_IS_MANAGER(man));
+    g_return_if_fail(GVIR_IS_CONNECTION(conn));
+
+    priv = man->priv;
     g_mutex_lock(priv->lock);
     g_object_ref(conn);
     priv->connections = g_list_append(priv->connections, conn);
@@ -147,8 +151,12 @@ void gvir_manager_add_connection(GVirManager *man,
 void gvir_manager_remove_connection(GVirManager *man,
                                     GVirConnection *conn)
 {
-    GVirManagerPrivate *priv = man->priv;
+    GVirManagerPrivate *priv;
 
+    g_return_if_fail(GVIR_IS_MANAGER(man));
+    g_return_if_fail(GVIR_IS_CONNECTION(conn));
+
+    priv = man->priv;
     g_mutex_lock(priv->lock);
     priv->connections = g_list_remove(priv->connections, conn);
     g_mutex_unlock(priv->lock);
@@ -167,16 +175,18 @@ void gvir_manager_remove_connection(GVirManager *man,
  */
 GList *gvir_manager_get_connections(GVirManager *man)
 {
-    GVirManagerPrivate *priv = man->priv;
+    GList *tmp;
 
-    GList *tmp = priv->connections;
+    g_return_val_if_fail(GVIR_IS_MANAGER(man), NULL);
+
+    tmp = man->priv->connections;
     while (tmp) {
         GVirConnection *conn = tmp->data;
         g_object_ref(conn);
         tmp = tmp->next;
     }
 
-    return g_list_copy(priv->connections);
+    return g_list_copy(man->priv->connections);
 }
 
 
@@ -190,9 +200,12 @@ GList *gvir_manager_get_connections(GVirManager *man)
 GVirConnection *gvir_manager_find_connection_by_uri(GVirManager *man,
                                                     const gchar *uri)
 {
-    GVirManagerPrivate *priv = man->priv;
+    GList *tmp;
 
-    GList *tmp = priv->connections;
+    g_return_val_if_fail(GVIR_IS_MANAGER(man), NULL);
+    g_return_val_if_fail(uri != NULL, NULL);
+
+    tmp = man->priv->connections;
     while (tmp) {
         GVirConnection *conn = tmp->data;
         if (g_strcmp0(gvir_connection_get_uri(conn), uri) == 0)

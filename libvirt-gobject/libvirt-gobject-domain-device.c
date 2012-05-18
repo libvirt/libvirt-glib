@@ -167,6 +167,8 @@ virDomainPtr gvir_domain_device_get_domain_handle(GVirDomainDevice *self)
  */
 GVirDomain *gvir_domain_device_get_domain(GVirDomainDevice *device)
 {
+    g_return_val_if_fail(GVIR_IS_DOMAIN_DEVICE(device), NULL);
+
     return g_object_ref (device->priv->domain);
 }
 
@@ -180,6 +182,8 @@ GVirDomain *gvir_domain_device_get_domain(GVirDomainDevice *device)
  */
 GVirConfigDomainDevice *gvir_domain_device_get_config(GVirDomainDevice *device)
 {
+    g_return_val_if_fail(GVIR_IS_DOMAIN_DEVICE(device), NULL);
+
     return g_object_ref (device->priv->config);
 }
 
