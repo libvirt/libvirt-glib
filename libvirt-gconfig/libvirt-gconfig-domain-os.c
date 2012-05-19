@@ -275,6 +275,13 @@ GList *gvir_config_domain_os_get_boot_devices(GVirConfigDomainOs *os)
     return devices;
 }
 
+const char *gvir_config_domain_os_get_arch(GVirConfigDomainOs *os)
+{
+    return gvir_config_object_get_attribute(GVIR_CONFIG_OBJECT(os),
+                                            "type",
+                                            "arch");
+}
+
 void gvir_config_domain_os_set_arch(GVirConfigDomainOs *os, const char *arch)
 {
     xmlNodePtr os_node;
