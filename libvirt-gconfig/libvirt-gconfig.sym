@@ -388,9 +388,15 @@ LIBVIRT_GCONFIG_0.0.9 {
 	gvir_config_capabilities_cpu_get_type;
 	gvir_config_capabilities_cpu_get_arch;
 	gvir_config_capabilities_cpu_get_features;
+	gvir_config_capabilities_cpu_get_topology;
 
 	gvir_config_capabilities_cpu_feature_get_type;
 	gvir_config_capabilities_cpu_feature_get_name;
+
+	gvir_config_capabilities_cpu_topology_get_type;
+	gvir_config_capabilities_cpu_topology_get_cores;
+	gvir_config_capabilities_cpu_topology_get_sockets;
+	gvir_config_capabilities_cpu_topology_get_threads;
 
 	gvir_config_capabilities_guest_get_type;
 	gvir_config_capabilities_guest_get_arch;

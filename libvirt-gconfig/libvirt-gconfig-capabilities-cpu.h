@@ -28,6 +28,8 @@
 #ifndef __LIBVIRT_GCONFIG_CAPABILITIES_CPU_H__
 #define __LIBVIRT_GCONFIG_CAPABILITIES_CPU_H__
 
+#include "libvirt-gconfig-capabilities-cpu-topology.h"
+
 G_BEGIN_DECLS
 
 #define GVIR_CONFIG_TYPE_CAPABILITIES_CPU            (gvir_config_capabilities_cpu_get_type ())
@@ -63,6 +65,8 @@ const gchar *
 gvir_config_capabilities_cpu_get_arch(GVirConfigCapabilitiesCpu *cpu);
 GList *
 gvir_config_capabilities_cpu_get_features(GVirConfigCapabilitiesCpu *cpu);
+GVirConfigCapabilitiesCpuTopology *
+gvir_config_capabilities_cpu_get_topology(GVirConfigCapabilitiesCpu *cpu);
 
 G_END_DECLS
 

@@ -31,6 +31,7 @@
 #include <libvirt-gconfig/libvirt-gconfig-capabilities.h>
 #include <libvirt-gconfig/libvirt-gconfig-capabilities-cpu.h>
 #include <libvirt-gconfig/libvirt-gconfig-capabilities-cpu-feature.h>
+#include <libvirt-gconfig/libvirt-gconfig-capabilities-cpu-topology.h>
 #include <libvirt-gconfig/libvirt-gconfig-capabilities-guest.h>
 #include <libvirt-gconfig/libvirt-gconfig-capabilities-guest-arch.h>
 #include <libvirt-gconfig/libvirt-gconfig-capabilities-guest-domain.h>

@@ -111,3 +111,25 @@ gvir_config_capabilities_cpu_get_features(GVirConfigCapabilitiesCpu *cpu)
 
     return data.features;
 }
+
+/**
+ * gvir_config_capabilities_cpu_get_topology:
+ *
+ * Gets the topology of the cpu.
+ *
+ * Returns: (transfer full): a new #GVirConfigCapabilitiesCpuTopology.
+ */
+GVirConfigCapabilitiesCpuTopology *
+gvir_config_capabilities_cpu_get_topology(GVirConfigCapabilitiesCpu *cpu)
+{
+    GVirConfigObject *object;
+
+    g_return_val_if_fail(GVIR_CONFIG_IS_CAPABILITIES_CPU(cpu), NULL);
+
+    object = gvir_config_object_get_child_with_type
+                                (GVIR_CONFIG_OBJECT(cpu),
+                                 "topology",
+                                 GVIR_CONFIG_TYPE_CAPABILITIES_CPU_TOPOLOGY);
+
+    return GVIR_CONFIG_CAPABILITIES_CPU_TOPOLOGY(object);
+}
