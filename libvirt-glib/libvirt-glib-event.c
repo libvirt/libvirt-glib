@@ -384,7 +384,7 @@ gvir_event_timeout_update(int timer,
 
     if (interval >= 0) {
         if (data->source)
-            goto cleanup;
+            g_source_remove(data->source);
 
         data->interval = interval;
         data->source = g_timeout_add(data->interval,
