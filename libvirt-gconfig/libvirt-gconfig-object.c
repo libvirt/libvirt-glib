@@ -644,6 +644,21 @@ gvir_config_object_get_attribute_genum(GVirConfigObject *object,
     return value;
 }
 
+G_GNUC_INTERNAL guint64
+gvir_config_object_get_attribute_uint64(GVirConfigObject *object,
+                                        const char *node_name,
+                                        const char *attr_name,
+                                        guint64 default_value)
+{
+    const char *str;
+
+    str = gvir_config_object_get_attribute(object, node_name, attr_name);
+    if (str == NULL)
+        return default_value;
+
+    return g_ascii_strtoull(str, NULL, 0);
+}
+
 GVirConfigObject *gvir_config_object_new_from_xml(GType type,
                                                   const char *root_name,
                                                   const char *schema,

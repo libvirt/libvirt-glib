@@ -42,6 +42,10 @@ gint gvir_config_object_get_node_content_genum(GVirConfigObject *object,
 const char *gvir_config_object_get_attribute(GVirConfigObject *object,
                                              const char *node_name,
                                              const char *attr_name);
+guint64 gvir_config_object_get_attribute_uint64(GVirConfigObject *object,
+                                                const char *node_name,
+                                                const char *attr_name,
+                                                guint64 default_value);
 gint gvir_config_object_get_attribute_genum(GVirConfigObject *object,
                                             const char *node_name,
                                             const char *attr_name,
