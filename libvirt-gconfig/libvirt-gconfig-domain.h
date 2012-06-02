@@ -120,6 +120,8 @@ void gvir_config_domain_set_os(GVirConfigDomain *domain,
                                GVirConfigDomainOs *os);
 void gvir_config_domain_set_seclabel(GVirConfigDomain *domain,
                                      GVirConfigDomainSeclabel *seclabel);
+const char *gvir_config_domain_get_title(GVirConfigDomain *domain);
+void gvir_config_domain_set_title(GVirConfigDomain *domain, const char *title);
 void gvir_config_domain_set_devices(GVirConfigDomain *domain,
                                     GList *devices);
 void gvir_config_domain_add_device(GVirConfigDomain *domain,
