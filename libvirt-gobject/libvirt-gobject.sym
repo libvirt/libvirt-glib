@@ -165,6 +165,9 @@ LIBVIRT_GOBJECT_0.0.9 {
 	gvir_connection_get_capabilities;
 	gvir_connection_get_capabilities_async;
 	gvir_connection_get_capabilities_finish;
+
+	gvir_domain_start_async;
+	gvir_domain_start_finish;
 } LIBVIRT_GOBJECT_0.0.8;
 
 # .... define new API here using predicted next version number ....

@@ -124,6 +124,15 @@ gint gvir_domain_get_id(GVirDomain *dom,
 gboolean gvir_domain_start(GVirDomain *dom,
                            guint flags,
                            GError **err);
+void gvir_domain_start_async(GVirDomain *dom,
+                             guint flags,
+                             GCancellable *cancellable,
+                             GAsyncReadyCallback callback,
+                             gpointer user_data);
+gboolean gvir_domain_start_finish(GVirDomain *dom,
+                                  GAsyncResult *result,
+                                  GError **err);
+
 gboolean gvir_domain_resume(GVirDomain *dom,
                             GError **err);
 gboolean gvir_domain_stop(GVirDomain *dom,

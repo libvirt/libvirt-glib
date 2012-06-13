@@ -345,6 +345,81 @@ gboolean gvir_domain_start(GVirDomain *dom,
     return TRUE;
 }
 
+typedef struct {
+    guint flags;
+} DomainStartData;
+
+static void domain_start_data_free(DomainStartData *data)
+{
+    g_slice_free(DomainStartData, data);
+}
+
+static void
+gvir_domain_start_helper(GSimpleAsyncResult *res,
+                         GObject *object,
+                         GCancellable *cancellable G_GNUC_UNUSED)
+{
+    GVirDomain *dom = GVIR_DOMAIN(object);
+    DomainStartData *data;
+    GError *err = NULL;
+
+    data = g_simple_async_result_get_op_res_gpointer(res);
+
+    if (!gvir_domain_start(dom, data->flags, &err))
+        g_simple_async_result_take_error(res, err);
+}
+
+/**
+ * gvir_domain_start_async:
+ * @dom: the domain
+ * @flags:  the flags
+ * @cancellable: (allow-none)(transfer none): cancellation object
+ * @callback: (scope async): completion callback
+ * @user_data: (closure): opaque data for callback
+ *
+ * Asynchronous variant of #gvir_domain_start.
+ */
+void gvir_domain_start_async(GVirDomain *dom,
+                             guint flags,
+                             GCancellable *cancellable,
+                             GAsyncReadyCallback callback,
+                             gpointer user_data)
+{
+    GSimpleAsyncResult *res;
+    DomainStartData *data;
+
+    g_return_if_fail(GVIR_IS_DOMAIN(dom));
+    g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
+
+    data = g_slice_new0(DomainStartData);
+    data->flags = flags;
+
+    res = g_simple_async_result_new(G_OBJECT(dom),
+                                    callback,
+                                    user_data,
+                                    gvir_domain_start_async);
+    g_simple_async_result_set_op_res_gpointer (res, data, (GDestroyNotify)domain_start_data_free);
+    g_simple_async_result_run_in_thread(res,
+                                        gvir_domain_start_helper,
+                                        G_PRIORITY_DEFAULT,
+                                        cancellable);
+    g_object_unref(res);
+}
+
+gboolean gvir_domain_start_finish(GVirDomain *dom,
+                                  GAsyncResult *result,
+                                  GError **err)
+{
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
+    g_return_val_if_fail(g_simple_async_result_is_valid(result, G_OBJECT(dom), gvir_domain_start_async), FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
+
+    if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result), err))
+        return FALSE;
+
+    return TRUE;
+}
+
 /**
  * gvir_domain_resume:
  * @dom: the domain
