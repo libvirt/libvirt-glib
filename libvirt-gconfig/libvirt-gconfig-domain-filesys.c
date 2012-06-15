@@ -69,6 +69,31 @@ GVirConfigDomainFilesys *gvir_config_domain_filesys_new_from_xml(const gchar *xm
     return GVIR_CONFIG_DOMAIN_FILESYS(object);
 }
 
+GVirConfigDomainDevice *
+gvir_config_domain_filesys_new_from_tree(GVirConfigXmlDoc *doc,
+                                         xmlNodePtr tree)
+{
+    GVirConfigObject *object;
+    GVirConfigDomainFilesys *filesys;
+    GVirConfigDomainFilesysType type;
+    const char *type_str;
+
+    type_str = gvir_config_xml_get_attribute_content(tree, "type");
+    if (type_str == NULL)
+        return NULL;
+
+    type = gvir_config_genum_get_value(GVIR_CONFIG_TYPE_DOMAIN_FILESYS_TYPE,
+                                       type_str,
+                                       GVIR_CONFIG_DOMAIN_FILESYS_FILE);
+
+    object = gvir_config_object_new_from_tree(GVIR_CONFIG_TYPE_DOMAIN_FILESYS,
+                                              doc, NULL, tree);
+    filesys = GVIR_CONFIG_DOMAIN_FILESYS(object);
+    filesys->priv->type = type;
+
+    return GVIR_CONFIG_DOMAIN_DEVICE(object);
+}
+
 void gvir_config_domain_filesys_set_type(GVirConfigDomainFilesys *filesys,
                                          GVirConfigDomainFilesysType type)
 {
@@ -79,6 +104,7 @@ void gvir_config_domain_filesys_set_type(GVirConfigDomainFilesys *filesys,
                                                GVIR_CONFIG_TYPE_DOMAIN_FILESYS_TYPE,
                                                type,
                                                NULL);
+    filesys->priv->type = type;
 }
 
 void gvir_config_domain_filesys_set_access_type(GVirConfigDomainFilesys *filesys,

@@ -62,7 +62,7 @@ gvir_config_domain_device_new_from_tree(GVirConfigXmlDoc *doc,
     if (xmlStrEqual(tree->name, (xmlChar*)"disk")) {
         return gvir_config_domain_disk_new_from_tree(doc, tree);
     } else if (xmlStrEqual(tree->name, (xmlChar*)"filesystem")) {
-        type = GVIR_CONFIG_TYPE_DOMAIN_FILESYS;
+        return gvir_config_domain_filesys_new_from_tree(doc, tree);
     } else if (xmlStrEqual(tree->name, (xmlChar*)"controller")) {
         return gvir_config_domain_controller_new_from_tree(doc, tree);
     } else if (xmlStrEqual(tree->name, (xmlChar*)"lease")) {
