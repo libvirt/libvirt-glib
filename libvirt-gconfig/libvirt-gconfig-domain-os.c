@@ -81,6 +81,18 @@ void gvir_config_domain_os_set_os_type(GVirConfigDomainOs *os,
                                         "type", type_str);
 }
 
+GVirConfigDomainOsType gvir_config_domain_os_get_os_type(GVirConfigDomainOs *os)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_OS(os),
+                         GVIR_CONFIG_DOMAIN_OS_TYPE_HVM);
+
+    return gvir_config_object_get_node_content_genum
+            (GVIR_CONFIG_OBJECT(os),
+             "type",
+             GVIR_CONFIG_TYPE_DOMAIN_OS_TYPE,
+             GVIR_CONFIG_DOMAIN_OS_TYPE_HVM);
+}
+
 /**
  * gvir_config_domain_os_set_kernel:
  * @os: a #GVirConfigDomainOs
