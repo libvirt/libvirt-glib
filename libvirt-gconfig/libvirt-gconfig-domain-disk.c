@@ -85,8 +85,6 @@ gvir_config_domain_disk_new_from_tree(GVirConfigXmlDoc *doc,
     type = gvir_config_genum_get_value(GVIR_CONFIG_TYPE_DOMAIN_DISK_TYPE,
                                        type_str,
                                        GVIR_CONFIG_DOMAIN_DISK_FILE);
-    if (type == -1)
-        return NULL;
 
     object = gvir_config_object_new_from_tree(GVIR_CONFIG_TYPE_DOMAIN_DISK,
                                               doc, NULL, tree);
