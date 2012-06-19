@@ -73,6 +73,7 @@ GCONFIG_HEADER_FILES = \
 			libvirt-gconfig-storage-vol-target.h
 noinst_HEADERS = \
 			libvirt-gconfig-private.h \
+			libvirt-gconfig-capabilities-cpu-private.h \
 			libvirt-gconfig-domain-device-private.h \
 			libvirt-gconfig-helpers-private.h \
 			libvirt-gconfig-object-private.h \

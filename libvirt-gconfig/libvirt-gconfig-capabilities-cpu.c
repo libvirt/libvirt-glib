@@ -37,10 +37,14 @@ struct _GVirConfigCapabilitiesCpuPrivate
 
 G_DEFINE_TYPE(GVirConfigCapabilitiesCpu, gvir_config_capabilities_cpu, GVIR_CONFIG_TYPE_OBJECT);
 
+static GList *
+_gvir_config_capabilities_cpu_get_features(GVirConfigCapabilitiesCpu *cpu);
 
 static void gvir_config_capabilities_cpu_class_init(GVirConfigCapabilitiesCpuClass *klass)
 {
     g_type_class_add_private(klass, sizeof(GVirConfigCapabilitiesCpuPrivate));
+
+    klass->get_features = _gvir_config_capabilities_cpu_get_features;
 }
 
 static void gvir_config_capabilities_cpu_init(GVirConfigCapabilitiesCpu *cpu)
@@ -75,6 +79,7 @@ struct GetFeatureData {
     GVirConfigXmlDoc *doc;
     const gchar *schema;
     GList *features;
+    GType type;
 };
 
 static gboolean add_feature(xmlNodePtr node, gpointer opaque)
@@ -86,7 +91,7 @@ static gboolean add_feature(xmlNodePtr node, gpointer opaque)
         return TRUE;
 
     feature = gvir_config_object_new_from_tree
-                                (GVIR_CONFIG_TYPE_CAPABILITIES_CPU_FEATURE,
+                                (data->type,
                                  data->doc,
                                  data->schema,
                                  node);
@@ -96,6 +101,36 @@ static gboolean add_feature(xmlNodePtr node, gpointer opaque)
         g_debug("Failed to parse %s node", node->name);
 
     return TRUE;
+}
+
+G_GNUC_INTERNAL GList *
+gvir_config_capabilities_cpu_get_features_with_type(GVirConfigCapabilitiesCpu *cpu,
+                                                    GType type)
+{
+    struct GetFeatureData data;
+
+    g_return_val_if_fail(GVIR_CONFIG_IS_CAPABILITIES_CPU(cpu), NULL);
+
+    data.schema = gvir_config_object_get_schema(GVIR_CONFIG_OBJECT(cpu));
+    g_object_get(G_OBJECT(cpu), "doc", &data.doc, NULL);
+    g_return_val_if_fail(data.doc != NULL, NULL);
+    data.features = NULL;
+    data.type = type;
+
+    gvir_config_object_foreach_child(GVIR_CONFIG_OBJECT(cpu),
+                                     NULL,
+                                     add_feature,
+                                     &data);
+    g_clear_object(&data.doc);
+
+    return data.features;
+}
+
+static GList *
+_gvir_config_capabilities_cpu_get_features(GVirConfigCapabilitiesCpu *cpu)
+{
+    return gvir_config_capabilities_cpu_get_features_with_type(
+                        cpu, GVIR_CONFIG_TYPE_CAPABILITIES_CPU_FEATURE);
 }
 
 /**
@@ -109,22 +144,7 @@ static gboolean add_feature(xmlNodePtr node, gpointer opaque)
 GList *
 gvir_config_capabilities_cpu_get_features(GVirConfigCapabilitiesCpu *cpu)
 {
-    struct GetFeatureData data;
-
-    g_return_val_if_fail(GVIR_CONFIG_IS_CAPABILITIES_CPU(cpu), NULL);
-
-    data.schema = gvir_config_object_get_schema(GVIR_CONFIG_OBJECT(cpu));
-    g_object_get(G_OBJECT(cpu), "doc", &data.doc, NULL);
-    g_return_val_if_fail(data.doc != NULL, NULL);
-    data.features = NULL;
-
-    gvir_config_object_foreach_child(GVIR_CONFIG_OBJECT(cpu),
-                                     NULL,
-                                     add_feature,
-                                     &data);
-    g_clear_object(&data.doc);
-
-    return data.features;
+    return GVIR_CONFIG_CAPABILITIES_CPU_GET_CLASS(cpu)->get_features(cpu);
 }
 
 /**

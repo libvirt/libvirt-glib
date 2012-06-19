@@ -57,7 +57,9 @@ struct _GVirConfigCapabilitiesCpuClass
 {
     GVirConfigObjectClass parent_class;
 
-    gpointer padding[20];
+    GList *(*get_features)(GVirConfigCapabilitiesCpu *cpu);
+
+    gpointer padding[19];
 };
 
 GType gvir_config_capabilities_cpu_get_type(void);

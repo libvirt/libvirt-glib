@@ -1,7 +1,7 @@
 /*
- * libvirt-gconfig-private.h: libvirt domain device configuration
+ * libvirt-gconfig-capabilities-cpu-private.h: libvirt CPU capabilities
  *
- * Copyright (C) 2011 Red Hat, Inc.
+ * Copyright (C) 2012 Red Hat, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -17,16 +17,19 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307  USA
  *
- * Author: Christophe Fergeau <cfergeau@gmail.com>
+ * Author: Zeeshan Ali (Khattak) <zeeshanak@gnome.org>
  */
+#ifndef __LIBVIRT_GCONFIG_CAPABILITIES_CPU_PRIVATE_H__
+#define __LIBVIRT_GCONFIG_CAPABILITIES_CPU_PRIVATE_H__
 
-#ifndef __LIBVIRT_GCONFIG_PRIVATE_H__
-#define __LIBVIRT_GCONFIG_PRIVATE_H__
+G_BEGIN_DECLS
 
-#include <libvirt-gconfig/libvirt-gconfig-capabilities-cpu-private.h>
-#include <libvirt-gconfig/libvirt-gconfig-domain-device-private.h>
-#include <libvirt-gconfig/libvirt-gconfig-helpers-private.h>
-#include <libvirt-gconfig/libvirt-gconfig-object-private.h>
-#include <libvirt-gconfig/libvirt-gconfig-xml-doc.h>
+#include <libvirt-gconfig/libvirt-gconfig.h>
 
-#endif /* __LIBVIRT_GCONFIG_PRIVATE_H__ */
+GList *
+gvir_config_capabilities_cpu_get_features_with_type(GVirConfigCapabilitiesCpu *cpu,
+                                                    GType type);
+
+G_END_DECLS
+
+#endif /* __LIBVIRT_GCONFIG_CAPABILITIES_CPU_PRIVATE_H__ */
