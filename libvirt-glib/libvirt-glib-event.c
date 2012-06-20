@@ -130,7 +130,7 @@ gvir_event_handle_dispatch(GIOChannel *source G_GNUC_UNUSED,
     if (condition & G_IO_ERR)
         events |= VIR_EVENT_HANDLE_ERROR;
 
-    g_debug("Dispatch handler %d %d %p\n", data->fd, events, data->opaque);
+    g_debug("Dispatch handler %p %d %d %d %p\n", data, data->watch, data->fd, events, data->opaque);
 
     (data->cb)(data->watch, data->fd, events, data->opaque);
 
@@ -166,7 +166,7 @@ gvir_event_handle_add(int fd,
     data->channel = g_io_channel_unix_new(fd);
     data->ff = ff;
 
-    g_debug("Add handle %d %d %p\n", data->fd, events, data->opaque);
+    g_debug("Add handle %p %d %d %d %p\n", data, data->watch, data->fd, events, data->opaque);
 
     data->source = g_io_add_watch(data->channel,
                                   cond,
@@ -278,7 +278,7 @@ gvir_event_handle_remove(int watch)
         goto cleanup;
     }
 
-    g_debug("Remove handle %d %d\n", watch, data->fd);
+    g_debug("Remove handle %p %d %d\n", data, watch, data->fd);
 
     if (!data->source)
         goto cleanup;
