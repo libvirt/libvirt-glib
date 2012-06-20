@@ -219,6 +219,8 @@ gvir_event_handle_update(int watch,
         goto cleanup;
     }
 
+    g_debug("Update handle %p %d %d %d\n", data, watch, data->fd, events);
+
     if (events) {
         GIOCondition cond = 0;
         if (events == data->events)
