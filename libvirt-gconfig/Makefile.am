@@ -33,6 +33,7 @@ GCONFIG_HEADER_FILES = \
 			libvirt-gconfig-domain-console.h \
 			libvirt-gconfig-domain-controller.h \
 			libvirt-gconfig-domain-controller-usb.h \
+			libvirt-gconfig-domain-cpu-feature.h \
 			libvirt-gconfig-domain-device.h \
 			libvirt-gconfig-domain-disk.h \
 			libvirt-gconfig-domain-filesys.h \
@@ -101,6 +102,7 @@ GCONFIG_SOURCE_FILES = \
 			libvirt-gconfig-domain-console.c \
 			libvirt-gconfig-domain-controller.c \
 			libvirt-gconfig-domain-controller-usb.c \
+			libvirt-gconfig-domain-cpu-feature.c \
 			libvirt-gconfig-domain-device.c \
 			libvirt-gconfig-domain-disk.c \
 			libvirt-gconfig-domain-filesys.c \
