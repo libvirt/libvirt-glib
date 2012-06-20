@@ -87,7 +87,7 @@ struct gvir_event_handle
     int watch;
     int fd;
     int events;
-    int enabled;
+    int removed;
     GIOChannel *channel;
     guint source;
     virEventHandleCallback cb;
@@ -99,6 +99,7 @@ struct gvir_event_timeout
 {
     int timer;
     int interval;
+    int removed;
     guint source;
     virEventTimeoutCallback cb;
     void *opaque;
@@ -195,7 +196,7 @@ gvir_event_handle_find(int watch)
             continue;
         }
 
-        if (h->watch == watch) {
+        if ((h->watch == watch) && !h->removed) {
             return h;
         }
     }
@@ -289,6 +290,11 @@ gvir_event_handle_remove(int watch)
     g_source_remove(data->source);
     data->source = 0;
     data->events = 0;
+    /* since the actual watch deletion is done asynchronously, a handle_update call may
+     * reschedule the watch before it's fully deleted, that's why we need to mark it as
+     * 'removed' to prevent reuse
+     */
+    data->removed = TRUE;
     g_idle_add(_event_handle_remove, data);
 
     ret = 0;
@@ -358,7 +364,7 @@ gvir_event_timeout_find(int timer)
             continue;
         }
 
-        if (t->timer == timer) {
+        if ((t->timer == timer) && !t->removed) {
             return t;
         }
     }
@@ -441,6 +447,11 @@ gvir_event_timeout_remove(int timer)
 
     g_source_remove(data->source);
     data->source = 0;
+    /* since the actual timeout deletion is done asynchronously, a timeout_update call may
+     * reschedule the timeout before it's fully deleted, that's why we need to mark it as
+     * 'removed' to prevent reuse
+     */
+    data->removed = TRUE;
     g_idle_add(_event_timeout_remove, data);
 
     ret = 0;
