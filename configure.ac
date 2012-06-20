@@ -266,4 +266,4 @@ AC_OUTPUT(Makefile
           libvirt-gconfig-1.0.pc
           libvirt-gobject-1.0.pc
           libvirt-glib.spec
-          mingw32-libvirt-glib.spec)
+          mingw-libvirt-glib.spec)

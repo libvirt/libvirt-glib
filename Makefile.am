@@ -7,10 +7,13 @@ pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = libvirt-glib-1.0.pc libvirt-gconfig-1.0.pc libvirt-gobject-1.0.pc
 
 EXTRA_DIST = $(PACKAGE).spec \
+	     $(PACKAGE).spec.in \
+	     mingw-$(PACKAGE).spec.in \
 	     $(pkgconfig_DATA:%.pc=%.pc.in) \
 	     GNUmakefile \
 	     maint.mk \
-	     cfg.mk
+	     cfg.mk \
+	     $(NULL)
 
 DISTCLEAN_FILES = $(PACKAGE).spec $(pkgconfig_DATA)
 

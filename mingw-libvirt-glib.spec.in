@@ -1,0 +1,190 @@
+%{?mingw_package_header}
+
+Name:           mingw-libvirt-glib
+Version:        @VERSION@
+Release:        1%{?dist}%{?extra_release}
+Summary:        MinGW Windows libvirt-glib virtualization library
+
+License:        LGPLv2+
+Group:          Development/Libraries
+URL:            http://libvirt.org/
+Source0:        ftp://libvirt.org/libvirt/glib/libvirt-glib-%{version}.tar.gz
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+BuildRequires:  mingw32-filesystem >= 95
+BuildRequires:  mingw64-filesystem >= 95
+BuildRequires:  mingw32-glib2
+BuildRequires:  mingw64-glib2
+BuildRequires:  mingw32-libvirt >= 0.9.10
+BuildRequires:  mingw64-libvirt >= 0.9.10
+
+BuildRequires:  pkgconfig
+
+BuildArch:      noarch
+
+%package -n mingw32-libvirt-glib
+Summary: MingwGW Windows libvirt-gconfig virtualization library
+Group: Development/Libraries
+
+%package -n mingw32-libvirt-gconfig
+Summary: MingwGW Windows libvirt-gconfig virtualization library
+Group: Development/Libraries
+
+%package -n mingw32-libvirt-gobject
+Summary: MingwGW Windows libvirt-gobject virtualization library
+Group: Development/Libraries
+
+%package -n mingw64-libvirt-glib
+Summary: MingwGW Windows libvirt-gconfig virtualization library
+Group: Development/Libraries
+
+%package -n mingw64-libvirt-gconfig
+Summary: MingwGW Windows libvirt-gconfig virtualization library
+Group: Development/Libraries
+
+%package -n mingw64-libvirt-gobject
+Summary: MingwGW Windows libvirt-gobject virtualization library
+Group: Development/Libraries
+
+%description
+MinGW Windows libvirt-glib virtualization library.
+
+%description -n mingw32-libvirt-glib
+MinGW Windows libvirt-glib virtualization library.
+
+%description -n mingw32-libvirt-gconfig
+MinGW Windows libvirt-gconfig virtualization library.
+
+%description -n mingw32-libvirt-gobject
+MinGW Windows libvirt-gobject virtualization library.
+
+
+%description -n mingw64-libvirt-glib
+MinGW Windows libvirt-glib virtualization library.
+
+%description -n mingw64-libvirt-gconfig
+MinGW Windows libvirt-gconfig virtualization library.
+
+%description -n mingw64-libvirt-gobject
+MinGW Windows libvirt-gobject virtualization library.
+
+%{?mingw_debug_package}
+
+%prep
+%setup -q -n libvirt-glib-%{version}
+
+
+%build
+%mingw_configure \
+    --enable-introspection=no \
+    --without-python
+
+%mingw_make %{?_smp_mflags}
+
+
+%install
+%mingw_make_install "DESTDIR=$RPM_BUILD_ROOT"
+
+rm -f $RPM_BUILD_ROOT%{mingw32_libdir}/libvirt-gconfig-1.0.a
+rm -f $RPM_BUILD_ROOT%{mingw32_libdir}/libvirt-glib-1.0.a
+rm -f $RPM_BUILD_ROOT%{mingw32_libdir}/libvirt-gobject-1.0.a
+rm -f $RPM_BUILD_ROOT%{mingw64_libdir}/libvirt-gconfig-1.0.a
+rm -f $RPM_BUILD_ROOT%{mingw64_libdir}/libvirt-glib-1.0.a
+rm -f $RPM_BUILD_ROOT%{mingw64_libdir}/libvirt-gobject-1.0.a
+
+rm -rf $RPM_BUILD_ROOT%{mingw32_datadir}/gtk-doc
+rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/gtk-doc
+
+
+%files -n mingw32-libvirt-glib
+%doc README COPYING AUTHORS ChangeLog NEWS
+%defattr(-,root,root)
+%{mingw32_bindir}/libvirt-glib-1.0-0.dll
+
+%{mingw32_libdir}/libvirt-glib-1.0.dll.a
+%{mingw32_libdir}/libvirt-glib-1.0.la
+
+%{mingw32_libdir}/pkgconfig/libvirt-glib-1.0.pc
+
+%dir %{mingw32_includedir}/libvirt-glib-1.0
+%dir %{mingw32_includedir}/libvirt-glib-1.0/libvirt-glib
+%{mingw32_includedir}/libvirt-glib-1.0/libvirt-glib/libvirt-glib.h
+%{mingw32_includedir}/libvirt-glib-1.0/libvirt-glib/libvirt-glib-*.h
+
+%files -n mingw64-libvirt-glib
+%doc README COPYING AUTHORS ChangeLog NEWS
+%defattr(-,root,root)
+%{mingw64_bindir}/libvirt-glib-1.0-0.dll
+
+%{mingw64_libdir}/libvirt-glib-1.0.dll.a
+%{mingw64_libdir}/libvirt-glib-1.0.la
+
+%{mingw64_libdir}/pkgconfig/libvirt-glib-1.0.pc
+
+%dir %{mingw64_includedir}/libvirt-glib-1.0
+%dir %{mingw64_includedir}/libvirt-glib-1.0/libvirt-glib
+%{mingw64_includedir}/libvirt-glib-1.0/libvirt-glib/libvirt-glib.h
+%{mingw64_includedir}/libvirt-glib-1.0/libvirt-glib/libvirt-glib-*.h
+
+
+
+%files -n mingw32-libvirt-gconfig
+%defattr(-,root,root)
+%{mingw32_bindir}/libvirt-gconfig-1.0-0.dll
+
+%{mingw32_libdir}/libvirt-gconfig-1.0.dll.a
+%{mingw32_libdir}/libvirt-gconfig-1.0.la
+
+%{mingw32_libdir}/pkgconfig/libvirt-gconfig-1.0.pc
+
+%dir %{mingw32_includedir}/libvirt-gconfig-1.0
+%dir %{mingw32_includedir}/libvirt-gconfig-1.0/libvirt-gconfig
+%{mingw32_includedir}/libvirt-gconfig-1.0/libvirt-gconfig/libvirt-gconfig.h
+%{mingw32_includedir}/libvirt-gconfig-1.0/libvirt-gconfig/libvirt-gconfig-*.h
+
+%files -n mingw64-libvirt-gconfig
+%defattr(-,root,root)
+%{mingw64_bindir}/libvirt-gconfig-1.0-0.dll
+
+%{mingw64_libdir}/libvirt-gconfig-1.0.dll.a
+%{mingw64_libdir}/libvirt-gconfig-1.0.la
+
+%{mingw64_libdir}/pkgconfig/libvirt-gconfig-1.0.pc
+
+%dir %{mingw64_includedir}/libvirt-gconfig-1.0
+%dir %{mingw64_includedir}/libvirt-gconfig-1.0/libvirt-gconfig
+%{mingw64_includedir}/libvirt-gconfig-1.0/libvirt-gconfig/libvirt-gconfig.h
+%{mingw64_includedir}/libvirt-gconfig-1.0/libvirt-gconfig/libvirt-gconfig-*.h
+
+
+
+%files -n mingw32-libvirt-gobject
+%defattr(-,root,root)
+%{mingw32_bindir}/libvirt-gobject-1.0-0.dll
+
+%{mingw32_libdir}/libvirt-gobject-1.0.dll.a
+%{mingw32_libdir}/libvirt-gobject-1.0.la
+
+%{mingw32_libdir}/pkgconfig/libvirt-gobject-1.0.pc
+
+%dir %{mingw32_includedir}/libvirt-gobject-1.0
+%dir %{mingw32_includedir}/libvirt-gobject-1.0/libvirt-gobject
+%{mingw32_includedir}/libvirt-gobject-1.0/libvirt-gobject/libvirt-gobject.h
+%{mingw32_includedir}/libvirt-gobject-1.0/libvirt-gobject/libvirt-gobject-*.h
+
+%files -n mingw64-libvirt-gobject
+%defattr(-,root,root)
+%{mingw64_bindir}/libvirt-gobject-1.0-0.dll
+
+%{mingw64_libdir}/libvirt-gobject-1.0.dll.a
+%{mingw64_libdir}/libvirt-gobject-1.0.la
+
+%{mingw64_libdir}/pkgconfig/libvirt-gobject-1.0.pc
+
+%dir %{mingw64_includedir}/libvirt-gobject-1.0
+%dir %{mingw64_includedir}/libvirt-gobject-1.0/libvirt-gobject
+%{mingw64_includedir}/libvirt-gobject-1.0/libvirt-gobject/libvirt-gobject.h
+%{mingw64_includedir}/libvirt-gobject-1.0/libvirt-gobject/libvirt-gobject-*.h
+
+
+%changelog

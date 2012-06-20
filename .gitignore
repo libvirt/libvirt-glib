@@ -43,7 +43,7 @@ examples/conn-test
 libvirt-glib.spec
 libvirt-glib-1.0.pc
 libvirt-gobject-1.0.pc
-mingw32-libvirt-glib.spec
+mingw-libvirt-glib.spec
 python/*pyc
 */*.gir
 */*.typelib
