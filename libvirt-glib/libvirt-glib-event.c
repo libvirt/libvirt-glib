@@ -183,7 +183,7 @@ gvir_event_handle_add(int fd,
 }
 
 static struct gvir_event_handle *
-gvir_event_handle_find(int watch, guint *idx)
+gvir_event_handle_find(int watch)
 {
     guint i;
 
@@ -196,8 +196,6 @@ gvir_event_handle_find(int watch, guint *idx)
         }
 
         if (h->watch == watch) {
-            if (idx != NULL)
-                *idx = i;
             return h;
         }
     }
@@ -213,7 +211,7 @@ gvir_event_handle_update(int watch,
 
     g_mutex_lock(eventlock);
 
-    data = gvir_event_handle_find(watch, NULL);
+    data = gvir_event_handle_find(watch);
     if (!data) {
         g_debug("Update for missing handle watch %d", watch);
         goto cleanup;
@@ -270,11 +268,10 @@ gvir_event_handle_remove(int watch)
 {
     struct gvir_event_handle *data;
     int ret = -1;
-    guint idx;
 
     g_mutex_lock(eventlock);
 
-    data = gvir_event_handle_find(watch, &idx);
+    data = gvir_event_handle_find(watch);
     if (!data) {
         g_debug("Remove of missing watch %d", watch);
         goto cleanup;
@@ -343,7 +340,7 @@ gvir_event_timeout_add(int interval,
 
 
 static struct gvir_event_timeout *
-gvir_event_timeout_find(int timer, guint *idx)
+gvir_event_timeout_find(int timer)
 {
     guint i;
 
@@ -358,8 +355,6 @@ gvir_event_timeout_find(int timer, guint *idx)
         }
 
         if (t->timer == timer) {
-            if (idx != NULL)
-                *idx = i;
             return t;
         }
     }
@@ -376,7 +371,7 @@ gvir_event_timeout_update(int timer,
 
     g_mutex_lock(eventlock);
 
-    data = gvir_event_timeout_find(timer, NULL);
+    data = gvir_event_timeout_find(timer);
     if (!data) {
         g_debug("Update of missing timer %d", timer);
         goto cleanup;
@@ -421,12 +416,11 @@ static int
 gvir_event_timeout_remove(int timer)
 {
     struct gvir_event_timeout *data;
-    guint idx;
     int ret = -1;
 
     g_mutex_lock(eventlock);
 
-    data = gvir_event_timeout_find(timer, &idx);
+    data = gvir_event_timeout_find(timer);
     if (!data) {
         g_debug("Remove of missing timer %d", timer);
         goto cleanup;
