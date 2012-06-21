@@ -31,6 +31,7 @@
 #include <libvirt-gconfig/libvirt-gconfig-domain-os.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-device.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-seclabel.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-cpu.h>
 
 G_BEGIN_DECLS
 
@@ -137,6 +138,9 @@ gboolean gvir_config_domain_set_custom_xml(GVirConfigDomain *domain,
                                            GError **error);
 gchar *gvir_config_domain_get_custom_xml(GVirConfigDomain *domain,
                                          const gchar *ns_uri);
+GVirConfigDomainCpu *gvir_config_domain_get_cpu(GVirConfigDomain *domain);
+void gvir_config_domain_set_cpu(GVirConfigDomain *domain,
+                                GVirConfigDomainCpu *cpu);
 
 G_END_DECLS
 

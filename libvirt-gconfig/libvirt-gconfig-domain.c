@@ -632,3 +632,41 @@ gchar *gvir_config_domain_get_custom_xml(GVirConfigDomain *domain,
                                      lookup_namespaced_node, &data);
     return gvir_config_xml_node_to_string(data.node);
 }
+
+/**
+ * gvir_config_domain_get_cpu:
+ * @domain: a #GVirConfigDomain
+ *
+ * Gets the CPU configuration of @domain
+ *
+ * Returns: (transfer full): A #GVirConfigDomainCpu. The returned object
+ * should be unreffed with g_object_unref() when no longer needed.
+ */
+GVirConfigDomainCpu *gvir_config_domain_get_cpu(GVirConfigDomain *domain)
+{
+    GVirConfigObject *object;
+
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN(domain), NULL);
+
+    object = gvir_config_object_get_child_with_type(GVIR_CONFIG_OBJECT(domain),
+                                                    "cpu",
+                                                    GVIR_CONFIG_TYPE_DOMAIN_CPU);
+
+    return GVIR_CONFIG_DOMAIN_CPU(object);
+}
+
+/**
+ * gvir_config_domain_set_cpu:
+ * @domain: a #GVirConfigDomain
+ * @cpu: (allow-none):
+ */
+void gvir_config_domain_set_cpu(GVirConfigDomain *domain,
+                                GVirConfigDomainCpu *cpu)
+{
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN(domain));
+    g_return_if_fail(cpu != NULL || GVIR_CONFIG_IS_DOMAIN_CPU(cpu));
+
+    gvir_config_object_attach_replace(GVIR_CONFIG_OBJECT(domain),
+                                      "cpu",
+                                      GVIR_CONFIG_OBJECT(cpu));
+}

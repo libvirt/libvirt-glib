@@ -438,6 +438,20 @@ LIBVIRT_GCONFIG_0.1.0 {
 	gvir_config_capabilities_cpu_topology_set_sockets;
 	gvir_config_capabilities_cpu_topology_set_threads;
 
+	gvir_config_domain_get_cpu;
+	gvir_config_domain_set_cpu;
+
+	gvir_config_domain_cpu_get_type;
+	gvir_config_domain_cpu_match_policy_get_type;
+	gvir_config_domain_cpu_mode_get_type;
+	gvir_config_domain_cpu_get_features;
+	gvir_config_domain_cpu_get_match_policy;
+	gvir_config_domain_cpu_set_match_policy;
+	gvir_config_domain_cpu_get_mode;
+	gvir_config_domain_cpu_set_mode;
+	gvir_config_domain_cpu_new;
+	gvir_config_domain_cpu_new_from_xml;
+
 	gvir_config_domain_cpu_feature_get_type;
 	gvir_config_domain_cpu_feature_new;
 	gvir_config_domain_cpu_feature_new_from_xml;

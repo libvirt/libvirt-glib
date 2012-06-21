@@ -50,6 +50,7 @@
 #include <libvirt-gconfig/libvirt-gconfig-domain-console.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-controller.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-controller-usb.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-cpu.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-cpu-feature.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-device.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-disk.h>
