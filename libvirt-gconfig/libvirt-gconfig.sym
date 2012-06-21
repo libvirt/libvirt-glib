@@ -140,6 +140,7 @@ LIBVIRT_GCONFIG_0.0.8 {
 	gvir_config_domain_filesys_new_from_xml;
 	gvir_config_domain_filesys_set_access_type;
 	gvir_config_domain_filesys_set_driver_type;
+	gvir_config_domain_filesys_set_ram_usage;
 	gvir_config_domain_filesys_set_readonly;
 	gvir_config_domain_filesys_set_source;
 	gvir_config_domain_filesys_set_target;

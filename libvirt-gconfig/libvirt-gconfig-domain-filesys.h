@@ -61,6 +61,8 @@ typedef enum {
     GVIR_CONFIG_DOMAIN_FILESYS_BLOCK,
     GVIR_CONFIG_DOMAIN_FILESYS_FILE,
     GVIR_CONFIG_DOMAIN_FILESYS_TEMPLATE,
+    GVIR_CONFIG_DOMAIN_FILESYS_RAM,
+    GVIR_CONFIG_DOMAIN_FILESYS_BIND,
 } GVirConfigDomainFilesysType;
 
 typedef enum {
@@ -89,6 +91,8 @@ void gvir_config_domain_filesys_set_driver_type(GVirConfigDomainFilesys *filesys
                                                 GVirConfigDomainFilesysDriverType type);
 void gvir_config_domain_filesys_set_source(GVirConfigDomainFilesys *filesys,
                                            const char *source);
+void gvir_config_domain_filesys_set_ram_usage(GVirConfigDomainFilesys *filesys,
+                                              guint64 bytes);
 void gvir_config_domain_filesys_set_target(GVirConfigDomainFilesys *filesys,
                                            const char *target);
 void gvir_config_domain_filesys_set_readonly(GVirConfigDomainFilesys *filesys,
