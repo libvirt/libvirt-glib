@@ -59,6 +59,9 @@ struct _GVirConfigCapabilitiesCpuTopologyClass
 
 GType gvir_config_capabilities_cpu_topology_get_type(void);
 
+GVirConfigCapabilitiesCpuTopology *gvir_config_capabilities_cpu_topology_new(void);
+GVirConfigCapabilitiesCpuTopology *
+gvir_config_capabilities_cpu_topology_new_from_xml(const gchar *xml, GError **error);
 guint64
 gvir_config_capabilities_cpu_topology_get_sockets(GVirConfigCapabilitiesCpuTopology *topology);
 guint64
