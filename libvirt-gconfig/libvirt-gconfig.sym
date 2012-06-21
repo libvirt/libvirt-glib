@@ -425,4 +425,10 @@ LIBVIRT_GCONFIG_0.0.9 {
 	gvir_config_capabilities_host_get_cpu;
 } LIBVIRT_GCONFIG_0.0.8;
 
+LIBVIRT_GCONFIG_0.1.0 {
+  global:
+	gvir_config_capabilities_cpu_add_feature;
+	gvir_config_capabilities_cpu_set_topology;
+} LIBVIRT_GCONFIG_0.0.9;
+
 # .... define new API here using predicted next version number ....

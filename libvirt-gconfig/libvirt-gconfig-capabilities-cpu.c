@@ -56,6 +56,21 @@ gvir_config_capabilities_cpu_get_arch(GVirConfigCapabilitiesCpu *cpu)
     return gvir_config_object_get_node_content(GVIR_CONFIG_OBJECT(cpu), "arch");
 }
 
+/**
+ * gvir_config_capabilities_cpu_add_feature:
+ *
+ * Adds a new feature to CPU.
+ */
+void gvir_config_capabilities_cpu_add_feature(GVirConfigCapabilitiesCpu *cpu,
+                                              GVirConfigCapabilitiesCpuFeature *feature)
+{
+    g_return_if_fail(GVIR_CONFIG_IS_CAPABILITIES_CPU(cpu));
+    g_return_if_fail(GVIR_CONFIG_IS_CAPABILITIES_CPU_FEATURE(feature));
+
+    gvir_config_object_attach_add(GVIR_CONFIG_OBJECT(cpu),
+                                  GVIR_CONFIG_OBJECT(feature));
+}
+
 struct GetFeatureData {
     GVirConfigXmlDoc *doc;
     const gchar *schema;
@@ -132,4 +147,21 @@ gvir_config_capabilities_cpu_get_topology(GVirConfigCapabilitiesCpu *cpu)
                                  GVIR_CONFIG_TYPE_CAPABILITIES_CPU_TOPOLOGY);
 
     return GVIR_CONFIG_CAPABILITIES_CPU_TOPOLOGY(object);
+}
+
+/**
+ * gvir_config_capabilities_cpu_set_topology:
+ *
+ * Sets the topology of the cpu.
+ */
+void
+gvir_config_capabilities_cpu_set_topology(GVirConfigCapabilitiesCpu *cpu,
+                                          GVirConfigCapabilitiesCpuTopology *topology)
+{
+    g_return_if_fail(GVIR_CONFIG_IS_CAPABILITIES_CPU(cpu));
+    g_return_if_fail(GVIR_CONFIG_IS_CAPABILITIES_CPU_TOPOLOGY(topology));
+
+    gvir_config_object_attach_replace(GVIR_CONFIG_OBJECT(cpu),
+                                      "topology",
+                                      GVIR_CONFIG_OBJECT(topology));
 }
