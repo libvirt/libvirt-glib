@@ -173,6 +173,61 @@ int main(int argc, char **argv)
     gvir_config_domain_set_os(domain, os);
     g_object_unref(G_OBJECT(os));
 
+    /* cpu node */
+    GVirConfigDomainCpu *cpu;
+
+    cpu = gvir_config_domain_cpu_new();
+
+    /* cpu/feature nodes */
+    GVirConfigDomainCpuFeature *feature;
+    GList *cpu_features = NULL;
+
+    gvir_config_domain_cpu_set_match_policy(cpu, GVIR_CONFIG_DOMAIN_CPU_MATCH_POLICY_STRICT);
+    gvir_config_domain_cpu_set_mode(cpu, GVIR_CONFIG_DOMAIN_CPU_MODE_HOST_PASSTHROUGH);
+    feature = gvir_config_domain_cpu_feature_new();
+    gvir_config_capabilities_cpu_feature_set_name(GVIR_CONFIG_CAPABILITIES_CPU_FEATURE(feature),
+                                                  "foo");
+    gvir_config_domain_cpu_feature_set_policy(feature, GVIR_CONFIG_DOMAIN_CPU_FEATURE_POLICY_REQUIRE);
+    gvir_config_capabilities_cpu_add_feature(GVIR_CONFIG_CAPABILITIES_CPU(cpu),
+                                             GVIR_CONFIG_CAPABILITIES_CPU_FEATURE(feature));
+    g_object_unref(feature);
+
+    /* cpu/topology nodes */
+    GVirConfigCapabilitiesCpuTopology *topology;
+
+    topology = gvir_config_capabilities_cpu_topology_new();
+    gvir_config_capabilities_cpu_topology_set_cores(topology, 1);
+    gvir_config_capabilities_cpu_topology_set_sockets(topology, 2);
+    gvir_config_capabilities_cpu_topology_set_threads(topology, 3);
+    gvir_config_capabilities_cpu_set_topology(GVIR_CONFIG_CAPABILITIES_CPU(cpu),
+                                              topology);
+    g_object_unref(topology);
+    gvir_config_domain_set_cpu(domain, cpu);
+    g_object_unref(cpu);
+
+    cpu = gvir_config_domain_get_cpu(domain);
+    g_assert(gvir_config_domain_cpu_get_match_policy(cpu) == GVIR_CONFIG_DOMAIN_CPU_MATCH_POLICY_STRICT);
+    g_assert(gvir_config_domain_cpu_get_mode(cpu) == GVIR_CONFIG_DOMAIN_CPU_MODE_HOST_PASSTHROUGH);
+    g_assert(cpu != NULL);
+    g_assert(GVIR_CONFIG_IS_CAPABILITIES_CPU(cpu));
+
+    cpu_features = gvir_config_capabilities_cpu_get_features(GVIR_CONFIG_CAPABILITIES_CPU(cpu));
+    g_assert(g_list_length(cpu_features) >= 1);
+    g_assert(GVIR_CONFIG_IS_DOMAIN_CPU_FEATURE(cpu_features->data));
+    feature = GVIR_CONFIG_DOMAIN_CPU_FEATURE(cpu_features->data);
+    g_str_const_check(gvir_config_capabilities_cpu_feature_get_name
+                        (GVIR_CONFIG_CAPABILITIES_CPU_FEATURE(feature)), "foo");
+    g_assert(gvir_config_domain_cpu_feature_get_policy(feature) == GVIR_CONFIG_DOMAIN_CPU_FEATURE_POLICY_REQUIRE);
+    g_list_free_full(cpu_features, g_object_unref);
+
+    topology = gvir_config_capabilities_cpu_get_topology(GVIR_CONFIG_CAPABILITIES_CPU(cpu));
+    g_assert(topology != NULL);
+    g_assert(gvir_config_capabilities_cpu_topology_get_cores(topology) == 1);
+    g_assert(gvir_config_capabilities_cpu_topology_get_sockets(topology) == 2);
+    g_assert(gvir_config_capabilities_cpu_topology_get_threads(topology) == 3);
+    g_object_unref(topology);
+    g_object_unref(cpu);
+
     /* disk node */
     GVirConfigDomainDisk *disk;
 
