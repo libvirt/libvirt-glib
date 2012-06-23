@@ -64,10 +64,19 @@ GVirConfigCapabilitiesCpuTopology *
 gvir_config_capabilities_cpu_topology_new_from_xml(const gchar *xml, GError **error);
 guint64
 gvir_config_capabilities_cpu_topology_get_sockets(GVirConfigCapabilitiesCpuTopology *topology);
+void
+gvir_config_capabilities_cpu_topology_set_sockets(GVirConfigCapabilitiesCpuTopology *topology,
+                                                  guint64 sockets);
 guint64
 gvir_config_capabilities_cpu_topology_get_cores(GVirConfigCapabilitiesCpuTopology *topology);
+void
+gvir_config_capabilities_cpu_topology_set_cores(GVirConfigCapabilitiesCpuTopology *topology,
+                                                guint64 cores);
 guint64
 gvir_config_capabilities_cpu_topology_get_threads(GVirConfigCapabilitiesCpuTopology *topology);
+void
+gvir_config_capabilities_cpu_topology_set_threads(GVirConfigCapabilitiesCpuTopology *topology,
+                                                  guint64 threads);
 
 G_END_DECLS
 

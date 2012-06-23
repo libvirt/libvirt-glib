@@ -432,6 +432,9 @@ LIBVIRT_GCONFIG_0.1.0 {
 
 	gvir_config_capabilities_cpu_topology_new;
 	gvir_config_capabilities_cpu_topology_new_from_xml;
+	gvir_config_capabilities_cpu_topology_set_cores;
+	gvir_config_capabilities_cpu_topology_set_sockets;
+	gvir_config_capabilities_cpu_topology_set_threads;
 } LIBVIRT_GCONFIG_0.0.9;
 
 # .... define new API here using predicted next version number ....

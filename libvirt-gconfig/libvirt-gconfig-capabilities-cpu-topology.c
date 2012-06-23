@@ -85,6 +85,15 @@ gvir_config_capabilities_cpu_topology_get_sockets(GVirConfigCapabilitiesCpuTopol
                                                    0);
 }
 
+void
+gvir_config_capabilities_cpu_topology_set_sockets(GVirConfigCapabilitiesCpuTopology *topology,
+                                                  guint64 sockets)
+{
+    gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(topology),
+                                               "sockets", G_TYPE_UINT64, sockets,
+                                               NULL);
+}
+
 guint64
 gvir_config_capabilities_cpu_topology_get_cores(GVirConfigCapabilitiesCpuTopology *topology)
 {
@@ -96,6 +105,15 @@ gvir_config_capabilities_cpu_topology_get_cores(GVirConfigCapabilitiesCpuTopolog
                                                    0);
 }
 
+void
+gvir_config_capabilities_cpu_topology_set_cores(GVirConfigCapabilitiesCpuTopology *topology,
+                                                guint64 cores)
+{
+    gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(topology),
+                                               "cores", G_TYPE_UINT64, cores,
+                                               NULL);
+}
+
 guint64
 gvir_config_capabilities_cpu_topology_get_threads(GVirConfigCapabilitiesCpuTopology *topology)
 {
@@ -105,4 +123,13 @@ gvir_config_capabilities_cpu_topology_get_threads(GVirConfigCapabilitiesCpuTopol
                                                    NULL,
                                                    "threads",
                                                    0);
+}
+
+void
+gvir_config_capabilities_cpu_topology_set_threads(GVirConfigCapabilitiesCpuTopology *topology,
+                                                  guint64 threads)
+{
+    gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(topology),
+                                               "threads", G_TYPE_UINT64, threads,
+                                               NULL);
 }
