@@ -61,6 +61,9 @@ GType gvir_config_capabilities_cpu_feature_get_type(void);
 
 const gchar *
 gvir_config_capabilities_cpu_feature_get_name(GVirConfigCapabilitiesCpuFeature *feature);
+void
+gvir_config_capabilities_cpu_feature_set_name(GVirConfigCapabilitiesCpuFeature *feature,
+                                              const gchar *name);
 
 G_END_DECLS
 

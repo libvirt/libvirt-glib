@@ -430,6 +430,8 @@ LIBVIRT_GCONFIG_0.1.0 {
 	gvir_config_capabilities_cpu_add_feature;
 	gvir_config_capabilities_cpu_set_topology;
 
+	gvir_config_capabilities_cpu_feature_set_name;
+
 	gvir_config_capabilities_cpu_topology_new;
 	gvir_config_capabilities_cpu_topology_new_from_xml;
 	gvir_config_capabilities_cpu_topology_set_cores;

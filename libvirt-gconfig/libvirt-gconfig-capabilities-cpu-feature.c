@@ -56,3 +56,15 @@ gvir_config_capabilities_cpu_feature_get_name(GVirConfigCapabilitiesCpuFeature *
                                             NULL,
                                             "name");
 }
+
+void
+gvir_config_capabilities_cpu_feature_set_name(GVirConfigCapabilitiesCpuFeature *feature,
+                                              const gchar *name)
+{
+    g_return_if_fail(GVIR_CONFIG_IS_CAPABILITIES_CPU_FEATURE(feature));
+    g_return_if_fail(name != NULL);
+
+    gvir_config_object_set_attribute(GVIR_CONFIG_OBJECT(feature),
+                                     "name", name,
+                                     NULL);
+}
