@@ -1,6 +1,24 @@
                  libvirt-glib News
                  =================
 
+0.0.9 - Jun 25, 2012
+====================
+- Full API docs for libvirt-glib library
+- Add API for getting domain OS config
+- Add API for getting domain OS boot devices
+- Add APIs for querying host capabilities
+- Add missing domain OS type enum values
+- Add API for getting domain virt type
+- Add comprehensive API arg checking
+- Add API for getting domain arch
+- Allow zero timeouts in timer
+- Fix build with newer glibc-headers and -O0
+- Fix generation of filesystem source element
+- Port to use Mingw64 toolchain for automated builds
+- Add async API for starting domains
+- Fix thread safety of event loop timeouts/watches
+- Add support for filesystem type=bind|ram
+
 0.0.8 - Apr 27, 2012
 ====================
 
