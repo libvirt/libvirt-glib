@@ -9,7 +9,6 @@ License:        LGPLv2+
 Group:          Development/Libraries
 URL:            http://libvirt.org/
 Source0:        ftp://libvirt.org/libvirt/glib/libvirt-glib-%{version}.tar.gz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  mingw32-filesystem >= 95
 BuildRequires:  mingw64-filesystem >= 95
@@ -26,25 +25,37 @@ BuildArch:      noarch
 Summary: MingwGW Windows libvirt-gconfig virtualization library
 Group: Development/Libraries
 
+Requires: pkgconfig
+
 %package -n mingw32-libvirt-gconfig
 Summary: MingwGW Windows libvirt-gconfig virtualization library
 Group: Development/Libraries
+
+Requires: pkgconfig
 
 %package -n mingw32-libvirt-gobject
 Summary: MingwGW Windows libvirt-gobject virtualization library
 Group: Development/Libraries
 
+Requires: pkgconfig
+
 %package -n mingw64-libvirt-glib
 Summary: MingwGW Windows libvirt-gconfig virtualization library
 Group: Development/Libraries
+
+Requires: pkgconfig
 
 %package -n mingw64-libvirt-gconfig
 Summary: MingwGW Windows libvirt-gconfig virtualization library
 Group: Development/Libraries
 
+Requires: pkgconfig
+
 %package -n mingw64-libvirt-gobject
 Summary: MingwGW Windows libvirt-gobject virtualization library
 Group: Development/Libraries
+
+Requires: pkgconfig
 
 %description
 MinGW Windows libvirt-glib virtualization library.
@@ -83,7 +94,7 @@ MinGW Windows libvirt-gobject virtualization library.
 
 
 %install
-%mingw_make_install "DESTDIR=$RPM_BUILD_ROOT"
+%mingw_make_install DESTDIR=$RPM_BUILD_ROOT
 
 rm -f $RPM_BUILD_ROOT%{mingw32_libdir}/libvirt-gconfig-1.0.a
 rm -f $RPM_BUILD_ROOT%{mingw32_libdir}/libvirt-glib-1.0.a
@@ -98,7 +109,6 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/gtk-doc
 
 %files -n mingw32-libvirt-glib
 %doc README COPYING AUTHORS ChangeLog NEWS
-%defattr(-,root,root)
 %{mingw32_bindir}/libvirt-glib-1.0-0.dll
 
 %{mingw32_libdir}/libvirt-glib-1.0.dll.a
@@ -113,7 +123,6 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/gtk-doc
 
 %files -n mingw64-libvirt-glib
 %doc README COPYING AUTHORS ChangeLog NEWS
-%defattr(-,root,root)
 %{mingw64_bindir}/libvirt-glib-1.0-0.dll
 
 %{mingw64_libdir}/libvirt-glib-1.0.dll.a
@@ -129,7 +138,6 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/gtk-doc
 
 
 %files -n mingw32-libvirt-gconfig
-%defattr(-,root,root)
 %{mingw32_bindir}/libvirt-gconfig-1.0-0.dll
 
 %{mingw32_libdir}/libvirt-gconfig-1.0.dll.a
@@ -143,7 +151,6 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/gtk-doc
 %{mingw32_includedir}/libvirt-gconfig-1.0/libvirt-gconfig/libvirt-gconfig-*.h
 
 %files -n mingw64-libvirt-gconfig
-%defattr(-,root,root)
 %{mingw64_bindir}/libvirt-gconfig-1.0-0.dll
 
 %{mingw64_libdir}/libvirt-gconfig-1.0.dll.a
@@ -159,7 +166,6 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/gtk-doc
 
 
 %files -n mingw32-libvirt-gobject
-%defattr(-,root,root)
 %{mingw32_bindir}/libvirt-gobject-1.0-0.dll
 
 %{mingw32_libdir}/libvirt-gobject-1.0.dll.a
@@ -173,7 +179,6 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/gtk-doc
 %{mingw32_includedir}/libvirt-gobject-1.0/libvirt-gobject/libvirt-gobject-*.h
 
 %files -n mingw64-libvirt-gobject
-%defattr(-,root,root)
 %{mingw64_bindir}/libvirt-gobject-1.0-0.dll
 
 %{mingw64_libdir}/libvirt-gobject-1.0.dll.a
