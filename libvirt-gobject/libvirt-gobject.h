@@ -44,5 +44,6 @@
 #include <libvirt-gobject/libvirt-gobject-storage-pool.h>
 #include <libvirt-gobject/libvirt-gobject-connection.h>
 #include <libvirt-gobject/libvirt-gobject-manager.h>
+#include <libvirt-gobject/libvirt-gobject-stream.h>
 
 #endif /* __LIBVIRT_GOBJECT_H__ */

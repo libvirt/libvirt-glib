@@ -110,6 +110,20 @@ gboolean gvir_storage_vol_resize(GVirStorageVol *vol,
                                  guint flags,
                                  GError **err);
 
+gboolean gvir_storage_vol_download(GVirStorageVol *vol,
+                                   GVirStream *stream,
+                                   guint64 offset,
+                                   guint64 length,
+                                   guint flags,
+                                   GError **err);
+
+gboolean gvir_storage_vol_upload(GVirStorageVol *vol,
+                                 GVirStream *stream,
+                                 guint64 offset,
+                                 guint64 length,
+                                 guint flags,
+                                 GError **err);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GOBJECT_STORAGE_VOL_H__ */
