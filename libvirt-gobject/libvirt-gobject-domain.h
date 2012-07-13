@@ -148,6 +148,24 @@ gboolean gvir_domain_reboot(GVirDomain *dom,
                             guint flags,
                             GError **err);
 
+gboolean gvir_domain_save_to_file(GVirDomain *dom,
+                                  gchar *filename,
+                                  GVirConfigDomain *custom_conf,
+                                  guint flags,
+                                  GError **err);
+
+void gvir_domain_save_to_file_async(GVirDomain *dom,
+                                    gchar *filename,
+                                    GVirConfigDomain *custom_conf,
+                                    guint flags,
+                                    GCancellable *cancellable,
+                                    GAsyncReadyCallback callback,
+                                    gpointer user_data);
+
+gboolean gvir_domain_save_to_file_finish(GVirDomain *dom,
+                                         GAsyncResult *result,
+                                         GError **err);
+
 GVirDomainInfo *gvir_domain_get_info(GVirDomain *dom,
                                      GError **err);
 void gvir_domain_get_info_async(GVirDomain *dom,

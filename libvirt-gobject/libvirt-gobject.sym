@@ -75,6 +75,9 @@ LIBVIRT_GOBJECT_0.0.8 {
 	gvir_domain_get_persistent;
 	gvir_domain_get_saved;
 	gvir_domain_screenshot;
+	gvir_domain_save_to_file;
+	gvir_domain_save_to_file_async;
+	gvir_domain_save_to_file_finish;
 
 	gvir_domain_snapshot_get_type;
 	gvir_domain_snapshot_handle_get_type;
