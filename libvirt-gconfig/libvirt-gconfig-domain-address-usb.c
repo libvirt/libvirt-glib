@@ -67,7 +67,10 @@ GVirConfigDomainAddressUsb *gvir_config_domain_address_usb_new_from_xml(const gc
 
     object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_DOMAIN_ADDRESS_USB,
                                              "address", NULL, xml, error);
-    gvir_config_object_set_attribute(object, "type", "usb", NULL);
+    if (g_strcmp0(gvir_config_object_get_attribute(object, NULL, "type"), "usb") != 0) {
+        g_object_unref(G_OBJECT(object));
+        g_return_val_if_reached(NULL);
+    }
     return GVIR_CONFIG_DOMAIN_ADDRESS_USB(object);
 }
 

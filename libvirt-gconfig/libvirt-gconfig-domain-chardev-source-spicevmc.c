@@ -75,6 +75,9 @@ GVirConfigDomainChardevSourceSpiceVmc *gvir_config_domain_chardev_source_spicevm
      */
     object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_DOMAIN_CHARDEV_SOURCE_SPICE_VMC,
                                              "dummy", NULL, xml, error);
-    gvir_config_object_set_attribute(object, "type", "spicevmc", NULL);
+    if (g_strcmp0(gvir_config_object_get_attribute(object, NULL, "type"), "spicevmc") != 0) {
+        g_object_unref(G_OBJECT(object));
+        g_return_val_if_reached(NULL);
+    }
     return GVIR_CONFIG_DOMAIN_CHARDEV_SOURCE_SPICE_VMC(object);
 }

@@ -67,7 +67,10 @@ GVirConfigDomainAddressPci *gvir_config_domain_address_pci_new_from_xml(const gc
 
     object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_DOMAIN_ADDRESS_PCI,
                                              "address", NULL, xml, error);
-    gvir_config_object_set_attribute(object, "type", "pci", NULL);
+    if (g_strcmp0(gvir_config_object_get_attribute(object, NULL, "type"), "pci") != 0) {
+        g_object_unref(G_OBJECT(object));
+        g_return_val_if_reached(NULL);
+    }
     return GVIR_CONFIG_DOMAIN_ADDRESS_PCI(object);
 }
 

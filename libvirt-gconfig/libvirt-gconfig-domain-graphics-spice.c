@@ -68,9 +68,10 @@ gvir_config_domain_graphics_spice_new_from_xml(const gchar *xml,
 
     object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS_SPICE,
                                              "graphics", NULL, xml, error);
-    if (object == NULL)
+    if (g_strcmp0(gvir_config_object_get_attribute(object, NULL, "type"), "spice") != 0) {
+        g_object_unref(G_OBJECT(object));
         return NULL;
-    gvir_config_object_set_attribute(object, "type", "spice", NULL);
+    }
     return GVIR_CONFIG_DOMAIN_GRAPHICS_SPICE(object);
 }
 

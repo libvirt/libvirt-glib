@@ -75,7 +75,10 @@ GVirConfigDomainChardevSourcePty *gvir_config_domain_chardev_source_pty_new_from
      */
     object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_DOMAIN_CHARDEV_SOURCE_PTY,
                                              "dummy", NULL, xml, error);
-    gvir_config_object_set_attribute(object, "type", "pty", NULL);
+    if (g_strcmp0(gvir_config_object_get_attribute(object, NULL, "type"), "pty") != 0) {
+        g_object_unref(G_OBJECT(object));
+        g_return_val_if_reached(NULL);
+    }
     return GVIR_CONFIG_DOMAIN_CHARDEV_SOURCE_PTY(object);
 }
 

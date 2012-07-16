@@ -67,6 +67,9 @@ GVirConfigDomainTimerRtc *gvir_config_domain_timer_rtc_new_from_xml(const gchar 
 
     object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_DOMAIN_TIMER_RTC,
                                              "timer", NULL, xml, error);
-    gvir_config_object_set_attribute(object, "name", "rtc", NULL);
+    if (g_strcmp0(gvir_config_object_get_attribute(object, NULL, "type"), "rtc") != 0) {
+        g_object_unref(G_OBJECT(object));
+        g_return_val_if_reached(NULL);
+    }
     return GVIR_CONFIG_DOMAIN_TIMER_RTC(object);
 }

@@ -69,8 +69,9 @@ GVirConfigDomainInterfaceUser *gvir_config_domain_interface_user_new_from_xml(co
 
     object = gvir_config_object_new_from_xml(GVIR_CONFIG_TYPE_DOMAIN_INTERFACE_USER,
                                              "interface", NULL, xml, error);
-    if (object == NULL)
+    if (g_strcmp0(gvir_config_object_get_attribute(object, NULL, "type"), "user") != 0) {
+        g_object_unref(G_OBJECT(object));
         return NULL;
-    gvir_config_object_set_attribute(object, "type", "user", NULL);
+    }
     return GVIR_CONFIG_DOMAIN_INTERFACE_USER(object);
 }
