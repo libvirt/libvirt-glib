@@ -1,6 +1,15 @@
                  libvirt-glib News
                  =================
 
+0.1.0 - Jul 16, 2012
+====================
+
+- Add setters for capabilities CPU config object
+- Add constructor for capabilities CPU config object
+- Add config object for domain CPU schema
+- Add bindings for domain save APIs
+- Add bindings for storage volume upload/download
+
 0.0.9 - Jun 25, 2012
 ====================
 - Full API docs for libvirt-glib library
