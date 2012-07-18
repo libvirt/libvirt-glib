@@ -102,6 +102,20 @@ typedef enum {
     GVIR_DOMAIN_DELETE_SNAPSHOTS_METADATA = VIR_DOMAIN_UNDEFINE_SNAPSHOTS_METADATA,
 } GVirDomainDeleteFlags;
 
+/**
+ * GVirDomainXMLFlags:
+ * @GVIR_DOMAIN_XML_NONE: No flags
+ * @GVIR_DOMAIN_XML_SECURE: Dump security sensitive information too
+ * @GVIR_DOMAIN_XML_INACTIVE: Dump inactive domain information
+ * @GVIR_DOMAIN_XML_UPDATE_CPU: Update guest CPU requirements according to host CPU
+ */
+typedef enum {
+    GVIR_DOMAIN_XML_NONE            = 0,
+    GVIR_DOMAIN_XML_SECURE          = VIR_DOMAIN_XML_SECURE,
+    GVIR_DOMAIN_XML_INACTIVE        = VIR_DOMAIN_XML_INACTIVE,
+    GVIR_DOMAIN_XML_UPDATE_CPU      = VIR_DOMAIN_XML_UPDATE_CPU,
+} GVirDomainXMLFlags;
+
 typedef struct _GVirDomainInfo GVirDomainInfo;
 struct _GVirDomainInfo
 {

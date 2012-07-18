@@ -709,7 +709,7 @@ gboolean gvir_domain_save_to_file_finish(GVirDomain *dom,
 /**
  * gvir_domain_get_config:
  * @dom: the domain
- * @flags:  the flags
+ * @flags: the %GVirDomainXMLFlags flags
  *
  * Returns: (transfer full): the config. The returned object should be
  * unreffed with g_object_unref() when no longer needed.

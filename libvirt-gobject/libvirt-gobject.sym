@@ -175,4 +175,9 @@ LIBVIRT_GOBJECT_0.0.9 {
 	gvir_domain_start_finish;
 } LIBVIRT_GOBJECT_0.0.8;
 
+LIBVIRT_GOBJECT_0.1.1 {
+  global:
+	gvir_domain_xml_flags_get_type;
+} LIBVIRT_GOBJECT_0.0.9;
+
 # .... define new API here using predicted next version number ....
