@@ -177,6 +177,7 @@ LIBVIRT_GOBJECT_0.0.9 {
 
 LIBVIRT_GOBJECT_0.1.1 {
   global:
+	gvir_domain_shutdown_flags_get_type;
 	gvir_domain_xml_flags_get_type;
 } LIBVIRT_GOBJECT_0.0.9;
 

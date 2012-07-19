@@ -509,10 +509,10 @@ gboolean gvir_domain_delete(GVirDomain *dom,
 /**
  * gvir_domain_shutdown:
  * @dom: the domain
- * @flags:  the flags
+ * @flags:  the %GVirDomainShutdownFlags flags
  */
 gboolean gvir_domain_shutdown(GVirDomain *dom,
-                              guint flags G_GNUC_UNUSED,
+                              guint flags,
                               GError **err)
 {
     GVirDomainPrivate *priv;
@@ -521,7 +521,7 @@ gboolean gvir_domain_shutdown(GVirDomain *dom,
     g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
 
     priv = dom->priv;
-    if (virDomainShutdown(priv->handle) < 0) {
+    if (virDomainShutdownFlags(priv->handle, flags) < 0) {
         gvir_set_error_literal(err, GVIR_DOMAIN_ERROR,
                                0,
                                "Unable to shutdown domain");

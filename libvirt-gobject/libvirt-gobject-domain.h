@@ -116,6 +116,19 @@ typedef enum {
     GVIR_DOMAIN_XML_UPDATE_CPU      = VIR_DOMAIN_XML_UPDATE_CPU,
 } GVirDomainXMLFlags;
 
+/**
+ * GVirDomainShutdownFlags:
+ * @GVIR_DOMAIN_SHUTDOWN_NONE: No flags, hypervisor choice
+ * @GVIR_DOMAIN_SHUTDOWN_ACPI_POWER_BTN: Send ACPI event
+ * @GVIR_DOMAIN_SHUTDOWN_GUEST_AGENT: Use guest agent
+ *
+ */
+typedef enum {
+    GVIR_DOMAIN_SHUTDOWN_NONE           = 0,
+    GVIR_DOMAIN_SHUTDOWN_ACPI_POWER_BTN = VIR_DOMAIN_SHUTDOWN_ACPI_POWER_BTN,
+    GVIR_DOMAIN_SHUTDOWN_GUEST_AGENT    = VIR_DOMAIN_SHUTDOWN_GUEST_AGENT,
+} GVirDomainShutdownFlags;
+
 typedef struct _GVirDomainInfo GVirDomainInfo;
 struct _GVirDomainInfo
 {
