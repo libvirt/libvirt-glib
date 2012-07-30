@@ -446,6 +446,62 @@ gboolean gvir_domain_resume(GVirDomain *dom,
     return TRUE;
 }
 
+static void
+gvir_domain_resume_helper(GSimpleAsyncResult *res,
+                          GObject *object,
+                          GCancellable *cancellable G_GNUC_UNUSED)
+{
+    GVirDomain *dom = GVIR_DOMAIN(object);
+    GError *err = NULL;
+
+    if (!gvir_domain_resume(dom, &err))
+        g_simple_async_result_take_error(res, err);
+}
+
+/**
+ * gvir_domain_resume_async:
+ * @dom: the domain to resume
+ * @cancellable: (allow-none)(transfer none): cancellation object
+ * @callback: (scope async): completion callback
+ * @user_data: (closure): opaque data for callback
+ *
+ * Asynchronous variant of #gvir_domain_resume.
+ */
+void gvir_domain_resume_async(GVirDomain *dom,
+                              GCancellable *cancellable,
+                              GAsyncReadyCallback callback,
+                              gpointer user_data)
+{
+    GSimpleAsyncResult *res;
+
+    g_return_if_fail(GVIR_IS_DOMAIN(dom));
+    g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
+
+    res = g_simple_async_result_new(G_OBJECT(dom),
+                                    callback,
+                                    user_data,
+                                    gvir_domain_resume_async);
+    g_simple_async_result_run_in_thread(res,
+                                        gvir_domain_resume_helper,
+                                        G_PRIORITY_DEFAULT,
+                                        cancellable);
+    g_object_unref(res);
+}
+
+gboolean gvir_domain_resume_finish(GVirDomain *dom,
+                                   GAsyncResult *result,
+                                   GError **err)
+{
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
+    g_return_val_if_fail(g_simple_async_result_is_valid(result, G_OBJECT(dom), gvir_domain_resume_async), FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
+
+    if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result), err))
+        return FALSE;
+
+    return TRUE;
+}
+
 /**
  * gvir_domain_stop:
  * @dom: the domain
