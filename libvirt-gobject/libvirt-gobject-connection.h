@@ -202,6 +202,26 @@ gvir_connection_get_capabilities_finish(GVirConnection *conn,
                                         GAsyncResult *result,
                                         GError **err);
 
+gboolean
+gvir_connection_restore_domain_from_file(GVirConnection *conn,
+                                         gchar *filename,
+                                         GVirConfigDomain *custom_conf,
+                                         guint flags,
+                                         GError **err);
+
+void
+gvir_connection_restore_domain_from_file_async(GVirConnection *conn,
+                                               gchar *filename,
+                                               GVirConfigDomain *custom_conf,
+                                               guint flags,
+                                               GCancellable *cancellable,
+                                               GAsyncReadyCallback callback,
+                                               gpointer user_data);
+
+gboolean
+gvir_connection_restore_domain_from_file_finish(GVirConnection *conn,
+                                                GAsyncResult *result,
+                                                GError **err);
 G_END_DECLS
 
 #endif /* __LIBVIRT_GOBJECT_CONNECTION_H__ */

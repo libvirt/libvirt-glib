@@ -1605,3 +1605,168 @@ gvir_connection_get_capabilities_finish(GVirConnection *conn,
 
     return g_object_ref(caps);
 }
+
+/**
+ * gvir_connection_restore_domain_from_file:
+ * @conn: a #GVirConnection
+ * @filename: path to input file
+ * @custom_conf: (allow-none): configuration for domain or NULL
+ * @flags: the flags
+ *
+ * Restores the domain saved with #gvir_domain_save_to_file
+ *
+ * Returns: TRUE on success, FALSE otherwise
+ */
+gboolean gvir_connection_restore_domain_from_file(GVirConnection *conn,
+                                                  gchar *filename,
+                                                  GVirConfigDomain *custom_conf,
+                                                  guint flags,
+                                                  GError **err)
+{
+    GVirConnectionPrivate *priv;
+    int ret;
+
+    g_return_val_if_fail(GVIR_IS_CONNECTION(conn), FALSE);
+    g_return_val_if_fail((filename != NULL), FALSE);
+    g_return_val_if_fail((err == NULL) || (*err == NULL), FALSE);
+
+    priv = conn->priv;
+
+    if (flags || (custom_conf != NULL)) {
+        gchar *custom_xml = NULL;
+
+       if (custom_conf != NULL)
+           custom_xml = gvir_config_object_to_xml(GVIR_CONFIG_OBJECT(custom_conf));
+
+       ret = virDomainRestoreFlags(priv->conn, filename, custom_xml, flags);
+       g_free (custom_xml);
+    }
+    else {
+       ret = virDomainRestore(priv->conn, filename);
+    }
+
+    if (ret < 0) {
+        gvir_set_error_literal(err, GVIR_CONNECTION_ERROR,
+                              0,
+                              "Unable to restore domain");
+
+       return FALSE;
+    }
+
+    return TRUE;
+}
+
+typedef struct {
+    gchar *filename;
+    GVirConfigDomain *custom_conf;
+    guint flags;
+} RestoreDomainFromFileData;
+
+static void restore_domain_from_file_data_free(RestoreDomainFromFileData *data)
+{
+    g_free(data->filename);
+    g_clear_object(&data->custom_conf);
+    g_slice_free(RestoreDomainFromFileData, data);
+}
+
+static void
+gvir_connection_restore_domain_from_file_helper
+                               (GSimpleAsyncResult *res,
+                                GObject *object,
+                                GCancellable *cancellable G_GNUC_UNUSED)
+{
+    GVirConnection *conn = GVIR_CONNECTION(object);
+    RestoreDomainFromFileData *data;
+    GError *err = NULL;
+
+    data = g_simple_async_result_get_op_res_gpointer(res);
+
+    if (!gvir_connection_restore_domain_from_file(conn,
+                                                  data->filename,
+                                                  data->custom_conf,
+                                                  data->flags,
+                                                  &err))
+       g_simple_async_result_take_error(res, err);
+}
+
+/**
+ * gvir_connection_restore_domain_from_file_async:
+ * @conn: a #GVirConnection
+ * @filename: path to input file
+ * @custom_conf: (allow-none): configuration for domain
+ * @flags: the flags
+ * @cancellable: (allow-none) (transfer none): cancellation object
+ * @callback: (scope async): completion callback
+ * @user_data: (closure): opaque data for callback
+ *
+ * Asynchronous variant of #gvir_connection_restore_domain_from_file
+ */
+void
+gvir_connection_restore_domain_from_file_async(GVirConnection *conn,
+                                               gchar *filename,
+                                               GVirConfigDomain *custom_conf,
+                                               guint flags,
+                                               GCancellable *cancellable,
+                                               GAsyncReadyCallback callback,
+                                               gpointer user_data)
+{
+    GSimpleAsyncResult *res;
+    RestoreDomainFromFileData *data;
+
+    g_return_if_fail(GVIR_IS_CONNECTION(conn));
+    g_return_if_fail(filename != NULL);
+    g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
+
+    data = g_slice_new0(RestoreDomainFromFileData);
+    data->filename = g_strdup(filename);
+    if (custom_conf != NULL)
+        data->custom_conf = g_object_ref(custom_conf);
+    data->flags = flags;
+
+    res = g_simple_async_result_new
+                         (G_OBJECT(conn),
+                          callback,
+                          user_data,
+                          gvir_connection_restore_domain_from_file_async);
+    g_simple_async_result_set_op_res_gpointer
+                          (res,
+                           data,
+                           (GDestroyNotify)restore_domain_from_file_data_free);
+
+    g_simple_async_result_run_in_thread
+                          (res,
+                           gvir_connection_restore_domain_from_file_helper,
+                           G_PRIORITY_DEFAULT,
+                           cancellable);
+
+    g_object_unref(res);
+}
+
+/**
+ * gvir_connection_restore_domain_from_file_finish:
+ * @conn: a #GVirConnection
+ * @result: (transfer none): async method result
+ * @err: Place-holder for possible errors
+ *
+ * Finishes the operation started by #gvir_restore_domain_from_file_async.
+ *
+ * Returns: TRUE if domain was restored successfully, FALSE otherwise.
+ */
+gboolean
+gvir_connection_restore_domain_from_file_finish(GVirConnection *conn,
+                                                GAsyncResult *result,
+                                                GError **err)
+{
+    g_return_val_if_fail(GVIR_IS_CONNECTION(conn), FALSE);
+    g_return_val_if_fail(g_simple_async_result_is_valid
+                           (result,
+                            G_OBJECT(conn),
+                            gvir_connection_restore_domain_from_file_async),
+                            FALSE);
+
+     if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result),
+                                               err))
+         return FALSE;
+
+    return TRUE;
+}

@@ -171,6 +171,10 @@ LIBVIRT_GOBJECT_0.0.9 {
 	gvir_connection_get_capabilities_async;
 	gvir_connection_get_capabilities_finish;
 
+	gvir_connection_restore_domain_from_file;
+	gvir_connection_restore_domain_from_file_async;
+	gvir_conecction_restore_domain_from_file_finish;
+
 	gvir_domain_start_async;
 	gvir_domain_start_finish;
 } LIBVIRT_GOBJECT_0.0.8;
