@@ -1273,3 +1273,55 @@ GList *gvir_domain_get_devices(GVirDomain *domain,
 
     return g_list_reverse (ret);
 }
+
+/**
+ * gvir_domain_create_snapshot:
+ * @dom: the domain
+ * @custom_conf: (allow-none): configuration of snapshot or NULL
+ * @flags: the flags
+ * @err: (allow-none):Place-holder for error or NULL
+ *
+ * Returns: (transfer full): snapshot of domain. The returned object should be
+ * unreffed when no longer needed
+ */
+GVirDomainSnapshot *
+gvir_domain_create_snapshot(GVirDomain *dom,
+                             GVirConfigDomainSnapshot *custom_conf,
+                             guint flags,
+                             GError **err)
+{
+    GVirDomainPrivate *priv;
+    virDomainSnapshot *snapshot;
+    GVirDomainSnapshot *dom_snapshot;
+    gchar *custom_xml = NULL;
+
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, NULL);
+
+    priv = dom->priv;
+
+    if (custom_conf != NULL)
+        custom_xml = gvir_config_object_to_xml(GVIR_CONFIG_OBJECT(custom_conf));
+
+    if (!(snapshot = virDomainSnapshotCreateXML(priv->handle,
+                                                custom_xml,
+                                                flags))) {
+        const gchar *domain_name = NULL;
+        domain_name = gvir_domain_get_name(dom);
+
+        gvir_set_error(err, GVIR_DOMAIN_ERROR,
+                       0,
+                      "Unable to create snapshot of %s", domain_name);
+
+        g_free(custom_xml);
+        return NULL;
+    }
+
+    dom_snapshot = GVIR_DOMAIN_SNAPSHOT(g_object_new(GVIR_TYPE_DOMAIN_SNAPSHOT,
+                                                     "handle",
+                                                     snapshot,
+                                                     NULL));
+
+    g_free(custom_xml);
+    return dom_snapshot;
+}

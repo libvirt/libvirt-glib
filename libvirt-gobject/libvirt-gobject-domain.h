@@ -31,6 +31,7 @@ G_BEGIN_DECLS
 
 #include <libvirt-gobject/libvirt-gobject-stream.h>
 #include <libvirt/libvirt.h>
+#include <libvirt-gobject/libvirt-gobject-domain-snapshot.h>
 
 #define GVIR_TYPE_DOMAIN            (gvir_domain_get_type ())
 #define GVIR_DOMAIN(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), GVIR_TYPE_DOMAIN, GVirDomain))
@@ -246,6 +247,12 @@ gboolean gvir_domain_get_saved(GVirDomain *dom);
 
 GList *gvir_domain_get_devices(GVirDomain *domain,
                                GError **err);
+
+GVirDomainSnapshot *
+gvir_domain_create_snapshot(GVirDomain *dom,
+                            GVirConfigDomainSnapshot *custom_conf,
+                            guint flags,
+                            GError **err);
 
 G_END_DECLS
 

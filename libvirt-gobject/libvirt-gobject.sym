@@ -183,6 +183,8 @@ LIBVIRT_GOBJECT_0.1.1 {
   global:
 	gvir_domain_shutdown_flags_get_type;
 	gvir_domain_xml_flags_get_type;
+
+	gvir_domain_create_snapshot;
 } LIBVIRT_GOBJECT_0.0.9;
 
 # .... define new API here using predicted next version number ....
