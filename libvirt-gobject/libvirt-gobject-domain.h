@@ -130,6 +130,31 @@ typedef enum {
     GVIR_DOMAIN_SHUTDOWN_GUEST_AGENT    = VIR_DOMAIN_SHUTDOWN_GUEST_AGENT,
 } GVirDomainShutdownFlags;
 
+/**
+ * GVirDomainSnapshotCreateFlags:
+ * @GVIR_DOMAIN_SNAPSHOT_NONE: No flags
+ * @GVIR_DOMAIN_SNAPSHOT_REDEFINE: Restore or alter metadata
+ * @GVIR_DOMAIN_SNAPSHOT_CURRENT: With redefine, make snapshot current
+ * @GVIR_DOMAIN_SNAPSHOT_NO_METADATA: Make snapshot without remembering it
+ * @GVIR_DOMAIN_SNAPSHOT_HALT: Stop running guest after snapshot
+ * @GVIR_DOMAIN_SNAPSHOT_DISK_ONLY: Disk snapshot, not system checkpoint
+ * @GVIR_DOMAIN_SNAPSHOT_REUSE_EXT: Reuse any existing external files
+ * @GVIR_DOMAIN_SNAPSHOT_QUIESCE: Use guest agent to quiesce all mounter
+ *                                file systems within the domain
+ * @GVIR_DOMAIN_SNAPSHOT_ATOMIC: Atomically avoid partial changes
+ */
+typedef enum {
+    GVIR_DOMAIN_SNAPSHOT_NONE         = 0,
+    GVIR_DOMAIN_SNAPSHOT_REDEFINE     = VIR_DOMAIN_SNAPSHOT_CREATE_REDEFINE,
+    GVIR_DOMAIN_SNAPSHOT_CURRENT      = VIR_DOMAIN_SNAPSHOT_CREATE_CURRENT,
+    GVIR_DOMAIN_SNAPSHOT_NO_METADATA  = VIR_DOMAIN_SNAPSHOT_CREATE_NO_METADATA,
+    GVIR_DOMAIN_SNAPSHOT_HALT         = VIR_DOMAIN_SNAPSHOT_CREATE_HALT,
+    GVIR_DOMAIN_SNAPSHOT_DISK_ONLY    = VIR_DOMAIN_SNAPSHOT_CREATE_DISK_ONLY,
+    GVIR_DOMAIN_SNAPSHOT_REUSE_EXT    = VIR_DOMAIN_SNAPSHOT_CREATE_REUSE_EXT,
+    GVIR_DOMAIN_SNAPSHOT_QUIESCE      = VIR_DOMAIN_SNAPSHOT_CREATE_QUIESCE,
+    GVIR_DOMAIN_SNAPSHOT_ATOMIC       = VIR_DOMAIN_SNAPSHOT_CREATE_ATOMIC,
+} GVirDomainSnapshotCreateFlags;
+
 typedef struct _GVirDomainInfo GVirDomainInfo;
 struct _GVirDomainInfo
 {

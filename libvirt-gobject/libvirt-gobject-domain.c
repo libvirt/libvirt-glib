@@ -1278,7 +1278,7 @@ GList *gvir_domain_get_devices(GVirDomain *domain,
  * gvir_domain_create_snapshot:
  * @dom: the domain
  * @custom_conf: (allow-none): configuration of snapshot or NULL
- * @flags: the flags
+ * @flags: bitwise-OR of #GVirDomainSnapshotCreateFlags
  * @err: (allow-none):Place-holder for error or NULL
  *
  * Returns: (transfer full): snapshot of domain. The returned object should be
