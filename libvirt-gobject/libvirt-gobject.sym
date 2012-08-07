@@ -181,13 +181,17 @@ LIBVIRT_GOBJECT_0.0.9 {
 
 LIBVIRT_GOBJECT_0.1.1 {
   global:
-	gvir_domain_resume_async;
-	gvir_domain_resume_finish;
 	gvir_domain_shutdown_flags_get_type;
 	gvir_domain_snapshot_create_flags_get_type;
 	gvir_domain_xml_flags_get_type;
 
 	gvir_domain_create_snapshot;
 } LIBVIRT_GOBJECT_0.0.9;
+
+LIBVIRT_GOBJECT_0.1.2 {
+  global:
+	gvir_domain_resume_async;
+	gvir_domain_resume_finish;
+} LIBVIRT_GOBJECT_0.1.1;
 
 # .... define new API here using predicted next version number ....
