@@ -384,7 +384,7 @@ gboolean gvir_storage_vol_download(GVirStorageVol *vol,
         gvir_set_error_literal(err,
                                GVIR_STORAGE_VOL_ERROR,
                                0,
-                               "Unable to downlaod volume storage");
+                               "Unable to download volume storage");
 
         goto cleanup;
     }
