@@ -319,7 +319,8 @@ gssize gvir_stream_receive(GVirStream *self,
     got = virStreamRecv(self->priv->handle, buffer, size);
 
     if (got == -2) {  /* blocking */
-        g_set_error(error, G_IO_ERROR, G_IO_ERROR_WOULD_BLOCK, NULL);
+        g_set_error_literal(error, G_IO_ERROR, G_IO_ERROR_WOULD_BLOCK,
+                            "virStreamRecv call would block");
     } else if (got < 0) {
         g_set_error(error, G_IO_ERROR, G_IO_ERROR_INVALID_ARGUMENT,
                     "Got virStreamRecv error in %s", G_STRFUNC);
@@ -435,7 +436,8 @@ gssize gvir_stream_send(GVirStream *self,
     got = virStreamSend(self->priv->handle, buffer, size);
 
     if (got == -2) {  /* blocking */
-        g_set_error(error, G_IO_ERROR, G_IO_ERROR_WOULD_BLOCK, NULL);
+        g_set_error_literal(error, G_IO_ERROR, G_IO_ERROR_WOULD_BLOCK,
+                            "virStreamSend call would block");
     } else if (got < 0) {
         g_set_error(error, G_IO_ERROR, G_IO_ERROR_INVALID_ARGUMENT,
                     "Got virStreamRecv error in %s", G_STRFUNC);
