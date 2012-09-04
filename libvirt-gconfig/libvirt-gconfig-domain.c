@@ -43,7 +43,8 @@ enum {
     PROP_DESCRIPTION,
     PROP_MEMORY,
     PROP_VCPU,
-    PROP_FEATURES
+    PROP_FEATURES,
+    PROP_CURRENT_MEMORY
 };
 
 static void gvir_config_domain_get_property(GObject *object,
@@ -65,6 +66,9 @@ static void gvir_config_domain_get_property(GObject *object,
         break;
     case PROP_MEMORY:
         g_value_set_uint64(value, gvir_config_domain_get_memory(domain));
+        break;
+    case PROP_CURRENT_MEMORY:
+        g_value_set_uint64(value, gvir_config_domain_get_current_memory(domain));
         break;
     case PROP_VCPU:
         g_value_set_uint64(value, gvir_config_domain_get_vcpus(domain));
@@ -97,6 +101,9 @@ static void gvir_config_domain_set_property(GObject *object,
         break;
     case PROP_MEMORY:
         gvir_config_domain_set_memory(domain, g_value_get_uint64(value));
+        break;
+    case PROP_CURRENT_MEMORY:
+        gvir_config_domain_set_current_memory(domain, g_value_get_uint64(value));
         break;
     case PROP_VCPU:
         gvir_config_domain_set_vcpus(domain, g_value_get_uint64(value));
@@ -148,6 +155,15 @@ static void gvir_config_domain_class_init(GVirConfigDomainClass *klass)
                                     g_param_spec_uint64("memory",
                                                         "Memory",
                                                         "Maximum Guest Memory (in kilobytes)",
+                                                        0, G_MAXUINT64,
+                                                        0,
+                                                        G_PARAM_READWRITE |
+                                                        G_PARAM_STATIC_STRINGS));
+    g_object_class_install_property(object_class,
+                                    PROP_CURRENT_MEMORY,
+                                    g_param_spec_uint64("current-memory",
+                                                        "Current memory",
+                                                        "Current Guest Memory (in kilobytes)",
                                                         0, G_MAXUINT64,
                                                         0,
                                                         G_PARAM_READWRITE |
@@ -361,6 +377,27 @@ guint64 gvir_config_domain_get_memory(GVirConfigDomain *domain)
 }
 
 /**
+ * gvir_config_domain_get_current_memory:
+ * @domain: a #GVirConfigDomain
+ *
+ * Returns: current amount of RAM in kilobytes (i.e. blocks of 1024 bytes).
+ */
+guint64 gvir_config_domain_get_current_memory(GVirConfigDomain *domain)
+{
+    const char *unit;
+    guint64 unit_base;
+    guint64 memory;
+
+    unit = gvir_config_object_get_attribute(GVIR_CONFIG_OBJECT(domain), "currentMemory", "unit");
+    unit_base = get_unit_base(unit, 1024);
+
+    memory = gvir_config_object_get_node_content_uint64(GVIR_CONFIG_OBJECT(domain),
+                                                        "currentMemory");
+
+    return memory * unit_base / 1024;
+}
+
+/**
  * gvir_config_domain_set_memory:
  * @domain: a #GVirConfigDomain
  * @memory: The maximum amount of RAM in kilobytes.
@@ -378,6 +415,31 @@ void gvir_config_domain_set_memory(GVirConfigDomain *domain, guint64 memory)
                                      "unit", "KiB",
                                      NULL);
     g_object_notify(G_OBJECT(domain), "memory");
+}
+
+/**
+ * gvir_config_domain_set_current_memory:
+ * @domain: a #GVirConfigDomain
+ * @memory: The current amount of RAM in kilobytes.
+ *
+ * Sets the current amount of RAM allocated to @domain in kilobytes (i.e.
+ * blocks of 1024 bytes). This can be set to less than the maximum domain
+ * memory to allow to balloon the guest memory on the fly. Be aware that
+ * libvirt will set it automatically if it's not explictly set, which means
+ * you may need to set this value in addition to 'memory' if you want to
+ * change the available domain memory after creation.
+ */
+void gvir_config_domain_set_current_memory(GVirConfigDomain *domain,
+                                           guint64 memory)
+{
+    GVirConfigObject *node;
+
+    node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(domain), "currentMemory");
+    gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(node), NULL, memory);
+    gvir_config_object_set_attribute(GVIR_CONFIG_OBJECT(node),
+                                     "unit", "KiB",
+                                     NULL);
+    g_object_notify(G_OBJECT(domain), "current-memory");
 }
 
 guint64 gvir_config_domain_get_vcpus(GVirConfigDomain *domain)

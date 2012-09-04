@@ -460,4 +460,10 @@ LIBVIRT_GCONFIG_0.1.0 {
 	gvir_config_domain_cpu_feature_set_policy;
 } LIBVIRT_GCONFIG_0.0.9;
 
+LIBVIRT_GCONFIG_0.1.3 {
+  global:
+	gvir_config_domain_get_current_memory;
+	gvir_config_domain_set_current_memory;
+} LIBVIRT_GCONFIG_0.1.0;
+
 # .... define new API here using predicted next version number ....
