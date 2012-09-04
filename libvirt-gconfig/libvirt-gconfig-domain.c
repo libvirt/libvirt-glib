@@ -275,11 +275,68 @@ const char *gvir_config_domain_get_description(GVirConfigDomain *domain)
  * @domain: a #GVirConfigDomain
  * @description: (allow-none):
  */
-void gvir_config_domain_set_description(GVirConfigDomain *domain, const char *description)
+void gvir_config_domain_set_description(GVirConfigDomain *domain,
+                                        const char *description)
 {
     gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(domain),
                                         "description", description);
     g_object_notify(G_OBJECT(domain), "description");
+}
+
+static void insert_base(GHashTable *unit_bases,
+                        const char *unit,
+                        guint64 unit_base)
+{
+    guint64 *base;
+    base = g_slice_alloc(sizeof(*base));
+    *base = unit_base;
+    g_hash_table_insert(unit_bases, (gpointer)unit, base);
+}
+
+static gpointer set_unit_bases(G_GNUC_UNUSED gpointer user_data)
+{
+    GHashTable *unit_bases;
+
+    unit_bases = g_hash_table_new(g_str_hash, g_str_equal);
+
+    insert_base(unit_bases, "b", 1);
+    insert_base(unit_bases, "bytes", 1);
+    insert_base(unit_bases, "KB", 1000);
+    insert_base(unit_bases, "k", 1024);
+    insert_base(unit_bases, "KiB", 1024);
+    insert_base(unit_bases, "MB", 1000*1000);
+    insert_base(unit_bases, "M", 1024*1024);
+    insert_base(unit_bases, "MiB", 1024*1024);
+    insert_base(unit_bases, "GB", 1000*1000*1000);
+    insert_base(unit_bases, "G", 1024*1024*1024);
+    insert_base(unit_bases, "GiB", 1024*1024*1024);
+    insert_base(unit_bases, "TB", (guint64)1000*1000*1000*1000);
+    insert_base(unit_bases, "T", (guint64)1024*1024*1024*1024);
+    insert_base(unit_bases, "TiB", (guint64)1024*1024*1024*1024);
+
+    return unit_bases;
+}
+
+static guint64 get_unit_base(const char *unit, guint64 default_base)
+{
+    static GOnce set_unit_bases_once = G_ONCE_INIT;
+    GHashTable *unit_bases;
+    guint64 *unit_base;
+
+    if (unit == NULL) {
+        return default_base;
+    }
+
+    unit_bases = g_once (&set_unit_bases_once, set_unit_bases, &unit_bases);
+    g_return_val_if_fail (unit_bases != NULL, default_base);
+
+    unit_base = g_hash_table_lookup(unit_bases, unit);
+    if (unit_base == NULL) {
+        /* unknown unit, fall back to the default unit */
+        g_return_val_if_reached(default_base);
+    }
+
+    return *unit_base;
 }
 
 /**
@@ -290,8 +347,17 @@ void gvir_config_domain_set_description(GVirConfigDomain *domain, const char *de
  */
 guint64 gvir_config_domain_get_memory(GVirConfigDomain *domain)
 {
-    return gvir_config_object_get_node_content_uint64(GVIR_CONFIG_OBJECT(domain),
-                                                      "memory");
+    const char *unit;
+    guint64 unit_base;
+    guint64 memory;
+
+    unit = gvir_config_object_get_attribute(GVIR_CONFIG_OBJECT(domain), "memory", "unit");
+    unit_base = get_unit_base(unit, 1024);
+
+    memory = gvir_config_object_get_node_content_uint64(GVIR_CONFIG_OBJECT(domain),
+                                                        "memory");
+
+    return memory * unit_base / 1024;
 }
 
 /**
@@ -304,8 +370,13 @@ guint64 gvir_config_domain_get_memory(GVirConfigDomain *domain)
  */
 void gvir_config_domain_set_memory(GVirConfigDomain *domain, guint64 memory)
 {
-    gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(domain),
-                                               "memory", memory);
+    GVirConfigObject *node;
+
+    node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(domain), "memory");
+    gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(node), NULL, memory);
+    gvir_config_object_set_attribute(GVIR_CONFIG_OBJECT(node),
+                                     "unit", "KiB",
+                                     NULL);
     g_object_notify(G_OBJECT(domain), "memory");
 }
 
