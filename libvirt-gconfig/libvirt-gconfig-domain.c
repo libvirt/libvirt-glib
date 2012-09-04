@@ -286,7 +286,7 @@ void gvir_config_domain_set_description(GVirConfigDomain *domain, const char *de
  * gvir_config_domain_get_memory:
  * @domain: a #GVirConfigDomain
  *
- * Returns: amount of RAM in kilobytes (i.e. blocks of 1024 bytes).
+ * Returns: maximum amount of RAM in kilobytes (i.e. blocks of 1024 bytes).
  */
 guint64 gvir_config_domain_get_memory(GVirConfigDomain *domain)
 {
@@ -297,9 +297,10 @@ guint64 gvir_config_domain_get_memory(GVirConfigDomain *domain)
 /**
  * gvir_config_domain_set_memory:
  * @domain: a #GVirConfigDomain
- * @memory: The amount of RAM in kilobytes.
+ * @memory: The maximum amount of RAM in kilobytes.
  *
- * Sets the amount of RAM allocated to @domain in kilobytes (i.e. blocks of 1024 bytes).
+ * Sets the maximum amount of RAM allocated to @domain in kilobytes (i.e.
+ * blocks of 1024 bytes).
  */
 void gvir_config_domain_set_memory(GVirConfigDomain *domain, guint64 memory)
 {
