@@ -465,6 +465,8 @@ LIBVIRT_GCONFIG_0.1.3 {
 	gvir_config_domain_get_current_memory;
 	gvir_config_domain_set_current_memory;
 
+	gvir_config_domain_graphics_vnc_get_port;
+	gvir_config_domain_graphics_vnc_get_socket;
 	gvir_config_domain_graphics_vnc_set_socket;
 } LIBVIRT_GCONFIG_0.1.0;
 

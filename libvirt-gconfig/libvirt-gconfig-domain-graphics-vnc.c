@@ -76,6 +76,14 @@ gvir_config_domain_graphics_vnc_new_from_xml(const gchar *xml,
 }
 
 
+const char *gvir_config_domain_graphics_vnc_get_socket(GVirConfigDomainGraphicsVnc *graphics)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_GRAPHICS_VNC(graphics), NULL);
+
+    return gvir_config_object_get_attribute(GVIR_CONFIG_OBJECT(graphics),
+                                            NULL, "socket");
+}
+
 void gvir_config_domain_graphics_vnc_set_socket(GVirConfigDomainGraphicsVnc *graphics,
                                                 const char *socket)
 {
@@ -94,6 +102,14 @@ void gvir_config_domain_graphics_vnc_set_autoport(GVirConfigDomainGraphicsVnc *g
     gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(graphics),
                                                "autoport", G_TYPE_BOOLEAN, autoport,
                                                NULL);
+}
+
+int gvir_config_domain_graphics_vnc_get_port(GVirConfigDomainGraphicsVnc *graphics)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_GRAPHICS_VNC(graphics), 0);
+
+    return gvir_config_object_get_attribute_uint64(GVIR_CONFIG_OBJECT(graphics),
+                                                   NULL, "port", 0);
 }
 
 void gvir_config_domain_graphics_vnc_set_port(GVirConfigDomainGraphicsVnc *graphics,
