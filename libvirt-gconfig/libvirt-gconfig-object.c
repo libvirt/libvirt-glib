@@ -534,7 +534,6 @@ gvir_config_object_set_node_content(GVirConfigObject *object,
     GVirConfigObject *node;
 
     g_return_if_fail(GVIR_CONFIG_IS_OBJECT(object));
-    g_return_if_fail(node_name != NULL);
 
     if (value == NULL) {
         gvir_config_object_delete_child(object, node_name, NULL);
@@ -542,8 +541,12 @@ gvir_config_object_set_node_content(GVirConfigObject *object,
         return;
     }
 
-    node = gvir_config_object_replace_child(object, node_name);
-    g_return_if_fail(node != NULL);
+    if (node_name != NULL) {
+        node = gvir_config_object_replace_child(object, node_name);
+        g_return_if_fail(node != NULL);
+    } else {
+        node = g_object_ref(G_OBJECT(object));
+    }
     encoded_data = xmlEncodeEntitiesReentrant(node->priv->node->doc,
                                               (xmlChar *)value);
     xmlNodeSetContent(node->priv->node, encoded_data);
@@ -559,7 +562,6 @@ gvir_config_object_set_node_content_uint64(GVirConfigObject *object,
     char *str;
 
     g_return_if_fail(GVIR_CONFIG_IS_OBJECT(object));
-    g_return_if_fail(node_name != NULL);
 
     str = g_strdup_printf("%"G_GUINT64_FORMAT, value);
     gvir_config_object_set_node_content(object, node_name, str);
