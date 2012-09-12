@@ -32,10 +32,13 @@ do_connection_open(GObject *source,
     GVirConnection *conn = GVIR_CONNECTION(source);
     GError *err = NULL;
     gchar *hv_name = NULL;
+    gulong hv_version = 0;
+    guint major, minor, micro;
 
     if (!gvir_connection_open_finish(conn, res, &err)) {
         g_error("%s", err->message);
     }
+
     g_print("Connected to libvirt\n");
 
     if (!(hv_name = gvir_connection_get_hypervisor_name(conn, &err))) {
@@ -43,6 +46,16 @@ do_connection_open(GObject *source,
     }
 
     g_print("Hypervisor name: %s\n", hv_name);
+
+    if (!(hv_version = gvir_connection_get_version(conn, &err))) {
+        g_error("%s", err->message);
+    }
+
+    major = hv_version / 1000000;
+    hv_version %= 1000000;
+    minor = hv_version / 1000;
+    micro = hv_version % 1000;
+    g_print("Hypervisor version: %u.%u.%u\n", major, minor, micro);
 
     g_free(hv_name);
     g_object_unref(conn);

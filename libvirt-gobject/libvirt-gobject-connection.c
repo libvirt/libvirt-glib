@@ -1066,6 +1066,41 @@ cleanup:
     return ret;
 }
 
+/**
+ * gvir_connection_get_version:
+ * @conn: a #GVirConnection
+ * @err: return location for any #GError
+ *
+ * Get version of current hypervisor used.
+ *
+ * Return value: version on success, 0 otherwise and @err set.
+ */
+gulong
+gvir_connection_get_version(GVirConnection *conn,
+                            GError **err)
+{
+    GVirConnectionPrivate *priv;
+    gulong ret = 0;
+
+    g_return_val_if_fail(GVIR_IS_CONNECTION(conn), FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, 0);
+
+    priv = conn->priv;
+    if (!priv->conn) {
+        g_set_error_literal(err, GVIR_CONNECTION_ERROR, 0,
+                            "Connection is not opened");
+        goto cleanup;
+    }
+
+    if (virConnectGetVersion(priv->conn, &ret) < 0) {
+        gvir_set_error_literal(err, GVIR_CONNECTION_ERROR, 0,
+                               "Unable to get hypervisor version");
+    }
+
+cleanup:
+    return ret;
+}
+
 static void gvir_domain_ref(gpointer obj, gpointer ignore G_GNUC_UNUSED)
 {
     g_object_ref(obj);
