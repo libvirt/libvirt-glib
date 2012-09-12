@@ -112,6 +112,8 @@ gboolean gvir_connection_fetch_domains_finish(GVirConnection *conn,
 
 const gchar *gvir_connection_get_uri(GVirConnection *conn);
 
+gchar *gvir_connection_get_hypervisor_name(GVirConnection *conn,
+                                           GError **err);
 
 GList *gvir_connection_get_domains(GVirConnection *conn);
 GVirDomain *gvir_connection_get_domain(GVirConnection *conn,

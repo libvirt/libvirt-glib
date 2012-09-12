@@ -194,4 +194,9 @@ LIBVIRT_GOBJECT_0.1.2 {
 	gvir_domain_resume_finish;
 } LIBVIRT_GOBJECT_0.1.1;
 
+LIBVIRT_GOBJECT_0.1.3 {
+  global:
+    gvir_connection_get_hypervisor_name;
+} LIBVIRT_GOBJECT_0.1.2;
+
 # .... define new API here using predicted next version number ....

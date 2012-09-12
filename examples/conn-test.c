@@ -31,11 +31,20 @@ do_connection_open(GObject *source,
 {
     GVirConnection *conn = GVIR_CONNECTION(source);
     GError *err = NULL;
+    gchar *hv_name = NULL;
 
     if (!gvir_connection_open_finish(conn, res, &err)) {
         g_error("%s", err->message);
     }
     g_print("Connected to libvirt\n");
+
+    if (!(hv_name = gvir_connection_get_hypervisor_name(conn, &err))) {
+        g_error("%s", err->message);
+    }
+
+    g_print("Hypervisor name: %s\n", hv_name);
+
+    g_free(hv_name);
     g_object_unref(conn);
 }
 

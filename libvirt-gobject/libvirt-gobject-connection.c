@@ -1025,6 +1025,47 @@ const gchar *gvir_connection_get_uri(GVirConnection *conn)
     return conn->priv->uri;
 }
 
+/**
+ * gvir_connection_get_hypervisor_name:
+ * @conn: a #GVirConnection
+ * @err: return location for any #GError
+ *
+ * Get name of current hypervisor used.
+ *
+ * Return value: new string that should be freed when no longer needed,
+ * or NULL upon error.
+ */
+gchar *
+gvir_connection_get_hypervisor_name(GVirConnection *conn,
+                                    GError **err)
+{
+    GVirConnectionPrivate *priv;
+    gchar *ret = NULL;
+    const char *type;
+
+    g_return_val_if_fail(GVIR_IS_CONNECTION(conn), NULL);
+    g_return_val_if_fail(err == NULL || *err == NULL, NULL);
+
+    priv = conn->priv;
+    if (!priv->conn) {
+        g_set_error_literal(err, GVIR_CONNECTION_ERROR, 0,
+                            "Connection is not opened");
+        goto cleanup;
+    }
+
+    type = virConnectGetType(priv->conn);
+    if (!type) {
+        gvir_set_error_literal(err, GVIR_CONNECTION_ERROR, 0,
+                               "Unable to get hypervisor name");
+        goto cleanup;
+    }
+
+    ret = g_strdup(type);
+
+cleanup:
+    return ret;
+}
+
 static void gvir_domain_ref(gpointer obj, gpointer ignore G_GNUC_UNUSED)
 {
     g_object_ref(obj);
