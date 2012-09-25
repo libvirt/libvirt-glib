@@ -95,6 +95,14 @@ void gvir_config_domain_graphics_spice_set_password(GVirConfigDomainGraphicsSpic
                                      NULL);
 }
 
+int gvir_config_domain_graphics_spice_get_port(GVirConfigDomainGraphicsSpice *graphics)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_GRAPHICS_SPICE(graphics), 0);
+
+    return gvir_config_object_get_attribute_uint64(GVIR_CONFIG_OBJECT(graphics),
+                                                   NULL, "port", 0);
+}
+
 void gvir_config_domain_graphics_spice_set_port(GVirConfigDomainGraphicsSpice *graphics,
                                                 int port)
 {

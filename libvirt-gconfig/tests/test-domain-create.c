@@ -287,6 +287,7 @@ int main(int argc, char **argv)
 
     graphics = gvir_config_domain_graphics_spice_new();
     gvir_config_domain_graphics_spice_set_port(graphics, 1234);
+    g_assert(gvir_config_domain_graphics_spice_get_port(graphics) == 1234);
     devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(graphics));
 
     /* video node */
