@@ -62,6 +62,9 @@ GVirConfigDomainGraphicsVnc *gvir_config_domain_graphics_vnc_new(void);
 GVirConfigDomainGraphicsVnc *gvir_config_domain_graphics_vnc_new_from_xml(const gchar *xml,
                                                                           GError **error);
 
+void gvir_config_domain_graphics_vnc_set_socket(GVirConfigDomainGraphicsVnc *graphics,
+                                                const char *socket);
+
 void gvir_config_domain_graphics_vnc_set_autoport(GVirConfigDomainGraphicsVnc *graphics,
                                                   gboolean autoport);
 
