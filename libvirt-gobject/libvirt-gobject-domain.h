@@ -66,19 +66,22 @@ struct _GVirDomainClass
     void (*resumed)(GVirDomain *dom);
     void (*updated)(GVirDomain *dom);
     void (*suspended)(GVirDomain *dom);
+    void (*pmsuspended)(GVirDomain *dom);
 
-    gpointer padding[20];
+    gpointer padding[19];
 };
 
 
 typedef enum {
-    GVIR_DOMAIN_STATE_NONE    = 0, /* no state */
-    GVIR_DOMAIN_STATE_RUNNING = 1, /* the domain is running */
-    GVIR_DOMAIN_STATE_BLOCKED = 2, /* the domain is blocked on resource */
-    GVIR_DOMAIN_STATE_PAUSED  = 3, /* the domain is paused by user */
-    GVIR_DOMAIN_STATE_SHUTDOWN= 4, /* the domain is being shut down */
-    GVIR_DOMAIN_STATE_SHUTOFF = 5, /* the domain is shut off */
-    GVIR_DOMAIN_STATE_CRASHED = 6  /* the domain is crashed */
+    GVIR_DOMAIN_STATE_NONE    = 0,     /* no state */
+    GVIR_DOMAIN_STATE_RUNNING = 1,     /* the domain is running */
+    GVIR_DOMAIN_STATE_BLOCKED = 2,     /* the domain is blocked on resource */
+    GVIR_DOMAIN_STATE_PAUSED  = 3,     /* the domain is paused by user */
+    GVIR_DOMAIN_STATE_SHUTDOWN= 4,     /* the domain is being shut down */
+    GVIR_DOMAIN_STATE_SHUTOFF = 5,     /* the domain is shut off */
+    GVIR_DOMAIN_STATE_CRASHED = 6,     /* the domain is crashed */
+    GVIR_DOMAIN_STATE_PMSUSPENDED = 7  /* the domain is suspended by guest
+                                          power management */
 } GVirDomainState;
 
 

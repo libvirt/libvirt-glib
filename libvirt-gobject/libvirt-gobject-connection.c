@@ -389,6 +389,13 @@ static int domain_event_cb(virConnectPtr conn G_GNUC_UNUSED,
         case VIR_DOMAIN_EVENT_SHUTDOWN:
             break;
 
+        case VIR_DOMAIN_EVENT_PMSUSPENDED:
+            if (detail == VIR_DOMAIN_EVENT_PMSUSPENDED_MEMORY)
+                g_signal_emit_by_name(gdom, "pmsuspended::memory");
+            else
+                g_warn_if_reached();
+            break;
+
         default:
             g_warn_if_reached();
     }

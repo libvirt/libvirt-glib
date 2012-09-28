@@ -55,6 +55,7 @@ enum {
     VIR_RESUMED,
     VIR_STOPPED,
     VIR_UPDATED,
+    VIR_PMSUSPENDED,
     LAST_SIGNAL
 };
 
@@ -220,6 +221,16 @@ static void gvir_domain_class_init(GVirDomainClass *klass)
                                         G_OBJECT_CLASS_TYPE(object_class),
                                         G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE | G_SIGNAL_NO_HOOKS,
                                         G_STRUCT_OFFSET(GVirDomainClass, updated),
+                                        NULL, NULL,
+                                        g_cclosure_marshal_VOID__VOID,
+                                        G_TYPE_NONE,
+                                        0);
+
+    signals[VIR_PMSUSPENDED] = g_signal_new("pmsuspended",
+                                        G_OBJECT_CLASS_TYPE(object_class),
+                                        G_SIGNAL_RUN_LAST | G_SIGNAL_NO_RECURSE |
+                                        G_SIGNAL_NO_HOOKS | G_SIGNAL_DETAILED,
+                                        G_STRUCT_OFFSET(GVirDomainClass, pmsuspended),
                                         NULL, NULL,
                                         g_cclosure_marshal_VOID__VOID,
                                         G_TYPE_NONE,
