@@ -327,6 +327,8 @@ static int domain_event_cb(virConnectPtr conn G_GNUC_UNUSED,
                 g_signal_emit_by_name(gdom, "started::restored");
             else if (detail == VIR_DOMAIN_EVENT_STARTED_FROM_SNAPSHOT)
                 g_signal_emit_by_name(gdom, "started::from-snapshot");
+            else if (detail == VIR_DOMAIN_EVENT_STARTED_WAKEUP)
+                g_signal_emit_by_name(gdom, "started::wakeup");
             else
                 g_warn_if_reached();
             break;
