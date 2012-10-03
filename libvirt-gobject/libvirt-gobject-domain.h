@@ -198,6 +198,17 @@ void gvir_domain_resume_async(GVirDomain *dom,
 gboolean gvir_domain_resume_finish(GVirDomain *dom,
                                    GAsyncResult *result,
                                    GError **err);
+gboolean gvir_domain_wakeup(GVirDomain *dom,
+                            guint flags,
+                            GError **err);
+void gvir_domain_wakeup_async(GVirDomain *dom,
+                              guint flags,
+                              GCancellable *cancellable,
+                              GAsyncReadyCallback callback,
+                              gpointer user_data);
+gboolean gvir_domain_wakeup_finish(GVirDomain *dom,
+                                   GAsyncResult *result,
+                                   GError **err);
 gboolean gvir_domain_stop(GVirDomain *dom,
                           guint flags,
                           GError **err);

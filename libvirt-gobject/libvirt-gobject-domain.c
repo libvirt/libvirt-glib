@@ -514,6 +514,93 @@ gboolean gvir_domain_resume_finish(GVirDomain *dom,
 }
 
 /**
+ * gvir_domain_wakeup:
+ * @dom: the domain
+ * @flags: placeholder for flags, pass 0
+ * @err: Place-holder for possible errors
+ *
+ * Returns: TRUE on success
+ */
+gboolean gvir_domain_wakeup(GVirDomain *dom,
+                            guint flags,
+                            GError **err)
+{
+    GVirDomainPrivate *priv;
+
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
+
+    priv = dom->priv;
+    if (virDomainPMWakeup(priv->handle, flags) < 0) {
+        gvir_set_error_literal(err, GVIR_DOMAIN_ERROR,
+                               0,
+                               "Unable to wakeup domain");
+        return FALSE;
+    }
+
+    return TRUE;
+}
+
+static void
+gvir_domain_wakeup_helper(GSimpleAsyncResult *res,
+                          GObject *object,
+                          GCancellable *cancellable G_GNUC_UNUSED)
+{
+    GVirDomain *dom = GVIR_DOMAIN(object);
+    GError *err = NULL;
+
+    if (!gvir_domain_wakeup(dom, (guint)g_simple_async_result_get_op_res_gssize(res), &err))
+        g_simple_async_result_take_error(res, err);
+}
+
+/**
+ * gvir_domain_wakeup_async:
+ * @dom: the domain to wakeup
+ * @flags: placeholder for flags, pass 0
+ * @cancellable: (allow-none)(transfer none): cancellation object
+ * @callback: (scope async): completion callback
+ * @user_data: (closure): opaque data for callback
+ *
+ * Asynchronous variant of #gvir_domain_wakeup.
+ */
+void gvir_domain_wakeup_async(GVirDomain *dom,
+                              guint flags,
+                              GCancellable *cancellable,
+                              GAsyncReadyCallback callback,
+                              gpointer user_data)
+{
+    GSimpleAsyncResult *res;
+
+    g_return_if_fail(GVIR_IS_DOMAIN(dom));
+    g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
+
+    res = g_simple_async_result_new(G_OBJECT(dom),
+                                    callback,
+                                    user_data,
+                                    gvir_domain_wakeup_async);
+    g_simple_async_result_set_op_res_gssize (res, (gssize)flags);
+    g_simple_async_result_run_in_thread(res,
+                                        gvir_domain_wakeup_helper,
+                                        G_PRIORITY_DEFAULT,
+                                        cancellable);
+    g_object_unref(res);
+}
+
+gboolean gvir_domain_wakeup_finish(GVirDomain *dom,
+                                   GAsyncResult *result,
+                                   GError **err)
+{
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
+    g_return_val_if_fail(g_simple_async_result_is_valid(result, G_OBJECT(dom), gvir_domain_wakeup_async), FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
+
+    if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result), err))
+        return FALSE;
+
+    return TRUE;
+}
+
+/**
  * gvir_domain_stop:
  * @dom: the domain
  * @flags:  the flags

@@ -198,6 +198,10 @@ LIBVIRT_GOBJECT_0.1.3 {
   global:
     gvir_connection_get_hypervisor_name;
     gvir_connection_get_version;
+
+    gvir_domain_wakeup;
+    gvir_domain_wakeup_async;
+    gvir_domain_wakeup_finish;
 } LIBVIRT_GOBJECT_0.1.2;
 
 # .... define new API here using predicted next version number ....
