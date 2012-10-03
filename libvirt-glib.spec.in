@@ -18,7 +18,7 @@
 %endif
 %define with_vala %{with_introspection}
 
-%define libvirt_version 0.9.10
+%define libvirt_version @LIBVIRT_REQUIRED@
 
 Name: @PACKAGE@
 Version: @VERSION@
