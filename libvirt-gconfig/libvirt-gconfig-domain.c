@@ -804,3 +804,19 @@ void gvir_config_domain_set_cpu(GVirConfigDomain *domain,
                                       "cpu",
                                       GVIR_CONFIG_OBJECT(cpu));
 }
+
+/**
+ * gvir_config_domain_set_power_management:
+ * @domain: a #GVirConfigDomain
+ * @pm: (allow-none): a #GVirPowerManagement instance
+ */
+void gvir_config_domain_set_power_management(GVirConfigDomain *domain,
+                                             GVirConfigDomainPowerManagement *pm)
+{
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN(domain));
+    g_return_if_fail(pm != NULL || GVIR_CONFIG_IS_DOMAIN_POWER_MANAGEMENT(pm));
+
+    gvir_config_object_attach_replace(GVIR_CONFIG_OBJECT(domain),
+                                      "pm",
+                                      GVIR_CONFIG_OBJECT(pm));
+}

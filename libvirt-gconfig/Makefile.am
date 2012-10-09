@@ -50,6 +50,7 @@ GCONFIG_HEADER_FILES = \
 			libvirt-gconfig-domain-memballoon.h \
 			libvirt-gconfig-domain-os.h \
 			libvirt-gconfig-domain-parallel.h \
+			libvirt-gconfig-domain-power-management.h \
 			libvirt-gconfig-domain-redirdev.h \
 			libvirt-gconfig-domain-seclabel.h \
 			libvirt-gconfig-domain-serial.h \
@@ -121,6 +122,7 @@ GCONFIG_SOURCE_FILES = \
 			libvirt-gconfig-domain-memballoon.c \
 			libvirt-gconfig-domain-os.c \
 			libvirt-gconfig-domain-parallel.c \
+			libvirt-gconfig-domain-power-management.c \
 			libvirt-gconfig-domain-redirdev.c \
 			libvirt-gconfig-domain-seclabel.c \
 			libvirt-gconfig-domain-serial.c \

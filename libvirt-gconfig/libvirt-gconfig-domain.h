@@ -32,6 +32,7 @@
 #include <libvirt-gconfig/libvirt-gconfig-domain-device.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-seclabel.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-cpu.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-power-management.h>
 
 G_BEGIN_DECLS
 
@@ -143,6 +144,8 @@ gchar *gvir_config_domain_get_custom_xml(GVirConfigDomain *domain,
 GVirConfigDomainCpu *gvir_config_domain_get_cpu(GVirConfigDomain *domain);
 void gvir_config_domain_set_cpu(GVirConfigDomain *domain,
                                 GVirConfigDomainCpu *cpu);
+void gvir_config_domain_set_power_management(GVirConfigDomain *domain,
+                                             GVirConfigDomainPowerManagement *pm);
 
 G_END_DECLS
 

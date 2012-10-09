@@ -472,4 +472,15 @@ LIBVIRT_GCONFIG_0.1.3 {
 	gvir_config_domain_graphics_vnc_set_socket;
 } LIBVIRT_GCONFIG_0.1.0;
 
+LIBVIRT_GCONFIG_0.1.4 {
+  global:
+	gvir_config_domain_power_management_get_type;
+	gvir_config_domain_power_management_new;
+	gvir_config_domain_power_management_new_from_xml;
+	gvir_config_domain_power_management_set_mem_suspend_enabled;
+	gvir_config_domain_power_management_set_disk_suspend_enabled;
+
+	gvir_config_domain_set_power_management;
+} LIBVIRT_GCONFIG_0.1.3;
+
 # .... define new API here using predicted next version number ....
