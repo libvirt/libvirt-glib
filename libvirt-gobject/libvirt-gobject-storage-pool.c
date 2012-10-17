@@ -514,6 +514,8 @@ GList *gvir_storage_pool_get_volumes(GVirStoragePool *pool)
     if (priv->volumes != NULL) {
         volumes = g_hash_table_get_values(priv->volumes);
         g_list_foreach(volumes, gvir_storage_vol_ref, NULL);
+    } else {
+        g_warn_if_reached();
     }
     g_mutex_unlock(priv->lock);
 
@@ -540,9 +542,14 @@ GVirStorageVol *gvir_storage_pool_get_volume(GVirStoragePool *pool,
 
     priv = pool->priv;
     g_mutex_lock(priv->lock);
-    volume = g_hash_table_lookup(priv->volumes, name);
-    if (volume)
-        g_object_ref(volume);
+    if (priv->volumes != NULL) {
+        volume = g_hash_table_lookup(priv->volumes, name);
+        if (volume)
+            g_object_ref(volume);
+    } else {
+        g_warn_if_reached();
+        volume = NULL;
+    }
     g_mutex_unlock(priv->lock);
 
     return volume;
@@ -596,7 +603,14 @@ GVirStorageVol *gvir_storage_pool_create_volume
     }
 
     g_mutex_lock(priv->lock);
-    g_hash_table_insert(priv->volumes, g_strdup(name), volume);
+    if (priv->volumes != NULL) {
+        g_hash_table_insert(priv->volumes, g_strdup(name), volume);
+    } else {
+        g_warn_if_reached();
+        g_object_unref(G_OBJECT(volume));
+        g_mutex_unlock(priv->lock);
+        return NULL;
+    }
     g_mutex_unlock(priv->lock);
 
     return g_object_ref(volume);
