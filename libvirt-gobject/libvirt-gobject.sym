@@ -210,6 +210,10 @@ LIBVIRT_GOBJECT_0.1.4 {
 	gvir_domain_update_device;
 
 	gvir_domain_reboot_flags_get_type;
+
+	gvir_storage_pool_stop;
+	gvir_storage_pool_stop_async;
+	gvir_storage_pool_stop_finish;
 } LIBVIRT_GOBJECT_0.1.3;
 
 # .... define new API here using predicted next version number ....

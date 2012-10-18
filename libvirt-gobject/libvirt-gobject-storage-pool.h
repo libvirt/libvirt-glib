@@ -133,6 +133,16 @@ gboolean gvir_storage_pool_start_finish(GVirStoragePool *pool,
                                         GAsyncResult *result,
                                         GError **err);
 
+gboolean gvir_storage_pool_stop (GVirStoragePool *pool,
+                                 GError **err);
+void gvir_storage_pool_stop_async (GVirStoragePool *pool,
+                                   GCancellable *cancellable,
+                                   GAsyncReadyCallback callback,
+                                   gpointer user_data);
+gboolean gvir_storage_pool_stop_finish(GVirStoragePool *pool,
+                                       GAsyncResult *result,
+                                       GError **err);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GOBJECT_STORAGE_POOL_H__ */

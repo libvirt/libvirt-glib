@@ -829,3 +829,93 @@ gboolean gvir_storage_pool_start_finish(GVirStoragePool *pool,
 
     return TRUE;
 }
+
+/**
+ * gvir_storage_pool_stop:
+ * @pool: the storage pool to stop
+ * @err: return location for any #GError
+ *
+ * Return value: #True on success, #False otherwise.
+ */
+gboolean gvir_storage_pool_stop (GVirStoragePool *pool,
+                                 GError **err)
+{
+    g_return_val_if_fail(GVIR_IS_STORAGE_POOL(pool), FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
+
+    if (virStoragePoolDestroy(pool->priv->handle)) {
+        gvir_set_error_literal(err, GVIR_STORAGE_POOL_ERROR,
+                               0,
+                               "Failed to stop storage pool");
+        return FALSE;
+    }
+
+    return TRUE;
+}
+
+static void
+gvir_storage_pool_stop_helper(GSimpleAsyncResult *res,
+                              GObject *object,
+                              GCancellable *cancellable G_GNUC_UNUSED)
+{
+    GVirStoragePool *pool = GVIR_STORAGE_POOL(object);
+    GError *err = NULL;
+
+    if (!gvir_storage_pool_stop(pool, &err)) {
+        g_simple_async_result_set_from_error(res, err);
+        g_error_free(err);
+    }
+}
+
+/**
+ * gvir_storage_pool_stop_async:
+ * @pool: the storage pool to stop
+ * @cancellable: (allow-none)(transfer none): cancellation object
+ * @callback: (scope async): completion callback
+ * @user_data: (closure): opaque data for callback
+ */
+void gvir_storage_pool_stop_async (GVirStoragePool *pool,
+                                   GCancellable *cancellable,
+                                   GAsyncReadyCallback callback,
+                                   gpointer user_data)
+{
+    GSimpleAsyncResult *res;
+
+    g_return_if_fail(GVIR_IS_STORAGE_POOL(pool));
+    g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
+
+    res = g_simple_async_result_new(G_OBJECT(pool),
+                                    callback,
+                                    user_data,
+                                    gvir_storage_pool_stop_async);
+    g_simple_async_result_run_in_thread(res,
+                                        gvir_storage_pool_stop_helper,
+                                        G_PRIORITY_DEFAULT,
+                                        cancellable);
+    g_object_unref(res);
+}
+
+/**
+ * gvir_storage_pool_stop_finish:
+ * @pool: the storage pool to stop
+ * @result: (transfer none): async method result
+ * @err: return location for any #GError
+ *
+ * Return value: #True on success, #False otherwise.
+ */
+gboolean gvir_storage_pool_stop_finish(GVirStoragePool *pool,
+                                       GAsyncResult *result,
+                                       GError **err)
+{
+    g_return_val_if_fail(GVIR_IS_STORAGE_POOL(pool), FALSE);
+    g_return_val_if_fail(g_simple_async_result_is_valid(result, G_OBJECT(pool),
+                                                        gvir_storage_pool_stop_async),
+                         FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
+
+    if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result),
+                                              err))
+        return FALSE;
+
+    return TRUE;
+}
