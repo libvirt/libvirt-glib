@@ -214,6 +214,9 @@ LIBVIRT_GOBJECT_0.1.4 {
 	gvir_storage_pool_stop;
 	gvir_storage_pool_stop_async;
 	gvir_storage_pool_stop_finish;
+	gvir_storage_pool_undefine;
+	gvir_storage_pool_undefine_async;
+	gvir_storage_pool_undefine_finish;
 } LIBVIRT_GOBJECT_0.1.3;
 
 # .... define new API here using predicted next version number ....

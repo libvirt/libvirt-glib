@@ -121,6 +121,16 @@ gboolean gvir_storage_pool_build_finish(GVirStoragePool *pool,
                                         GAsyncResult *result,
                                         GError **err);
 
+gboolean gvir_storage_pool_undefine (GVirStoragePool *pool,
+                                     GError **err);
+void gvir_storage_pool_undefine_async (GVirStoragePool *pool,
+                                       GCancellable *cancellable,
+                                       GAsyncReadyCallback callback,
+                                       gpointer user_data);
+gboolean gvir_storage_pool_undefine_finish(GVirStoragePool *pool,
+                                           GAsyncResult *result,
+                                           GError **err);
+
 gboolean gvir_storage_pool_start (GVirStoragePool *pool,
                                   guint flags,
                                   GError **err);
@@ -142,6 +152,7 @@ void gvir_storage_pool_stop_async (GVirStoragePool *pool,
 gboolean gvir_storage_pool_stop_finish(GVirStoragePool *pool,
                                        GAsyncResult *result,
                                        GError **err);
+
 
 G_END_DECLS
 
