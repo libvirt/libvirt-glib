@@ -211,6 +211,9 @@ LIBVIRT_GOBJECT_0.1.4 {
 
 	gvir_domain_reboot_flags_get_type;
 
+	gvir_storage_pool_delete;
+	gvir_storage_pool_delete_async;
+	gvir_storage_pool_delete_finish;
 	gvir_storage_pool_stop;
 	gvir_storage_pool_stop_async;
 	gvir_storage_pool_stop_finish;

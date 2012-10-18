@@ -1009,3 +1009,108 @@ gboolean gvir_storage_pool_stop_finish(GVirStoragePool *pool,
 
     return TRUE;
 }
+
+/**
+ * gvir_storage_pool_delete:
+ * @pool: the storage pool to delete
+ * @flags:  the flags
+ * @err: return location for any #GError
+ *
+ * Return value: #True on success, #False otherwise.
+ */
+gboolean gvir_storage_pool_delete (GVirStoragePool *pool,
+                                   guint flags,
+                                   GError **err)
+{
+    g_return_val_if_fail(GVIR_IS_STORAGE_POOL(pool), FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
+
+    if (virStoragePoolDelete(pool->priv->handle, flags)) {
+        gvir_set_error_literal(err, GVIR_STORAGE_POOL_ERROR,
+                               0,
+                               "Failed to delete storage pool");
+        return FALSE;
+    }
+
+    return TRUE;
+}
+
+static void
+gvir_storage_pool_delete_helper(GSimpleAsyncResult *res,
+                                GObject *object,
+                                GCancellable *cancellable G_GNUC_UNUSED)
+{
+    GVirStoragePool *pool = GVIR_STORAGE_POOL(object);
+    StoragePoolBuildData *data;
+    GError *err = NULL;
+
+    data = (StoragePoolBuildData *) g_object_get_data(G_OBJECT(res),
+                                                      "StoragePoolBuildData");
+
+    if (!gvir_storage_pool_delete(pool, data->flags, &err)) {
+        g_simple_async_result_set_from_error(res, err);
+        g_error_free(err);
+    }
+
+    g_slice_free (StoragePoolBuildData, data);
+}
+
+/**
+ * gvir_storage_pool_delete_async:
+ * @pool: the storage pool to delete
+ * @flags:  the flags
+ * @cancellable: (allow-none)(transfer none): cancellation object
+ * @callback: (scope async): completion callback
+ * @user_data: (closure): opaque data for callback
+ */
+void gvir_storage_pool_delete_async (GVirStoragePool *pool,
+                                     guint flags,
+                                     GCancellable *cancellable,
+                                     GAsyncReadyCallback callback,
+                                     gpointer user_data)
+{
+    GSimpleAsyncResult *res;
+    StoragePoolBuildData *data;
+
+    g_return_if_fail(GVIR_IS_STORAGE_POOL(pool));
+    g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
+
+    data = g_slice_new0(StoragePoolBuildData);
+    data->flags = flags;
+
+    res = g_simple_async_result_new(G_OBJECT(pool),
+                                    callback,
+                                    user_data,
+                                    gvir_storage_pool_delete_async);
+    g_object_set_data(G_OBJECT(res), "StoragePoolBuildData", data);
+    g_simple_async_result_run_in_thread(res,
+                                        gvir_storage_pool_delete_helper,
+                                        G_PRIORITY_DEFAULT,
+                                        cancellable);
+    g_object_unref(res);
+}
+
+/**
+ * gvir_storage_pool_delete_finish:
+ * @pool: the storage pool to delete
+ * @result: (transfer none): async method result
+ * @err: return location for any #GError
+ *
+ * Return value: #True on success, #False otherwise.
+ */
+gboolean gvir_storage_pool_delete_finish(GVirStoragePool *pool,
+                                         GAsyncResult *result,
+                                         GError **err)
+{
+    g_return_val_if_fail(GVIR_IS_STORAGE_POOL(pool), FALSE);
+    g_return_val_if_fail(g_simple_async_result_is_valid(result, G_OBJECT(pool),
+                                                        gvir_storage_pool_delete_async),
+                         FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
+
+    if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result),
+                                              err))
+        return FALSE;
+
+    return TRUE;
+}

@@ -153,6 +153,17 @@ gboolean gvir_storage_pool_stop_finish(GVirStoragePool *pool,
                                        GAsyncResult *result,
                                        GError **err);
 
+gboolean gvir_storage_pool_delete (GVirStoragePool *pool,
+                                   guint flags,
+                                   GError **err);
+void gvir_storage_pool_delete_async (GVirStoragePool *pool,
+                                     guint flags,
+                                     GCancellable *cancellable,
+                                     GAsyncReadyCallback callback,
+                                     gpointer user_data);
+gboolean gvir_storage_pool_delete_finish(GVirStoragePool *pool,
+                                         GAsyncResult *result,
+                                         GError **err);
 
 G_END_DECLS
 
