@@ -170,6 +170,19 @@ typedef enum {
     GVIR_DOMAIN_UPDATE_DEVICE_CONFIG    = VIR_DOMAIN_AFFECT_CONFIG,
 } GVirDomainUpdateDeviceFlags;
 
+/**
+ * GVirDomainRebootFlags:
+ * @GVIR_DOMAIN_REBOOT_NONE: No flags, hypervisor choice
+ * @GVIR_DOMAIN_REBOOT_ACPI_POWER_BTN: Send ACPI event
+ * @GVIR_DOMAIN_REBOOT_GUEST_AGENT: Use guest agent
+ *
+ */
+typedef enum {
+    GVIR_DOMAIN_REBOOT_NONE           = 0,
+    GVIR_DOMAIN_REBOOT_ACPI_POWER_BTN = VIR_DOMAIN_REBOOT_ACPI_POWER_BTN,
+    GVIR_DOMAIN_REBOOT_GUEST_AGENT    = VIR_DOMAIN_REBOOT_GUEST_AGENT,
+} GVirDomainRebootFlags;
+
 typedef struct _GVirDomainInfo GVirDomainInfo;
 struct _GVirDomainInfo
 {

@@ -680,7 +680,7 @@ gboolean gvir_domain_shutdown(GVirDomain *dom,
 /**
  * gvir_domain_reboot:
  * @dom: the domain
- * @flags:  the flags
+ * @flags: the %GVirDomainRebootFlags flags
  */
 gboolean gvir_domain_reboot(GVirDomain *dom,
                             guint flags,
