@@ -273,7 +273,7 @@ static int domain_event_cb(virConnectPtr conn G_GNUC_UNUSED,
     GVirConnectionPrivate *priv = gconn->priv;
 
     if (virDomainGetUUIDString(dom, uuid) < 0) {
-        g_warning("Failed to get domain UUID on %p", dom);
+        gvir_warning("Failed to get domain UUID on %p", dom);
         return 0;
     }
 
@@ -463,7 +463,7 @@ gboolean gvir_connection_open(GVirConnection *conn,
     }
 
     if (virConnectDomainEventRegister(priv->conn, domain_event_cb, conn, NULL) == -1)
-        g_warning("Failed to register domain events, ignoring");
+        gvir_warning("Failed to register domain events, ignoring");
 
     g_mutex_unlock(priv->lock);
 

@@ -128,15 +128,8 @@ static void gvir_storage_pool_constructed(GObject *object)
     G_OBJECT_CLASS(gvir_storage_pool_parent_class)->constructed(object);
 
     /* xxx we may want to turn this into an initable */
-    if (virStoragePoolGetUUIDString(priv->handle, priv->uuid) < 0) {
-        virErrorPtr verr = virGetLastError();
-        if (verr) {
-            g_warning("Failed to get storage pool UUID on %p: %s",
-                      priv->handle, verr->message);
-        } else {
-            g_warning("Failed to get storage pool UUID on %p", priv->handle);
-        }
-    }
+    if (virStoragePoolGetUUIDString(priv->handle, priv->uuid) < 0)
+        gvir_warning("Failed to get storage pool UUID on %p", priv->handle);
 }
 
 
@@ -215,10 +208,8 @@ const gchar *gvir_storage_pool_get_name(GVirStoragePool *pool)
 
     g_return_val_if_fail(GVIR_IS_STORAGE_POOL(pool), NULL);
 
-    if (!(name = virStoragePoolGetName(pool->priv->handle))) {
-        g_warning("Failed to get storage_pool name on %p", pool->priv->handle);
-        return NULL;
-    }
+    if (!(name = virStoragePoolGetName(pool->priv->handle)))
+        gvir_warning("Failed to get storage_pool name on %p", pool->priv->handle);
 
     return name;
 }

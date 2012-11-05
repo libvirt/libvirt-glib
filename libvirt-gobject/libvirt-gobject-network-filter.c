@@ -118,16 +118,9 @@ static void gvir_network_filter_constructed(GObject *object)
     G_OBJECT_CLASS(gvir_network_filter_parent_class)->constructed(object);
 
     /* xxx we may want to turn this into an initable */
-    if (virNWFilterGetUUIDString(priv->handle, priv->uuid) < 0) {
-        virErrorPtr verr = virGetLastError();
-        if (verr) {
-            g_warning("Failed to get network filter UUID on %p: %s",
-                      priv->handle, verr->message);
-        } else {
-            g_warning("Failed to get network filter UUID on %p",
-                      priv->handle);
-        }
-    }
+    if (virNWFilterGetUUIDString(priv->handle, priv->uuid) < 0)
+        gvir_warning("Failed to get network filter UUID on %p",
+                     priv->handle);
 }
 
 
@@ -187,8 +180,8 @@ const gchar *gvir_network_filter_get_name(GVirNetworkFilter *filter)
     g_return_val_if_fail(GVIR_IS_NETWORK_FILTER(filter), NULL);
 
     if (!(name = virNWFilterGetName(filter->priv->handle))) {
-        g_warning("Failed to get network_filter name on %p",
-                  filter->priv->handle);
+        gvir_warning("Failed to get network_filter name on %p",
+                     filter->priv->handle);
         return NULL;
     }
 

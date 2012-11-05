@@ -257,3 +257,37 @@ void gvir_set_error_valist(GError **error,
 
     g_free(message);
 }
+
+static void
+gvir_log_valist(GLogLevelFlags level, const gchar *format, va_list args)
+{
+    gchar *message;
+    virErrorPtr verr = virGetLastError();
+
+    message = g_strdup_vprintf(format, args);
+
+    if (verr)
+        g_log(G_LOG_DOMAIN, level, "%s: %s", message, verr->message);
+    else
+        g_log(G_LOG_DOMAIN, level, "%s", message);
+
+    g_free(message);
+}
+
+void gvir_warning(const gchar *format, ...)
+{
+    va_list args;
+
+    va_start(args, format);
+    gvir_log_valist(G_LOG_LEVEL_WARNING, format, args);
+    va_end(args);
+}
+
+void gvir_critical(const gchar *format, ...)
+{
+    va_list args;
+
+    va_start(args, format);
+    gvir_log_valist(G_LOG_LEVEL_CRITICAL, format, args);
+    va_end(args);
+}

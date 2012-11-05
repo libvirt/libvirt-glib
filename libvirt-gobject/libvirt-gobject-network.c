@@ -117,16 +117,8 @@ static void gvir_network_constructed(GObject *object)
     G_OBJECT_CLASS(gvir_network_parent_class)->constructed(object);
 
     /* xxx we may want to turn this into an initable */
-    if (virNetworkGetUUIDString(priv->handle, priv->uuid) < 0) {
-        virErrorPtr verr = virGetLastError();
-        if (verr) {
-            g_warning("Failed to get network UUID on %p: %s",
-                      priv->handle, verr->message);
-        } else {
-            g_warning("Failed to get network UUID on %p",
-                      priv->handle);
-        }
-    }
+    if (virNetworkGetUUIDString(priv->handle, priv->uuid) < 0)
+        gvir_warning("Failed to get network UUID on %p", priv->handle);
 }
 
 static void gvir_network_class_init(GVirNetworkClass *klass)
@@ -185,7 +177,7 @@ const gchar *gvir_network_get_name(GVirNetwork *network)
     g_return_val_if_fail(GVIR_IS_NETWORK(network), NULL);
 
     if (!(name = virNetworkGetName(network->priv->handle))) {
-        g_warning("Failed to get network name on %p", network->priv->handle);
+        gvir_warning("Failed to get network name on %p", network->priv->handle);
         return NULL;
     }
 

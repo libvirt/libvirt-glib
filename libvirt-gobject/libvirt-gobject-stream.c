@@ -218,7 +218,7 @@ static void gvir_stream_finalize(GObject *object)
         gvir_stream_update_events(self);
 
         if (virStreamFinish(priv->handle) < 0)
-            g_critical("cannot finish stream");
+            gvir_critical("cannot finish stream");
 
         virStreamFree(priv->handle);
     }

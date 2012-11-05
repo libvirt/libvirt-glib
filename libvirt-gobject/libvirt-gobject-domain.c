@@ -135,16 +135,8 @@ static void gvir_domain_constructed(GObject *object)
     G_OBJECT_CLASS(gvir_domain_parent_class)->constructed(object);
 
     /* xxx we may want to turn this into an initable */
-    if (virDomainGetUUIDString(priv->handle, priv->uuid) < 0) {
-        virErrorPtr verr = virGetLastError();
-        if (verr) {
-            g_warning("Failed to get domain UUID on %p: %s",
-                      priv->handle, verr->message);
-        } else {
-            g_warning("Failed to get domain UUID on %p",
-                      priv->handle);
-        }
-    }
+    if (virDomainGetUUIDString(priv->handle, priv->uuid) < 0)
+        gvir_warning("Failed to get domain UUID on %p", priv->handle);
 }
 
 
@@ -292,7 +284,7 @@ const gchar *gvir_domain_get_name(GVirDomain *dom)
 
     priv = dom->priv;
     if (!(name = virDomainGetName(priv->handle))) {
-        g_warning("Failed to get domain name on %p", priv->handle);
+        gvir_warning("Failed to get domain name on %p", priv->handle);
         return NULL;
     }
 

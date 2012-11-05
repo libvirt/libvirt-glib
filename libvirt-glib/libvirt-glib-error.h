@@ -59,6 +59,8 @@ void gvir_set_error_valist(GError **error,
                            const gchar *format,
                            va_list args);
 
+void gvir_critical(const gchar *format, ...);
+void gvir_warning(const gchar *format, ...);
 
 G_END_DECLS
 

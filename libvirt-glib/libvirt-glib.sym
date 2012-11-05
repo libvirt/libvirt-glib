@@ -15,4 +15,9 @@ LIBVIRT_GLIB_0.0.7 {
         *;
 };
 
+LIBVIRT_GLIB_0.1.4 {
+	gvir_critical;
+	gvir_warning;
+} LIBVIRT_GLIB_0.0.7;
+
 # .... define new API here using predicted next version number ....

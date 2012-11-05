@@ -164,8 +164,8 @@ const gchar *gvir_node_device_get_name(GVirNodeDevice *device)
     g_return_val_if_fail(GVIR_IS_NODE_DEVICE(device), NULL);
 
     if (!(name = virNodeDeviceGetName(device->priv->handle))) {
-        g_warning("Failed to get node_device name on %p",
-                  device->priv->handle);
+        gvir_warning("Failed to get node_device name on %p",
+                     device->priv->handle);
         return NULL;
     }
 
