@@ -223,6 +223,21 @@ const gchar *gvir_storage_pool_get_uuid(GVirStoragePool *pool)
 }
 
 
+gboolean gvir_storage_pool_get_active(GVirStoragePool *pool)
+{
+    g_return_val_if_fail(GVIR_IS_STORAGE_POOL(pool), FALSE);
+
+    return virStoragePoolIsActive(pool->priv->handle);
+}
+
+
+gboolean gvir_storage_pool_get_persistent(GVirStoragePool *pool)
+{
+    g_return_val_if_fail(GVIR_IS_STORAGE_POOL(pool), FALSE);
+
+    return virStoragePoolIsPersistent(pool->priv->handle);
+}
+
 /**
  * gvir_storage_pool_get_config:
  * @pool: the storage_pool

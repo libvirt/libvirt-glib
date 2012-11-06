@@ -214,6 +214,8 @@ LIBVIRT_GOBJECT_0.1.4 {
 	gvir_storage_pool_delete;
 	gvir_storage_pool_delete_async;
 	gvir_storage_pool_delete_finish;
+	gvir_storage_pool_get_active;
+	gvir_storage_pool_get_persistent;
 	gvir_storage_pool_stop;
 	gvir_storage_pool_stop_async;
 	gvir_storage_pool_stop_finish;
