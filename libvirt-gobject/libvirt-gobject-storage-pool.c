@@ -536,6 +536,7 @@ GVirStorageVol *gvir_storage_pool_get_volume(GVirStoragePool *pool,
     GVirStorageVol *volume;
 
     g_return_val_if_fail(GVIR_IS_STORAGE_POOL(pool), NULL);
+    g_return_val_if_fail(name != NULL, NULL);
 
     priv = pool->priv;
     g_mutex_lock(priv->lock);
