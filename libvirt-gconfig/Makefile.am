@@ -76,6 +76,7 @@ GCONFIG_HEADER_FILES = \
 noinst_HEADERS = \
 			libvirt-gconfig-private.h \
 			libvirt-gconfig-capabilities-cpu-private.h \
+			libvirt-gconfig-compat.h \
 			libvirt-gconfig-domain-device-private.h \
 			libvirt-gconfig-helpers-private.h \
 			libvirt-gconfig-object-private.h \

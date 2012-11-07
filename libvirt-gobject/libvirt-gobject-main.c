@@ -28,6 +28,7 @@
 
 #include "libvirt-glib/libvirt-glib.h"
 #include "libvirt-gobject/libvirt-gobject.h"
+#include "libvirt-gconfig/libvirt-gconfig-compat.h"
 
 /**
  * gvir_init_object:
