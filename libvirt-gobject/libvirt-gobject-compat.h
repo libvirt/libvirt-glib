@@ -27,8 +27,12 @@
 #include <gio/gio.h>
 
 #if GLIB_CHECK_VERSION(2, 31, 0)
-#define g_mutex_new() g_new0(GMutex, 1)
-#define g_mutex_free(m) g_free(m)
+
+void gvir_mutex_free(GMutex *mutex);
+GMutex *gvir_mutex_new(void);
+#define g_mutex_new gvir_mutex_new
+#define g_mutex_free gvir_mutex_free
+
 #endif
 
 #if !GLIB_CHECK_VERSION(2,26,0)

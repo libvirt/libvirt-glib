@@ -103,3 +103,19 @@ g_simple_async_report_take_gerror_in_idle(GObject *object,
     g_object_unref(simple);
 }
 #endif
+
+GMutex *gvir_mutex_new(void)
+{
+    GMutex *mutex;
+
+    mutex = g_new(GMutex, 1);
+    g_mutex_init(mutex);
+
+    return mutex;
+}
+
+void gvir_mutex_free(GMutex *mutex)
+{
+    g_mutex_clear(mutex);
+    g_free(mutex);
+}
