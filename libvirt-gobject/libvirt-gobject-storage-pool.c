@@ -406,7 +406,7 @@ gboolean gvir_storage_pool_refresh(GVirStoragePool *pool,
                                                "handle", vvolume,
                                                "pool", pool,
                                                NULL));
-
+        virStorageVolFree(vvolume);
         g_hash_table_insert(vol_hash, g_strdup(volumes[i]), volume);
     }
 

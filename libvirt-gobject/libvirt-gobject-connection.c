@@ -726,6 +726,7 @@ gboolean gvir_connection_fetch_domains(GVirConnection *conn,
         dom = GVIR_DOMAIN(g_object_new(GVIR_TYPE_DOMAIN,
                                        "handle", vdom,
                                        NULL));
+        virDomainFree(vdom);
 
         g_hash_table_insert(doms,
                             (gpointer)gvir_domain_get_uuid(dom),
@@ -744,6 +745,7 @@ gboolean gvir_connection_fetch_domains(GVirConnection *conn,
         dom = GVIR_DOMAIN(g_object_new(GVIR_TYPE_DOMAIN,
                                        "handle", vdom,
                                        NULL));
+        virDomainFree(vdom);
 
         g_hash_table_insert(doms,
                             (gpointer)gvir_domain_get_uuid(dom),
@@ -857,6 +859,7 @@ gboolean gvir_connection_fetch_storage_pools(GVirConnection *conn,
         pool = GVIR_STORAGE_POOL(g_object_new(GVIR_TYPE_STORAGE_POOL,
                                               "handle", vpool,
                                               NULL));
+        virStoragePoolFree(vpool);
 
         g_hash_table_insert(pools,
                             (gpointer)gvir_storage_pool_get_uuid(pool),
@@ -877,6 +880,7 @@ gboolean gvir_connection_fetch_storage_pools(GVirConnection *conn,
         pool = GVIR_STORAGE_POOL(g_object_new(GVIR_TYPE_STORAGE_POOL,
                                               "handle", vpool,
                                               NULL));
+        virStoragePoolFree(vpool);
 
         g_hash_table_insert(pools,
                             (gpointer)gvir_storage_pool_get_uuid(pool),
@@ -1427,6 +1431,7 @@ GVirDomain *gvir_connection_create_domain(GVirConnection *conn,
     domain = GVIR_DOMAIN(g_object_new(GVIR_TYPE_DOMAIN,
                                        "handle", handle,
                                        NULL));
+    virDomainFree(handle);
 
     g_mutex_lock(priv->lock);
     g_hash_table_insert(priv->domains,
@@ -1481,6 +1486,7 @@ GVirDomain *gvir_connection_start_domain(GVirConnection *conn,
     domain = GVIR_DOMAIN(g_object_new(GVIR_TYPE_DOMAIN,
                                        "handle", handle,
                                        NULL));
+    virDomainFree(handle);
 
     g_mutex_lock(priv->lock);
     g_hash_table_insert(priv->domains,
@@ -1532,6 +1538,7 @@ GVirStoragePool *gvir_connection_create_storage_pool
     pool = GVIR_STORAGE_POOL(g_object_new(GVIR_TYPE_STORAGE_POOL,
                                           "handle", handle,
                                           NULL));
+    virStoragePoolFree(handle);
 
     g_mutex_lock(priv->lock);
     g_hash_table_insert(priv->pools,
