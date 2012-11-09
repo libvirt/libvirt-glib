@@ -414,8 +414,7 @@ gvir_stream_receive_all(GVirStream *self,
  * If there is no data available, a %G_IO_ERROR_WOULD_BLOCK error will be
  * returned.
  *
- * Returns: Number of bytes read, or 0 if the end of stream reached,
- * or -1 on error.
+ * Returns: Number of bytes written.
  */
 gssize gvir_stream_send(GVirStream *self,
                         const gchar *buffer,
