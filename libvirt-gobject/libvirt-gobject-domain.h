@@ -158,6 +158,18 @@ typedef enum {
     GVIR_DOMAIN_SNAPSHOT_ATOMIC       = VIR_DOMAIN_SNAPSHOT_CREATE_ATOMIC,
 } GVirDomainSnapshotCreateFlags;
 
+/**
+ * GVirDomainUpdateDeviceFlags:
+ * @GVIR_DOMAIN_UPDATE_DEVICE_CURRENT: Update current domain state
+ * @GVIR_DOMAIN_UPDATE_DEVICE_LIVE: Update state for only active domains
+ * @GVIR_DOMAIN_UPDATE_DEVICE_CONFIG: Update state for persistent state only
+ */
+typedef enum {
+    GVIR_DOMAIN_UPDATE_DEVICE_CURRENT   = VIR_DOMAIN_AFFECT_CURRENT,
+    GVIR_DOMAIN_UPDATE_DEVICE_LIVE      = VIR_DOMAIN_AFFECT_LIVE,
+    GVIR_DOMAIN_UPDATE_DEVICE_CONFIG    = VIR_DOMAIN_AFFECT_CONFIG,
+} GVirDomainUpdateDeviceFlags;
+
 typedef struct _GVirDomainInfo GVirDomainInfo;
 struct _GVirDomainInfo
 {
@@ -293,6 +305,11 @@ gboolean gvir_domain_get_saved(GVirDomain *dom);
 
 GList *gvir_domain_get_devices(GVirDomain *domain,
                                GError **err);
+
+gboolean gvir_domain_update_device(GVirDomain *dom,
+				   GVirConfigDomainDevice *device,
+				   guint flags,
+				   GError **err);
 
 GVirDomainSnapshot *
 gvir_domain_create_snapshot(GVirDomain *dom,

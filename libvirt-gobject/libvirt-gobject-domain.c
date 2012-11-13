@@ -1428,6 +1428,48 @@ GList *gvir_domain_get_devices(GVirDomain *domain,
     return g_list_reverse (ret);
 }
 
+
+/**
+ * gvir_domain_update_device:
+ * @dom: the domain
+ * @device: A modified device config
+ * @flags: bitwise-OR of #GVirDomainUpdateDeviceFlags
+ * @err: (allow-none):Place-holder for error or NULL
+ *
+ * Update the configuration of a device.
+ *
+ * Returns: TRUE if device was updated successfully, FALSE otherwise.
+ */
+gboolean
+gvir_domain_update_device(GVirDomain *dom,
+                          GVirConfigDomainDevice *device,
+                          guint flags,
+                          GError **err)
+{
+    gchar *xml;
+
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_DEVICE(device), FALSE);
+
+    xml = gvir_config_object_to_xml(GVIR_CONFIG_OBJECT(device));
+    g_return_val_if_fail(xml != NULL, FALSE);
+
+    if (virDomainUpdateDeviceFlags(dom->priv->handle,
+                                   xml, flags) < 0) {
+        gvir_set_error_literal(err, GVIR_DOMAIN_ERROR,
+                               0,
+                               "Failed to update device");
+        g_free (xml);
+
+        return FALSE;
+    }
+
+    g_free (xml);
+    return TRUE;
+}
+
+
 /**
  * gvir_domain_create_snapshot:
  * @dom: the domain
