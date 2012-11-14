@@ -25,7 +25,7 @@
 
 #include <glib-object.h>
 
-#if GLIB_CHECK_VERSION(2, 34, 0)
+#if GLIB_CHECK_VERSION(2, 35, 0)
 #define g_type_init()
 #endif
 
