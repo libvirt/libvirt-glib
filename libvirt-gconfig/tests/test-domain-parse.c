@@ -52,8 +52,6 @@ int main(int argc, char **argv)
         return 2;
     }
 
-    g_type_init();
-
     domain = gvir_config_domain_new_from_xml(xml, &error);
     if (error != NULL) {
         g_print("Couldn't parse %s: %s\n", argv[1], error->message);
