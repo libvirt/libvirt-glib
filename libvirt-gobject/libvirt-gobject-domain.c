@@ -957,8 +957,9 @@ gboolean gvir_domain_set_config(GVirDomain *domain,
  * gvir_domain_get_info:
  * @dom: the domain
  *
- * Returns: (transfer full): the info. The returned object should be
- * unreffed with g_object_unref() when no longer needed.
+ * Returns: (transfer full): the info. The returned structure should be
+ * freed using #g_boxed_free() with GVIR_TYPE_DOMAIN_INFO as the first argument
+ * when no longer needed.
  */
 GVirDomainInfo *gvir_domain_get_info(GVirDomain *dom,
                                      GError **err)
