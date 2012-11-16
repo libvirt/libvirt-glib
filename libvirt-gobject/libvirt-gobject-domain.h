@@ -320,9 +320,9 @@ GList *gvir_domain_get_devices(GVirDomain *domain,
                                GError **err);
 
 gboolean gvir_domain_update_device(GVirDomain *dom,
-				   GVirConfigDomainDevice *device,
-				   guint flags,
-				   GError **err);
+                                   GVirConfigDomainDevice *device,
+                                   guint flags,
+                                   GError **err);
 
 GVirDomainSnapshot *
 gvir_domain_create_snapshot(GVirDomain *dom,
