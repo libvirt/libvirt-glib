@@ -29,6 +29,7 @@
 #include "libvirt-glib/libvirt-glib.h"
 #include "libvirt-gobject/libvirt-gobject.h"
 #include "libvirt-gobject-compat.h"
+#include "libvirt-gobject-storage-pool-private.h"
 
 #define GVIR_STORAGE_POOL_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_STORAGE_POOL, GVirStoragePoolPrivate))
@@ -1128,4 +1129,23 @@ gboolean gvir_storage_pool_delete_finish(GVirStoragePool *pool,
         return FALSE;
 
     return TRUE;
+}
+
+G_GNUC_INTERNAL void gvir_storage_pool_delete_vol(GVirStoragePool *pool,
+                                                  GVirStorageVol *volume)
+{
+    GVirStoragePoolPrivate *priv;
+
+    g_return_if_fail(GVIR_IS_STORAGE_POOL(pool));
+    g_return_if_fail(GVIR_IS_STORAGE_VOL(volume));
+
+    priv = pool->priv;
+    g_mutex_lock(priv->lock);
+    if (priv->volumes != NULL) {
+        const gchar *name = gvir_storage_vol_get_name(volume);
+        g_hash_table_remove(priv->volumes, name);
+    } else {
+        g_warn_if_reached();
+    }
+    g_mutex_unlock(priv->lock);
 }
