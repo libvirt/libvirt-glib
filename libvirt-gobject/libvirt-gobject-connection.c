@@ -704,7 +704,7 @@ static gchar ** fetch_list(virConnectPtr vconn,
         if (g_cancellable_set_error_if_cancelled(cancellable, err))
             goto error;
 
-        lst = g_new(gchar *, n);
+        lst = g_new0(gchar *, n);
         if ((n = list_func(vconn, lst, n)) < 0) {
             gvir_set_error(err, GVIR_CONNECTION_ERROR,
                            0,
@@ -717,9 +717,11 @@ static gchar ** fetch_list(virConnectPtr vconn,
     return lst;
 
 error:
-    for (i = 0 ; i < n; i++)
-        g_free(lst[i]);
-    g_free(lst);
+    if (lst != NULL) {
+        for (i = 0 ; i < n; i++)
+            g_free(lst[i]);
+        g_free(lst);
+    }
     return NULL;
 }
 

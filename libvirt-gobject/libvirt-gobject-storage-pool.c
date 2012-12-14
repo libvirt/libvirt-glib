@@ -334,7 +334,7 @@ static gchar ** fetch_list(virStoragePoolPtr vpool,
         if (g_cancellable_set_error_if_cancelled(cancellable, err))
             goto error;
 
-        lst = g_new(gchar *, n);
+        lst = g_new0(gchar *, n);
         if ((n = list_func(vpool, lst, n)) < 0) {
             gvir_set_error(err, GVIR_STORAGE_POOL_ERROR,
                            0,
@@ -347,9 +347,11 @@ static gchar ** fetch_list(virStoragePoolPtr vpool,
     return lst;
 
 error:
-    for (i = 0 ; i < n; i++)
-        g_free(lst[i]);
-    g_free(lst);
+    if (lst != NULL) {
+        for (i = 0 ; i < n; i++)
+            g_free(lst[i]);
+        g_free(lst);
+    }
     return NULL;
 }
 
