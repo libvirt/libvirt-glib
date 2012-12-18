@@ -72,7 +72,7 @@ gvir_config_domain_device_new_from_tree(GVirConfigXmlDoc *doc,
     } else if (xmlStrEqual(tree->name, (xmlChar*)"redirdev")) {
         type = GVIR_CONFIG_TYPE_DOMAIN_REDIRDEV;
     } else if (xmlStrEqual(tree->name, (xmlChar*)"smartcard")) {
-        goto unimplemented;
+      return gvir_config_domain_smartcard_new_from_tree(doc, tree);
     } else if (xmlStrEqual(tree->name, (xmlChar*)"interface")) {
         return gvir_config_domain_interface_new_from_tree(doc, tree);
     } else if (xmlStrEqual(tree->name, (xmlChar*)"input")) {

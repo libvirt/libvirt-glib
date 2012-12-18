@@ -54,6 +54,10 @@ GCONFIG_HEADER_FILES = \
 			libvirt-gconfig-domain-redirdev.h \
 			libvirt-gconfig-domain-seclabel.h \
 			libvirt-gconfig-domain-serial.h \
+			libvirt-gconfig-domain-smartcard.h \
+			libvirt-gconfig-domain-smartcard-host.h \
+			libvirt-gconfig-domain-smartcard-host-certificates.h \
+			libvirt-gconfig-domain-smartcard-passthrough.h \
 			libvirt-gconfig-domain-snapshot.h \
 			libvirt-gconfig-domain-sound.h \
 			libvirt-gconfig-domain-timer.h \
@@ -127,6 +131,10 @@ GCONFIG_SOURCE_FILES = \
 			libvirt-gconfig-domain-redirdev.c \
 			libvirt-gconfig-domain-seclabel.c \
 			libvirt-gconfig-domain-serial.c \
+			libvirt-gconfig-domain-smartcard.c \
+			libvirt-gconfig-domain-smartcard-host.c \
+			libvirt-gconfig-domain-smartcard-host-certificates.c \
+			libvirt-gconfig-domain-smartcard-passthrough.c \
 			libvirt-gconfig-domain-snapshot.c \
 			libvirt-gconfig-domain-sound.c \
 			libvirt-gconfig-domain-timer.c \

@@ -71,6 +71,10 @@
 #include <libvirt-gconfig/libvirt-gconfig-domain-redirdev.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-seclabel.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-serial.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-smartcard.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-smartcard-host.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-smartcard-host-certificates.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-smartcard-passthrough.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-snapshot.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-sound.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-timer.h>

@@ -483,4 +483,25 @@ LIBVIRT_GCONFIG_0.1.4 {
 	gvir_config_domain_set_power_management;
 } LIBVIRT_GCONFIG_0.1.3;
 
+LIBVIRT_GCONFIG_0.1.5 {
+  global:
+	gvir_config_domain_smartcard_get_type;
+	gvir_config_domain_smartcard_set_address;
+
+	gvir_config_domain_smartcard_host_get_type;
+	gvir_config_domain_smartcard_host_new;
+	gvir_config_domain_smartcard_host_new_from_xml;
+
+	gvir_config_domain_smartcard_host_certificates_get_type;
+	gvir_config_domain_smartcard_host_certificates_new;
+	gvir_config_domain_smartcard_host_certificates_new_from_xml;
+	gvir_config_domain_smartcard_host_certificates_set_database;
+	gvir_config_domain_smartcard_host_certificates_set_certificates;
+
+	gvir_config_domain_smartcard_passthrough_get_type;
+	gvir_config_domain_smartcard_passthrough_new;
+	gvir_config_domain_smartcard_passthrough_new_from_xml;
+	gvir_config_domain_smartcard_passthrough_set_source;
+} LIBVIRT_GCONFIG_0.1.4;
+
 # .... define new API here using predicted next version number ....
