@@ -88,6 +88,9 @@ GVirConnection *gvir_connection_new(const char *uri);
 gboolean gvir_connection_open(GVirConnection *conn,
                               GCancellable *cancellable,
                               GError **err);
+gboolean gvir_connection_open_read_only(GVirConnection *conn,
+                                        GCancellable *cancellable,
+                                        GError **err);
 void gvir_connection_open_async(GVirConnection *conn,
                                 GCancellable *cancellable,
                                 GAsyncReadyCallback callback,
@@ -95,7 +98,15 @@ void gvir_connection_open_async(GVirConnection *conn,
 gboolean gvir_connection_open_finish(GVirConnection *conn,
                                      GAsyncResult *result,
                                      GError **err);
+void gvir_connection_open_read_only_async(GVirConnection *conn,
+                                          GCancellable *cancellable,
+                                          GAsyncReadyCallback callback,
+                                          gpointer user_data);
+gboolean gvir_connection_open_read_only_finish(GVirConnection *conn,
+                                               GAsyncResult *result,
+                                               GError **err);
 gboolean gvir_connection_is_open(GVirConnection *conn);
+gboolean gvir_connection_is_read_only(GVirConnection *conn);
 void gvir_connection_close(GVirConnection *conn);
 
 gboolean gvir_connection_fetch_domains(GVirConnection *conn,

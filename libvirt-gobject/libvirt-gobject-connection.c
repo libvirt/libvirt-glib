@@ -38,6 +38,7 @@ struct _GVirConnectionPrivate
     GMutex *lock;
     gchar *uri;
     virConnectPtr conn;
+    gboolean read_only;
 
     GHashTable *domains;
     GHashTable *pools;
@@ -407,14 +408,10 @@ static int domain_event_cb(virConnectPtr conn G_GNUC_UNUSED,
     return 0;
 }
 
-/**
- * gvir_connection_open:
- * @conn: a #GVirConnection
- * @cancellable: (allow-none)(transfer none): cancellation object
- */
-gboolean gvir_connection_open(GVirConnection *conn,
-                              GCancellable *cancellable,
-                              GError **err)
+static gboolean _gvir_connection_open(GVirConnection *conn,
+                                      gboolean read_only,
+                                      GCancellable *cancellable,
+                                      GError **err)
 {
     GVirConnectionPrivate *priv;
 
@@ -438,7 +435,13 @@ gboolean gvir_connection_open(GVirConnection *conn,
         return FALSE;
     }
 
-    if (!(priv->conn = virConnectOpen(priv->uri))) {
+    if (read_only) {
+        priv->conn = virConnectOpenReadOnly(priv->uri);
+        priv->read_only = TRUE;
+    } else {
+        priv->conn = virConnectOpen(priv->uri);
+    }
+    if (!priv->conn) {
         gvir_set_error(err, GVIR_CONNECTION_ERROR,
                        0,
                        "Unable to open %s",
@@ -472,6 +475,24 @@ gboolean gvir_connection_open(GVirConnection *conn,
     return TRUE;
 }
 
+/**
+ * gvir_connection_open:
+ * @conn: a #GVirConnection
+ * @cancellable: (allow-none)(transfer none): cancellation object
+ */
+gboolean gvir_connection_open(GVirConnection *conn,
+                              GCancellable *cancellable,
+                              GError **err)
+{
+    return _gvir_connection_open(conn, FALSE, cancellable, err);
+}
+
+gboolean gvir_connection_open_read_only(GVirConnection *conn,
+                                        GCancellable *cancellable,
+                                        GError **err)
+{
+    return _gvir_connection_open(conn, TRUE, cancellable, err);
+}
 
 static void
 gvir_connection_open_helper(GSimpleAsyncResult *res,
@@ -537,6 +558,69 @@ gboolean gvir_connection_open_finish(GVirConnection *conn,
     return TRUE;
 }
 
+static void
+gvir_connection_open_read_only_helper(GSimpleAsyncResult *res,
+                            GObject *object,
+                            GCancellable *cancellable)
+{
+    GVirConnection *conn = GVIR_CONNECTION(object);
+    GError *err = NULL;
+
+    if (!gvir_connection_open_read_only(conn, cancellable, &err)) {
+        g_simple_async_result_set_from_error(res, err);
+        g_error_free(err);
+    }
+}
+
+
+/**
+ * gvir_connection_open_read_only_async:
+ * @conn: a #GVirConnection
+ * @cancellable: (allow-none)(transfer none): cancellation object
+ * @callback: (scope async): completion callback
+ * @user_data: (closure): opaque data for callback
+ */
+void gvir_connection_open_read_only_async(GVirConnection *conn,
+                                GCancellable *cancellable,
+                                GAsyncReadyCallback callback,
+                                gpointer user_data)
+{
+    GSimpleAsyncResult *res;
+
+    g_return_if_fail(GVIR_IS_CONNECTION(conn));
+    g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
+
+    res = g_simple_async_result_new(G_OBJECT(conn),
+                                    callback,
+                                    user_data,
+                                    gvir_connection_open_read_only_async);
+    g_simple_async_result_run_in_thread(res,
+                                        gvir_connection_open_read_only_helper,
+                                        G_PRIORITY_DEFAULT,
+                                        cancellable);
+    g_object_unref(res);
+}
+
+
+/**
+ * gvir_connection_open_read_only_finish:
+ * @conn: a #GVirConnection
+ * @result: (transfer none): async method result
+ */
+gboolean gvir_connection_open_read_only_finish(GVirConnection *conn,
+                                               GAsyncResult *result,
+                                               GError **err)
+{
+    g_return_val_if_fail(GVIR_IS_CONNECTION(conn), FALSE);
+    g_return_val_if_fail(g_simple_async_result_is_valid(result, G_OBJECT(conn),
+                                                        gvir_connection_open_read_only_async),
+                         FALSE);
+
+    if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result), err))
+        return FALSE;
+
+    return TRUE;
+}
 
 gboolean gvir_connection_is_open(GVirConnection *conn)
 {
@@ -551,6 +635,13 @@ gboolean gvir_connection_is_open(GVirConnection *conn)
         open = FALSE;
     g_mutex_unlock(priv->lock);
     return open;
+}
+
+gboolean gvir_connection_is_read_only(GVirConnection *conn)
+{
+    g_return_val_if_fail(GVIR_IS_CONNECTION(conn), FALSE);
+
+    return conn->priv->read_only;
 }
 
 void gvir_connection_close(GVirConnection *conn)
