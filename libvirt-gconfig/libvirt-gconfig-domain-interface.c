@@ -147,7 +147,7 @@ gvir_config_domain_interface_new_from_tree(GVirConfigXmlDoc *doc,
     } else if (g_str_equal(type, "user")) {
         gtype = GVIR_CONFIG_TYPE_DOMAIN_INTERFACE_USER;
     } else if (g_str_equal(type, "bridge")) {
-        goto unimplemented;
+        gtype = GVIR_CONFIG_TYPE_DOMAIN_INTERFACE_BRIDGE;
     } else if (g_str_equal(type, "direct")) {
         goto unimplemented;
     } else if (g_str_equal(type, "server")) {
