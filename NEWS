@@ -1,6 +1,14 @@
                  libvirt-glib News
                  =================
 
+0.1.5 - Jan 14, 2012
+====================
+
+- Add support for bridge interface types in guest XML
+- Add API to open a read-only connection
+- Add support for smartcard devices in guest XML
+- Remove storage volume from pool list after deleteing it
+
 0.1.4 - Nov 16, 2012
 ====================
 
