@@ -21,6 +21,8 @@ GOBJECT_HEADER_FILES = \
 			libvirt-gobject-stream.h \
 			libvirt-gobject-connection.h \
 			libvirt-gobject-manager.h
+noinst_HEADERS = \
+			libvirt-gobject-storage-pool-private.h
 GOBJECT_SOURCE_FILES = \
 			libvirt-gobject-main.c \
 			libvirt-gobject-domain-snapshot.c \
