@@ -60,14 +60,14 @@ GType gvir_config_domain_smartcard_host_certificates_get_type(void);
 
 GVirConfigDomainSmartcardHostCertificates *gvir_config_domain_smartcard_host_certificates_new(void);
 GVirConfigDomainSmartcardHostCertificates *gvir_config_domain_smartcard_host_certificates_new_from_xml(const gchar *xml,
-												       GError **error);
+                                                                                                       GError **error);
 
 void gvir_config_domain_smartcard_host_certificates_set_database(GVirConfigDomainSmartcardHostCertificates *smartcard,
-								 const char *path);
+                                                                 const char *path);
 void gvir_config_domain_smartcard_host_certificates_set_certificates(GVirConfigDomainSmartcardHostCertificates *smartcard,
-								     const char *cert1,
-								     const char *cert2,
-								     const char *cert3);
+                                                                     const char *cert1,
+                                                                     const char *cert2,
+                                                                     const char *cert3);
 
 G_END_DECLS
 

@@ -60,7 +60,7 @@ GType gvir_config_domain_smartcard_host_get_type(void);
 
 GVirConfigDomainSmartcardHost *gvir_config_domain_smartcard_host_new(void);
 GVirConfigDomainSmartcardHost *gvir_config_domain_smartcard_host_new_from_xml(const gchar *xml,
-									      GError **error);
+                                                                              GError **error);
 
 G_END_DECLS
 

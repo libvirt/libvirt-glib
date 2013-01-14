@@ -61,7 +61,7 @@ GVirConfigDomainSmartcardHostCertificates *gvir_config_domain_smartcard_host_cer
 }
 
 GVirConfigDomainSmartcardHostCertificates *gvir_config_domain_smartcard_host_certificates_new_from_xml(const gchar *xml,
-									      GError **error)
+                                                                              GError **error)
 {
     GVirConfigObject *object;
 
@@ -80,12 +80,12 @@ GVirConfigDomainSmartcardHostCertificates *gvir_config_domain_smartcard_host_cer
  */
 void
 gvir_config_domain_smartcard_host_certificates_set_database (GVirConfigDomainSmartcardHostCertificates *smartcard,
-							     const char *path)
+                                                             const char *path)
 {
     g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_SMARTCARD_HOST_CERTIFICATES(smartcard));
 
     gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(smartcard),
-					"database", path);
+                                        "database", path);
 }
 
 /**
@@ -96,19 +96,19 @@ gvir_config_domain_smartcard_host_certificates_set_database (GVirConfigDomainSma
  */
 void
 gvir_config_domain_smartcard_host_certificates_set_certificates (GVirConfigDomainSmartcardHostCertificates *smartcard,
-								 const char *cert1,
-								 const char *cert2,
-								 const char *cert3)
+                                                                 const char *cert1,
+                                                                 const char *cert2,
+                                                                 const char *cert3)
 {
     GVirConfigObject *child;
 
     g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_SMARTCARD_HOST_CERTIFICATES(smartcard));
 
     gvir_config_object_delete_children(GVIR_CONFIG_OBJECT(smartcard),
-				       "certificate", NULL);
+                                       "certificate", NULL);
 
     if (cert1 == NULL)
-	return;
+        return;
 
     child = gvir_config_object_add_child(GVIR_CONFIG_OBJECT(smartcard), "certificate");
     gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(smartcard), NULL, cert1);

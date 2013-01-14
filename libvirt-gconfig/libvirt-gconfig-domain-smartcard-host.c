@@ -61,7 +61,7 @@ GVirConfigDomainSmartcardHost *gvir_config_domain_smartcard_host_new(void)
 }
 
 GVirConfigDomainSmartcardHost *gvir_config_domain_smartcard_host_new_from_xml(const gchar *xml,
-									      GError **error)
+                                                                              GError **error)
 {
     GVirConfigObject *object;
 

@@ -54,7 +54,7 @@ static void gvir_config_domain_smartcard_init(GVirConfigDomainSmartcard *smartca
  * @address: (allow-none):
  */
 void gvir_config_domain_smartcard_set_address(GVirConfigDomainRedirdev *redirdev,
-					      GVirConfigDomainAddress *address)
+                                              GVirConfigDomainAddress *address)
 {
     g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_REDIRDEV(redirdev));
     g_return_if_fail(address == NULL || GVIR_CONFIG_IS_DOMAIN_ADDRESS(address));

@@ -60,7 +60,7 @@ struct _GVirConfigDomainSmartcardClass
 GType gvir_config_domain_smartcard_get_type(void);
 
 void gvir_config_domain_smartcard_set_address(GVirConfigDomainRedirdev *redirdev,
-					      GVirConfigDomainAddress *address);
+                                              GVirConfigDomainAddress *address);
 
 G_END_DECLS
 

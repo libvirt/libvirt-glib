@@ -61,7 +61,7 @@ GVirConfigDomainSmartcardPassthrough *gvir_config_domain_smartcard_passthrough_n
 }
 
 GVirConfigDomainSmartcardPassthrough *gvir_config_domain_smartcard_passthrough_new_from_xml(const gchar *xml,
-									      GError **error)
+                                                                              GError **error)
 {
     GVirConfigObject *object;
 
@@ -88,7 +88,7 @@ static void prepend_prop(xmlNodePtr node, xmlAttrPtr prop)
 
 void
 gvir_config_domain_smartcard_passthrough_set_source(GVirConfigDomainSmartcardPassthrough *smartcard,
-						    GVirConfigDomainChardevSource *source)
+                                                    GVirConfigDomainChardevSource *source)
 {
     xmlNodePtr smartcard_node;
     xmlNodePtr source_node;

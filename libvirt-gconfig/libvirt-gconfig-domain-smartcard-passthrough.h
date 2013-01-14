@@ -60,9 +60,9 @@ GType gvir_config_domain_smartcard_passthrough_get_type(void);
 
 GVirConfigDomainSmartcardPassthrough *gvir_config_domain_smartcard_passthrough_new(void);
 GVirConfigDomainSmartcardPassthrough *gvir_config_domain_smartcard_passthrough_new_from_xml(const gchar *xml,
-											    GError **error);
+                                                                                            GError **error);
 void gvir_config_domain_smartcard_passthrough_set_source(GVirConfigDomainSmartcardPassthrough *smartcard,
-							 GVirConfigDomainChardevSource *source);
+                                                         GVirConfigDomainChardevSource *source);
 
 
 G_END_DECLS
