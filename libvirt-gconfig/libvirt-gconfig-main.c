@@ -31,7 +31,7 @@
 #include "libvirt-gconfig/libvirt-gconfig-compat.h"
 
 /**
- * gvirt_config_init:
+ * gvir_config_init:
  * @argc: (inout): pointer to application's argc
  * @argv: (inout) (array length=argc) (allow-none): pointer to application's argv
  */
