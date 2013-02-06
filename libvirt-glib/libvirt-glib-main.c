@@ -72,7 +72,7 @@ gvir_error_func(gpointer opaque G_GNUC_UNUSED,
  * gvir_init:
  * @argc: (inout): Address of the argc parameter of your main() function (or 0
  *     if argv is NULL). This will be changed if any arguments were handled.
- * @argv: (array length=argc) (inout) (allow-none): Address of the
+ * @argv: (array length=argc) (inout) (allow-none) (transfer none): Address of the
  *     <parameter>argv</parameter> parameter of main(), or %NULL. Any options
  *     understood by GTK+ are stripped before return.
  *
@@ -119,7 +119,7 @@ static void gvir_log_handler(const gchar *log_domain G_GNUC_UNUSED,
  * gvir_init_check:
  * @argc: (inout): Address of the argc parameter of your main() function (or 0
  *     if argv is NULL). This will be changed if any arguments were handled.
- * @argv: (array length=argc) (inout) (allow-none): Address of the
+ * @argv: (array length=argc) (inout) (allow-none) (transfer none): Address of the
  *     <parameter>argv</parameter> parameter of main(), or %NULL. Any options
  *     understood by GTK+ are stripped before return.
  * @err: filled with the error information if initialized failed.
