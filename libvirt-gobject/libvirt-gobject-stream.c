@@ -283,8 +283,8 @@ G_DEFINE_BOXED_TYPE(GVirStreamHandle, gvir_stream_handle,
 /**
  * gvir_stream_receive:
  * @stream: the stream
- * @buffer: a buffer to read data into (which should be at least @size
- *     bytes long).
+ * @buffer: (array length=size) (element-type guint8): a buffer
+ *     to read data into (which should be at least @size bytes long).
  * @size: the number of bytes you want to read from the stream
  * @cancellable: (allow-none): a %GCancellable or %NULL
  * @error: #GError for error reporting, or %NULL to ignore.
