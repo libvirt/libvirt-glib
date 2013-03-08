@@ -17,7 +17,8 @@
  * License along with this library. If not, see
  * <http://www.gnu.org/licenses/>.
  *
- * Author: Christophe Fergeau <cfergeau@gmail.com>
+ * Authors: Christophe Fergeau <cfergeau@gmail.com>
+ *          Zeeshan Ali (Khattak) <zeeshanak@gnome.org>
  */
 
 #if !defined(__LIBVIRT_GCONFIG_H__) && !defined(LIBVIRT_GCONFIG_BUILD)
@@ -56,6 +57,15 @@ struct _GVirConfigDomainGraphicsSpiceClass
     gpointer padding[20];
 };
 
+typedef enum {
+    GVIR_CONFIG_DOMAIN_GRAPHICS_SPICE_IMAGE_COMPRESSION_AUTO_GLZ, /*< nick=auto_glz >*/
+    GVIR_CONFIG_DOMAIN_GRAPHICS_SPICE_IMAGE_COMPRESSION_AUTO_LZ, /*< nick=auto_lz >*/
+    GVIR_CONFIG_DOMAIN_GRAPHICS_SPICE_IMAGE_COMPRESSION_QUIC,
+    GVIR_CONFIG_DOMAIN_GRAPHICS_SPICE_IMAGE_COMPRESSION_GLZ,
+    GVIR_CONFIG_DOMAIN_GRAPHICS_SPICE_IMAGE_COMPRESSION_LZ,
+    GVIR_CONFIG_DOMAIN_GRAPHICS_SPICE_IMAGE_COMPRESSION_OFF
+} GVirConfigDomainGraphicsSpiceImageCompression;
+
 GType gvir_config_domain_graphics_spice_get_type(void);
 
 GVirConfigDomainGraphicsSpice *gvir_config_domain_graphics_spice_new(void);
@@ -74,6 +84,13 @@ void gvir_config_domain_graphics_spice_set_port(GVirConfigDomainGraphicsSpice *g
 
 void gvir_config_domain_graphics_spice_set_tls_port(GVirConfigDomainGraphicsSpice *graphics,
                                                     int port);
+
+void gvir_config_domain_graphics_spice_set_image_compression
+                        (GVirConfigDomainGraphicsSpice *graphics,
+                         GVirConfigDomainGraphicsSpiceImageCompression compression);
+int
+gvir_config_domain_graphics_spice_get_image_compression
+                        (GVirConfigDomainGraphicsSpice *graphics);
 
 G_END_DECLS
 

@@ -17,7 +17,8 @@
  * License along with this library. If not, see
  * <http://www.gnu.org/licenses/>.
  *
- * Author: Christophe Fergeau <cfergeau@gmail.com>
+ * Authors: Christophe Fergeau <cfergeau@gmail.com>
+ *          Zeeshan Ali (Khattak) <zeeshanak@gnome.org>
  */
 
 #include <config.h>
@@ -121,4 +122,39 @@ void gvir_config_domain_graphics_spice_set_tls_port(GVirConfigDomainGraphicsSpic
     gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(graphics),
                                                "tlsPort", G_TYPE_INT, port,
                                                NULL);
+}
+
+/**
+ * gvir_config_domain_graphics_spice_get_image_compression:
+ * @graphics: a #GVirConfigDomainGraphicsSpice
+ *
+ * Returns: (type GVirConfigDomainGraphicsSpiceImageCompression): image
+ * compression configuration of @graphics
+ */
+int
+gvir_config_domain_graphics_spice_get_image_compression(GVirConfigDomainGraphicsSpice *graphics)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_GRAPHICS_SPICE(graphics),
+                         GVIR_CONFIG_DOMAIN_GRAPHICS_SPICE_IMAGE_COMPRESSION_OFF);
+
+    return gvir_config_object_get_attribute_genum
+        (GVIR_CONFIG_OBJECT(graphics),
+         "image",
+         "compression",
+         GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS_SPICE_IMAGE_COMPRESSION,
+         GVIR_CONFIG_DOMAIN_GRAPHICS_SPICE_IMAGE_COMPRESSION_GLZ);
+}
+
+void gvir_config_domain_graphics_spice_set_image_compression
+    (GVirConfigDomainGraphicsSpice *graphics,
+     GVirConfigDomainGraphicsSpiceImageCompression compression)
+{
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_GRAPHICS_SPICE(graphics));
+
+    gvir_config_object_replace_child_with_attribute_enum
+       (GVIR_CONFIG_OBJECT(graphics),
+        "image",
+        "compression",
+        GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS_SPICE_IMAGE_COMPRESSION,
+        compression);
 }

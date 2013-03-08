@@ -288,6 +288,13 @@ int main(int argc, char **argv)
     graphics = gvir_config_domain_graphics_spice_new();
     gvir_config_domain_graphics_spice_set_port(graphics, 1234);
     g_assert(gvir_config_domain_graphics_spice_get_port(graphics) == 1234);
+
+    /* SPICE image compression configuration */
+    gvir_config_domain_graphics_spice_set_image_compression
+        (graphics, GVIR_CONFIG_DOMAIN_GRAPHICS_SPICE_IMAGE_COMPRESSION_AUTO_LZ);
+    g_assert(gvir_config_domain_graphics_spice_get_image_compression(graphics) ==
+             GVIR_CONFIG_DOMAIN_GRAPHICS_SPICE_IMAGE_COMPRESSION_AUTO_LZ);
+
     devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(graphics));
 
     /* video node */

@@ -504,4 +504,12 @@ LIBVIRT_GCONFIG_0.1.5 {
 	gvir_config_domain_smartcard_passthrough_set_source;
 } LIBVIRT_GCONFIG_0.1.4;
 
+LIBVIRT_GCONFIG_0.1.6 {
+  global:
+	gvir_config_domain_graphics_spice_get_image_compression;
+	gvir_config_domain_graphics_spice_set_image_compression;
+
+	gvir_config_domain_graphics_spice_image_compression_get_type;
+} LIBVIRT_GCONFIG_0.1.5;
+
 # .... define new API here using predicted next version number ....
