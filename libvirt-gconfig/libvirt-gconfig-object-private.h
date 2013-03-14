@@ -74,6 +74,11 @@ void gvir_config_object_replace_child_with_attribute(GVirConfigObject *object,
                                                      const char *child_name,
                                                      const char *attr_name,
                                                      const char *attr_value);
+void gvir_config_object_replace_child_with_attribute_enum(GVirConfigObject *object,
+                                                         const char *child_name,
+                                                         const char *attr_name,
+                                                         GType attr_type,
+                                                         unsigned int attr_value);
 void gvir_config_object_delete_child(GVirConfigObject *object,
                                      const char *child_name,
                                      const char *ns_href);
