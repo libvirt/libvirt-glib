@@ -1,6 +1,19 @@
                  libvirt-glib News
                  =================
 
+0.1.6 - Mar 18, 2012
+====================
+
+- Prefer g_strlcpy over strncpy
+- Fix potential crashes in some error handling cases
+- Fix typo in gvir_config_init docs which broke vala binding
+- Use 'transfer none' for argv parameter in all init functions
+- Ensure stream data parameters are annotated to be guint8
+  arrays, not gchar, since they're not NULL terminated
+  strings.
+- Replace FSF address with URL in copyright headers
+- Add API for changing Spice compression parameters.
+
 0.1.5 - Jan 14, 2012
 ====================
 
