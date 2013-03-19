@@ -532,6 +532,11 @@ LIBVIRT_GCONFIG_0.1.7 {
 	gvir_config_domain_graphics_rdp_get_port;
 	gvir_config_domain_graphics_rdp_set_port;
 
+	gvir_config_storage_permissions_get_group;
+	gvir_config_storage_permissions_get_label;
+	gvir_config_storage_permissions_get_mode;
+	gvir_config_storage_permissions_get_owner;
+
 	gvir_config_storage_pool_get_allocation;
 	gvir_config_storage_pool_get_available;
 	gvir_config_storage_pool_get_capacity;

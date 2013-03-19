@@ -424,7 +424,13 @@ int main(int argc, char **argv)
 
     pool_target = gvir_config_storage_pool_get_target(pool);
     g_str_const_check(gvir_config_storage_pool_target_get_path(pool_target), "/dev/disk/by-path");
+    perms = gvir_config_storage_pool_target_get_permissions(pool_target);
     g_object_unref(G_OBJECT(pool_target));
+    g_assert(gvir_config_storage_permissions_get_owner(perms) == 1001);
+    g_assert(gvir_config_storage_permissions_get_group(perms) == 1007);
+    g_assert(gvir_config_storage_permissions_get_mode(perms) == 0744);
+    g_str_const_check(gvir_config_storage_permissions_get_label(perms), "virt_image_t");
+    g_object_unref(G_OBJECT(perms));
 
     xml = gvir_config_object_to_xml(GVIR_CONFIG_OBJECT(pool));
     g_print("%s\n\n", xml);

@@ -70,6 +70,22 @@ GVirConfigStoragePermissions *gvir_config_storage_permissions_new_from_xml(const
     return GVIR_CONFIG_STORAGE_PERMISSIONS(object);
 }
 
+/**
+ * gvir_config_storage_permissions_get_group:
+ * @perms: a #GVirConfigStoragePermissions
+ *
+ * Gets the numeric group ID associated with @perms.
+ *
+ * Returns: numeric group ID
+ */
+guint gvir_config_storage_permissions_get_group(GVirConfigStoragePermissions *perms)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_STORAGE_PERMISSIONS(perms), 0);
+
+    return gvir_config_object_get_node_content_uint64(GVIR_CONFIG_OBJECT(perms),
+                                                      "group");
+}
+
 void gvir_config_storage_permissions_set_group(GVirConfigStoragePermissions *perms,
                                                guint group)
 {
@@ -79,6 +95,21 @@ void gvir_config_storage_permissions_set_group(GVirConfigStoragePermissions *per
                                                "group", group);
 }
 
+/**
+ * gvir_config_storage_permissions_get_label:
+ * @perms: a #GVirConfigStoragePermissions
+ *
+ * Gets the MAC label string associated with @perms.
+ *
+ * Returns: MAC label string.
+ */
+const char *gvir_config_storage_permissions_get_label(GVirConfigStoragePermissions *perms)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_STORAGE_PERMISSIONS(perms), NULL);
+
+    return gvir_config_object_get_node_content(GVIR_CONFIG_OBJECT(perms),
+                                               "label");
+}
 /**
  * gvir_config_storage_permissions_set_label:
  * @label: (allow-none):
@@ -92,6 +123,22 @@ void gvir_config_storage_permissions_set_label(GVirConfigStoragePermissions *per
                                         "label", label);
 }
 
+/**
+ * gvir_config_storage_permissions_get_mode:
+ * @perms: a #GVirConfigStoragePermissions
+ *
+ * Gets the octal permission set associated with @perms.
+ *
+ * Returns: permission set
+ */
+guint gvir_config_storage_permissions_get_mode(GVirConfigStoragePermissions *perms)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_STORAGE_PERMISSIONS(perms), 0);
+
+    return gvir_config_object_get_node_content_uint64(GVIR_CONFIG_OBJECT(perms),
+                                                      "mode");
+}
+
 void gvir_config_storage_permissions_set_mode(GVirConfigStoragePermissions *perms,
                                               guint mode)
 {
@@ -99,6 +146,22 @@ void gvir_config_storage_permissions_set_mode(GVirConfigStoragePermissions *perm
 
     gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(perms),
                                                "mode", mode);
+}
+
+/**
+ * gvir_config_storage_permissions_get_owner:
+ * @perms: a #GVirConfigStoragePermissions
+ *
+ * Gets the numeric user ID associated with @perms.
+ *
+ * Returns: numeric user ID.
+ */
+guint gvir_config_storage_permissions_get_owner(GVirConfigStoragePermissions *perms)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_STORAGE_PERMISSIONS(perms), 0);
+
+    return gvir_config_object_get_node_content_uint64(GVIR_CONFIG_OBJECT(perms),
+                                                      "owner");
 }
 
 void gvir_config_storage_permissions_set_owner(GVirConfigStoragePermissions *perms,
