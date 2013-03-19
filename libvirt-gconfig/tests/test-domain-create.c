@@ -111,6 +111,9 @@ int main(int argc, char **argv)
 
     domain = gvir_config_domain_new();
     g_assert(domain != NULL);
+
+    gvir_config_domain_set_virt_type(domain, GVIR_CONFIG_DOMAIN_VIRT_KVM);
+    g_assert(gvir_config_domain_get_virt_type(domain) == GVIR_CONFIG_DOMAIN_VIRT_KVM);
     gvir_config_domain_set_name(domain, "foo");
     g_str_const_check(gvir_config_domain_get_name(domain), "foo");
 

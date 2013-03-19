@@ -3,6 +3,7 @@
 from gi.repository import LibvirtGConfig;
 
 domain = LibvirtGConfig.Domain.new()
+domain.set_virt_type(LibvirtGConfig.DomainVirtType.KVM)
 domain.set_name("foo")
 domain.set_memory(1024*1024) # 1 GB
 domain.set_vcpus(2)
