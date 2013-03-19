@@ -405,6 +405,9 @@ int main(int argc, char **argv)
     gvir_config_storage_pool_source_set_directory(pool_source, "/foo/bar");
     gvir_config_storage_pool_set_source(pool, pool_source);
     g_object_unref(G_OBJECT(pool_source));
+    pool_source = gvir_config_storage_pool_get_source(pool);
+    g_str_const_check(gvir_config_storage_pool_source_get_directory(pool_source), "/foo/bar");
+    g_object_unref(G_OBJECT(pool_source));
 
     perms = gvir_config_storage_permissions_new();
     gvir_config_storage_permissions_set_owner(perms, 1001);

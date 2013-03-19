@@ -71,6 +71,22 @@ GVirConfigStoragePoolSource *gvir_config_storage_pool_source_new_from_xml(const 
     return GVIR_CONFIG_STORAGE_POOL_SOURCE(object);
 }
 
+/**
+ * gvir_config_storage_pool_source_get_adapter:
+ * @source: a #GVirConfigStoragePoolSource
+ *
+ * For pools backed by a SCSI adapter, returns the SCSI adapter name
+ *
+ * Returns: the SCSI adapter name.
+ */
+const char *gvir_config_storage_pool_source_get_adapter(GVirConfigStoragePoolSource *source)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_STORAGE_POOL_SOURCE(source), NULL);
+    return gvir_config_object_get_attribute(GVIR_CONFIG_OBJECT(source),
+                                            "adapter",
+                                            "name");
+}
+
 void gvir_config_storage_pool_source_set_adapter(GVirConfigStoragePoolSource *source,
                                                  const char *adapter)
 {
@@ -82,6 +98,23 @@ void gvir_config_storage_pool_source_set_adapter(GVirConfigStoragePoolSource *so
     g_return_if_fail(GVIR_CONFIG_IS_OBJECT(node));
     gvir_config_object_set_attribute(node, "name", adapter, NULL);
     g_object_unref(G_OBJECT(node));
+}
+
+/**
+ * gvir_config_storage_pool_source_get_device_path:
+ * @source: a #GVirConfigStoragePoolSource
+ *
+ * For pools backed by a physical device, returns the path to the block
+ * device node
+ *
+ * Returns: fully qualified path to the block device node.
+ */
+const char *gvir_config_storage_pool_source_get_device_path(GVirConfigStoragePoolSource *source)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_STORAGE_POOL_SOURCE(source), NULL);
+    return gvir_config_object_get_attribute(GVIR_CONFIG_OBJECT(source),
+                                            "device",
+                                            "path");
 }
 
 void gvir_config_storage_pool_source_set_device_path(GVirConfigStoragePoolSource *source,
@@ -97,6 +130,22 @@ void gvir_config_storage_pool_source_set_device_path(GVirConfigStoragePoolSource
     g_object_unref(G_OBJECT(node));
 }
 
+/**
+ * gvir_config_storage_pool_source_get_directory:
+ * @source: a #GVirConfigStoragePoolSource
+ *
+ * For pools backed by a directory, returns the path to the backing directory
+ *
+ * Returns: path to the directory backing directory.
+ */
+const char *gvir_config_storage_pool_source_get_directory(GVirConfigStoragePoolSource *source)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_STORAGE_POOL_SOURCE(source), NULL);
+    return gvir_config_object_get_attribute(GVIR_CONFIG_OBJECT(source),
+                                            "directory",
+                                            "path");
+}
+
 void gvir_config_storage_pool_source_set_directory(GVirConfigStoragePoolSource *source,
                                                    const char *directory)
 {
@@ -110,6 +159,24 @@ void gvir_config_storage_pool_source_set_directory(GVirConfigStoragePoolSource *
     g_object_unref(G_OBJECT(node));
 }
 
+/**
+ * gvir_config_storage_pool_source_get_format:
+ * @source: a #GVirConfigStoragePoolSource
+ *
+ * Provides information about the format of the pool. This format is
+ * backend-specific but is typically used to indicate filesystem type, or
+ * network filesystem type, or partition table type, or LVM metadata type.
+ *
+ * Returns: the storage pool format.
+ */
+const char *gvir_config_storage_pool_source_get_format(GVirConfigStoragePoolSource *source)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_STORAGE_POOL_SOURCE(source), NULL);
+    return gvir_config_object_get_attribute(GVIR_CONFIG_OBJECT(source),
+                                            "format",
+                                            "type");
+}
+
 void gvir_config_storage_pool_source_set_format(GVirConfigStoragePoolSource *source,
                                                 const char *format)
 {
@@ -121,6 +188,23 @@ void gvir_config_storage_pool_source_set_format(GVirConfigStoragePoolSource *sou
     g_return_if_fail(GVIR_CONFIG_IS_OBJECT(node));
     gvir_config_object_set_attribute(node, "type", format, NULL);
     g_object_unref(G_OBJECT(node));
+}
+
+/**
+ * gvir_config_storage_pool_source_get_host:
+ * @source: a #GVirConfigStoragePoolSource
+ *
+ * For pools backed by storage from remote server, returns the hostname
+ * of the remote server.
+ *
+ * Returns: hostname or IP address of the remote server.
+ */
+const char *gvir_config_storage_pool_source_get_host(GVirConfigStoragePoolSource *source)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_STORAGE_POOL_SOURCE(source), NULL);
+    return gvir_config_object_get_attribute(GVIR_CONFIG_OBJECT(source),
+                                            "host",
+                                            "name");
 }
 
 void gvir_config_storage_pool_source_set_host(GVirConfigStoragePoolSource *source,
@@ -137,6 +221,22 @@ void gvir_config_storage_pool_source_set_host(GVirConfigStoragePoolSource *sourc
 }
 
 /**
+ * gvir_config_storage_pool_source_get_name:
+ * @source: a #GVirConfigStoragePoolSource
+ *
+ * For pools backed by storage from a named element (for example, LV
+ * groups), returns the name of the element
+ *
+ * Returns: name of the element used by @source
+ */
+const char *gvir_config_storage_pool_source_get_name(GVirConfigStoragePoolSource *source)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_STORAGE_POOL_SOURCE(source), NULL);
+    return gvir_config_object_get_node_content(GVIR_CONFIG_OBJECT(source),
+                                               "name");
+}
+
+/**
  * gvir_config_storage_pool_source_set_name:
  * @name: (allow-none):
  */
@@ -147,6 +247,22 @@ void gvir_config_storage_pool_source_set_name(GVirConfigStoragePoolSource *sourc
 
     gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(source),
                                         "name", name);
+}
+
+/**
+ * gvir_config_storage_pool_source_get_product:
+ * @source: a #GVirConfigStoragePoolSource
+ *
+ * Gets the product name of the storage device.
+ *
+ * Returns: product name of the storage device.
+ */
+const char *gvir_config_storage_pool_source_get_product(GVirConfigStoragePoolSource *source)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_STORAGE_POOL_SOURCE(source), NULL);
+    return gvir_config_object_get_attribute(GVIR_CONFIG_OBJECT(source),
+                                            "product",
+                                            "name");
 }
 
 void gvir_config_storage_pool_source_set_product(GVirConfigStoragePoolSource *source,
@@ -160,6 +276,22 @@ void gvir_config_storage_pool_source_set_product(GVirConfigStoragePoolSource *so
     g_return_if_fail(GVIR_CONFIG_IS_OBJECT(node));
     gvir_config_object_set_attribute(node, "name", product, NULL);
     g_object_unref(G_OBJECT(node));
+}
+
+/**
+ * gvir_config_storage_pool_source_get_vendor:
+ * @source: a #GVirConfigStoragePoolSource
+ *
+ * Gets the vendor name of the storage device.
+ *
+ * Returns: vendor name of the storage device.
+ */
+const char *gvir_config_storage_pool_source_get_vendor(GVirConfigStoragePoolSource *source)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_STORAGE_POOL_SOURCE(source), NULL);
+    return gvir_config_object_get_attribute(GVIR_CONFIG_OBJECT(source),
+                                            "vendor",
+                                            "name");
 }
 
 void gvir_config_storage_pool_source_set_vendor(GVirConfigStoragePoolSource *source,

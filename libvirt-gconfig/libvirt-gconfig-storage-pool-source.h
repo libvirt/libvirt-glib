@@ -63,20 +63,28 @@ GVirConfigStoragePoolSource *gvir_config_storage_pool_source_new(void);
 GVirConfigStoragePoolSource *gvir_config_storage_pool_source_new_from_xml(const gchar *xml,
                                                                           GError **error);
 
+const char *gvir_config_storage_pool_source_get_adapter(GVirConfigStoragePoolSource *source);
 void gvir_config_storage_pool_source_set_adapter(GVirConfigStoragePoolSource *source,
                                                  const char *adapter);
+const char *gvir_config_storage_pool_source_get_device_path(GVirConfigStoragePoolSource *source);
 void gvir_config_storage_pool_source_set_device_path(GVirConfigStoragePoolSource *source,
                                                      const char *device_path);
+const char *gvir_config_storage_pool_source_get_directory(GVirConfigStoragePoolSource *source);
 void gvir_config_storage_pool_source_set_directory(GVirConfigStoragePoolSource *source,
                                                    const char *directory);
+const char *gvir_config_storage_pool_source_get_format(GVirConfigStoragePoolSource *source);
 void gvir_config_storage_pool_source_set_format(GVirConfigStoragePoolSource *source,
                                                 const char *format);
+const char *gvir_config_storage_pool_source_get_host(GVirConfigStoragePoolSource *source);
 void gvir_config_storage_pool_source_set_host(GVirConfigStoragePoolSource *source,
                                               const char *host);
+const char *gvir_config_storage_pool_source_get_name(GVirConfigStoragePoolSource *source);
 void gvir_config_storage_pool_source_set_name(GVirConfigStoragePoolSource *source,
                                               const char *name);
+const char *gvir_config_storage_pool_source_get_product(GVirConfigStoragePoolSource *source);
 void gvir_config_storage_pool_source_set_product(GVirConfigStoragePoolSource *source,
                                                  const char *product);
+const char *gvir_config_storage_pool_source_get_vendor(GVirConfigStoragePoolSource *source);
 void gvir_config_storage_pool_source_set_vendor(GVirConfigStoragePoolSource *source,
                                                 const char *vendor);
 
