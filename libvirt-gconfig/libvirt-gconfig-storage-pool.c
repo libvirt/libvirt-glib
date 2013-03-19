@@ -74,6 +74,25 @@ GVirConfigStoragePool *gvir_config_storage_pool_new_from_xml(const gchar *xml,
     return GVIR_CONFIG_STORAGE_POOL(object);
 }
 
+/**
+ * gvir_config_storage_pool_get_pool_type:
+ * @pool: a #GVirConfigStoragePool
+ *
+ * Gets the type of the pool.
+ *
+ * Returns: #Gname of @pool.
+ */
+GVirConfigStoragePoolType gvir_config_storage_pool_get_pool_type(GVirConfigStoragePool *pool)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_STORAGE_POOL(pool),
+                         GVIR_CONFIG_STORAGE_POOL_TYPE_DIR);
+
+    return gvir_config_object_get_attribute_genum(GVIR_CONFIG_OBJECT(pool),
+                                                  NULL, "type",
+                                                  GVIR_CONFIG_TYPE_STORAGE_POOL_TYPE,
+                                                  GVIR_CONFIG_STORAGE_POOL_TYPE_DIR);
+}
+
 void gvir_config_storage_pool_set_pool_type(GVirConfigStoragePool *pool,
                                             GVirConfigStoragePoolType type)
 {
@@ -84,6 +103,22 @@ void gvir_config_storage_pool_set_pool_type(GVirConfigStoragePool *pool,
                                                GVIR_CONFIG_TYPE_STORAGE_POOL_TYPE,
                                                type,
                                                NULL);
+}
+
+/**
+ * gvir_config_storage_pool_get_name:
+ * @pool: a #GVirConfigStoragePool
+ *
+ * Gets the name of the pool.
+ *
+ * Returns: name of @pool.
+ */
+const char *gvir_config_storage_pool_get_name(GVirConfigStoragePool *pool)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_STORAGE_POOL(pool), NULL);
+
+    return gvir_config_object_get_node_content(GVIR_CONFIG_OBJECT(pool),
+                                               "name");
 }
 
 /**
@@ -100,6 +135,22 @@ void gvir_config_storage_pool_set_name(GVirConfigStoragePool *pool,
 }
 
 /**
+ * gvir_config_storage_pool_get_uuid:
+ * @pool: a #GVirConfigStoragePool
+ *
+ * Gets the unique identifier for @pool.
+ *
+ * Returns: unique identifier for @pool.
+ */
+const char *gvir_config_storage_pool_get_uuid(GVirConfigStoragePool *pool)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_STORAGE_POOL(pool), NULL);
+
+    return gvir_config_object_get_node_content(GVIR_CONFIG_OBJECT(pool),
+                                               "uuid");
+}
+
+/**
  * gvir_config_storage_pool_set_uuid:
  * @uuid: (allow-none):
  */
@@ -112,6 +163,22 @@ void gvir_config_storage_pool_set_uuid(GVirConfigStoragePool *pool,
                                         "uuid", uuid);
 }
 
+/**
+ * gvir_config_storage_pool_get_capacity:
+ * @pool: a #GVirConfigStoragePool
+ *
+ * Gets the total storage capacity for the pool.
+ *
+ * Returns: total storage capacity in bytes.
+ */
+guint64 gvir_config_storage_pool_get_capacity(GVirConfigStoragePool *pool)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_STORAGE_POOL(pool), 0);
+
+    return gvir_config_object_get_node_content_uint64(GVIR_CONFIG_OBJECT(pool),
+                                                      "capacity");
+}
+
 void gvir_config_storage_pool_set_capacity(GVirConfigStoragePool *pool,
                                            guint64 capacity)
 {
@@ -119,6 +186,22 @@ void gvir_config_storage_pool_set_capacity(GVirConfigStoragePool *pool,
 
     gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(pool),
                                                "capacity", capacity);
+}
+
+/**
+ * gvir_config_storage_pool_get_allocation:
+ * @pool: a #GVirConfigStoragePool
+ *
+ * Gets the total storage allocation for the pool.
+ *
+ * Returns: total storage allocation in bytes.
+ */
+guint64 gvir_config_storage_pool_get_allocation(GVirConfigStoragePool *pool)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_STORAGE_POOL(pool), 0);
+
+    return gvir_config_object_get_node_content_uint64(GVIR_CONFIG_OBJECT(pool),
+                                                      "allocation");
 }
 
 void gvir_config_storage_pool_set_allocation(GVirConfigStoragePool *pool,
@@ -130,6 +213,22 @@ void gvir_config_storage_pool_set_allocation(GVirConfigStoragePool *pool,
                                                "allocation", allocation);
 }
 
+/**
+ * gvir_config_storage_pool_get_available:
+ * @pool: a #GVirConfigStoragePool
+ *
+ * Gets the free space available for allocating new volumes in the pool.
+ *
+ * Returns: free space available in bytes.
+ */
+guint64 gvir_config_storage_pool_get_available(GVirConfigStoragePool *pool)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_STORAGE_POOL(pool), 0);
+
+    return gvir_config_object_get_node_content_uint64(GVIR_CONFIG_OBJECT(pool),
+                                                      "available");
+}
+
 void gvir_config_storage_pool_set_available(GVirConfigStoragePool *pool,
                                             guint64 available)
 {
@@ -137,6 +236,28 @@ void gvir_config_storage_pool_set_available(GVirConfigStoragePool *pool,
 
     gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(pool),
                                                "available", available);
+}
+
+/**
+ * gvir_config_storage_pool_get_source:
+ * @pool: a #GVirConfigStoragePool
+ *
+ * Gets the source for @pool
+ *
+ * Returns: (transfer full): a new #GVirConfigStoragePoolSource instance.
+ */
+GVirConfigStoragePoolSource *gvir_config_storage_pool_get_source(GVirConfigStoragePool *pool)
+{
+    GVirConfigObject *object;
+
+    g_return_val_if_fail(GVIR_CONFIG_IS_STORAGE_POOL(pool), NULL);
+
+    object = gvir_config_object_get_child_with_type
+                                (GVIR_CONFIG_OBJECT(pool),
+                                 "source",
+                                 GVIR_CONFIG_TYPE_STORAGE_POOL_SOURCE);
+
+    return GVIR_CONFIG_STORAGE_POOL_SOURCE(object);
 }
 
 /**
@@ -153,6 +274,28 @@ void gvir_config_storage_pool_set_source(GVirConfigStoragePool *pool,
     gvir_config_object_attach_replace(GVIR_CONFIG_OBJECT(pool),
                                       "source",
                                       GVIR_CONFIG_OBJECT(source));
+}
+
+/**
+ * gvir_config_storage_pool_get_target:
+ * @pool: a #GVirConfigStoragePool
+ *
+ * Gets the target for @pool
+ *
+ * Returns: (transfer full): a new #GVirConfigStoragePoolTarget instance.
+ */
+GVirConfigStoragePoolTarget *gvir_config_storage_pool_get_target(GVirConfigStoragePool *pool)
+{
+    GVirConfigObject *object;
+
+    g_return_val_if_fail(GVIR_CONFIG_IS_STORAGE_POOL(pool), NULL);
+
+    object = gvir_config_object_get_child_with_type
+                                (GVIR_CONFIG_OBJECT(pool),
+                                 "target",
+                                 GVIR_CONFIG_TYPE_STORAGE_POOL_TARGET);
+
+    return GVIR_CONFIG_STORAGE_POOL_TARGET(object);
 }
 
 /**

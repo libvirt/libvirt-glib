@@ -531,6 +531,15 @@ LIBVIRT_GCONFIG_0.1.7 {
 	gvir_config_domain_graphics_rdp_set_autoport;
 	gvir_config_domain_graphics_rdp_get_port;
 	gvir_config_domain_graphics_rdp_set_port;
+
+	gvir_config_storage_pool_get_allocation;
+	gvir_config_storage_pool_get_available;
+	gvir_config_storage_pool_get_capacity;
+	gvir_config_storage_pool_get_name;
+	gvir_config_storage_pool_get_pool_type;
+	gvir_config_storage_pool_get_source;
+	gvir_config_storage_pool_get_target;
+	gvir_config_storage_pool_get_uuid;
 } LIBVIRT_GCONFIG_0.1.6;
 
 # .... define new API here using predicted next version number ....

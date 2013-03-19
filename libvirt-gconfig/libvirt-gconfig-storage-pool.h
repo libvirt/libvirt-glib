@@ -76,20 +76,28 @@ GVirConfigStoragePool *gvir_config_storage_pool_new(void);
 GVirConfigStoragePool *gvir_config_storage_pool_new_from_xml(const gchar *xml,
                                                              GError **error);
 
+guint64 gvir_config_storage_pool_get_allocation(GVirConfigStoragePool *pool);
 void gvir_config_storage_pool_set_allocation(GVirConfigStoragePool *pool,
                                              guint64 allocation);
+guint64 gvir_config_storage_pool_get_available(GVirConfigStoragePool *pool);
 void gvir_config_storage_pool_set_available(GVirConfigStoragePool *pool,
                                             guint64 available);
+guint64 gvir_config_storage_pool_get_capacity(GVirConfigStoragePool *pool);
 void gvir_config_storage_pool_set_capacity(GVirConfigStoragePool *pool,
                                            guint64 capacity);
+const char *gvir_config_storage_pool_get_name(GVirConfigStoragePool *pool);
 void gvir_config_storage_pool_set_name(GVirConfigStoragePool *pool,
                                        const char *name);
+GVirConfigStoragePoolType gvir_config_storage_pool_get_pool_type(GVirConfigStoragePool *pool);
 void gvir_config_storage_pool_set_pool_type(GVirConfigStoragePool *pool,
                                             GVirConfigStoragePoolType type);
+GVirConfigStoragePoolSource *gvir_config_storage_pool_get_source(GVirConfigStoragePool *pool);
 void gvir_config_storage_pool_set_source(GVirConfigStoragePool *pool,
                                          GVirConfigStoragePoolSource *source);
+GVirConfigStoragePoolTarget *gvir_config_storage_pool_get_target(GVirConfigStoragePool *pool);
 void gvir_config_storage_pool_set_target(GVirConfigStoragePool *pool,
                                          GVirConfigStoragePoolTarget *target);
+const char *gvir_config_storage_pool_get_uuid(GVirConfigStoragePool *pool);
 void gvir_config_storage_pool_set_uuid(GVirConfigStoragePool *pool,
                                        const char *uuid);
 
