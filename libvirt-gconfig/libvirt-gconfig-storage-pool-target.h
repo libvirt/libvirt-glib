@@ -63,8 +63,10 @@ GVirConfigStoragePoolTarget *gvir_config_storage_pool_target_new(void);
 GVirConfigStoragePoolTarget *gvir_config_storage_pool_target_new_from_xml(const gchar *xml,
                                                                           GError **error);
 
+const char *gvir_config_storage_pool_target_get_path(GVirConfigStoragePoolTarget *target);
 void gvir_config_storage_pool_target_set_path(GVirConfigStoragePoolTarget *target,
                                               const char *path);
+GVirConfigStoragePermissions *gvir_config_storage_pool_target_get_permissions(GVirConfigStoragePoolTarget *target);
 void gvir_config_storage_pool_target_set_permissions(GVirConfigStoragePoolTarget *target,
                                                      GVirConfigStoragePermissions *perms);
 

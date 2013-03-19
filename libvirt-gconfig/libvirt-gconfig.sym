@@ -549,6 +549,9 @@ LIBVIRT_GCONFIG_0.1.7 {
 	gvir_config_storage_pool_source_get_name;
 	gvir_config_storage_pool_source_get_product;
 	gvir_config_storage_pool_source_get_vendor;
+
+	gvir_config_storage_pool_target_get_path;
+	gvir_config_storage_pool_target_get_permissions;
 } LIBVIRT_GCONFIG_0.1.6;
 
 # .... define new API here using predicted next version number ....

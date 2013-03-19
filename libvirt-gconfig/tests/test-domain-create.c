@@ -422,6 +422,10 @@ int main(int argc, char **argv)
     gvir_config_storage_pool_set_target(pool, pool_target);
     g_object_unref(G_OBJECT(pool_target));
 
+    pool_target = gvir_config_storage_pool_get_target(pool);
+    g_str_const_check(gvir_config_storage_pool_target_get_path(pool_target), "/dev/disk/by-path");
+    g_object_unref(G_OBJECT(pool_target));
+
     xml = gvir_config_object_to_xml(GVIR_CONFIG_OBJECT(pool));
     g_print("%s\n\n", xml);
     g_free(xml);

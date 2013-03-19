@@ -72,6 +72,23 @@ GVirConfigStoragePoolTarget *gvir_config_storage_pool_target_new_from_xml(const 
 }
 
 /**
+ * gvir_config_storage_pool_target_get_path:
+ * @target: a #GVirConfigStoragePoolTarget
+ *
+ * Provides the location at which the storage pool associated with @target
+ * will be mapped into the local filesystem namespace.
+ *
+ * Returns: local filesystem path the storage pool is mapped at.
+ */
+const char *gvir_config_storage_pool_target_get_path(GVirConfigStoragePoolTarget *target)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_STORAGE_POOL_TARGET(target), NULL);
+
+    return gvir_config_object_get_node_content(GVIR_CONFIG_OBJECT(target),
+                                               "path");
+}
+
+/**
  * gvir_config_storage_pool_target_set_path:
  * @path: (allow-none):
  */
@@ -82,6 +99,28 @@ void gvir_config_storage_pool_target_set_path(GVirConfigStoragePoolTarget *targe
 
     gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(target),
                                         "path", path);
+}
+
+/**
+ * gvir_config_storage_pool_target_get_permissions:
+ * @target: a #GVirConfigStoragePoolTarget
+ *
+ * Gets the permissions associated with @target
+ *
+ * Returns: (transfer full): a new #GVirConfigStoragePoolPermissions instance.
+ */
+GVirConfigStoragePermissions *gvir_config_storage_pool_target_get_permissions(GVirConfigStoragePoolTarget *target)
+{
+    GVirConfigObject *object;
+
+    g_return_val_if_fail(GVIR_CONFIG_IS_STORAGE_POOL_TARGET(target), NULL);
+
+    object = gvir_config_object_get_child_with_type
+                                (GVIR_CONFIG_OBJECT(target),
+                                 "permissions",
+                                 GVIR_CONFIG_TYPE_STORAGE_PERMISSIONS);
+
+    return GVIR_CONFIG_STORAGE_PERMISSIONS(object);
 }
 
 /**
