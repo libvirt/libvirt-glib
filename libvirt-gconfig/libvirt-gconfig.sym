@@ -514,6 +514,12 @@ LIBVIRT_GCONFIG_0.1.6 {
 
 LIBVIRT_GCONFIG_0.1.7 {
   global:
+	gvir_config_domain_graphics_desktop_get_type;
+	gvir_config_domain_graphics_desktop_new;
+	gvir_config_domain_graphics_desktop_new_from_xml;
+	gvir_config_domain_graphics_desktop_set_display;
+	gvir_config_domain_graphics_desktop_set_fullscreen;
+
 	gvir_config_domain_graphics_sdl_set_fullscreen;
 
 	gvir_config_domain_graphics_rdp_get_type;
