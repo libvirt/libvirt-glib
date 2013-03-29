@@ -65,6 +65,8 @@ void gvir_config_domain_graphics_sdl_set_xauthority(GVirConfigDomainGraphicsSdl 
                                                     const gchar *path);
 void gvir_config_domain_graphics_sdl_set_display(GVirConfigDomainGraphicsSdl *graphics,
                                                  const gchar *disp);
+void gvir_config_domain_graphics_sdl_set_fullscreen(GVirConfigDomainGraphicsSdl *graphics,
+                                                    gboolean fullscreen);
 
 G_END_DECLS
 

@@ -512,4 +512,9 @@ LIBVIRT_GCONFIG_0.1.6 {
 	gvir_config_domain_graphics_spice_image_compression_get_type;
 } LIBVIRT_GCONFIG_0.1.5;
 
+LIBVIRT_GCONFIG_0.1.7 {
+  global:
+	gvir_config_domain_graphics_sdl_set_fullscreen;
+} LIBVIRT_GCONFIG_0.1.6;
+
 # .... define new API here using predicted next version number ....

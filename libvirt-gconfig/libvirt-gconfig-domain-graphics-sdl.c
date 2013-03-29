@@ -94,3 +94,15 @@ void gvir_config_domain_graphics_sdl_set_display(GVirConfigDomainGraphicsSdl *gr
                                      "display", disp,
                                      NULL);
 }
+
+void gvir_config_domain_graphics_sdl_set_fullscreen(GVirConfigDomainGraphicsSdl *graphics,
+                                                    gboolean fullscreen)
+{
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_GRAPHICS_SDL(graphics));
+
+    gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(graphics),
+                                               "fullscreen",
+                                               G_TYPE_BOOLEAN,
+                                               fullscreen,
+                                               NULL);
+}
