@@ -67,8 +67,11 @@ GVirConfigDomainChannel *gvir_config_domain_channel_new(void);
 GVirConfigDomainChannel *gvir_config_domain_channel_new_from_xml(const gchar *xml,
                                                                  GError **error);
 
+GVirConfigDomainChannelTargetType gvir_config_domain_channel_get_target_type(GVirConfigDomainChannel *channel);
 void gvir_config_domain_channel_set_target_type(GVirConfigDomainChannel *channel,
                                                 GVirConfigDomainChannelTargetType type);
+
+const gchar *gvir_config_domain_channel_get_target_name(GVirConfigDomainChannel *channel);
 void gvir_config_domain_channel_set_target_name(GVirConfigDomainChannel *channel,
                                                 const gchar *name);
 

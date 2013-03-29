@@ -71,6 +71,17 @@ GVirConfigDomainChannel *gvir_config_domain_channel_new_from_xml(const gchar *xm
 }
 
 
+GVirConfigDomainChannelTargetType gvir_config_domain_channel_get_target_type(GVirConfigDomainChannel *channel)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_CHANNEL(channel),
+                         GVIR_CONFIG_DOMAIN_CHANNEL_TARGET_GUESTFWD);
+
+    return gvir_config_object_get_attribute_genum(GVIR_CONFIG_OBJECT(channel),
+                                                  "target", "type",
+                                                  GVIR_CONFIG_TYPE_DOMAIN_CHANNEL_TARGET_TYPE,
+                                                  GVIR_CONFIG_DOMAIN_CHANNEL_TARGET_GUESTFWD);
+}
+
 void gvir_config_domain_channel_set_target_type(GVirConfigDomainChannel *channel,
                                                 GVirConfigDomainChannelTargetType type)
 {
@@ -82,6 +93,13 @@ void gvir_config_domain_channel_set_target_type(GVirConfigDomainChannel *channel
                                                      type);
 }
 
+const gchar *gvir_config_domain_channel_get_target_name(GVirConfigDomainChannel *channel)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_CHANNEL(channel), NULL);
+
+    return gvir_config_object_get_attribute(GVIR_CONFIG_OBJECT(channel),
+                                            "target", "name");
+}
 
 void gvir_config_domain_channel_set_target_name(GVirConfigDomainChannel *channel,
                                                 const gchar *name)
