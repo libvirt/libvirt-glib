@@ -515,6 +515,13 @@ LIBVIRT_GCONFIG_0.1.6 {
 LIBVIRT_GCONFIG_0.1.7 {
   global:
 	gvir_config_domain_graphics_sdl_set_fullscreen;
+
+	gvir_config_domain_graphics_rdp_get_type;
+	gvir_config_domain_graphics_rdp_new;
+	gvir_config_domain_graphics_rdp_new_from_xml;
+	gvir_config_domain_graphics_rdp_set_autoport;
+	gvir_config_domain_graphics_rdp_get_port;
+	gvir_config_domain_graphics_rdp_set_port;
 } LIBVIRT_GCONFIG_0.1.6;
 
 # .... define new API here using predicted next version number ....

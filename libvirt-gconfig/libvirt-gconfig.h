@@ -56,6 +56,7 @@
 #include <libvirt-gconfig/libvirt-gconfig-domain-disk.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-filesys.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-graphics.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-graphics-rdp.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-graphics-sdl.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-graphics-spice.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-graphics-vnc.h>
