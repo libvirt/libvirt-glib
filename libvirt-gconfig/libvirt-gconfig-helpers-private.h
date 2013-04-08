@@ -31,17 +31,20 @@
 G_BEGIN_DECLS
 
 GError *gvir_config_error_new(GQuark domain, gint code,
-                              const gchar *format, ...);
+                              const gchar *format, ...)
+    G_GNUC_PRINTF(3, 4);
 void gvir_config_set_error(GError **err,
                            GQuark domain, gint code,
-                           const gchar *format, ...);
+                           const gchar *format, ...)
+    G_GNUC_PRINTF(4, 5);
 void gvir_config_set_error_literal(GError **err,
                                    GQuark domain, gint code,
                                    const gchar *message);
 void gvir_config_set_error_valist(GError **err,
                                   GQuark domain, gint code,
                                   const gchar *format,
-                                  va_list args);
+                                  va_list args)
+    G_GNUC_PRINTF(4, 0);
 xmlNodePtr gvir_config_xml_parse(const char *xml,
                                  const char *root_node,
                                  GError **err);
@@ -49,7 +52,8 @@ typedef gboolean (*GVirConfigXmlNodeIterator)(xmlNodePtr node, gpointer opaque);
 void gvir_config_xml_foreach_child(xmlNodePtr node,
                                    GVirConfigXmlNodeIterator iter_func,
                                    gpointer opaque);
-xmlNode * gvir_config_xml_get_element (xmlNode *node, ...);
+xmlNode * gvir_config_xml_get_element (xmlNode *node, ...)
+    G_GNUC_NULL_TERMINATED;
 const char * gvir_config_xml_get_child_element_content (xmlNode *node,
                                                         const char *child_name);
 const char *gvir_config_xml_get_attribute_content(xmlNodePtr node,
