@@ -1,5 +1,5 @@
 
-SUBDIRS = libvirt-glib libvirt-gconfig libvirt-gobject python vapi examples docs
+SUBDIRS = libvirt-glib libvirt-gconfig libvirt-gobject python vapi examples docs po
 
 ACLOCAL_AMFLAGS = -I m4
 

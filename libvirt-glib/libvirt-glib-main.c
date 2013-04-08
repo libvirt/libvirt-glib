@@ -26,6 +26,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <libvirt/virterror.h>
+#include <glib/gi18n-lib.h>
 
 #include "libvirt-glib-main.h"
 
@@ -147,6 +148,9 @@ gboolean gvir_init_check(int *argc G_GNUC_UNUSED,
 #endif
 
     virInitialize();
+
+    if (!bindtextdomain(PACKAGE, LOCALEDIR))
+        return FALSE;
 
     /* GLib >= 2.31.0 debug is off by default, so we need to
      * enable it. Older versions are on by default, so we need

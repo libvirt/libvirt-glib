@@ -17,6 +17,7 @@ libvirt_glib_1_0_la_SOURCES = \
 libvirt_glib_1_0_la_CFLAGS = \
 			-DLIBVIRT_GLIB_BUILD \
 			-DG_LOG_DOMAIN="\"Libvirt.GLib\"" \
+			-DLOCALEDIR="\"$(datadir)/locale\"" \
 			$(COVERAGE_CFLAGS) \
 			-I$(top_srcdir) \
 			$(LIBVIRT_CFLAGS) \

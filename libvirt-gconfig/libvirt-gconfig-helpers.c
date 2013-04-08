@@ -26,6 +26,7 @@
 #include <string.h>
 
 #include <libxml/xmlerror.h>
+#include <glib/gi18n-lib.h>
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
 #include "libvirt-gconfig/libvirt-gconfig-helpers-private.h"
@@ -137,7 +138,7 @@ gvir_config_xml_parse(const char *xml, const char *root_node, GError **err)
         *err = g_error_new(GVIR_CONFIG_OBJECT_ERROR,
                            0,
                            "%s",
-                           "No XML document to parse");
+                           _("No XML document to parse"));
         return NULL;
     }
 
@@ -145,7 +146,7 @@ gvir_config_xml_parse(const char *xml, const char *root_node, GError **err)
     if (!doc) {
         gvir_config_set_error_literal(err, GVIR_CONFIG_OBJECT_ERROR,
                                       0,
-                                      "Unable to parse configuration");
+                                      _("Unable to parse configuration"));
         return NULL;
     }
     if ((!doc->children) ||
@@ -153,7 +154,7 @@ gvir_config_xml_parse(const char *xml, const char *root_node, GError **err)
         g_set_error(err,
                     GVIR_CONFIG_OBJECT_ERROR,
                     0,
-                    "XML data has no '%s' node",
+                    _("XML data has no '%s' node"),
                     root_node);
         xmlFreeDoc(doc);
         return NULL;

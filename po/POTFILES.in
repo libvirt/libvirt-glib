@@ -1,0 +1,4 @@
+libvirt-gconfig/libvirt-gconfig-helpers.c
+libvirt-gconfig/libvirt-gconfig-object.c
+libvirt-gobject/libvirt-gobject-connection.c
+libvirt-gobject/libvirt-gobject-stream.c

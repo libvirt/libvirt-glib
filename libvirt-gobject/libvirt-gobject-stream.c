@@ -27,6 +27,8 @@
 #include <libvirt/virterror.h>
 #include <string.h>
 
+#include <glib/gi18n-lib.h>
+
 #include "libvirt-glib/libvirt-glib.h"
 #include "libvirt-gobject/libvirt-gobject.h"
 #include "libvirt-gobject-compat.h"
@@ -320,10 +322,10 @@ gssize gvir_stream_receive(GVirStream *self,
 
     if (got == -2) {  /* blocking */
         g_set_error_literal(error, G_IO_ERROR, G_IO_ERROR_WOULD_BLOCK,
-                            "virStreamRecv call would block");
+                            _("virStreamRecv call would block"));
     } else if (got < 0) {
         g_set_error(error, G_IO_ERROR, G_IO_ERROR_INVALID_ARGUMENT,
-                    "Got virStreamRecv error in %s", G_STRFUNC);
+                    _("Got virStreamRecv error in %s"), G_STRFUNC);
     }
 
     return got;
@@ -388,7 +390,7 @@ gvir_stream_receive_all(GVirStream *self,
     if (r < 0) {
         gvir_set_error_literal(error, GVIR_STREAM_ERROR,
                                0,
-                               "Unable to perform RecvAll");
+                               _("Unable to perform RecvAll"));
     }
 
     return r;
@@ -436,10 +438,10 @@ gssize gvir_stream_send(GVirStream *self,
 
     if (got == -2) {  /* blocking */
         g_set_error_literal(error, G_IO_ERROR, G_IO_ERROR_WOULD_BLOCK,
-                            "virStreamSend call would block");
+                            _("virStreamSend call would block"));
     } else if (got < 0) {
         g_set_error(error, G_IO_ERROR, G_IO_ERROR_INVALID_ARGUMENT,
-                    "Got virStreamRecv error in %s", G_STRFUNC);
+                    _("Got virStreamRecv error in %s"), G_STRFUNC);
     }
 
     return got;
@@ -504,7 +506,7 @@ gvir_stream_send_all(GVirStream *self,
     if (r < 0) {
         gvir_set_error_literal(error, GVIR_STREAM_ERROR,
                                0,
-                               "Unable to perform SendAll");
+                               _("Unable to perform SendAll"));
     }
 
     return r;

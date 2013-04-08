@@ -26,6 +26,7 @@
 #include <string.h>
 
 #include <libxml/relaxng.h>
+#include <glib/gi18n-lib.h>
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
 #include "libvirt-gconfig/libvirt-gconfig-private.h"
@@ -208,7 +209,7 @@ void gvir_config_object_validate(GVirConfigObject *config,
         gvir_config_set_error_literal(err,
                                       GVIR_CONFIG_OBJECT_ERROR,
                                       0,
-                                      "No XML document associated with this config object");
+                                      _("No XML document associated with this config object"));
         return;
     }
 
@@ -217,7 +218,7 @@ void gvir_config_object_validate(GVirConfigObject *config,
         gvir_config_set_error(err,
                               GVIR_CONFIG_OBJECT_ERROR,
                               0,
-                              "Unable to create RNG parser for %s",
+                              _("Unable to create RNG parser for %s"),
                               priv->schema);
         return;
     }
@@ -227,7 +228,7 @@ void gvir_config_object_validate(GVirConfigObject *config,
         gvir_config_set_error(err,
                               GVIR_CONFIG_OBJECT_ERROR,
                               0,
-                              "Unable to parse RNG %s",
+                              _("Unable to parse RNG %s"),
                               priv->schema);
         xmlRelaxNGFreeParserCtxt(rngParser);
         return;
@@ -239,7 +240,7 @@ void gvir_config_object_validate(GVirConfigObject *config,
         gvir_config_set_error(err,
                               GVIR_CONFIG_OBJECT_ERROR,
                               0,
-                              "Unable to create RNG validation context %s",
+                              _("Unable to create RNG validation context %s"),
                               priv->schema);
         xmlRelaxNGFree(rng);
         return;
@@ -249,7 +250,7 @@ void gvir_config_object_validate(GVirConfigObject *config,
         gvir_config_set_error_literal(err,
                                       GVIR_CONFIG_OBJECT_ERROR,
                                       0,
-                                      "Unable to validate doc");
+                                      _("Unable to validate doc"));
         xmlRelaxNGFreeValidCtxt(rngValid);
         xmlRelaxNGFree(rng);
         return;

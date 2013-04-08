@@ -60,6 +60,12 @@ PKG_CHECK_MODULES(GOBJECT2, gobject-2.0 >= $GLIB2_REQUIRED)
 PKG_CHECK_MODULES(GIO2, gio-2.0 >= $GLIB2_REQUIRED)
 PKG_CHECK_MODULES(LIBXML2, libxml-2.0 >= $LIBXML2_REQUIRED)
 
+LIBVIRT_GLIB_GETTEXT
+dnl Should be in m4/virt-gettext.m4 but intltoolize is too
+dnl dumb to find it there
+IT_PROG_INTLTOOL([0.35.0])
+
+
 GTK_DOC_CHECK([1.10],[--flavour no-tmpl])
 
 # Setup GLIB_MKENUMS to use glib-mkenums even if GLib is uninstalled.
@@ -262,6 +268,7 @@ AC_OUTPUT(Makefile
           docs/libvirt-glib/version.xml
           docs/libvirt-gobject/Makefile
           docs/libvirt-gconfig/Makefile
+          po/Makefile.in
           libvirt-glib-1.0.pc
           libvirt-gconfig-1.0.pc
           libvirt-gobject-1.0.pc
