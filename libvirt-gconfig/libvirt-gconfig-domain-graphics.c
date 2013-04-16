@@ -67,17 +67,13 @@ gvir_config_domain_graphics_new_from_tree(GVirConfigXmlDoc *doc,
     } else if (g_str_equal(type, "spice")) {
         gtype = GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS_SPICE;
     } else if (g_str_equal(type, "rdp")) {
-        goto unimplemented;
+        gtype = GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS_RDP;
     } else if (g_str_equal(type, "desktop")) {
-        goto unimplemented;
+        gtype = GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS_DESKTOP;
     } else {
         g_debug("Unknown graphics node: %s", type);
         return NULL;
     }
 
     return GVIR_CONFIG_DOMAIN_DEVICE(gvir_config_object_new_from_tree(gtype, doc, NULL, tree));
-
-unimplemented:
-    g_debug("Parsing of '%s' graphics nodes is unimplemented", type);
-    return NULL;
 }
