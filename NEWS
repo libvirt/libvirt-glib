@@ -1,7 +1,7 @@
                  libvirt-glib News
                  =================
 
-0.1.6 - Mar 18, 2012
+0.1.6 - Mar 18, 2013
 ====================
 
 - Prefer g_strlcpy over strncpy
@@ -14,7 +14,7 @@
 - Replace FSF address with URL in copyright headers
 - Add API for changing Spice compression parameters.
 
-0.1.5 - Jan 14, 2012
+0.1.5 - Jan 14, 2013
 ====================
 
 - Add support for bridge interface types in guest XML
