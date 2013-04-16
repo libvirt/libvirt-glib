@@ -78,6 +78,7 @@
 #include <libvirt-gconfig/libvirt-gconfig-domain-smartcard-host-certificates.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-smartcard-passthrough.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-snapshot.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-snapshot-disk.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-sound.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-timer.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-timer-pit.h>

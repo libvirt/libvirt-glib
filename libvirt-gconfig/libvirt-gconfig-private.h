@@ -25,6 +25,7 @@
 
 #include <libvirt-gconfig/libvirt-gconfig-capabilities-cpu-private.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-device-private.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-snapshot-private.h>
 #include <libvirt-gconfig/libvirt-gconfig-helpers-private.h>
 #include <libvirt-gconfig/libvirt-gconfig-object-private.h>
 #include <libvirt-gconfig/libvirt-gconfig-xml-doc.h>
