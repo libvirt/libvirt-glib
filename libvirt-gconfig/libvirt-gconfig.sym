@@ -562,6 +562,24 @@ LIBVIRT_GCONFIG_0.1.7 {
 	gvir_config_storage_pool_target_get_path;
 	gvir_config_storage_pool_target_get_permissions;
 
+	gvir_config_domain_snapshot_domain_state_get_type;
+	gvir_config_domain_snapshot_memory_state_get_type;
+	gvir_config_domain_snapshot_get_creation_time;
+	gvir_config_domain_snapshot_get_description;
+	gvir_config_domain_snapshot_set_description;
+	gvir_config_domain_snapshot_get_domain;
+	gvir_config_domain_snapshot_get_memory_state;
+	gvir_config_domain_snapshot_set_memory_state;
+	gvir_config_domain_snapshot_get_memory_file;
+	gvir_config_domain_snapshot_set_memory_file;
+	gvir_config_domain_snapshot_get_name;
+	gvir_config_domain_snapshot_set_name;
+	gvir_config_domain_snapshot_get_parent;
+	gvir_config_domain_snapshot_get_state;
+	gvir_config_domain_snapshot_get_disks;
+	gvir_config_domain_snapshot_add_disk;
+	gvir_config_domain_snapshot_set_disks;
+
 	gvir_config_domain_snapshot_disk_get_type;
 	gvir_config_domain_snapshot_disk_new;
 	gvir_config_domain_snapshot_disk_new_from_xml;
