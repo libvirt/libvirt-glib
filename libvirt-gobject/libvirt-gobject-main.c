@@ -33,7 +33,7 @@
 /**
  * gvir_init_object:
  * @argc: (inout): pointer to application's argc
- * @argv: (inout) (array length=argc) (allow-none): pointer to application's argv
+ * @argv: (inout) (array length=argc) (allow-none) (transfer none): pointer to application's argv
  */
 void gvir_init_object(int *argc,
                       char ***argv)
@@ -58,7 +58,7 @@ static void gvir_log_handler(const gchar *log_domain G_GNUC_UNUSED,
 /**
  * gvir_init_object_check:
  * @argc: (inout): pointer to application's argc
- * @argv: (inout) (array length=argc) (allow-none): pointer to application's argv
+ * @argv: (inout) (array length=argc) (allow-none) (transfer none): pointer to application's argv
  * @err: pointer to a #GError to which a message will be posted on error
  */
 gboolean gvir_init_object_check(int *argc,

@@ -44,4 +44,4 @@ CLEANFILES =					\
 	libvirt-gobject-1.0.vapi		\
 	$(NULL)
 
-EXTRA_DIST = LibvirtGObject-1.0.metadata libvirt-gobject-1.0.deps
+EXTRA_DIST = libvirt-gobject-1.0.deps
