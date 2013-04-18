@@ -108,13 +108,13 @@ static void gvir_manager_class_init(GVirManagerClass *klass)
 }
 
 
-static void gvir_manager_init(GVirManager *conn)
+static void gvir_manager_init(GVirManager *manager)
 {
     GVirManagerPrivate *priv;
 
-    g_debug("Init GVirManager=%p", conn);
+    g_debug("Init GVirManager=%p", manager);
 
-    priv = conn->priv = GVIR_MANAGER_GET_PRIVATE(conn);
+    priv = manager->priv = GVIR_MANAGER_GET_PRIVATE(manager);
 
     priv->lock = g_mutex_new();
 }

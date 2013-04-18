@@ -44,11 +44,11 @@ static void gvir_config_domain_interface_user_class_init(GVirConfigDomainInterfa
 }
 
 
-static void gvir_config_domain_interface_user_init(GVirConfigDomainInterfaceUser *conn)
+static void gvir_config_domain_interface_user_init(GVirConfigDomainInterfaceUser *iface)
 {
-    g_debug("Init GVirConfigDomainInterfaceUser=%p", conn);
+    g_debug("Init GVirConfigDomainInterfaceUser=%p", iface);
 
-    conn->priv = GVIR_CONFIG_DOMAIN_INTERFACE_USER_GET_PRIVATE(conn);
+    iface->priv = GVIR_CONFIG_DOMAIN_INTERFACE_USER_GET_PRIVATE(iface);
 }
 
 

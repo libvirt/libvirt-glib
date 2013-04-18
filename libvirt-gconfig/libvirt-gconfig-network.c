@@ -42,11 +42,11 @@ static void gvir_config_network_class_init(GVirConfigNetworkClass *klass)
 }
 
 
-static void gvir_config_network_init(GVirConfigNetwork *conn)
+static void gvir_config_network_init(GVirConfigNetwork *network)
 {
-    g_debug("Init GVirConfigNetwork=%p", conn);
+    g_debug("Init GVirConfigNetwork=%p", network);
 
-    conn->priv = GVIR_CONFIG_NETWORK_GET_PRIVATE(conn);
+    network->priv = GVIR_CONFIG_NETWORK_GET_PRIVATE(network);
 }
 
 

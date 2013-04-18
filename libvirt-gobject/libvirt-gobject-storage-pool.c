@@ -123,8 +123,8 @@ static void gvir_storage_pool_finalize(GObject *object)
 
 static void gvir_storage_pool_constructed(GObject *object)
 {
-    GVirStoragePool *conn = GVIR_STORAGE_POOL(object);
-    GVirStoragePoolPrivate *priv = conn->priv;
+    GVirStoragePool *pool = GVIR_STORAGE_POOL(object);
+    GVirStoragePoolPrivate *priv = pool->priv;
 
     G_OBJECT_CLASS(gvir_storage_pool_parent_class)->constructed(object);
 

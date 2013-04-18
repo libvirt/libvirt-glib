@@ -188,11 +188,11 @@ static void gvir_config_domain_class_init(GVirConfigDomainClass *klass)
 }
 
 
-static void gvir_config_domain_init(GVirConfigDomain *conn)
+static void gvir_config_domain_init(GVirConfigDomain *domain)
 {
-    g_debug("Init GVirConfigDomain=%p", conn);
+    g_debug("Init GVirConfigDomain=%p", domain);
 
-    conn->priv = GVIR_CONFIG_DOMAIN_GET_PRIVATE(conn);
+    domain->priv = GVIR_CONFIG_DOMAIN_GET_PRIVATE(domain);
 }
 
 

@@ -42,11 +42,11 @@ static void gvir_config_node_device_class_init(GVirConfigNodeDeviceClass *klass)
 }
 
 
-static void gvir_config_node_device_init(GVirConfigNodeDevice *conn)
+static void gvir_config_node_device_init(GVirConfigNodeDevice *device)
 {
-    g_debug("Init GVirConfigNodeDevice=%p", conn);
+    g_debug("Init GVirConfigNodeDevice=%p", device);
 
-    conn->priv = GVIR_CONFIG_NODE_DEVICE_GET_PRIVATE(conn);
+    device->priv = GVIR_CONFIG_NODE_DEVICE_GET_PRIVATE(device);
 }
 
 

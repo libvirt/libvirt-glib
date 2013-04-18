@@ -75,8 +75,8 @@ static void gvir_domain_get_property(GObject *object,
                                      GValue *value,
                                      GParamSpec *pspec)
 {
-    GVirDomain *conn = GVIR_DOMAIN(object);
-    GVirDomainPrivate *priv = conn->priv;
+    GVirDomain *domain = GVIR_DOMAIN(object);
+    GVirDomainPrivate *priv = domain->priv;
 
     switch (prop_id) {
     case PROP_HANDLE:
@@ -84,7 +84,7 @@ static void gvir_domain_get_property(GObject *object,
         break;
 
     case PROP_PERSISTENT:
-        g_value_set_boolean(value, gvir_domain_get_persistent (conn));
+        g_value_set_boolean(value, gvir_domain_get_persistent (domain));
         break;
 
     default:
@@ -98,8 +98,8 @@ static void gvir_domain_set_property(GObject *object,
                                      const GValue *value,
                                      GParamSpec *pspec)
 {
-    GVirDomain *conn = GVIR_DOMAIN(object);
-    GVirDomainPrivate *priv = conn->priv;
+    GVirDomain *domain = GVIR_DOMAIN(object);
+    GVirDomainPrivate *priv = domain->priv;
 
     switch (prop_id) {
     case PROP_HANDLE:
@@ -116,10 +116,10 @@ static void gvir_domain_set_property(GObject *object,
 
 static void gvir_domain_finalize(GObject *object)
 {
-    GVirDomain *conn = GVIR_DOMAIN(object);
-    GVirDomainPrivate *priv = conn->priv;
+    GVirDomain *domain = GVIR_DOMAIN(object);
+    GVirDomainPrivate *priv = domain->priv;
 
-    g_debug("Finalize GVirDomain=%p", conn);
+    g_debug("Finalize GVirDomain=%p", domain);
 
     virDomainFree(priv->handle);
 
@@ -129,8 +129,8 @@ static void gvir_domain_finalize(GObject *object)
 
 static void gvir_domain_constructed(GObject *object)
 {
-    GVirDomain *conn = GVIR_DOMAIN(object);
-    GVirDomainPrivate *priv = conn->priv;
+    GVirDomain *domain = GVIR_DOMAIN(object);
+    GVirDomainPrivate *priv = domain->priv;
 
     G_OBJECT_CLASS(gvir_domain_parent_class)->constructed(object);
 
@@ -232,11 +232,11 @@ static void gvir_domain_class_init(GVirDomainClass *klass)
 }
 
 
-static void gvir_domain_init(GVirDomain *conn)
+static void gvir_domain_init(GVirDomain *domain)
 {
-    g_debug("Init GVirDomain=%p", conn);
+    g_debug("Init GVirDomain=%p", domain);
 
-    conn->priv = GVIR_DOMAIN_GET_PRIVATE(conn);
+    domain->priv = GVIR_DOMAIN_GET_PRIVATE(domain);
 }
 
 typedef struct virDomain GVirDomainHandle;

@@ -42,11 +42,11 @@ static void gvir_config_secret_class_init(GVirConfigSecretClass *klass)
 }
 
 
-static void gvir_config_secret_init(GVirConfigSecret *conn)
+static void gvir_config_secret_init(GVirConfigSecret *secret)
 {
-    g_debug("Init GVirConfigSecret=%p", conn);
+    g_debug("Init GVirConfigSecret=%p", secret);
 
-    conn->priv = GVIR_CONFIG_SECRET_GET_PRIVATE(conn);
+    secret->priv = GVIR_CONFIG_SECRET_GET_PRIVATE(secret);
 }
 
 

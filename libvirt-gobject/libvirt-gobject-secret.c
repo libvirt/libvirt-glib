@@ -62,8 +62,8 @@ static void gvir_secret_get_property(GObject *object,
                                      GValue *value,
                                      GParamSpec *pspec)
 {
-    GVirSecret *conn = GVIR_SECRET(object);
-    GVirSecretPrivate *priv = conn->priv;
+    GVirSecret *secret = GVIR_SECRET(object);
+    GVirSecretPrivate *priv = secret->priv;
 
     switch (prop_id) {
     case PROP_HANDLE:
@@ -81,8 +81,8 @@ static void gvir_secret_set_property(GObject *object,
                                      const GValue *value,
                                      GParamSpec *pspec)
 {
-    GVirSecret *conn = GVIR_SECRET(object);
-    GVirSecretPrivate *priv = conn->priv;
+    GVirSecret *secret = GVIR_SECRET(object);
+    GVirSecretPrivate *priv = secret->priv;
 
     switch (prop_id) {
     case PROP_HANDLE:
@@ -99,10 +99,10 @@ static void gvir_secret_set_property(GObject *object,
 
 static void gvir_secret_finalize(GObject *object)
 {
-    GVirSecret *conn = GVIR_SECRET(object);
-    GVirSecretPrivate *priv = conn->priv;
+    GVirSecret *secret = GVIR_SECRET(object);
+    GVirSecretPrivate *priv = secret->priv;
 
-    g_debug("Finalize GVirSecret=%p", conn);
+    g_debug("Finalize GVirSecret=%p", secret);
 
     virSecretFree(priv->handle);
 
@@ -112,8 +112,8 @@ static void gvir_secret_finalize(GObject *object)
 
 static void gvir_secret_constructed(GObject *object)
 {
-    GVirSecret *conn = GVIR_SECRET(object);
-    GVirSecretPrivate *priv = conn->priv;
+    GVirSecret *secret = GVIR_SECRET(object);
+    GVirSecretPrivate *priv = secret->priv;
 
     G_OBJECT_CLASS(gvir_secret_parent_class)->constructed(object);
 
@@ -147,11 +147,11 @@ static void gvir_secret_class_init(GVirSecretClass *klass)
 }
 
 
-static void gvir_secret_init(GVirSecret *conn)
+static void gvir_secret_init(GVirSecret *secret)
 {
-    g_debug("Init GVirSecret=%p", conn);
+    g_debug("Init GVirSecret=%p", secret);
 
-    conn->priv = GVIR_SECRET_GET_PRIVATE(conn);
+    secret->priv = GVIR_SECRET_GET_PRIVATE(secret);
 }
 
 typedef struct virSecret GVirSecretHandle;

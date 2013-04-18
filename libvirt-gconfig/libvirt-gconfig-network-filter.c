@@ -42,11 +42,11 @@ static void gvir_config_network_filter_class_init(GVirConfigNetworkFilterClass *
 }
 
 
-static void gvir_config_network_filter_init(GVirConfigNetworkFilter *conn)
+static void gvir_config_network_filter_init(GVirConfigNetworkFilter *filter)
 {
-    g_debug("Init GVirConfigNetworkFilter=%p", conn);
+    g_debug("Init GVirConfigNetworkFilter=%p", filter);
 
-    conn->priv = GVIR_CONFIG_NETWORK_FILTER_GET_PRIVATE(conn);
+    filter->priv = GVIR_CONFIG_NETWORK_FILTER_GET_PRIVATE(filter);
 }
 
 

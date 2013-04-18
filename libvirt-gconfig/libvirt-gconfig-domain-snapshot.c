@@ -42,11 +42,11 @@ static void gvir_config_domain_snapshot_class_init(GVirConfigDomainSnapshotClass
 }
 
 
-static void gvir_config_domain_snapshot_init(GVirConfigDomainSnapshot *conn)
+static void gvir_config_domain_snapshot_init(GVirConfigDomainSnapshot *snapshot)
 {
-    g_debug("Init GVirConfigDomainSnapshot=%p", conn);
+    g_debug("Init GVirConfigDomainSnapshot=%p", snapshot);
 
-    conn->priv = GVIR_CONFIG_DOMAIN_SNAPSHOT_GET_PRIVATE(conn);
+    snapshot->priv = GVIR_CONFIG_DOMAIN_SNAPSHOT_GET_PRIVATE(snapshot);
 }
 
 

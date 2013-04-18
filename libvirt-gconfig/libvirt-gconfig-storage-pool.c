@@ -44,11 +44,11 @@ static void gvir_config_storage_pool_class_init(GVirConfigStoragePoolClass *klas
 }
 
 
-static void gvir_config_storage_pool_init(GVirConfigStoragePool *conn)
+static void gvir_config_storage_pool_init(GVirConfigStoragePool *pool)
 {
-    g_debug("Init GVirConfigStoragePool=%p", conn);
+    g_debug("Init GVirConfigStoragePool=%p", pool);
 
-    conn->priv = GVIR_CONFIG_STORAGE_POOL_GET_PRIVATE(conn);
+    pool->priv = GVIR_CONFIG_STORAGE_POOL_GET_PRIVATE(pool);
 }
 
 

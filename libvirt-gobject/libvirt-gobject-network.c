@@ -62,8 +62,8 @@ static void gvir_network_get_property(GObject *object,
                                       GValue *value,
                                       GParamSpec *pspec)
 {
-    GVirNetwork *conn = GVIR_NETWORK(object);
-    GVirNetworkPrivate *priv = conn->priv;
+    GVirNetwork *network = GVIR_NETWORK(object);
+    GVirNetworkPrivate *priv = network->priv;
 
     switch (prop_id) {
     case PROP_HANDLE:
@@ -81,8 +81,8 @@ static void gvir_network_set_property(GObject *object,
                                       const GValue *value,
                                       GParamSpec *pspec)
 {
-    GVirNetwork *conn = GVIR_NETWORK(object);
-    GVirNetworkPrivate *priv = conn->priv;
+    GVirNetwork *network = GVIR_NETWORK(object);
+    GVirNetworkPrivate *priv = network->priv;
 
     switch (prop_id) {
     case PROP_HANDLE:
@@ -99,10 +99,10 @@ static void gvir_network_set_property(GObject *object,
 
 static void gvir_network_finalize(GObject *object)
 {
-    GVirNetwork *conn = GVIR_NETWORK(object);
-    GVirNetworkPrivate *priv = conn->priv;
+    GVirNetwork *network = GVIR_NETWORK(object);
+    GVirNetworkPrivate *priv = network->priv;
 
-    g_debug("Finalize GVirNetwork=%p", conn);
+    g_debug("Finalize GVirNetwork=%p", network);
 
     virNetworkFree(priv->handle);
 
@@ -145,11 +145,11 @@ static void gvir_network_class_init(GVirNetworkClass *klass)
 }
 
 
-static void gvir_network_init(GVirNetwork *conn)
+static void gvir_network_init(GVirNetwork *network)
 {
-    g_debug("Init GVirNetwork=%p", conn);
+    g_debug("Init GVirNetwork=%p", network);
 
-    conn->priv = GVIR_NETWORK_GET_PRIVATE(conn);
+    network->priv = GVIR_NETWORK_GET_PRIVATE(network);
 }
 
 typedef struct virNetwork GVirNetworkHandle;

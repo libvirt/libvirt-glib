@@ -65,8 +65,8 @@ static void gvir_storage_vol_get_property(GObject *object,
                                           GValue *value,
                                           GParamSpec *pspec)
 {
-    GVirStorageVol *conn = GVIR_STORAGE_VOL(object);
-    GVirStorageVolPrivate *priv = conn->priv;
+    GVirStorageVol *vol = GVIR_STORAGE_VOL(object);
+    GVirStorageVolPrivate *priv = vol->priv;
 
     switch (prop_id) {
     case PROP_HANDLE:
@@ -88,8 +88,8 @@ static void gvir_storage_vol_set_property(GObject *object,
                                           const GValue *value,
                                           GParamSpec *pspec)
 {
-    GVirStorageVol *conn = GVIR_STORAGE_VOL(object);
-    GVirStorageVolPrivate *priv = conn->priv;
+    GVirStorageVol *vol = GVIR_STORAGE_VOL(object);
+    GVirStorageVolPrivate *priv = vol->priv;
 
     switch (prop_id) {
     case PROP_HANDLE:
@@ -109,10 +109,10 @@ static void gvir_storage_vol_set_property(GObject *object,
 
 static void gvir_storage_vol_finalize(GObject *object)
 {
-    GVirStorageVol *conn = GVIR_STORAGE_VOL(object);
-    GVirStorageVolPrivate *priv = conn->priv;
+    GVirStorageVol *vol = GVIR_STORAGE_VOL(object);
+    GVirStorageVolPrivate *priv = vol->priv;
 
-    g_debug("Finalize GVirStorageVol=%p", conn);
+    g_debug("Finalize GVirStorageVol=%p", vol);
 
     virStorageVolFree(priv->handle);
 
@@ -154,11 +154,11 @@ static void gvir_storage_vol_class_init(GVirStorageVolClass *klass)
 }
 
 
-static void gvir_storage_vol_init(GVirStorageVol *conn)
+static void gvir_storage_vol_init(GVirStorageVol *vol)
 {
-    g_debug("Init GVirStorageVol=%p", conn);
+    g_debug("Init GVirStorageVol=%p", vol);
 
-    conn->priv = GVIR_STORAGE_VOL_GET_PRIVATE(conn);
+    vol->priv = GVIR_STORAGE_VOL_GET_PRIVATE(vol);
 }
 
 typedef struct virStorageVol GVirStorageVolHandle;

@@ -61,8 +61,8 @@ static void gvir_interface_get_property(GObject *object,
                                         GValue *value,
                                         GParamSpec *pspec)
 {
-    GVirInterface *conn = GVIR_INTERFACE(object);
-    GVirInterfacePrivate *priv = conn->priv;
+    GVirInterface *iface = GVIR_INTERFACE(object);
+    GVirInterfacePrivate *priv = iface->priv;
 
     switch (prop_id) {
     case PROP_HANDLE:
@@ -80,8 +80,8 @@ static void gvir_interface_set_property(GObject *object,
                                         const GValue *value,
                                         GParamSpec *pspec)
 {
-    GVirInterface *conn = GVIR_INTERFACE(object);
-    GVirInterfacePrivate *priv = conn->priv;
+    GVirInterface *iface = GVIR_INTERFACE(object);
+    GVirInterfacePrivate *priv = iface->priv;
 
     switch (prop_id) {
     case PROP_HANDLE:
@@ -98,10 +98,10 @@ static void gvir_interface_set_property(GObject *object,
 
 static void gvir_interface_finalize(GObject *object)
 {
-    GVirInterface *conn = GVIR_INTERFACE(object);
-    GVirInterfacePrivate *priv = conn->priv;
+    GVirInterface *iface = GVIR_INTERFACE(object);
+    GVirInterfacePrivate *priv = iface->priv;
 
-    g_debug("Finalize GVirInterface=%p", conn);
+    g_debug("Finalize GVirInterface=%p", iface);
 
     virInterfaceFree(priv->handle);
 
@@ -132,11 +132,11 @@ static void gvir_interface_class_init(GVirInterfaceClass *klass)
 }
 
 
-static void gvir_interface_init(GVirInterface *conn)
+static void gvir_interface_init(GVirInterface *iface)
 {
-    g_debug("Init GVirInterface=%p", conn);
+    g_debug("Init GVirInterface=%p", iface);
 
-    conn->priv = GVIR_INTERFACE_GET_PRIVATE(conn);
+    iface->priv = GVIR_INTERFACE_GET_PRIVATE(iface);
 }
 
 typedef struct virInterface GVirInterfaceHandle;

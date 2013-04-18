@@ -61,8 +61,8 @@ static void gvir_node_device_get_property(GObject *object,
                                           GValue *value,
                                           GParamSpec *pspec)
 {
-    GVirNodeDevice *conn = GVIR_NODE_DEVICE(object);
-    GVirNodeDevicePrivate *priv = conn->priv;
+    GVirNodeDevice *device = GVIR_NODE_DEVICE(object);
+    GVirNodeDevicePrivate *priv = device->priv;
 
     switch (prop_id) {
     case PROP_HANDLE:
@@ -80,8 +80,8 @@ static void gvir_node_device_set_property(GObject *object,
                                           const GValue *value,
                                           GParamSpec *pspec)
 {
-    GVirNodeDevice *conn = GVIR_NODE_DEVICE(object);
-    GVirNodeDevicePrivate *priv = conn->priv;
+    GVirNodeDevice *device = GVIR_NODE_DEVICE(object);
+    GVirNodeDevicePrivate *priv = device->priv;
 
     switch (prop_id) {
     case PROP_HANDLE:
@@ -98,10 +98,10 @@ static void gvir_node_device_set_property(GObject *object,
 
 static void gvir_node_device_finalize(GObject *object)
 {
-    GVirNodeDevice *conn = GVIR_NODE_DEVICE(object);
-    GVirNodeDevicePrivate *priv = conn->priv;
+    GVirNodeDevice *device = GVIR_NODE_DEVICE(object);
+    GVirNodeDevicePrivate *priv = device->priv;
 
-    g_debug("Finalize GVirNodeDevice=%p", conn);
+    g_debug("Finalize GVirNodeDevice=%p", device);
 
     virNodeDeviceFree(priv->handle);
 
@@ -132,11 +132,11 @@ static void gvir_node_device_class_init(GVirNodeDeviceClass *klass)
 }
 
 
-static void gvir_node_device_init(GVirNodeDevice *conn)
+static void gvir_node_device_init(GVirNodeDevice *device)
 {
-    g_debug("Init GVirNodeDevice=%p", conn);
+    g_debug("Init GVirNodeDevice=%p", device);
 
-    conn->priv = GVIR_NODE_DEVICE_GET_PRIVATE(conn);
+    device->priv = GVIR_NODE_DEVICE_GET_PRIVATE(device);
 }
 
 typedef struct virNodeDevice GVirNodeDeviceHandle;

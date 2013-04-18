@@ -61,8 +61,8 @@ static void gvir_domain_snapshot_get_property(GObject *object,
                                               GValue *value,
                                               GParamSpec *pspec)
 {
-    GVirDomainSnapshot *conn = GVIR_DOMAIN_SNAPSHOT(object);
-    GVirDomainSnapshotPrivate *priv = conn->priv;
+    GVirDomainSnapshot *snapshot = GVIR_DOMAIN_SNAPSHOT(object);
+    GVirDomainSnapshotPrivate *priv = snapshot->priv;
 
     switch (prop_id) {
     case PROP_HANDLE:
@@ -80,8 +80,8 @@ static void gvir_domain_snapshot_set_property(GObject *object,
                                               const GValue *value,
                                               GParamSpec *pspec)
 {
-    GVirDomainSnapshot *conn = GVIR_DOMAIN_SNAPSHOT(object);
-    GVirDomainSnapshotPrivate *priv = conn->priv;
+    GVirDomainSnapshot *snapshot = GVIR_DOMAIN_SNAPSHOT(object);
+    GVirDomainSnapshotPrivate *priv = snapshot->priv;
 
     switch (prop_id) {
     case PROP_HANDLE:
@@ -98,10 +98,10 @@ static void gvir_domain_snapshot_set_property(GObject *object,
 
 static void gvir_domain_snapshot_finalize(GObject *object)
 {
-    GVirDomainSnapshot *conn = GVIR_DOMAIN_SNAPSHOT(object);
-    GVirDomainSnapshotPrivate *priv = conn->priv;
+    GVirDomainSnapshot *snapshot = GVIR_DOMAIN_SNAPSHOT(object);
+    GVirDomainSnapshotPrivate *priv = snapshot->priv;
 
-    g_debug("Finalize GVirDomainSnapshot=%p", conn);
+    g_debug("Finalize GVirDomainSnapshot=%p", snapshot);
 
     virDomainSnapshotFree(priv->handle);
 
@@ -132,11 +132,11 @@ static void gvir_domain_snapshot_class_init(GVirDomainSnapshotClass *klass)
 }
 
 
-static void gvir_domain_snapshot_init(GVirDomainSnapshot *conn)
+static void gvir_domain_snapshot_init(GVirDomainSnapshot *snapshot)
 {
-    g_debug("Init GVirDomainSnapshot=%p", conn);
+    g_debug("Init GVirDomainSnapshot=%p", snapshot);
 
-    conn->priv = GVIR_DOMAIN_SNAPSHOT_GET_PRIVATE(conn);
+    snapshot->priv = GVIR_DOMAIN_SNAPSHOT_GET_PRIVATE(snapshot);
 }
 
 typedef struct virDomainSnapshot GVirDomainSnapshotHandle;

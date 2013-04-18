@@ -120,10 +120,10 @@ static void gvir_config_object_set_property(GObject *object,
 
 static void gvir_config_object_finalize(GObject *object)
 {
-    GVirConfigObject *conn = GVIR_CONFIG_OBJECT(object);
-    GVirConfigObjectPrivate *priv = conn->priv;
+    GVirConfigObject *gvir_object = GVIR_CONFIG_OBJECT(object);
+    GVirConfigObjectPrivate *priv = gvir_object->priv;
 
-    g_debug("Finalize GVirConfigObject=%p", conn);
+    g_debug("Finalize GVirConfigObject=%p", gvir_object);
 
     g_free(priv->schema);
 
@@ -182,11 +182,11 @@ static void gvir_config_object_class_init(GVirConfigObjectClass *klass)
 }
 
 
-static void gvir_config_object_init(GVirConfigObject *conn)
+static void gvir_config_object_init(GVirConfigObject *object)
 {
-    g_debug("Init GVirConfigObject=%p", conn);
+    g_debug("Init GVirConfigObject=%p", object);
 
-    conn->priv = GVIR_CONFIG_OBJECT_GET_PRIVATE(conn);
+    object->priv = GVIR_CONFIG_OBJECT_GET_PRIVATE(object);
 }
 
 void gvir_config_object_validate(GVirConfigObject *config,

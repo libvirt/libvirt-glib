@@ -44,11 +44,11 @@ static void gvir_config_domain_interface_network_class_init(GVirConfigDomainInte
 }
 
 
-static void gvir_config_domain_interface_network_init(GVirConfigDomainInterfaceNetwork *conn)
+static void gvir_config_domain_interface_network_init(GVirConfigDomainInterfaceNetwork *iface)
 {
-    g_debug("Init GVirConfigDomainInterfaceNetwork=%p", conn);
+    g_debug("Init GVirConfigDomainInterfaceNetwork=%p", iface);
 
-    conn->priv = GVIR_CONFIG_DOMAIN_INTERFACE_NETWORK_GET_PRIVATE(conn);
+    iface->priv = GVIR_CONFIG_DOMAIN_INTERFACE_NETWORK_GET_PRIVATE(iface);
 }
 
 
