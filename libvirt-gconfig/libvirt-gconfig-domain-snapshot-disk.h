@@ -63,6 +63,22 @@ GVirConfigDomainSnapshotDisk *gvir_config_domain_snapshot_disk_new(void);
 GVirConfigDomainSnapshotDisk *gvir_config_domain_snapshot_disk_new_from_xml(const gchar *xml,
                                                                             GError **error);
 
+const char *gvir_config_domain_snapshot_disk_get_name(GVirConfigDomainSnapshotDisk *disk);
+void gvir_config_domain_snapshot_disk_set_name(GVirConfigDomainSnapshotDisk *disk,
+                                               const char *name);
+
+GVirConfigDomainDiskSnapshotType gvir_config_domain_snapshot_disk_get_snapshot_type(GVirConfigDomainSnapshotDisk *disk);
+void gvir_config_domain_snapshot_disk_set_snapshot_type(GVirConfigDomainSnapshotDisk *disk,
+                                                        GVirConfigDomainDiskSnapshotType type);
+
+const char *gvir_config_domain_snapshot_disk_get_source_file(GVirConfigDomainSnapshotDisk *disk);
+void gvir_config_domain_snapshot_disk_set_source_file(GVirConfigDomainSnapshotDisk *disk,
+                                                      const char *filename);
+
+GVirConfigDomainDiskFormat gvir_config_domain_snapshot_disk_get_driver_format(GVirConfigDomainSnapshotDisk *disk);
+void gvir_config_domain_snapshot_disk_set_driver_format(GVirConfigDomainSnapshotDisk *disk,
+                                                        GVirConfigDomainDiskFormat format);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GCONFIG_DOMAIN_SNAPSHOT_DISK_H__ */

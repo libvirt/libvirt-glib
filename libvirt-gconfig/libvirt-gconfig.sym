@@ -565,6 +565,15 @@ LIBVIRT_GCONFIG_0.1.7 {
 	gvir_config_domain_snapshot_disk_get_type;
 	gvir_config_domain_snapshot_disk_new;
 	gvir_config_domain_snapshot_disk_new_from_xml;
+
+	gvir_config_domain_snapshot_disk_get_driver_format;
+	gvir_config_domain_snapshot_disk_set_driver_format;
+	gvir_config_domain_snapshot_disk_get_name;
+	gvir_config_domain_snapshot_disk_set_name;
+	gvir_config_domain_snapshot_disk_get_snapshot_type;
+	gvir_config_domain_snapshot_disk_set_snapshot_type;
+	gvir_config_domain_snapshot_disk_get_source_file;
+	gvir_config_domain_snapshot_disk_set_source_file;
 } LIBVIRT_GCONFIG_0.1.6;
 
 # .... define new API here using predicted next version number ....

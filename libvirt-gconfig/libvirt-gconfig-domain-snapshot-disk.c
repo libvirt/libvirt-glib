@@ -86,3 +86,88 @@ gvir_config_domain_snapshot_disk_new_from_tree(GVirConfigXmlDoc *doc,
 
     return GVIR_CONFIG_DOMAIN_SNAPSHOT_DISK(object);
 }
+
+
+const char *gvir_config_domain_snapshot_disk_get_name(GVirConfigDomainSnapshotDisk *disk)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_SNAPSHOT_DISK(disk), NULL);
+
+    return gvir_config_object_get_node_content(GVIR_CONFIG_OBJECT(disk),
+                                               "name");
+}
+
+
+void gvir_config_domain_snapshot_disk_set_name(GVirConfigDomainSnapshotDisk *disk,
+                                               const char *name)
+{
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_SNAPSHOT_DISK(disk));
+
+    gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(disk),
+                                        "name", name);
+}
+
+
+GVirConfigDomainDiskSnapshotType gvir_config_domain_snapshot_disk_get_snapshot_type(GVirConfigDomainSnapshotDisk *disk)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_SNAPSHOT_DISK(disk),
+                         GVIR_CONFIG_DOMAIN_DISK_SNAPSHOT_NO);
+
+    return gvir_config_object_get_attribute_genum(GVIR_CONFIG_OBJECT(disk),
+                                                  NULL,
+                                                  "snapshot",
+                                                  GVIR_CONFIG_TYPE_DOMAIN_DISK_SNAPSHOT_TYPE,
+                                                  GVIR_CONFIG_DOMAIN_DISK_SNAPSHOT_NO);
+}
+
+
+void gvir_config_domain_snapshot_disk_set_snapshot_type(GVirConfigDomainSnapshotDisk *disk,
+                                                        GVirConfigDomainDiskSnapshotType type)
+{
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_SNAPSHOT_DISK(disk));
+
+    gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(disk), "snapshot",
+                                               GVIR_CONFIG_TYPE_DOMAIN_DISK_SNAPSHOT_TYPE,
+                                               type, NULL);
+}
+
+
+const char *gvir_config_domain_snapshot_disk_get_source_file(GVirConfigDomainSnapshotDisk *disk)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_SNAPSHOT_DISK(disk), NULL);
+
+    return gvir_config_object_get_attribute(GVIR_CONFIG_OBJECT(disk),
+                                            "source", "file");
+}
+
+
+void gvir_config_domain_snapshot_disk_set_source_file(GVirConfigDomainSnapshotDisk *disk,
+                                                      const char *filename)
+{
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_SNAPSHOT_DISK(disk));
+
+    gvir_config_object_add_child_with_attribute(GVIR_CONFIG_OBJECT(disk),
+                                                "source", "file", filename);
+}
+
+GVirConfigDomainDiskFormat gvir_config_domain_snapshot_disk_get_driver_format(GVirConfigDomainSnapshotDisk *disk)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_SNAPSHOT_DISK(disk),
+                         GVIR_CONFIG_DOMAIN_DISK_FORMAT_RAW);
+
+    return gvir_config_object_get_attribute_genum(GVIR_CONFIG_OBJECT(disk),
+                                                  "driver", "type",
+                                                  GVIR_CONFIG_TYPE_DOMAIN_DISK_FORMAT,
+                                                  GVIR_CONFIG_DOMAIN_DISK_FORMAT_RAW);
+}
+
+
+void gvir_config_domain_snapshot_disk_set_driver_format(GVirConfigDomainSnapshotDisk *disk,
+                                                        GVirConfigDomainDiskFormat format)
+{
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_SNAPSHOT_DISK(disk));
+
+    gvir_config_object_add_child_with_attribute_enum(GVIR_CONFIG_OBJECT(disk),
+                                                     "driver", "type",
+                                                     GVIR_CONFIG_TYPE_DOMAIN_DISK_FORMAT,
+                                                     format);
+}
