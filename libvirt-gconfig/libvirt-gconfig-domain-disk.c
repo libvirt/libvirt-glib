@@ -173,6 +173,12 @@ void gvir_config_domain_disk_set_driver_name(GVirConfigDomainDisk *disk,
                                                 "driver", "name", driver_name);
 }
 
+/**
+ * gvir_config_domain_disk_set_driver_type:
+ *
+ * Deprecated: 0.1.7: Use gvir_config_domain_disk_set_driver_format()
+ * instead
+ */
 void gvir_config_domain_disk_set_driver_type(GVirConfigDomainDisk *disk,
                                              const char *driver_type)
 {
@@ -180,6 +186,18 @@ void gvir_config_domain_disk_set_driver_type(GVirConfigDomainDisk *disk,
     gvir_config_object_add_child_with_attribute(GVIR_CONFIG_OBJECT(disk),
                                                 "driver", "type", driver_type);
 }
+
+
+void gvir_config_domain_disk_set_driver_format(GVirConfigDomainDisk *disk,
+                                               GVirConfigDomainDiskFormat format)
+{
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_DISK(disk));
+    gvir_config_object_add_child_with_attribute_enum(GVIR_CONFIG_OBJECT(disk),
+                                                     "driver", "type",
+                                                     GVIR_CONFIG_TYPE_DOMAIN_DISK_FORMAT,
+                                                     format);
+}
+
 
 void gvir_config_domain_disk_set_driver_cache(GVirConfigDomainDisk *disk,
                                               GVirConfigDomainDiskCacheType cache_type)
@@ -294,6 +312,12 @@ gvir_config_domain_disk_get_driver_name(GVirConfigDomainDisk *disk)
                                             "driver", "name");
 }
 
+/**
+ * gvir_config_domain_disk_get_driver_type:
+ *
+ * Deprecated: 0.1.7: Use gvir_config_domain_disk_get_driver_format()
+ * instead
+ */
 const char *
 gvir_config_domain_disk_get_driver_type(GVirConfigDomainDisk *disk)
 {
@@ -302,6 +326,20 @@ gvir_config_domain_disk_get_driver_type(GVirConfigDomainDisk *disk)
     return gvir_config_object_get_attribute(GVIR_CONFIG_OBJECT(disk),
                                             "driver", "type");
 }
+
+
+GVirConfigDomainDiskFormat
+gvir_config_domain_disk_get_driver_format(GVirConfigDomainDisk *disk)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_DISK(disk),
+                         GVIR_CONFIG_DOMAIN_DISK_FORMAT_RAW);
+
+    return gvir_config_object_get_attribute_genum(GVIR_CONFIG_OBJECT(disk),
+                                                  "driver", "type",
+                                                  GVIR_CONFIG_TYPE_DOMAIN_DISK_FORMAT,
+                                                  GVIR_CONFIG_DOMAIN_DISK_FORMAT_RAW);
+}
+
 
 GVirConfigDomainDiskCacheType
 gvir_config_domain_disk_get_driver_cache(GVirConfigDomainDisk *disk)
