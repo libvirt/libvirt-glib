@@ -25,7 +25,7 @@ function done(conn, result, data) {
 	    print ("Name " + doms[d].get_name())
 	    var conf = doms[d].get_config(0)
 	    print ("Conf " + conf)
-	    var xml = conf.get_doc()
+	    var xml = conf.to_xml()
 	    print ("XML " + xml)
 	    print ("Info " + doms[d].get_info().memory)
 	}

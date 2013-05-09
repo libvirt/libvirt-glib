@@ -33,7 +33,7 @@ def done(conn, result, data):
             except Exception, e:
                 print "Document is not valid according to %s: %s: %s" % (conf.get_schema(), str(e), str(type(e)))
 
-            xml = conf.get_doc()
+            xml = conf.to_xml()
             print ("XML " + xml)
             print ("Info " + str(d.get_info().memory))
 
