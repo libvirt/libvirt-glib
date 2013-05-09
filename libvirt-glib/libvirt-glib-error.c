@@ -259,6 +259,9 @@ void gvir_set_error_valist(GError **error,
 }
 
 static void
+gvir_log_valist(GLogLevelFlags level, const gchar *format, va_list args) G_GNUC_PRINTF(2, 0);
+
+static void
 gvir_log_valist(GLogLevelFlags level, const gchar *format, va_list args)
 {
     gchar *message;

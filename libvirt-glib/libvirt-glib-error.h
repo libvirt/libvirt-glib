@@ -31,7 +31,7 @@ G_BEGIN_DECLS
 GError *gvir_error_new(GQuark domain,
                        gint code,
                        const gchar *format,
-                       ...);
+                       ...) G_GNUC_PRINTF(3, 4);
 
 GError *gvir_error_new_literal(GQuark domain,
                                gint code,
@@ -40,13 +40,13 @@ GError *gvir_error_new_literal(GQuark domain,
 GError *gvir_error_new_valist(GQuark domain,
                               gint code,
                               const gchar *format,
-                              va_list args);
+                              va_list args) G_GNUC_PRINTF(3, 0);
 
 void gvir_set_error(GError **error,
                     GQuark domain,
                     gint code,
                     const gchar *format,
-                    ...);
+                    ...) G_GNUC_PRINTF(4, 5);
 
 void gvir_set_error_literal(GError **error,
                             GQuark domain,
@@ -57,10 +57,10 @@ void gvir_set_error_valist(GError **error,
                            GQuark domain,
                            gint code,
                            const gchar *format,
-                           va_list args);
+                           va_list args) G_GNUC_PRINTF(4, 0);
 
-void gvir_critical(const gchar *format, ...);
-void gvir_warning(const gchar *format, ...);
+void gvir_critical(const gchar *format, ...) G_GNUC_PRINTF(1, 2);
+void gvir_warning(const gchar *format, ...) G_GNUC_PRINTF(1, 2);
 
 G_END_DECLS
 
