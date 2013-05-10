@@ -4,7 +4,7 @@ AM_CFLAGS = \
 		$(GOBJECT2_CFLAGS) \
 		$(LIBXML2_CFLAGS) \
 		$(WARN_CFLAGS)
-INCLUDES = -I$(top_srcdir)
+AM_CPPFLAGS = -I$(top_srcdir)
 LDADD = \
 		$(top_builddir)/libvirt-gconfig/libvirt-gconfig-1.0.la \
 		$(GOBJECT2_LIBS) \

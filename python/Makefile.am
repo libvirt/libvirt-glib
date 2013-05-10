@@ -1,6 +1,6 @@
 # Makefile for libvirt python library
 
-INCLUDES = \
+AM_CPPFLAGS = \
         $(WARN_CFLAGS) \
         -I$(PYTHON_INCLUDES) \
 	-I$(top_srcdir) \
