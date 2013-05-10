@@ -929,7 +929,8 @@ gvir_config_object_get_child_with_type(GVirConfigObject *object,
     g_return_val_if_fail(child_name != NULL, NULL);
 
     node = gvir_config_xml_get_element(object->priv->node, child_name, NULL);
-    g_return_val_if_fail(node != NULL, NULL);
+    if (node == NULL)
+        return NULL;
 
     return gvir_config_object_new_from_tree(child_type,
                                             object->priv->doc,
