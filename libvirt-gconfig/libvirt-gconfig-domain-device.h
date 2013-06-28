@@ -59,6 +59,8 @@ struct _GVirConfigDomainDeviceClass
 
 GType gvir_config_domain_device_get_type(void);
 
+const gchar *gvir_config_domain_device_get_alias(GVirConfigDomainDevice *dev);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GCONFIG_DOMAIN_DEVICE_H__ */

@@ -595,6 +595,8 @@ LIBVIRT_GCONFIG_0.1.7 {
 
 	gvir_config_domain_chardev_source_pty_get_path;
 	gvir_config_domain_chardev_get_source;
+
+	gvir_config_domain_device_get_alias;
 } LIBVIRT_GCONFIG_0.1.6;
 
 # .... define new API here using predicted next version number ....

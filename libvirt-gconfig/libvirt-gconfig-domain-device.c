@@ -109,3 +109,12 @@ unimplemented:
     g_debug("Parsing of '%s' device nodes is unimplemented", tree->name);
     return NULL;
 }
+
+
+const gchar *gvir_config_domain_device_get_alias(GVirConfigDomainDevice *dev)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_DEVICE(dev), NULL);
+
+    return gvir_config_object_get_attribute(GVIR_CONFIG_OBJECT(dev),
+                                            "alias", "name");
+}
