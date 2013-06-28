@@ -63,6 +63,9 @@ GType gvir_config_domain_chardev_get_type(void);
 void gvir_config_domain_chardev_set_source(GVirConfigDomainChardev *chardev,
                                            GVirConfigDomainChardevSource *source);
 
+GVirConfigDomainChardevSource *
+gvir_config_domain_chardev_get_source(GVirConfigDomainChardev *chardev);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GCONFIG_DOMAIN_CHARDEV_H__ */

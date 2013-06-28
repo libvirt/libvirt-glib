@@ -24,6 +24,7 @@
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
 #include "libvirt-gconfig/libvirt-gconfig-private.h"
+#include "libvirt-gconfig/libvirt-gconfig-domain-chardev-source-private.h"
 
 #define GVIR_CONFIG_DOMAIN_CHARDEV_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_DOMAIN_CHARDEV, GVirConfigDomainChardevPrivate))
@@ -85,4 +86,26 @@ void gvir_config_domain_chardev_set_source(GVirConfigDomainChardev *chardev,
         new_attr = xmlCopyProp(chardev_node, attr);
         prepend_prop(chardev_node, new_attr);
     }
+}
+
+
+/**
+ * gvir_config_domain_chardev_get_source:
+ * @chardev: a #GVirConfigDomainChardev
+ *
+ * Gets the source for the chardev
+ *
+ * Returns: (transfer full): the chardev source
+ */
+GVirConfigDomainChardevSource *
+gvir_config_domain_chardev_get_source(GVirConfigDomainChardev *chardev)
+{
+    GVirConfigXmlDoc *doc;
+    xmlNodePtr tree;
+
+    doc = gvir_config_object_get_xml_doc(GVIR_CONFIG_OBJECT(chardev));
+    tree = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(chardev));
+
+    return gvir_config_domain_chardev_source_new_from_tree(doc,
+                                                           tree);
 }

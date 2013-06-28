@@ -30,6 +30,8 @@ GVirConfigObject *gvir_config_object_new_from_tree(GType type,
                                                    GVirConfigXmlDoc *doc,
                                                    const char *schema,
                                                    xmlNodePtr tree);
+
+GVirConfigXmlDoc *gvir_config_object_get_xml_doc(GVirConfigObject *config);
 xmlNodePtr gvir_config_object_get_xml_node(GVirConfigObject *config);
 const char *gvir_config_object_get_node_content(GVirConfigObject *object,
                                                 const char *node_name);

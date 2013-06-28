@@ -23,6 +23,8 @@
 #include <config.h>
 
 #include "libvirt-gconfig/libvirt-gconfig.h"
+#include "libvirt-gconfig/libvirt-gconfig-private.h"
+#include "libvirt-gconfig/libvirt-gconfig-domain-chardev-source-private.h"
 
 #define GVIR_CONFIG_DOMAIN_CHARDEV_SOURCE_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_CONFIG_TYPE_DOMAIN_CHARDEV_SOURCE, GVirConfigDomainChardevSourcePrivate))
@@ -46,4 +48,23 @@ static void gvir_config_domain_chardev_source_init(GVirConfigDomainChardevSource
     g_debug("Init GVirConfigDomainChardevSource=%p", source);
 
     source->priv = GVIR_CONFIG_DOMAIN_CHARDEV_SOURCE_GET_PRIVATE(source);
+}
+
+G_GNUC_INTERNAL GVirConfigDomainChardevSource *
+gvir_config_domain_chardev_source_new_from_tree(GVirConfigXmlDoc *doc,
+                                                xmlNodePtr tree)
+{
+    const gchar *type;
+
+    g_return_val_if_fail(GVIR_CONFIG_IS_XML_DOC(doc), NULL);
+    g_return_val_if_fail(tree != NULL, NULL);
+    g_return_val_if_fail(tree->name != NULL, NULL);
+
+    type = gvir_config_xml_get_attribute_content(tree, "type");
+
+    if (g_str_equal(type, "pty"))
+        return gvir_config_domain_chardev_source_pty_new_from_tree(doc, tree);
+
+    g_debug("Unknown chardev source type: %s", type);
+    return NULL;
 }

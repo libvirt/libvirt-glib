@@ -592,6 +592,9 @@ LIBVIRT_GCONFIG_0.1.7 {
 	gvir_config_domain_snapshot_disk_set_snapshot_type;
 	gvir_config_domain_snapshot_disk_get_source_file;
 	gvir_config_domain_snapshot_disk_set_source_file;
+
+	gvir_config_domain_chardev_source_pty_get_path;
+	gvir_config_domain_chardev_get_source;
 } LIBVIRT_GCONFIG_0.1.6;
 
 # .... define new API here using predicted next version number ....

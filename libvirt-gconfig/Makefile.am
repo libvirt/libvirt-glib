@@ -84,6 +84,7 @@ noinst_HEADERS = \
 			libvirt-gconfig-private.h \
 			libvirt-gconfig-capabilities-cpu-private.h \
 			libvirt-gconfig-compat.h \
+			libvirt-gconfig-domain-chardev-source-private.h \
 			libvirt-gconfig-domain-device-private.h \
 			libvirt-gconfig-domain-snapshot-private.h \
 			libvirt-gconfig-helpers-private.h \

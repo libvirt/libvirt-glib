@@ -274,6 +274,14 @@ const gchar *gvir_config_object_get_schema(GVirConfigObject *config)
     return config->priv->schema;
 }
 
+
+G_GNUC_INTERNAL GVirConfigXmlDoc *
+gvir_config_object_get_xml_doc(GVirConfigObject *config)
+{
+    return config->priv->doc;
+}
+
+
 /* FIXME: will we always have one xmlNode per GConfig object? */
 /* FIXME: need to return the right node from subclasses */
 /* NB: the xmlNodePtr must not be freed by the caller */

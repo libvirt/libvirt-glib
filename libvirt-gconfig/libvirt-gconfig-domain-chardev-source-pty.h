@@ -65,6 +65,8 @@ GVirConfigDomainChardevSourcePty *gvir_config_domain_chardev_source_pty_new_from
 void gvir_config_domain_chardev_source_pty_set_path(GVirConfigDomainChardevSourcePty *pty,
                                                     const char *path);
 
+const gchar * gvir_config_domain_chardev_source_pty_get_path(GVirConfigDomainChardevSourcePty *pty);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GCONFIG_DOMAIN_CHARDEV_SOURCE_PTY_H__ */
