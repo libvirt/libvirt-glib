@@ -62,8 +62,8 @@ GType gvir_config_domain_chardev_source_pty_get_type(void);
 GVirConfigDomainChardevSourcePty *gvir_config_domain_chardev_source_pty_new(void);
 GVirConfigDomainChardevSourcePty *gvir_config_domain_chardev_source_pty_new_from_xml(const gchar *xml,
                                                                               GError **error);
-void gvir_config_domain_source_pty_set_path(GVirConfigDomainChardevSourcePty *pty,
-                                            const char *path);
+void gvir_config_domain_chardev_source_pty_set_path(GVirConfigDomainChardevSourcePty *pty,
+                                                    const char *path);
 
 G_END_DECLS
 

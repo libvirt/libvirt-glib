@@ -82,8 +82,8 @@ GVirConfigDomainChardevSourcePty *gvir_config_domain_chardev_source_pty_new_from
     return GVIR_CONFIG_DOMAIN_CHARDEV_SOURCE_PTY(object);
 }
 
-void gvir_config_domain_source_pty_set_path(GVirConfigDomainChardevSourcePty *pty,
-                                            const char *path)
+void gvir_config_domain_chardev_source_pty_set_path(GVirConfigDomainChardevSourcePty *pty,
+                                                    const char *path)
 {
     g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_CHARDEV_SOURCE_PTY(pty));
 

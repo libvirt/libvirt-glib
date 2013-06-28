@@ -66,7 +66,7 @@ LIBVIRT_GCONFIG_0.0.8 {
 	gvir_config_domain_chardev_source_pty_get_type;
 	gvir_config_domain_chardev_source_pty_new;
 	gvir_config_domain_chardev_source_pty_new_from_xml;
-	gvir_config_domain_source_pty_set_path;
+	gvir_config_domain_chardev_source_pty_set_path;
 
 	gvir_config_domain_chardev_source_spicevmc_get_type;
 	gvir_config_domain_chardev_source_spicevmc_new;
