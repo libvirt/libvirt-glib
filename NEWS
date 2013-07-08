@@ -1,6 +1,22 @@
                  libvirt-glib News
                  =================
 
+0.1.7 - Jul  8, 2013
+====================
+
+- Fix memory leaks in domain memory setters
+- Add APIs for configuration sdl/rdp/desktop graphics modes
+- Add getter APIs for domain channel devices
+- Add getter APIs for storage pools
+- Add API for getting/setting virt type
+- Add getter APIs for storage pool schema
+- Add base framework for i18n of error messages
+- Fix annotation of gvir_init_object
+- Add getter/setter APIs for disk driver format
+- Add APIs for domain snapshot schema
+- Add APIs to access domain chardev source
+- Add API to access domain device aliases
+
 0.1.6 - Mar 18, 2013
 ====================
 
