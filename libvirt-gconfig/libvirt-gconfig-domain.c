@@ -39,6 +39,7 @@ G_DEFINE_TYPE(GVirConfigDomain, gvir_config_domain, GVIR_CONFIG_TYPE_OBJECT);
 enum {
     PROP_0,
     PROP_NAME,
+    PROP_UUID,
     PROP_TITLE,
     PROP_DESCRIPTION,
     PROP_MEMORY,
@@ -57,6 +58,9 @@ static void gvir_config_domain_get_property(GObject *object,
     switch (prop_id) {
     case PROP_NAME:
         g_value_set_string(value, gvir_config_domain_get_name(domain));
+        break;
+    case PROP_UUID:
+        g_value_set_string(value, gvir_config_domain_get_uuid(domain));
         break;
     case PROP_TITLE:
         g_value_set_string(value, gvir_config_domain_get_title(domain));
@@ -92,6 +96,9 @@ static void gvir_config_domain_set_property(GObject *object,
     switch (prop_id) {
     case PROP_NAME:
         gvir_config_domain_set_name(domain, g_value_get_string(value));
+        break;
+    case PROP_UUID:
+        gvir_config_domain_set_uuid(domain, g_value_get_string(value));
         break;
     case PROP_TITLE:
         gvir_config_domain_set_title(domain, g_value_get_string(value));
@@ -131,6 +138,14 @@ static void gvir_config_domain_class_init(GVirConfigDomainClass *klass)
                                     g_param_spec_string("name",
                                                         "Name",
                                                         "Domain Name",
+                                                        NULL,
+                                                        G_PARAM_READWRITE |
+                                                        G_PARAM_STATIC_STRINGS));
+    g_object_class_install_property(object_class,
+                                    PROP_UUID,
+                                    g_param_spec_string("uuid",
+                                                        "UUID",
+                                                        "Domain UUID",
                                                         NULL,
                                                         G_PARAM_READWRITE |
                                                         G_PARAM_STATIC_STRINGS));
@@ -247,6 +262,12 @@ const char *gvir_config_domain_get_name(GVirConfigDomain *domain)
                                                "name");
 }
 
+const char *gvir_config_domain_get_uuid(GVirConfigDomain *domain)
+{
+    return gvir_config_object_get_node_content(GVIR_CONFIG_OBJECT(domain),
+                                               "uuid");
+}
+
 const char *gvir_config_domain_get_title(GVirConfigDomain *domain)
 {
     return gvir_config_object_get_node_content(GVIR_CONFIG_OBJECT(domain),
@@ -263,6 +284,18 @@ void gvir_config_domain_set_name(GVirConfigDomain *domain, const char *name)
     gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(domain),
                                         "name", name);
     g_object_notify(G_OBJECT(domain), "name");
+}
+
+/**
+ * gvir_config_domain_set_uuid:
+ * @domain: a #GVirConfigDomain
+ * @uuid: (allow-none):
+ */
+void gvir_config_domain_set_uuid(GVirConfigDomain *domain, const char *uuid)
+{
+    gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(domain),
+                                        "uuid", uuid);
+    g_object_notify(G_OBJECT(domain), "uuid");
 }
 
 /**
