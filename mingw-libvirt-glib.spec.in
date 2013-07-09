@@ -106,8 +106,9 @@ rm -f $RPM_BUILD_ROOT%{mingw64_libdir}/libvirt-gobject-1.0.a
 rm -rf $RPM_BUILD_ROOT%{mingw32_datadir}/gtk-doc
 rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/gtk-doc
 
+%mingw_find_lang libvirt-glib
 
-%files -n mingw32-libvirt-glib
+%files -n mingw32-libvirt-glib -f mingw32-libvirt-glib.lang
 %doc README COPYING AUTHORS ChangeLog NEWS
 %{mingw32_bindir}/libvirt-glib-1.0-0.dll
 
@@ -121,7 +122,7 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/gtk-doc
 %{mingw32_includedir}/libvirt-glib-1.0/libvirt-glib/libvirt-glib.h
 %{mingw32_includedir}/libvirt-glib-1.0/libvirt-glib/libvirt-glib-*.h
 
-%files -n mingw64-libvirt-glib
+%files -n mingw64-libvirt-glib -f mingw64-libvirt-glib.lang
 %doc README COPYING AUTHORS ChangeLog NEWS
 %{mingw64_bindir}/libvirt-glib-1.0-0.dll
 

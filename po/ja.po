@@ -1,0 +1,148 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Tomoyuki KATO <tomo@dream.daynight.jp>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: libvirt-glib\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-07-09 20:54+0100\n"
+"PO-Revision-Date: 2013-04-13 06:23+0000\n"
+"Last-Translator: Tomoyuki KATO <tomo@dream.daynight.jp>\n"
+"Language-Team: Japanese <trans-ja@lists.fedoraproject.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: ../libvirt-gconfig/libvirt-gconfig-helpers.c:141
+msgid "No XML document to parse"
+msgstr "構文解析する XML ドキュメントがありません"
+
+#: ../libvirt-gconfig/libvirt-gconfig-helpers.c:149
+msgid "Unable to parse configuration"
+msgstr "設定を構文解析できません"
+
+#: ../libvirt-gconfig/libvirt-gconfig-helpers.c:157
+#, c-format
+msgid "XML data has no '%s' node"
+msgstr "XML データに '%s' ノードがありません"
+
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:212
+msgid "No XML document associated with this config object"
+msgstr "この設定オブジェクトと関連付けられた XML ドキュメントがありません"
+
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:221
+#, c-format
+msgid "Unable to create RNG parser for %s"
+msgstr "%s の RNG パーサーを作成できません"
+
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:231
+#, c-format
+msgid "Unable to parse RNG %s"
+msgstr "RNG %s を構文解析できません"
+
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:243
+#, c-format
+msgid "Unable to create RNG validation context %s"
+msgstr "RNG 検証コンテキスト %s を作成できません"
+
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:253
+msgid "Unable to validate doc"
+msgstr "ドキュメントを検証できません"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:434
+#, c-format
+msgid "Connection %s is already open"
+msgstr "接続 %s がすでに開かれています"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:449
+#, c-format
+msgid "Unable to open %s"
+msgstr "%s を開けません"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:460
+msgid "Unable to get connection URI"
+msgstr "接続 URI を取得できません"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:701
+#, c-format
+msgid "Unable to count %s"
+msgstr "%s を数えられません"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:713
+#, c-format
+msgid "Unable to list %s %d"
+msgstr "%s %d を一覧表示できません"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:760
+#: ../libvirt-gobject/libvirt-gobject-connection.c:897
+msgid "Connection is not open"
+msgstr "接続されていません"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:775
+msgid "Unable to count domains"
+msgstr "ドメインを数えられません"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:786
+msgid "Unable to list domains"
+msgstr "ドメインを一覧表示できません"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1160
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1199
+msgid "Connection is not opened"
+msgstr "接続されていません"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1167
+msgid "Unable to get hypervisor name"
+msgstr "ハイパーバイザーの名前を取得できません"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1205
+msgid "Unable to get hypervisor version"
+msgstr "ハイパーバイザーのバージョンを取得できません"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1520
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1575
+msgid "Failed to create domain"
+msgstr "ドメインの作成に失敗しました"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1627
+msgid "Failed to create storage pool"
+msgstr "ストレージプールの作成に失敗しました"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1670
+msgid "Unable to get node info"
+msgstr "ノード情報を取得できません"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1710
+msgid "Unable to get capabilities"
+msgstr "ケイパビリティを取得できません"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1838
+msgid "Unable to restore domain"
+msgstr "ドメインを復元できません"
+
+#: ../libvirt-gobject/libvirt-gobject-stream.c:325
+msgid "virStreamRecv call would block"
+msgstr "virStreamRecv コールがブロックされます"
+
+#: ../libvirt-gobject/libvirt-gobject-stream.c:328
+#: ../libvirt-gobject/libvirt-gobject-stream.c:444
+#, c-format
+msgid "Got virStreamRecv error in %s"
+msgstr "%s において virStreamRecv エラーが発生しました"
+
+#: ../libvirt-gobject/libvirt-gobject-stream.c:393
+msgid "Unable to perform RecvAll"
+msgstr "RecvAll を実行できません"
+
+#: ../libvirt-gobject/libvirt-gobject-stream.c:441
+msgid "virStreamSend call would block"
+msgstr "virStreamSend コールがブロックされます"
+
+#: ../libvirt-gobject/libvirt-gobject-stream.c:509
+msgid "Unable to perform SendAll"
+msgstr "SendAll を実行できません"

@@ -138,6 +138,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libvirt-gconfig-1.0.la
 rm -f $RPM_BUILD_ROOT%{_libdir}/libvirt-gobject-1.0.a
 rm -f $RPM_BUILD_ROOT%{_libdir}/libvirt-gobject-1.0.la
 
+%find_lang %{name}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -153,7 +155,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %postun -n libvirt-gobject -p /sbin/ldconfig
 
-%files
+%files -f %{name}.lang
 %defattr(-,root,root,-)
 %doc README COPYING AUTHORS ChangeLog NEWS
 %{_libdir}/libvirt-glib-1.0.so.*
