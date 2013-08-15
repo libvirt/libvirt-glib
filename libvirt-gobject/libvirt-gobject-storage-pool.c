@@ -347,11 +347,7 @@ static gchar ** fetch_list(virStoragePoolPtr vpool,
     return lst;
 
 error:
-    if (lst != NULL) {
-        for (i = 0 ; i < n; i++)
-            g_free(lst[i]);
-        g_free(lst);
-    }
+    g_free(lst);
     return NULL;
 }
 
