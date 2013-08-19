@@ -321,7 +321,6 @@ static gchar ** fetch_list(virStoragePoolPtr vpool,
 {
     gchar **lst = NULL;
     gint n = 0;
-    gint i;
 
     if ((n = count_func(vpool)) < 0) {
         gvir_set_error(err, GVIR_STORAGE_POOL_ERROR,
