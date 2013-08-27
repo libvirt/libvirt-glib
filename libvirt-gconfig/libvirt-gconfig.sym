@@ -599,4 +599,15 @@ LIBVIRT_GCONFIG_0.1.7 {
 	gvir_config_domain_device_get_alias;
 } LIBVIRT_GCONFIG_0.1.6;
 
+LIBVIRT_GCONFIG_0.1.8 {
+global:
+	gvir_config_domain_get_uuid;
+	gvir_config_domain_set_uuid;
+
+	gvir_config_domain_graphics_rdp_set_multi_user;
+	gvir_config_domain_graphics_rdp_set_replace_user;
+
+	gvir_config_object_new_from_xml;
+} LIBVIRT_GCONFIG_0.1.7;
+
 # .... define new API here using predicted next version number ....
