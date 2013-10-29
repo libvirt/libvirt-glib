@@ -131,6 +131,47 @@ const char *gvir_config_domain_interface_get_model(GVirConfigDomainInterface *in
                                             "model", "type");
 }
 
+/**
+ * gvir_config_domain_interface_set_filterref:
+ * @interface: a #GVirConfigDomainInterface
+ * @filterref: (allow-none): the filterref to set
+ */
+void gvir_config_domain_interface_set_filterref(GVirConfigDomainInterface *interface,
+                                                GVirConfigDomainInterfaceFilterref *filterref)
+{
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_INTERFACE(interface));
+    g_return_if_fail(filterref == NULL || GVIR_CONFIG_IS_DOMAIN_INTERFACE_FILTERREF(filterref));
+
+    gvir_config_object_attach_replace(GVIR_CONFIG_OBJECT(interface),
+                                      "filterref",
+                                      GVIR_CONFIG_OBJECT(filterref));
+}
+
+/**
+ * gvir_config_domain_interface_get_filterref:
+ * @interface: a #GVirConfigDomainInterface
+ *
+ * Gets the filterref associated with the @interface
+ *
+ * Returns: (transfer full): A #GVirConfigDomainInterfaceFilterref. The returned
+ * object should be unreffed with g_object_unref() when no longer needed.
+ */
+
+GVirConfigDomainInterfaceFilterref *gvir_config_domain_interface_get_filterref(GVirConfigDomainInterface *interface)
+{
+    GVirConfigObject *object;
+
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_INTERFACE(interface), NULL);
+
+    object = gvir_config_object_get_child_with_type
+                                (GVIR_CONFIG_OBJECT(interface),
+                                 "filterref",
+                                 GVIR_CONFIG_TYPE_DOMAIN_INTERFACE_FILTERREF);
+
+    return GVIR_CONFIG_DOMAIN_INTERFACE_FILTERREF(object);
+}
+
+
 G_GNUC_INTERNAL GVirConfigDomainDevice *
 gvir_config_domain_interface_new_from_tree(GVirConfigXmlDoc *doc,
                                            xmlNodePtr tree)

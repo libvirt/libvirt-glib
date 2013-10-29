@@ -35,6 +35,13 @@ domain.add_device(disk)
 
 interface = LibvirtGConfig.DomainInterfaceNetwork.new()
 interface.set_source("default")
+filterref = LibvirtGConfig.DomainInterfaceFilterref.new()
+filterref.set_name("clean-traffic")
+parameter = LibvirtGConfig.DomainInterfaceFilterrefParameter.new()
+parameter.set_name("IP")
+parameter.set_value("205.23.12.40")
+filterref.add_parameter(parameter)
+interface.set_filterref(filterref)
 domain.add_device(interface)
 
 interface = LibvirtGConfig.DomainInterfaceUser.new()

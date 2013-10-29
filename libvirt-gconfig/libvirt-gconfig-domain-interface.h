@@ -27,6 +27,8 @@
 #ifndef __LIBVIRT_GCONFIG_DOMAIN_INTERFACE_H__
 #define __LIBVIRT_GCONFIG_DOMAIN_INTERFACE_H__
 
+#include <libvirt-gconfig/libvirt-gconfig-domain-interface-filterref.h>
+
 G_BEGIN_DECLS
 
 #define GVIR_CONFIG_TYPE_DOMAIN_INTERFACE            (gvir_config_domain_interface_get_type ())
@@ -76,6 +78,9 @@ const char *gvir_config_domain_interface_get_ifname(GVirConfigDomainInterface *i
 GVirConfigDomainInterfaceLinkState gvir_config_domain_interface_get_link_state(GVirConfigDomainInterface *interface);
 const char *gvir_config_domain_interface_get_mac(GVirConfigDomainInterface *interface);
 const char *gvir_config_domain_interface_get_model(GVirConfigDomainInterface *interface);
+void gvir_config_domain_interface_set_filterref(GVirConfigDomainInterface *interface,
+                                                GVirConfigDomainInterfaceFilterref *filterref);
+GVirConfigDomainInterfaceFilterref *gvir_config_domain_interface_get_filterref(GVirConfigDomainInterface *interface);
 
 G_END_DECLS
 

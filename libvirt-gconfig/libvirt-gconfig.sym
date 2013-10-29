@@ -608,6 +608,24 @@ global:
 	gvir_config_domain_graphics_rdp_set_replace_user;
 
 	gvir_config_object_new_from_xml;
+
+	gvir_config_domain_interface_set_filterref;
+	gvir_config_domain_interface_get_filterref;
+
+	gvir_config_domain_interface_filterref_get_type;
+	gvir_config_domain_interface_filterref_new;
+	gvir_config_domain_interface_filterref_new_from_xml;
+	gvir_config_domain_interface_filterref_set_name;
+	gvir_config_domain_interface_filterref_get_name;
+	gvir_config_domain_interface_filterref_add_parameter;
+	gvir_config_domain_interface_filterref_get_parameters;
+	gvir_config_domain_interface_filterref_parameter_get_type;
+	gvir_config_domain_interface_filterref_parameter_new;
+	gvir_config_domain_interface_filterref_parameter_new_from_xml;
+	gvir_config_domain_interface_filterref_parameter_set_name;
+	gvir_config_domain_interface_filterref_parameter_set_value;
+	gvir_config_domain_interface_filterref_parameter_get_name;
+	gvir_config_domain_interface_filterref_parameter_get_value;
 } LIBVIRT_GCONFIG_0.1.7;
 
 # .... define new API here using predicted next version number ....
