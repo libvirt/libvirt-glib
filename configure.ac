@@ -234,6 +234,12 @@ AC_SUBST([PYTHON_SITE_PACKAGES])
 
 GOBJECT_INTROSPECTION_CHECK([$GOBJECT_INTROSPECTION_REQUIRED])
 
+with_linux=no
+case $host in
+  *-*-linux*) with_linux=yes ;;
+esac
+AM_CONDITIONAL([WITH_LINUX], [test "$with_linux" = "yes"])
+
 AC_ARG_ENABLE([vala],
               AS_HELP_STRING([--enable-vala], [enable Vala binding generation]),
               [], [enable_vala=check])

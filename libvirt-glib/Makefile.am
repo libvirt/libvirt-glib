@@ -37,6 +37,19 @@ libvirt_glib_1_0_la_LDFLAGS = \
 			-Wl,--version-script=$(srcdir)/libvirt-glib.sym \
 			-version-info $(LIBVIRT_GLIB_VERSION_INFO)
 
+# .libs/libvirt-glib.so is built by libtool as a side-effect of the Makefile
+# rule for libosvirt-glib.la.  However, checking symbols relies on Linux ELF layout
+if WITH_LINUX
+check-symfile: libvirt-glib.sym libvirt-glib-1.0.la
+	$(AM_V_GEN)$(PERL) $(top_srcdir)/build-aux/check-symfile.pl libvirt-glib.sym \
+		.libs/libvirt-glib-1.0.so
+else ! WITH_LINUX
+check-symfile:
+endif ! WITH_LINUX
+check-symsorting:
+	$(AM_V_GEN)$(PERL) $(top_srcdir)/build-aux/check-symsorting.pl \
+		$(srcdir) libvirt-glib.sym
+check-local: check-symfile check-symsorting
 
 -include $(INTROSPECTION_MAKEFILE)
 INTROSPECTION_GIRS =

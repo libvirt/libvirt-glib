@@ -14,6 +14,8 @@ EXTRA_DIST = $(PACKAGE).spec \
 	     maint.mk \
 	     cfg.mk \
 	     AUTHORS.in \
+	     build-aux/check-symfile.pl \
+	     build-aux/check-symsorting.pl \
 	     $(NULL)
 
 DISTCLEAN_FILES = $(PACKAGE).spec $(pkgconfig_DATA)
