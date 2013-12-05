@@ -233,28 +233,35 @@ int main(int argc, char **argv)
 
     /* disk node */
     GVirConfigDomainDisk *disk;
+    GVirConfigDomainDiskDriver *driver;
+
+    driver = gvir_config_domain_disk_driver_new();
+    gvir_config_domain_disk_driver_set_name(driver, "foo");
+    gvir_config_domain_disk_driver_set_format(driver, GVIR_CONFIG_DOMAIN_DISK_FORMAT_BOCHS);
+    gvir_config_domain_disk_driver_set_name(driver, "qemu");
+    gvir_config_domain_disk_driver_set_cache(driver, GVIR_CONFIG_DOMAIN_DISK_CACHE_NONE);
+    gvir_config_domain_disk_driver_set_format(driver, GVIR_CONFIG_DOMAIN_DISK_FORMAT_QCOW2);
 
     disk = gvir_config_domain_disk_new();
     gvir_config_domain_disk_set_type(disk, GVIR_CONFIG_DOMAIN_DISK_FILE);
     gvir_config_domain_disk_set_guest_device_type(disk, GVIR_CONFIG_DOMAIN_DISK_GUEST_DEVICE_DISK);
     gvir_config_domain_disk_set_source(disk, "/tmp/foo/bar");
     gvir_config_domain_disk_set_startup_policy (disk, GVIR_CONFIG_DOMAIN_DISK_STARTUP_POLICY_REQUISITE);
-    gvir_config_domain_disk_set_driver_name(disk, "foo");
-    gvir_config_domain_disk_set_driver_format(disk, GVIR_CONFIG_DOMAIN_DISK_FORMAT_BOCHS);
-    gvir_config_domain_disk_set_driver_name(disk, "qemu");
-    gvir_config_domain_disk_set_driver_cache(disk, GVIR_CONFIG_DOMAIN_DISK_CACHE_NONE);
-    gvir_config_domain_disk_set_driver_format(disk, GVIR_CONFIG_DOMAIN_DISK_FORMAT_QCOW2);
     gvir_config_domain_disk_set_target_bus(disk, GVIR_CONFIG_DOMAIN_DISK_BUS_IDE);
     gvir_config_domain_disk_set_target_dev(disk, "hda");
+    gvir_config_domain_disk_set_driver(disk, driver);
+    g_object_unref(G_OBJECT(driver));
     devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(disk));
 
     g_assert(gvir_config_domain_disk_get_disk_type(disk) == GVIR_CONFIG_DOMAIN_DISK_FILE);
     g_assert(gvir_config_domain_disk_get_guest_device_type(disk) == GVIR_CONFIG_DOMAIN_DISK_GUEST_DEVICE_DISK);
     g_assert(gvir_config_domain_disk_get_startup_policy (disk) == GVIR_CONFIG_DOMAIN_DISK_STARTUP_POLICY_REQUISITE);
     g_str_const_check(gvir_config_domain_disk_get_source(disk), "/tmp/foo/bar");
-    g_assert(gvir_config_domain_disk_get_driver_cache(disk) == GVIR_CONFIG_DOMAIN_DISK_CACHE_NONE);
-    g_str_const_check(gvir_config_domain_disk_get_driver_name(disk), "qemu");
-    g_assert(gvir_config_domain_disk_get_driver_format(disk) == GVIR_CONFIG_DOMAIN_DISK_FORMAT_QCOW2);
+    driver = gvir_config_domain_disk_get_driver(disk);
+    g_assert(driver != NULL);
+    g_assert(gvir_config_domain_disk_driver_get_cache(driver) == GVIR_CONFIG_DOMAIN_DISK_CACHE_NONE);
+    g_str_const_check(gvir_config_domain_disk_driver_get_name(driver), "qemu");
+    g_assert(gvir_config_domain_disk_driver_get_format(driver) == GVIR_CONFIG_DOMAIN_DISK_FORMAT_QCOW2);
     g_assert(gvir_config_domain_disk_get_target_bus(disk) == GVIR_CONFIG_DOMAIN_DISK_BUS_IDE);
     g_str_const_check(gvir_config_domain_disk_get_target_dev(disk), "hda");
 
