@@ -457,7 +457,6 @@ LIBVIRT_GCONFIG_0.1.0 {
 	gvir_config_domain_cpu_feature_policy_get_type;
 	gvir_config_domain_cpu_feature_set_policy;
 
-	gvir_config_domain_cpu_get_features;
 	gvir_config_domain_cpu_get_match_policy;
 	gvir_config_domain_cpu_get_mode;
 	gvir_config_domain_cpu_get_type;
