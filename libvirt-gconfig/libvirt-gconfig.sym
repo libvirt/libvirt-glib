@@ -1,38 +1,10 @@
 LIBVIRT_GCONFIG_0.0.8 {
   global:
-	gvir_config_init_check;
-	gvir_config_init;
-
 	gvir_config_capabilities_get_type;
 	gvir_config_capabilities_new;
 	gvir_config_capabilities_new_from_xml;
 
 	gvir_config_domain_add_device;
-	gvir_config_domain_get_type;
-	gvir_config_domain_lifecycle_action_get_type;
-	gvir_config_domain_lifecycle_event_get_type;
-	gvir_config_domain_new;
-	gvir_config_domain_new_from_xml;
-	gvir_config_domain_set_clock;
-	gvir_config_domain_set_custom_xml;
-	gvir_config_domain_get_custom_xml;
-	gvir_config_domain_get_description;
-	gvir_config_domain_set_description;
-	gvir_config_domain_get_devices;
-	gvir_config_domain_set_devices;
-	gvir_config_domain_get_features;
-	gvir_config_domain_set_features;
-	gvir_config_domain_set_lifecycle;
-	gvir_config_domain_get_memory;
-	gvir_config_domain_set_memory;
-	gvir_config_domain_get_name;
-	gvir_config_domain_set_name;
-	gvir_config_domain_set_os;
-	gvir_config_domain_set_seclabel;
-	gvir_config_domain_get_vcpus;
-	gvir_config_domain_set_vcpus;
-	gvir_config_domain_set_virt_type;
-	gvir_config_domain_virt_type_get_type;
 
 	gvir_config_domain_address_get_type;
 
@@ -54,8 +26,8 @@ LIBVIRT_GCONFIG_0.0.8 {
 	gvir_config_domain_channel_get_type;
 	gvir_config_domain_channel_new;
 	gvir_config_domain_channel_new_from_xml;
-	gvir_config_domain_channel_set_target_type;
 	gvir_config_domain_channel_set_target_name;
+	gvir_config_domain_channel_set_target_type;
 	gvir_config_domain_channel_target_type_get_type;
 
 	gvir_config_domain_chardev_get_type;
@@ -72,11 +44,11 @@ LIBVIRT_GCONFIG_0.0.8 {
 	gvir_config_domain_chardev_source_spicevmc_new;
 	gvir_config_domain_chardev_source_spicevmc_new_from_xml;
 
+	gvir_config_domain_clock_add_timer;
 	gvir_config_domain_clock_get_type;
-	gvir_config_domain_clock_offset_get_type;
 	gvir_config_domain_clock_new;
 	gvir_config_domain_clock_new_from_xml;
-	gvir_config_domain_clock_add_timer;
+	gvir_config_domain_clock_offset_get_type;
 	gvir_config_domain_clock_set_offset;
 	gvir_config_domain_clock_set_timezone;
 	gvir_config_domain_clock_set_variable_offset;
@@ -87,9 +59,9 @@ LIBVIRT_GCONFIG_0.0.8 {
 	gvir_config_domain_console_set_target_type;
 	gvir_config_domain_console_target_type_get_type;
 
+	gvir_config_domain_controller_get_index;
 	gvir_config_domain_controller_get_type;
 	gvir_config_domain_controller_set_address;
-	gvir_config_domain_controller_get_index;
 	gvir_config_domain_controller_set_index;
 
 	gvir_config_domain_controller_usb_get_type;
@@ -101,41 +73,40 @@ LIBVIRT_GCONFIG_0.0.8 {
 
 	gvir_config_domain_device_get_type;
 
-	gvir_config_domain_disk_get_type;
 	gvir_config_domain_disk_bus_get_type;
 	gvir_config_domain_disk_cache_type_get_type;
+	gvir_config_domain_disk_get_disk_type;
+	gvir_config_domain_disk_get_driver_cache;
+	gvir_config_domain_disk_get_driver_name;
+	gvir_config_domain_disk_get_driver_type;
+	gvir_config_domain_disk_get_guest_device_type;
+	gvir_config_domain_disk_get_snapshot_type;
+	gvir_config_domain_disk_get_source;
+	gvir_config_domain_disk_get_startup_policy;
+	gvir_config_domain_disk_get_target_bus;
+	gvir_config_domain_disk_get_target_dev;
+	gvir_config_domain_disk_get_type;
 	gvir_config_domain_disk_guest_device_type_get_type;
+	gvir_config_domain_disk_new;
+	gvir_config_domain_disk_new_from_xml;
+	gvir_config_domain_disk_set_driver_cache;
+	gvir_config_domain_disk_set_driver_name;
+	gvir_config_domain_disk_set_driver_type;
+	gvir_config_domain_disk_set_guest_device_type;
+	gvir_config_domain_disk_set_readonly;
+	gvir_config_domain_disk_set_snapshot_type;
+	gvir_config_domain_disk_set_source;
+	gvir_config_domain_disk_set_startup_policy;
+	gvir_config_domain_disk_set_target_bus;
+	gvir_config_domain_disk_set_target_dev;
+	gvir_config_domain_disk_set_type;
 	gvir_config_domain_disk_snapshot_type_get_type;
 	gvir_config_domain_disk_startup_policy_get_type;
 	gvir_config_domain_disk_type_get_type;
-	gvir_config_domain_disk_new;
-	gvir_config_domain_disk_new_from_xml;
-	gvir_config_domain_disk_get_driver_cache;
-	gvir_config_domain_disk_set_driver_cache;
-	gvir_config_domain_disk_get_driver_name;
-	gvir_config_domain_disk_set_driver_name;
-	gvir_config_domain_disk_get_driver_type;
-	gvir_config_domain_disk_set_driver_type;
-	gvir_config_domain_disk_get_guest_device_type;
-	gvir_config_domain_disk_set_guest_device_type;
-	gvir_config_domain_disk_get_snapshot_type;
-	gvir_config_domain_disk_set_snapshot_type;
-	gvir_config_domain_disk_get_source;
-	gvir_config_domain_disk_set_source;
-	gvir_config_domain_disk_get_startup_policy;
-	gvir_config_domain_disk_set_startup_policy;
-	gvir_config_domain_disk_get_target_bus;
-	gvir_config_domain_disk_set_target_bus;
-	gvir_config_domain_disk_get_target_dev;
-	gvir_config_domain_disk_set_target_dev;
-	gvir_config_domain_disk_get_disk_type;
-	gvir_config_domain_disk_set_readonly;
-	gvir_config_domain_disk_set_type;
 
-	gvir_config_domain_filesys_get_type;
-	gvir_config_domain_filesys_type_get_type;
 	gvir_config_domain_filesys_access_type_get_type;
 	gvir_config_domain_filesys_driver_type_get_type;
+	gvir_config_domain_filesys_get_type;
 	gvir_config_domain_filesys_new;
 	gvir_config_domain_filesys_new_from_xml;
 	gvir_config_domain_filesys_set_access_type;
@@ -144,6 +115,16 @@ LIBVIRT_GCONFIG_0.0.8 {
 	gvir_config_domain_filesys_set_source;
 	gvir_config_domain_filesys_set_target;
 	gvir_config_domain_filesys_set_type;
+	gvir_config_domain_filesys_type_get_type;
+
+	gvir_config_domain_get_custom_xml;
+	gvir_config_domain_get_description;
+	gvir_config_domain_get_devices;
+	gvir_config_domain_get_features;
+	gvir_config_domain_get_memory;
+	gvir_config_domain_get_name;
+	gvir_config_domain_get_type;
+	gvir_config_domain_get_vcpus;
 
 	gvir_config_domain_graphics_get_type;
 
@@ -157,9 +138,9 @@ LIBVIRT_GCONFIG_0.0.8 {
 	gvir_config_domain_graphics_spice_new;
 	gvir_config_domain_graphics_spice_new_from_xml;
 	gvir_config_domain_graphics_spice_set_autoport;
+	gvir_config_domain_graphics_spice_set_password;
 	gvir_config_domain_graphics_spice_set_port;
 	gvir_config_domain_graphics_spice_set_tls_port;
-	gvir_config_domain_graphics_spice_set_password;
 
 	gvir_config_domain_graphics_vnc_get_type;
 	gvir_config_domain_graphics_vnc_new;
@@ -169,37 +150,41 @@ LIBVIRT_GCONFIG_0.0.8 {
 	gvir_config_domain_graphics_vnc_set_port;
 
 	gvir_config_domain_input_bus_get_type;
-	gvir_config_domain_input_get_type;
 	gvir_config_domain_input_device_type_get_type;
+	gvir_config_domain_input_get_type;
 	gvir_config_domain_input_new;
 	gvir_config_domain_input_new_from_xml;
-	gvir_config_domain_input_set_device_type;
 	gvir_config_domain_input_set_bus;
-
-	gvir_config_domain_interface_get_type;
-	gvir_config_domain_interface_link_state_get_type;
-	gvir_config_domain_interface_set_ifname;
-	gvir_config_domain_interface_get_ifname;
-	gvir_config_domain_interface_set_link_state;
-	gvir_config_domain_interface_get_link_state;
-	gvir_config_domain_interface_set_mac;
-	gvir_config_domain_interface_get_mac;
-	gvir_config_domain_interface_set_model;
-	gvir_config_domain_interface_get_model;
+	gvir_config_domain_input_set_device_type;
 
 	gvir_config_domain_interface_bridge_get_type;
 	gvir_config_domain_interface_bridge_new;
 	gvir_config_domain_interface_bridge_new_from_xml;
 	gvir_config_domain_interface_bridge_set_source;
 
+	gvir_config_domain_interface_get_ifname;
+	gvir_config_domain_interface_get_link_state;
+	gvir_config_domain_interface_get_mac;
+	gvir_config_domain_interface_get_model;
+	gvir_config_domain_interface_get_type;
+	gvir_config_domain_interface_link_state_get_type;
+
 	gvir_config_domain_interface_network_get_type;
 	gvir_config_domain_interface_network_new;
 	gvir_config_domain_interface_network_new_from_xml;
 	gvir_config_domain_interface_network_set_source;
 
+	gvir_config_domain_interface_set_ifname;
+	gvir_config_domain_interface_set_link_state;
+	gvir_config_domain_interface_set_mac;
+	gvir_config_domain_interface_set_model;
+
 	gvir_config_domain_interface_user_get_type;
 	gvir_config_domain_interface_user_new;
 	gvir_config_domain_interface_user_new_from_xml;
+
+	gvir_config_domain_lifecycle_action_get_type;
+	gvir_config_domain_lifecycle_event_get_type;
 
 	gvir_config_domain_memballoon_get_type;
 	gvir_config_domain_memballoon_model_get_type;
@@ -207,48 +192,64 @@ LIBVIRT_GCONFIG_0.0.8 {
 	gvir_config_domain_memballoon_new_from_xml;
 	gvir_config_domain_memballoon_set_model;
 
-	gvir_config_domain_os_get_type;
+	gvir_config_domain_new;
+	gvir_config_domain_new_from_xml;
+
+	gvir_config_domain_os_bios_enable_serial;
 	gvir_config_domain_os_boot_device_get_type;
-	gvir_config_domain_os_sm_bios_mode_get_type;
+	gvir_config_domain_os_enable_boot_menu;
+	gvir_config_domain_os_get_type;
 	gvir_config_domain_os_new;
 	gvir_config_domain_os_new_from_xml;
-	gvir_config_domain_os_set_os_type;
+	gvir_config_domain_os_set_arch;
 	gvir_config_domain_os_set_boot_devices;
 	gvir_config_domain_os_set_cmdline;
 	gvir_config_domain_os_set_init;
 	gvir_config_domain_os_set_kernel;
 	gvir_config_domain_os_set_loader;
+	gvir_config_domain_os_set_machine;
+	gvir_config_domain_os_set_os_type;
 	gvir_config_domain_os_set_ramdisk;
 	gvir_config_domain_os_set_smbios_mode;
-	gvir_config_domain_os_enable_boot_menu;
-	gvir_config_domain_os_bios_enable_serial;
-	gvir_config_domain_os_set_machine;
-	gvir_config_domain_os_set_arch;
+	gvir_config_domain_os_sm_bios_mode_get_type;
 	gvir_config_domain_os_type_get_type;
 
 	gvir_config_domain_parallel_get_type;
 	gvir_config_domain_parallel_new;
 	gvir_config_domain_parallel_new_from_xml;
 
-	gvir_config_domain_redirdev_get_type;
 	gvir_config_domain_redirdev_bus_get_type;
+	gvir_config_domain_redirdev_get_type;
 	gvir_config_domain_redirdev_new;
 	gvir_config_domain_redirdev_new_from_xml;
 	gvir_config_domain_redirdev_set_address;
 	gvir_config_domain_redirdev_set_bus;
 
 	gvir_config_domain_seclabel_get_type;
-	gvir_config_domain_seclabel_type_get_type;
 	gvir_config_domain_seclabel_new;
 	gvir_config_domain_seclabel_new_from_xml;
-	gvir_config_domain_seclabel_set_type;
-	gvir_config_domain_seclabel_set_model;
 	gvir_config_domain_seclabel_set_baselabel;
 	gvir_config_domain_seclabel_set_label;
+	gvir_config_domain_seclabel_set_model;
+	gvir_config_domain_seclabel_set_type;
+	gvir_config_domain_seclabel_type_get_type;
 
 	gvir_config_domain_serial_get_type;
 	gvir_config_domain_serial_new;
 	gvir_config_domain_serial_new_from_xml;
+
+	gvir_config_domain_set_clock;
+	gvir_config_domain_set_custom_xml;
+	gvir_config_domain_set_description;
+	gvir_config_domain_set_devices;
+	gvir_config_domain_set_features;
+	gvir_config_domain_set_lifecycle;
+	gvir_config_domain_set_memory;
+	gvir_config_domain_set_name;
+	gvir_config_domain_set_os;
+	gvir_config_domain_set_seclabel;
+	gvir_config_domain_set_vcpus;
+	gvir_config_domain_set_virt_type;
 
 	gvir_config_domain_snapshot_get_type;
 	gvir_config_domain_snapshot_new;
@@ -260,10 +261,8 @@ LIBVIRT_GCONFIG_0.0.8 {
 	gvir_config_domain_sound_new_from_xml;
 	gvir_config_domain_sound_set_model;
 
-	gvir_config_domain_timer_get_type;
-	gvir_config_domain_timer_tick_policy_get_type;
 	gvir_config_domain_timer_get_tick_policy;
-	gvir_config_domain_timer_set_tick_policy;
+	gvir_config_domain_timer_get_type;
 
 	gvir_config_domain_timer_pit_get_type;
 	gvir_config_domain_timer_pit_new;
@@ -273,34 +272,43 @@ LIBVIRT_GCONFIG_0.0.8 {
 	gvir_config_domain_timer_rtc_new;
 	gvir_config_domain_timer_rtc_new_from_xml;
 
+	gvir_config_domain_timer_set_tick_policy;
+	gvir_config_domain_timer_tick_policy_get_type;
+
 	gvir_config_domain_video_get_type;
 	gvir_config_domain_video_model_get_type;
 	gvir_config_domain_video_new;
 	gvir_config_domain_video_new_from_xml;
+	gvir_config_domain_video_set_heads;
 	gvir_config_domain_video_set_model;
 	gvir_config_domain_video_set_vram;
-	gvir_config_domain_video_set_heads;
+
+	gvir_config_domain_virt_type_get_type;
+
+	gvir_config_init;
+	gvir_config_init_check;
 
 	gvir_config_interface_get_type;
 	gvir_config_interface_new;
 	gvir_config_interface_new_from_xml;
 
+	gvir_config_network_filter_get_type;
+	gvir_config_network_filter_new;
+	gvir_config_network_filter_new_from_xml;
+
 	gvir_config_network_get_type;
 	gvir_config_network_new;
 	gvir_config_network_new_from_xml;
 
-	gvir_config_network_filter_get_type;
-	gvir_config_network_filter_new;
-	gvir_config_network_filter_new_from_xml;
 
 	gvir_config_node_device_get_type;
 	gvir_config_node_device_new;
 	gvir_config_node_device_new_from_xml;
 
-	gvir_config_object_get_type;
 	gvir_config_object_error_quark;
-	gvir_config_object_new;
 	gvir_config_object_get_schema;
+	gvir_config_object_get_type;
+	gvir_config_object_new;
 	gvir_config_object_to_xml;
 	gvir_config_object_validate;
 
@@ -317,7 +325,6 @@ LIBVIRT_GCONFIG_0.0.8 {
 	gvir_config_storage_permissions_set_owner;
 
 	gvir_config_storage_pool_get_type;
-	gvir_config_storage_pool_type_get_type;
 	gvir_config_storage_pool_new;
 	gvir_config_storage_pool_new_from_xml;
 	gvir_config_storage_pool_set_allocation;
@@ -347,6 +354,14 @@ LIBVIRT_GCONFIG_0.0.8 {
 	gvir_config_storage_pool_target_set_path;
 	gvir_config_storage_pool_target_set_permissions;
 
+	gvir_config_storage_pool_type_get_type;
+
+	gvir_config_storage_vol_backing_store_get_type;
+	gvir_config_storage_vol_backing_store_new;
+	gvir_config_storage_vol_backing_store_new_from_xml;
+	gvir_config_storage_vol_backing_store_set_format;
+	gvir_config_storage_vol_backing_store_set_path;
+
 	gvir_config_storage_vol_get_type;
 	gvir_config_storage_vol_new;
 	gvir_config_storage_vol_new_from_xml;
@@ -356,12 +371,6 @@ LIBVIRT_GCONFIG_0.0.8 {
 	gvir_config_storage_vol_set_name;
 	gvir_config_storage_vol_set_target;
 
-	gvir_config_storage_vol_backing_store_get_type;
-	gvir_config_storage_vol_backing_store_new;
-	gvir_config_storage_vol_backing_store_new_from_xml;
-	gvir_config_storage_vol_backing_store_set_format;
-	gvir_config_storage_vol_backing_store_set_path;
-
 	gvir_config_storage_vol_target_get_type;
 	gvir_config_storage_vol_target_new;
 	gvir_config_storage_vol_target_new_from_xml;
@@ -370,67 +379,70 @@ LIBVIRT_GCONFIG_0.0.8 {
 
 	gvir_config_xml_doc_get_type;
 	gvir_config_xml_doc_new;
+
   local:
-        *;
+	*;
 };
 
 LIBVIRT_GCONFIG_0.0.9 {
   global:
-	gvir_config_domain_get_os;
-	gvir_config_domain_get_title;
-	gvir_config_domain_set_title;
-	gvir_config_domain_get_virt_type;
+	gvir_config_capabilities_cpu_feature_get_name;
+	gvir_config_capabilities_cpu_feature_get_type;
+
+	gvir_config_capabilities_cpu_get_arch;
+	gvir_config_capabilities_cpu_get_features;
+	gvir_config_capabilities_cpu_get_topology;
+	gvir_config_capabilities_cpu_get_type;
+
+	gvir_config_capabilities_cpu_topology_get_cores;
+	gvir_config_capabilities_cpu_topology_get_sockets;
+	gvir_config_capabilities_cpu_topology_get_threads;
+	gvir_config_capabilities_cpu_topology_get_type;
+
+	gvir_config_capabilities_get_guests;
+	gvir_config_capabilities_get_host;
+
+	gvir_config_capabilities_guest_arch_get_domains;
+	gvir_config_capabilities_guest_arch_get_emulator;
+	gvir_config_capabilities_guest_arch_get_name;
+	gvir_config_capabilities_guest_arch_get_type;
+
+	gvir_config_capabilities_guest_domain_get_emulator;
+	gvir_config_capabilities_guest_domain_get_type;
+	gvir_config_capabilities_guest_domain_get_virt_type;
+
+	gvir_config_capabilities_guest_feature_get_name;
+	gvir_config_capabilities_guest_feature_get_type;
+
+	gvir_config_capabilities_guest_get_arch;
+	gvir_config_capabilities_guest_get_features;
+	gvir_config_capabilities_guest_get_os_type;
+	gvir_config_capabilities_guest_get_type;
+
+	gvir_config_capabilities_host_get_cpu;
+	gvir_config_capabilities_host_get_type;
+	gvir_config_capabilities_host_get_uuid;
 
 	gvir_config_domain_filesys_set_ram_usage;
+
+	gvir_config_domain_get_os;
+	gvir_config_domain_get_title;
+	gvir_config_domain_get_virt_type;
 
 	gvir_config_domain_os_get_arch;
 	gvir_config_domain_os_get_boot_devices;
 	gvir_config_domain_os_get_os_type;
 
-	gvir_config_capabilities_get_host;
-	gvir_config_capabilities_get_guests;
-
-	gvir_config_capabilities_cpu_get_type;
-	gvir_config_capabilities_cpu_get_arch;
-	gvir_config_capabilities_cpu_get_features;
-	gvir_config_capabilities_cpu_get_topology;
-
-	gvir_config_capabilities_cpu_feature_get_type;
-	gvir_config_capabilities_cpu_feature_get_name;
-
-	gvir_config_capabilities_cpu_topology_get_type;
-	gvir_config_capabilities_cpu_topology_get_cores;
-	gvir_config_capabilities_cpu_topology_get_sockets;
-	gvir_config_capabilities_cpu_topology_get_threads;
-
-	gvir_config_capabilities_guest_get_type;
-	gvir_config_capabilities_guest_get_arch;
-	gvir_config_capabilities_guest_get_features;
-	gvir_config_capabilities_guest_get_os_type;
-
-	gvir_config_capabilities_guest_arch_get_type;
-	gvir_config_capabilities_guest_arch_get_domains;
-	gvir_config_capabilities_guest_arch_get_emulator;
-	gvir_config_capabilities_guest_arch_get_name;
-
-	gvir_config_capabilities_guest_domain_get_type;
-	gvir_config_capabilities_guest_domain_get_emulator;
-	gvir_config_capabilities_guest_domain_get_virt_type;
-
-	gvir_config_capabilities_guest_feature_get_type;
-	gvir_config_capabilities_guest_feature_get_name;
-
-	gvir_config_capabilities_host_get_type;
-	gvir_config_capabilities_host_get_uuid;
-	gvir_config_capabilities_host_get_cpu;
+	gvir_config_domain_set_title;
 } LIBVIRT_GCONFIG_0.0.8;
 
 LIBVIRT_GCONFIG_0.1.0 {
   global:
 	gvir_config_capabilities_cpu_add_feature;
-	gvir_config_capabilities_cpu_set_topology;
 
 	gvir_config_capabilities_cpu_feature_set_name;
+
+	gvir_config_capabilities_cpu_set_topology;
 
 	gvir_config_capabilities_cpu_topology_new;
 	gvir_config_capabilities_cpu_topology_new_from_xml;
@@ -438,38 +450,39 @@ LIBVIRT_GCONFIG_0.1.0 {
 	gvir_config_capabilities_cpu_topology_set_sockets;
 	gvir_config_capabilities_cpu_topology_set_threads;
 
-	gvir_config_domain_get_cpu;
-	gvir_config_domain_set_cpu;
-
-	gvir_config_domain_cpu_get_type;
-	gvir_config_domain_cpu_match_policy_get_type;
-	gvir_config_domain_cpu_mode_get_type;
-	gvir_config_domain_cpu_get_features;
-	gvir_config_domain_cpu_get_match_policy;
-	gvir_config_domain_cpu_set_match_policy;
-	gvir_config_domain_cpu_get_mode;
-	gvir_config_domain_cpu_set_mode;
-	gvir_config_domain_cpu_new;
-	gvir_config_domain_cpu_new_from_xml;
-
+	gvir_config_domain_cpu_feature_get_policy;
 	gvir_config_domain_cpu_feature_get_type;
 	gvir_config_domain_cpu_feature_new;
 	gvir_config_domain_cpu_feature_new_from_xml;
 	gvir_config_domain_cpu_feature_policy_get_type;
-	gvir_config_domain_cpu_feature_get_policy;
 	gvir_config_domain_cpu_feature_set_policy;
+
+	gvir_config_domain_cpu_get_features;
+	gvir_config_domain_cpu_get_match_policy;
+	gvir_config_domain_cpu_get_mode;
+	gvir_config_domain_cpu_get_type;
+	gvir_config_domain_cpu_match_policy_get_type;
+	gvir_config_domain_cpu_mode_get_type;
+	gvir_config_domain_cpu_new;
+	gvir_config_domain_cpu_new_from_xml;
+	gvir_config_domain_cpu_set_match_policy;
+	gvir_config_domain_cpu_set_mode;
+
+	gvir_config_domain_get_cpu;
+	gvir_config_domain_set_cpu;
 } LIBVIRT_GCONFIG_0.0.9;
 
 LIBVIRT_GCONFIG_0.1.3 {
   global:
 	gvir_config_domain_get_current_memory;
-	gvir_config_domain_set_current_memory;
 
 	gvir_config_domain_graphics_spice_get_port;
 
 	gvir_config_domain_graphics_vnc_get_port;
 	gvir_config_domain_graphics_vnc_get_socket;
 	gvir_config_domain_graphics_vnc_set_socket;
+
+	gvir_config_domain_set_current_memory;
 } LIBVIRT_GCONFIG_0.1.0;
 
 LIBVIRT_GCONFIG_0.1.4 {
@@ -477,8 +490,8 @@ LIBVIRT_GCONFIG_0.1.4 {
 	gvir_config_domain_power_management_get_type;
 	gvir_config_domain_power_management_new;
 	gvir_config_domain_power_management_new_from_xml;
-	gvir_config_domain_power_management_set_mem_suspend_enabled;
 	gvir_config_domain_power_management_set_disk_suspend_enabled;
+	gvir_config_domain_power_management_set_mem_suspend_enabled;
 
 	gvir_config_domain_set_power_management;
 } LIBVIRT_GCONFIG_0.1.3;
@@ -486,36 +499,43 @@ LIBVIRT_GCONFIG_0.1.4 {
 LIBVIRT_GCONFIG_0.1.5 {
   global:
 	gvir_config_domain_smartcard_get_type;
-	gvir_config_domain_smartcard_set_address;
+
+	gvir_config_domain_smartcard_host_certificates_get_type;
+	gvir_config_domain_smartcard_host_certificates_new;
+	gvir_config_domain_smartcard_host_certificates_new_from_xml;
+	gvir_config_domain_smartcard_host_certificates_set_certificates;
+	gvir_config_domain_smartcard_host_certificates_set_database;
 
 	gvir_config_domain_smartcard_host_get_type;
 	gvir_config_domain_smartcard_host_new;
 	gvir_config_domain_smartcard_host_new_from_xml;
 
-	gvir_config_domain_smartcard_host_certificates_get_type;
-	gvir_config_domain_smartcard_host_certificates_new;
-	gvir_config_domain_smartcard_host_certificates_new_from_xml;
-	gvir_config_domain_smartcard_host_certificates_set_database;
-	gvir_config_domain_smartcard_host_certificates_set_certificates;
-
 	gvir_config_domain_smartcard_passthrough_get_type;
 	gvir_config_domain_smartcard_passthrough_new;
 	gvir_config_domain_smartcard_passthrough_new_from_xml;
 	gvir_config_domain_smartcard_passthrough_set_source;
+
+	gvir_config_domain_smartcard_set_address;
 } LIBVIRT_GCONFIG_0.1.4;
 
 LIBVIRT_GCONFIG_0.1.6 {
   global:
 	gvir_config_domain_graphics_spice_get_image_compression;
-	gvir_config_domain_graphics_spice_set_image_compression;
 
 	gvir_config_domain_graphics_spice_image_compression_get_type;
+
+	gvir_config_domain_graphics_spice_set_image_compression;
 } LIBVIRT_GCONFIG_0.1.5;
 
 LIBVIRT_GCONFIG_0.1.7 {
   global:
 	gvir_config_domain_channel_get_target_name;
 	gvir_config_domain_channel_get_target_type;
+
+	gvir_config_domain_chardev_get_source;
+	gvir_config_domain_chardev_source_pty_get_path;
+
+	gvir_config_domain_device_get_alias;
 
 	gvir_config_domain_disk_format_get_type;
 	gvir_config_domain_disk_get_driver_format;
@@ -527,14 +547,43 @@ LIBVIRT_GCONFIG_0.1.7 {
 	gvir_config_domain_graphics_desktop_set_display;
 	gvir_config_domain_graphics_desktop_set_fullscreen;
 
-	gvir_config_domain_graphics_sdl_set_fullscreen;
-
+	gvir_config_domain_graphics_rdp_get_port;
 	gvir_config_domain_graphics_rdp_get_type;
 	gvir_config_domain_graphics_rdp_new;
 	gvir_config_domain_graphics_rdp_new_from_xml;
 	gvir_config_domain_graphics_rdp_set_autoport;
-	gvir_config_domain_graphics_rdp_get_port;
 	gvir_config_domain_graphics_rdp_set_port;
+
+	gvir_config_domain_graphics_sdl_set_fullscreen;
+
+	gvir_config_domain_snapshot_add_disk;
+	gvir_config_domain_snapshot_disk_get_driver_format;
+	gvir_config_domain_snapshot_disk_get_name;
+	gvir_config_domain_snapshot_disk_get_snapshot_type;
+	gvir_config_domain_snapshot_disk_get_source_file;
+	gvir_config_domain_snapshot_disk_get_type;
+	gvir_config_domain_snapshot_disk_new;
+	gvir_config_domain_snapshot_disk_new_from_xml;
+	gvir_config_domain_snapshot_disk_set_driver_format;
+	gvir_config_domain_snapshot_disk_set_name;
+	gvir_config_domain_snapshot_disk_set_snapshot_type;
+	gvir_config_domain_snapshot_disk_set_source_file;
+	gvir_config_domain_snapshot_domain_state_get_type;
+	gvir_config_domain_snapshot_get_creation_time;
+	gvir_config_domain_snapshot_get_description;
+	gvir_config_domain_snapshot_get_disks;
+	gvir_config_domain_snapshot_get_domain;
+	gvir_config_domain_snapshot_get_memory_file;
+	gvir_config_domain_snapshot_get_memory_state;
+	gvir_config_domain_snapshot_get_name;
+	gvir_config_domain_snapshot_get_parent;
+	gvir_config_domain_snapshot_get_state;
+	gvir_config_domain_snapshot_memory_state_get_type;
+	gvir_config_domain_snapshot_set_description;
+	gvir_config_domain_snapshot_set_disks;
+	gvir_config_domain_snapshot_set_memory_file;
+	gvir_config_domain_snapshot_set_memory_state;
+	gvir_config_domain_snapshot_set_name;
 
 	gvir_config_storage_permissions_get_group;
 	gvir_config_storage_permissions_get_label;
@@ -562,94 +611,60 @@ LIBVIRT_GCONFIG_0.1.7 {
 	gvir_config_storage_pool_target_get_path;
 	gvir_config_storage_pool_target_get_permissions;
 
-	gvir_config_domain_snapshot_domain_state_get_type;
-	gvir_config_domain_snapshot_memory_state_get_type;
-	gvir_config_domain_snapshot_get_creation_time;
-	gvir_config_domain_snapshot_get_description;
-	gvir_config_domain_snapshot_set_description;
-	gvir_config_domain_snapshot_get_domain;
-	gvir_config_domain_snapshot_get_memory_state;
-	gvir_config_domain_snapshot_set_memory_state;
-	gvir_config_domain_snapshot_get_memory_file;
-	gvir_config_domain_snapshot_set_memory_file;
-	gvir_config_domain_snapshot_get_name;
-	gvir_config_domain_snapshot_set_name;
-	gvir_config_domain_snapshot_get_parent;
-	gvir_config_domain_snapshot_get_state;
-	gvir_config_domain_snapshot_get_disks;
-	gvir_config_domain_snapshot_add_disk;
-	gvir_config_domain_snapshot_set_disks;
-
-	gvir_config_domain_snapshot_disk_get_type;
-	gvir_config_domain_snapshot_disk_new;
-	gvir_config_domain_snapshot_disk_new_from_xml;
-
-	gvir_config_domain_snapshot_disk_get_driver_format;
-	gvir_config_domain_snapshot_disk_set_driver_format;
-	gvir_config_domain_snapshot_disk_get_name;
-	gvir_config_domain_snapshot_disk_set_name;
-	gvir_config_domain_snapshot_disk_get_snapshot_type;
-	gvir_config_domain_snapshot_disk_set_snapshot_type;
-	gvir_config_domain_snapshot_disk_get_source_file;
-	gvir_config_domain_snapshot_disk_set_source_file;
-
-	gvir_config_domain_chardev_source_pty_get_path;
-	gvir_config_domain_chardev_get_source;
-
-	gvir_config_domain_device_get_alias;
 } LIBVIRT_GCONFIG_0.1.6;
 
 LIBVIRT_GCONFIG_0.1.8 {
 global:
-	gvir_config_domain_get_uuid;
-	gvir_config_domain_set_uuid;
-
-	gvir_config_domain_disk_driver_get_type;
 	gvir_config_domain_disk_driver_discard_get_type;
 	gvir_config_domain_disk_driver_error_policy_get_type;
+	gvir_config_domain_disk_driver_get_cache;
+	gvir_config_domain_disk_driver_get_copy_on_read;
+	gvir_config_domain_disk_driver_get_discard;
+	gvir_config_domain_disk_driver_get_error_policy;
+	gvir_config_domain_disk_driver_get_format;
+	gvir_config_domain_disk_driver_get_io_policy;
+	gvir_config_domain_disk_driver_get_name;
+	gvir_config_domain_disk_driver_get_type;
 	gvir_config_domain_disk_driver_io_policy_get_type;
 	gvir_config_domain_disk_driver_new;
 	gvir_config_domain_disk_driver_new_from_xml;
 	gvir_config_domain_disk_driver_set_cache;
-	gvir_config_domain_disk_driver_get_cache;
 	gvir_config_domain_disk_driver_set_copy_on_read;
-	gvir_config_domain_disk_driver_get_copy_on_read;
 	gvir_config_domain_disk_driver_set_discard;
-	gvir_config_domain_disk_driver_get_discard;
 	gvir_config_domain_disk_driver_set_error_policy;
-	gvir_config_domain_disk_driver_get_error_policy;
 	gvir_config_domain_disk_driver_set_format;
-	gvir_config_domain_disk_driver_get_format;
-	gvir_config_domain_disk_driver_set_name;
-	gvir_config_domain_disk_driver_get_name;
 	gvir_config_domain_disk_driver_set_io_policy;
-	gvir_config_domain_disk_driver_get_io_policy;
+	gvir_config_domain_disk_driver_set_name;
 
 	gvir_config_domain_disk_get_driver;
 	gvir_config_domain_disk_set_driver;
 
+	gvir_config_domain_get_uuid;
+
 	gvir_config_domain_graphics_rdp_set_multi_user;
 	gvir_config_domain_graphics_rdp_set_replace_user;
 
-	gvir_config_object_new_from_xml;
-
-	gvir_config_domain_interface_set_filterref;
-	gvir_config_domain_interface_get_filterref;
-
+	gvir_config_domain_interface_filterref_add_parameter;
+	gvir_config_domain_interface_filterref_get_name;
+	gvir_config_domain_interface_filterref_get_parameters;
 	gvir_config_domain_interface_filterref_get_type;
 	gvir_config_domain_interface_filterref_new;
 	gvir_config_domain_interface_filterref_new_from_xml;
-	gvir_config_domain_interface_filterref_set_name;
-	gvir_config_domain_interface_filterref_get_name;
-	gvir_config_domain_interface_filterref_add_parameter;
-	gvir_config_domain_interface_filterref_get_parameters;
+	gvir_config_domain_interface_filterref_parameter_get_name;
 	gvir_config_domain_interface_filterref_parameter_get_type;
+	gvir_config_domain_interface_filterref_parameter_get_value;
 	gvir_config_domain_interface_filterref_parameter_new;
 	gvir_config_domain_interface_filterref_parameter_new_from_xml;
 	gvir_config_domain_interface_filterref_parameter_set_name;
 	gvir_config_domain_interface_filterref_parameter_set_value;
-	gvir_config_domain_interface_filterref_parameter_get_name;
-	gvir_config_domain_interface_filterref_parameter_get_value;
+	gvir_config_domain_interface_filterref_set_name;
+
+	gvir_config_domain_interface_get_filterref;
+	gvir_config_domain_interface_set_filterref;
+
+	gvir_config_domain_set_uuid;
+
+	gvir_config_object_new_from_xml;
 } LIBVIRT_GCONFIG_0.1.7;
 
 # .... define new API here using predicted next version number ....
