@@ -552,7 +552,7 @@ void gvir_config_domain_set_clock(GVirConfigDomain *domain,
                                   GVirConfigDomainClock *klock)
 {
     g_return_if_fail(GVIR_CONFIG_IS_DOMAIN(domain));
-    g_return_if_fail(klock != NULL || GVIR_CONFIG_IS_DOMAIN_CLOCK(klock));
+    g_return_if_fail(klock == NULL || GVIR_CONFIG_IS_DOMAIN_CLOCK(klock));
 
     gvir_config_object_attach_replace(GVIR_CONFIG_OBJECT(domain),
                                       "clock",
