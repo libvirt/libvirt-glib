@@ -37,6 +37,7 @@ GCONFIG_HEADER_FILES = \
 			libvirt-gconfig-domain-cpu-feature.h \
 			libvirt-gconfig-domain-device.h \
 			libvirt-gconfig-domain-disk.h \
+			libvirt-gconfig-domain-disk-driver.h \
 			libvirt-gconfig-domain-filesys.h \
 			libvirt-gconfig-domain-graphics.h \
 			libvirt-gconfig-domain-graphics-desktop.h \
@@ -121,6 +122,7 @@ GCONFIG_SOURCE_FILES = \
 			libvirt-gconfig-domain-cpu-feature.c \
 			libvirt-gconfig-domain-device.c \
 			libvirt-gconfig-domain-disk.c \
+			libvirt-gconfig-domain-disk-driver.c \
 			libvirt-gconfig-domain-filesys.c \
 			libvirt-gconfig-domain-graphics.c \
 			libvirt-gconfig-domain-graphics-desktop.c \

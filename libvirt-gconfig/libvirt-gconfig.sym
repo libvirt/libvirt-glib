@@ -604,6 +604,27 @@ global:
 	gvir_config_domain_get_uuid;
 	gvir_config_domain_set_uuid;
 
+	gvir_config_domain_disk_driver_get_type;
+	gvir_config_domain_disk_driver_discard_get_type;
+	gvir_config_domain_disk_driver_error_policy_get_type;
+	gvir_config_domain_disk_driver_io_policy_get_type;
+	gvir_config_domain_disk_driver_new;
+	gvir_config_domain_disk_driver_new_from_xml;
+	gvir_config_domain_disk_driver_set_cache;
+	gvir_config_domain_disk_driver_get_cache;
+	gvir_config_domain_disk_driver_set_copy_on_read;
+	gvir_config_domain_disk_driver_get_copy_on_read;
+	gvir_config_domain_disk_driver_set_discard;
+	gvir_config_domain_disk_driver_get_discard;
+	gvir_config_domain_disk_driver_set_error_policy;
+	gvir_config_domain_disk_driver_get_error_policy;
+	gvir_config_domain_disk_driver_set_format;
+	gvir_config_domain_disk_driver_get_format;
+	gvir_config_domain_disk_driver_set_name;
+	gvir_config_domain_disk_driver_get_name;
+	gvir_config_domain_disk_driver_set_io_policy;
+	gvir_config_domain_disk_driver_get_io_policy;
+
 	gvir_config_domain_graphics_rdp_set_multi_user;
 	gvir_config_domain_graphics_rdp_set_replace_user;
 

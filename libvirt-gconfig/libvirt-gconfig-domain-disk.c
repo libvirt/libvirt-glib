@@ -353,6 +353,7 @@ gvir_config_domain_disk_get_driver_cache(GVirConfigDomainDisk *disk)
                                                   GVIR_CONFIG_DOMAIN_DISK_CACHE_DEFAULT);
 }
 
+
 GVirConfigDomainDiskBus
 gvir_config_domain_disk_get_target_bus(GVirConfigDomainDisk *disk)
 {
@@ -368,6 +369,7 @@ gvir_config_domain_disk_get_target_bus(GVirConfigDomainDisk *disk)
                                                   GVIR_CONFIG_DOMAIN_DISK_BUS_IDE);
 }
 
+
 const char *
 gvir_config_domain_disk_get_target_dev(GVirConfigDomainDisk *disk)
 {
@@ -376,6 +378,7 @@ gvir_config_domain_disk_get_target_dev(GVirConfigDomainDisk *disk)
     return gvir_config_object_get_attribute(GVIR_CONFIG_OBJECT(disk),
                                             "target", "dev");
 }
+
 
 void
 gvir_config_domain_disk_set_readonly(GVirConfigDomainDisk *disk,

@@ -54,6 +54,7 @@
 #include <libvirt-gconfig/libvirt-gconfig-domain-cpu-feature.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-device.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-disk.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-disk-driver.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-filesys.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-graphics.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-graphics-desktop.h>
