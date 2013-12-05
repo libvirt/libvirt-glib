@@ -625,6 +625,9 @@ global:
 	gvir_config_domain_disk_driver_set_io_policy;
 	gvir_config_domain_disk_driver_get_io_policy;
 
+	gvir_config_domain_disk_get_driver;
+	gvir_config_domain_disk_set_driver;
+
 	gvir_config_domain_graphics_rdp_set_multi_user;
 	gvir_config_domain_graphics_rdp_set_replace_user;
 
