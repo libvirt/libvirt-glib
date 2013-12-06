@@ -241,6 +241,7 @@ int main(int argc, char **argv)
     gvir_config_domain_disk_driver_set_name(driver, "qemu");
     gvir_config_domain_disk_driver_set_cache(driver, GVIR_CONFIG_DOMAIN_DISK_CACHE_NONE);
     gvir_config_domain_disk_driver_set_format(driver, GVIR_CONFIG_DOMAIN_DISK_FORMAT_QCOW2);
+    gvir_config_domain_disk_driver_set_copy_on_read(driver, TRUE);
 
     disk = gvir_config_domain_disk_new();
     gvir_config_domain_disk_set_type(disk, GVIR_CONFIG_DOMAIN_DISK_FILE);
@@ -262,6 +263,7 @@ int main(int argc, char **argv)
     g_assert(gvir_config_domain_disk_driver_get_cache(driver) == GVIR_CONFIG_DOMAIN_DISK_CACHE_NONE);
     g_str_const_check(gvir_config_domain_disk_driver_get_name(driver), "qemu");
     g_assert(gvir_config_domain_disk_driver_get_format(driver) == GVIR_CONFIG_DOMAIN_DISK_FORMAT_QCOW2);
+    g_assert(gvir_config_domain_disk_driver_get_copy_on_read(driver));
     g_assert(gvir_config_domain_disk_get_target_bus(disk) == GVIR_CONFIG_DOMAIN_DISK_BUS_IDE);
     g_str_const_check(gvir_config_domain_disk_get_target_dev(disk), "hda");
 
