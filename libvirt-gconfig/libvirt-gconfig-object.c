@@ -684,6 +684,26 @@ gvir_config_object_get_attribute_uint64(GVirConfigObject *object,
     return g_ascii_strtoull(str, NULL, 0);
 }
 
+
+G_GNUC_INTERNAL gboolean
+gvir_config_object_get_attribute_boolean(GVirConfigObject *object,
+                                         const char *node_name,
+                                         const char *attr_name,
+                                         gboolean default_value)
+{
+    const char *str;
+
+    str = gvir_config_object_get_attribute(object, node_name, attr_name);
+    if (g_strcmp0(str, "yes") == 0) {
+        return TRUE;
+    } else if (g_strcmp0(str, "no") == 0) {
+        return FALSE;
+    } else {
+        return default_value;
+    }
+}
+
+
 GVirConfigObject *gvir_config_object_new_from_xml(GType type,
                                                   const char *root_name,
                                                   const char *schema,

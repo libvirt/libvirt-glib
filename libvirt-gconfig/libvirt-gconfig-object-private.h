@@ -53,6 +53,10 @@ gint gvir_config_object_get_attribute_genum(GVirConfigObject *object,
                                             const char *attr_name,
                                             GType enum_type,
                                             gint default_value);
+gboolean gvir_config_object_get_attribute_boolean(GVirConfigObject *object,
+                                                  const char *node_name,
+                                                  const char *attr_name,
+                                                  gboolean default_value);
 void gvir_config_object_set_node_content(GVirConfigObject *object,
                                          const char *node_name,
                                          const char *value);
