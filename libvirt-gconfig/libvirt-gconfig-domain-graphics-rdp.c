@@ -1,7 +1,7 @@
 /*
  * libvirt-gconfig-domain-graphics-rdp.c: libvirt domain RDP configuration
  *
- * Copyright (C) 2011 Red Hat, Inc.
+ * Copyright (C) 2011, 2014 Red Hat, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -117,6 +117,17 @@ void gvir_config_domain_graphics_rdp_set_replace_user(GVirConfigDomainGraphicsRd
 }
 
 
+gboolean gvir_config_domain_graphics_rdp_get_replace_user(GVirConfigDomainGraphicsRdp *graphics)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_GRAPHICS_RDP(graphics), FALSE);
+
+    return gvir_config_object_get_attribute_boolean(GVIR_CONFIG_OBJECT(graphics),
+                                                    NULL,
+                                                    "replaceUser",
+                                                    FALSE);
+}
+
+
 void gvir_config_domain_graphics_rdp_set_multi_user(GVirConfigDomainGraphicsRdp *graphics,
                                                     gboolean multi_user)
 {
@@ -127,4 +138,15 @@ void gvir_config_domain_graphics_rdp_set_multi_user(GVirConfigDomainGraphicsRdp 
                                                G_TYPE_BOOLEAN,
                                                multi_user,
                                                NULL);
+}
+
+
+gboolean gvir_config_domain_graphics_rdp_get_multi_user(GVirConfigDomainGraphicsRdp *graphics)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_GRAPHICS_RDP(graphics), FALSE);
+
+    return gvir_config_object_get_attribute_boolean(GVIR_CONFIG_OBJECT(graphics),
+                                                    NULL,
+                                                    "multiUser",
+                                                    FALSE);
 }

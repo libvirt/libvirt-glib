@@ -640,6 +640,11 @@ global:
 
 	gvir_config_domain_get_uuid;
 
+	gvir_config_domain_graphics_desktop_get_display;
+	gvir_config_domain_graphics_desktop_get_fullscreen;
+
+	gvir_config_domain_graphics_rdp_get_multi_user;
+	gvir_config_domain_graphics_rdp_get_replace_user;
 	gvir_config_domain_graphics_rdp_set_multi_user;
 	gvir_config_domain_graphics_rdp_set_replace_user;
 

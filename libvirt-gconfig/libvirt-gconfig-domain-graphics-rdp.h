@@ -1,7 +1,7 @@
 /*
  * libvirt-gconfig-domain-graphics-rdp.h: libvirt domain RDP graphics configuration
  *
- * Copyright (C) 2011 Red Hat, Inc.
+ * Copyright (C) 2011, 2014 Red Hat, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -69,8 +69,10 @@ int gvir_config_domain_graphics_rdp_get_port(GVirConfigDomainGraphicsRdp *graphi
 void gvir_config_domain_graphics_rdp_set_port(GVirConfigDomainGraphicsRdp *graphics,
                                               int port);
 
+gboolean gvir_config_domain_graphics_rdp_get_multi_user(GVirConfigDomainGraphicsRdp *graphics);
 void gvir_config_domain_graphics_rdp_set_multi_user(GVirConfigDomainGraphicsRdp *graphics,
                                                     gboolean multi_user);
+gboolean gvir_config_domain_graphics_rdp_get_replace_user(GVirConfigDomainGraphicsRdp *graphics);
 void gvir_config_domain_graphics_rdp_set_replace_user(GVirConfigDomainGraphicsRdp *graphics,
                                                       gboolean replace_user);
 

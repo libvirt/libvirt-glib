@@ -1,7 +1,7 @@
 /*
  * libvirt-gconfig-domain-graphics-desktop.h: libvirt domain desktop configuration
  *
- * Copyright (C) 2011 Red Hat, Inc.
+ * Copyright (C) 2011, 2014 Red Hat, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -61,8 +61,10 @@ GType gvir_config_domain_graphics_desktop_get_type(void);
 GVirConfigDomainGraphicsDesktop *gvir_config_domain_graphics_desktop_new(void);
 GVirConfigDomainGraphicsDesktop *gvir_config_domain_graphics_desktop_new_from_xml(const gchar *xml,
                                                                                   GError **error);
+const gchar *gvir_config_domain_graphics_desktop_get_display(GVirConfigDomainGraphicsDesktop *graphics);
 void gvir_config_domain_graphics_desktop_set_display(GVirConfigDomainGraphicsDesktop *graphics,
                                                      const gchar *disp);
+gboolean gvir_config_domain_graphics_desktop_get_fullscreen(GVirConfigDomainGraphicsDesktop *graphics);
 void gvir_config_domain_graphics_desktop_set_fullscreen(GVirConfigDomainGraphicsDesktop *graphics,
                                                         gboolean fullscreen);
 
