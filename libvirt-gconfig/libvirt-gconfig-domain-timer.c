@@ -1,7 +1,7 @@
 /*
  * libvirt-gconfig-domain-timer.c: libvirt domain timer configuration
  *
- * Copyright (C) 2011 Red Hat, Inc.
+ * Copyright (C) 2011, 2014 Red Hat, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -72,4 +72,28 @@ gvir_config_domain_timer_get_tick_policy(GVirConfigDomainTimer *timer)
                                                   "tickpolicy",
                                                   GVIR_CONFIG_TYPE_DOMAIN_TIMER_TICK_POLICY,
                                                   GVIR_CONFIG_DOMAIN_TIMER_TICK_POLICY_DELAY);
+}
+
+
+void gvir_config_domain_timer_set_present(GVirConfigDomainTimer *timer,
+                                          gboolean present)
+{
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_TIMER(timer));
+
+    gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(timer),
+                                               "present",
+                                               G_TYPE_BOOLEAN,
+                                               present,
+                                               NULL);
+}
+
+
+gboolean gvir_config_domain_timer_get_present(GVirConfigDomainTimer *timer)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_TIMER(timer), TRUE);
+
+    return gvir_config_object_get_attribute_boolean(GVIR_CONFIG_OBJECT(timer),
+                                                    NULL,
+                                                    "present",
+                                                    TRUE);
 }

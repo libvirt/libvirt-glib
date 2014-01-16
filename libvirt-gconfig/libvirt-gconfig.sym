@@ -668,6 +668,9 @@ global:
 
 	gvir_config_domain_set_uuid;
 
+	gvir_config_domain_timer_get_present;
+	gvir_config_domain_timer_set_present;
+
 	gvir_config_object_new_from_xml;
 } LIBVIRT_GCONFIG_0.1.7;
 

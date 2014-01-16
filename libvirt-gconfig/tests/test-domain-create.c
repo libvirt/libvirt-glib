@@ -147,6 +147,7 @@ int main(int argc, char **argv)
                                              GVIR_CONFIG_DOMAIN_TIMER_TICK_POLICY_DELAY);
     gvir_config_domain_clock_add_timer(klock, GVIR_CONFIG_DOMAIN_TIMER(pit));
     g_assert(gvir_config_domain_timer_get_tick_policy(GVIR_CONFIG_DOMAIN_TIMER(pit)) == GVIR_CONFIG_DOMAIN_TIMER_TICK_POLICY_DELAY);
+    g_assert(gvir_config_domain_timer_get_present(GVIR_CONFIG_DOMAIN_TIMER(pit)) != FALSE);
     g_object_unref(G_OBJECT(pit));
 
     rtc = gvir_config_domain_timer_rtc_new();
@@ -154,6 +155,7 @@ int main(int argc, char **argv)
                                              GVIR_CONFIG_DOMAIN_TIMER_TICK_POLICY_CATCHUP);
     gvir_config_domain_clock_add_timer(klock, GVIR_CONFIG_DOMAIN_TIMER(rtc));
     g_assert(gvir_config_domain_timer_get_tick_policy(GVIR_CONFIG_DOMAIN_TIMER(rtc)) == GVIR_CONFIG_DOMAIN_TIMER_TICK_POLICY_CATCHUP);
+    g_assert(gvir_config_domain_timer_get_present(GVIR_CONFIG_DOMAIN_TIMER(rtc)) != FALSE);
     g_object_unref(G_OBJECT(rtc));
 
     gvir_config_domain_set_clock(domain, klock);
