@@ -669,6 +669,11 @@ global:
 	gvir_config_domain_set_uuid;
 
 	gvir_config_domain_timer_get_present;
+
+	gvir_config_domain_timer_hpet_get_type;
+	gvir_config_domain_timer_hpet_new;
+	gvir_config_domain_timer_hpet_new_from_xml;
+
 	gvir_config_domain_timer_set_present;
 
 	gvir_config_object_new_from_xml;

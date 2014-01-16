@@ -138,6 +138,7 @@ int main(int argc, char **argv)
     GVirConfigDomainClock *klock;
     GVirConfigDomainTimerPit *pit;
     GVirConfigDomainTimerRtc *rtc;
+    GVirConfigDomainTimerHpet *hpet;
 
     klock = gvir_config_domain_clock_new();
     gvir_config_domain_clock_set_offset(klock, GVIR_CONFIG_DOMAIN_CLOCK_UTC);
@@ -157,6 +158,12 @@ int main(int argc, char **argv)
     g_assert(gvir_config_domain_timer_get_tick_policy(GVIR_CONFIG_DOMAIN_TIMER(rtc)) == GVIR_CONFIG_DOMAIN_TIMER_TICK_POLICY_CATCHUP);
     g_assert(gvir_config_domain_timer_get_present(GVIR_CONFIG_DOMAIN_TIMER(rtc)) != FALSE);
     g_object_unref(G_OBJECT(rtc));
+
+    hpet = gvir_config_domain_timer_hpet_new();
+    gvir_config_domain_timer_set_present(GVIR_CONFIG_DOMAIN_TIMER(hpet), FALSE);
+    gvir_config_domain_clock_add_timer(klock, GVIR_CONFIG_DOMAIN_TIMER(hpet));
+    g_assert(gvir_config_domain_timer_get_present(GVIR_CONFIG_DOMAIN_TIMER(hpet)) == FALSE);
+    g_object_unref(G_OBJECT(hpet));
 
     gvir_config_domain_set_clock(domain, klock);
     g_object_unref(G_OBJECT(klock));

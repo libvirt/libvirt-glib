@@ -1,7 +1,7 @@
 /*
  * libvirt-gconfig.h: libvirt gconfig integration
  *
- * Copyright (C) 2010-2012 Red Hat, Inc.
+ * Copyright (C) 2010-2014 Red Hat, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -84,6 +84,7 @@
 #include <libvirt-gconfig/libvirt-gconfig-domain-snapshot-disk.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-sound.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-timer.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-timer-hpet.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-timer-pit.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-timer-rtc.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-video.h>
