@@ -1,0 +1,9 @@
+<domain>
+  <devices>
+    <disk type="file" device="disk">
+      <source file="/tmp/foo/bar" startupPolicy="requisite"/>
+      <target bus="ide" dev="hda"/>
+      <driver name="qemu" cache="none" type="qcow2" copy_on_read="on"/>
+    </disk>
+  </devices>
+</domain>

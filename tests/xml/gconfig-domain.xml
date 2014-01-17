@@ -1,0 +1,15 @@
+<domain type="kvm">
+  <name>foo</name>
+  <memory unit="KiB">1234</memory>
+  <vcpu>3</vcpu>
+  <features>
+    <foo/>
+    <bar/>
+    <baz/>
+  </features>
+  <on_poweroff>restart</on_poweroff>
+  <metadata>
+    <ns:foo xmlns:ns="http://bar"/>
+    <ns:bar xmlns:ns="http://foo"/>
+  </metadata>
+</domain>

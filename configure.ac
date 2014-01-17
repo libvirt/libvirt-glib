@@ -109,6 +109,8 @@ GTK_DOC_CHECK([1.10],[--flavour no-tmpl])
 GLIB_MKENUMS=`$PKG_CONFIG --variable=glib_mkenums glib-2.0`
 AC_SUBST(GLIB_MKENUMS)
 
+GLIB_TESTS
+
 dnl Extra link-time flags for Cygwin.
 dnl Copied from libxml2 configure.in, but I removed mingw changes
 dnl for now since I'm not supporting mingw at present.  - RWMJ
@@ -289,6 +291,7 @@ AC_OUTPUT(Makefile
           docs/libvirt-gobject/Makefile
           docs/libvirt-gconfig/Makefile
           po/Makefile.in
+          tests/Makefile
           libvirt-glib-1.0.pc
           libvirt-gconfig-1.0.pc
           libvirt-gobject-1.0.pc

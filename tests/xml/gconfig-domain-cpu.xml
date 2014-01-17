@@ -1,0 +1,7 @@
+<domain>
+  <vcpu>3</vcpu>
+  <cpu match="strict" mode="host-passthrough">
+    <feature name="foo" policy="require"/>
+    <topology cores="1" sockets="2" threads="3"/>
+  </cpu>
+</domain>

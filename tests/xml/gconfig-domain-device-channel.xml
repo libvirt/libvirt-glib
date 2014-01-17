@@ -1,0 +1,7 @@
+<domain>
+  <devices>
+    <channel type="spicevmc">
+      <target type="virtio"/>
+    </channel>
+  </devices>
+</domain>

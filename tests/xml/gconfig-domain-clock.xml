@@ -1,0 +1,7 @@
+<domain>
+  <clock offset="timezone" timezone="CEST">
+    <timer name="pit" tickpolicy="delay"/>
+    <timer name="rtc" tickpolicy="catchup"/>
+    <timer name="hpet" present="no"/>
+  </clock>
+</domain>

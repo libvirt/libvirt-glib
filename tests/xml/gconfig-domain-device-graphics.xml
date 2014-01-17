@@ -1,0 +1,7 @@
+<domain>
+  <devices>
+    <graphics type="spice" port="1234">
+      <image compression="auto_lz"/>
+    </graphics>
+  </devices>
+</domain>

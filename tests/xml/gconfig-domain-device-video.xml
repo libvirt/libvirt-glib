@@ -1,0 +1,7 @@
+<domain>
+  <devices>
+    <video>
+      <model type="qxl"/>
+    </video>
+  </devices>
+</domain>
