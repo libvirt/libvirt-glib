@@ -42,7 +42,7 @@ typedef struct _GVirConfigDomainTimerPitClass GVirConfigDomainTimerPitClass;
 
 struct _GVirConfigDomainTimerPit
 {
-    GVirConfigObject parent;
+    GVirConfigDomainTimer parent;
 
     GVirConfigDomainTimerPitPrivate *priv;
 
@@ -51,7 +51,7 @@ struct _GVirConfigDomainTimerPit
 
 struct _GVirConfigDomainTimerPitClass
 {
-    GVirConfigObjectClass parent_class;
+    GVirConfigDomainTimerClass parent_class;
 
     gpointer padding[20];
 };
