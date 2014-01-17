@@ -267,8 +267,7 @@ static gboolean add_boot_device(xmlNodePtr node, gpointer opaque)
  * @os: a #GVirConfigDomainOs
  *
  * Gets the list of devices attached to @os. The returned list should be
- * freed with g_list_free(), after its elements have been unreffed with
- * g_object_unref().
+ * freed with g_list_free().
  *
  * Returns: (element-type LibvirtGConfig.DomainOsBootDevice) (transfer full):
  * a newly allocated #GList of #GVirConfigDomainOsBootDevice.
