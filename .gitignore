@@ -7,6 +7,7 @@ build-aux/depcomp
 build-aux/install-sh
 build-aux/ltmain.sh
 build-aux/missing
+build-aux/test-driver
 gnulib
 Makefile
 Makefile.in
@@ -59,6 +60,7 @@ libvirt-gconfig/libvirt-gconfig-enum-types.h
 libvirt-gconfig/libvirt-gconfig-enum-types.c
 libvirt-gobject/libvirt-gobject-enums.h
 libvirt-gobject/libvirt-gobject-enums.c
+docs/libvirt-glib/version.xml
 docs/*/xml/
 docs/*/html/
 docs/*/*.stamp
@@ -77,6 +79,7 @@ docs/*/*.signals
 docs/*/*.types
 *.tar.gz
 *.pc
+libvirt-gconfig/tests/test-capabilities-parse
 libvirt-gconfig/tests/test-domain-create
 libvirt-gconfig/tests/test-domain-parse
 .tx/
@@ -86,4 +89,9 @@ po/Makefile.in.in
 po/POTFILES
 po/libvirt-glib.pot
 po/stamp-it
+po/*.gmo
+tests/test-events
+tests/test-gconfig
+tests/*.log
+tests/*.trs
 vapi/*.vapi
