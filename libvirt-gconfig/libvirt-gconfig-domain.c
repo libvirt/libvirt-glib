@@ -543,6 +543,30 @@ void gvir_config_domain_set_features(GVirConfigDomain *domain,
     g_object_notify(G_OBJECT(domain), "features");
 }
 
+
+/**
+ * gvir_config_domain_get_clock:
+ * @domain: a #GVirConfigDomain
+ *
+ * Gets the clock configuration of @domain
+ *
+ * Returns: (transfer full): A #GVirConfigDomainClock. The returned
+ * object should be unreffed with g_object_unref() when no longer needed.
+ */
+GVirConfigDomainClock *gvir_config_domain_get_clock(GVirConfigDomain *domain)
+{
+    GVirConfigObject *object;
+
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN(domain), NULL);
+
+    object = gvir_config_object_get_child_with_type(GVIR_CONFIG_OBJECT(domain),
+                                                    "clock",
+                                                    GVIR_CONFIG_TYPE_DOMAIN_CLOCK);
+
+    return GVIR_CONFIG_DOMAIN_CLOCK(object);
+}
+
+
 /**
  * gvir_config_domain_set_clock:
  * @domain: a #GVirConfigDomain

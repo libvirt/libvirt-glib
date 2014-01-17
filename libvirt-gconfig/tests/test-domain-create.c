@@ -141,7 +141,10 @@ int main(int argc, char **argv)
     GVirConfigDomainTimerHpet *hpet;
 
     klock = gvir_config_domain_clock_new();
-    gvir_config_domain_clock_set_offset(klock, GVIR_CONFIG_DOMAIN_CLOCK_UTC);
+    gvir_config_domain_clock_set_offset(klock, GVIR_CONFIG_DOMAIN_CLOCK_TIMEZONE);
+    gvir_config_domain_clock_set_timezone(klock, "CEST");
+    g_assert(gvir_config_domain_clock_get_offset(klock) == GVIR_CONFIG_DOMAIN_CLOCK_TIMEZONE);
+    g_str_const_check(gvir_config_domain_clock_get_timezone(klock), "CEST");
 
     pit = gvir_config_domain_timer_pit_new();
     gvir_config_domain_timer_set_tick_policy(GVIR_CONFIG_DOMAIN_TIMER(pit),
@@ -166,6 +169,12 @@ int main(int argc, char **argv)
     g_object_unref(G_OBJECT(hpet));
 
     gvir_config_domain_set_clock(domain, klock);
+    g_object_unref(G_OBJECT(klock));
+
+    klock = gvir_config_domain_get_clock(domain);
+    g_assert(klock != NULL);
+    g_assert(gvir_config_domain_clock_get_offset(klock) == GVIR_CONFIG_DOMAIN_CLOCK_TIMEZONE);
+    g_str_const_check(gvir_config_domain_clock_get_timezone(klock), "CEST");
     g_object_unref(G_OBJECT(klock));
 
     /* os node */

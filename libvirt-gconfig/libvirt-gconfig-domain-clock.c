@@ -69,6 +69,20 @@ GVirConfigDomainClock *gvir_config_domain_clock_new_from_xml(const gchar *xml,
     return GVIR_CONFIG_DOMAIN_CLOCK(object);
 }
 
+
+GVirConfigDomainClockOffset
+gvir_config_domain_clock_get_offset(GVirConfigDomainClock *klock)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_CLOCK(klock),
+                         GVIR_CONFIG_DOMAIN_CLOCK_UTC);
+
+    return gvir_config_object_get_attribute_genum(GVIR_CONFIG_OBJECT(klock),
+                                                  NULL, "offset",
+                                                  GVIR_CONFIG_TYPE_DOMAIN_CLOCK_OFFSET,
+                                                  GVIR_CONFIG_DOMAIN_CLOCK_UTC);
+}
+
+
 void gvir_config_domain_clock_set_offset(GVirConfigDomainClock *klock,
                                          GVirConfigDomainClockOffset offset)
 {
@@ -81,6 +95,16 @@ void gvir_config_domain_clock_set_offset(GVirConfigDomainClock *klock,
                                                NULL);
 }
 
+
+const char *gvir_config_domain_clock_get_timezone(GVirConfigDomainClock *klock)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_CLOCK(klock), NULL);
+
+    return gvir_config_object_get_attribute(GVIR_CONFIG_OBJECT(klock),
+                                            NULL, "timezone");
+}
+
+
 void gvir_config_domain_clock_set_timezone(GVirConfigDomainClock *klock,
                                            const char *tz)
 {
@@ -90,6 +114,16 @@ void gvir_config_domain_clock_set_timezone(GVirConfigDomainClock *klock,
     gvir_config_object_set_attribute(GVIR_CONFIG_OBJECT(klock),
                                      "timezone", tz, NULL);
 }
+
+
+int gvir_config_domain_clock_get_variable_offset(GVirConfigDomainClock *klock)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_CLOCK(klock), 0);
+
+    return gvir_config_object_get_attribute_uint64(GVIR_CONFIG_OBJECT(klock),
+                                                   NULL, "adjustment", 0);
+}
+
 
 void gvir_config_domain_clock_set_variable_offset(GVirConfigDomainClock *klock,
                                                   gint seconds)
@@ -101,6 +135,7 @@ void gvir_config_domain_clock_set_variable_offset(GVirConfigDomainClock *klock,
                                                "adjustment", G_TYPE_INT, seconds,
                                                NULL);
 }
+
 
 void gvir_config_domain_clock_add_timer(GVirConfigDomainClock *klock,
                                         GVirConfigDomainTimer *timer)

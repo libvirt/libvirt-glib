@@ -614,6 +614,10 @@ LIBVIRT_GCONFIG_0.1.7 {
 
 LIBVIRT_GCONFIG_0.1.8 {
 global:
+	gvir_config_domain_clock_get_offset;
+	gvir_config_domain_clock_get_timezone;
+	gvir_config_domain_clock_get_variable_offset;
+
 	gvir_config_domain_disk_driver_discard_get_type;
 	gvir_config_domain_disk_driver_error_policy_get_type;
 	gvir_config_domain_disk_driver_get_cache;
@@ -638,6 +642,7 @@ global:
 	gvir_config_domain_disk_get_driver;
 	gvir_config_domain_disk_set_driver;
 
+	gvir_config_domain_get_clock;
 	gvir_config_domain_get_uuid;
 
 	gvir_config_domain_graphics_desktop_get_display;

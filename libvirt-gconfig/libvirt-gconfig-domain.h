@@ -119,6 +119,7 @@ void gvir_config_domain_set_vcpus(GVirConfigDomain *domain,
 GStrv gvir_config_domain_get_features(GVirConfigDomain *domain);
 void gvir_config_domain_set_features(GVirConfigDomain *domain,
                                      const GStrv features);
+GVirConfigDomainClock *gvir_config_domain_get_clock(GVirConfigDomain *domain);
 void gvir_config_domain_set_clock(GVirConfigDomain *domain,
                                   GVirConfigDomainClock *klock);
 GVirConfigDomainOs *gvir_config_domain_get_os(GVirConfigDomain *domain);

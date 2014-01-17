@@ -70,10 +70,13 @@ GType gvir_config_domain_clock_get_type(void);
 GVirConfigDomainClock *gvir_config_domain_clock_new(void);
 GVirConfigDomainClock *gvir_config_domain_clock_new_from_xml(const gchar *xml,
                                                 GError **error);
+GVirConfigDomainClockOffset gvir_config_domain_clock_get_offset(GVirConfigDomainClock *klock);
 void gvir_config_domain_clock_set_offset(GVirConfigDomainClock *klock,
                                          GVirConfigDomainClockOffset offset);
+const char *gvir_config_domain_clock_get_timezone(GVirConfigDomainClock *klock);
 void gvir_config_domain_clock_set_timezone(GVirConfigDomainClock *klock,
                                            const char *tz);
+gint gvir_config_domain_clock_get_variable_offset(GVirConfigDomainClock *klock);
 void gvir_config_domain_clock_set_variable_offset(GVirConfigDomainClock *klock,
                                                   gint seconds);
 void gvir_config_domain_clock_add_timer(GVirConfigDomainClock *klock,
