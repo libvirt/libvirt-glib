@@ -653,6 +653,9 @@ global:
 	gvir_config_domain_graphics_rdp_set_multi_user;
 	gvir_config_domain_graphics_rdp_set_replace_user;
 
+	gvir_config_domain_input_get_bus;
+	gvir_config_domain_input_get_device_type;
+
 	gvir_config_domain_interface_filterref_add_parameter;
 	gvir_config_domain_interface_filterref_get_name;
 	gvir_config_domain_interface_filterref_get_parameters;

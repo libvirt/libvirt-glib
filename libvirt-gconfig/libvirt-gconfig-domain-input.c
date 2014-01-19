@@ -69,6 +69,18 @@ GVirConfigDomainInput *gvir_config_domain_input_new_from_xml(const gchar *xml,
     return GVIR_CONFIG_DOMAIN_INPUT(object);
 }
 
+
+GVirConfigDomainInputDeviceType gvir_config_domain_input_get_device_type(GVirConfigDomainInput *input)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_INPUT(input),
+                         GVIR_CONFIG_DOMAIN_INPUT_DEVICE_MOUSE);
+    return gvir_config_object_get_attribute_genum(GVIR_CONFIG_OBJECT(input),
+                                                  NULL, "type",
+                                                  GVIR_CONFIG_TYPE_DOMAIN_INPUT_DEVICE_TYPE,
+                                                  GVIR_CONFIG_DOMAIN_INPUT_DEVICE_MOUSE);
+}
+
+
 void gvir_config_domain_input_set_device_type(GVirConfigDomainInput *input,
                                               GVirConfigDomainInputDeviceType type)
 {
@@ -78,6 +90,18 @@ void gvir_config_domain_input_set_device_type(GVirConfigDomainInput *input,
                                                GVIR_CONFIG_TYPE_DOMAIN_INPUT_DEVICE_TYPE,
                                                type, NULL);
 }
+
+
+GVirConfigDomainInputBus gvir_config_domain_input_get_bus(GVirConfigDomainInput *input)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_INPUT(input),
+                         GVIR_CONFIG_DOMAIN_INPUT_BUS_PS2);
+    return gvir_config_object_get_attribute_genum(GVIR_CONFIG_OBJECT(input),
+                                                  NULL, "bus",
+                                                  GVIR_CONFIG_TYPE_DOMAIN_INPUT_BUS,
+                                                  GVIR_CONFIG_DOMAIN_INPUT_BUS_PS2);
+}
+
 
 void gvir_config_domain_input_set_bus(GVirConfigDomainInput *input,
                                       GVirConfigDomainInputBus bus)

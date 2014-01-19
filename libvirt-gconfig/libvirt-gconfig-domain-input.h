@@ -72,8 +72,10 @@ GType gvir_config_domain_input_get_type(void);
 GVirConfigDomainInput *gvir_config_domain_input_new(void);
 GVirConfigDomainInput *gvir_config_domain_input_new_from_xml(const gchar *xml,
                                                              GError **error);
+GVirConfigDomainInputDeviceType gvir_config_domain_input_get_device_type(GVirConfigDomainInput *input);
 void gvir_config_domain_input_set_device_type(GVirConfigDomainInput *input,
                                               GVirConfigDomainInputDeviceType type);
+GVirConfigDomainInputBus gvir_config_domain_input_get_bus(GVirConfigDomainInput *input);
 void gvir_config_domain_input_set_bus(GVirConfigDomainInput *input,
                                       GVirConfigDomainInputBus bus);
 
