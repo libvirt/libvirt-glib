@@ -857,7 +857,7 @@ void gvir_config_domain_set_cpu(GVirConfigDomain *domain,
                                 GVirConfigDomainCpu *cpu)
 {
     g_return_if_fail(GVIR_CONFIG_IS_DOMAIN(domain));
-    g_return_if_fail(cpu != NULL || GVIR_CONFIG_IS_DOMAIN_CPU(cpu));
+    g_return_if_fail(cpu == NULL || GVIR_CONFIG_IS_DOMAIN_CPU(cpu));
 
     gvir_config_object_attach_replace(GVIR_CONFIG_OBJECT(domain),
                                       "cpu",
