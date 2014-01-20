@@ -179,7 +179,7 @@ gvir_config_capabilities_cpu_set_topology(GVirConfigCapabilitiesCpu *cpu,
                                           GVirConfigCapabilitiesCpuTopology *topology)
 {
     g_return_if_fail(GVIR_CONFIG_IS_CAPABILITIES_CPU(cpu));
-    g_return_if_fail(GVIR_CONFIG_IS_CAPABILITIES_CPU_TOPOLOGY(topology));
+    g_return_if_fail(topology == NULL || GVIR_CONFIG_IS_CAPABILITIES_CPU_TOPOLOGY(topology));
 
     gvir_config_object_attach_replace(GVIR_CONFIG_OBJECT(cpu),
                                       "topology",
