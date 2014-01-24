@@ -31,6 +31,10 @@
 
 #include "libvirt-glib/libvirt-glib.h"
 
+#ifdef G_OS_WIN32
+#include <io.h>
+#endif
+
 /**
  * SECTION:libvirt-glib-event
  * @short_description: Integrate libvirt with the GMain event framework
@@ -164,7 +168,11 @@ gvir_event_handle_add(int fd,
     data->events = events;
     data->cb = cb;
     data->opaque = opaque;
+#ifdef G_OS_WIN32
+    data->channel = g_io_channel_win32_new_socket(_get_osfhandle(fd));
+#else
     data->channel = g_io_channel_unix_new(fd);
+#endif
     data->ff = ff;
 
     g_debug("Add handle %p %d %d %d %p\n", data, data->watch, data->fd, events, data->opaque);
