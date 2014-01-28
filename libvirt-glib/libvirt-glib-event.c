@@ -177,10 +177,12 @@ gvir_event_handle_add(int fd,
 
     g_debug("Add handle %p %d %d %d %p\n", data, data->watch, data->fd, events, data->opaque);
 
-    data->source = g_io_add_watch(data->channel,
-                                  cond,
-                                  gvir_event_handle_dispatch,
-                                  data);
+    if (events != 0) {
+        data->source = g_io_add_watch(data->channel,
+                                      cond,
+                                      gvir_event_handle_dispatch,
+                                      data);
+    }
 
     g_ptr_array_add(handles, data);
 
