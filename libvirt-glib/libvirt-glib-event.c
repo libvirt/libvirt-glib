@@ -292,12 +292,12 @@ gvir_event_handle_remove(int watch)
 
     g_debug("Remove handle %p %d %d\n", data, watch, data->fd);
 
-    if (!data->source)
-        goto cleanup;
+    if (data->source != 0) {
+        g_source_remove(data->source);
+        data->source = 0;
+        data->events = 0;
+    }
 
-    g_source_remove(data->source);
-    data->source = 0;
-    data->events = 0;
     /* since the actual watch deletion is done asynchronously, a handle_update call may
      * reschedule the watch before it's fully deleted, that's why we need to mark it as
      * 'removed' to prevent reuse
@@ -448,11 +448,11 @@ gvir_event_timeout_remove(int timer)
 
     g_debug("Remove timeout %p %d\n", data, timer);
 
-    if (!data->source)
-        goto cleanup;
+    if (data->source != 0) {
+        g_source_remove(data->source);
+        data->source = 0;
+    }
 
-    g_source_remove(data->source);
-    data->source = 0;
     /* since the actual timeout deletion is done asynchronously, a timeout_update call may
      * reschedule the timeout before it's fully deleted, that's why we need to mark it as
      * 'removed' to prevent reuse
