@@ -298,6 +298,10 @@ gvir_event_handle_remove(int watch)
         data->events = 0;
     }
 
+    g_warn_if_fail(data->channel != NULL);
+    g_io_channel_unref(data->channel);
+    data->channel = NULL;
+
     /* since the actual watch deletion is done asynchronously, a handle_update call may
      * reschedule the watch before it's fully deleted, that's why we need to mark it as
      * 'removed' to prevent reuse
