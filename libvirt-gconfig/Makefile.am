@@ -224,14 +224,14 @@ libvirt-gconfig-enum-types.c: $(GCONFIG_HEADER_FILES) libvirt-gconfig-enum-types
 # rule for libosvirt-gconfig.la.  However, checking symbols relies on Linux ELF layout
 if WITH_LINUX
 check-symfile: libvirt-gconfig.sym libvirt-gconfig-1.0.la
-	$(AM_V_GEN)$(PERL) $(top_srcdir)/build-aux/check-symfile.pl libvirt-gconfig.sym \
+	$(AM_V_GEN)$(PERL) $(top_srcdir)/build-aux/check-symfile.pl $(srcdir)/libvirt-gconfig.sym \
 		.libs/libvirt-gconfig-1.0.so
 else ! WITH_LINUX
 check-symfile:
 endif ! WITH_LINUX
 check-symsorting:
 	$(AM_V_GEN)$(PERL) $(top_srcdir)/build-aux/check-symsorting.pl \
-		$(srcdir) libvirt-gconfig.sym
+		$(srcdir)/libvirt-gconfig.sym
 check-local: check-symfile check-symsorting
 
 -include $(INTROSPECTION_MAKEFILE)

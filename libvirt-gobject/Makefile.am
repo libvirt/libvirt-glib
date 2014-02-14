@@ -124,14 +124,14 @@ CLEANFILES = $(BUILT_SOURCES)
 # rule for libosvirt-gobject.la.  However, checking symbols relies on Linux ELF layout
 if WITH_LINUX
 check-symfile: libvirt-gobject.sym libvirt-gobject-1.0.la
-	$(AM_V_GEN)$(PERL) $(top_srcdir)/build-aux/check-symfile.pl libvirt-gobject.sym \
+	$(AM_V_GEN)$(PERL) $(top_srcdir)/build-aux/check-symfile.pl $(srcdir)/libvirt-gobject.sym \
 		.libs/libvirt-gobject-1.0.so
 else ! WITH_LINUX
 check-symfile:
 endif ! WITH_LINUX
 check-symsorting:
 	$(AM_V_GEN)$(PERL) $(top_srcdir)/build-aux/check-symsorting.pl \
-		$(srcdir) libvirt-gobject.sym
+		$(srcdir)/libvirt-gobject.sym
 check-local: check-symfile check-symsorting
 
 -include $(INTROSPECTION_MAKEFILE)

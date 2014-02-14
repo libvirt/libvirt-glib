@@ -19,10 +19,9 @@
 use strict;
 use warnings;
 
-die "syntax: $0 SRCDIR SYMFILE..." unless int(@ARGV) >= 2;
+die "syntax: $0 SYMFILE..." unless int(@ARGV) >= 1;
 
 my $ret = 0;
-my $srcdir = shift;
 my $incomment = 0;
 my $name;
 foreach my $symfile (@ARGV) {
