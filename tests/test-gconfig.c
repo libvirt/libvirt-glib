@@ -19,6 +19,9 @@
  *
  * Author: Christophe Fergeau <cfergeau@redhat.com>
  */
+
+#include <config.h>
+
 #include <libvirt-gconfig/libvirt-gconfig.h>
 
 #define g_assert_cmpstr_free1(str1, op, str2) G_STMT_START { \

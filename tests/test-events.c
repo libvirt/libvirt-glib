@@ -19,6 +19,9 @@
  *
  * Author: Christophe Fergeau <cfergeau@redhat.com>
  */
+
+#include <config.h>
+
 #include <libvirt-glib/libvirt-glib.h>
 
 #include <libvirt/libvirt.h>
