@@ -120,3 +120,5 @@ exclude_file_name_regexp--sc_require_config_h_first = python/libvirt-glib.c
 
 # XXX we shouldn't really ignore this, but the horrible enum rules...
 exclude_file_name_regexp--sc_makefile_at_at_check = libvirt-gobject/Makefile.am
+
+exclude_file_name_regexp--sc_unmarked_diagnostics = tap-driver\.sh
