@@ -109,7 +109,7 @@ sc_copyright_format:
 prev_version_file = /dev/null
 
 
-exclude_file_name_regexp--sc_bindtextdomain = ^(libvirt-gconfig/tests|examples)/|libvirt-glib/libvirt-glib-event.c|libvirt-glib/libvirt-glib-main.c
+exclude_file_name_regexp--sc_bindtextdomain = ^(libvirt-gconfig/tests|examples)/|libvirt-glib/libvirt-glib-event.c|libvirt-glib/libvirt-glib-main.c|tests/
 
 exclude_file_name_regexp--sc_preprocessor_indentation = ^*/*.[ch]
 
