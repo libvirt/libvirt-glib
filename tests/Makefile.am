@@ -1,3 +1,11 @@
+EXTRA_DIST = \
+	xml/gconfig-domain.xml \
+	xml/gconfig-domain-clock.xml \
+	xml/gconfig-domain-os.xml \
+	$(NULL)
+
+if ENABLE_TESTS
+
 include $(top_srcdir)/build-aux/glib-tap.mk
 
 AM_CFLAGS = \
@@ -14,7 +22,9 @@ LDADD = \
 
 test_programs = test-gconfig test-events
 
-dist_test_data = \
-	xml/gconfig-domain.xml \
-	xml/gconfig-domain-clock.xml \
-	xml/gconfig-domain-os.xml
+else
+EXTRA_DIST += \
+	test-events.c \
+	test-gconfig.c \
+	$(NULL)
+endif
