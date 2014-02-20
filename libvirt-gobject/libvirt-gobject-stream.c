@@ -102,17 +102,31 @@ static GOutputStream* gvir_stream_get_output_stream(GIOStream *io_stream)
 
 static gboolean gvir_stream_close(GIOStream *io_stream,
                                   GCancellable *cancellable,
-                                  G_GNUC_UNUSED GError **error)
+                                  GError **error)
 {
     GVirStream *self = GVIR_STREAM(io_stream);
+    GError *local_error = NULL;
+    gboolean i_ret = TRUE, o_ret = TRUE;
+
+    g_return_val_if_fail(error == NULL || *error == NULL, FALSE);
 
     if (self->priv->input_stream)
-        g_input_stream_close(self->priv->input_stream, cancellable, NULL);
+        i_ret = g_input_stream_close(self->priv->input_stream, cancellable, &local_error);
+
+    if (local_error)
+        g_propagate_error(error, local_error);
 
     if (self->priv->output_stream)
-        g_output_stream_close(self->priv->output_stream, cancellable, NULL);
+        o_ret = g_output_stream_close(self->priv->output_stream, cancellable, &local_error);
 
-    return TRUE; /* FIXME: really close the stream? */
+    if (local_error) {
+        if (i_ret)
+            g_propagate_error(error, local_error);
+        else
+            g_error_free(local_error);
+    }
+
+    return (i_ret && o_ret);
 }
 
 
