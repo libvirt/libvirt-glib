@@ -1,6 +1,29 @@
                  libvirt-glib News
                  =================
 
+0.1.8 - Feb 21, 2014
+====================
+
+- Add getter/setter for UUID in domain config
+- Remove dead code / unused variables
+- Add missing symbol exports
+- Add support for setting nwfilters in domain config
+- Switch to standard gobject introspection autotools macros
+- Fix typo preventing removal of clock config
+- Add getter/setters for disk driver type
+- Add unit tests based on glib tap harness
+- Add test for validating symbol file exports
+- Add getters for domain graphics config params
+- Add more getters for domain timer config
+- Add support for hpet timer type
+- Fix event loop impl on win32
+- Fix parent class/object of pit timer class
+- Fix misc API doc bugs
+- Add more getters for domain clock config
+- Fix removal of domain CPU feature flags
+- Fix removal of capabilities CPU topology
+- Misc fixes to glib event loop integration
+
 0.1.7 - Jul  8, 2013
 ====================
 
