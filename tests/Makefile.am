@@ -1,9 +1,3 @@
-EXTRA_DIST = \
-	xml/gconfig-domain.xml \
-	xml/gconfig-domain-clock.xml \
-	xml/gconfig-domain-os.xml \
-	$(NULL)
-
 if ENABLE_TESTS
 
 include $(top_srcdir)/build-aux/glib-tap.mk
@@ -22,9 +16,9 @@ LDADD = \
 
 test_programs = test-gconfig test-events
 
-else
 EXTRA_DIST += \
-	test-events.c \
-	test-gconfig.c \
+	xml/gconfig-domain.xml \
+	xml/gconfig-domain-clock.xml \
+	xml/gconfig-domain-os.xml \
 	$(NULL)
 endif
