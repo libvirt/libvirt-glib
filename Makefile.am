@@ -16,6 +16,8 @@ EXTRA_DIST = $(PACKAGE).spec \
 	     AUTHORS.in \
 	     build-aux/check-symfile.pl \
 	     build-aux/check-symsorting.pl \
+	     tap-driver.sh \
+	     tap-test \
 	     $(NULL)
 
 DISTCLEAN_FILES = $(PACKAGE).spec $(pkgconfig_DATA)
