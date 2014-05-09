@@ -687,4 +687,13 @@ global:
 	gvir_config_object_new_from_xml;
 } LIBVIRT_GCONFIG_0.1.7;
 
+LIBVIRT_GCONFIG_0.1.9 {
+global:
+	gvir_config_domain_chardev_source_spiceport_get_channel;
+	gvir_config_domain_chardev_source_spiceport_get_type;
+	gvir_config_domain_chardev_source_spiceport_new;
+	gvir_config_domain_chardev_source_spiceport_new_from_xml;
+	gvir_config_domain_chardev_source_spiceport_set_channel;
+} LIBVIRT_GCONFIG_0.1.8;
+
 # .... define new API here using predicted next version number ....

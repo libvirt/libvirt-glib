@@ -59,6 +59,7 @@ struct _GVirConfigDomainChannelClass
 typedef enum {
     GVIR_CONFIG_DOMAIN_CHANNEL_TARGET_GUESTFWD,
     GVIR_CONFIG_DOMAIN_CHANNEL_TARGET_VIRTIO,
+    GVIR_CONFIG_DOMAIN_CHANNEL_TARGET_SPICEPORT,
 } GVirConfigDomainChannelTargetType;
 
 
