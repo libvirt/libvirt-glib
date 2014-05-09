@@ -511,6 +511,7 @@ static void test_domain_device_channel(void)
     /* spice agent channel */
     GVirConfigDomainChannel *channel;
     GVirConfigDomainChardevSourceSpiceVmc *spicevmc;
+    GVirConfigDomainChardevSourceSpicePort *spiceport;
 
     channel = gvir_config_domain_channel_new();
     gvir_config_domain_channel_set_target_type(channel,
@@ -519,6 +520,19 @@ static void test_domain_device_channel(void)
     gvir_config_domain_chardev_set_source(GVIR_CONFIG_DOMAIN_CHARDEV(channel),
                                           GVIR_CONFIG_DOMAIN_CHARDEV_SOURCE(spicevmc));
     g_object_unref(G_OBJECT(spicevmc));
+    gvir_config_domain_add_device(domain, GVIR_CONFIG_DOMAIN_DEVICE(channel));
+    g_object_unref(G_OBJECT(channel));
+
+    channel = gvir_config_domain_channel_new();
+    gvir_config_domain_channel_set_target_type(channel,
+                                               GVIR_CONFIG_DOMAIN_CHANNEL_TARGET_VIRTIO);
+    gvir_config_domain_channel_set_target_name(channel,
+                                               "org.spice-space.webdav.0");
+    spiceport = gvir_config_domain_chardev_source_spiceport_new();
+    gvir_config_domain_chardev_source_spiceport_set_channel(spiceport, "org.spice-space.webdav.0");
+    gvir_config_domain_chardev_set_source(GVIR_CONFIG_DOMAIN_CHARDEV(channel),
+                                          GVIR_CONFIG_DOMAIN_CHARDEV_SOURCE(spiceport));
+    g_object_unref(G_OBJECT(spiceport));
     gvir_config_domain_add_device(domain, GVIR_CONFIG_DOMAIN_DEVICE(channel));
     g_object_unref(G_OBJECT(channel));
 
