@@ -144,9 +144,7 @@ typedef struct virDomainSnapshot GVirDomainSnapshotHandle;
 static GVirDomainSnapshotHandle*
 gvir_domain_snapshot_handle_copy(GVirDomainSnapshotHandle *src)
 {
-#if 0
     virDomainSnapshotRef((virDomainSnapshotPtr)src);
-#endif
     return src;
 }
 
@@ -162,7 +160,7 @@ G_DEFINE_BOXED_TYPE(GVirDomainSnapshotHandle, gvir_domain_snapshot_handle,
 const gchar *gvir_domain_snapshot_get_name(GVirDomainSnapshot *snapshot)
 {
     g_return_val_if_fail(GVIR_IS_DOMAIN_SNAPSHOT(snapshot), NULL);
-#if 0
+
     GVirDomainSnapshotPrivate *priv = snapshot->priv;
     const char *name;
 
@@ -172,12 +170,6 @@ const gchar *gvir_domain_snapshot_get_name(GVirDomainSnapshot *snapshot)
     }
 
     return name;
-#else
-    if (snapshot)
-        return NULL;
-#endif
-
-    g_return_val_if_reached(NULL);
 }
 
 
