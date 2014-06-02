@@ -17,7 +17,7 @@ libvirt-glib-1.0.vapi: $(top_builddir)/libvirt-glib/LibvirtGLib-1.0.gir
 		--library libvirt-glib-1.0	\
 		$<
 
-libvirt-gobject-1.0.vapi: $(top_builddir)/libvirt-gobject/LibvirtGObject-1.0.gir libvirt-glib-1.0.vapi
+libvirt-gobject-1.0.vapi: $(top_builddir)/libvirt-gobject/LibvirtGObject-1.0.gir libvirt-gconfig-1.0.vapi libvirt-glib-1.0.vapi
 	$(AM_V_GEN)$(VAPIGEN)							 \
 		--vapidir=$(builddir)						 \
 		--pkg gobject-2.0						 \
