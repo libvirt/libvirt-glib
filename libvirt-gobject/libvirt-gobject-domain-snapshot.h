@@ -58,6 +58,18 @@ struct _GVirDomainSnapshotClass
     gpointer padding[20];
 };
 
+/**
+ * GVirDomainSnapshotDeleteFlags:
+ * @GVIR_DOMAIN_SNAPSHOT_DELETE_CHILDREN: Also delete children
+ * @GVIR_DOMAIN_SNAPSHOT_DELETE_METADATA_ONLY: Delete just metadata
+ * @GVIR_DOMAIN_SNAPSHOT_DELETE_CHILDREN_ONLY: Delete just children
+ */
+typedef enum {
+  GVIR_DOMAIN_SNAPSHOT_DELETE_CHILDREN = 1,
+  GVIR_DOMAIN_SNAPSHOT_DELETE_METADATA_ONLY = 2,
+  GVIR_DOMAIN_SNAPSHOT_DELETE_CHILDREN_ONLY = 4
+} GVirDomainSnapshotDeleteFlags;
+
 
 GType gvir_domain_snapshot_get_type(void);
 GType gvir_domain_snapshot_handle_get_type(void);
@@ -68,6 +80,10 @@ GVirConfigDomainSnapshot *gvir_domain_snapshot_get_config
                                 (GVirDomainSnapshot *snapshot,
                                  guint flags,
                                  GError **err);
+
+gboolean gvir_domain_snapshot_delete (GVirDomainSnapshot *snapshot,
+                                      guint flags,
+                                      GError **error);
 
 G_END_DECLS
 

@@ -234,4 +234,9 @@ LIBVIRT_GOBJECT_0.1.5 {
 	gvir_connection_open_read_only_finish;
 } LIBVIRT_GOBJECT_0.1.4;
 
+LIBVIRT_GOBJECT_0.1.9 {
+  global:
+	gvir_domain_snapshot_delete;
+} LIBVIRT_GOBJECT_0.1.5;
+
 # .... define new API here using predicted next version number ....

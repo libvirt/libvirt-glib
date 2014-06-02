@@ -206,3 +206,32 @@ GVirConfigDomainSnapshot *gvir_domain_snapshot_get_config
     free(xml);
     return conf;
 }
+
+/**
+ * gvir_domain_snapshot_delete:
+ * @snapshot: The domain snapshot
+ * @flags: Bitwise or of #GVirDomainSnapshotDeleteFlags
+ * @error: (allow-none): Place-holder for error or NULL
+ *
+ * Returns: TRUE on success, FALSE otherwise
+ */
+gboolean gvir_domain_snapshot_delete (GVirDomainSnapshot *snapshot,
+                                      guint flags,
+                                      GError **error)
+{
+    GVirDomainSnapshotPrivate *priv;
+    int status;
+
+    g_return_val_if_fail(GVIR_IS_DOMAIN_SNAPSHOT (snapshot), FALSE);
+    g_return_val_if_fail(error == NULL || *error == NULL, FALSE);
+
+    priv = snapshot->priv;
+    status = virDomainSnapshotDelete(priv->handle, flags);
+    if (status < 0) {
+        gvir_set_error(error, GVIR_DOMAIN_SNAPSHOT_ERROR, 0,
+                       "Unable to delete snapshot `%s'",
+                       gvir_domain_snapshot_get_name(snapshot));
+        return FALSE;
+    }
+    return TRUE;
+}
