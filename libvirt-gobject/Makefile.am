@@ -93,7 +93,7 @@ libvirt_gobject_1_0_la_LDFLAGS = \
 			-Wl,--version-script=$(srcdir)/libvirt-gobject.sym \
 			-version-info $(LIBVIRT_GLIB_VERSION_INFO)
 
-libvirt-gobject-enums.c: libvirt-gobject-domain.h libvirt-gobject-connection.h
+libvirt-gobject-enums.c: $(libvirt_gobject_1_0_la_HEADERS)
 	$(AM_V_GEN)glib-mkenums \
                         --fhead "#include \"libvirt-gobject/libvirt-gobject.h\"\n\n" \
                         --vhead "static const G@Type@Value _@enum_name@_values[] = {" \
@@ -106,7 +106,7 @@ libvirt-gobject-enums.c: libvirt-gobject-domain.h libvirt-gobject-connection.h
                         --vtail "  return type;\n}\n\n" \
                 $^ | sed -e 's/g_vir/gvir/g' > $@
 
-libvirt-gobject-enums.h: libvirt-gobject-domain.h libvirt-gobject-connection.h
+libvirt-gobject-enums.h: $(libvirt_gobject_1_0_la_HEADERS)
 	$(AM_V_GEN)glib-mkenums    --fhead "#ifndef __LIBVIRT_GOBJECT_ENUMS_H__\n" \
                         --fhead "#define __LIBVIRT_GOBJECT_ENUMS_H__\n\n" \
                         --fhead "G_BEGIN_DECLS\n\n" \
