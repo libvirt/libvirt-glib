@@ -20,6 +20,7 @@ GCONFIG_HEADER_FILES = \
 			libvirt-gconfig-capabilities-guest-arch.h \
 			libvirt-gconfig-capabilities-guest-domain.h \
 			libvirt-gconfig-capabilities-guest-feature.h \
+			libvirt-gconfig-capabilities-host-secmodel.h \
 			libvirt-gconfig-domain.h \
 			libvirt-gconfig-domain-address.h \
 			libvirt-gconfig-domain-address-pci.h \
@@ -107,6 +108,7 @@ GCONFIG_SOURCE_FILES = \
 			libvirt-gconfig-capabilities-guest-arch.c \
 			libvirt-gconfig-capabilities-guest-domain.c \
 			libvirt-gconfig-capabilities-guest-feature.c \
+			libvirt-gconfig-capabilities-host-secmodel.c \
 			libvirt-gconfig-domain.c \
 			libvirt-gconfig-domain-address.c \
 			libvirt-gconfig-domain-address-pci.c \

@@ -35,7 +35,7 @@ static void verify_host_caps(GVirConfigCapabilitiesHost *host_caps)
 {
     GVirConfigCapabilitiesCpu *cpu_caps;
     GVirConfigCapabilitiesCpuTopology *topology;
-    GList *features, *iter;
+    GList *features, *iter, *secmodels;
     const char *str;
 
     g_assert(host_caps != NULL);
@@ -60,6 +60,19 @@ static void verify_host_caps(GVirConfigCapabilitiesHost *host_caps)
     g_assert(gvir_config_capabilities_cpu_topology_get_threads(topology) == 2);
     g_object_unref(G_OBJECT(topology));
     g_object_unref(G_OBJECT(cpu_caps));
+
+    secmodels = gvir_config_capabilities_host_get_secmodels(host_caps);
+    g_assert(g_list_length(secmodels) == 2);
+    for (iter = secmodels; iter != NULL; iter = iter->next) {
+        GVirConfigCapabilitiesHostSecModel *secmodel;
+
+        g_assert(iter->data != NULL);
+        secmodel = GVIR_CONFIG_CAPABILITIES_HOST_SECMODEL(iter->data);
+        g_assert(gvir_config_capabilities_host_secmodel_get_model(secmodel) != NULL);
+        g_assert(gvir_config_capabilities_host_secmodel_get_doi(secmodel) != NULL);
+        g_object_unref(G_OBJECT(iter->data));
+    }
+    g_list_free(secmodels);
 }
 
 static void verify_guest_caps(GVirConfigCapabilitiesGuest *guest_caps)

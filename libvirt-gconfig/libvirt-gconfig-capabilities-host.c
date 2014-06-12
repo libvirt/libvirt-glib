@@ -77,3 +77,63 @@ gvir_config_capabilities_host_get_cpu(GVirConfigCapabilitiesHost *host)
 
     return GVIR_CONFIG_CAPABILITIES_CPU(object);
 }
+
+struct GetSecModelData {
+    GVirConfigXmlDoc *doc;
+    const gchar *schema;
+    GList *secmodels;
+    GType type;
+};
+
+static gboolean add_secmodel(xmlNodePtr node, gpointer opaque)
+{
+    struct GetSecModelData* data = (struct GetSecModelData*)opaque;
+    GVirConfigObject *secmodel;
+
+    if (g_strcmp0((const gchar *)node->name, "secmodel") != 0)
+        return TRUE;
+
+    secmodel = gvir_config_object_new_from_tree
+                                (data->type,
+                                 data->doc,
+                                 data->schema,
+                                 node);
+    if (secmodel != NULL)
+        data->secmodels = g_list_append(data->secmodels, secmodel);
+    else
+        g_debug("Failed to parse %s node", node->name);
+
+    return TRUE;
+}
+
+/**
+ * gvir_config_capabilities_host_get_secmodels:
+ * @host: a #GVirConfigCapabilitiesHost
+ *
+ * Get the security models listed in @host capabilities.
+ *
+ * Returns: (element-type LibvirtGConfig.CapabilitiesHostSecModel) (transfer full):
+ * a newly allocated #GList of #GVirConfigCapabilitiesHostSecModel.
+ */
+GList *
+gvir_config_capabilities_host_get_secmodels(GVirConfigCapabilitiesHost *host)
+{
+    struct GetSecModelData data;
+
+    g_return_val_if_fail(GVIR_CONFIG_IS_CAPABILITIES_HOST(host), NULL);
+
+    data.schema = gvir_config_object_get_schema(GVIR_CONFIG_OBJECT(host));
+    g_object_get(G_OBJECT(host), "doc", &data.doc, NULL);
+    g_return_val_if_fail(data.doc != NULL, NULL);
+    data.secmodels = NULL;
+    data.type = GVIR_CONFIG_TYPE_CAPABILITIES_HOST_SECMODEL;
+
+    gvir_config_object_foreach_child(GVIR_CONFIG_OBJECT(host),
+                                     NULL,
+                                     add_secmodel,
+                                     &data);
+
+    g_clear_object(&data.doc);
+
+    return data.secmodels;
+}

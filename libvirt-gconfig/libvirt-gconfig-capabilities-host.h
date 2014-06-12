@@ -67,6 +67,9 @@ gvir_config_capabilities_host_get_uuid(GVirConfigCapabilitiesHost *host);
 GVirConfigCapabilitiesCpu *
 gvir_config_capabilities_host_get_cpu(GVirConfigCapabilitiesHost *host);
 
+GList *
+gvir_config_capabilities_host_get_secmodels(GVirConfigCapabilitiesHost *host);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GCONFIG_CAPABILITIES_HOST_H__ */

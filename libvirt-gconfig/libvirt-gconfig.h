@@ -37,6 +37,7 @@
 #include <libvirt-gconfig/libvirt-gconfig-capabilities-guest-domain.h>
 #include <libvirt-gconfig/libvirt-gconfig-capabilities-guest-feature.h>
 #include <libvirt-gconfig/libvirt-gconfig-capabilities-host.h>
+#include <libvirt-gconfig/libvirt-gconfig-capabilities-host-secmodel.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-address.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-address-pci.h>

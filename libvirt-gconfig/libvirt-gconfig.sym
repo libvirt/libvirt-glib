@@ -689,6 +689,12 @@ global:
 
 LIBVIRT_GCONFIG_0.1.9 {
 global:
+	gvir_config_capabilities_host_get_secmodels;
+
+	gvir_config_capabilities_host_secmodel_get_doi;
+	gvir_config_capabilities_host_secmodel_get_model;
+	gvir_config_capabilities_host_secmodel_get_type;
+
 	gvir_config_domain_chardev_source_spiceport_get_channel;
 	gvir_config_domain_chardev_source_spiceport_get_type;
 	gvir_config_domain_chardev_source_spiceport_new;

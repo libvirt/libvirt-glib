@@ -40,6 +40,10 @@
       <model>selinux</model>
       <doi>0</doi>
     </secmodel>
+    <secmodel>
+      <model>apparmor</model>
+      <doi>0</doi>
+    </secmodel>
   </host>
 
   <guest>
