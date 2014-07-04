@@ -689,6 +689,8 @@ global:
 
 LIBVIRT_GCONFIG_0.1.9 {
 global:
+	gvir_config_capabilities_cpu_get_model;
+
 	gvir_config_capabilities_cpu_model_get_name;
 	gvir_config_capabilities_cpu_model_get_type;
 	gvir_config_capabilities_cpu_model_new;

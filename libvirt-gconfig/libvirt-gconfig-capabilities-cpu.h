@@ -30,6 +30,7 @@
 
 #include "libvirt-gconfig-capabilities-cpu-topology.h"
 #include "libvirt-gconfig-capabilities-cpu-feature.h"
+#include "libvirt-gconfig-capabilities-cpu-model.h"
 
 G_BEGIN_DECLS
 
@@ -75,6 +76,8 @@ gvir_config_capabilities_cpu_get_topology(GVirConfigCapabilitiesCpu *cpu);
 void
 gvir_config_capabilities_cpu_set_topology(GVirConfigCapabilitiesCpu *cpu,
                                           GVirConfigCapabilitiesCpuTopology *topology);
+GVirConfigCapabilitiesCpuModel *
+gvir_config_capabilities_cpu_get_model(GVirConfigCapabilitiesCpu *cpu);
 
 G_END_DECLS
 

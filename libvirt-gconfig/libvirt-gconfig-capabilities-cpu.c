@@ -185,3 +185,25 @@ gvir_config_capabilities_cpu_set_topology(GVirConfigCapabilitiesCpu *cpu,
                                       "topology",
                                       GVIR_CONFIG_OBJECT(topology));
 }
+
+/**
+ * gvir_config_capabilities_cpu_get_model:
+ *
+ * Gets the model of the cpu.
+ *
+ * Returns: (transfer full): a new #GVirConfigCapabilitiesCpuModel.
+ */
+GVirConfigCapabilitiesCpuModel *
+gvir_config_capabilities_cpu_get_model(GVirConfigCapabilitiesCpu *cpu)
+{
+    GVirConfigObject *object;
+
+    g_return_val_if_fail(GVIR_CONFIG_IS_CAPABILITIES_CPU(cpu), NULL);
+
+    object = gvir_config_object_get_child_with_type
+                                (GVIR_CONFIG_OBJECT(cpu),
+                                 "model",
+                                 GVIR_CONFIG_TYPE_CAPABILITIES_CPU_MODEL);
+
+    return GVIR_CONFIG_CAPABILITIES_CPU_MODEL(object);
+}
