@@ -689,6 +689,11 @@ global:
 
 LIBVIRT_GCONFIG_0.1.9 {
 global:
+	gvir_config_capabilities_cpu_model_get_name;
+	gvir_config_capabilities_cpu_model_get_type;
+	gvir_config_capabilities_cpu_model_new;
+	gvir_config_capabilities_cpu_model_set_name;
+
 	gvir_config_capabilities_host_get_secmodels;
 
 	gvir_config_capabilities_host_secmodel_get_doi;

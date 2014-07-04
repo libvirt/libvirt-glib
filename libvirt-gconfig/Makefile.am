@@ -15,6 +15,7 @@ GCONFIG_HEADER_FILES = \
 			libvirt-gconfig-capabilities-host.h \
 			libvirt-gconfig-capabilities-cpu.h \
 			libvirt-gconfig-capabilities-cpu-feature.h \
+			libvirt-gconfig-capabilities-cpu-model.h \
 			libvirt-gconfig-capabilities-cpu-topology.h \
 			libvirt-gconfig-capabilities-guest.h \
 			libvirt-gconfig-capabilities-guest-arch.h \
@@ -103,6 +104,7 @@ GCONFIG_SOURCE_FILES = \
 			libvirt-gconfig-capabilities-host.c \
 			libvirt-gconfig-capabilities-cpu.c \
 			libvirt-gconfig-capabilities-cpu-feature.c \
+			libvirt-gconfig-capabilities-cpu-model.c \
 			libvirt-gconfig-capabilities-cpu-topology.c \
 			libvirt-gconfig-capabilities-guest.c \
 			libvirt-gconfig-capabilities-guest-arch.c \
