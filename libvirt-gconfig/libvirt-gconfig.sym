@@ -710,6 +710,8 @@ global:
 
 	gvir_config_domain_cpu_model_get_type;
 	gvir_config_domain_cpu_model_new;
+
+	gvir_config_domain_cpu_set_model;
 } LIBVIRT_GCONFIG_0.1.8;
 
 # .... define new API here using predicted next version number ....

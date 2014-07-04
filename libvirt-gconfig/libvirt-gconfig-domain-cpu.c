@@ -136,3 +136,14 @@ void gvir_config_domain_cpu_set_mode(GVirConfigDomainCpu *cpu,
                  "mode", GVIR_CONFIG_TYPE_DOMAIN_CPU_MODE, mode,
                  NULL);
 }
+
+void gvir_config_domain_cpu_set_model(GVirConfigDomainCpu *cpu,
+                                      GVirConfigDomainCpuModel *model)
+{
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_CPU(cpu));
+    g_return_if_fail(model == NULL || GVIR_CONFIG_IS_DOMAIN_CPU_MODEL(model));
+
+    gvir_config_object_attach_replace(GVIR_CONFIG_OBJECT(cpu),
+                                      "model",
+                                      GVIR_CONFIG_OBJECT(model));
+}

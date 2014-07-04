@@ -28,6 +28,8 @@
 #ifndef __LIBVIRT_GCONFIG_DOMAIN_CPU_H__
 #define __LIBVIRT_GCONFIG_DOMAIN_CPU_H__
 
+#include <libvirt-gconfig/libvirt-gconfig-domain-cpu-model.h>
+
 G_BEGIN_DECLS
 
 #define GVIR_CONFIG_TYPE_DOMAIN_CPU            (gvir_config_domain_cpu_get_type ())
@@ -80,6 +82,8 @@ GVirConfigDomainCpuMatchPolicy
 gvir_config_domain_cpu_get_match_policy(GVirConfigDomainCpu *cpu);
 void gvir_config_domain_cpu_set_mode(GVirConfigDomainCpu *cpu,
                                      GVirConfigDomainCpuMode mode);
+void gvir_config_domain_cpu_set_model(GVirConfigDomainCpu *cpu,
+                                      GVirConfigDomainCpuModel *model);
 GVirConfigDomainCpuMode
 gvir_config_domain_cpu_get_mode(GVirConfigDomainCpu *cpu);
 
