@@ -367,6 +367,10 @@ gboolean gvir_domain_fetch_snapshots(GVirDomain *dom,
                                      guint list_flags,
                                      GCancellable *cancellable,
                                      GError **error);
+
+GList *gvir_domain_get_snapshots(GVirDomain *dom);
+
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GOBJECT_DOMAIN_H__ */

@@ -1599,3 +1599,29 @@ cleanup:
         g_hash_table_unref(snap_table);
     return ret;
 }
+
+/**
+ * gvir_domain_get_snapshots:
+ * @dom: The domain
+ * Returns: (element-type LibvirtGObject.DomainSnapshot) (transfer full): A
+ * list of all the snapshots available for the given domain. The returned
+ * list should be freed with g_list_free(), after its elements have been
+ * unreffed with g_object_unref().
+ */
+GList *gvir_domain_get_snapshots(GVirDomain *dom)
+{
+    GVirDomainPrivate *priv;
+    GList *snapshots = NULL;
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), NULL);
+
+    priv = dom->priv;
+
+    g_mutex_lock (priv->lock);
+    if (dom->priv->snapshots != NULL) {
+        snapshots = g_hash_table_get_values(priv->snapshots);
+        g_list_foreach(snapshots, (GFunc)g_object_ref, NULL);
+    }
+    g_mutex_unlock (priv->lock);
+
+    return snapshots;
+}
