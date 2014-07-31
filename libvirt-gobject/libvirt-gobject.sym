@@ -236,8 +236,10 @@ LIBVIRT_GOBJECT_0.1.5 {
 
 LIBVIRT_GOBJECT_0.1.9 {
   global:
+	gvir_domain_fetch_snapshots;
 	gvir_domain_snapshot_delete;
 	gvir_domain_snapshot_delete_flags_get_type;
+	gvir_domain_snapshot_list_flags_get_type;
 	gvir_storage_pool_state_get_type;
 	gvir_storage_vol_resize_flags_get_type;
 	gvir_storage_vol_type_get_type;

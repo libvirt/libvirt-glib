@@ -38,6 +38,8 @@ struct _GVirDomainPrivate
 {
     virDomainPtr handle;
     gchar uuid[VIR_UUID_STRING_BUFLEN];
+    GHashTable *snapshots;
+    GMutex *lock;
 };
 
 G_DEFINE_TYPE(GVirDomain, gvir_domain, G_TYPE_OBJECT);
@@ -120,6 +122,11 @@ static void gvir_domain_finalize(GObject *object)
     GVirDomainPrivate *priv = domain->priv;
 
     g_debug("Finalize GVirDomain=%p", domain);
+
+    if (priv->snapshots) {
+        g_hash_table_unref(priv->snapshots);
+    }
+    g_mutex_free(priv->lock);
 
     virDomainFree(priv->handle);
 
@@ -237,6 +244,7 @@ static void gvir_domain_init(GVirDomain *domain)
     g_debug("Init GVirDomain=%p", domain);
 
     domain->priv = GVIR_DOMAIN_GET_PRIVATE(domain);
+    domain->priv->lock = g_mutex_new();
 }
 
 typedef struct virDomain GVirDomainHandle;
@@ -1513,4 +1521,81 @@ gvir_domain_create_snapshot(GVirDomain *dom,
 
     g_free(custom_xml);
     return dom_snapshot;
+}
+
+
+
+/**
+ * gvir_domain_fetch_snapshots:
+ * @dom: The domain
+ * @list_flags: bitwise-OR of #GVirDomainSnapshotListFlags
+ * @cancellable: (allow-none)(transfer-none): cancellation object
+ * @error: (allow-none): Place-holder for error or NULL
+ *
+ * Returns: TRUE on success, FALSE otherwise.
+ */
+gboolean gvir_domain_fetch_snapshots(GVirDomain *dom,
+                                     guint list_flags,
+                                     GCancellable *cancellable,
+                                     GError **error)
+{
+    GVirDomainPrivate *priv;
+    virDomainSnapshotPtr *snapshots = NULL;
+    GVirDomainSnapshot *snap;
+    GHashTable *snap_table;
+    int n_snaps = 0;
+    int i;
+    gboolean ret = FALSE;
+
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
+    g_return_val_if_fail((error == NULL) || (*error == NULL), FALSE);
+
+    priv = dom->priv;
+
+    snap_table = g_hash_table_new_full(g_str_hash,
+                                       g_str_equal,
+                                       NULL,
+                                       g_object_unref);
+
+
+    n_snaps = virDomainListAllSnapshots(priv->handle, &snapshots, list_flags);
+
+    if (g_cancellable_set_error_if_cancelled(cancellable, error)) {
+        goto cleanup;
+    }
+
+    if (n_snaps < 0) {
+        gvir_set_error(error, GVIR_DOMAIN_ERROR, 0,
+                       "Unable to fetch snapshots of %s",
+                       gvir_domain_get_name(dom));
+        goto cleanup;
+    }
+
+    for (i = 0; i < n_snaps; i ++) {
+        if (g_cancellable_set_error_if_cancelled(cancellable, error)) {
+            goto cleanup;
+        }
+        snap = GVIR_DOMAIN_SNAPSHOT(g_object_new(GVIR_TYPE_DOMAIN_SNAPSHOT,
+                                                 "handle", snapshots[i],
+                                                 NULL));
+        g_hash_table_insert(snap_table,
+                            (gpointer)gvir_domain_snapshot_get_name(snap),
+                            snap);
+    }
+
+
+    g_mutex_lock(priv->lock);
+    if (priv->snapshots != NULL)
+        g_hash_table_unref(priv->snapshots);
+    priv->snapshots = snap_table;
+    snap_table = NULL;
+    g_mutex_unlock(priv->lock);
+
+    ret = TRUE;
+
+cleanup:
+    free(snapshots);
+    if (snap_table != NULL)
+        g_hash_table_unref(snap_table);
+    return ret;
 }
