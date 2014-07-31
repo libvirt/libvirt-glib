@@ -370,6 +370,16 @@ gboolean gvir_domain_fetch_snapshots(GVirDomain *dom,
 
 GList *gvir_domain_get_snapshots(GVirDomain *dom);
 
+void gvir_domain_fetch_snapshots_async(GVirDomain *dom,
+                                       guint list_flags,
+                                       GCancellable *cancellable,
+                                       GAsyncReadyCallback callback,
+                                       gpointer user_data);
+
+gboolean gvir_domain_fetch_snapshots_finish(GVirDomain *dom,
+                                            GAsyncResult *res,
+                                            GError **error);
+
 
 G_END_DECLS
 

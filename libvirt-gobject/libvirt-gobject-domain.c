@@ -1625,3 +1625,64 @@ GList *gvir_domain_get_snapshots(GVirDomain *dom)
 
     return snapshots;
 }
+
+
+
+static void _fetch_snapshots_async_thread(GTask *task,
+                                          gpointer source_object,
+                                          gpointer task_data,
+                                          GCancellable *cancellable) {
+    GError *error = NULL;
+    gboolean status;
+
+    status = gvir_domain_fetch_snapshots(source_object,
+                                         GPOINTER_TO_UINT(task_data),
+                                         cancellable,
+                                         &error);
+    if (status)
+        g_task_return_boolean(task, TRUE);
+    else
+        g_task_return_error(task, error);
+}
+
+
+/**
+ *
+ * @dom: The domain
+ * @list_flags: bitwise-OR of #GVirDomainSnapshotListFlags
+ * @cancellable: (allow-none)(transfer-none): cancellation object
+ * @callback: (scope async): completion callback
+ * @user_data: (closure): opaque data for callback
+ */
+void gvir_domain_fetch_snapshots_async(GVirDomain *dom,
+                                       guint list_flags,
+                                       GCancellable *cancellable,
+                                       GAsyncReadyCallback callback,
+                                       gpointer user_data) {
+    GTask *task;
+
+    g_return_if_fail(GVIR_IS_DOMAIN(dom));
+    g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
+
+    task = g_task_new(dom, cancellable, callback, user_data);
+    g_task_set_task_data(task, GUINT_TO_POINTER(list_flags), NULL);
+    g_task_run_in_thread(task, _fetch_snapshots_async_thread);
+    g_object_unref(task);
+}
+
+
+/**
+ * gvir_domain_fetch_snapshots_finish:
+ * @dom: a #GVirDomain
+ * @res: (transfer none): async method result
+ *
+ * Returns: TRUE on success, FALSE otherwise.
+ */
+gboolean gvir_domain_fetch_snapshots_finish(GVirDomain *dom,
+                                            GAsyncResult *res,
+                                            GError **error) {
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
+    g_return_val_if_fail(g_task_is_valid(res, dom), FALSE);
+
+    return g_task_propagate_boolean(G_TASK(res), error);
+}
