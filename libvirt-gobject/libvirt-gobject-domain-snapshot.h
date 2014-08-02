@@ -71,6 +71,19 @@ typedef enum {
 } GVirDomainSnapshotDeleteFlags;
 
 
+/**
+ * GVirDomainSnapshotRevertFlags:
+ * @GVIR_DOMAIN_SNAPSHOT_REVERT_RUNNING: Run after revert
+ * @GVIR_DOMAIN_SNAPSHOT_REVERT_PAUSED: Pause after revert
+ * @GVIR_DOMAIN_SNAPSHOT_REVERT_FORCE: Allow risky reverts
+ */
+typedef enum {
+  GVIR_DOMAIN_SNAPSHOT_REVERT_RUNNING = 1,
+  GVIR_DOMAIN_SNAPSHOT_REVERT_PAUSED = 2,
+  GVIR_DOMAIN_SNAPSHOT_REVERT_FORCE = 4
+} GVirDomainSnapshotRevertFlags;
+
+
 GType gvir_domain_snapshot_get_type(void);
 GType gvir_domain_snapshot_handle_get_type(void);
 
@@ -89,6 +102,11 @@ gboolean gvir_domain_snapshot_get_is_current(GVirDomainSnapshot *snapshot,
                                              guint flags,
                                              gboolean *is_current,
                                              GError **error);
+
+gboolean gvir_domain_snapshot_revert_to(GVirDomainSnapshot *snapshot,
+                                        guint flags,
+                                        GError **error);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GOBJECT_DOMAIN_SNAPSHOT_H__ */

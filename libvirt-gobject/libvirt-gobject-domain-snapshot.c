@@ -270,3 +270,37 @@ gboolean gvir_domain_snapshot_get_is_current(GVirDomainSnapshot *snapshot,
 
     return TRUE;
 }
+
+
+
+/**
+ * gvir_domain_snapshot_revert_to:
+ * @snapshot: The domain snapshot
+ * @flags: Bitwise OR of GVirDomainSnapshotRevertFlags
+ * @error: (allow-none): Place-holder for error or NULL
+ *
+ * Returns: TRUE if the snapshot's domain has successfully been
+ * reverted to the given snapshot, FALSE otherwise, in which case
+ * @error will be set.
+ */
+gboolean gvir_domain_snapshot_revert_to(GVirDomainSnapshot *snapshot,
+                                        guint flags,
+                                        GError **error)
+{
+    int status;
+
+    g_return_val_if_fail(GVIR_IS_DOMAIN_SNAPSHOT(snapshot), FALSE);
+    g_return_val_if_fail((error == NULL) || (*error == NULL), FALSE);
+
+
+    status = virDomainRevertToSnapshot(snapshot->priv->handle,
+                                       flags);
+    if (status != 0) {
+        gvir_set_error(error, GVIR_DOMAIN_SNAPSHOT_ERROR,
+                       0, "Failed to revert to snapshot `%s'",
+                       gvir_domain_snapshot_get_name(snapshot));
+        return FALSE;
+    }
+
+    return TRUE;
+}
