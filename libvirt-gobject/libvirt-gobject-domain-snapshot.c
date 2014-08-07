@@ -304,3 +304,71 @@ gboolean gvir_domain_snapshot_revert_to(GVirDomainSnapshot *snapshot,
 
     return TRUE;
 }
+
+
+
+/**
+ * gvir_domain_snapshot_set_config:
+ * @snapshot: The domain snapshot
+ * @conf: The new config object
+ * @error: (allow-none): Place-holder for error or %NULL
+ *
+ * Updates the given snapshot's configuration according to the
+ * given GVirConfigDomainSnapshot.
+ *
+ * Returns: %TRUE if no error was reported, %FALSE otherwise.
+ */
+gboolean gvir_domain_snapshot_set_config(GVirDomainSnapshot *snapshot,
+                                         GVirConfigDomainSnapshot *conf,
+                                         GError **error)
+{
+    gchar *xml;
+    virConnectPtr conn;
+    virDomainSnapshotPtr handle;
+    virDomainPtr domain;
+    GVirDomainSnapshotPrivate *priv;
+
+    g_return_val_if_fail(GVIR_IS_DOMAIN_SNAPSHOT(snapshot), FALSE);
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_SNAPSHOT(conf), FALSE);
+    g_return_val_if_fail(error == NULL || *error == NULL, FALSE);
+
+    priv = snapshot->priv;
+    handle = priv->handle;
+    domain = virDomainSnapshotGetDomain(handle);
+
+
+    if ((conn = virDomainSnapshotGetConnect(priv->handle)) == NULL) {
+        gvir_set_error_literal(error, GVIR_DOMAIN_SNAPSHOT_ERROR,
+                               0,
+                               "Failed to get domain connection");
+        return FALSE;
+    }
+
+
+    /* XXX Changing the name will create a new snapshot */
+    if (g_strcmp0 (gvir_domain_snapshot_get_name(snapshot),
+                   gvir_config_domain_snapshot_get_name(conf)) != 0) {
+        gvir_set_error_literal(error, GVIR_DOMAIN_SNAPSHOT_ERROR,
+                               0,
+                               "Cannot set config: snapshot names don't match");
+        return FALSE;
+    }
+
+
+    xml = gvir_config_object_to_xml(GVIR_CONFIG_OBJECT(conf));
+
+    handle = virDomainSnapshotCreateXML(domain,
+                                        xml,
+                                        VIR_DOMAIN_SNAPSHOT_CREATE_REDEFINE);
+    g_free(xml);
+
+    if (handle == NULL) {
+        gvir_set_error(error, GVIR_DOMAIN_SNAPSHOT_ERROR,
+                       0,
+                       "Failed to create snapshot `%s' from XML definition",
+                       gvir_domain_snapshot_get_name(snapshot));
+        return FALSE;
+    }
+    virDomainSnapshotFree(handle);
+    return TRUE;
+}

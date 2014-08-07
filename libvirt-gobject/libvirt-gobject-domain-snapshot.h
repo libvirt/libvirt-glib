@@ -107,6 +107,10 @@ gboolean gvir_domain_snapshot_revert_to(GVirDomainSnapshot *snapshot,
                                         guint flags,
                                         GError **error);
 
+gboolean gvir_domain_snapshot_set_config(GVirDomainSnapshot *snapshot,
+                                         GVirConfigDomainSnapshot *conf,
+                                         GError **error);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GOBJECT_DOMAIN_SNAPSHOT_H__ */
