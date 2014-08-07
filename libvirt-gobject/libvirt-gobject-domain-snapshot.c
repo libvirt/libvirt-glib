@@ -235,3 +235,38 @@ gboolean gvir_domain_snapshot_delete (GVirDomainSnapshot *snapshot,
     }
     return TRUE;
 }
+
+
+/**
+ * gvir_domain_snapshot_get_is_current:
+ * @snapshot: The domain snapshot
+ * @flags: Currently unused, pass 0
+ * @is_current: (out): %TRUE if the given snapshot is the current snapshot
+ * of its domain, %FALSE otherwise.
+ * @error: (allow-none): Place-holder for error or %NULL
+ *
+ * Returns: %TRUE on success, %FALSE otherwise.
+ */
+gboolean gvir_domain_snapshot_get_is_current(GVirDomainSnapshot *snapshot,
+                                             guint flags,
+                                             gboolean *is_current,
+                                             GError **error)
+{
+    gint status;
+
+    g_return_val_if_fail(GVIR_IS_DOMAIN_SNAPSHOT(snapshot), FALSE);
+    g_return_val_if_fail(is_current != NULL, FALSE);
+    g_return_val_if_fail(error == NULL || *error == NULL, FALSE);
+
+    status = virDomainSnapshotIsCurrent(snapshot->priv->handle, flags);
+    if (status == -1) {
+        gvir_set_error(error, GVIR_DOMAIN_SNAPSHOT_ERROR, 0,
+                       "Could not determine if `%s' is the current snapshot",
+                       gvir_domain_snapshot_get_name(snapshot));
+        return FALSE;
+    }
+
+    *is_current = status;
+
+    return TRUE;
+}

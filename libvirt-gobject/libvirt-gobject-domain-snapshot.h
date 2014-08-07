@@ -85,6 +85,10 @@ gboolean gvir_domain_snapshot_delete (GVirDomainSnapshot *snapshot,
                                       guint flags,
                                       GError **error);
 
+gboolean gvir_domain_snapshot_get_is_current(GVirDomainSnapshot *snapshot,
+                                             guint flags,
+                                             gboolean *is_current,
+                                             GError **error);
 G_END_DECLS
 
 #endif /* __LIBVIRT_GOBJECT_DOMAIN_SNAPSHOT_H__ */
