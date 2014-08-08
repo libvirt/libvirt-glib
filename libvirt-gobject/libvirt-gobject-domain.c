@@ -1631,7 +1631,8 @@ GList *gvir_domain_get_snapshots(GVirDomain *dom)
 static void _fetch_snapshots_async_thread(GTask *task,
                                           gpointer source_object,
                                           gpointer task_data,
-                                          GCancellable *cancellable) {
+                                          GCancellable *cancellable)
+{
     GError *error = NULL;
     gboolean status;
 
@@ -1658,7 +1659,8 @@ void gvir_domain_fetch_snapshots_async(GVirDomain *dom,
                                        guint list_flags,
                                        GCancellable *cancellable,
                                        GAsyncReadyCallback callback,
-                                       gpointer user_data) {
+                                       gpointer user_data)
+{
     GTask *task;
 
     g_return_if_fail(GVIR_IS_DOMAIN(dom));
@@ -1680,9 +1682,46 @@ void gvir_domain_fetch_snapshots_async(GVirDomain *dom,
  */
 gboolean gvir_domain_fetch_snapshots_finish(GVirDomain *dom,
                                             GAsyncResult *res,
-                                            GError **error) {
+                                            GError **error)
+{
     g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
     g_return_val_if_fail(g_task_is_valid(res, dom), FALSE);
 
     return g_task_propagate_boolean(G_TASK(res), error);
+}
+
+
+/**
+ * gvir_domain_get_has_current_snapshot:
+ * @dom: a #GVirDomain
+ * @flags: Unused, pass 0
+ * @has_current_snapshot: (out): Will be set to %TRUE if the given domain
+ * has a current snapshot and to %FALSE otherwise.
+ * @error: (allow-none): Place-holder for error or %NULL
+ *
+ * Returns: %TRUE on success, %FALSE otherwise.
+ */
+gboolean gvir_domain_get_has_current_snapshot(GVirDomain *dom,
+                                              guint flags,
+                                              gboolean *has_current_snapshot,
+                                              GError **error)
+{
+    int status;
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
+    g_return_val_if_fail(has_current_snapshot != NULL, FALSE);
+    g_return_val_if_fail(error == NULL || *error == NULL, FALSE);
+
+    status = virDomainHasCurrentSnapshot(dom->priv->handle,
+                                         flags);
+
+    if (status == -1) {
+        gvir_set_error(error, GVIR_DOMAIN_ERROR, 0,
+                       "Unable to check if domain `%s' has a current snapshot",
+                       gvir_domain_get_name(dom));
+        return FALSE;
+    }
+
+    *has_current_snapshot = status;
+
+    return TRUE;
 }

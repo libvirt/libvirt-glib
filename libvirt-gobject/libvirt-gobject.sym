@@ -239,6 +239,7 @@ LIBVIRT_GOBJECT_0.1.9 {
 	gvir_domain_fetch_snapshots;
 	gvir_domain_fetch_snapshots_async;
 	gvir_domain_fetch_snapshots_finish;
+	gvir_domain_get_has_current_snapshot;
 	gvir_domain_get_snapshots;
 	gvir_domain_snapshot_delete;
 	gvir_domain_snapshot_delete_flags_get_type;

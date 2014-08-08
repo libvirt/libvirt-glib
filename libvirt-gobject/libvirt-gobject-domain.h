@@ -380,6 +380,10 @@ gboolean gvir_domain_fetch_snapshots_finish(GVirDomain *dom,
                                             GAsyncResult *res,
                                             GError **error);
 
+gboolean gvir_domain_get_has_current_snapshot(GVirDomain *dom,
+                                              guint flags,
+                                              gboolean *has_current_snapshot,
+                                              GError **error);
 
 G_END_DECLS
 
