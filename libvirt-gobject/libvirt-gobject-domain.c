@@ -1529,10 +1529,10 @@ gvir_domain_create_snapshot(GVirDomain *dom,
  * gvir_domain_fetch_snapshots:
  * @dom: The domain
  * @list_flags: bitwise-OR of #GVirDomainSnapshotListFlags
- * @cancellable: (allow-none)(transfer-none): cancellation object
- * @error: (allow-none): Place-holder for error or NULL
+ * @cancellable: (allow-none) (transfer none): cancellation object
+ * @error: (allow-none): Place-holder for error or %NULL
  *
- * Returns: TRUE on success, FALSE otherwise.
+ * Returns: %TRUE on success, %FALSE otherwise.
  */
 gboolean gvir_domain_fetch_snapshots(GVirDomain *dom,
                                      guint list_flags,
@@ -1648,10 +1648,10 @@ static void _fetch_snapshots_async_thread(GTask *task,
 
 
 /**
- *
+ * gvir_domain_fetch_snapshots_async:
  * @dom: The domain
  * @list_flags: bitwise-OR of #GVirDomainSnapshotListFlags
- * @cancellable: (allow-none)(transfer-none): cancellation object
+ * @cancellable: (allow-none) (transfer none): cancellation object
  * @callback: (scope async): completion callback
  * @user_data: (closure): opaque data for callback
  */
