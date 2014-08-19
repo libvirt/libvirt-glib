@@ -61,6 +61,16 @@ enum {
     LAST_SIGNAL
 };
 
+typedef struct {
+    guint create_flags;
+    GVirConfigDomainSnapshot *snapshot_config;
+} SnapshotCreateData;
+
+static void snapshot_create_data_free (SnapshotCreateData *data) {
+    g_clear_object (&data->snapshot_config);
+    g_slice_free (SnapshotCreateData, data);
+}
+
 static gint signals[LAST_SIGNAL];
 
 #define GVIR_DOMAIN_ERROR gvir_domain_error_quark()
@@ -1524,6 +1534,73 @@ gvir_domain_create_snapshot(GVirDomain *dom,
 }
 
 
+static void _create_snapshot_async_thread(GTask *task,
+                                          gpointer source_object,
+                                          gpointer task_data,
+                                          GCancellable *cancellable)
+{
+    GError *error = NULL;
+    GVirDomainSnapshot *snapshot;
+    SnapshotCreateData *create_data = task_data;
+
+    snapshot = gvir_domain_create_snapshot(source_object,
+                                           create_data->snapshot_config,
+                                           create_data->create_flags,
+                                           &error);
+    if (snapshot)
+        g_task_return_pointer(task, snapshot, g_object_unref);
+    else
+        g_task_return_error(task, error);
+}
+
+/**
+ * gvir_domain_create_snapshot_async:
+ * @dom: The #GVirDomain
+ * @custom_conf: (allow-none): Configuration of snapshot or %NULL
+ * @flags: Bitwise-OR of #GVirDomainSnapshotCreateFlags
+ * @cancellable: (allow-none) (transfer none): cancellation object
+ * @callback: (scope async): Completion callback
+ * @user_data: (closure): Opaque data for callback
+ */
+void gvir_domain_create_snapshot_async(GVirDomain *dom,
+                                       GVirConfigDomainSnapshot *custom_conf,
+                                       guint flags,
+                                       GCancellable *cancellable,
+                                       GAsyncReadyCallback callback,
+                                       gpointer user_data)
+{
+    SnapshotCreateData *create_data;
+    GTask *task;
+
+    g_return_if_fail(GVIR_IS_DOMAIN(dom));
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_SNAPSHOT(custom_conf));
+
+    create_data = g_slice_new(SnapshotCreateData);
+    create_data->create_flags = flags;
+    create_data->snapshot_config = g_object_ref (custom_conf);
+
+    task = g_task_new(dom, cancellable, callback, user_data);
+    g_task_set_task_data(task, create_data, (GDestroyNotify)snapshot_create_data_free);
+    g_task_run_in_thread(task, _create_snapshot_async_thread);
+    g_object_unref(task);
+}
+
+/**
+ * gvir_domain_create_snapshot_finish:
+ * @domain: A #GVirDomain
+ * @result: (transfer none): Async method result
+ * @error: (allow-none): Error placeholder
+ *
+ * Returns: (transfer full): The created snapshot
+ */
+GVirDomainSnapshot *gvir_domain_create_snapshot_finish(GVirDomain  *domain,
+                                                       GAsyncResult *result,
+                                                       GError **error)
+{
+    g_return_val_if_fail(g_task_is_valid(result, domain), NULL);
+
+    return g_task_propagate_pointer(G_TASK(result), error);
+}
 
 /**
  * gvir_domain_fetch_snapshots:

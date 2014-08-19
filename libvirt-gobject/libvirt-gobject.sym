@@ -236,6 +236,8 @@ LIBVIRT_GOBJECT_0.1.5 {
 
 LIBVIRT_GOBJECT_0.1.9 {
   global:
+	gvir_domain_create_snapshot_async;
+	gvir_domain_create_snapshot_finish;
 	gvir_domain_fetch_snapshots;
 	gvir_domain_fetch_snapshots_async;
 	gvir_domain_fetch_snapshots_finish;

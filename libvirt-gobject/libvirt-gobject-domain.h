@@ -363,6 +363,18 @@ gvir_domain_create_snapshot(GVirDomain *dom,
                             guint flags,
                             GError **err);
 
+void gvir_domain_create_snapshot_async(GVirDomain *dom,
+                                       GVirConfigDomainSnapshot *custom_conf,
+                                       guint flags,
+                                       GCancellable *cancellable,
+                                       GAsyncReadyCallback callback,
+                                       gpointer user_data);
+
+GVirDomainSnapshot *gvir_domain_create_snapshot_finish(GVirDomain  *domain,
+                                                       GAsyncResult *result,
+                                                       GError **error);
+
+
 gboolean gvir_domain_fetch_snapshots(GVirDomain *dom,
                                      guint list_flags,
                                      GCancellable *cancellable,
