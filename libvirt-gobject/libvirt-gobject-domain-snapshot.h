@@ -98,6 +98,16 @@ gboolean gvir_domain_snapshot_delete (GVirDomainSnapshot *snapshot,
                                       guint flags,
                                       GError **error);
 
+void gvir_domain_snapshot_delete_async(GVirDomainSnapshot *snapshot,
+                                       guint flags,
+                                       GCancellable *cancellable,
+                                       GAsyncReadyCallback callback,
+                                       gpointer user_data);
+
+gboolean gvir_domain_snapshot_delete_finish(GVirDomainSnapshot *snapshot,
+                                            GAsyncResult *res,
+                                            GError **error);
+
 gboolean gvir_domain_snapshot_get_is_current(GVirDomainSnapshot *snapshot,
                                              guint flags,
                                              gboolean *is_current,
