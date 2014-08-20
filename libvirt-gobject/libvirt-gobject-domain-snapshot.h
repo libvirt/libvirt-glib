@@ -107,6 +107,17 @@ gboolean gvir_domain_snapshot_revert_to(GVirDomainSnapshot *snapshot,
                                         guint flags,
                                         GError **error);
 
+void gvir_domain_snapshot_revert_to_async(GVirDomainSnapshot *snapshot,
+                                          guint flags,
+                                          GCancellable *cancellable,
+                                          GAsyncReadyCallback callback,
+                                          gpointer user_data);
+
+gboolean gvir_domain_snapshot_revert_to_finish(GVirDomainSnapshot *snapshot,
+                                               GAsyncResult *result,
+                                               GError **error);
+
+
 gboolean gvir_domain_snapshot_set_config(GVirDomainSnapshot *snapshot,
                                          GVirConfigDomainSnapshot *conf,
                                          GError **error);

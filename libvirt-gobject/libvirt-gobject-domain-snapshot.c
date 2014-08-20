@@ -305,6 +305,68 @@ gboolean gvir_domain_snapshot_revert_to(GVirDomainSnapshot *snapshot,
     return TRUE;
 }
 
+static void _revert_to_async_thread(GTask *task,
+                                    gpointer source_object,
+                                    gpointer task_data,
+                                    GCancellable *cancellable)
+{
+    GError *error = NULL;
+    gboolean status;
+
+    status = gvir_domain_snapshot_revert_to(source_object,
+                                            GPOINTER_TO_UINT(task_data),
+                                            &error);
+
+    if (status)
+        g_task_return_boolean(task, TRUE);
+    else
+        g_task_return_error(task, error);
+}
+
+
+/**
+ * gvir_domain_snapshot_revert_to_async:
+ * @snapshot: A #GVirDomainSnapshot
+ * @flags: Bitwise OR of #GVirDomainSnapshotRevertFlags
+ * @cancellable: (allow-none) (transfer none): cancellation object
+ * @callback: (scope async): The callback
+ * @user_data: (closure): Opaque data for callback
+ */
+void gvir_domain_snapshot_revert_to_async(GVirDomainSnapshot *snapshot,
+                                          guint flags,
+                                          GCancellable *cancellable,
+                                          GAsyncReadyCallback callback,
+                                          gpointer user_data)
+{
+    GTask *task;
+
+    g_return_if_fail(GVIR_IS_DOMAIN_SNAPSHOT(snapshot));
+
+    task = g_task_new(snapshot, cancellable, callback, user_data);
+    g_task_set_task_data(task, GUINT_TO_POINTER(flags), NULL);
+    g_task_run_in_thread(task, _revert_to_async_thread);
+    g_object_unref(task);
+}
+
+
+
+/**
+ * gvir_domain_snapshot_revert_to_finish:
+ * @snapshot: The domain snapshot
+ * @result: (transfer none): The result
+ *
+ * Returns: %TRUE on success, %FALSE otherwise.
+ */
+gboolean gvir_domain_snapshot_revert_to_finish(GVirDomainSnapshot *snapshot,
+                                               GAsyncResult *result,
+                                               GError **error)
+{
+    g_return_val_if_fail(GVIR_IS_DOMAIN_SNAPSHOT(snapshot), FALSE);
+    g_return_val_if_fail(g_task_is_valid(result, snapshot), FALSE);
+
+    return g_task_propagate_boolean(G_TASK(result), error);
+}
+
 
 
 /**

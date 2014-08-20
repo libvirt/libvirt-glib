@@ -247,6 +247,8 @@ LIBVIRT_GOBJECT_0.1.9 {
 	gvir_domain_snapshot_list_flags_get_type;
 	gvir_domain_snapshot_revert_flags_get_type;
 	gvir_domain_snapshot_revert_to;
+	gvir_domain_snapshot_revert_to_async;
+	gvir_domain_snapshot_revert_to_finish;
 	gvir_domain_snapshot_set_config;
 	gvir_storage_pool_state_get_type;
 	gvir_storage_vol_resize_flags_get_type;
