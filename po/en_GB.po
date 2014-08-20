@@ -1,0 +1,148 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Robert Readman <robert_readman@hotmail.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: libvirt-glib\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-08-20 15:41+0100\n"
+"PO-Revision-Date: 2013-11-20 11:38+0000\n"
+"Last-Translator: Robert Readman <robert_readman@hotmail.com>\n"
+"Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/libvirt-glib/language/en_GB/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en_GB\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../libvirt-gconfig/libvirt-gconfig-helpers.c:141
+msgid "No XML document to parse"
+msgstr "No XML document to parse"
+
+#: ../libvirt-gconfig/libvirt-gconfig-helpers.c:149
+msgid "Unable to parse configuration"
+msgstr "Unable to parse configuration"
+
+#: ../libvirt-gconfig/libvirt-gconfig-helpers.c:157
+#, c-format
+msgid "XML data has no '%s' node"
+msgstr "XML data has no '%s' node"
+
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:212
+msgid "No XML document associated with this config object"
+msgstr "No XML document associated with this config object"
+
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:221
+#, c-format
+msgid "Unable to create RNG parser for %s"
+msgstr "Unable to create RNG parser for %s"
+
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:231
+#, c-format
+msgid "Unable to parse RNG %s"
+msgstr "Unable to parse RNG %s"
+
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:243
+#, c-format
+msgid "Unable to create RNG validation context %s"
+msgstr "Unable to create RNG validation context %s"
+
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:253
+msgid "Unable to validate doc"
+msgstr "Unable to validate doc"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:434
+#, c-format
+msgid "Connection %s is already open"
+msgstr "Connection %s is already open"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:449
+#, c-format
+msgid "Unable to open %s"
+msgstr "Unable to open %s"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:460
+msgid "Unable to get connection URI"
+msgstr "Unable to get connection URI"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:700
+#, c-format
+msgid "Unable to count %s"
+msgstr "Unable to count %s"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:712
+#, c-format
+msgid "Unable to list %s %d"
+msgstr "Unable to list %s %d"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:755
+#: ../libvirt-gobject/libvirt-gobject-connection.c:892
+msgid "Connection is not open"
+msgstr "Connection is not open"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:770
+msgid "Unable to count domains"
+msgstr "Unable to count domains"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:781
+msgid "Unable to list domains"
+msgstr "Unable to list domains"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1155
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1194
+msgid "Connection is not opened"
+msgstr "Connection is not opened"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1162
+msgid "Unable to get hypervisor name"
+msgstr "Unable to get hypervisor name"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1200
+msgid "Unable to get hypervisor version"
+msgstr "Unable to get hypervisor version"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1515
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1570
+msgid "Failed to create domain"
+msgstr "Failed to create domain"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1622
+msgid "Failed to create storage pool"
+msgstr "Failed to create storage pool"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1665
+msgid "Unable to get node info"
+msgstr "Unable to get node info"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1705
+msgid "Unable to get capabilities"
+msgstr "Unable to get capabilities"
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1833
+msgid "Unable to restore domain"
+msgstr "Unable to restore domain"
+
+#: ../libvirt-gobject/libvirt-gobject-stream.c:339
+msgid "virStreamRecv call would block"
+msgstr "virStreamRecv call would block"
+
+#: ../libvirt-gobject/libvirt-gobject-stream.c:342
+#: ../libvirt-gobject/libvirt-gobject-stream.c:458
+#, c-format
+msgid "Got virStreamRecv error in %s"
+msgstr "Got virStreamRecv error in %s"
+
+#: ../libvirt-gobject/libvirt-gobject-stream.c:407
+msgid "Unable to perform RecvAll"
+msgstr "Unable to perform RecvAll"
+
+#: ../libvirt-gobject/libvirt-gobject-stream.c:455
+msgid "virStreamSend call would block"
+msgstr "virStreamSend call would block"
+
+#: ../libvirt-gobject/libvirt-gobject-stream.c:523
+msgid "Unable to perform SendAll"
+msgstr "Unable to perform SendAll"
