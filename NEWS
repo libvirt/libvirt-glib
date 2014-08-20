@@ -1,6 +1,21 @@
                  libvirt-glib News
                  =================
 
+0.1.9 - Aug 20, 2014
+====================
+
+- Require glib2 >= 2.36.0
+- Add support for spiceport chardev
+- Misc fixes to build system
+- Fix ref counting of snapshot devices
+- Add API for deleting snapshots
+- Fix RPM layout for vala files
+- Fix race in build of vala code
+- Add API for getting security models
+- Add classes for dealing with CPU models
+- Fix enum generation
+- Add API for fetching snapshots
+
 0.1.8 - Feb 21, 2014
 ====================
 
