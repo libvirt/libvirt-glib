@@ -58,7 +58,8 @@ struct _GVirConfigDomainInputClass
 
 typedef enum {
     GVIR_CONFIG_DOMAIN_INPUT_DEVICE_MOUSE,
-    GVIR_CONFIG_DOMAIN_INPUT_DEVICE_TABLET
+    GVIR_CONFIG_DOMAIN_INPUT_DEVICE_TABLET,
+    GVIR_CONFIG_DOMAIN_INPUT_DEVICE_KEYBOARD
 } GVirConfigDomainInputDeviceType;
 
 typedef enum {
