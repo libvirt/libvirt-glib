@@ -124,6 +124,17 @@ AC_DEFUN([LIBVIRT_GLIB_COMPILE_WARNINGS],[
     dontwarn="$dontwarn -Woverlength-strings"
     dontwarn="$dontwarn -Wstack-protector"
 
+    # g_clear_object & G_ATOMIC_OP_USE_GCC_BUILTINS causes
+    # violations with this. XXX Fix glib ?
+    dontwarn="$dontwarn -Wbad-function-cast"
+
+    # Due to gutils.h bug in g_bit_storage
+    wantwarn="$wantwarn -Wno-sign-conversion"
+    wantwarn="$wantwarn -Wno-conversion"
+    # We can't enable this due to horrible spice_usb_device_get_description
+    # signature
+    wantwarn="$wantwarn -Wno-format-nonliteral"
+
     # Get all possible GCC warnings
     gl_MANYWARN_ALL_GCC([maybewarn])
 
