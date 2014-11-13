@@ -1537,7 +1537,7 @@ gvir_domain_create_snapshot(GVirDomain *dom,
 static void _create_snapshot_async_thread(GTask *task,
                                           gpointer source_object,
                                           gpointer task_data,
-                                          GCancellable *cancellable)
+                                          GCancellable *cancellable G_GNUC_UNUSED)
 {
     GError *error = NULL;
     GVirDomainSnapshot *snapshot;

@@ -56,7 +56,7 @@ static gboolean check_destroyed(gpointer user_data)
 }
 
 
-static void watch_cb(int watch, int fd, int events, void *opaque)
+static void watch_cb(int watch, int fd, int events, void *opaque G_GNUC_UNUSED)
 {
     g_assert_cmpint(watch_id, !=, -1);
     g_assert_cmpint(watch, ==, watch_id);
@@ -66,7 +66,7 @@ static void watch_cb(int watch, int fd, int events, void *opaque)
 }
 
 
-static gboolean test_watch(gpointer user_data)
+static gboolean test_watch(gpointer user_data G_GNUC_UNUSED)
 {
     int removal_status;
 
@@ -113,7 +113,7 @@ static void timeout_destroyed(void *opaque)
 }
 
 
-static void timeout_cb(int timer, void *opaque)
+static void timeout_cb(int timer, void *opaque G_GNUC_UNUSED)
 {
     g_assert_cmpint(timeout_id, !=, -1);
     g_assert_cmpint(timer, ==, timeout_id);
@@ -122,7 +122,7 @@ static void timeout_cb(int timer, void *opaque)
 }
 
 
-static gboolean test_timeout(gpointer user_data)
+static gboolean test_timeout(gpointer user_data G_GNUC_UNUSED)
 {
     int removal_status;
 

@@ -241,7 +241,7 @@ gboolean gvir_domain_snapshot_delete (GVirDomainSnapshot *snapshot,
 static void _delete_async_thread(GTask *task,
                                  gpointer source_object,
                                  gpointer task_data,
-                                 GCancellable *cancellable)
+                                 GCancellable *cancellable G_GNUC_UNUSED)
 {
     GError *error = NULL;
     gboolean status;
@@ -369,7 +369,7 @@ gboolean gvir_domain_snapshot_revert_to(GVirDomainSnapshot *snapshot,
 static void _revert_to_async_thread(GTask *task,
                                     gpointer source_object,
                                     gpointer task_data,
-                                    GCancellable *cancellable)
+                                    GCancellable *cancellable G_GNUC_UNUSED)
 {
     GError *error = NULL;
     gboolean status;

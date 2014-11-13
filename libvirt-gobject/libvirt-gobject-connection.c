@@ -1715,7 +1715,7 @@ GVirConfigCapabilities *gvir_connection_get_capabilities(GVirConnection *conn,
 static void
 gvir_connection_get_capabilities_helper(GSimpleAsyncResult *res,
                                         GObject *object,
-                                        GCancellable *cancellable)
+                                        GCancellable *cancellable G_GNUC_UNUSED)
 {
     GVirConnection *conn = GVIR_CONNECTION(object);
     GError *err = NULL;

@@ -367,7 +367,7 @@ gboolean gvir_storage_vol_download(GVirStorageVol *vol,
                                    GVirStream *stream,
                                    guint64 offset,
                                    guint64 length,
-                                   guint flags,
+                                   guint flags G_GNUC_UNUSED,
                                    GError **err)
 {
     virStreamPtr stream_handle = NULL;
@@ -413,7 +413,7 @@ gboolean gvir_storage_vol_upload(GVirStorageVol *vol,
                                  GVirStream *stream,
                                  guint64 offset,
                                  guint64 length,
-                                 guint flags,
+                                 guint flags G_GNUC_UNUSED,
                                  GError **err)
 {
     virStreamPtr stream_handle = NULL;
