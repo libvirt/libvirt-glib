@@ -93,6 +93,10 @@ m4_if(m4_version_compare([2.61a.100],
 LIBVIRT_GLIB_COMPILE_WARNINGS
 
 PKG_CHECK_MODULES(LIBVIRT, libvirt >= $LIBVIRT_REQUIRED)
+# virDomainOpenGraphicsFD was introduced in libvirt 1.2.8
+AC_CHECK_LIB([virt],
+             [virDomainOpenGraphicsFD],
+             [AC_DEFINE([HAVE_VIR_DOMAIN_OPEN_GRAPHICS_FD], 1, [Have virDomainOpenGraphicsFD?])])
 enable_tests=no
 PKG_CHECK_MODULES(GLIB2, glib-2.0 >= $GLIB2_TEST_REQUIRED,
                   [enable_tests=yes],

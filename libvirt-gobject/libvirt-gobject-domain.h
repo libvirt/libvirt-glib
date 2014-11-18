@@ -332,6 +332,10 @@ gboolean gvir_domain_open_graphics(GVirDomain *dom,
                                    int fd,
                                    unsigned int flags,
                                    GError **err);
+int gvir_domain_open_graphics_fd(GVirDomain *dom,
+                                 guint idx,
+                                 unsigned int flags,
+                                 GError **err);
 
 gboolean gvir_domain_suspend (GVirDomain *dom,
                               GError **err);

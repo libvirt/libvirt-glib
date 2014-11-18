@@ -260,4 +260,9 @@ LIBVIRT_GOBJECT_0.1.9 {
 	gvir_stream_io_condition_get_type;
 } LIBVIRT_GOBJECT_0.1.5;
 
+LIBVIRT_GOBJECT_0.2.0 {
+  global:
+	gvir_domain_open_graphics_fd;
+} LIBVIRT_GOBJECT_0.1.9;
+
 # .... define new API here using predicted next version number ....
