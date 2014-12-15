@@ -23,9 +23,10 @@
 
 #include <config.h>
 
+#include <glib.h>
 #include <libvirt/virterror.h>
 #include <string.h>
-#ifndef HAVE_VIR_DOMAIN_OPEN_GRAPHICS_FD
+#if !defined(HAVE_VIR_DOMAIN_OPEN_GRAPHICS_FD) && !defined(G_OS_WIN32)
 #include <sys/socket.h>
 #endif
 
@@ -1239,6 +1240,7 @@ cleanup:
  *
  * Since: 0.2.0
  */
+#if defined(HAVE_VIR_DOMAIN_OPEN_GRAPHICS_FD) || !defined(G_OS_WIN32)
 int gvir_domain_open_graphics_fd(GVirDomain *dom,
                                  guint idx,
                                  unsigned int flags,
@@ -1283,12 +1285,25 @@ int gvir_domain_open_graphics_fd(GVirDomain *dom,
     }
     close(pair[0]);
     ret = pair[1];
-
 #endif
 
 end:
     return ret;
 }
+#else
+int gvir_domain_open_graphics_fd(GVirDomain *dom G_GNUC_UNUSED,
+                                 guint idx G_GNUC_UNUSED,
+                                 unsigned int flags G_GNUC_UNUSED,
+                                 GError **err)
+{
+    g_set_error_literal(err, GVIR_DOMAIN_ERROR,
+                        0,
+                        "Unable to create socketpair on this platform");
+    return -1;
+}
+#endif
+
+
 
 /**
  * gvir_domain_suspend:
