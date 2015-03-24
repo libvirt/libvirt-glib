@@ -10,7 +10,7 @@ cd $srcdir
 
 DIE=0
 
-for prog in intltoolize autoreconf automake autoconf libtool
+for prog in intltoolize autoreconf automake autoconf libtoolize
 do
     ($prog --version) < /dev/null > /dev/null 2>&1 || {
         echo
