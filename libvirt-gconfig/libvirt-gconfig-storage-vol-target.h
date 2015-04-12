@@ -63,6 +63,8 @@ GVirConfigStorageVolTarget *gvir_config_storage_vol_target_new(void);
 GVirConfigStorageVolTarget *gvir_config_storage_vol_target_new_from_xml(const gchar *xml,
                                                                         GError **error);
 
+void gvir_config_storage_vol_target_set_compat(GVirConfigStorageVolTarget *target,
+                                               const char *compat);
 void gvir_config_storage_vol_target_set_format(GVirConfigStorageVolTarget *target,
                                                const char *format);
 void gvir_config_storage_vol_target_set_permissions(GVirConfigStorageVolTarget *target,
