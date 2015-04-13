@@ -284,6 +284,7 @@ int main(int argc, char **argv)
     g_assert(gvir_config_domain_disk_driver_get_copy_on_read(driver));
     g_assert(gvir_config_domain_disk_get_target_bus(disk) == GVIR_CONFIG_DOMAIN_DISK_BUS_IDE);
     g_str_const_check(gvir_config_domain_disk_get_target_dev(disk), "hda");
+    g_object_unref(driver);
 
 
     /* network interfaces node */
