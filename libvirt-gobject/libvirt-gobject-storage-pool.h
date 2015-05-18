@@ -166,6 +166,11 @@ void gvir_storage_pool_delete_async (GVirStoragePool *pool,
 gboolean gvir_storage_pool_delete_finish(GVirStoragePool *pool,
                                          GAsyncResult *result,
                                          GError **err);
+gboolean gvir_storage_pool_get_autostart(GVirStoragePool *pool,
+                                         GError **err);
+gboolean gvir_storage_pool_set_autostart(GVirStoragePool *pool,
+                                         gboolean autostart,
+                                         GError **err);
 
 G_END_DECLS
 

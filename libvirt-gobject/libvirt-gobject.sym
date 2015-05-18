@@ -265,4 +265,10 @@ LIBVIRT_GOBJECT_0.2.0 {
 	gvir_domain_open_graphics_fd;
 } LIBVIRT_GOBJECT_0.1.9;
 
+LIBVIRT_GOBJECT_0.2.1 {
+  global:
+	gvir_storage_pool_get_autostart;
+	gvir_storage_pool_set_autostart;
+} LIBVIRT_GOBJECT_0.2.0;
+
 # .... define new API here using predicted next version number ....
