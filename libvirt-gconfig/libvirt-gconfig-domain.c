@@ -258,18 +258,24 @@ void gvir_config_domain_set_virt_type(GVirConfigDomain *domain, GVirConfigDomain
 
 const char *gvir_config_domain_get_name(GVirConfigDomain *domain)
 {
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN(domain), NULL);
+
     return gvir_config_object_get_node_content(GVIR_CONFIG_OBJECT(domain),
                                                "name");
 }
 
 const char *gvir_config_domain_get_uuid(GVirConfigDomain *domain)
 {
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN(domain), NULL);
+
     return gvir_config_object_get_node_content(GVIR_CONFIG_OBJECT(domain),
                                                "uuid");
 }
 
 const char *gvir_config_domain_get_title(GVirConfigDomain *domain)
 {
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN(domain), NULL);
+
     return gvir_config_object_get_node_content(GVIR_CONFIG_OBJECT(domain),
                                                "title");
 }
@@ -281,6 +287,8 @@ const char *gvir_config_domain_get_title(GVirConfigDomain *domain)
  */
 void gvir_config_domain_set_name(GVirConfigDomain *domain, const char *name)
 {
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN(domain));
+
     gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(domain),
                                         "name", name);
     g_object_notify(G_OBJECT(domain), "name");
@@ -293,6 +301,8 @@ void gvir_config_domain_set_name(GVirConfigDomain *domain, const char *name)
  */
 void gvir_config_domain_set_uuid(GVirConfigDomain *domain, const char *uuid)
 {
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN(domain));
+
     gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(domain),
                                         "uuid", uuid);
     g_object_notify(G_OBJECT(domain), "uuid");
@@ -308,6 +318,8 @@ void gvir_config_domain_set_uuid(GVirConfigDomain *domain, const char *uuid)
  */
 void gvir_config_domain_set_title(GVirConfigDomain *domain, const char *title)
 {
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN(domain));
+
     gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(domain),
                                         "title", title);
     g_object_notify(G_OBJECT(domain), "title");
@@ -315,6 +327,8 @@ void gvir_config_domain_set_title(GVirConfigDomain *domain, const char *title)
 
 const char *gvir_config_domain_get_description(GVirConfigDomain *domain)
 {
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN(domain), NULL);
+
     return gvir_config_object_get_node_content(GVIR_CONFIG_OBJECT(domain),
                                                "description");
 }
@@ -327,6 +341,8 @@ const char *gvir_config_domain_get_description(GVirConfigDomain *domain)
 void gvir_config_domain_set_description(GVirConfigDomain *domain,
                                         const char *description)
 {
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN(domain));
+
     gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(domain),
                                         "description", description);
     g_object_notify(G_OBJECT(domain), "description");
@@ -400,6 +416,8 @@ guint64 gvir_config_domain_get_memory(GVirConfigDomain *domain)
     guint64 unit_base;
     guint64 memory;
 
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN(domain), 0);
+
     unit = gvir_config_object_get_attribute(GVIR_CONFIG_OBJECT(domain), "memory", "unit");
     unit_base = get_unit_base(unit, 1024);
 
@@ -421,6 +439,8 @@ guint64 gvir_config_domain_get_current_memory(GVirConfigDomain *domain)
     guint64 unit_base;
     guint64 memory;
 
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN(domain), 0);
+
     unit = gvir_config_object_get_attribute(GVIR_CONFIG_OBJECT(domain), "currentMemory", "unit");
     unit_base = get_unit_base(unit, 1024);
 
@@ -441,6 +461,8 @@ guint64 gvir_config_domain_get_current_memory(GVirConfigDomain *domain)
 void gvir_config_domain_set_memory(GVirConfigDomain *domain, guint64 memory)
 {
     GVirConfigObject *node;
+
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN(domain), 0);
 
     node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(domain), "memory");
     gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(node), NULL, memory);
@@ -468,6 +490,8 @@ void gvir_config_domain_set_current_memory(GVirConfigDomain *domain,
 {
     GVirConfigObject *node;
 
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN(domain));
+
     node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(domain), "currentMemory");
     gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(node), NULL, memory);
     gvir_config_object_set_attribute(GVIR_CONFIG_OBJECT(node),
@@ -485,6 +509,8 @@ guint64 gvir_config_domain_get_vcpus(GVirConfigDomain *domain)
 
 void gvir_config_domain_set_vcpus(GVirConfigDomain *domain, guint64 vcpu_count)
 {
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN(domain));
+
     gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(domain),
                                                "vcpu", vcpu_count);
     g_object_notify(G_OBJECT(domain), "vcpu");
@@ -529,6 +555,8 @@ void gvir_config_domain_set_features(GVirConfigDomain *domain,
 {
     GVirConfigObject *features_node;
     GStrv it;
+
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN(domain));
 
     features_node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(domain),
                                                      "features");
