@@ -462,7 +462,7 @@ void gvir_config_domain_set_memory(GVirConfigDomain *domain, guint64 memory)
 {
     GVirConfigObject *node;
 
-    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN(domain), 0);
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN(domain));
 
     node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(domain), "memory");
     gvir_config_object_set_node_content_uint64(GVIR_CONFIG_OBJECT(node), NULL, memory);
