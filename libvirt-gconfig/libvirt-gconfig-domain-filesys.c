@@ -125,7 +125,7 @@ void gvir_config_domain_filesys_set_driver_type(GVirConfigDomainFilesys *filesys
     GVirConfigObject *node;
 
     g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_FILESYS(filesys));
-    node = gvir_config_object_add_child(GVIR_CONFIG_OBJECT(filesys), "driver");
+    node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(filesys), "driver");
     g_return_if_fail(GVIR_CONFIG_IS_OBJECT(node));
     if (type != GVIR_CONFIG_DOMAIN_FILESYS_DRIVER_DEFAULT)
         gvir_config_object_set_attribute_with_type(
