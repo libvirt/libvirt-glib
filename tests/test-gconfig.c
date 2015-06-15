@@ -369,6 +369,7 @@ static void test_domain_device_filesystem(void)
     gvir_config_domain_filesys_set_type(fs, GVIR_CONFIG_DOMAIN_FILESYS_FILE);
     gvir_config_domain_filesys_set_access_type(fs, GVIR_CONFIG_DOMAIN_FILESYS_ACCESS_MAPPED);
     gvir_config_domain_filesys_set_driver_type(fs, GVIR_CONFIG_DOMAIN_FILESYS_DRIVER_DEFAULT);
+    gvir_config_domain_filesys_set_driver_format(fs, GVIR_CONFIG_DOMAIN_DISK_FORMAT_QCOW2);
     gvir_config_domain_filesys_set_source(fs, "/path/to/source");
     gvir_config_domain_filesys_set_target(fs, "/path/to/target1");
     gvir_config_domain_filesys_set_readonly(fs, TRUE);

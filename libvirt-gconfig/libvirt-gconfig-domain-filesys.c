@@ -137,6 +137,22 @@ void gvir_config_domain_filesys_set_driver_type(GVirConfigDomainFilesys *filesys
     g_object_unref(G_OBJECT(node));
 }
 
+void gvir_config_domain_filesys_set_driver_format(GVirConfigDomainFilesys *filesys,
+                                                  GVirConfigDomainDiskFormat format)
+{
+    GVirConfigObject *node;
+
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_FILESYS(filesys));
+    node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(filesys), "driver");
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(node));
+
+    gvir_config_object_set_attribute_with_type(
+        node,
+        "format", GVIR_CONFIG_TYPE_DOMAIN_DISK_FORMAT, format,
+        NULL);
+    g_object_unref(G_OBJECT(node));
+}
+
 void gvir_config_domain_filesys_set_source(GVirConfigDomainFilesys *filesys,
                                            const char *source)
 {

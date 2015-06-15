@@ -92,6 +92,8 @@ void gvir_config_domain_filesys_set_access_type(GVirConfigDomainFilesys *filesys
                                                 GVirConfigDomainFilesysAccessType type);
 void gvir_config_domain_filesys_set_driver_type(GVirConfigDomainFilesys *filesys,
                                                 GVirConfigDomainFilesysDriverType type);
+void gvir_config_domain_filesys_set_driver_format(GVirConfigDomainFilesys *filesys,
+                                                  GVirConfigDomainDiskFormat format);
 void gvir_config_domain_filesys_set_source(GVirConfigDomainFilesys *filesys,
                                            const char *source);
 void gvir_config_domain_filesys_set_ram_usage(GVirConfigDomainFilesys *filesys,

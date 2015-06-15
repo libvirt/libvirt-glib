@@ -719,4 +719,9 @@ global:
 	gvir_config_storage_vol_target_set_compat;
 } LIBVIRT_GCONFIG_0.1.9;
 
+LIBVIRT_GCONFIG_0.2.1 {
+global:
+    gvir_config_domain_filesys_set_driver_format;
+} LIBVIRT_GCONFIG_0.2.0;
+
 # .... define new API here using predicted next version number ....
