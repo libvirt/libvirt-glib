@@ -6,61 +6,64 @@
 # Daniel <veillard@redhat.com>, 2011
 # Mateusz Marzantowicz <mmarzantowicz@osdf.com.pl>, 2013
 # Mateusz Marzantowicz <mmarzantowicz@osdf.com.pl>, 2012
+# Piotr Drąg <piotrdrag@gmail.com>, 2015. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: libvirt-glib\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-20 15:41+0100\n"
-"PO-Revision-Date: 2013-11-20 06:38-0500\n"
+"POT-Creation-Date: 2015-06-16 13:41+0100\n"
+"PO-Revision-Date: 2015-03-01 01:22-0500\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish (http://www.transifex.com/projects/p/libvirt-glib/language/pl/)\n"
+"Language-Team: Polish (http://www.transifex.com/projects/p/libvirt-glib/"
+"language/pl/)\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pl\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Zanata 3.5.1\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Zanata 3.6.2\n"
 
 #: ../libvirt-gconfig/libvirt-gconfig-helpers.c:141
 msgid "No XML document to parse"
-msgstr ""
+msgstr "Brak dokumentu XML do przetworzenia"
 
 #: ../libvirt-gconfig/libvirt-gconfig-helpers.c:149
 msgid "Unable to parse configuration"
-msgstr ""
+msgstr "Nie można przetworzyć konfiguracji"
 
 #: ../libvirt-gconfig/libvirt-gconfig-helpers.c:157
 #, c-format
 msgid "XML data has no '%s' node"
-msgstr ""
+msgstr "Dane XML nie posiadają węzła \"%s\""
 
 #: ../libvirt-gconfig/libvirt-gconfig-object.c:212
 msgid "No XML document associated with this config object"
-msgstr ""
+msgstr "Brak dokumentu XML powiązanego z tym obiektem konfiguracji"
 
 #: ../libvirt-gconfig/libvirt-gconfig-object.c:221
 #, c-format
 msgid "Unable to create RNG parser for %s"
-msgstr ""
+msgstr "Nie można utworzyć parsera RNG dla %s"
 
 #: ../libvirt-gconfig/libvirt-gconfig-object.c:231
 #, c-format
 msgid "Unable to parse RNG %s"
-msgstr ""
+msgstr "Nie można przetworzyć RNG %s"
 
 #: ../libvirt-gconfig/libvirt-gconfig-object.c:243
 #, c-format
 msgid "Unable to create RNG validation context %s"
-msgstr ""
+msgstr "Nie można utworzyć kontekst sprawdzania RNG %s"
 
 #: ../libvirt-gconfig/libvirt-gconfig-object.c:253
 msgid "Unable to validate doc"
-msgstr ""
+msgstr "Nie można sprawdzić dokumentu"
 
 #: ../libvirt-gobject/libvirt-gobject-connection.c:434
 #, c-format
 msgid "Connection %s is already open"
-msgstr ""
+msgstr "Połączenie %s jest już otwarte"
 
 #: ../libvirt-gobject/libvirt-gobject-connection.c:449
 #, c-format
@@ -69,83 +72,83 @@ msgstr "Nie można otworzyć %s"
 
 #: ../libvirt-gobject/libvirt-gobject-connection.c:460
 msgid "Unable to get connection URI"
-msgstr ""
+msgstr "Nie można uzyskać adresu URI połączenia"
 
 #: ../libvirt-gobject/libvirt-gobject-connection.c:700
 #, c-format
 msgid "Unable to count %s"
-msgstr ""
+msgstr "Nie można policzyć %s"
 
 #: ../libvirt-gobject/libvirt-gobject-connection.c:712
 #, c-format
 msgid "Unable to list %s %d"
-msgstr ""
+msgstr "Nie można wyświetlić listy %s %d"
 
 #: ../libvirt-gobject/libvirt-gobject-connection.c:755
 #: ../libvirt-gobject/libvirt-gobject-connection.c:892
 msgid "Connection is not open"
-msgstr ""
+msgstr "Połączenie nie jest otwarte"
 
 #: ../libvirt-gobject/libvirt-gobject-connection.c:770
 msgid "Unable to count domains"
-msgstr ""
+msgstr "Nie można policzyć domen"
 
 #: ../libvirt-gobject/libvirt-gobject-connection.c:781
 msgid "Unable to list domains"
-msgstr ""
+msgstr "Nie można wyświetlić listy domen"
 
 #: ../libvirt-gobject/libvirt-gobject-connection.c:1155
 #: ../libvirt-gobject/libvirt-gobject-connection.c:1194
 msgid "Connection is not opened"
-msgstr ""
+msgstr "Połączenie nie jest otwarte"
 
 #: ../libvirt-gobject/libvirt-gobject-connection.c:1162
 msgid "Unable to get hypervisor name"
-msgstr ""
+msgstr "Nie można uzyskać nazwy nadzorcy"
 
 #: ../libvirt-gobject/libvirt-gobject-connection.c:1200
 msgid "Unable to get hypervisor version"
-msgstr ""
+msgstr "Nie można uzyskać wersji nadzorcy"
 
 #: ../libvirt-gobject/libvirt-gobject-connection.c:1515
 #: ../libvirt-gobject/libvirt-gobject-connection.c:1570
 msgid "Failed to create domain"
-msgstr ""
+msgstr "Utworzenie domeny się nie powiodło"
 
 #: ../libvirt-gobject/libvirt-gobject-connection.c:1622
 msgid "Failed to create storage pool"
-msgstr ""
+msgstr "Utworzenie puli pamięci masowej się nie powiodło"
 
 #: ../libvirt-gobject/libvirt-gobject-connection.c:1665
 msgid "Unable to get node info"
-msgstr ""
+msgstr "Nie można uzyskać informacji o węźle"
 
 #: ../libvirt-gobject/libvirt-gobject-connection.c:1705
 msgid "Unable to get capabilities"
-msgstr ""
+msgstr "Nie można uzyskać możliwości"
 
 #: ../libvirt-gobject/libvirt-gobject-connection.c:1833
 msgid "Unable to restore domain"
-msgstr ""
+msgstr "Nie można przywrócić domeny"
 
 #: ../libvirt-gobject/libvirt-gobject-stream.c:339
 msgid "virStreamRecv call would block"
-msgstr ""
+msgstr "Wywołanie virStreamRecv spowodowałoby zablokowanie"
 
 #: ../libvirt-gobject/libvirt-gobject-stream.c:342
 #: ../libvirt-gobject/libvirt-gobject-stream.c:458
 #, c-format
 msgid "Got virStreamRecv error in %s"
-msgstr ""
+msgstr "Wystąpił błąd virStreamRecv w %s"
 
 #: ../libvirt-gobject/libvirt-gobject-stream.c:407
 msgid "Unable to perform RecvAll"
-msgstr ""
+msgstr "Nie można wykonać RecvAll"
 
 #: ../libvirt-gobject/libvirt-gobject-stream.c:455
 msgid "virStreamSend call would block"
-msgstr ""
+msgstr "Wywołanie virStreamSend spowodowałoby zablokowanie"
 
 #: ../libvirt-gobject/libvirt-gobject-stream.c:523
 msgid "Unable to perform SendAll"
-msgstr ""
+msgstr "Nie można wykonać SendAll"
