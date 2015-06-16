@@ -358,6 +358,39 @@ static void test_domain_device_disk(void)
 }
 
 
+static void test_domain_device_filesystem(void)
+{
+    GVirConfigDomain *domain;
+    GVirConfigDomainFilesys *fs;
+
+    domain = gvir_config_domain_new();
+
+    fs = gvir_config_domain_filesys_new();
+    gvir_config_domain_filesys_set_type(fs, GVIR_CONFIG_DOMAIN_FILESYS_FILE);
+    gvir_config_domain_filesys_set_access_type(fs, GVIR_CONFIG_DOMAIN_FILESYS_ACCESS_MAPPED);
+    gvir_config_domain_filesys_set_driver_type(fs, GVIR_CONFIG_DOMAIN_FILESYS_DRIVER_DEFAULT);
+    gvir_config_domain_filesys_set_source(fs, "/path/to/source");
+    gvir_config_domain_filesys_set_target(fs, "/path/to/target1");
+    gvir_config_domain_filesys_set_readonly(fs, TRUE);
+    gvir_config_domain_add_device(domain, GVIR_CONFIG_DOMAIN_DEVICE(fs));
+    g_object_unref(fs);
+
+    /* Add a RAM fs */
+    fs = gvir_config_domain_filesys_new();
+    gvir_config_domain_filesys_set_type(fs, GVIR_CONFIG_DOMAIN_FILESYS_RAM);
+    gvir_config_domain_filesys_set_access_type(fs, GVIR_CONFIG_DOMAIN_FILESYS_ACCESS_PASSTHROUGH);
+    gvir_config_domain_filesys_set_driver_type(fs, GVIR_CONFIG_DOMAIN_FILESYS_DRIVER_PATH);
+    gvir_config_domain_filesys_set_ram_usage(fs, 1234);
+    gvir_config_domain_filesys_set_target(fs, "/path/to/target2");
+    gvir_config_domain_add_device(domain, GVIR_CONFIG_DOMAIN_DEVICE(fs));
+    g_object_unref(fs);
+
+    check_xml(domain, "gconfig-domain-device-filesys.xml");
+
+    g_object_unref(G_OBJECT(domain));
+}
+
+
 static void test_domain_device_network(void)
 {
     GVirConfigDomain *domain;
@@ -665,6 +698,8 @@ int main(int argc, char **argv)
     g_test_add_func("/libvirt-gconfig/domain-cpu", test_domain_cpu);
     g_test_add_func("/libvirt-gconfig/domain-device-disk",
                     test_domain_device_disk);
+    g_test_add_func("/libvirt-gconfig/domain-device-filesystem",
+                    test_domain_device_filesystem);
     g_test_add_func("/libvirt-gconfig/domain-device-network",
                     test_domain_device_network);
     g_test_add_func("/libvirt-gconfig/domain-device-input",

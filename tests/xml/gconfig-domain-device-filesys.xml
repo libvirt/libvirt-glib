@@ -1,0 +1,15 @@
+<domain>
+  <devices>
+    <filesystem type="file" accessmode="mapped">
+      <driver/>
+      <source file="/path/to/source"/>
+      <target dir="/path/to/target1"/>
+      <readonly/>
+    </filesystem>
+    <filesystem type="ram" accessmode="passthrough">
+      <driver type="path"/>
+      <source usage="1234" units="bytes"/>
+      <target dir="/path/to/target2"/>
+    </filesystem>
+  </devices>
+</domain>
