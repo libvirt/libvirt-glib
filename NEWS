@@ -1,6 +1,18 @@
                  libvirt-glib News
                  =================
 
+0.2.1 - Jun 16, 2015
+====================
+
+- Fix libtoolize detection in autogen.sh
+- Allow storage volume format compatibility level to be set
+- Add pre-condition checks to more public API entry points
+- Don't try to return a value from void functions
+- Add API for controlling storage pool autostart flag
+- Add API for filesystem image format
+- Add loop, nbd and ploop filesystem types
+- Fix setting of driver type when called more than once
+
 0.2.0 - Dec 15, 2014
 ====================
 
