@@ -13,6 +13,7 @@ GOBJECT_HEADER_FILES = \
 			libvirt-gobject-domain.h \
 			libvirt-gobject-interface.h \
 			libvirt-gobject-network.h \
+			libvirt-gobject-network-dhcp-lease.h \
 			libvirt-gobject-network-filter.h \
 			libvirt-gobject-node-device.h \
 			libvirt-gobject-secret.h \
@@ -22,7 +23,8 @@ GOBJECT_HEADER_FILES = \
 			libvirt-gobject-connection.h \
 			libvirt-gobject-manager.h
 noinst_HEADERS = \
-			libvirt-gobject-storage-pool-private.h
+			libvirt-gobject-storage-pool-private.h \
+			libvirt-gobject-network-dhcp-lease-private.h
 GOBJECT_SOURCE_FILES = \
 			libvirt-gobject-main.c \
 			libvirt-gobject-domain-snapshot.c \
@@ -32,6 +34,7 @@ GOBJECT_SOURCE_FILES = \
 			libvirt-gobject-domain.c \
 			libvirt-gobject-interface.c \
 			libvirt-gobject-network.c \
+			libvirt-gobject-network-dhcp-lease.c \
 			libvirt-gobject-network-filter.c \
 			libvirt-gobject-node-device.c \
 			libvirt-gobject-secret.c \

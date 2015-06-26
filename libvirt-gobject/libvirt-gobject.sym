@@ -287,6 +287,19 @@ LIBVIRT_GOBJECT_0.2.2 {
 	gvir_connection_get_networks;
 
 	gvir_interface_get_mac;
+
+	gvir_ip_addr_type_get_type;
+
+	gvir_network_dhcp_lease_get_client_id;
+	gvir_network_dhcp_lease_get_expiry_time;
+	gvir_network_dhcp_lease_get_hostname;
+	gvir_network_dhcp_lease_get_iaid;
+	gvir_network_dhcp_lease_get_iface;
+	gvir_network_dhcp_lease_get_ip;
+	gvir_network_dhcp_lease_get_ip_type;
+	gvir_network_dhcp_lease_get_mac;
+	gvir_network_dhcp_lease_get_prefix;
+	gvir_network_dhcp_lease_get_type;
 } LIBVIRT_GOBJECT_0.2.1;
 
 # .... define new API here using predicted next version number ....

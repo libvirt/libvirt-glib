@@ -37,6 +37,7 @@
 #include <libvirt-gobject/libvirt-gobject-domain.h>
 #include <libvirt-gobject/libvirt-gobject-interface.h>
 #include <libvirt-gobject/libvirt-gobject-network.h>
+#include <libvirt-gobject/libvirt-gobject-network-dhcp-lease.h>
 #include <libvirt-gobject/libvirt-gobject-network-filter.h>
 #include <libvirt-gobject/libvirt-gobject-node-device.h>
 #include <libvirt-gobject/libvirt-gobject-secret.h>
