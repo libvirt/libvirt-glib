@@ -71,6 +71,10 @@ const gchar *gvir_network_get_uuid(GVirNetwork *network);
 GVirConfigNetwork *gvir_network_get_config(GVirNetwork *network,
                                            guint flags,
                                            GError **err);
+GList *gvir_network_get_dhcp_leases(GVirNetwork *network,
+                                    const char* mac,
+                                    guint flags,
+                                    GError **err);
 
 G_END_DECLS
 

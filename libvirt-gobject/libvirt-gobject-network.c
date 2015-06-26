@@ -29,6 +29,7 @@
 #include "libvirt-glib/libvirt-glib.h"
 #include "libvirt-gobject/libvirt-gobject.h"
 #include "libvirt-gobject-compat.h"
+#include "libvirt-gobject/libvirt-gobject-network-dhcp-lease-private.h"
 
 #define GVIR_NETWORK_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_NETWORK, GVirNetworkPrivate))
@@ -223,4 +224,57 @@ GVirConfigNetwork *gvir_network_get_config(GVirNetwork *network,
 
     free(xml);
     return conf;
+}
+
+/**
+ * gvir_network_get_dhcp_leases:
+ * @network: the network
+ * @mac: (allow-none): The optional ASCII formatted MAC address of an interface
+ * @flags: placeholder for flags, must be 0
+ *
+ * @err: Place-holder for possible errors
+ *
+ * This function fetches leases info of guests in the specified network. If the
+ * optional parameter @mac is specified, the returned list will contain only
+ * lease info about a specific guest interface with @mac. There can be multiple
+ * leases for a single @mac because this API supports DHCPv6 too.
+ *
+ * Returns:  (element-type LibvirtGObject.NetworkDHCPLease) (transfer full): the
+ * list of network leases. Each object in the returned list should be unreffed
+ * with g_object_unref() and the list itself using g_list_free, when no longer
+ * needed.
+ */
+GList *gvir_network_get_dhcp_leases(GVirNetwork *network,
+                                    const char* mac,
+                                    guint flags,
+                                    GError **err)
+{
+    virNetworkDHCPLeasePtr *leases;
+    GList *ret = NULL;
+    int num_leases, i;
+
+    g_return_val_if_fail(GVIR_IS_NETWORK(network), NULL);
+    g_return_val_if_fail(err == NULL || *err == NULL, NULL);
+    g_return_val_if_fail(flags == 0, NULL);
+
+    num_leases = virNetworkGetDHCPLeases(network->priv->handle, mac, &leases, flags);
+    if (num_leases < 0) {
+        gvir_set_error_literal(err, GVIR_NETWORK_ERROR,
+                               0,
+                               "Unable to get network DHCP leases");
+        return NULL;
+    }
+
+    if (num_leases == 0)
+        return NULL;
+
+    for (i = 0; i < num_leases; i++) {
+        GVirNetworkDHCPLease *lease;
+
+        lease = gvir_network_dhcp_lease_new(leases[i]);
+        ret = g_list_prepend(ret, lease);
+    }
+    free(leases);
+
+    return g_list_reverse(ret);
 }

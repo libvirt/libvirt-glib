@@ -300,6 +300,8 @@ LIBVIRT_GOBJECT_0.2.2 {
 	gvir_network_dhcp_lease_get_mac;
 	gvir_network_dhcp_lease_get_prefix;
 	gvir_network_dhcp_lease_get_type;
+
+	gvir_network_get_dhcp_leases;
 } LIBVIRT_GOBJECT_0.2.1;
 
 # .... define new API here using predicted next version number ....
