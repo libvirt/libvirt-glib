@@ -144,14 +144,23 @@ GVirDomain *gvir_connection_start_domain(GVirConnection *conn,
                                          guint flags,
                                          GError **err);
 
-#if 0
+gboolean gvir_connection_fetch_interfaces(GVirConnection *conn,
+                                          GCancellable *cancellable,
+                                          GError **err);
+void gvir_connection_fetch_interfaces_async(GVirConnection *conn,
+                                            GCancellable *cancellable,
+                                            GAsyncReadyCallback callback,
+                                            gpointer user_data);
+gboolean gvir_connection_fetch_interfaces_finish(GVirConnection *conn,
+                                                 GAsyncResult *result,
+                                                 GError **err);
 GList *gvir_connection_get_interfaces(GVirConnection *conn);
 GVirInterface *gvir_connection_get_interface(GVirConnection *conn,
                                              const gchar *name);
 GVirInterface *gvir_connection_find_interface_by_mac(GVirConnection *conn,
                                                      const gchar *macaddr);
 
-
+#if 0
 GList *gvir_connection_get_networks(GVirConnection *conn);
 GVirNetwork *gvir_connection_get_network(GVirConnection *conn,
                                          const gchar *uuid);

@@ -44,6 +44,7 @@ struct _GVirConnectionPrivate
 
     GHashTable *domains;
     GHashTable *pools;
+    GHashTable *interfaces;
 };
 
 G_DEFINE_TYPE(GVirConnection, gvir_connection, G_TYPE_OBJECT);
@@ -252,6 +253,10 @@ static void gvir_connection_init(GVirConnection *conn)
                                         g_str_equal,
                                         NULL,
                                         g_object_unref);
+    priv->interfaces = g_hash_table_new_full(g_str_hash,
+                                             g_str_equal,
+                                             NULL,
+                                             g_object_unref);
 }
 
 
@@ -666,6 +671,11 @@ void gvir_connection_close(GVirConnection *conn)
     if (priv->pools) {
         g_hash_table_unref(priv->pools);
         priv->pools = NULL;
+    }
+
+    if (priv->interfaces) {
+        g_hash_table_unref(priv->interfaces);
+        priv->interfaces = NULL;
     }
 
     if (priv->conn) {
@@ -1440,6 +1450,266 @@ GVirDomain *gvir_connection_start_domain(GVirConnection *conn,
     g_mutex_unlock(priv->lock);
 
     return domain;
+}
+
+/**
+ * gvir_connection_fetch_interfaces:
+ * @conn: a #GVirConnection
+ * @cancellable: (allow-none)(transfer none): cancellation object
+ * @err: return location for any errors
+ *
+ * Use this method to fetch information on all network interfaces
+ * managed by connection @conn on host machine. Use
+ * #gvir_connection_get_interfaces or #gvir_connection_get_interface afterwards
+ * to query the fetched interfaces.
+ *
+ * Return value: %TRUE on success, %FALSE otherwise and @err is set.
+ */
+gboolean gvir_connection_fetch_interfaces(GVirConnection *conn,
+                                          GCancellable *cancellable,
+                                          GError **err)
+{
+    GVirConnectionPrivate *priv;
+    GHashTable *interfaces;
+    virInterfacePtr *ifaces = NULL;
+    gint ninterfaces = 0;
+    gboolean ret = FALSE;
+    gint i;
+    virConnectPtr vconn = NULL;
+
+    g_return_val_if_fail(GVIR_IS_CONNECTION(conn), FALSE);
+    g_return_val_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable),
+                         FALSE);
+    g_return_val_if_fail((err == NULL) || (*err == NULL), FALSE);
+
+    priv = conn->priv;
+    g_mutex_lock(priv->lock);
+    if (!priv->conn) {
+        g_set_error_literal(err, GVIR_CONNECTION_ERROR,
+                            0,
+                            _("Connection is not open"));
+        g_mutex_unlock(priv->lock);
+        goto cleanup;
+    }
+    vconn = priv->conn;
+    /* Stop another thread closing the connection just at the minute */
+    virConnectRef(vconn);
+    g_mutex_unlock(priv->lock);
+
+    if (g_cancellable_set_error_if_cancelled(cancellable, err))
+        goto cleanup;
+
+    ninterfaces = virConnectListAllInterfaces(vconn, &ifaces, 0);
+    if (ninterfaces < 0) {
+        gvir_set_error(err, GVIR_CONNECTION_ERROR,
+                       0,
+                       _("Failed to fetch list of interfaces"));
+        goto cleanup;
+    }
+
+    if (g_cancellable_set_error_if_cancelled(cancellable, err))
+        goto cleanup;
+
+    interfaces = g_hash_table_new_full(g_str_hash,
+                                       g_str_equal,
+                                       NULL,
+                                       g_object_unref);
+
+    for (i = 0 ; i < ninterfaces; i++) {
+        GVirInterface *iface;
+
+        if (g_cancellable_set_error_if_cancelled(cancellable, err))
+            goto cleanup;
+
+        iface = GVIR_INTERFACE(g_object_new(GVIR_TYPE_INTERFACE,
+                                            "handle", ifaces[i],
+                                            NULL));
+
+        g_hash_table_insert(interfaces,
+                            (gpointer)gvir_interface_get_name(iface),
+                            iface);
+    }
+
+    g_mutex_lock(priv->lock);
+    if (priv->interfaces)
+        g_hash_table_unref(priv->interfaces);
+    priv->interfaces = interfaces;
+    g_mutex_unlock(priv->lock);
+
+    ret = TRUE;
+
+cleanup:
+    if (ninterfaces > 0) {
+        for (i = 0 ; i < ninterfaces; i++)
+            virInterfaceFree(ifaces[i]);
+        free(ifaces);
+    }
+    if (vconn != NULL)
+        virConnectClose(vconn);
+    return ret;
+}
+
+static void
+gvir_connection_fetch_interfaces_helper(GTask *task,
+                                        gpointer object,
+                                        gpointer task_data G_GNUC_UNUSED,
+                                        GCancellable *cancellable)
+{
+    GVirConnection *conn = GVIR_CONNECTION(object);
+    GError *err = NULL;
+
+    if (!gvir_connection_fetch_interfaces(conn, cancellable, &err))
+        g_task_return_error(task, err);
+    else
+        g_task_return_boolean(task, TRUE);
+}
+
+
+/**
+ * gvir_connection_fetch_interfaces_async:
+ * @conn: a #GVirConnection
+ * @cancellable: (allow-none)(transfer none): cancellation object
+ * @callback: (scope async): completion callback
+ * @user_data: (closure): opaque data for callback
+ */
+void gvir_connection_fetch_interfaces_async(GVirConnection *conn,
+                                            GCancellable *cancellable,
+                                            GAsyncReadyCallback callback,
+                                            gpointer user_data)
+{
+    GTask *task;
+
+    g_return_if_fail(GVIR_IS_CONNECTION(conn));
+    g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
+
+    task = g_task_new(G_OBJECT(conn),
+                      cancellable,
+                      callback,
+                      user_data);
+    g_task_set_source_tag(task,
+                          gvir_connection_fetch_interfaces_async);
+    g_task_run_in_thread(task,
+                         gvir_connection_fetch_interfaces_helper);
+    g_object_unref(task);
+}
+
+/**
+ * gvir_connection_fetch_interfaces_finish:
+ * @conn: a #GVirConnection
+ * @result: (transfer none): async method result
+ * @err: return location for any errors
+ */
+gboolean gvir_connection_fetch_interfaces_finish(GVirConnection *conn,
+                                                 GAsyncResult *result,
+                                                 GError **err)
+{
+    g_return_val_if_fail(GVIR_IS_CONNECTION(conn), FALSE);
+    g_return_val_if_fail(g_task_is_valid(result, G_OBJECT(conn)),
+                         FALSE);
+    g_return_val_if_fail(g_task_get_source_tag(G_TASK(result)) ==
+                         gvir_connection_fetch_interfaces_async,
+                         FALSE);
+
+    return g_task_propagate_boolean(G_TASK(result), err);
+}
+
+/**
+ * gvir_connection_get_interfaces:
+ * @conn: a #GVirConnection
+ *
+ * Get a list of all the network interfaces managed by connection @conn on
+ * host machine.
+ *
+ * Return value: (element-type LibvirtGObject.Interface) (transfer full): List
+ * of #GVirInterface. The returned list should be freed with g_list_free(),
+ * after its elements have been unreffed with g_object_unref().
+ */
+GList *gvir_connection_get_interfaces(GVirConnection *conn)
+{
+    GVirConnectionPrivate *priv;
+    GList *interfaces = NULL;
+
+    g_return_val_if_fail(GVIR_IS_CONNECTION(conn), NULL);
+
+    priv = conn->priv;
+    g_mutex_lock(priv->lock);
+    if (priv->interfaces != NULL) {
+        interfaces = g_hash_table_get_values(priv->interfaces);
+        g_list_foreach(interfaces, gvir_domain_ref, NULL);
+    }
+    g_mutex_unlock(priv->lock);
+
+    return interfaces;
+}
+
+/**
+ * gvir_connection_get_interface:
+ * @conn: a #GVirConnection
+ * @name: interface name to lookup
+ *
+ * Get a particular interface which has name @name.
+ *
+ * Return value: (transfer full): A new reference to a #GVirInterface, or NULL
+ * if no interface exists with name @name. The returned object must be unreffed
+ * using g_object_unref() once used.
+ */
+GVirInterface *gvir_connection_get_interface(GVirConnection *conn,
+                                             const gchar *name)
+{
+    GVirConnectionPrivate *priv;
+    GVirInterface *iface;
+
+    g_return_val_if_fail(GVIR_IS_CONNECTION(conn), NULL);
+    g_return_val_if_fail(name != NULL, NULL);
+
+    priv = conn->priv;
+    g_mutex_lock(priv->lock);
+    iface = g_hash_table_lookup(priv->interfaces, name);
+    if (iface)
+        g_object_ref(iface);
+    g_mutex_unlock(priv->lock);
+
+    return iface;
+}
+
+/**
+ * gvir_connection_find_interface_by_mac:
+ * @conn: a #GVirConnection
+ * @mac: MAC address to lookup
+ *
+ * Get a particular interface which has MAC address @mac.
+ *
+ * Return value: (transfer full): A new reference to a #GVirInterface, or NULL
+ * if no interface exists with MAC address @mac. The returned object must be
+ * unreffed using g_object_unref() once used.
+ */
+GVirInterface *gvir_connection_find_interface_by_mac(GVirConnection *conn,
+                                                     const gchar *mac)
+{
+    GVirConnectionPrivate *priv;
+    GHashTableIter iter;
+    gpointer key, value;
+
+    g_return_val_if_fail(GVIR_IS_CONNECTION(conn), NULL);
+    g_return_val_if_fail(mac != NULL, NULL);
+
+    priv = conn->priv;
+    g_mutex_lock(priv->lock);
+    g_hash_table_iter_init(&iter, priv->interfaces);
+
+    while (g_hash_table_iter_next(&iter, &key, &value)) {
+        GVirInterface *iface = value;
+        const gchar *thismac = gvir_interface_get_mac(iface);
+
+        if (g_strcmp0(thismac, mac) == 0) {
+            g_object_ref(iface);
+            g_mutex_unlock(priv->lock);
+            return iface;
+        }
+    }
+    g_mutex_unlock(priv->lock);
+
+    return NULL;
 }
 
 /**

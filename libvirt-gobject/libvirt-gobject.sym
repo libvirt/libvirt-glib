@@ -273,6 +273,13 @@ LIBVIRT_GOBJECT_0.2.1 {
 
 LIBVIRT_GOBJECT_0.2.2 {
   global:
+	gvir_connection_fetch_interfaces;
+	gvir_connection_fetch_interfaces_async;
+	gvir_connection_fetch_interfaces_finish;
+	gvir_connection_find_interface_by_mac;
+	gvir_connection_get_interface;
+	gvir_connection_get_interfaces;
+
 	gvir_interface_get_mac;
 } LIBVIRT_GOBJECT_0.2.1;
 
