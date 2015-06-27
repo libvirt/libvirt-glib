@@ -45,6 +45,7 @@ struct _GVirConnectionPrivate
     GHashTable *domains;
     GHashTable *pools;
     GHashTable *interfaces;
+    GHashTable *networks;
 };
 
 G_DEFINE_TYPE(GVirConnection, gvir_connection, G_TYPE_OBJECT);
@@ -257,6 +258,10 @@ static void gvir_connection_init(GVirConnection *conn)
                                              g_str_equal,
                                              NULL,
                                              g_object_unref);
+    priv->networks = g_hash_table_new_full(g_str_hash,
+                                           g_str_equal,
+                                           NULL,
+                                           g_object_unref);
 }
 
 
@@ -676,6 +681,11 @@ void gvir_connection_close(GVirConnection *conn)
     if (priv->interfaces) {
         g_hash_table_unref(priv->interfaces);
         priv->interfaces = NULL;
+    }
+
+    if (priv->networks) {
+        g_hash_table_unref(priv->networks);
+        priv->networks = NULL;
     }
 
     if (priv->conn) {
@@ -1705,6 +1715,258 @@ GVirInterface *gvir_connection_find_interface_by_mac(GVirConnection *conn,
             g_object_ref(iface);
             g_mutex_unlock(priv->lock);
             return iface;
+        }
+    }
+    g_mutex_unlock(priv->lock);
+
+    return NULL;
+}
+
+/**
+ * gvir_connection_fetch_networks:
+ * @conn: a #GVirConnection
+ * @cancellable: (allow-none)(transfer none): cancellation object
+ */
+gboolean gvir_connection_fetch_networks(GVirConnection *conn,
+                                        GCancellable *cancellable,
+                                        GError **err)
+{
+    GVirConnectionPrivate *priv;
+    GHashTable *networks;
+    virNetworkPtr *vnetworks = NULL;
+    gint nnetworks = 0;
+    gboolean ret = FALSE;
+    gint i;
+    virConnectPtr vconn = NULL;
+
+    g_return_val_if_fail(GVIR_IS_CONNECTION(conn), FALSE);
+    g_return_val_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable),
+                         FALSE);
+    g_return_val_if_fail((err == NULL) || (*err == NULL), FALSE);
+
+    priv = conn->priv;
+    g_mutex_lock(priv->lock);
+    if (!priv->conn) {
+        g_set_error_literal(err, GVIR_CONNECTION_ERROR,
+                            0,
+                            _("Connection is not open"));
+        g_mutex_unlock(priv->lock);
+        goto cleanup;
+    }
+    vconn = priv->conn;
+    /* Stop another thread closing the connection just at the minute */
+    virConnectRef(vconn);
+    g_mutex_unlock(priv->lock);
+
+    if (g_cancellable_set_error_if_cancelled(cancellable, err))
+        goto cleanup;
+
+    nnetworks = virConnectListAllNetworks(vconn, &vnetworks, 0);
+    if (nnetworks < 0) {
+        gvir_set_error(err, GVIR_CONNECTION_ERROR,
+                       0,
+                       _("Failed to fetch list of networks"));
+        goto cleanup;
+    }
+
+    if (g_cancellable_set_error_if_cancelled(cancellable, err))
+        goto cleanup;
+
+    networks = g_hash_table_new_full(g_str_hash,
+                                     g_str_equal,
+                                     NULL,
+                                     g_object_unref);
+
+    for (i = 0 ; i < nnetworks; i++) {
+        GVirNetwork *network;
+
+        if (g_cancellable_set_error_if_cancelled(cancellable, err))
+            goto cleanup;
+
+        network = GVIR_NETWORK(g_object_new(GVIR_TYPE_NETWORK,
+                                            "handle", vnetworks[i],
+                                            NULL));
+        g_hash_table_insert(networks,
+                            (gpointer)gvir_network_get_uuid(network),
+                            network);
+    }
+
+    g_mutex_lock(priv->lock);
+    if (priv->networks)
+        g_hash_table_unref(priv->networks);
+    priv->networks = networks;
+    g_mutex_unlock(priv->lock);
+
+    ret = TRUE;
+
+cleanup:
+    if (nnetworks > 0) {
+        for (i = 0 ; i < nnetworks; i++)
+            virNetworkFree(vnetworks[i]);
+        free(vnetworks);
+    }
+    if (vconn != NULL)
+        virConnectClose(vconn);
+    return ret;
+}
+
+static void
+gvir_connection_fetch_networks_helper(GTask *task,
+                                      gpointer object,
+                                      gpointer task_data G_GNUC_UNUSED,
+                                      GCancellable *cancellable)
+{
+    GVirConnection *conn = GVIR_CONNECTION(object);
+    GError *err = NULL;
+
+    if (!gvir_connection_fetch_networks(conn, cancellable, &err))
+        g_task_return_error(task, err);
+    else
+        g_task_return_boolean(task, TRUE);
+}
+
+/**
+ * gvir_connection_fetch_networks_async:
+ * @conn: a #GVirConnection
+ * @cancellable: (allow-none)(transfer none): cancellation object
+ * @callback: (scope async): completion callback
+ * @user_data: (closure): opaque data for callback
+ */
+void gvir_connection_fetch_networks_async(GVirConnection *conn,
+                                          GCancellable *cancellable,
+                                          GAsyncReadyCallback callback,
+                                          gpointer user_data)
+{
+    GTask *task;
+
+    g_return_if_fail(GVIR_IS_CONNECTION(conn));
+    g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
+
+    task = g_task_new(G_OBJECT(conn),
+                     cancellable,
+                     callback,
+                     user_data);
+    g_task_set_source_tag(task,
+                          gvir_connection_fetch_networks_async);
+    g_task_run_in_thread(task,
+                         gvir_connection_fetch_networks_helper);
+    g_object_unref(task);
+}
+
+/**
+ * gvir_connection_fetch_networks_finish:
+ * @conn: a #GVirConnection
+ * @result: (transfer none): async method result
+ * @err: return location for any errors
+ */
+gboolean gvir_connection_fetch_networks_finish(GVirConnection *conn,
+                                               GAsyncResult *result,
+                                               GError **err)
+{
+    g_return_val_if_fail(GVIR_IS_CONNECTION(conn), FALSE);
+    g_return_val_if_fail(g_task_is_valid(result, G_OBJECT(conn)),
+                         FALSE);
+    g_return_val_if_fail(g_task_get_source_tag(G_TASK(result)) ==
+                         gvir_connection_fetch_networks_async,
+                         FALSE);
+
+    return g_task_propagate_boolean(G_TASK(result), err);
+}
+
+/**
+ * gvir_connection_get_networks:
+ * @conn: a #GVirConnection
+ *
+ * Get a list of all the network networks available through @conn.
+ *
+ * Return value: (element-type LibvirtGObject.Network) (transfer full): List
+ * of #GVirNetwork. The returned list should be freed with g_list_free(),
+ * after its elements have been unreffed with g_object_unref().
+ */
+GList *gvir_connection_get_networks(GVirConnection *conn)
+{
+    GVirConnectionPrivate *priv;
+    GList *networks = NULL;
+
+    g_return_val_if_fail(GVIR_IS_CONNECTION(conn), NULL);
+
+    priv = conn->priv;
+    g_mutex_lock(priv->lock);
+    if (priv->networks != NULL) {
+        networks = g_hash_table_get_values(priv->networks);
+        g_list_foreach(networks, gvir_domain_ref, NULL);
+    }
+    g_mutex_unlock(priv->lock);
+
+    return networks;
+}
+
+/**
+ * gvir_connection_get_network:
+ * @conn: a #GVirConnection
+ * @uuid: UUID of the network to lookup
+ *
+ * Get a particular network which has UUID @uuid.
+ *
+ * Return value: (transfer full): A new reference to a #GVirNetwork, or NULL if
+ * no network exists with UUID @uuid. The returned object must be unreffed using
+ * g_object_unref() once used.
+ */
+GVirNetwork *gvir_connection_get_network(GVirConnection *conn,
+                                         const gchar *uuid)
+{
+    GVirConnectionPrivate *priv;
+    GVirNetwork *network;
+
+    g_return_val_if_fail(GVIR_IS_CONNECTION(conn), NULL);
+    g_return_val_if_fail(uuid != NULL, NULL);
+
+    priv = conn->priv;
+    g_mutex_lock(priv->lock);
+    network = g_hash_table_lookup(priv->networks, uuid);
+    if (network)
+        g_object_ref(network);
+    g_mutex_unlock(priv->lock);
+
+    return network;
+}
+
+/**
+ * gvir_connection_find_network_by_name:
+ * @conn: a #GVirConnection
+ * @name: name of the network to search for
+ *
+ * Get a particular network which has name @name.
+ *
+ * Return value: (transfer full): A new reference to a #GVirNetwork, or NULL if
+ * no network exists with name @name. The returned object must be unreffed using
+ * g_object_unref() once used.
+ */
+GVirNetwork *gvir_connection_find_network_by_name(GVirConnection *conn,
+                                                  const gchar *name)
+{
+    GVirConnectionPrivate *priv;
+    GHashTableIter iter;
+    gpointer key, value;
+
+    g_return_val_if_fail(GVIR_IS_CONNECTION(conn), NULL);
+    g_return_val_if_fail(name != NULL, NULL);
+
+    priv = conn->priv;
+    g_mutex_lock(priv->lock);
+    g_hash_table_iter_init(&iter, priv->networks);
+
+    while (g_hash_table_iter_next(&iter, &key, &value)) {
+        GVirNetwork *network = value;
+        const gchar *thisname = gvir_network_get_name(network);
+
+        if (thisname == NULL)
+            continue;
+
+        if (strcmp(thisname, name) == 0) {
+            g_object_ref(network);
+            g_mutex_unlock(priv->lock);
+            return network;
         }
     }
     g_mutex_unlock(priv->lock);

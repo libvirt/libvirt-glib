@@ -160,14 +160,23 @@ GVirInterface *gvir_connection_get_interface(GVirConnection *conn,
 GVirInterface *gvir_connection_find_interface_by_mac(GVirConnection *conn,
                                                      const gchar *macaddr);
 
-#if 0
+gboolean gvir_connection_fetch_networks(GVirConnection *conn,
+                                          GCancellable *cancellable,
+                                          GError **err);
+void gvir_connection_fetch_networks_async(GVirConnection *conn,
+                                          GCancellable *cancellable,
+                                          GAsyncReadyCallback callback,
+                                          gpointer user_data);
+gboolean gvir_connection_fetch_networks_finish(GVirConnection *conn,
+                                               GAsyncResult *result,
+                                               GError **err);
 GList *gvir_connection_get_networks(GVirConnection *conn);
 GVirNetwork *gvir_connection_get_network(GVirConnection *conn,
                                          const gchar *uuid);
 GVirNetwork *gvir_connection_find_network_by_name(GVirConnection *conn,
                                                   const gchar *name);
 
-
+#if 0
 GList *gvir_connection_get_network_filters(GVirConnection *conn);
 GVirNetworkFilter *gvir_connection_get_network_filter(GVirConnection *conn,
                                                       const gchar *uuid);
