@@ -271,4 +271,9 @@ LIBVIRT_GOBJECT_0.2.1 {
 	gvir_storage_pool_set_autostart;
 } LIBVIRT_GOBJECT_0.2.0;
 
+LIBVIRT_GOBJECT_0.2.2 {
+  global:
+	gvir_interface_get_mac;
+} LIBVIRT_GOBJECT_0.2.1;
+
 # .... define new API here using predicted next version number ....

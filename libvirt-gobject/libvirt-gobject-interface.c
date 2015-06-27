@@ -171,6 +171,19 @@ const gchar *gvir_interface_get_name(GVirInterface *iface)
     return name;
 }
 
+const gchar *gvir_interface_get_mac(GVirInterface *iface)
+{
+    const char *mac;
+
+    g_return_val_if_fail(GVIR_IS_INTERFACE(iface), NULL);
+
+    if (!(mac = virInterfaceGetMACString(iface->priv->handle))) {
+        gvir_warning("Failed to get interface mac on %p", iface->priv->handle);
+        return NULL;
+    }
+
+    return mac;
+}
 
 /**
  * gvir_interface_get_config:

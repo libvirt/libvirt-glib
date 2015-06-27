@@ -63,6 +63,7 @@ GType gvir_interface_get_type(void);
 GType gvir_interface_handle_get_type(void);
 
 const gchar *gvir_interface_get_name(GVirInterface *iface);
+const gchar *gvir_interface_get_mac(GVirInterface *iface);
 
 GVirConfigInterface *gvir_interface_get_config(GVirInterface *iface,
                                                guint flags,
