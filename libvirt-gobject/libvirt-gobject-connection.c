@@ -680,48 +680,6 @@ void gvir_connection_close(GVirConnection *conn)
     g_signal_emit(conn, signals[VIR_CONNECTION_CLOSED], 0);
 }
 
-typedef gint (* CountFunction) (virConnectPtr vconn);
-typedef gint (* ListFunction) (virConnectPtr vconn, gchar **lst, gint max);
-
-static gchar ** fetch_list(virConnectPtr vconn,
-                           const char *name,
-                           CountFunction count_func,
-                           ListFunction list_func,
-                           GCancellable *cancellable,
-                           gint *length,
-                           GError **err)
-{
-    gchar **lst = NULL;
-    gint n = 0;
-
-    if ((n = count_func(vconn)) < 0) {
-        gvir_set_error(err, GVIR_CONNECTION_ERROR,
-                       0,
-                       _("Unable to count %s"), name);
-        goto error;
-    }
-
-    if (n) {
-        if (g_cancellable_set_error_if_cancelled(cancellable, err))
-            goto error;
-
-        lst = g_new0(gchar *, n);
-        if ((n = list_func(vconn, lst, n)) < 0) {
-            gvir_set_error(err, GVIR_CONNECTION_ERROR,
-                           0,
-                           _("Unable to list %s %d"), name, n);
-            goto error;
-        }
-    }
-
-    *length = n;
-    return lst;
-
-error:
-    g_free(lst);
-    return NULL;
-}
-
 /**
  * gvir_connection_fetch_domains:
  * @conn: a #GVirConnection
@@ -733,14 +691,11 @@ gboolean gvir_connection_fetch_domains(GVirConnection *conn,
 {
     GVirConnectionPrivate *priv;
     GHashTable *doms;
-    gchar **inactive = NULL;
-    gint ninactive = 0;
-    gint *active = NULL;
-    gint nactive = 0;
+    virDomainPtr *domains = NULL;
+    gint ndomains = 0;
     gboolean ret = FALSE;
     gint i;
     virConnectPtr vconn = NULL;
-    GError *lerr = NULL;
 
     g_return_val_if_fail(GVIR_IS_CONNECTION(conn), FALSE);
     g_return_val_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable),
@@ -761,81 +716,28 @@ gboolean gvir_connection_fetch_domains(GVirConnection *conn,
     virConnectRef(vconn);
     g_mutex_unlock(priv->lock);
 
-    if (g_cancellable_set_error_if_cancelled(cancellable, err))
+    ndomains = virConnectListAllDomains(vconn, &domains, 0);
+    if (ndomains < 0) {
+        gvir_set_error(err, GVIR_CONNECTION_ERROR,
+                       0,
+                       _("Failed to fetch list of domains"));
         goto cleanup;
-
-    if ((nactive = virConnectNumOfDomains(vconn)) < 0) {
-        gvir_set_error_literal(err, GVIR_CONNECTION_ERROR,
-                               0,
-                               _("Unable to count domains"));
-        goto cleanup;
-    }
-    if (nactive) {
-        if (g_cancellable_set_error_if_cancelled(cancellable, err))
-            goto cleanup;
-
-        active = g_new(gint, nactive);
-        if ((nactive = virConnectListDomains(vconn, active, nactive)) < 0) {
-            gvir_set_error_literal(err, GVIR_CONNECTION_ERROR,
-                                   0,
-                                   _("Unable to list domains"));
-            goto cleanup;
-        }
     }
 
     if (g_cancellable_set_error_if_cancelled(cancellable, err))
         goto cleanup;
-
-    inactive = fetch_list(vconn,
-                          "Domains",
-                          virConnectNumOfDefinedDomains,
-                          virConnectListDefinedDomains,
-                          cancellable,
-                          &ninactive,
-                          &lerr);
-    if (lerr) {
-        g_propagate_error(err, lerr);
-        lerr = NULL;
-        goto cleanup;
-    }
 
     doms = g_hash_table_new_full(g_str_hash,
                                  g_str_equal,
                                  NULL,
                                  g_object_unref);
 
-    for (i = 0 ; i < nactive ; i++) {
-        if (g_cancellable_set_error_if_cancelled(cancellable, err))
-            goto cleanup;
-
-        virDomainPtr vdom = virDomainLookupByID(vconn, active[i]);
+    for (i = 0 ; i < ndomains; i++) {
         GVirDomain *dom;
-        if (!vdom)
-            continue;
 
         dom = GVIR_DOMAIN(g_object_new(GVIR_TYPE_DOMAIN,
-                                       "handle", vdom,
+                                       "handle", domains[i],
                                        NULL));
-        virDomainFree(vdom);
-
-        g_hash_table_insert(doms,
-                            (gpointer)gvir_domain_get_uuid(dom),
-                            dom);
-    }
-
-    for (i = 0 ; i < ninactive ; i++) {
-        if (g_cancellable_set_error_if_cancelled(cancellable, err))
-            goto cleanup;
-
-        virDomainPtr vdom = virDomainLookupByName(vconn, inactive[i]);
-        GVirDomain *dom;
-        if (!vdom)
-            continue;
-
-        dom = GVIR_DOMAIN(g_object_new(GVIR_TYPE_DOMAIN,
-                                       "handle", vdom,
-                                       NULL));
-        virDomainFree(vdom);
 
         g_hash_table_insert(doms,
                             (gpointer)gvir_domain_get_uuid(dom),
@@ -852,10 +754,11 @@ gboolean gvir_connection_fetch_domains(GVirConnection *conn,
     ret = TRUE;
 
 cleanup:
-    g_free(active);
-    for (i = 0 ; i < ninactive ; i++)
-        g_free(inactive[i]);
-    g_free(inactive);
+    if (ndomains > 0) {
+        for (i = 0 ; i < ndomains; i++)
+            virDomainFree(domains[i]);
+        free(domains);
+    }
     return ret;
 }
 
@@ -870,14 +773,11 @@ gboolean gvir_connection_fetch_storage_pools(GVirConnection *conn,
 {
     GVirConnectionPrivate *priv;
     GHashTable *pools;
-    gchar **inactive = NULL;
-    gint ninactive = 0;
-    gchar **active = NULL;
-    gint nactive = 0;
+    virStoragePoolPtr *vpools = NULL;
+    gint npools = 0;
     gboolean ret = FALSE;
     gint i;
     virConnectPtr vconn = NULL;
-    GError *lerr = NULL;
 
     g_return_val_if_fail(GVIR_IS_CONNECTION(conn), FALSE);
     g_return_val_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable),
@@ -901,77 +801,31 @@ gboolean gvir_connection_fetch_storage_pools(GVirConnection *conn,
     if (g_cancellable_set_error_if_cancelled(cancellable, err))
         goto cleanup;
 
-    active = fetch_list(vconn,
-                        "Storage Pools",
-                        virConnectNumOfStoragePools,
-                        virConnectListStoragePools,
-                        cancellable,
-                        &nactive,
-                        &lerr);
-    if (lerr) {
-        g_propagate_error(err, lerr);
-        lerr = NULL;
+    npools = virConnectListAllStoragePools(vconn, &vpools, 0);
+    if (npools < 0) {
+        gvir_set_error(err, GVIR_CONNECTION_ERROR,
+                       0,
+                       _("Failed to fetch list of pools"));
         goto cleanup;
     }
 
     if (g_cancellable_set_error_if_cancelled(cancellable, err))
         goto cleanup;
 
-    inactive = fetch_list(vconn,
-                          "Storage Pools",
-                          virConnectNumOfDefinedStoragePools,
-                          virConnectListDefinedStoragePools,
-                          cancellable,
-                          &ninactive,
-                          &lerr);
-    if (lerr) {
-        g_propagate_error(err, lerr);
-        lerr = NULL;
-        goto cleanup;
-    }
-
     pools = g_hash_table_new_full(g_str_hash,
                                   g_str_equal,
                                   NULL,
                                   g_object_unref);
 
-    for (i = 0 ; i < nactive ; i++) {
+    for (i = 0 ; i < npools; i++) {
+        GVirStoragePool *pool;
+
         if (g_cancellable_set_error_if_cancelled(cancellable, err))
             goto cleanup;
 
-        virStoragePoolPtr vpool;
-        GVirStoragePool *pool;
-
-        vpool = virStoragePoolLookupByName(vconn, active[i]);
-        if (!vpool)
-            continue;
-
         pool = GVIR_STORAGE_POOL(g_object_new(GVIR_TYPE_STORAGE_POOL,
-                                              "handle", vpool,
+                                              "handle", vpools[i],
                                               NULL));
-        virStoragePoolFree(vpool);
-
-        g_hash_table_insert(pools,
-                            (gpointer)gvir_storage_pool_get_uuid(pool),
-                            pool);
-    }
-
-    for (i = 0 ; i < ninactive ; i++) {
-        if (g_cancellable_set_error_if_cancelled(cancellable, err))
-            goto cleanup;
-
-        virStoragePoolPtr vpool;
-        GVirStoragePool *pool;
-
-        vpool = virStoragePoolLookupByName(vconn, inactive[i]);
-        if (!vpool)
-            continue;
-
-        pool = GVIR_STORAGE_POOL(g_object_new(GVIR_TYPE_STORAGE_POOL,
-                                              "handle", vpool,
-                                              NULL));
-        virStoragePoolFree(vpool);
-
         g_hash_table_insert(pools,
                             (gpointer)gvir_storage_pool_get_uuid(pool),
                             pool);
@@ -987,12 +841,11 @@ gboolean gvir_connection_fetch_storage_pools(GVirConnection *conn,
     ret = TRUE;
 
 cleanup:
-    for (i = 0 ; i < nactive ; i++)
-        g_free(active[i]);
-    g_free(active);
-    for (i = 0 ; i < ninactive ; i++)
-        g_free(inactive[i]);
-    g_free(inactive);
+    if (npools > 0) {
+        for (i = 0 ; i < npools; i++)
+            virStoragePoolFree(vpools[i]);
+        free(vpools);
+    }
     return ret;
 }
 
