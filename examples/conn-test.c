@@ -90,7 +90,7 @@ int main(int argc, char **argv)
     gvir_connection_open_async(conn, NULL, do_connection_open, loop);
 
     g_main_loop_run(loop);
-
+    g_main_loop_unref(loop);
 
     return 0;
 }
