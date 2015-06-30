@@ -748,7 +748,6 @@ gboolean gvir_connection_fetch_domains(GVirConnection *conn,
     if (priv->domains)
         g_hash_table_unref(priv->domains);
     priv->domains = doms;
-    virConnectClose(vconn);
     g_mutex_unlock(priv->lock);
 
     ret = TRUE;
@@ -759,6 +758,8 @@ cleanup:
             virDomainFree(domains[i]);
         free(domains);
     }
+    if (vconn != NULL)
+        virConnectClose(vconn);
     return ret;
 }
 
@@ -835,7 +836,6 @@ gboolean gvir_connection_fetch_storage_pools(GVirConnection *conn,
     if (priv->pools)
         g_hash_table_unref(priv->pools);
     priv->pools = pools;
-    virConnectClose(vconn);
     g_mutex_unlock(priv->lock);
 
     ret = TRUE;
@@ -846,6 +846,8 @@ cleanup:
             virStoragePoolFree(vpools[i]);
         free(vpools);
     }
+    if (vconn != NULL)
+        virConnectClose(vconn);
     return ret;
 }
 
