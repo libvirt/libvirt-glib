@@ -497,17 +497,18 @@ gboolean gvir_connection_open_read_only(GVirConnection *conn,
 }
 
 static void
-gvir_connection_open_helper(GSimpleAsyncResult *res,
-                            GObject *object,
+gvir_connection_open_helper(GTask *task,
+                            gpointer object,
+                            gpointer task_data G_GNUC_UNUSED,
                             GCancellable *cancellable)
 {
     GVirConnection *conn = GVIR_CONNECTION(object);
     GError *err = NULL;
 
-    if (!gvir_connection_open(conn, cancellable, &err)) {
-        g_simple_async_result_set_from_error(res, err);
-        g_error_free(err);
-    }
+    if (!gvir_connection_open(conn, cancellable, &err))
+        g_task_return_error(task, err);
+    else
+        g_task_return_boolean(task, TRUE);
 }
 
 
@@ -523,20 +524,20 @@ void gvir_connection_open_async(GVirConnection *conn,
                                 GAsyncReadyCallback callback,
                                 gpointer user_data)
 {
-    GSimpleAsyncResult *res;
+    GTask *task;
 
     g_return_if_fail(GVIR_IS_CONNECTION(conn));
     g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
 
-    res = g_simple_async_result_new(G_OBJECT(conn),
-                                    callback,
-                                    user_data,
-                                    gvir_connection_open_async);
-    g_simple_async_result_run_in_thread(res,
-                                        gvir_connection_open_helper,
-                                        G_PRIORITY_DEFAULT,
-                                        cancellable);
-    g_object_unref(res);
+    task = g_task_new(G_OBJECT(conn),
+                      cancellable,
+                      callback,
+                      user_data);
+    g_task_set_source_tag(task,
+                          gvir_connection_open_async);
+    g_task_run_in_thread(task,
+                         gvir_connection_open_helper);
+    g_object_unref(task);
 }
 
 
@@ -550,28 +551,28 @@ gboolean gvir_connection_open_finish(GVirConnection *conn,
                                      GError **err)
 {
     g_return_val_if_fail(GVIR_IS_CONNECTION(conn), FALSE);
-    g_return_val_if_fail(g_simple_async_result_is_valid(result, G_OBJECT(conn),
-                                                        gvir_connection_open_async),
+    g_return_val_if_fail(g_task_is_valid(result, G_OBJECT(conn)),
+                         FALSE);
+    g_return_val_if_fail(g_task_get_source_tag(G_TASK(result)) ==
+                         gvir_connection_open_async,
                          FALSE);
 
-    if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result), err))
-        return FALSE;
-
-    return TRUE;
+    return g_task_propagate_boolean(G_TASK(result), err);
 }
 
 static void
-gvir_connection_open_read_only_helper(GSimpleAsyncResult *res,
-                            GObject *object,
-                            GCancellable *cancellable)
+gvir_connection_open_read_only_helper(GTask *task,
+                                      gpointer object,
+                                      gpointer task_data G_GNUC_UNUSED,
+                                      GCancellable *cancellable)
 {
     GVirConnection *conn = GVIR_CONNECTION(object);
     GError *err = NULL;
 
-    if (!gvir_connection_open_read_only(conn, cancellable, &err)) {
-        g_simple_async_result_set_from_error(res, err);
-        g_error_free(err);
-    }
+    if (!gvir_connection_open_read_only(conn, cancellable, &err))
+        g_task_return_error(task, err);
+    else
+        g_task_return_boolean(task, TRUE);
 }
 
 
@@ -587,20 +588,20 @@ void gvir_connection_open_read_only_async(GVirConnection *conn,
                                 GAsyncReadyCallback callback,
                                 gpointer user_data)
 {
-    GSimpleAsyncResult *res;
+    GTask *task;
 
     g_return_if_fail(GVIR_IS_CONNECTION(conn));
     g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
 
-    res = g_simple_async_result_new(G_OBJECT(conn),
-                                    callback,
-                                    user_data,
-                                    gvir_connection_open_read_only_async);
-    g_simple_async_result_run_in_thread(res,
-                                        gvir_connection_open_read_only_helper,
-                                        G_PRIORITY_DEFAULT,
-                                        cancellable);
-    g_object_unref(res);
+    task = g_task_new(G_OBJECT(conn),
+                      cancellable,
+                      callback,
+                      user_data);
+    g_task_set_source_tag(task,
+                          gvir_connection_open_read_only_async);
+    g_task_run_in_thread(task,
+                         gvir_connection_open_read_only_helper);
+    g_object_unref(task);
 }
 
 
@@ -614,14 +615,13 @@ gboolean gvir_connection_open_read_only_finish(GVirConnection *conn,
                                                GError **err)
 {
     g_return_val_if_fail(GVIR_IS_CONNECTION(conn), FALSE);
-    g_return_val_if_fail(g_simple_async_result_is_valid(result, G_OBJECT(conn),
-                                                        gvir_connection_open_read_only_async),
+    g_return_val_if_fail(g_task_is_valid(result, G_OBJECT(conn)),
+                         FALSE);
+    g_return_val_if_fail(g_task_get_source_tag(G_TASK(result)) ==
+                         gvir_connection_open_read_only_async,
                          FALSE);
 
-    if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result), err))
-        return FALSE;
-
-    return TRUE;
+    return g_task_propagate_boolean(G_TASK(result), err);
 }
 
 gboolean gvir_connection_is_open(GVirConnection *conn)
@@ -852,17 +852,18 @@ cleanup:
 }
 
 static void
-gvir_connection_fetch_domains_helper(GSimpleAsyncResult *res,
-                                     GObject *object,
+gvir_connection_fetch_domains_helper(GTask *task,
+                                     gpointer object,
+                                     gpointer task_data G_GNUC_UNUSED,
                                      GCancellable *cancellable)
 {
     GVirConnection *conn = GVIR_CONNECTION(object);
     GError *err = NULL;
 
-    if (!gvir_connection_fetch_domains(conn, cancellable, &err)) {
-        g_simple_async_result_set_from_error(res, err);
-        g_error_free(err);
-    }
+    if (!gvir_connection_fetch_domains(conn, cancellable, &err))
+        g_task_return_error(task, err);
+    else
+        g_task_return_boolean(task, TRUE);
 }
 
 
@@ -878,20 +879,20 @@ void gvir_connection_fetch_domains_async(GVirConnection *conn,
                                          GAsyncReadyCallback callback,
                                          gpointer user_data)
 {
-    GSimpleAsyncResult *res;
+    GTask *task;
 
     g_return_if_fail(GVIR_IS_CONNECTION(conn));
     g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
 
-    res = g_simple_async_result_new(G_OBJECT(conn),
-                                    callback,
-                                    user_data,
-                                    gvir_connection_fetch_domains_async);
-    g_simple_async_result_run_in_thread(res,
-                                        gvir_connection_fetch_domains_helper,
-                                        G_PRIORITY_DEFAULT,
-                                        cancellable);
-    g_object_unref(res);
+    task = g_task_new(G_OBJECT(conn),
+                      cancellable,
+                      callback,
+                      user_data);
+    g_task_set_source_tag(task,
+                          gvir_connection_fetch_domains_async);
+    g_task_run_in_thread(task,
+                         gvir_connection_fetch_domains_helper);
+    g_object_unref(task);
 }
 
 /**
@@ -904,28 +905,28 @@ gboolean gvir_connection_fetch_domains_finish(GVirConnection *conn,
                                               GError **err)
 {
     g_return_val_if_fail(GVIR_IS_CONNECTION(conn), FALSE);
-    g_return_val_if_fail(g_simple_async_result_is_valid(result, G_OBJECT(conn),
-                                                        gvir_connection_fetch_domains_async),
+    g_return_val_if_fail(g_task_is_valid(result, G_OBJECT(conn)),
+                         FALSE);
+    g_return_val_if_fail(g_task_get_source_tag(G_TASK(result)) ==
+                         gvir_connection_fetch_domains_async,
                          FALSE);
 
-    if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result), err))
-        return FALSE;
-
-    return TRUE;
+    return g_task_propagate_boolean(G_TASK(result), err);
 }
 
 static void
-gvir_connection_fetch_pools_helper(GSimpleAsyncResult *res,
-                                   GObject *object,
+gvir_connection_fetch_pools_helper(GTask *task,
+                                   gpointer object,
+                                   gpointer task_data G_GNUC_UNUSED,
                                    GCancellable *cancellable)
 {
     GVirConnection *conn = GVIR_CONNECTION(object);
     GError *err = NULL;
 
-    if (!gvir_connection_fetch_storage_pools(conn, cancellable, &err)) {
-        g_simple_async_result_set_from_error(res, err);
-        g_error_free(err);
-    }
+    if (!gvir_connection_fetch_storage_pools(conn, cancellable, &err))
+        g_task_return_error(task, err);
+    else
+        g_task_return_boolean(task, TRUE);
 }
 
 /**
@@ -940,20 +941,20 @@ void gvir_connection_fetch_storage_pools_async(GVirConnection *conn,
                                                GAsyncReadyCallback callback,
                                                gpointer user_data)
 {
-    GSimpleAsyncResult *res;
+    GTask *task;
 
     g_return_if_fail(GVIR_IS_CONNECTION(conn));
     g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
 
-    res = g_simple_async_result_new(G_OBJECT(conn),
-                                    callback,
-                                    user_data,
-                                    gvir_connection_fetch_storage_pools_async);
-    g_simple_async_result_run_in_thread(res,
-                                        gvir_connection_fetch_pools_helper,
-                                        G_PRIORITY_DEFAULT,
-                                        cancellable);
-    g_object_unref(res);
+    task = g_task_new(G_OBJECT(conn),
+                      cancellable,
+                      callback,
+                      user_data);
+    g_task_set_source_tag(task,
+                          gvir_connection_fetch_storage_pools_async);
+    g_task_run_in_thread(task,
+                         gvir_connection_fetch_pools_helper);
+    g_object_unref(task);
 }
 
 /**
@@ -966,14 +967,13 @@ gboolean gvir_connection_fetch_storage_pools_finish(GVirConnection *conn,
                                                     GError **err)
 {
     g_return_val_if_fail(GVIR_IS_CONNECTION(conn), FALSE);
-    g_return_val_if_fail(g_simple_async_result_is_valid(result, G_OBJECT(conn),
-                                                        gvir_connection_fetch_storage_pools_async),
+    g_return_val_if_fail(g_task_is_valid(result, G_OBJECT(conn)),
+                         FALSE);
+    g_return_val_if_fail(g_task_get_source_tag(G_TASK(result)) ==
+                         gvir_connection_fetch_storage_pools_async,
                          FALSE);
 
-    if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result), err))
-        return FALSE;
-
-    return TRUE;
+    return g_task_propagate_boolean(G_TASK(result), err);
 }
 
 const gchar *gvir_connection_get_uri(GVirConnection *conn)
@@ -1568,8 +1568,9 @@ GVirConfigCapabilities *gvir_connection_get_capabilities(GVirConnection *conn,
 }
 
 static void
-gvir_connection_get_capabilities_helper(GSimpleAsyncResult *res,
-                                        GObject *object,
+gvir_connection_get_capabilities_helper(GTask *task,
+                                        gpointer object,
+                                        gpointer task_data G_GNUC_UNUSED,
                                         GCancellable *cancellable G_GNUC_UNUSED)
 {
     GVirConnection *conn = GVIR_CONNECTION(object);
@@ -1578,12 +1579,12 @@ gvir_connection_get_capabilities_helper(GSimpleAsyncResult *res,
 
     caps = gvir_connection_get_capabilities(conn, &err);
     if (caps == NULL) {
-        g_simple_async_result_take_error(res, err);
+        g_task_return_error(task, err);
 
         return;
     }
 
-    g_simple_async_result_set_op_res_gpointer(res, caps, g_object_unref);
+    g_task_return_pointer(task, caps, g_object_unref);
 }
 
 /**
@@ -1598,20 +1599,20 @@ void gvir_connection_get_capabilities_async(GVirConnection *conn,
                                             GAsyncReadyCallback callback,
                                             gpointer user_data)
 {
-    GSimpleAsyncResult *res;
+    GTask *task;
 
     g_return_if_fail(GVIR_IS_CONNECTION(conn));
     g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
 
-    res = g_simple_async_result_new(G_OBJECT(conn),
-                                    callback,
-                                    user_data,
-                                    gvir_connection_get_capabilities_async);
-    g_simple_async_result_run_in_thread(res,
-                                        gvir_connection_get_capabilities_helper,
-                                        G_PRIORITY_DEFAULT,
-                                        cancellable);
-    g_object_unref(res);
+    task = g_task_new(G_OBJECT(conn),
+                      cancellable,
+                      callback,
+                      user_data);
+    g_task_set_source_tag(task,
+                          gvir_connection_get_capabilities_async);
+    g_task_run_in_thread(task,
+                         gvir_connection_get_capabilities_helper);
+    g_object_unref(task);
 }
 
 /**
@@ -1628,19 +1629,14 @@ gvir_connection_get_capabilities_finish(GVirConnection *conn,
                                         GAsyncResult *result,
                                         GError **err)
 {
-    GVirConfigCapabilities *caps;
-
     g_return_val_if_fail(GVIR_IS_CONNECTION(conn), NULL);
-    g_return_val_if_fail(g_simple_async_result_is_valid(result, G_OBJECT(conn),
-                                                        gvir_connection_get_capabilities_async),
+    g_return_val_if_fail(g_task_is_valid(result, G_OBJECT(conn)),
                          NULL);
+    g_return_val_if_fail(g_task_get_source_tag(G_TASK(result)) ==
+                         gvir_connection_get_capabilities_async,
+                         FALSE);
 
-    if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result), err))
-        return NULL;
-
-    caps = g_simple_async_result_get_op_res_gpointer(G_SIMPLE_ASYNC_RESULT(result));
-
-    return g_object_ref(caps);
+    return g_task_propagate_pointer(G_TASK(result), err);
 }
 
 /**
@@ -1708,22 +1704,25 @@ static void restore_domain_from_file_data_free(RestoreDomainFromFileData *data)
 
 static void
 gvir_connection_restore_domain_from_file_helper
-                               (GSimpleAsyncResult *res,
-                                GObject *object,
+                               (GTask *task,
+                                gpointer object,
+                                gpointer task_data,
                                 GCancellable *cancellable G_GNUC_UNUSED)
 {
     GVirConnection *conn = GVIR_CONNECTION(object);
     RestoreDomainFromFileData *data;
     GError *err = NULL;
 
-    data = g_simple_async_result_get_op_res_gpointer(res);
+    data = (RestoreDomainFromFileData *)task_data;
 
     if (!gvir_connection_restore_domain_from_file(conn,
                                                   data->filename,
                                                   data->custom_conf,
                                                   data->flags,
                                                   &err))
-       g_simple_async_result_take_error(res, err);
+       g_task_return_error(task, err);
+    else
+        g_task_return_boolean(task, TRUE);
 }
 
 /**
@@ -1747,7 +1746,7 @@ gvir_connection_restore_domain_from_file_async(GVirConnection *conn,
                                                GAsyncReadyCallback callback,
                                                gpointer user_data)
 {
-    GSimpleAsyncResult *res;
+    GTask *task;
     RestoreDomainFromFileData *data;
 
     g_return_if_fail(GVIR_IS_CONNECTION(conn));
@@ -1760,23 +1759,20 @@ gvir_connection_restore_domain_from_file_async(GVirConnection *conn,
         data->custom_conf = g_object_ref(custom_conf);
     data->flags = flags;
 
-    res = g_simple_async_result_new
-                         (G_OBJECT(conn),
-                          callback,
-                          user_data,
+    task = g_task_new(G_OBJECT(conn),
+                      cancellable,
+                      callback,
+                      user_data);
+    g_task_set_source_tag(task,
                           gvir_connection_restore_domain_from_file_async);
-    g_simple_async_result_set_op_res_gpointer
-                          (res,
-                           data,
-                           (GDestroyNotify)restore_domain_from_file_data_free);
+    g_task_set_task_data(task,
+                         data,
+                         (GDestroyNotify)restore_domain_from_file_data_free);
 
-    g_simple_async_result_run_in_thread
-                          (res,
-                           gvir_connection_restore_domain_from_file_helper,
-                           G_PRIORITY_DEFAULT,
-                           cancellable);
+    g_task_run_in_thread(task,
+                         gvir_connection_restore_domain_from_file_helper);
 
-    g_object_unref(res);
+    g_object_unref(task);
 }
 
 /**
@@ -1795,15 +1791,11 @@ gvir_connection_restore_domain_from_file_finish(GVirConnection *conn,
                                                 GError **err)
 {
     g_return_val_if_fail(GVIR_IS_CONNECTION(conn), FALSE);
-    g_return_val_if_fail(g_simple_async_result_is_valid
-                           (result,
-                            G_OBJECT(conn),
-                            gvir_connection_restore_domain_from_file_async),
-                            FALSE);
+    g_return_val_if_fail(g_task_is_valid(result, G_OBJECT(conn)),
+                         FALSE);
+    g_return_val_if_fail(g_task_get_source_tag(G_TASK(result)) ==
+                         gvir_connection_restore_domain_from_file_async,
+                         FALSE);
 
-     if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result),
-                                               err))
-         return FALSE;
-
-    return TRUE;
+    return g_task_propagate_boolean(G_TASK(result), err);
 }
