@@ -1,7 +1,7 @@
 <domain>
   <devices>
     <filesystem type="file" accessmode="mapped">
-      <driver format="qcow2"/>
+      <driver type="nbd" format="qcow2"/>
       <source file="/path/to/source"/>
       <target dir="/path/to/target1"/>
       <readonly/>
