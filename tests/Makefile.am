@@ -17,18 +17,6 @@ LDADD = \
 test_programs = test-gconfig test-events
 
 EXTRA_DIST += \
-	xml/gconfig-domain.xml \
-	xml/gconfig-domain-clock.xml \
-	xml/gconfig-domain-cpu.xml \
-	xml/gconfig-domain-device-channel.xml \
-	xml/gconfig-domain-device-console.xml \
-	xml/gconfig-domain-device-disk.xml \
-	xml/gconfig-domain-device-graphics.xml \
-	xml/gconfig-domain-device-input.xml \
-	xml/gconfig-domain-device-network.xml \
-	xml/gconfig-domain-device-sound.xml \
-	xml/gconfig-domain-device-usbredir.xml \
-	xml/gconfig-domain-device-video.xml \
-	xml/gconfig-domain-os.xml \
+	xml \
 	$(NULL)
 endif
