@@ -89,18 +89,15 @@ void gvir_config_domain_video_set_model(GVirConfigDomainVideo *video,
 void gvir_config_domain_video_set_vram(GVirConfigDomainVideo *video,
                                        guint kbytes)
 {
-    xmlNodePtr node;
-    char *vram_str;
+    GVirConfigObject *node;
 
-    node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(video));
-    if (node == NULL)
-        return;
-    node = gvir_config_xml_get_element(node, "model", NULL);
-    if (node == NULL)
-        return;
-    vram_str = g_strdup_printf("%u", kbytes);
-    xmlNewProp(node, (xmlChar*)"vram", (xmlChar*)vram_str);
-    g_free(vram_str);
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_VIDEO(video));
+    node = gvir_config_object_add_child(GVIR_CONFIG_OBJECT(video), "model");
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(node));
+    gvir_config_object_set_attribute_with_type(node, "vram",
+                                               G_TYPE_UINT, kbytes,
+                                               NULL);
+    g_object_unref(G_OBJECT(node));
 }
 
 void gvir_config_domain_video_set_ram(GVirConfigDomainVideo *video,
@@ -131,16 +128,13 @@ void gvir_config_domain_video_set_vgamem(GVirConfigDomainVideo *video,
 void gvir_config_domain_video_set_heads(GVirConfigDomainVideo *video,
                                         guint head_count)
 {
-    xmlNodePtr node;
-    char *heads_str;
+    GVirConfigObject *node;
 
-    node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(video));
-    if (node == NULL)
-        return;
-    node = gvir_config_xml_get_element(node, "model", NULL);
-    if (node == NULL)
-        return;
-    heads_str = g_strdup_printf("%u", head_count);
-    xmlNewProp(node, (xmlChar*)"heads", (xmlChar*)heads_str);
-    g_free(heads_str);
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_VIDEO(video));
+    node = gvir_config_object_add_child(GVIR_CONFIG_OBJECT(video), "model");
+    g_return_if_fail(GVIR_CONFIG_IS_OBJECT(node));
+    gvir_config_object_set_attribute_with_type(node, "heads",
+                                               G_TYPE_UINT, head_count,
+                                               NULL);
+    g_object_unref(G_OBJECT(node));
 }
