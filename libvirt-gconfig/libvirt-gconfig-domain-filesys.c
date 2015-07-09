@@ -201,7 +201,7 @@ void gvir_config_domain_filesys_set_ram_usage(GVirConfigDomainFilesys *filesys,
                                                "usage", G_TYPE_UINT64, bytes,
                                                "units", G_TYPE_STRING, "bytes",
                                                NULL);
-
+    g_object_unref(G_OBJECT(src));
 }
 
 void gvir_config_domain_filesys_set_target(GVirConfigDomainFilesys *filesys,
