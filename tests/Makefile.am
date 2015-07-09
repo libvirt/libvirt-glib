@@ -12,7 +12,10 @@ AM_CFLAGS = \
 
 LDADD = \
 	$(top_builddir)/libvirt-gconfig/libvirt-gconfig-1.0.la \
-	$(top_builddir)/libvirt-glib/libvirt-glib-1.0.la
+	$(top_builddir)/libvirt-glib/libvirt-glib-1.0.la \
+	$(LIBVIRT_LIBS) \
+	$(GLIB2_LIBS) \
+	$(GOBJECT2_LIBS)
 
 test_programs = test-gconfig test-events
 
