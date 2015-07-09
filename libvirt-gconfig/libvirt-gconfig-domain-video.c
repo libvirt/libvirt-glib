@@ -2,6 +2,7 @@
  * libvirt-gconfig-domain-video.c: libvirt domain video configuration
  *
  * Copyright (C) 2011 Red Hat, Inc.
+ * Copyright (C) 2015 T A Mahadevan
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -100,6 +101,31 @@ void gvir_config_domain_video_set_vram(GVirConfigDomainVideo *video,
     vram_str = g_strdup_printf("%u", kbytes);
     xmlNewProp(node, (xmlChar*)"vram", (xmlChar*)vram_str);
     g_free(vram_str);
+}
+
+void gvir_config_domain_video_set_ram(GVirConfigDomainVideo *video,
+                                       guint kbytes)
+{
+    GVirConfigObject *node;
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_VIDEO(video));
+    node = gvir_config_object_add_child(GVIR_CONFIG_OBJECT(video), "model");
+    g_return_if_fail(GVIR_CONFIG_OBJECT(node));
+    gvir_config_object_set_attribute_with_type(node, "ram", G_TYPE_UINT,
+                                               kbytes, NULL);
+    g_object_unref(G_OBJECT(node));
+}
+
+
+void gvir_config_domain_video_set_vgamem(GVirConfigDomainVideo *video,
+                                       guint kbytes)
+{
+    GVirConfigObject *node;
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_VIDEO(video));
+    node = gvir_config_object_add_child(GVIR_CONFIG_OBJECT(video), "model");
+    g_return_if_fail(GVIR_CONFIG_OBJECT(node));
+    gvir_config_object_set_attribute_with_type(node, "vgamem", G_TYPE_UINT,
+                                               kbytes, NULL);
+    g_object_unref(G_OBJECT(node));
 }
 
 void gvir_config_domain_video_set_heads(GVirConfigDomainVideo *video,

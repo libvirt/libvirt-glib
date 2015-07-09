@@ -729,6 +729,8 @@ global:
 	gvir_config_domain_chardev_source_unix_get_type;
 	gvir_config_domain_chardev_source_unix_new;
 	gvir_config_domain_chardev_source_unix_new_from_xml;
+	gvir_config_domain_video_set_ram;
+	gvir_config_domain_video_set_vgamem;
 } LIBVIRT_GCONFIG_0.2.1;
 
 # .... define new API here using predicted next version number ....

@@ -74,6 +74,11 @@ void gvir_config_domain_video_set_model(GVirConfigDomainVideo *video,
                                         GVirConfigDomainVideoModel model);
 void gvir_config_domain_video_set_vram(GVirConfigDomainVideo *video,
                                        guint kbytes);
+
+void gvir_config_domain_video_set_ram(GVirConfigDomainVideo *video,
+                                       guint kbytes);
+void gvir_config_domain_video_set_vgamem(GVirConfigDomainVideo *video,
+                                       guint kbytes);
 void gvir_config_domain_video_set_heads(GVirConfigDomainVideo *video,
                                         guint head_count);
 
