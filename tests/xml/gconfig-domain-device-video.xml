@@ -1,7 +1,7 @@
 <domain>
   <devices>
     <video>
-      <model type="qxl"/>
+      <model type="qxl" heads="4" vram="262144"/>
     </video>
   </devices>
 </domain>

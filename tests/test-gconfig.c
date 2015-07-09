@@ -494,6 +494,8 @@ static void test_domain_device_video(void)
     video = gvir_config_domain_video_new();
     gvir_config_domain_video_set_model(video,
                                        GVIR_CONFIG_DOMAIN_VIDEO_MODEL_QXL);
+    gvir_config_domain_video_set_heads(video, 4);
+    gvir_config_domain_video_set_vram(video, 256*1024);
     gvir_config_domain_add_device(domain, GVIR_CONFIG_DOMAIN_DEVICE(video));
     g_object_unref(G_OBJECT(video));
 
