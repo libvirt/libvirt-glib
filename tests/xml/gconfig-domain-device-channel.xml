@@ -7,5 +7,8 @@
       <target type="virtio" name="org.spice-space.webdav.0"/>
       <source channel="org.spice-space.webdav.0"/>
     </channel>
+    <channel type="unix">
+      <target type="virtio" name="org.qemu.guest_agent.0"/>
+    </channel>
   </devices>
 </domain>

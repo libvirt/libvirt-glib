@@ -546,6 +546,7 @@ static void test_domain_device_channel(void)
     GVirConfigDomainChannel *channel;
     GVirConfigDomainChardevSourceSpiceVmc *spicevmc;
     GVirConfigDomainChardevSourceSpicePort *spiceport;
+    GVirConfigDomainChardevSourceUnix *unix_source;
 
     channel = gvir_config_domain_channel_new();
     gvir_config_domain_channel_set_target_type(channel,
@@ -570,6 +571,16 @@ static void test_domain_device_channel(void)
     gvir_config_domain_add_device(domain, GVIR_CONFIG_DOMAIN_DEVICE(channel));
     g_object_unref(G_OBJECT(channel));
 
+    channel = gvir_config_domain_channel_new();
+    gvir_config_domain_channel_set_target_type(channel,
+                                               GVIR_CONFIG_DOMAIN_CHANNEL_TARGET_VIRTIO);
+    gvir_config_domain_channel_set_target_name(channel, "org.qemu.guest_agent.0");
+    unix_source = gvir_config_domain_chardev_source_unix_new();
+    gvir_config_domain_chardev_set_source(GVIR_CONFIG_DOMAIN_CHARDEV(channel),
+                                          GVIR_CONFIG_DOMAIN_CHARDEV_SOURCE(unix_source));
+    g_object_unref(G_OBJECT(unix_source));
+    gvir_config_domain_add_device(domain, GVIR_CONFIG_DOMAIN_DEVICE(channel));
+    g_object_unref(G_OBJECT(channel));
     check_xml(domain, "gconfig-domain-device-channel.xml");
 
     g_object_unref(G_OBJECT(domain));

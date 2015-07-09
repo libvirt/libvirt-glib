@@ -48,6 +48,7 @@
 #include <libvirt-gconfig/libvirt-gconfig-domain-chardev-source-pty.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-chardev-source-spiceport.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-chardev-source-spicevmc.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-chardev-source-unix.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-channel.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-clock.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-console.h>

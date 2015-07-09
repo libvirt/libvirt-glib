@@ -401,6 +401,20 @@ int main(int argc, char **argv)
     redirdev = create_redirdev(0, 5);
     devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(redirdev));
 
+    /* unix channel */
+    GVirConfigDomainChardevSourceUnix *unix_source;
+
+    channel = gvir_config_domain_channel_new();
+    gvir_config_domain_channel_set_target_type(channel,
+                                               GVIR_CONFIG_DOMAIN_CHANNEL_TARGET_VIRTIO);
+    gvir_config_domain_channel_set_target_name(channel, "org.qemu.guest_agent.0");
+    unix_source = gvir_config_domain_chardev_source_unix_new();
+    gvir_config_domain_chardev_set_source(GVIR_CONFIG_DOMAIN_CHARDEV(channel),
+                                          GVIR_CONFIG_DOMAIN_CHARDEV_SOURCE(unix_source));
+    g_object_unref(G_OBJECT(unix_source));
+    devices = g_list_append(devices, GVIR_CONFIG_DOMAIN_DEVICE(channel));
+
+
     gvir_config_domain_set_devices(domain, devices);
     g_list_foreach(devices, (GFunc)g_object_unref, NULL);
     g_list_free(devices);

@@ -32,6 +32,7 @@ GCONFIG_HEADER_FILES = \
 			libvirt-gconfig-domain-chardev-source-pty.h \
 			libvirt-gconfig-domain-chardev-source-spiceport.h \
 			libvirt-gconfig-domain-chardev-source-spicevmc.h \
+			libvirt-gconfig-domain-chardev-source-unix.h \
 			libvirt-gconfig-domain-clock.h \
 			libvirt-gconfig-domain-console.h \
 			libvirt-gconfig-domain-controller.h \
@@ -122,6 +123,7 @@ GCONFIG_SOURCE_FILES = \
 			libvirt-gconfig-domain-chardev-source-pty.c \
 			libvirt-gconfig-domain-chardev-source-spiceport.c \
 			libvirt-gconfig-domain-chardev-source-spicevmc.c \
+			libvirt-gconfig-domain-chardev-source-unix.c \
 			libvirt-gconfig-domain-clock.c \
 			libvirt-gconfig-domain-console.c \
 			libvirt-gconfig-domain-controller.c \
