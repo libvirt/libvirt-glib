@@ -9,7 +9,7 @@ AC_CANONICAL_HOST
 
 AM_SILENT_RULES([yes])
 
-LIBVIRT_REQUIRED=1.2.6
+LIBVIRT_REQUIRED=0.10.2
 AC_SUBST([LIBVIRT_REQUIRED]) dnl used in the .spec file
 GLIB2_REQUIRED=2.36.0
 AC_SUBST([GLIB2_REQUIRED]) dnl used in the .spec file
@@ -97,6 +97,10 @@ PKG_CHECK_MODULES(LIBVIRT, libvirt >= $LIBVIRT_REQUIRED)
 AC_CHECK_LIB([virt],
              [virDomainOpenGraphicsFD],
              [AC_DEFINE([HAVE_VIR_DOMAIN_OPEN_GRAPHICS_FD], 1, [Have virDomainOpenGraphicsFD?])])
+# virNetworkGetDHCPLeases was introduced in libvirt 1.2.6
+AC_CHECK_LIB([virt],
+             [virNetworkGetDHCPLeases],
+             [AC_DEFINE([HAVE_VIR_NETWORK_GET_DHCP_LEASES], 1, [Have virNetworkGetDHCPLeases?])])
 enable_tests=no
 PKG_CHECK_MODULES(GLIB2, glib-2.0 >= $GLIB2_TEST_REQUIRED,
                   [enable_tests=yes],

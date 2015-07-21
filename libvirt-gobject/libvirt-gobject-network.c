@@ -29,7 +29,9 @@
 #include "libvirt-glib/libvirt-glib.h"
 #include "libvirt-gobject/libvirt-gobject.h"
 #include "libvirt-gobject-compat.h"
+#ifdef HAVE_VIR_NETWORK_GET_DHCP_LEASES
 #include "libvirt-gobject/libvirt-gobject-network-dhcp-lease-private.h"
+#endif /* HAVE_VIR_NETWORK_GET_DHCP_LEASES */
 
 #define GVIR_NETWORK_GET_PRIVATE(obj)                         \
         (G_TYPE_INSTANCE_GET_PRIVATE((obj), GVIR_TYPE_NETWORK, GVirNetworkPrivate))
@@ -245,18 +247,21 @@ GVirConfigNetwork *gvir_network_get_config(GVirNetwork *network,
  * needed.
  */
 GList *gvir_network_get_dhcp_leases(GVirNetwork *network,
-                                    const char* mac,
+                                    const char *mac G_GNUC_UNUSED,
                                     guint flags,
                                     GError **err)
 {
+#ifdef HAVE_VIR_NETWORK_GET_DHCP_LEASES
     virNetworkDHCPLeasePtr *leases;
     GList *ret = NULL;
     int num_leases, i;
+#endif /* HAVE_VIR_NETWORK_GET_DHCP_LEASES */
 
     g_return_val_if_fail(GVIR_IS_NETWORK(network), NULL);
     g_return_val_if_fail(err == NULL || *err == NULL, NULL);
     g_return_val_if_fail(flags == 0, NULL);
 
+#ifdef HAVE_VIR_NETWORK_GET_DHCP_LEASES
     num_leases = virNetworkGetDHCPLeases(network->priv->handle, mac, &leases, flags);
     if (num_leases < 0) {
         gvir_set_error_literal(err, GVIR_NETWORK_ERROR,
@@ -277,4 +282,10 @@ GList *gvir_network_get_dhcp_leases(GVirNetwork *network,
     free(leases);
 
     return g_list_reverse(ret);
+#else /* HAVE_VIR_NETWORK_GET_DHCP_LEASES */
+    g_set_error_literal(err, GVIR_NETWORK_ERROR,
+                        0,
+                        "Unable to get network DHCP leases");
+    return NULL;
+#endif /* HAVE_VIR_NETWORK_GET_DHCP_LEASES */
 }
