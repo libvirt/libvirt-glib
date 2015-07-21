@@ -1,6 +1,22 @@
                  libvirt-glib News
                  =================
 
+0.2.2 - Jul 21, 2015
+====================
+
+- Add API for getting interface MAC address
+- Simplify implementation of object listing APIs
+- Fix memory leaks of virConnect objects
+- Port to use GTask instead of GSimpleAsyncResult
+- Add API to get list of physical network interfaces
+- Add API to get list of virtual networks
+- Add API to get DHCP address of virtual networks
+- Avoid overwriting filesystem type when setting format
+- Include XML data for tests in dist
+- Add support for UNIX chardev sources
+- Fix test linking on platforms with strict linker deps
+- Add ability to set video ram + vgamem
+
 0.2.1 - Jun 16, 2015
 ====================
 
