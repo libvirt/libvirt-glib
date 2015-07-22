@@ -26,21 +26,52 @@ The latest official releases can be found at:
 NB: at this time, libvirt-glib is *NOT* considered API/ABI stable. Future
 releases may still include API/ABI incompatible changes.
 
-Dependencies
-============
+Dependencies / supported platforms
+==================================
 
-- Required:
-  - glib-2.0
-  - gobject-2.0
-  - libxml-2.0
-  - libvirt
+The libvirt-glib projects attempts to be moderately conservative
+about updating the minimum required versions of external package
+dependencies, to strike a balance between enabling use of new
+features while minimizing inconvenience for downstream developers
+on distro platforms with specific shipped versions.
 
-- Optional:
-  - gobject-introspection
-  - Vala (build-time only)
+There are roughly two classes of Linux distro - short lifetime
+(Fedora, Ubuntu non-LTS, etc) and extended lifetime (RHEL, CentOS,
+Debian, Ubuntu LTS). Based on this classification, the libvirt-glib
+project will generally aim to ensure build support for
 
-Patches sumissions
-==================
+ - Most recent 2 releases of short lifetime distros
+ - Most recent major release of extended lifetime distros,
+   with most recent 2 minor updates
+
+The project will consider RHEL, Fedora, Debian, Ubuntu LTS, Ubuntu,
+OpenSUSE and SUSE (SLES/SLED) distros to be a representative subset
+of distros when determining min required versions of external deps
+that is reasonable to target. Other distros of similar release vintage
+will typically have similar versions to at least one of these distros.
+In the case of Debian, the project may at times choose to require use
+of an update from the backports repository.
+
+At any time, it may be possible to build on versions of distros
+that are older than those implied by this policy, but the project
+will not guarantee this remains the case in future releases. The
+min required package versions of external dependencies may be
+raised in future releases based on this distro build target policy.
+
+The packages required to build libvirt-glib are
+
+ - glib-2.0
+ - gobject-2.0
+ - libxml-2.0
+ - libvirt
+
+Functionality is optionally enhanced by the following packages:
+
+ - gobject-introspection
+ - Vala (build-time only)
+
+Patches submissions
+===================
 
 Patch submissions are welcomed from any interested contributor. Please
 send them to the main libvir-list mailing list
