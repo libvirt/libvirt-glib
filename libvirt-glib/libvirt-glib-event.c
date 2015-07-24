@@ -110,7 +110,7 @@ struct gvir_event_timeout
     virFreeCallback ff;
 };
 
-GMutex *eventlock = NULL;
+static GMutex *eventlock = NULL;
 
 static int nextwatch = 1;
 static GPtrArray *handles;
