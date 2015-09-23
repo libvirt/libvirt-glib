@@ -277,8 +277,8 @@ GVirConfigStoragePool *gvir_storage_pool_get_config(GVirStoragePool *pool,
  * @pool: the storage_pool
  * @err: Place-holder for possible errors
  *
- * Returns: (transfer full): the info. The returned object should be
- * unreffed with g_object_unref() when no longer needed.
+ * Returns: (transfer full): the info. The returned pointer should be
+ * freed using #g_boxed_free() when no longer needed.
  */
 GVirStoragePoolInfo *gvir_storage_pool_get_info(GVirStoragePool *pool,
                                                 GError **err)
