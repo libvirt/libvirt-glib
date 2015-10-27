@@ -304,4 +304,11 @@ LIBVIRT_GOBJECT_0.2.2 {
 	gvir_network_get_dhcp_leases;
 } LIBVIRT_GOBJECT_0.2.1;
 
+LIBVIRT_GOBJECT_0.2.3 {
+  global:
+	gvir_domain_set_time;
+	gvir_domain_set_time_async;
+	gvir_domain_set_time_finish;
+} LIBVIRT_GOBJECT_0.2.2;
+
 # .... define new API here using predicted next version number ....

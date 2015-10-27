@@ -1886,3 +1886,137 @@ gboolean gvir_domain_get_has_current_snapshot(GVirDomain *dom,
 
     return TRUE;
 }
+
+/**
+ * gvir_domain_set_time:
+ * @dom: the domain
+ * @date_time: (allow-none)(transfer none): the time to set as #GDateTime.
+ * @flags: Unused, pass 0.
+ * @error: (allow-none): Place-holder for error or %NULL
+ *
+ * This function tries to set guest time to the given value. The passed
+ * time must in UTC.
+ *
+ * If @date_time is %NULL, the time is reset using the domain's RTC.
+ *
+ * Please note that some hypervisors may require guest agent to be configured
+ * and running in order for this function to work.
+ *
+ * Returns: %TRUE on success, %FALSE otherwise.
+ */
+gboolean gvir_domain_set_time(GVirDomain *dom,
+                              GDateTime *date_time,
+                              guint flags,
+                              GError **err)
+{
+    int ret;
+    GTimeVal tv;
+    glong seconds;
+    glong nseconds;
+    guint settime_flags;
+
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
+    g_return_val_if_fail(flags == 0, FALSE);
+
+    if (date_time != NULL) {
+        if (!g_date_time_to_timeval(date_time, &tv)) {
+            g_set_error_literal(err, GVIR_DOMAIN_ERROR,
+                                0,
+                                "Failed to parse given time argument");
+            return FALSE;
+        }
+
+        seconds = tv.tv_sec;
+        nseconds = tv.tv_usec * 1000;
+        settime_flags = 0;
+    } else {
+        seconds = 0;
+        nseconds = 0;
+        settime_flags = VIR_DOMAIN_TIME_SYNC;
+    }
+
+    ret = virDomainSetTime(dom->priv->handle, seconds, nseconds, settime_flags);
+    if (ret < 0) {
+        gvir_set_error_literal(err, GVIR_DOMAIN_ERROR,
+                               0,
+                               "Unable to set domain time");
+        return FALSE;
+    }
+
+    return TRUE;
+}
+
+static void
+gvir_domain_set_time_helper(GTask *task,
+                            gpointer object,
+                            gpointer task_data,
+                            GCancellable *cancellable G_GNUC_UNUSED)
+{
+    GVirDomain *dom = GVIR_DOMAIN(object);
+    GDateTime *date_time = (GDateTime *) task_data;
+    GError *err = NULL;
+
+    if (!gvir_domain_set_time(dom, date_time, 0, &err))
+        g_task_return_error(task, err);
+    else
+        g_task_return_boolean(task, TRUE);
+}
+
+/**
+ * gvir_domain_set_time_async:
+ * @dom: the domain
+ * @date_time: (allow-none)(transfer none): the time to set as #GDateTime.
+ * @flags: bitwise-OR of #GVirDomainSetTimeFlags.
+ * @cancellable: (allow-none)(transfer none): cancellation object
+ * @callback: (scope async): completion callback
+ * @user_data: (closure): opaque data for callback
+ *
+ * Asynchronous variant of #gvir_domain_set_time.
+ */
+void gvir_domain_set_time_async(GVirDomain *dom,
+                                GDateTime *date_time,
+                                guint flags,
+                                GCancellable *cancellable,
+                                GAsyncReadyCallback callback,
+                                gpointer user_data)
+{
+    GTask *task;
+
+    g_return_if_fail(GVIR_IS_DOMAIN(dom));
+    g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
+    g_return_if_fail(flags == 0);
+
+    task = g_task_new(G_OBJECT(dom),
+                      cancellable,
+                      callback,
+                      user_data);
+    if (date_time != NULL)
+        g_task_set_task_data(task,
+                             g_date_time_ref(date_time),
+                             (GDestroyNotify)g_date_time_unref);
+    g_task_run_in_thread(task, gvir_domain_set_time_helper);
+
+    g_object_unref(task);
+}
+
+/**
+ * gvir_domain_set_time_finish:
+ * @dom: the domain
+ * @result: (transfer none): async method result
+ * @err: Place-holder for possible errors
+ *
+ * Finishes the operation started by #gvir_domain_set_time_async.
+ *
+ * Returns: %TRUE on success, %FALSE otherwise.
+ */
+gboolean gvir_domain_set_time_finish(GVirDomain *dom,
+                                     GAsyncResult *result,
+                                     GError **err)
+{
+    g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
+    g_return_val_if_fail(g_task_is_valid(result, G_OBJECT(dom)), FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
+
+    return g_task_propagate_boolean(G_TASK(result), err);
+}

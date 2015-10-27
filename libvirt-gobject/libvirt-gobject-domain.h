@@ -215,7 +215,6 @@ typedef enum {
     GVIR_DOMAIN_SNAPSHOT_LIST_EXTERNAL    = VIR_DOMAIN_SNAPSHOT_LIST_EXTERNAL
 } GVirDomainSnapshotListFlags;
 
-
 typedef struct _GVirDomainInfo GVirDomainInfo;
 struct _GVirDomainInfo
 {
@@ -400,6 +399,20 @@ gboolean gvir_domain_get_has_current_snapshot(GVirDomain *dom,
                                               guint flags,
                                               gboolean *has_current_snapshot,
                                               GError **error);
+
+gboolean gvir_domain_set_time(GVirDomain *dom,
+                              GDateTime *date_time,
+                              guint flags,
+                              GError **err);
+void gvir_domain_set_time_async(GVirDomain *dom,
+                                GDateTime *date_time,
+                                guint flags,
+                                GCancellable *cancellable,
+                                GAsyncReadyCallback callback,
+                                gpointer user_data);
+gboolean gvir_domain_set_time_finish(GVirDomain *dom,
+                                     GAsyncResult *result,
+                                     GError **err);
 
 G_END_DECLS
 
