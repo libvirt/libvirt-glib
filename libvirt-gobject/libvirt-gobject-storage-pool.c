@@ -439,17 +439,18 @@ cleanup:
 }
 
 static void
-gvir_storage_pool_refresh_helper(GSimpleAsyncResult *res,
-                                 GObject *object,
+gvir_storage_pool_refresh_helper(GTask *task,
+                                 gpointer source_object,
+                                 gpointer task_data G_GNUC_UNUSED,
                                  GCancellable *cancellable)
 {
-    GVirStoragePool *pool = GVIR_STORAGE_POOL(object);
+    GVirStoragePool *pool = GVIR_STORAGE_POOL(source_object);
     GError *err = NULL;
 
-    if (!gvir_storage_pool_refresh(pool, cancellable, &err)) {
-        g_simple_async_result_set_from_error(res, err);
-        g_error_free(err);
-    }
+    if (!gvir_storage_pool_refresh(pool, cancellable, &err))
+        g_task_return_error(task, err);
+    else
+        g_task_return_boolean(task, TRUE);
 }
 
 /**
@@ -464,20 +465,17 @@ void gvir_storage_pool_refresh_async(GVirStoragePool *pool,
                                      GAsyncReadyCallback callback,
                                      gpointer user_data)
 {
-    GSimpleAsyncResult *res;
+    GTask *task;
 
     g_return_if_fail(GVIR_IS_STORAGE_POOL(pool));
     g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
 
-    res = g_simple_async_result_new(G_OBJECT(pool),
-                                    callback,
-                                    user_data,
-                                    gvir_storage_pool_refresh_async);
-    g_simple_async_result_run_in_thread(res,
-                                        gvir_storage_pool_refresh_helper,
-                                        G_PRIORITY_DEFAULT,
-                                        cancellable);
-    g_object_unref(res);
+    task = g_task_new(G_OBJECT(pool),
+                      cancellable,
+                      callback,
+                      user_data);
+    g_task_run_in_thread(task, gvir_storage_pool_refresh_helper);
+    g_object_unref(task);
 }
 
 /**
@@ -490,15 +488,10 @@ gboolean gvir_storage_pool_refresh_finish(GVirStoragePool *pool,
                                           GError **err)
 {
     g_return_val_if_fail(GVIR_IS_STORAGE_POOL(pool), FALSE);
-    g_return_val_if_fail(g_simple_async_result_is_valid(result, G_OBJECT(pool),
-                                                        gvir_storage_pool_refresh_async),
-                         FALSE);
+    g_return_val_if_fail(g_task_is_valid(result, pool), FALSE);
+    g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
 
-    if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result),
-                                              err))
-        return FALSE;
-
-    return TRUE;
+    return g_task_propagate_boolean(G_TASK(result), err);
 }
 
 static void gvir_storage_vol_ref(gpointer obj, gpointer ignore G_GNUC_UNUSED)
@@ -654,28 +647,20 @@ gboolean gvir_storage_pool_build (GVirStoragePool *pool,
     return TRUE;
 }
 
-typedef struct {
-    guint flags;
-} StoragePoolBuildData;
-
 static void
-gvir_storage_pool_build_helper(GSimpleAsyncResult *res,
-                               GObject *object,
+gvir_storage_pool_build_helper(GTask *task,
+                               gpointer source_object,
+                               gpointer task_data,
                                GCancellable *cancellable G_GNUC_UNUSED)
 {
-    GVirStoragePool *pool = GVIR_STORAGE_POOL(object);
-    StoragePoolBuildData *data;
+    GVirStoragePool *pool = GVIR_STORAGE_POOL(source_object);
+    guint flags = GPOINTER_TO_UINT(task_data);
     GError *err = NULL;
 
-    data = (StoragePoolBuildData *) g_object_get_data(G_OBJECT(res),
-                                                      "StoragePoolBuildData");
-
-    if (!gvir_storage_pool_build(pool, data->flags, &err)) {
-        g_simple_async_result_set_from_error(res, err);
-        g_error_free(err);
-    }
-
-    g_slice_free (StoragePoolBuildData, data);
+    if (!gvir_storage_pool_build(pool, flags, &err))
+        g_task_return_error(task, err);
+    else
+        g_task_return_boolean(task, TRUE);
 }
 
 /**
@@ -692,25 +677,18 @@ void gvir_storage_pool_build_async (GVirStoragePool *pool,
                                     GAsyncReadyCallback callback,
                                     gpointer user_data)
 {
-    GSimpleAsyncResult *res;
-    StoragePoolBuildData *data;
+    GTask *task;
 
     g_return_if_fail(GVIR_IS_STORAGE_POOL(pool));
     g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
 
-    data = g_slice_new0(StoragePoolBuildData);
-    data->flags = flags;
-
-    res = g_simple_async_result_new(G_OBJECT(pool),
-                                    callback,
-                                    user_data,
-                                    gvir_storage_pool_build_async);
-    g_object_set_data(G_OBJECT(res), "StoragePoolBuildData", data);
-    g_simple_async_result_run_in_thread(res,
-                                        gvir_storage_pool_build_helper,
-                                        G_PRIORITY_DEFAULT,
-                                        cancellable);
-    g_object_unref(res);
+    task = g_task_new(G_OBJECT(pool),
+                      cancellable,
+                      callback,
+                      user_data);
+    g_task_set_task_data(task, GUINT_TO_POINTER(flags), NULL);
+    g_task_run_in_thread(task, gvir_storage_pool_build_helper);
+    g_object_unref(task);
 }
 
 /**
@@ -726,16 +704,10 @@ gboolean gvir_storage_pool_build_finish(GVirStoragePool *pool,
                                         GError **err)
 {
     g_return_val_if_fail(GVIR_IS_STORAGE_POOL(pool), FALSE);
-    g_return_val_if_fail(g_simple_async_result_is_valid(result, G_OBJECT(pool),
-                                                        gvir_storage_pool_build_async),
-                         FALSE);
+    g_return_val_if_fail(g_task_is_valid(result, pool), FALSE);
     g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
 
-    if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result),
-                                              err))
-        return FALSE;
-
-    return TRUE;
+    return g_task_propagate_boolean(G_TASK(result), err);
 }
 
 /**
@@ -762,17 +734,18 @@ gboolean gvir_storage_pool_undefine (GVirStoragePool *pool,
 }
 
 static void
-gvir_storage_pool_undefine_helper(GSimpleAsyncResult *res,
-                                  GObject *object,
+gvir_storage_pool_undefine_helper(GTask *task,
+                                  gpointer source_object,
+                                  gpointer task_data G_GNUC_UNUSED,
                                   GCancellable *cancellable G_GNUC_UNUSED)
 {
-    GVirStoragePool *pool = GVIR_STORAGE_POOL(object);
+    GVirStoragePool *pool = GVIR_STORAGE_POOL(source_object);
     GError *err = NULL;
 
-    if (!gvir_storage_pool_undefine(pool, &err)) {
-        g_simple_async_result_set_from_error(res, err);
-        g_error_free(err);
-    }
+    if (!gvir_storage_pool_undefine(pool, &err))
+        g_task_return_error(task, err);
+    else
+        g_task_return_boolean(task, TRUE);
 }
 
 /**
@@ -787,20 +760,17 @@ void gvir_storage_pool_undefine_async (GVirStoragePool *pool,
                                        GAsyncReadyCallback callback,
                                        gpointer user_data)
 {
-    GSimpleAsyncResult *res;
+    GTask *task;
 
     g_return_if_fail(GVIR_IS_STORAGE_POOL(pool));
     g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
 
-    res = g_simple_async_result_new(G_OBJECT(pool),
-                                    callback,
-                                    user_data,
-                                    gvir_storage_pool_undefine_async);
-    g_simple_async_result_run_in_thread(res,
-                                        gvir_storage_pool_undefine_helper,
-                                        G_PRIORITY_DEFAULT,
-                                        cancellable);
-    g_object_unref(res);
+    task = g_task_new(G_OBJECT(pool),
+                      cancellable,
+                      callback,
+                      user_data);
+    g_task_run_in_thread(task, gvir_storage_pool_undefine_helper);
+    g_object_unref(task);
 }
 
 /**
@@ -816,16 +786,10 @@ gboolean gvir_storage_pool_undefine_finish(GVirStoragePool *pool,
                                            GError **err)
 {
     g_return_val_if_fail(GVIR_IS_STORAGE_POOL(pool), FALSE);
-    g_return_val_if_fail(g_simple_async_result_is_valid(result, G_OBJECT(pool),
-                                                        gvir_storage_pool_undefine_async),
-                         FALSE);
+    g_return_val_if_fail(g_task_is_valid(result, pool), FALSE);
     g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
 
-    if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result),
-                                              err))
-        return FALSE;
-
-    return TRUE;
+    return g_task_propagate_boolean(G_TASK(result), err);
 }
 
 /**
@@ -854,23 +818,19 @@ gboolean gvir_storage_pool_start (GVirStoragePool *pool,
 }
 
 static void
-gvir_storage_pool_start_helper(GSimpleAsyncResult *res,
-                               GObject *object,
+gvir_storage_pool_start_helper(GTask *task,
+                               gpointer source_object,
+                               gpointer task_data,
                                GCancellable *cancellable G_GNUC_UNUSED)
 {
-    GVirStoragePool *pool = GVIR_STORAGE_POOL(object);
-    StoragePoolBuildData *data;
+    GVirStoragePool *pool = GVIR_STORAGE_POOL(source_object);
+    guint flags = GPOINTER_TO_UINT(task_data);
     GError *err = NULL;
 
-    data = (StoragePoolBuildData *) g_object_get_data(G_OBJECT(res),
-                                                      "StoragePoolBuildData");
-
-    if (!gvir_storage_pool_start(pool, data->flags, &err)) {
-        g_simple_async_result_set_from_error(res, err);
-        g_error_free(err);
-    }
-
-    g_slice_free (StoragePoolBuildData, data);
+    if (!gvir_storage_pool_start(pool, flags, &err))
+        g_task_return_error(task, err);
+    else
+        g_task_return_boolean(task, TRUE);
 }
 
 /**
@@ -887,25 +847,18 @@ void gvir_storage_pool_start_async (GVirStoragePool *pool,
                                     GAsyncReadyCallback callback,
                                     gpointer user_data)
 {
-    GSimpleAsyncResult *res;
-    StoragePoolBuildData *data;
+    GTask *task;
 
     g_return_if_fail(GVIR_IS_STORAGE_POOL(pool));
     g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
 
-    data = g_slice_new0(StoragePoolBuildData);
-    data->flags = flags;
-
-    res = g_simple_async_result_new(G_OBJECT(pool),
-                                    callback,
-                                    user_data,
-                                    gvir_storage_pool_start_async);
-    g_object_set_data(G_OBJECT(res), "StoragePoolBuildData", data);
-    g_simple_async_result_run_in_thread(res,
-                                        gvir_storage_pool_start_helper,
-                                        G_PRIORITY_DEFAULT,
-                                        cancellable);
-    g_object_unref(res);
+    task = g_task_new(G_OBJECT(pool),
+                      cancellable,
+                      callback,
+                      user_data);
+    g_task_set_task_data(task, GUINT_TO_POINTER(flags), NULL);
+    g_task_run_in_thread(task, gvir_storage_pool_start_helper);
+    g_object_unref(task);
 }
 
 /**
@@ -921,16 +874,10 @@ gboolean gvir_storage_pool_start_finish(GVirStoragePool *pool,
                                         GError **err)
 {
     g_return_val_if_fail(GVIR_IS_STORAGE_POOL(pool), FALSE);
-    g_return_val_if_fail(g_simple_async_result_is_valid(result, G_OBJECT(pool),
-                                                        gvir_storage_pool_start_async),
-                         FALSE);
+    g_return_val_if_fail(g_task_is_valid(result, pool), FALSE);
     g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
 
-    if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result),
-                                              err))
-        return FALSE;
-
-    return TRUE;
+    return g_task_propagate_boolean(G_TASK(result), err);
 }
 
 /**
@@ -957,17 +904,18 @@ gboolean gvir_storage_pool_stop (GVirStoragePool *pool,
 }
 
 static void
-gvir_storage_pool_stop_helper(GSimpleAsyncResult *res,
-                              GObject *object,
+gvir_storage_pool_stop_helper(GTask *task,
+                              gpointer source_object,
+                              gpointer task_data G_GNUC_UNUSED,
                               GCancellable *cancellable G_GNUC_UNUSED)
 {
-    GVirStoragePool *pool = GVIR_STORAGE_POOL(object);
+    GVirStoragePool *pool = GVIR_STORAGE_POOL(source_object);
     GError *err = NULL;
 
-    if (!gvir_storage_pool_stop(pool, &err)) {
-        g_simple_async_result_set_from_error(res, err);
-        g_error_free(err);
-    }
+    if (!gvir_storage_pool_stop(pool, &err))
+        g_task_return_error(task, err);
+    else
+        g_task_return_boolean(task, TRUE);
 }
 
 /**
@@ -982,20 +930,17 @@ void gvir_storage_pool_stop_async (GVirStoragePool *pool,
                                    GAsyncReadyCallback callback,
                                    gpointer user_data)
 {
-    GSimpleAsyncResult *res;
+    GTask *task;
 
     g_return_if_fail(GVIR_IS_STORAGE_POOL(pool));
     g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
 
-    res = g_simple_async_result_new(G_OBJECT(pool),
-                                    callback,
-                                    user_data,
-                                    gvir_storage_pool_stop_async);
-    g_simple_async_result_run_in_thread(res,
-                                        gvir_storage_pool_stop_helper,
-                                        G_PRIORITY_DEFAULT,
-                                        cancellable);
-    g_object_unref(res);
+    task = g_task_new(G_OBJECT(pool),
+                      cancellable,
+                      callback,
+                      user_data);
+    g_task_run_in_thread(task, gvir_storage_pool_stop_helper);
+    g_object_unref(task);
 }
 
 /**
@@ -1011,16 +956,10 @@ gboolean gvir_storage_pool_stop_finish(GVirStoragePool *pool,
                                        GError **err)
 {
     g_return_val_if_fail(GVIR_IS_STORAGE_POOL(pool), FALSE);
-    g_return_val_if_fail(g_simple_async_result_is_valid(result, G_OBJECT(pool),
-                                                        gvir_storage_pool_stop_async),
-                         FALSE);
+    g_return_val_if_fail(g_task_is_valid(result, pool), FALSE);
     g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
 
-    if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result),
-                                              err))
-        return FALSE;
-
-    return TRUE;
+    return g_task_propagate_boolean(G_TASK(result), err);
 }
 
 /**
@@ -1100,23 +1039,19 @@ gboolean gvir_storage_pool_set_autostart(GVirStoragePool *pool,
 }
 
 static void
-gvir_storage_pool_delete_helper(GSimpleAsyncResult *res,
-                                GObject *object,
+gvir_storage_pool_delete_helper(GTask *task,
+                                gpointer source_object,
+                                gpointer task_data,
                                 GCancellable *cancellable G_GNUC_UNUSED)
 {
-    GVirStoragePool *pool = GVIR_STORAGE_POOL(object);
-    StoragePoolBuildData *data;
+    GVirStoragePool *pool = GVIR_STORAGE_POOL(source_object);
+    guint flags = GPOINTER_TO_UINT(task_data);
     GError *err = NULL;
 
-    data = (StoragePoolBuildData *) g_object_get_data(G_OBJECT(res),
-                                                      "StoragePoolBuildData");
-
-    if (!gvir_storage_pool_delete(pool, data->flags, &err)) {
-        g_simple_async_result_set_from_error(res, err);
-        g_error_free(err);
-    }
-
-    g_slice_free (StoragePoolBuildData, data);
+    if (!gvir_storage_pool_delete(pool, flags, &err))
+        g_task_return_error(task, err);
+    else
+        g_task_return_boolean(task, TRUE);
 }
 
 /**
@@ -1133,25 +1068,18 @@ void gvir_storage_pool_delete_async (GVirStoragePool *pool,
                                      GAsyncReadyCallback callback,
                                      gpointer user_data)
 {
-    GSimpleAsyncResult *res;
-    StoragePoolBuildData *data;
+    GTask *task;
 
     g_return_if_fail(GVIR_IS_STORAGE_POOL(pool));
     g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
 
-    data = g_slice_new0(StoragePoolBuildData);
-    data->flags = flags;
-
-    res = g_simple_async_result_new(G_OBJECT(pool),
-                                    callback,
-                                    user_data,
-                                    gvir_storage_pool_delete_async);
-    g_object_set_data(G_OBJECT(res), "StoragePoolBuildData", data);
-    g_simple_async_result_run_in_thread(res,
-                                        gvir_storage_pool_delete_helper,
-                                        G_PRIORITY_DEFAULT,
-                                        cancellable);
-    g_object_unref(res);
+    task = g_task_new(G_OBJECT(pool),
+                      cancellable,
+                      callback,
+                      user_data);
+    g_task_set_task_data(task, GUINT_TO_POINTER(flags), NULL);
+    g_task_run_in_thread(task, gvir_storage_pool_delete_helper);
+    g_object_unref(task);
 }
 
 /**
@@ -1167,16 +1095,10 @@ gboolean gvir_storage_pool_delete_finish(GVirStoragePool *pool,
                                          GError **err)
 {
     g_return_val_if_fail(GVIR_IS_STORAGE_POOL(pool), FALSE);
-    g_return_val_if_fail(g_simple_async_result_is_valid(result, G_OBJECT(pool),
-                                                        gvir_storage_pool_delete_async),
-                         FALSE);
+    g_return_val_if_fail(g_task_is_valid(result, pool), FALSE);
     g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
 
-    if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result),
-                                              err))
-        return FALSE;
-
-    return TRUE;
+    return g_task_propagate_boolean(G_TASK(result), err);
 }
 
 G_GNUC_INTERNAL void gvir_storage_pool_delete_vol(GVirStoragePool *pool,

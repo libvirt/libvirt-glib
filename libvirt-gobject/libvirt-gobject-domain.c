@@ -370,28 +370,20 @@ gboolean gvir_domain_start(GVirDomain *dom,
     return TRUE;
 }
 
-typedef struct {
-    guint flags;
-} DomainStartData;
-
-static void domain_start_data_free(DomainStartData *data)
-{
-    g_slice_free(DomainStartData, data);
-}
-
 static void
-gvir_domain_start_helper(GSimpleAsyncResult *res,
-                         GObject *object,
+gvir_domain_start_helper(GTask *task,
+                         gpointer source_object,
+                         gpointer task_data,
                          GCancellable *cancellable G_GNUC_UNUSED)
 {
-    GVirDomain *dom = GVIR_DOMAIN(object);
-    DomainStartData *data;
+    GVirDomain *dom = GVIR_DOMAIN(source_object);
+    guint flags = GPOINTER_TO_UINT(task_data);
     GError *err = NULL;
 
-    data = g_simple_async_result_get_op_res_gpointer(res);
-
-    if (!gvir_domain_start(dom, data->flags, &err))
-        g_simple_async_result_take_error(res, err);
+    if (!gvir_domain_start(dom, flags, &err))
+        g_task_return_error(task, err);
+    else
+        g_task_return_boolean(task, TRUE);
 }
 
 /**
@@ -410,25 +402,18 @@ void gvir_domain_start_async(GVirDomain *dom,
                              GAsyncReadyCallback callback,
                              gpointer user_data)
 {
-    GSimpleAsyncResult *res;
-    DomainStartData *data;
+    GTask *task;
 
     g_return_if_fail(GVIR_IS_DOMAIN(dom));
     g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
 
-    data = g_slice_new0(DomainStartData);
-    data->flags = flags;
-
-    res = g_simple_async_result_new(G_OBJECT(dom),
-                                    callback,
-                                    user_data,
-                                    gvir_domain_start_async);
-    g_simple_async_result_set_op_res_gpointer (res, data, (GDestroyNotify)domain_start_data_free);
-    g_simple_async_result_run_in_thread(res,
-                                        gvir_domain_start_helper,
-                                        G_PRIORITY_DEFAULT,
-                                        cancellable);
-    g_object_unref(res);
+    task = g_task_new(G_OBJECT(dom),
+                      cancellable,
+                      callback,
+                      user_data);
+    g_task_set_task_data(task, GUINT_TO_POINTER(flags), NULL);
+    g_task_run_in_thread(task, gvir_domain_start_helper);
+    g_object_unref(task);
 }
 
 gboolean gvir_domain_start_finish(GVirDomain *dom,
@@ -436,13 +421,10 @@ gboolean gvir_domain_start_finish(GVirDomain *dom,
                                   GError **err)
 {
     g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
-    g_return_val_if_fail(g_simple_async_result_is_valid(result, G_OBJECT(dom), gvir_domain_start_async), FALSE);
+    g_return_val_if_fail(g_task_is_valid(result, dom), FALSE);
     g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
 
-    if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result), err))
-        return FALSE;
-
-    return TRUE;
+    return g_task_propagate_boolean(G_TASK(result), err);
 }
 
 /**
@@ -472,15 +454,18 @@ gboolean gvir_domain_resume(GVirDomain *dom,
 }
 
 static void
-gvir_domain_resume_helper(GSimpleAsyncResult *res,
-                          GObject *object,
+gvir_domain_resume_helper(GTask *task,
+                          gpointer source_object,
+                          gpointer task_data G_GNUC_UNUSED,
                           GCancellable *cancellable G_GNUC_UNUSED)
 {
-    GVirDomain *dom = GVIR_DOMAIN(object);
+    GVirDomain *dom = GVIR_DOMAIN(source_object);
     GError *err = NULL;
 
     if (!gvir_domain_resume(dom, &err))
-        g_simple_async_result_take_error(res, err);
+        g_task_return_error(task, err);
+    else
+        g_task_return_boolean(task, TRUE);
 }
 
 /**
@@ -497,20 +482,17 @@ void gvir_domain_resume_async(GVirDomain *dom,
                               GAsyncReadyCallback callback,
                               gpointer user_data)
 {
-    GSimpleAsyncResult *res;
+    GTask *task;
 
     g_return_if_fail(GVIR_IS_DOMAIN(dom));
     g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
 
-    res = g_simple_async_result_new(G_OBJECT(dom),
-                                    callback,
-                                    user_data,
-                                    gvir_domain_resume_async);
-    g_simple_async_result_run_in_thread(res,
-                                        gvir_domain_resume_helper,
-                                        G_PRIORITY_DEFAULT,
-                                        cancellable);
-    g_object_unref(res);
+    task = g_task_new(G_OBJECT(dom),
+                      cancellable,
+                      callback,
+                      user_data);
+    g_task_run_in_thread(task, gvir_domain_resume_helper);
+    g_object_unref(task);
 }
 
 gboolean gvir_domain_resume_finish(GVirDomain *dom,
@@ -518,13 +500,10 @@ gboolean gvir_domain_resume_finish(GVirDomain *dom,
                                    GError **err)
 {
     g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
-    g_return_val_if_fail(g_simple_async_result_is_valid(result, G_OBJECT(dom), gvir_domain_resume_async), FALSE);
+    g_return_val_if_fail(g_task_is_valid(result, dom), FALSE);
     g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
 
-    if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result), err))
-        return FALSE;
-
-    return TRUE;
+    return g_task_propagate_boolean(G_TASK(result), err);
 }
 
 /**
@@ -556,15 +535,19 @@ gboolean gvir_domain_wakeup(GVirDomain *dom,
 }
 
 static void
-gvir_domain_wakeup_helper(GSimpleAsyncResult *res,
-                          GObject *object,
+gvir_domain_wakeup_helper(GTask *task,
+                          gpointer source_object,
+                          gpointer task_data,
                           GCancellable *cancellable G_GNUC_UNUSED)
 {
-    GVirDomain *dom = GVIR_DOMAIN(object);
+    GVirDomain *dom = GVIR_DOMAIN(source_object);
+    guint flags = GPOINTER_TO_UINT(task_data);
     GError *err = NULL;
 
-    if (!gvir_domain_wakeup(dom, (guint)g_simple_async_result_get_op_res_gssize(res), &err))
-        g_simple_async_result_take_error(res, err);
+    if (!gvir_domain_wakeup(dom, flags, &err))
+        g_task_return_error(task, err);
+    else
+        g_task_return_boolean(task, TRUE);
 }
 
 /**
@@ -583,21 +566,18 @@ void gvir_domain_wakeup_async(GVirDomain *dom,
                               GAsyncReadyCallback callback,
                               gpointer user_data)
 {
-    GSimpleAsyncResult *res;
+    GTask *task;
 
     g_return_if_fail(GVIR_IS_DOMAIN(dom));
     g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
 
-    res = g_simple_async_result_new(G_OBJECT(dom),
-                                    callback,
-                                    user_data,
-                                    gvir_domain_wakeup_async);
-    g_simple_async_result_set_op_res_gssize (res, (gssize)flags);
-    g_simple_async_result_run_in_thread(res,
-                                        gvir_domain_wakeup_helper,
-                                        G_PRIORITY_DEFAULT,
-                                        cancellable);
-    g_object_unref(res);
+    task = g_task_new(G_OBJECT(dom),
+                      cancellable,
+                      callback,
+                      user_data);
+    g_task_set_task_data(task, GUINT_TO_POINTER(flags), NULL);
+    g_task_run_in_thread(task, gvir_domain_wakeup_helper);
+    g_object_unref(task);
 }
 
 gboolean gvir_domain_wakeup_finish(GVirDomain *dom,
@@ -605,13 +585,10 @@ gboolean gvir_domain_wakeup_finish(GVirDomain *dom,
                                    GError **err)
 {
     g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
-    g_return_val_if_fail(g_simple_async_result_is_valid(result, G_OBJECT(dom), gvir_domain_wakeup_async), FALSE);
+    g_return_val_if_fail(g_task_is_valid(result, dom), FALSE);
     g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
 
-    if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result), err))
-        return FALSE;
-
-    return TRUE;
+    return g_task_propagate_boolean(G_TASK(result), err);
 }
 
 /**
@@ -785,18 +762,19 @@ static void domain_save_to_file_data_free(DomainSaveToFileData *data)
 }
 
 static void
-gvir_domain_save_to_file_helper(GSimpleAsyncResult *res,
-                                GObject *object,
+gvir_domain_save_to_file_helper(GTask *task,
+                                gpointer source_object,
+                                gpointer task_data,
                                 GCancellable *cancellable G_GNUC_UNUSED)
 {
-    GVirDomain *dom = GVIR_DOMAIN(object);
-    DomainSaveToFileData *data;
+    GVirDomain *dom = GVIR_DOMAIN(source_object);
+    DomainSaveToFileData *data = (DomainSaveToFileData *) task_data;
     GError *err = NULL;
 
-    data = g_simple_async_result_get_op_res_gpointer(res);
-
     if (!gvir_domain_save_to_file(dom, data->filename, data->custom_conf, data->flags, &err))
-        g_simple_async_result_take_error(res, err);
+        g_task_return_error(task, err);
+    else
+        g_task_return_boolean(task, TRUE);
 }
 
 /**
@@ -819,7 +797,7 @@ void gvir_domain_save_to_file_async(GVirDomain *dom,
                                     GAsyncReadyCallback callback,
                                     gpointer user_data)
 {
-    GSimpleAsyncResult *res;
+    GTask *task;
     DomainSaveToFileData *data;
 
     g_return_if_fail(GVIR_IS_DOMAIN(dom));
@@ -832,19 +810,15 @@ void gvir_domain_save_to_file_async(GVirDomain *dom,
         data->custom_conf = g_object_ref(custom_conf);
     data->flags = flags;
 
-    res = g_simple_async_result_new(G_OBJECT(dom),
-                                    callback,
-                                    user_data,
-                                    gvir_domain_save_to_file_async);
-    g_simple_async_result_set_op_res_gpointer(res, data, (GDestroyNotify)
-                                              domain_save_to_file_data_free);
-
-    g_simple_async_result_run_in_thread(res,
-                                        gvir_domain_save_to_file_helper,
-                                        G_PRIORITY_DEFAULT,
-                                        cancellable);
-
-    g_object_unref(res);
+    task = g_task_new(G_OBJECT(dom),
+                      cancellable,
+                      callback,
+                      user_data);
+    g_task_set_task_data(task,
+                         data,
+                         (GDestroyNotify) domain_save_to_file_data_free);
+    g_task_run_in_thread(task, gvir_domain_save_to_file_helper);
+    g_object_unref(task);
 }
 
 /**
@@ -862,16 +836,10 @@ gboolean gvir_domain_save_to_file_finish(GVirDomain *dom,
                                          GError **err)
 {
     g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
-    g_return_val_if_fail(g_simple_async_result_is_valid
-                                  (result,
-                                   G_OBJECT(dom),
-                                   gvir_domain_save_to_file_async), FALSE);
+    g_return_val_if_fail(g_task_is_valid(result, dom), FALSE);
     g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
 
-    if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result), err))
-        return FALSE;
-
-    return TRUE;
+    return g_task_propagate_boolean(G_TASK(result), err);
 }
 
 /**
@@ -1012,22 +980,22 @@ GVirDomainInfo *gvir_domain_get_info(GVirDomain *dom,
 }
 
 static void
-gvir_domain_get_info_helper(GSimpleAsyncResult *res,
-                            GObject *object,
+gvir_domain_get_info_helper(GTask *task,
+                            gpointer source_object,
+                            gpointer task_data G_GNUC_UNUSED,
                             GCancellable *cancellable G_GNUC_UNUSED)
 {
-    GVirDomain *dom = GVIR_DOMAIN(object);
+    GVirDomain *dom = GVIR_DOMAIN(source_object);
     GVirDomainInfo *info;
     GError *err = NULL;
 
     info = gvir_domain_get_info(dom, &err);
     if (err)
-        g_simple_async_result_take_error(res, err);
+        g_task_return_error(task, err);
     else
-        g_simple_async_result_set_op_res_gpointer
-                                (res,
-                                 info,
-                                 (GDestroyNotify) gvir_domain_info_free);
+        g_task_return_pointer(task,
+                              info,
+                              (GDestroyNotify) gvir_domain_info_free);
 }
 
 /**
@@ -1044,20 +1012,17 @@ void gvir_domain_get_info_async(GVirDomain *dom,
                                 GAsyncReadyCallback callback,
                                 gpointer user_data)
 {
-    GSimpleAsyncResult *res;
+    GTask *task;
 
     g_return_if_fail(GVIR_IS_DOMAIN(dom));
     g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
 
-    res = g_simple_async_result_new(G_OBJECT(dom),
-                                    callback,
-                                    user_data,
-                                    gvir_domain_get_info_async);
-    g_simple_async_result_run_in_thread(res,
-                                        gvir_domain_get_info_helper,
-                                        G_PRIORITY_DEFAULT,
-                                        cancellable);
-    g_object_unref(res);
+    task = g_task_new(G_OBJECT(dom),
+                      cancellable,
+                      callback,
+                      user_data);
+    g_task_run_in_thread(task, gvir_domain_get_info_helper);
+    g_object_unref(task);
 }
 
 /**
@@ -1075,22 +1040,11 @@ GVirDomainInfo *gvir_domain_get_info_finish(GVirDomain *dom,
                                             GAsyncResult *result,
                                             GError **err)
 {
-    GSimpleAsyncResult *res = G_SIMPLE_ASYNC_RESULT(result);
-    GVirDomainInfo *ret;
-
     g_return_val_if_fail(GVIR_IS_DOMAIN(dom), NULL);
-    g_return_val_if_fail
-                (g_simple_async_result_is_valid(result,
-                                                G_OBJECT(dom),
-                                                gvir_domain_get_info_async),
-                 NULL);
+    g_return_val_if_fail(g_task_is_valid(result, dom), NULL);
+    g_return_val_if_fail(err == NULL || *err == NULL, NULL);
 
-    if (g_simple_async_result_propagate_error(res, err))
-        return NULL;
-
-    ret = g_simple_async_result_get_op_res_gpointer(res);
-
-    return gvir_domain_info_copy (ret);
+    return g_task_propagate_pointer(G_TASK(result), err);
 }
 
 /**
@@ -1365,28 +1319,20 @@ gboolean gvir_domain_save (GVirDomain *dom,
     return TRUE;
 }
 
-typedef struct {
-    guint flags;
-} DomainSaveData;
-
-static void domain_save_data_free(DomainSaveData *data)
-{
-    g_slice_free (DomainSaveData, data);
-}
-
 static void
-gvir_domain_save_helper(GSimpleAsyncResult *res,
-                        GObject *object,
+gvir_domain_save_helper(GTask *task,
+                        gpointer source_object,
+                        gpointer task_data,
                         GCancellable *cancellable G_GNUC_UNUSED)
 {
-    GVirDomain *dom = GVIR_DOMAIN(object);
-    DomainSaveData *data;
+    GVirDomain *dom = GVIR_DOMAIN(source_object);
+    guint flags = GPOINTER_TO_UINT(task_data);
     GError *err = NULL;
 
-    data = g_simple_async_result_get_op_res_gpointer (res);
-
-    if (!gvir_domain_save(dom, data->flags, &err))
-        g_simple_async_result_take_error(res, err);
+    if (!gvir_domain_save(dom, flags, &err))
+        g_task_return_error(task, err);
+    else
+        g_task_return_boolean(task, TRUE);
 }
 
 /**
@@ -1405,25 +1351,18 @@ void gvir_domain_save_async (GVirDomain *dom,
                              GAsyncReadyCallback callback,
                              gpointer user_data)
 {
-    GSimpleAsyncResult *res;
-    DomainSaveData *data;
+    GTask *task;
 
     g_return_if_fail(GVIR_IS_DOMAIN(dom));
     g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
 
-    data = g_slice_new0(DomainSaveData);
-    data->flags = flags;
-
-    res = g_simple_async_result_new(G_OBJECT(dom),
-                                    callback,
-                                    user_data,
-                                    gvir_domain_save_async);
-    g_simple_async_result_set_op_res_gpointer (res, data, (GDestroyNotify) domain_save_data_free);
-    g_simple_async_result_run_in_thread(res,
-                                        gvir_domain_save_helper,
-                                        G_PRIORITY_DEFAULT,
-                                        cancellable);
-    g_object_unref(res);
+    task = g_task_new(G_OBJECT(dom),
+                      cancellable,
+                      callback,
+                      user_data);
+    g_task_set_task_data(task, GUINT_TO_POINTER(flags), NULL);
+    g_task_run_in_thread(task, gvir_domain_save_helper);
+    g_object_unref(task);
 }
 
 /**
@@ -1441,15 +1380,10 @@ gboolean gvir_domain_save_finish (GVirDomain *dom,
                                   GError **err)
 {
     g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
-    g_return_val_if_fail(g_simple_async_result_is_valid(result, G_OBJECT(dom),
-                                                        gvir_domain_save_async),
-                         FALSE);
+    g_return_val_if_fail(g_task_is_valid(result, dom), FALSE);
     g_return_val_if_fail(err == NULL || *err == NULL, FALSE);
 
-    if (g_simple_async_result_propagate_error(G_SIMPLE_ASYNC_RESULT(result), err))
-        return FALSE;
-
-    return TRUE;
+    return g_task_propagate_boolean(G_TASK(result), err);
 }
 
 /**
@@ -1682,6 +1616,7 @@ GVirDomainSnapshot *gvir_domain_create_snapshot_finish(GVirDomain  *domain,
                                                        GError **error)
 {
     g_return_val_if_fail(g_task_is_valid(result, domain), NULL);
+    g_return_val_if_fail(error == NULL || *error == NULL, NULL);
 
     return g_task_propagate_pointer(G_TASK(result), error);
 }
@@ -1847,6 +1782,7 @@ gboolean gvir_domain_fetch_snapshots_finish(GVirDomain *dom,
 {
     g_return_val_if_fail(GVIR_IS_DOMAIN(dom), FALSE);
     g_return_val_if_fail(g_task_is_valid(res, dom), FALSE);
+    g_return_val_if_fail(error == NULL || *error == NULL, FALSE);
 
     return g_task_propagate_boolean(G_TASK(res), error);
 }

@@ -129,14 +129,11 @@ static gboolean gvir_stream_close(GIOStream *io_stream,
     return (i_ret && o_ret);
 }
 
-
-static void gvir_stream_close_async(GIOStream *stream,
-                                    int io_priority G_GNUC_UNUSED,
-                                    GCancellable *cancellable,
-                                    GAsyncReadyCallback callback,
-                                    gpointer user_data)
+static gboolean close_in_idle (gpointer data)
 {
-    GSimpleAsyncResult *res;
+    GTask *task = G_TASK (data);
+    GIOStream *stream = G_IO_STREAM(g_task_get_source_object (task));
+    GCancellable *cancellable = g_task_get_cancellable (task);
     GIOStreamClass *class;
     GError *error;
 
@@ -146,27 +143,42 @@ static void gvir_stream_close_async(GIOStream *stream,
     error = NULL;
     if (class->close_fn &&
         !class->close_fn(stream, cancellable, &error)) {
-        g_simple_async_report_take_gerror_in_idle(G_OBJECT (stream),
-                                                  callback, user_data,
-                                                  error);
-        return;
+        g_task_return_error(task, error);
+
+        goto exit;
     }
 
-    res = g_simple_async_result_new(G_OBJECT (stream),
-                                    callback,
-                                    user_data,
-                                    gvir_stream_close_async);
-    g_simple_async_result_complete_in_idle(res);
-    g_object_unref (res);
+    g_task_return_boolean(task, TRUE);
+exit:
+    g_object_unref(task);
+    return FALSE;
 }
 
+static void gvir_stream_close_async(GIOStream *stream,
+                                    int io_priority G_GNUC_UNUSED,
+                                    GCancellable *cancellable,
+                                    GAsyncReadyCallback callback,
+                                    gpointer user_data)
+{
+    GTask *task;
+
+    task = g_task_new(G_OBJECT(stream),
+                      cancellable,
+                      callback,
+                      user_data);
+    g_idle_add(close_in_idle, task);
+}
 
 static gboolean
-gvir_stream_close_finish(GIOStream *stream G_GNUC_UNUSED,
-                         GAsyncResult *result G_GNUC_UNUSED,
-                         GError **error G_GNUC_UNUSED)
+gvir_stream_close_finish(GIOStream *stream,
+                         GAsyncResult *result,
+                         GError **error)
 {
-    return TRUE;
+    g_return_val_if_fail(GVIR_IS_STREAM(stream), FALSE);
+    g_return_val_if_fail(g_task_is_valid(result, stream), FALSE);
+    g_return_val_if_fail(error == NULL || *error == NULL, FALSE);
+
+    return g_task_propagate_boolean(G_TASK(result), error);
 }
 
 
