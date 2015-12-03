@@ -44,8 +44,6 @@ static void gvir_config_domain_smartcard_class_init(GVirConfigDomainSmartcardCla
 
 static void gvir_config_domain_smartcard_init(GVirConfigDomainSmartcard *smartcard)
 {
-    g_debug("Init GVirConfigDomainSmartcard=%p", smartcard);
-
     smartcard->priv = GVIR_CONFIG_DOMAIN_SMARTCARD_GET_PRIVATE(smartcard);
 }
 

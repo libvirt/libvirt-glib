@@ -44,8 +44,6 @@ static void gvir_config_domain_interface_filterref_parameter_class_init(GVirConf
 
 static void gvir_config_domain_interface_filterref_parameter_init(GVirConfigDomainInterfaceFilterrefParameter *parameter)
 {
-    g_debug("Init GVirConfigDomainInterfaceFilterrefParameter=%p", parameter);
-
     parameter->priv = GVIR_CONFIG_DOMAIN_INTERFACE_FILTERREF_PARAMETER_GET_PRIVATE(parameter);
 }
 

@@ -44,8 +44,6 @@ static void gvir_config_domain_seclabel_class_init(GVirConfigDomainSeclabelClass
 
 static void gvir_config_domain_seclabel_init(GVirConfigDomainSeclabel *seclabel)
 {
-    g_debug("Init GVirConfigDomainSeclabel=%p", seclabel);
-
     seclabel->priv = GVIR_CONFIG_DOMAIN_SECLABEL_GET_PRIVATE(seclabel);
 }
 

@@ -44,8 +44,6 @@ static void gvir_config_domain_console_class_init(GVirConfigDomainConsoleClass *
 
 static void gvir_config_domain_console_init(GVirConfigDomainConsole *console)
 {
-    g_debug("Init GVirConfigDomainConsole=%p", console);
-
     console->priv = GVIR_CONFIG_DOMAIN_CONSOLE_GET_PRIVATE(console);
 }
 

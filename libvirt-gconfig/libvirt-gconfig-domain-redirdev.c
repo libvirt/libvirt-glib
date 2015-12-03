@@ -44,8 +44,6 @@ static void gvir_config_domain_redirdev_class_init(GVirConfigDomainRedirdevClass
 
 static void gvir_config_domain_redirdev_init(GVirConfigDomainRedirdev *redirdev)
 {
-    g_debug("Init GVirConfigDomainRedirdev=%p", redirdev);
-
     redirdev->priv = GVIR_CONFIG_DOMAIN_REDIRDEV_GET_PRIVATE(redirdev);
 }
 

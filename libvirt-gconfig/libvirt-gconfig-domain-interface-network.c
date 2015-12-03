@@ -46,8 +46,6 @@ static void gvir_config_domain_interface_network_class_init(GVirConfigDomainInte
 
 static void gvir_config_domain_interface_network_init(GVirConfigDomainInterfaceNetwork *iface)
 {
-    g_debug("Init GVirConfigDomainInterfaceNetwork=%p", iface);
-
     iface->priv = GVIR_CONFIG_DOMAIN_INTERFACE_NETWORK_GET_PRIVATE(iface);
 }
 

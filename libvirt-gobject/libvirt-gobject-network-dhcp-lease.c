@@ -101,8 +101,6 @@ static void gvir_network_dhcp_lease_finalize(GObject *object)
     GVirNetworkDHCPLeasePrivate *priv = lease->priv;
 #endif /* HAVE_VIR_NETWORK_GET_DHCP_LEASES */
 
-    g_debug("Finalize GVirNetworkDHCPLease=%p", lease);
-
 #ifdef HAVE_VIR_NETWORK_GET_DHCP_LEASES
     virNetworkDHCPLeaseFree(priv->handle);
 #endif /* HAVE_VIR_NETWORK_GET_DHCP_LEASES */
@@ -134,8 +132,6 @@ static void gvir_network_dhcp_lease_class_init(GVirNetworkDHCPLeaseClass *klass)
 
 static void gvir_network_dhcp_lease_init(GVirNetworkDHCPLease *lease)
 {
-    g_debug("Init GVirNetworkDHCPLease=%p", lease);
-
     lease->priv = GVIR_NETWORK_DHCP_LEASE_GET_PRIVATE(lease);
 }
 

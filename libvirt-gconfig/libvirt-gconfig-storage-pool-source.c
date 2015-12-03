@@ -45,8 +45,6 @@ static void gvir_config_storage_pool_source_class_init(GVirConfigStoragePoolSour
 
 static void gvir_config_storage_pool_source_init(GVirConfigStoragePoolSource *source)
 {
-    g_debug("Init GVirConfigStoragePoolSource=%p", source);
-
     source->priv = GVIR_CONFIG_STORAGE_POOL_SOURCE_GET_PRIVATE(source);
 }
 

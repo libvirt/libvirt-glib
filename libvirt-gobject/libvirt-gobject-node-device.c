@@ -101,8 +101,6 @@ static void gvir_node_device_finalize(GObject *object)
     GVirNodeDevice *device = GVIR_NODE_DEVICE(object);
     GVirNodeDevicePrivate *priv = device->priv;
 
-    g_debug("Finalize GVirNodeDevice=%p", device);
-
     virNodeDeviceFree(priv->handle);
 
     G_OBJECT_CLASS(gvir_node_device_parent_class)->finalize(object);
@@ -134,8 +132,6 @@ static void gvir_node_device_class_init(GVirNodeDeviceClass *klass)
 
 static void gvir_node_device_init(GVirNodeDevice *device)
 {
-    g_debug("Init GVirNodeDevice=%p", device);
-
     device->priv = GVIR_NODE_DEVICE_GET_PRIVATE(device);
 }
 

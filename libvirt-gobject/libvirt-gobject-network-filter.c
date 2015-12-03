@@ -102,8 +102,6 @@ static void gvir_network_filter_finalize(GObject *object)
     GVirNetworkFilter *nf = GVIR_NETWORK_FILTER(object);
     GVirNetworkFilterPrivate *priv = nf->priv;
 
-    g_debug("Finalize GVirNetworkFilter=%p", nf);
-
     virNWFilterFree(priv->handle);
 
     G_OBJECT_CLASS(gvir_network_filter_parent_class)->finalize(object);
@@ -150,8 +148,6 @@ static void gvir_network_filter_class_init(GVirNetworkFilterClass *klass)
 
 static void gvir_network_filter_init(GVirNetworkFilter *filter)
 {
-    g_debug("Init GVirNetworkFilter=%p", filter);
-
     filter->priv = GVIR_NETWORK_FILTER_GET_PRIVATE(filter);
 }
 

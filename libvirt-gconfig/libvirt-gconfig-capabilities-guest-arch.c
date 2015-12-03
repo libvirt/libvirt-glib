@@ -44,8 +44,6 @@ static void gvir_config_capabilities_guest_arch_class_init(GVirConfigCapabilitie
 
 static void gvir_config_capabilities_guest_arch_init(GVirConfigCapabilitiesGuestArch *arch)
 {
-    g_debug("Init GVirConfigCapabilitiesGuestArch=%p", arch);
-
     arch->priv = GVIR_CONFIG_CAPABILITIES_GUEST_ARCH_GET_PRIVATE(arch);
 }
 

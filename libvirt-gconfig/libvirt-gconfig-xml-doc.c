@@ -81,8 +81,6 @@ static void gvir_config_xml_doc_finalize(GObject *object)
     GVirConfigXmlDoc *doc = GVIR_CONFIG_XML_DOC(object);
     GVirConfigXmlDocPrivate *priv = doc->priv;
 
-    g_debug("Finalize GVirConfigXmlDoc=%p", doc);
-
     xmlFreeDoc(priv->doc);
 
     G_OBJECT_CLASS(gvir_config_xml_doc_parent_class)->finalize(object);
@@ -112,8 +110,6 @@ static void gvir_config_xml_doc_class_init(GVirConfigXmlDocClass *klass)
 static void gvir_config_xml_doc_init(GVirConfigXmlDoc *xml_doc)
 {
     GVirConfigXmlDocPrivate *priv;
-
-    g_debug("Init GVirConfigXmlDoc=%p", xml_doc);
 
     priv = xml_doc->priv = GVIR_CONFIG_XML_DOC_GET_PRIVATE(xml_doc);
 

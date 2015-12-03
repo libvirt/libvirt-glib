@@ -112,8 +112,6 @@ static void gvir_storage_vol_finalize(GObject *object)
     GVirStorageVol *vol = GVIR_STORAGE_VOL(object);
     GVirStorageVolPrivate *priv = vol->priv;
 
-    g_debug("Finalize GVirStorageVol=%p", vol);
-
     virStorageVolFree(priv->handle);
 
     G_OBJECT_CLASS(gvir_storage_vol_parent_class)->finalize(object);
@@ -156,8 +154,6 @@ static void gvir_storage_vol_class_init(GVirStorageVolClass *klass)
 
 static void gvir_storage_vol_init(GVirStorageVol *vol)
 {
-    g_debug("Init GVirStorageVol=%p", vol);
-
     vol->priv = GVIR_STORAGE_VOL_GET_PRIVATE(vol);
 }
 

@@ -44,8 +44,6 @@ static void gvir_config_domain_timer_rtc_class_init(GVirConfigDomainTimerRtcClas
 
 static void gvir_config_domain_timer_rtc_init(GVirConfigDomainTimerRtc *timer)
 {
-    g_debug("Init GVirConfigDomainTimerRtc=%p", timer);
-
     timer->priv = GVIR_CONFIG_DOMAIN_TIMER_RTC_GET_PRIVATE(timer);
 }
 

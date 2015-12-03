@@ -44,8 +44,6 @@ static void gvir_config_storage_permissions_class_init(GVirConfigStoragePermissi
 
 static void gvir_config_storage_permissions_init(GVirConfigStoragePermissions *perms)
 {
-    g_debug("Init GVirConfigStoragePermissions=%p", perms);
-
     perms->priv = GVIR_CONFIG_STORAGE_PERMISSIONS_GET_PRIVATE(perms);
 }
 

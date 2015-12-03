@@ -45,8 +45,6 @@ static void gvir_config_domain_chardev_source_unix_class_init(GVirConfigDomainCh
 
 static void gvir_config_domain_chardev_source_unix_init(GVirConfigDomainChardevSourceUnix *source)
 {
-    g_debug("Init GVirConfigDomainChardevSourceUnix=%p", source);
-
     source->priv = GVIR_CONFIG_DOMAIN_CHARDEV_SOURCE_UNIX_GET_PRIVATE(source);
 }
 

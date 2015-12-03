@@ -101,8 +101,6 @@ static void gvir_interface_finalize(GObject *object)
     GVirInterface *iface = GVIR_INTERFACE(object);
     GVirInterfacePrivate *priv = iface->priv;
 
-    g_debug("Finalize GVirInterface=%p", iface);
-
     virInterfaceFree(priv->handle);
 
     G_OBJECT_CLASS(gvir_interface_parent_class)->finalize(object);
@@ -134,8 +132,6 @@ static void gvir_interface_class_init(GVirInterfaceClass *klass)
 
 static void gvir_interface_init(GVirInterface *iface)
 {
-    g_debug("Init GVirInterface=%p", iface);
-
     iface->priv = GVIR_INTERFACE_GET_PRIVATE(iface);
 }
 

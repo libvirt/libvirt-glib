@@ -44,8 +44,6 @@ static void gvir_config_domain_cpu_feature_class_init(GVirConfigDomainCpuFeature
 
 static void gvir_config_domain_cpu_feature_init(GVirConfigDomainCpuFeature *feature)
 {
-    g_debug("Init GVirConfigDomainCpuFeature=%p", feature);
-
     feature->priv = GVIR_CONFIG_DOMAIN_CPU_FEATURE_GET_PRIVATE(feature);
 }
 

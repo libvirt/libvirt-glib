@@ -122,8 +122,6 @@ static void gvir_config_domain_controller_usb_class_init(GVirConfigDomainControl
 
 static void gvir_config_domain_controller_usb_init(GVirConfigDomainControllerUsb *controller_usb)
 {
-    g_debug("Init GVirConfigDomainControllerUsb=%p", controller_usb);
-
     controller_usb->priv = GVIR_CONFIG_DOMAIN_CONTROLLER_USB_GET_PRIVATE(controller_usb);
 }
 

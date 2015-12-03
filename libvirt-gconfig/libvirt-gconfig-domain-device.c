@@ -44,8 +44,6 @@ static void gvir_config_domain_device_class_init(GVirConfigDomainDeviceClass *kl
 
 static void gvir_config_domain_device_init(GVirConfigDomainDevice *device)
 {
-    g_debug("Init GVirConfigDomainDevice=%p", device);
-
     device->priv = GVIR_CONFIG_DOMAIN_DEVICE_GET_PRIVATE(device);
 }
 

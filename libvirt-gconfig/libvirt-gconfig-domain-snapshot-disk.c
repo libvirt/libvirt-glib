@@ -45,8 +45,6 @@ static void gvir_config_domain_snapshot_disk_class_init(GVirConfigDomainSnapshot
 
 static void gvir_config_domain_snapshot_disk_init(GVirConfigDomainSnapshotDisk *disk)
 {
-    g_debug("Init GVirConfigDomainSnapshotDisk=%p", disk);
-
     disk->priv = GVIR_CONFIG_DOMAIN_SNAPSHOT_DISK_GET_PRIVATE(disk);
 }
 

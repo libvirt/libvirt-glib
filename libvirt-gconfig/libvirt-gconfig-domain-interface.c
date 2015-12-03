@@ -46,8 +46,6 @@ static void gvir_config_domain_interface_class_init(GVirConfigDomainInterfaceCla
 
 static void gvir_config_domain_interface_init(GVirConfigDomainInterface *interface)
 {
-    g_debug("Init GVirConfigDomainInterface=%p", interface);
-
     interface->priv = GVIR_CONFIG_DOMAIN_INTERFACE_GET_PRIVATE(interface);
 }
 

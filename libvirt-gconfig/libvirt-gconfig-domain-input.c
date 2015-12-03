@@ -44,8 +44,6 @@ static void gvir_config_domain_input_class_init(GVirConfigDomainInputClass *klas
 
 static void gvir_config_domain_input_init(GVirConfigDomainInput *device_input)
 {
-    g_debug("Init GVirConfigDomainInput=%p", device_input);
-
     device_input->priv = GVIR_CONFIG_DOMAIN_INPUT_GET_PRIVATE(device_input);
 }
 

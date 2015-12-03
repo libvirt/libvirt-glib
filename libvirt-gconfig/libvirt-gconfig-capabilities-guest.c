@@ -45,8 +45,6 @@ static void gvir_config_capabilities_guest_class_init(GVirConfigCapabilitiesGues
 
 static void gvir_config_capabilities_guest_init(GVirConfigCapabilitiesGuest *guest)
 {
-    g_debug("Init GVirConfigCapabilitiesGuest=%p", guest);
-
     guest->priv = GVIR_CONFIG_CAPABILITIES_GUEST_GET_PRIVATE(guest);
 }
 

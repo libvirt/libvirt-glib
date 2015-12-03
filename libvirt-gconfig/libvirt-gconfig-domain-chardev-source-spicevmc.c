@@ -44,8 +44,6 @@ static void gvir_config_domain_chardev_source_spicevmc_class_init(GVirConfigDoma
 
 static void gvir_config_domain_chardev_source_spicevmc_init(GVirConfigDomainChardevSourceSpiceVmc *source)
 {
-    g_debug("Init GVirConfigDomainChardevSourceSpiceVmc=%p", source);
-
     source->priv = GVIR_CONFIG_DOMAIN_CHARDEV_SOURCE_SPICE_VMC_GET_PRIVATE(source);
 }
 

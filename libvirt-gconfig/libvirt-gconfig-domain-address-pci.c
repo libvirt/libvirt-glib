@@ -44,8 +44,6 @@ static void gvir_config_domain_address_pci_class_init(GVirConfigDomainAddressPci
 
 static void gvir_config_domain_address_pci_init(GVirConfigDomainAddressPci *address)
 {
-    g_debug("Init GVirConfigDomainAddressPci=%p", address);
-
     address->priv = GVIR_CONFIG_DOMAIN_ADDRESS_PCI_GET_PRIVATE(address);
 }
 

@@ -44,8 +44,6 @@ static void gvir_config_domain_cpu_model_class_init(GVirConfigDomainCpuModelClas
 
 static void gvir_config_domain_cpu_model_init(GVirConfigDomainCpuModel *model)
 {
-    g_debug("Init GVirConfigDomainCpuModel=%p", model);
-
     model->priv = GVIR_CONFIG_DOMAIN_CPU_MODEL_GET_PRIVATE(model);
 }
 

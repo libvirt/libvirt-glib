@@ -43,8 +43,6 @@ static void gvir_config_domain_serial_class_init(GVirConfigDomainSerialClass *kl
 
 static void gvir_config_domain_serial_init(GVirConfigDomainSerial *serial)
 {
-    g_debug("Init GVirConfigDomainSerial=%p", serial);
-
     serial->priv = GVIR_CONFIG_DOMAIN_SERIAL_GET_PRIVATE(serial);
 }
 

@@ -44,8 +44,6 @@ static void gvir_config_interface_class_init(GVirConfigInterfaceClass *klass)
 
 static void gvir_config_interface_init(GVirConfigInterface *iface)
 {
-    g_debug("Init GVirConfigInterface=%p", iface);
-
     iface->priv = GVIR_CONFIG_INTERFACE_GET_PRIVATE(iface);
 }
 

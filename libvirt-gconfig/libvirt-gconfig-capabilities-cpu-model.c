@@ -42,8 +42,6 @@ static void gvir_config_capabilities_cpu_model_class_init(GVirConfigCapabilities
 
 static void gvir_config_capabilities_cpu_model_init(GVirConfigCapabilitiesCpuModel *model)
 {
-    g_debug("Init GVirConfigCapabilitiesCpuModel=%p", model);
-
     model->priv = GVIR_CONFIG_CAPABILITIES_CPU_MODEL_GET_PRIVATE(model);
 }
 

@@ -44,8 +44,6 @@ static void gvir_config_domain_timer_class_init(GVirConfigDomainTimerClass *klas
 
 static void gvir_config_domain_timer_init(GVirConfigDomainTimer *timer)
 {
-    g_debug("Init GVirConfigDomainTimer=%p", timer);
-
     timer->priv = GVIR_CONFIG_DOMAIN_TIMER_GET_PRIVATE(timer);
 }
 

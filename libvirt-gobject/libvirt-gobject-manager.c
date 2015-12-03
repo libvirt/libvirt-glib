@@ -63,8 +63,6 @@ static void gvir_manager_finalize(GObject *object)
     GVirManager *man = GVIR_MANAGER(object);
     GVirManagerPrivate *priv = man->priv;
 
-    g_debug("Finalize GVirManager=%p", man);
-
     GList *tmp = priv->connections;
     while (tmp) {
         GVirConnection *conn = tmp->data;
@@ -111,8 +109,6 @@ static void gvir_manager_class_init(GVirManagerClass *klass)
 static void gvir_manager_init(GVirManager *manager)
 {
     GVirManagerPrivate *priv;
-
-    g_debug("Init GVirManager=%p", manager);
 
     priv = manager->priv = GVIR_MANAGER_GET_PRIVATE(manager);
 

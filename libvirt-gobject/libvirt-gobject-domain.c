@@ -135,8 +135,6 @@ static void gvir_domain_finalize(GObject *object)
     GVirDomain *domain = GVIR_DOMAIN(object);
     GVirDomainPrivate *priv = domain->priv;
 
-    g_debug("Finalize GVirDomain=%p", domain);
-
     if (priv->snapshots) {
         g_hash_table_unref(priv->snapshots);
     }
@@ -255,8 +253,6 @@ static void gvir_domain_class_init(GVirDomainClass *klass)
 
 static void gvir_domain_init(GVirDomain *domain)
 {
-    g_debug("Init GVirDomain=%p", domain);
-
     domain->priv = GVIR_DOMAIN_GET_PRIVATE(domain);
     domain->priv->lock = g_mutex_new();
 }

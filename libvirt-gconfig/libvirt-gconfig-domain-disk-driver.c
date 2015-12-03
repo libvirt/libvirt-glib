@@ -44,8 +44,6 @@ static void gvir_config_domain_disk_driver_class_init(GVirConfigDomainDiskDriver
 
 static void gvir_config_domain_disk_driver_init(GVirConfigDomainDiskDriver *driver)
 {
-    g_debug("Init GVirConfigDomainDiskDriver=%p", driver);
-
     driver->priv = GVIR_CONFIG_DOMAIN_DISK_DRIVER_GET_PRIVATE(driver);
 }
 

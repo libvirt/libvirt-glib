@@ -44,8 +44,6 @@ static void gvir_config_domain_memballoon_class_init(GVirConfigDomainMemballoonC
 
 static void gvir_config_domain_memballoon_init(GVirConfigDomainMemballoon *memballoon)
 {
-    g_debug("Init GVirConfigDomainMemballoon=%p", memballoon);
-
     memballoon->priv = GVIR_CONFIG_DOMAIN_MEMBALLOON_GET_PRIVATE(memballoon);
 }
 

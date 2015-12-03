@@ -44,8 +44,6 @@ static void gvir_config_domain_channel_class_init(GVirConfigDomainChannelClass *
 
 static void gvir_config_domain_channel_init(GVirConfigDomainChannel *channel)
 {
-    g_debug("Init GVirConfigDomainChannel=%p", channel);
-
     channel->priv = GVIR_CONFIG_DOMAIN_CHANNEL_GET_PRIVATE(channel);
 }
 

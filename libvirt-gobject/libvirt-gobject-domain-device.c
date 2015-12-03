@@ -101,8 +101,6 @@ static void gvir_domain_device_finalize(GObject *object)
     GVirDomainDevice *self = GVIR_DOMAIN_DEVICE(object);
     GVirDomainDevicePrivate *priv = self->priv;
 
-    g_debug("Finalize GVirDomainDevice=%p", self);
-
     g_clear_object(&priv->domain);
     g_clear_object(&priv->config);
 
@@ -142,8 +140,6 @@ static void gvir_domain_device_class_init(GVirDomainDeviceClass *klass)
 
 static void gvir_domain_device_init(GVirDomainDevice *self)
 {
-    g_debug("Init GVirDomainDevice=%p", self);
-
     self->priv = GVIR_DOMAIN_DEVICE_GET_PRIVATE(self);
 }
 

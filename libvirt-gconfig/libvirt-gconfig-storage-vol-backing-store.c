@@ -45,8 +45,6 @@ static void gvir_config_storage_vol_backing_store_class_init(GVirConfigStorageVo
 
 static void gvir_config_storage_vol_backing_store_init(GVirConfigStorageVolBackingStore *backing_store)
 {
-    g_debug("Init GVirConfigStorageVolBackingStore=%p", backing_store);
-
     backing_store->priv = GVIR_CONFIG_STORAGE_VOL_BACKING_STORE_GET_PRIVATE(backing_store);
 }
 

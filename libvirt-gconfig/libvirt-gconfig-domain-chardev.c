@@ -44,8 +44,6 @@ static void gvir_config_domain_chardev_class_init(GVirConfigDomainChardevClass *
 
 static void gvir_config_domain_chardev_init(GVirConfigDomainChardev *chardev)
 {
-    g_debug("Init GVirConfigDomainChardev=%p", chardev);
-
     chardev->priv = GVIR_CONFIG_DOMAIN_CHARDEV_GET_PRIVATE(chardev);
 }
 

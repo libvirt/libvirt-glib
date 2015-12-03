@@ -102,8 +102,6 @@ static void gvir_secret_finalize(GObject *object)
     GVirSecret *secret = GVIR_SECRET(object);
     GVirSecretPrivate *priv = secret->priv;
 
-    g_debug("Finalize GVirSecret=%p", secret);
-
     virSecretFree(priv->handle);
 
     G_OBJECT_CLASS(gvir_secret_parent_class)->finalize(object);
@@ -149,8 +147,6 @@ static void gvir_secret_class_init(GVirSecretClass *klass)
 
 static void gvir_secret_init(GVirSecret *secret)
 {
-    g_debug("Init GVirSecret=%p", secret);
-
     secret->priv = GVIR_SECRET_GET_PRIVATE(secret);
 }
 

@@ -44,8 +44,6 @@ static void gvir_config_domain_address_usb_class_init(GVirConfigDomainAddressUsb
 
 static void gvir_config_domain_address_usb_init(GVirConfigDomainAddressUsb *address)
 {
-    g_debug("Init GVirConfigDomainAddressUsb=%p", address);
-
     address->priv = GVIR_CONFIG_DOMAIN_ADDRESS_USB_GET_PRIVATE(address);
 }
 

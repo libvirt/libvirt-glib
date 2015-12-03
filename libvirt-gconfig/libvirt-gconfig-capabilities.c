@@ -45,8 +45,6 @@ static void gvir_config_capabilities_class_init(GVirConfigCapabilitiesClass *kla
 
 static void gvir_config_capabilities_init(GVirConfigCapabilities *caps)
 {
-    g_debug("Init GVirConfigCapabilities=%p", caps);
-
     caps->priv = GVIR_CONFIG_CAPABILITIES_GET_PRIVATE(caps);
 }
 

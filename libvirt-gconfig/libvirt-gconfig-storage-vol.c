@@ -46,8 +46,6 @@ static void gvir_config_storage_vol_class_init(GVirConfigStorageVolClass *klass)
 
 static void gvir_config_storage_vol_init(GVirConfigStorageVol *vol)
 {
-    g_debug("Init GVirConfigStorageVol=%p", vol);
-
     vol->priv = GVIR_CONFIG_STORAGE_VOL_GET_PRIVATE(vol);
 }
 

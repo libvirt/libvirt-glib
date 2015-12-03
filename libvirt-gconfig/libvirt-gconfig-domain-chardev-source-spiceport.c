@@ -42,8 +42,6 @@ static void gvir_config_domain_chardev_source_spiceport_class_init(GVirConfigDom
 
 static void gvir_config_domain_chardev_source_spiceport_init(GVirConfigDomainChardevSourceSpicePort *source)
 {
-    g_debug("Init GVirConfigDomainChardevSourceSpicePort=%p", source);
-
     source->priv = GVIR_CONFIG_DOMAIN_CHARDEV_SOURCE_SPICE_PORT_GET_PRIVATE(source);
 }
 

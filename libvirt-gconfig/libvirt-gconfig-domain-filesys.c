@@ -44,8 +44,6 @@ static void gvir_config_domain_filesys_class_init(GVirConfigDomainFilesysClass *
 
 static void gvir_config_domain_filesys_init(GVirConfigDomainFilesys *filesys)
 {
-    g_debug("Init GVirConfigDomainFilesys=%p", filesys);
-
     filesys->priv = GVIR_CONFIG_DOMAIN_FILESYS_GET_PRIVATE(filesys);
 }
 

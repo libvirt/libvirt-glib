@@ -44,7 +44,5 @@ static void gvir_config_domain_address_class_init(GVirConfigDomainAddressClass *
 
 static void gvir_config_domain_address_init(GVirConfigDomainAddress *address)
 {
-    g_debug("Init GVirConfigDomainAddress=%p", address);
-
     address->priv = GVIR_CONFIG_DOMAIN_ADDRESS_GET_PRIVATE(address);
 }

@@ -44,8 +44,6 @@ static void gvir_config_domain_smartcard_passthrough_class_init(GVirConfigDomain
 
 static void gvir_config_domain_smartcard_passthrough_init(GVirConfigDomainSmartcardPassthrough *smartcard)
 {
-    g_debug("Init GVirConfigDomainSmartcardPassthrough=%p", smartcard);
-
     smartcard->priv = GVIR_CONFIG_DOMAIN_SMARTCARD_PASSTHROUGH_GET_PRIVATE(smartcard);
 }
 

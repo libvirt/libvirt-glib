@@ -44,8 +44,6 @@ static void gvir_config_domain_graphics_sdl_class_init(GVirConfigDomainGraphicsS
 
 static void gvir_config_domain_graphics_sdl_init(GVirConfigDomainGraphicsSdl *graphics_sdl)
 {
-    g_debug("Init GVirConfigDomainGraphicsSdl=%p", graphics_sdl);
-
     graphics_sdl->priv = GVIR_CONFIG_DOMAIN_GRAPHICS_SDL_GET_PRIVATE(graphics_sdl);
 }
 

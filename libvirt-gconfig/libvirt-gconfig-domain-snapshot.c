@@ -46,8 +46,6 @@ static void gvir_config_domain_snapshot_class_init(GVirConfigDomainSnapshotClass
 
 static void gvir_config_domain_snapshot_init(GVirConfigDomainSnapshot *snapshot)
 {
-    g_debug("Init GVirConfigDomainSnapshot=%p", snapshot);
-
     snapshot->priv = GVIR_CONFIG_DOMAIN_SNAPSHOT_GET_PRIVATE(snapshot);
 }
 

@@ -105,8 +105,6 @@ static void gvir_network_finalize(GObject *object)
     GVirNetwork *network = GVIR_NETWORK(object);
     GVirNetworkPrivate *priv = network->priv;
 
-    g_debug("Finalize GVirNetwork=%p", network);
-
     virNetworkFree(priv->handle);
 
     G_OBJECT_CLASS(gvir_network_parent_class)->finalize(object);
@@ -150,8 +148,6 @@ static void gvir_network_class_init(GVirNetworkClass *klass)
 
 static void gvir_network_init(GVirNetwork *network)
 {
-    g_debug("Init GVirNetwork=%p", network);
-
     network->priv = GVIR_NETWORK_GET_PRIVATE(network);
 }
 

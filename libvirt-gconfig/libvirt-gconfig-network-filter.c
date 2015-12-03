@@ -44,8 +44,6 @@ static void gvir_config_network_filter_class_init(GVirConfigNetworkFilterClass *
 
 static void gvir_config_network_filter_init(GVirConfigNetworkFilter *filter)
 {
-    g_debug("Init GVirConfigNetworkFilter=%p", filter);
-
     filter->priv = GVIR_CONFIG_NETWORK_FILTER_GET_PRIVATE(filter);
 }
 

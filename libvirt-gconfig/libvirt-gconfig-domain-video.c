@@ -45,8 +45,6 @@ static void gvir_config_domain_video_class_init(GVirConfigDomainVideoClass *klas
 
 static void gvir_config_domain_video_init(GVirConfigDomainVideo *video)
 {
-    g_debug("Init GVirConfigDomainVideo=%p", video);
-
     video->priv = GVIR_CONFIG_DOMAIN_VIDEO_GET_PRIVATE(video);
 }
 

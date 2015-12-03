@@ -44,8 +44,6 @@ static void gvir_config_domain_disk_class_init(GVirConfigDomainDiskClass *klass)
 
 static void gvir_config_domain_disk_init(GVirConfigDomainDisk *disk)
 {
-    g_debug("Init GVirConfigDomainDisk=%p", disk);
-
     disk->priv = GVIR_CONFIG_DOMAIN_DISK_GET_PRIVATE(disk);
 }
 

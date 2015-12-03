@@ -228,8 +228,6 @@ static void gvir_stream_finalize(GObject *object)
     GVirStreamPrivate *priv = self->priv;
     GList *tmp;
 
-    g_debug("Finalize GVirStream=%p", self);
-
     if (self->priv->input_stream)
         g_object_unref(self->priv->input_stream);
 

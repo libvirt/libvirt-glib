@@ -52,8 +52,6 @@ static void gvir_config_domain_power_management_class_init
 static void
 gvir_config_domain_power_management_init(GVirConfigDomainPowerManagement *pm)
 {
-    g_debug("Init GVirConfigDomainPowerManagement=%p", pm);
-
     pm->priv = GVIR_CONFIG_DOMAIN_POWER_MANAGEMENT_GET_PRIVATE(pm);
 }
 

@@ -43,8 +43,6 @@ static void gvir_config_domain_parallel_class_init(GVirConfigDomainParallelClass
 
 static void gvir_config_domain_parallel_init(GVirConfigDomainParallel *parallel)
 {
-    g_debug("Init GVirConfigDomainParallel=%p", parallel);
-
     parallel->priv = GVIR_CONFIG_DOMAIN_PARALLEL_GET_PRIVATE(parallel);
 }
 

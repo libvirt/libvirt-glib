@@ -47,8 +47,6 @@ static void gvir_config_domain_interface_bridge_class_init(GVirConfigDomainInter
 
 static void gvir_config_domain_interface_bridge_init(GVirConfigDomainInterfaceBridge *bridge)
 {
-    g_debug("Init GVirConfigDomainInterfaceBridge=%p", bridge);
-
     bridge->priv = GVIR_CONFIG_DOMAIN_INTERFACE_BRIDGE_GET_PRIVATE(bridge);
 }
 

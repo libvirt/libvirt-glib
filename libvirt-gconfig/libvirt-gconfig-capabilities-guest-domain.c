@@ -45,8 +45,6 @@ static void gvir_config_capabilities_guest_domain_class_init(GVirConfigCapabilit
 
 static void gvir_config_capabilities_guest_domain_init(GVirConfigCapabilitiesGuestDomain *domain)
 {
-    g_debug("Init GVirConfigCapabilitiesGuestDomain=%p", domain);
-
     domain->priv = GVIR_CONFIG_CAPABILITIES_GUEST_DOMAIN_GET_PRIVATE(domain);
 }
 

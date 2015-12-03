@@ -45,8 +45,6 @@ static void gvir_config_domain_chardev_source_pty_class_init(GVirConfigDomainCha
 
 static void gvir_config_domain_chardev_source_pty_init(GVirConfigDomainChardevSourcePty *source)
 {
-    g_debug("Init GVirConfigDomainChardevSourcePty=%p", source);
-
     source->priv = GVIR_CONFIG_DOMAIN_CHARDEV_SOURCE_PTY_GET_PRIVATE(source);
 }
 

@@ -143,8 +143,6 @@ static void gvir_connection_finalize(GObject *object)
     GVirConnection *conn = GVIR_CONNECTION(object);
     GVirConnectionPrivate *priv = conn->priv;
 
-    g_debug("Finalize GVirConnection=%p", conn);
-
     if (gvir_connection_is_open(conn))
         gvir_connection_close(conn);
 
@@ -240,8 +238,6 @@ static void gvir_connection_class_init(GVirConnectionClass *klass)
 static void gvir_connection_init(GVirConnection *conn)
 {
     GVirConnectionPrivate *priv;
-
-    g_debug("Init GVirConnection=%p", conn);
 
     priv = conn->priv = GVIR_CONNECTION_GET_PRIVATE(conn);
 

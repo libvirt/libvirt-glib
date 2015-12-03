@@ -45,8 +45,6 @@ static void gvir_config_capabilities_host_class_init(GVirConfigCapabilitiesHostC
 
 static void gvir_config_capabilities_host_init(GVirConfigCapabilitiesHost *host)
 {
-    g_debug("Init GVirConfigCapabilitiesHost=%p", host);
-
     host->priv = GVIR_CONFIG_CAPABILITIES_HOST_GET_PRIVATE(host);
 }
 

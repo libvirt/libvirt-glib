@@ -106,8 +106,6 @@ static void gvir_storage_pool_finalize(GObject *object)
     GVirStoragePool *pool = GVIR_STORAGE_POOL(object);
     GVirStoragePoolPrivate *priv = pool->priv;
 
-    g_debug("Finalize GVirStoragePool=%p", pool);
-
     if (priv->volumes) {
         g_hash_table_unref(priv->volumes);
         priv->volumes = NULL;
@@ -162,8 +160,6 @@ static void gvir_storage_pool_class_init(GVirStoragePoolClass *klass)
 static void gvir_storage_pool_init(GVirStoragePool *pool)
 {
     GVirStoragePoolPrivate *priv;
-
-    g_debug("Init GVirStoragePool=%p", pool);
 
     priv = pool->priv = GVIR_STORAGE_POOL_GET_PRIVATE(pool);
 

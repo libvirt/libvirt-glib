@@ -44,8 +44,6 @@ static void gvir_config_domain_controller_class_init(GVirConfigDomainControllerC
 
 static void gvir_config_domain_controller_init(GVirConfigDomainController *controller)
 {
-    g_debug("Init GVirConfigDomainController=%p", controller);
-
     controller->priv = GVIR_CONFIG_DOMAIN_CONTROLLER_GET_PRIVATE(controller);
 }
 

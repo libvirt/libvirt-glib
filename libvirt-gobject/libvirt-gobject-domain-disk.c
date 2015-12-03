@@ -53,8 +53,6 @@ static void gvir_domain_disk_finalize(GObject *object)
 {
     GVirDomainDisk *self = GVIR_DOMAIN_DISK(object);
 
-    g_debug("Finalize GVirDomainDisk=%p", self);
-
     G_OBJECT_CLASS(gvir_domain_disk_parent_class)->finalize(object);
 }
 
@@ -68,8 +66,6 @@ static void gvir_domain_disk_class_init(GVirDomainDiskClass *klass)
 
 static void gvir_domain_disk_init(GVirDomainDisk *self)
 {
-    g_debug("Init GVirDomainDisk=%p", self);
-
     self->priv = GVIR_DOMAIN_DISK_GET_PRIVATE(self);
 }
 

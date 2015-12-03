@@ -42,8 +42,6 @@ static void gvir_config_capabilities_host_secmodel_class_init(GVirConfigCapabili
 
 static void gvir_config_capabilities_host_secmodel_init(GVirConfigCapabilitiesHostSecModel *secmodel)
 {
-    g_debug("Init GVirConfigCapabilitiesHostSecModel=%p", secmodel);
-
     secmodel->priv = GVIR_CONFIG_CAPABILITIES_HOST_SECMODEL_GET_PRIVATE(secmodel);
 }
 

@@ -123,8 +123,6 @@ static void gvir_config_object_finalize(GObject *object)
     GVirConfigObject *gvir_object = GVIR_CONFIG_OBJECT(object);
     GVirConfigObjectPrivate *priv = gvir_object->priv;
 
-    g_debug("Finalize GVirConfigObject=%p", gvir_object);
-
     g_free(priv->schema);
 
     if (priv->doc != NULL) {
@@ -184,8 +182,6 @@ static void gvir_config_object_class_init(GVirConfigObjectClass *klass)
 
 static void gvir_config_object_init(GVirConfigObject *object)
 {
-    g_debug("Init GVirConfigObject=%p", object);
-
     object->priv = GVIR_CONFIG_OBJECT_GET_PRIVATE(object);
 }
 

@@ -44,8 +44,6 @@ static void gvir_config_domain_graphics_class_init(GVirConfigDomainGraphicsClass
 
 static void gvir_config_domain_graphics_init(GVirConfigDomainGraphics *graphics)
 {
-    g_debug("Init GVirConfigDomainGraphics=%p", graphics);
-
     graphics->priv = GVIR_CONFIG_DOMAIN_GRAPHICS_GET_PRIVATE(graphics);
 }
 

@@ -44,8 +44,6 @@ static void gvir_config_domain_smartcard_host_certificates_class_init(GVirConfig
 
 static void gvir_config_domain_smartcard_host_certificates_init(GVirConfigDomainSmartcardHostCertificates *smartcard)
 {
-    g_debug("Init GVirConfigDomainSmartcardHostCertificates=%p", smartcard);
-
     smartcard->priv = GVIR_CONFIG_DOMAIN_SMARTCARD_HOST_CERTIFICATES_GET_PRIVATE(smartcard);
 }
 

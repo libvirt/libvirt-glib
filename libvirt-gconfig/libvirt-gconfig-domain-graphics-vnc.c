@@ -44,8 +44,6 @@ static void gvir_config_domain_graphics_vnc_class_init(GVirConfigDomainGraphicsV
 
 static void gvir_config_domain_graphics_vnc_init(GVirConfigDomainGraphicsVnc *graphics_vnc)
 {
-    g_debug("Init GVirConfigDomainGraphicsVnc=%p", graphics_vnc);
-
     graphics_vnc->priv = GVIR_CONFIG_DOMAIN_GRAPHICS_VNC_GET_PRIVATE(graphics_vnc);
 }
 

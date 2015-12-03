@@ -88,7 +88,6 @@ static void gvir_input_stream_finalize(GObject *object)
 {
     GVirInputStream *stream = GVIR_INPUT_STREAM(object);
 
-    g_debug("Finalize input stream GVirStream=%p", stream->priv->stream);
     stream->priv->stream = NULL; // unowned
 
     if (G_OBJECT_CLASS(gvir_input_stream_parent_class)->finalize)

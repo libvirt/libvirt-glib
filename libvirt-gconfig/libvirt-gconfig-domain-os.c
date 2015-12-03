@@ -44,8 +44,6 @@ static void gvir_config_domain_os_class_init(GVirConfigDomainOsClass *klass)
 
 static void gvir_config_domain_os_init(GVirConfigDomainOs *os)
 {
-    g_debug("Init GVirConfigDomainOs=%p", os);
-
     os->priv = GVIR_CONFIG_DOMAIN_OS_GET_PRIVATE(os);
 }
 

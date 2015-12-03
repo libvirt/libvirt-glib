@@ -44,8 +44,6 @@ static void gvir_config_domain_sound_class_init(GVirConfigDomainSoundClass *klas
 
 static void gvir_config_domain_sound_init(GVirConfigDomainSound *sound)
 {
-    g_debug("Init GVirConfigDomainSound=%p", sound);
-
     sound->priv = GVIR_CONFIG_DOMAIN_SOUND_GET_PRIVATE(sound);
 }
 

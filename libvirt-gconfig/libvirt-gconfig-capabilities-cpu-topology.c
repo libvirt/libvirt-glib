@@ -44,8 +44,6 @@ static void gvir_config_capabilities_cpu_topology_class_init(GVirConfigCapabilit
 
 static void gvir_config_capabilities_cpu_topology_init(GVirConfigCapabilitiesCpuTopology *topology)
 {
-    g_debug("Init GVirConfigCapabilitiesCpuTopology=%p", topology);
-
     topology->priv = GVIR_CONFIG_CAPABILITIES_CPU_TOPOLOGY_GET_PRIVATE(topology);
 }
 

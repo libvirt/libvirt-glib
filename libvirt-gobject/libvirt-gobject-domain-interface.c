@@ -53,8 +53,6 @@ static void gvir_domain_interface_finalize(GObject *object)
 {
     GVirDomainInterface *self = GVIR_DOMAIN_INTERFACE(object);
 
-    g_debug("Finalize GVirDomainInterface=%p", self);
-
     G_OBJECT_CLASS(gvir_domain_interface_parent_class)->finalize(object);
 }
 
@@ -68,8 +66,6 @@ static void gvir_domain_interface_class_init(GVirDomainInterfaceClass *klass)
 
 static void gvir_domain_interface_init(GVirDomainInterface *self)
 {
-    g_debug("Init GVirDomainInterface=%p", self);
-
     self->priv = GVIR_DOMAIN_INTERFACE_GET_PRIVATE(self);
 }
 

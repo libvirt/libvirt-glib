@@ -52,8 +52,6 @@ static void gvir_config_domain_cpu_class_init(GVirConfigDomainCpuClass *klass)
 
 static void gvir_config_domain_cpu_init(GVirConfigDomainCpu *cpu)
 {
-    g_debug("Init GVirConfigDomainCpu=%p", cpu);
-
     cpu->priv = GVIR_CONFIG_DOMAIN_CPU_GET_PRIVATE(cpu);
 }
 

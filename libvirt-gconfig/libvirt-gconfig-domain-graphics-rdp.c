@@ -44,8 +44,6 @@ static void gvir_config_domain_graphics_rdp_class_init(GVirConfigDomainGraphicsR
 
 static void gvir_config_domain_graphics_rdp_init(GVirConfigDomainGraphicsRdp *graphics_rdp)
 {
-    g_debug("Init GVirConfigDomainGraphicsRdp=%p", graphics_rdp);
-
     graphics_rdp->priv = GVIR_CONFIG_DOMAIN_GRAPHICS_RDP_GET_PRIVATE(graphics_rdp);
 }
 

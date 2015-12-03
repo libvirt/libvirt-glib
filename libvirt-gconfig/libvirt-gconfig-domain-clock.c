@@ -44,8 +44,6 @@ static void gvir_config_domain_clock_class_init(GVirConfigDomainClockClass *klas
 
 static void gvir_config_domain_clock_init(GVirConfigDomainClock *klock)
 {
-    g_debug("Init GVirConfigDomainClock=%p", klock);
-
     klock->priv = GVIR_CONFIG_DOMAIN_CLOCK_GET_PRIVATE(klock);
 }
 

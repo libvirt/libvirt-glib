@@ -44,8 +44,6 @@ static void gvir_config_domain_timer_hpet_class_init(GVirConfigDomainTimerHpetCl
 
 static void gvir_config_domain_timer_hpet_init(GVirConfigDomainTimerHpet *timer)
 {
-    g_debug("Init GVirConfigDomainTimerHpet=%p", timer);
-
     timer->priv = GVIR_CONFIG_DOMAIN_TIMER_HPET_GET_PRIVATE(timer);
 }
 
