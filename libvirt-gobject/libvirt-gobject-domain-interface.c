@@ -51,8 +51,6 @@ gvir_domain_interface_error_quark(void)
 
 static void gvir_domain_interface_finalize(GObject *object)
 {
-    GVirDomainInterface *self = GVIR_DOMAIN_INTERFACE(object);
-
     G_OBJECT_CLASS(gvir_domain_interface_parent_class)->finalize(object);
 }
 

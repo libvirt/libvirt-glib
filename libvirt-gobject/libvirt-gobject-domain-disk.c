@@ -51,8 +51,6 @@ gvir_domain_disk_error_quark(void)
 
 static void gvir_domain_disk_finalize(GObject *object)
 {
-    GVirDomainDisk *self = GVIR_DOMAIN_DISK(object);
-
     G_OBJECT_CLASS(gvir_domain_disk_parent_class)->finalize(object);
 }
 
