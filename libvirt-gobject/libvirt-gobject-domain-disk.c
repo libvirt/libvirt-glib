@@ -49,16 +49,8 @@ gvir_domain_disk_error_quark(void)
     return g_quark_from_static_string("gvir-domain-disk");
 }
 
-static void gvir_domain_disk_finalize(GObject *object)
-{
-    G_OBJECT_CLASS(gvir_domain_disk_parent_class)->finalize(object);
-}
-
 static void gvir_domain_disk_class_init(GVirDomainDiskClass *klass)
 {
-    GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
-    object_class->finalize = gvir_domain_disk_finalize;
     g_type_class_add_private(klass, sizeof(GVirDomainDiskPrivate));
 }
 
