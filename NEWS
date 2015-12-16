@@ -1,6 +1,22 @@
                  libvirt-glib News
                  =================
 
+0.2.3 - Dec 16, 2015
+====================
+
+- Require libvirt >= 1.1.1
+- Require glib2 >= 2.36.0
+- Require gobject-introspection >= 1.36.0
+- Fix memory leak setting ram usage
+- Fix memory leaks in test suite
+- Document intended deployment targets
+- Fix misc docs
+- Add wrapper for virDOmainSetTime
+- Port more code to use GTask instead of GSimpleAsyncResult
+- Drop unused finalize functions
+- Drop unused variables
+- Drop overly verbose debug calls for object lifecycle
+
 0.2.2 - Jul 21, 2015
 ====================
 
