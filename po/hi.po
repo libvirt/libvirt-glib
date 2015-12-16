@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-16 13:41+0100\n"
+"POT-Creation-Date: 2015-12-16 16:51+0000\n"
 "PO-Revision-Date: 2014-01-14 05:04-0500\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi (http://www.transifex.com/projects/p/libvirt-glib/"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.6.2\n"
+"X-Generator: Zanata 3.7.3\n"
 
 #: ../libvirt-gconfig/libvirt-gconfig-helpers.c:141
 msgid "No XML document to parse"
@@ -34,118 +34,118 @@ msgstr "विन्यास के विश्लेषण कर पान�
 msgid "XML data has no '%s' node"
 msgstr "XML data का कोई  '%s' नोड नहीं है"
 
-#: ../libvirt-gconfig/libvirt-gconfig-object.c:212
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:208
 msgid "No XML document associated with this config object"
 msgstr "इस XML दस्तावेज़ के साथ कोई कॉन्फ़िंग ऑब्जेक्ट नहीं है"
 
-#: ../libvirt-gconfig/libvirt-gconfig-object.c:221
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:217
 #, c-format
 msgid "Unable to create RNG parser for %s"
 msgstr "%s के लिए RNG विश्लेषक का निर्माण करने में असमर्थ"
 
-#: ../libvirt-gconfig/libvirt-gconfig-object.c:231
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:227
 #, c-format
 msgid "Unable to parse RNG %s"
 msgstr "RNG %s को विश्लेषण करने में असमर्थ"
 
-#: ../libvirt-gconfig/libvirt-gconfig-object.c:243
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:239
 #, c-format
 msgid "Unable to create RNG validation context %s"
 msgstr "RNG अभिप्रमाणित सन्दर्भ %s का निर्माण करने में असमर्थ"
 
-#: ../libvirt-gconfig/libvirt-gconfig-object.c:253
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:249
 msgid "Unable to validate doc"
 msgstr "डॉक को अभिप्रमाणित करने में असमर्थ"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:434
+#: ../libvirt-gobject/libvirt-gobject-connection.c:440
 #, c-format
 msgid "Connection %s is already open"
 msgstr "कनेक्शन %s पहले से ही खुला है"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:449
+#: ../libvirt-gobject/libvirt-gobject-connection.c:455
 #, c-format
 msgid "Unable to open %s"
 msgstr "%s को खोल पाने में असमर्थ "
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:460
+#: ../libvirt-gobject/libvirt-gobject-connection.c:466
 msgid "Unable to get connection URI"
 msgstr "URI कनेक्शन प्राप्त करने में असमर्थ "
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:700
-#, c-format
-msgid "Unable to count %s"
-msgstr "%s को गिनने में असमर्थ"
-
-#: ../libvirt-gobject/libvirt-gobject-connection.c:712
-#, c-format
-msgid "Unable to list %s %d"
-msgstr "%s %d की सूची बनाने में असमर्थ"
-
-#: ../libvirt-gobject/libvirt-gobject-connection.c:755
-#: ../libvirt-gobject/libvirt-gobject-connection.c:892
+#: ../libvirt-gobject/libvirt-gobject-connection.c:726
+#: ../libvirt-gobject/libvirt-gobject-connection.c:809
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1496
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1748
 msgid "Connection is not open"
 msgstr "कनेक्शन खुला नहीं है"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:770
-msgid "Unable to count domains"
-msgstr "डोमेन को गिन पाने में असमर्थ"
+#: ../libvirt-gobject/libvirt-gobject-connection.c:739
+msgid "Failed to fetch list of domains"
+msgstr ""
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:781
-msgid "Unable to list domains"
-msgstr "डोमेन की सूची बनाने में असमर्थ"
+#: ../libvirt-gobject/libvirt-gobject-connection.c:825
+msgid "Failed to fetch list of pools"
+msgstr ""
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1155
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1194
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1026
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1065
 msgid "Connection is not opened"
 msgstr "कनेक्शन को खोला नहीं गया है"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1162
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1033
 msgid "Unable to get hypervisor name"
 msgstr "हाइपरविज़र का नाम प्राप्त करने में असमर्थ"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1200
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1071
 msgid "Unable to get hypervisor version"
 msgstr "हाइपरविज़र का सन्सकरण प्राप्त करने मे असमर्थ"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1515
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1570
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1386
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1441
 msgid "Failed to create domain"
 msgstr "डोमेन का निर्माण कर पाने में असफल"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1622
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1512
+msgid "Failed to fetch list of interfaces"
+msgstr ""
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1764
+msgid "Failed to fetch list of networks"
+msgstr ""
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:2005
 msgid "Failed to create storage pool"
 msgstr "संग्रहण पूल का निर्माण करने में असफल"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1665
+#: ../libvirt-gobject/libvirt-gobject-connection.c:2048
 msgid "Unable to get node info"
 msgstr "नोड की जानकारी प्राप्त करने में असमर्थ"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1705
+#: ../libvirt-gobject/libvirt-gobject-connection.c:2088
 msgid "Unable to get capabilities"
 msgstr "सक्षमता प्राप्त करने में असमर्थ"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1833
+#: ../libvirt-gobject/libvirt-gobject-connection.c:2212
 msgid "Unable to restore domain"
 msgstr "डोमेन पुन: स्थापित करने में असमर्थ"
 
-#: ../libvirt-gobject/libvirt-gobject-stream.c:339
+#: ../libvirt-gobject/libvirt-gobject-stream.c:349
 msgid "virStreamRecv call would block"
 msgstr "virStreamRecv का कॉल रोक देता"
 
-#: ../libvirt-gobject/libvirt-gobject-stream.c:342
-#: ../libvirt-gobject/libvirt-gobject-stream.c:458
+#: ../libvirt-gobject/libvirt-gobject-stream.c:352
+#: ../libvirt-gobject/libvirt-gobject-stream.c:468
 #, c-format
 msgid "Got virStreamRecv error in %s"
 msgstr "%s में virStreamRecv त्रुटि पाया"
 
-#: ../libvirt-gobject/libvirt-gobject-stream.c:407
+#: ../libvirt-gobject/libvirt-gobject-stream.c:417
 msgid "Unable to perform RecvAll"
 msgstr "RecvAll के कार्यान्वयन में असमर्थ"
 
-#: ../libvirt-gobject/libvirt-gobject-stream.c:455
+#: ../libvirt-gobject/libvirt-gobject-stream.c:465
 msgid "virStreamSend call would block"
 msgstr "virStreamSend का कॉल रोक देता"
 
-#: ../libvirt-gobject/libvirt-gobject-stream.c:523
+#: ../libvirt-gobject/libvirt-gobject-stream.c:533
 msgid "Unable to perform SendAll"
 msgstr "SendAll के कार्यान्वयन में असमर्थ"

@@ -90,6 +90,7 @@ po/POTFILES
 po/libvirt-glib.pot
 po/stamp-it
 po/*.gmo
+po/.zanata-cache/
 tests/test-events
 tests/test-gconfig
 tests/*.log

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-16 13:41+0100\n"
+"POT-Creation-Date: 2015-12-16 16:51+0000\n"
 "PO-Revision-Date: 2013-11-20 06:38-0500\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libvirt-glib/"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Zanata 3.6.2\n"
+"X-Generator: Zanata 3.7.3\n"
 
 #: ../libvirt-gconfig/libvirt-gconfig-helpers.c:141
 msgid "No XML document to parse"
@@ -34,118 +34,118 @@ msgstr "Не вдалося обробити налаштування"
 msgid "XML data has no '%s' node"
 msgstr "У даних XML немає вузла «%s»"
 
-#: ../libvirt-gconfig/libvirt-gconfig-object.c:212
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:208
 msgid "No XML document associated with this config object"
 msgstr "З цим об’єктом налаштування не пов’язано жодного документа XML"
 
-#: ../libvirt-gconfig/libvirt-gconfig-object.c:221
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:217
 #, c-format
 msgid "Unable to create RNG parser for %s"
 msgstr "Не вдалося створити обробник RNG для %s"
 
-#: ../libvirt-gconfig/libvirt-gconfig-object.c:231
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:227
 #, c-format
 msgid "Unable to parse RNG %s"
 msgstr "Не вдалося обробити RNG, %s"
 
-#: ../libvirt-gconfig/libvirt-gconfig-object.c:243
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:239
 #, c-format
 msgid "Unable to create RNG validation context %s"
 msgstr "Не вдалося створити контекст перевірки RNG, %s"
 
-#: ../libvirt-gconfig/libvirt-gconfig-object.c:253
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:249
 msgid "Unable to validate doc"
 msgstr "Не вдалося перевірити документи"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:434
+#: ../libvirt-gobject/libvirt-gobject-connection.c:440
 #, c-format
 msgid "Connection %s is already open"
 msgstr "З’єднання %s вже відкрито"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:449
+#: ../libvirt-gobject/libvirt-gobject-connection.c:455
 #, c-format
 msgid "Unable to open %s"
 msgstr "Не вдалося відкрити %s"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:460
+#: ../libvirt-gobject/libvirt-gobject-connection.c:466
 msgid "Unable to get connection URI"
 msgstr "Не вдалося отримати адресу з’єднання"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:700
-#, c-format
-msgid "Unable to count %s"
-msgstr "Не вдалося полічити %s"
-
-#: ../libvirt-gobject/libvirt-gobject-connection.c:712
-#, c-format
-msgid "Unable to list %s %d"
-msgstr "Не вдалося побудувати список %s %d"
-
-#: ../libvirt-gobject/libvirt-gobject-connection.c:755
-#: ../libvirt-gobject/libvirt-gobject-connection.c:892
+#: ../libvirt-gobject/libvirt-gobject-connection.c:726
+#: ../libvirt-gobject/libvirt-gobject-connection.c:809
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1496
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1748
 msgid "Connection is not open"
 msgstr "З'єднання не відкрито"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:770
-msgid "Unable to count domains"
-msgstr "Не вдалося полічити домени"
+#: ../libvirt-gobject/libvirt-gobject-connection.c:739
+msgid "Failed to fetch list of domains"
+msgstr ""
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:781
-msgid "Unable to list domains"
-msgstr "Не вдалося побудувати список доменів"
+#: ../libvirt-gobject/libvirt-gobject-connection.c:825
+msgid "Failed to fetch list of pools"
+msgstr ""
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1155
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1194
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1026
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1065
 msgid "Connection is not opened"
 msgstr "З’єднання не відкрито"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1162
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1033
 msgid "Unable to get hypervisor name"
 msgstr "Не вдалося отримати назву гіпервізора"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1200
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1071
 msgid "Unable to get hypervisor version"
 msgstr "Не вдалося отримати версію гіпервізора"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1515
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1570
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1386
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1441
 msgid "Failed to create domain"
 msgstr "Не вдалося створити домен"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1622
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1512
+msgid "Failed to fetch list of interfaces"
+msgstr ""
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1764
+msgid "Failed to fetch list of networks"
+msgstr ""
+
+#: ../libvirt-gobject/libvirt-gobject-connection.c:2005
 msgid "Failed to create storage pool"
 msgstr "Не вдалося створити резервне сховище"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1665
+#: ../libvirt-gobject/libvirt-gobject-connection.c:2048
 msgid "Unable to get node info"
 msgstr "Не вдалося отримати дані щодо вузла"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1705
+#: ../libvirt-gobject/libvirt-gobject-connection.c:2088
 msgid "Unable to get capabilities"
 msgstr "Не вдалося отримати список можливостей"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1833
+#: ../libvirt-gobject/libvirt-gobject-connection.c:2212
 msgid "Unable to restore domain"
 msgstr "Не вдалося відновити домен"
 
-#: ../libvirt-gobject/libvirt-gobject-stream.c:339
+#: ../libvirt-gobject/libvirt-gobject-stream.c:349
 msgid "virStreamRecv call would block"
 msgstr "Виклик virStreamRecv заблокується"
 
-#: ../libvirt-gobject/libvirt-gobject-stream.c:342
-#: ../libvirt-gobject/libvirt-gobject-stream.c:458
+#: ../libvirt-gobject/libvirt-gobject-stream.c:352
+#: ../libvirt-gobject/libvirt-gobject-stream.c:468
 #, c-format
 msgid "Got virStreamRecv error in %s"
 msgstr "Отримано повідомлення про помилку virStreamRecv у %s"
 
-#: ../libvirt-gobject/libvirt-gobject-stream.c:407
+#: ../libvirt-gobject/libvirt-gobject-stream.c:417
 msgid "Unable to perform RecvAll"
 msgstr "Не вдалося виконати RecvAll"
 
-#: ../libvirt-gobject/libvirt-gobject-stream.c:455
+#: ../libvirt-gobject/libvirt-gobject-stream.c:465
 msgid "virStreamSend call would block"
 msgstr "Виклик virStreamSend заблокується"
 
-#: ../libvirt-gobject/libvirt-gobject-stream.c:523
+#: ../libvirt-gobject/libvirt-gobject-stream.c:533
 msgid "Unable to perform SendAll"
 msgstr "Не вдалося виконати SendAll"
