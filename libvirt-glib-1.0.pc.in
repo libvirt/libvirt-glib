@@ -8,5 +8,5 @@ Version: @VERSION@
 Description: libvirt glib library
 Requires: glib-2.0
 Libs: -L${libdir} -lvirt-glib-1.0
-Libs.private: @LIBVIRT_LIBS @GLIB2_LIBS@
+Libs.private: @LIBVIRT_LIBS@ @GLIB2_LIBS@
 Cflags: -I${includedir}/libvirt-glib-1.0 @LIBVIRT_CFLAGS@ @GLIB2_CFLAGS@
