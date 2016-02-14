@@ -62,7 +62,7 @@ graphics.set_gl(True)
 domain.add_device(graphics)
 
 video = LibvirtGConfig.DomainVideo.new()
-video.set_model(LibvirtGConfig.DomainVideoModel.QXL)
+video.set_model(LibvirtGConfig.DomainVideoModel.VIRTIO)
 domain.add_device(video)
 
 console = LibvirtGConfig.DomainConsole.new()
