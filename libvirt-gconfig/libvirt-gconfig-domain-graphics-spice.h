@@ -92,6 +92,9 @@ int
 gvir_config_domain_graphics_spice_get_image_compression
                         (GVirConfigDomainGraphicsSpice *graphics);
 
+void gvir_config_domain_graphics_spice_set_gl(GVirConfigDomainGraphicsSpice *graphics,
+                                              gboolean gl);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GCONFIG_DOMAIN_GRAPHICS_SPICE_H__ */

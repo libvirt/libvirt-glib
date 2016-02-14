@@ -156,3 +156,12 @@ void gvir_config_domain_graphics_spice_set_image_compression
         GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS_SPICE_IMAGE_COMPRESSION,
         compression);
 }
+
+void gvir_config_domain_graphics_spice_set_gl(GVirConfigDomainGraphicsSpice *graphics,
+                                              gboolean gl)
+{
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_GRAPHICS_SPICE(graphics));
+
+    gvir_config_object_replace_child_with_attribute_enum
+      (GVIR_CONFIG_OBJECT(graphics), "gl", "enable", G_TYPE_BOOLEAN, gl);
+}

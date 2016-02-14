@@ -58,6 +58,7 @@ domain.add_device(input)
 
 graphics = LibvirtGConfig.DomainGraphicsSpice.new()
 graphics.set_port(1234)
+graphics.set_gl(True)
 domain.add_device(graphics)
 
 video = LibvirtGConfig.DomainVideo.new()
