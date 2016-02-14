@@ -82,6 +82,8 @@ void gvir_config_domain_video_set_vgamem(GVirConfigDomainVideo *video,
                                        guint kbytes);
 void gvir_config_domain_video_set_heads(GVirConfigDomainVideo *video,
                                         guint head_count);
+void gvir_config_domain_video_set_accel3d(GVirConfigDomainVideo *video,
+                                          gboolean accel3d);
 
 G_END_DECLS
 

@@ -735,6 +735,7 @@ global:
 
 LIBVIRT_GCONFIG_0.2.4 {
 	gvir_config_domain_graphics_spice_set_gl;
+	gvir_config_domain_video_set_accel3d;
 } LIBVIRT_GCONFIG_0.2.2;
 
 # .... define new API here using predicted next version number ....
