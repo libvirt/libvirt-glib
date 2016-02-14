@@ -1681,7 +1681,7 @@ GVirInterface *gvir_connection_get_interface(GVirConnection *conn,
 /**
  * gvir_connection_find_interface_by_mac:
  * @conn: a #GVirConnection
- * @mac: MAC address to lookup
+ * @macaddr: MAC address to lookup
  *
  * Get a particular interface which has MAC address @mac.
  *

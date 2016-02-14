@@ -679,7 +679,7 @@ guint gvir_stream_add_watch(GVirStream *stream,
 }
 
 /**
- * gvir_stream_add_watch_full:
+ * gvir_stream_add_watch_full: (rename-to gvir_stream_add_watch)
  * @stream: the stream
  * @priority: the priority of the #GVirStream source
  * @cond: the conditions to watch for (bitfield of #GVirStreamIOCondition)
@@ -690,7 +690,6 @@ guint gvir_stream_add_watch(GVirStream *stream,
  * Adds a watch for @stream to the mainloop
  *
  * Returns: the event source id
- * Rename to: gvir_stream_add_watch
  */
 guint gvir_stream_add_watch_full(GVirStream *stream,
                                  gint priority,

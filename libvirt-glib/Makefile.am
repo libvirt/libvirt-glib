@@ -67,6 +67,7 @@ LibvirtGLib_1_0_gir_SCANNERFLAGS = \
 	--identifier-prefix=GVir \
 	--symbol-prefix=gvir \
 	--c-include="libvirt-glib/libvirt-glib.h" \
+	--warn-all \
 	$(NULL)
 INTROSPECTION_GIRS += LibvirtGLib-1.0.gir
 

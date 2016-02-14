@@ -160,6 +160,7 @@ LibvirtGObject_1_0_gir_SCANNERFLAGS = \
 	--c-include="libvirt-gobject/libvirt-gobject.h" \
 	--include-uninstalled $(top_builddir)/libvirt-glib/LibvirtGLib-1.0.gir \
 	--include-uninstalled $(top_builddir)/libvirt-gconfig/LibvirtGConfig-1.0.gir \
+	--warn-all \
 	$(NULL)
 INTROSPECTION_GIRS += LibvirtGObject-1.0.gir
 INTROSPECTION_COMPILER_ARGS = \

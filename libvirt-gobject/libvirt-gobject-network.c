@@ -229,7 +229,6 @@ GVirConfigNetwork *gvir_network_get_config(GVirNetwork *network,
  * @network: the network
  * @mac: (allow-none): The optional ASCII formatted MAC address of an interface
  * @flags: placeholder for flags, must be 0
- *
  * @err: Place-holder for possible errors
  *
  * This function fetches leases info of guests in the specified network. If the

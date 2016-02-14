@@ -263,6 +263,7 @@ LibvirtGConfig_1_0_gir_SCANNERFLAGS = \
 	--identifier-prefix=GVirConfig \
 	--symbol-prefix=gvir_config \
 	--c-include="libvirt-gconfig/libvirt-gconfig.h" \
+	--warn-all \
 	$(NULL)
 INTROSPECTION_GIRS += LibvirtGConfig-1.0.gir
 

@@ -1824,7 +1824,7 @@ gboolean gvir_domain_get_has_current_snapshot(GVirDomain *dom,
  * @dom: the domain
  * @date_time: (allow-none)(transfer none): the time to set as #GDateTime.
  * @flags: Unused, pass 0.
- * @error: (allow-none): Place-holder for error or %NULL
+ * @err: (allow-none): Place-holder for error or %NULL
  *
  * This function tries to set guest time to the given value. The passed
  * time must in UTC.
