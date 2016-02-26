@@ -65,6 +65,12 @@ static void watch_cb(int watch, int fd, int events, void *opaque G_GNUC_UNUSED)
     g_message("got event(s) %x on fd %d (watch %d)", events, fd, watch);
 }
 
+static gboolean idle_quit_cb(gpointer user_data G_GNUC_UNUSED)
+{
+    g_main_loop_quit(main_loop);
+
+    return G_SOURCE_REMOVE;
+}
 
 static gboolean test_watch(gpointer user_data G_GNUC_UNUSED)
 {
@@ -81,7 +87,7 @@ static gboolean test_watch(gpointer user_data G_GNUC_UNUSED)
     g_assert_cmpint(removal_status, ==, -1);
     g_idle_add_full(G_PRIORITY_LOW, check_destroyed, &watch_id, NULL);
     g_idle_add_full(G_PRIORITY_LOW,
-                    (GSourceFunc)g_main_loop_quit,
+                    idle_quit_cb,
                     main_loop,
                     NULL);
 
