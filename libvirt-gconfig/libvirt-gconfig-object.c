@@ -970,3 +970,16 @@ gvir_config_object_get_child(GVirConfigObject *object,
                                                   child_name,
                                                   GVIR_CONFIG_TYPE_OBJECT);
 }
+
+G_GNUC_INTERNAL gboolean
+gvir_config_object_has_child(GVirConfigObject *object, const gchar *child_name)
+{
+    xmlNodePtr node;
+
+    g_return_val_if_fail(GVIR_CONFIG_IS_OBJECT(object), FALSE);
+    g_return_val_if_fail(child_name != NULL, FALSE);
+
+    node = gvir_config_xml_get_element(object->priv->node, child_name, NULL);
+
+    return (node != NULL);
+}

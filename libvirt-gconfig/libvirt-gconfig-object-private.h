@@ -117,6 +117,8 @@ GVirConfigObject *gvir_config_object_get_child(GVirConfigObject *object,
 GVirConfigObject *gvir_config_object_get_child_with_type(GVirConfigObject *object,
                                                          const gchar *child_name,
                                                          GType child_type);
+gboolean gvir_config_object_has_child(GVirConfigObject *object,
+                                      const gchar *child_name);
 
 G_END_DECLS
 
