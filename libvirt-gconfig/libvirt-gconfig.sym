@@ -735,6 +735,12 @@ global:
 
 LIBVIRT_GCONFIG_0.2.4 {
 global:
+	gvir_config_domain_address_pci_get_bus;
+	gvir_config_domain_address_pci_get_domain;
+	gvir_config_domain_address_pci_get_function;
+	gvir_config_domain_address_pci_get_multifunction;
+	gvir_config_domain_address_pci_get_slot;
+
 	gvir_config_domain_graphics_spice_set_gl;
 
 	gvir_config_domain_hostdev_get_boot_order;

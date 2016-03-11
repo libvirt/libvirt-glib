@@ -92,10 +92,28 @@ static void set_attribute_hex(GVirConfigDomainAddressPci *address,
     g_free(format);
 }
 
+int gvir_config_domain_address_pci_get_domain(GVirConfigDomainAddressPci *address)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_ADDRESS_PCI(address), -1);
+
+    return gvir_config_object_get_attribute_uint64(GVIR_CONFIG_OBJECT(address),
+                                                   NULL, "domain",
+                                                   -1);
+}
+
 void gvir_config_domain_address_pci_set_domain(GVirConfigDomainAddressPci *address,
                                                guint16 pci_domain)
 {
     set_attribute_hex(address, "domain", pci_domain, 0, G_MAXUINT16, 4);
+}
+
+int gvir_config_domain_address_pci_get_bus(GVirConfigDomainAddressPci *address)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_ADDRESS_PCI(address), -1);
+
+    return gvir_config_object_get_attribute_uint64(GVIR_CONFIG_OBJECT(address),
+                                                   NULL, "bus",
+                                                   -1);
 }
 
 void gvir_config_domain_address_pci_set_bus(GVirConfigDomainAddressPci *address,
@@ -104,16 +122,43 @@ void gvir_config_domain_address_pci_set_bus(GVirConfigDomainAddressPci *address,
     set_attribute_hex(address, "bus", bus, 0, G_MAXUINT8, 2);
 }
 
+int gvir_config_domain_address_pci_get_slot(GVirConfigDomainAddressPci *address)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_ADDRESS_PCI(address), -1);
+
+    return gvir_config_object_get_attribute_uint64(GVIR_CONFIG_OBJECT(address),
+                                                   NULL, "slot",
+                                                   -1);
+}
+
 void gvir_config_domain_address_pci_set_slot(GVirConfigDomainAddressPci *address,
                                              guchar slot)
 {
     set_attribute_hex(address, "slot", slot, 0, 0x1f, 2);
 }
 
+int gvir_config_domain_address_pci_get_function(GVirConfigDomainAddressPci *address)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_ADDRESS_PCI(address), -1);
+
+    return gvir_config_object_get_attribute_uint64(GVIR_CONFIG_OBJECT(address),
+                                                   NULL, "function",
+                                                   -1);
+}
+
 void gvir_config_domain_address_pci_set_function(GVirConfigDomainAddressPci *address,
                                                  guchar function)
 {
     set_attribute_hex(address, "function", function, 0, 7, 1);
+}
+
+gboolean gvir_config_domain_address_pci_get_multifunction(GVirConfigDomainAddressPci *address)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_ADDRESS_PCI(address), FALSE);
+
+    return gvir_config_object_get_attribute_boolean(GVIR_CONFIG_OBJECT(address),
+                                                    NULL, "multifunction",
+                                                    FALSE);
 }
 
 void gvir_config_domain_address_pci_set_multifunction(GVirConfigDomainAddressPci *address,

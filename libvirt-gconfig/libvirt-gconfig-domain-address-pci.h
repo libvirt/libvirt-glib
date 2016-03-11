@@ -62,14 +62,19 @@ GVirConfigDomainAddressPci *gvir_config_domain_address_pci_new(void);
 GVirConfigDomainAddressPci *gvir_config_domain_address_pci_new_from_xml(const gchar *xml,
                                                                         GError **error);
 
+int gvir_config_domain_address_pci_get_domain(GVirConfigDomainAddressPci *address);
 void gvir_config_domain_address_pci_set_domain(GVirConfigDomainAddressPci *address,
                                                guint16 pci_domain);
+int gvir_config_domain_address_pci_get_bus(GVirConfigDomainAddressPci *address);
 void gvir_config_domain_address_pci_set_bus(GVirConfigDomainAddressPci *address,
                                             guchar bus);
+int gvir_config_domain_address_pci_get_slot(GVirConfigDomainAddressPci *address);
 void gvir_config_domain_address_pci_set_slot(GVirConfigDomainAddressPci *address,
                                              guchar slot);
+int gvir_config_domain_address_pci_get_function(GVirConfigDomainAddressPci *address);
 void gvir_config_domain_address_pci_set_function(GVirConfigDomainAddressPci *address,
                                                  guchar function);
+gboolean gvir_config_domain_address_pci_get_multifunction(GVirConfigDomainAddressPci *address);
 void gvir_config_domain_address_pci_set_multifunction(GVirConfigDomainAddressPci *address,
                                                       gboolean multifunction);
 
