@@ -66,7 +66,7 @@ gvir_config_domain_device_new_from_tree(GVirConfigXmlDoc *doc,
     } else if (xmlStrEqual(tree->name, (xmlChar*)"lease")) {
         goto unimplemented;
     } else if (xmlStrEqual(tree->name, (xmlChar*)"hostdev")) {
-        goto unimplemented;
+        return gvir_config_domain_hostdev_new_from_tree(doc, tree);
     } else if (xmlStrEqual(tree->name, (xmlChar*)"redirdev")) {
         type = GVIR_CONFIG_TYPE_DOMAIN_REDIRDEV;
     } else if (xmlStrEqual(tree->name, (xmlChar*)"smartcard")) {

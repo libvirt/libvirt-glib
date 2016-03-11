@@ -734,7 +734,17 @@ global:
 } LIBVIRT_GCONFIG_0.2.1;
 
 LIBVIRT_GCONFIG_0.2.4 {
+global:
 	gvir_config_domain_graphics_spice_set_gl;
+
+	gvir_config_domain_hostdev_get_boot_order;
+	gvir_config_domain_hostdev_get_readonly;
+	gvir_config_domain_hostdev_get_shareable;
+	gvir_config_domain_hostdev_get_type;
+	gvir_config_domain_hostdev_set_boot_order;
+	gvir_config_domain_hostdev_set_readonly;
+	gvir_config_domain_hostdev_set_shareable;
+
 	gvir_config_domain_video_get_model;
 	gvir_config_domain_video_set_accel3d;
 } LIBVIRT_GCONFIG_0.2.2;

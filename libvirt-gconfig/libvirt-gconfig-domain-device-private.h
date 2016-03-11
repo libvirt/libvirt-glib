@@ -43,6 +43,9 @@ GVirConfigDomainDevice *
 gvir_config_domain_graphics_new_from_tree(GVirConfigXmlDoc *doc,
                                           xmlNodePtr tree);
 GVirConfigDomainDevice *
+gvir_config_domain_hostdev_new_from_tree(GVirConfigXmlDoc *doc,
+                                         xmlNodePtr tree);
+GVirConfigDomainDevice *
 gvir_config_domain_interface_new_from_tree(GVirConfigXmlDoc *doc,
                                            xmlNodePtr tree);
 GVirConfigDomainDevice *
