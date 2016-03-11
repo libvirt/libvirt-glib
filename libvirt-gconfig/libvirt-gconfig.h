@@ -68,6 +68,7 @@
 #include <libvirt-gconfig/libvirt-gconfig-domain-graphics-spice.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-graphics-vnc.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-hostdev.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-hostdev-pci.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-input.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-interface.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-interface-bridge.h>

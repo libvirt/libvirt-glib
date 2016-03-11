@@ -51,6 +51,7 @@ GCONFIG_HEADER_FILES = \
 			libvirt-gconfig-domain-graphics-spice.h \
 			libvirt-gconfig-domain-graphics-vnc.h \
 			libvirt-gconfig-domain-hostdev.h \
+			libvirt-gconfig-domain-hostdev-pci.h \
 			libvirt-gconfig-domain-input.h \
 			libvirt-gconfig-domain-interface.h \
 			libvirt-gconfig-domain-interface-bridge.h \
@@ -143,6 +144,7 @@ GCONFIG_SOURCE_FILES = \
 			libvirt-gconfig-domain-graphics-spice.c \
 			libvirt-gconfig-domain-graphics-vnc.c \
 			libvirt-gconfig-domain-hostdev.c \
+			libvirt-gconfig-domain-hostdev-pci.c \
 			libvirt-gconfig-domain-input.c \
 			libvirt-gconfig-domain-interface.c \
 			libvirt-gconfig-domain-interface-bridge.c \

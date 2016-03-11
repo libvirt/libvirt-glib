@@ -62,7 +62,7 @@ gvir_config_domain_hostdev_new_from_tree(GVirConfigXmlDoc *doc,
     if (g_str_equal(type, "usb")) {
         goto unimplemented;
     } else if (g_str_equal(type, "pci")) {
-        goto unimplemented;
+        gtype = GVIR_CONFIG_TYPE_DOMAIN_HOSTDEV_PCI;
     } else if (g_str_equal(type, "scsi")) {
         goto unimplemented;
     } else {
