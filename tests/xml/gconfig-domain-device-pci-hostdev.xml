@@ -1,0 +1,11 @@
+<domain>
+  <devices>
+    <hostdev mode="subsystem" type="pci" managed="yes">
+      <boot order="1"/>
+      <rom bar="on" file="/etc/fake/boot.bin"/>
+      <source>
+        <address domain="0x0001" bus="0x02" slot="0x03" function="0x4"/>
+      </source>
+    </hostdev>
+  </devices>
+</domain>

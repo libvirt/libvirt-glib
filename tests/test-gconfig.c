@@ -709,6 +709,47 @@ static void test_domain_device_usb_redir(void)
     g_object_unref(G_OBJECT(domain));
 }
 
+static void test_domain_device_pci_hostdev(void)
+{
+    GVirConfigDomain *domain;
+    GVirConfigDomainAddressPci *address;
+    GVirConfigDomainHostdevPci *hostdev;
+
+    domain = gvir_config_domain_new();
+
+    hostdev = gvir_config_domain_hostdev_pci_new();
+    gvir_config_domain_hostdev_set_boot_order(GVIR_CONFIG_DOMAIN_HOSTDEV(hostdev), 1);
+    g_assert_cmpint(gvir_config_domain_hostdev_get_boot_order(GVIR_CONFIG_DOMAIN_HOSTDEV(hostdev)), ==, 1);
+    gvir_config_domain_hostdev_pci_set_managed(hostdev, TRUE);
+    g_assert(gvir_config_domain_hostdev_pci_get_managed(hostdev) == TRUE);
+    gvir_config_domain_hostdev_pci_set_rom_bar(hostdev, TRUE);
+    gvir_config_domain_hostdev_pci_set_rom_file(hostdev, "/etc/fake/boot.bin");
+    g_assert_cmpstr(gvir_config_domain_hostdev_pci_get_rom_file(hostdev), ==, "/etc/fake/boot.bin");
+    g_assert(gvir_config_domain_hostdev_pci_get_rom_bar(hostdev));
+
+    address = gvir_config_domain_address_pci_new();
+    gvir_config_domain_address_pci_set_domain(address, 1);
+    gvir_config_domain_address_pci_set_bus(address, 2);
+    gvir_config_domain_address_pci_set_slot(address, 3);
+    gvir_config_domain_address_pci_set_function(address, 4);
+    gvir_config_domain_hostdev_pci_set_address(hostdev, address);
+    g_object_unref(G_OBJECT(address));
+
+    address = gvir_config_domain_hostdev_pci_get_address(hostdev);
+    g_assert(address != NULL);
+    g_assert_cmpint(gvir_config_domain_address_pci_get_domain(address), ==, 1);
+    g_assert_cmpint(gvir_config_domain_address_pci_get_bus(address), ==, 2);
+    g_assert_cmpint(gvir_config_domain_address_pci_get_slot(address), ==, 3);
+    g_assert_cmpint(gvir_config_domain_address_pci_get_function(address), ==, 4);
+    g_object_unref(G_OBJECT(address));
+
+    gvir_config_domain_add_device(domain, GVIR_CONFIG_DOMAIN_DEVICE (hostdev));
+    g_object_unref(G_OBJECT(hostdev));
+
+    check_xml(domain, "gconfig-domain-device-pci-hostdev.xml");
+
+    g_object_unref(G_OBJECT(domain));
+}
 
 int main(int argc, char **argv)
 {
@@ -739,6 +780,8 @@ int main(int argc, char **argv)
                     test_domain_device_channel);
     g_test_add_func("/libvirt-gconfig/domain-device-usb-redir",
                     test_domain_device_usb_redir);
+    g_test_add_func("/libvirt-gconfig/domain-device-pci-hostdev",
+                    test_domain_device_pci_hostdev);
 
     return g_test_run();
 }
