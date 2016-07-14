@@ -68,6 +68,17 @@ GVirConfigDomainVideo *gvir_config_domain_video_new_from_xml(const gchar *xml,
     return GVIR_CONFIG_DOMAIN_VIDEO(object);
 }
 
+GVirConfigDomainVideoModel gvir_config_domain_video_get_model(GVirConfigDomainVideo *video)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_VIDEO(video), GVIR_CONFIG_DOMAIN_VIDEO_MODEL_VGA);
+
+    return gvir_config_object_get_attribute_genum(GVIR_CONFIG_OBJECT(video),
+                                                  "model",
+                                                  "type",
+                                                  GVIR_CONFIG_TYPE_DOMAIN_VIDEO_MODEL,
+                                                  GVIR_CONFIG_DOMAIN_VIDEO_MODEL_VGA);
+}
+
 void gvir_config_domain_video_set_model(GVirConfigDomainVideo *video,
                                         GVirConfigDomainVideoModel model)
 {

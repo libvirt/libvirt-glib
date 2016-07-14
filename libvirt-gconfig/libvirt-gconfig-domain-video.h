@@ -71,6 +71,7 @@ GType gvir_config_domain_video_get_type(void);
 GVirConfigDomainVideo *gvir_config_domain_video_new(void);
 GVirConfigDomainVideo *gvir_config_domain_video_new_from_xml(const gchar *xml,
                                                              GError **error);
+GVirConfigDomainVideoModel gvir_config_domain_video_get_model(GVirConfigDomainVideo *video);
 void gvir_config_domain_video_set_model(GVirConfigDomainVideo *video,
                                         GVirConfigDomainVideoModel model);
 void gvir_config_domain_video_set_vram(GVirConfigDomainVideo *video,
