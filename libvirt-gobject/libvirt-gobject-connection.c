@@ -700,6 +700,11 @@ void gvir_connection_close(GVirConnection *conn)
  * gvir_connection_fetch_domains:
  * @conn: a #GVirConnection
  * @cancellable: (allow-none)(transfer none): cancellation object
+ *
+ * Use this method to fetch all domains managed by connection
+ * @conn. Use e.g. #gvir_connection_find_domain_by_id or
+ * #gvir_connection_get_domain afterwards to query the fetched
+ * domains.
  */
 gboolean gvir_connection_fetch_domains(GVirConnection *conn,
                                        GCancellable *cancellable,
@@ -783,6 +788,11 @@ cleanup:
  * gvir_connection_fetch_storage_pools:
  * @conn: a #GVirConnection
  * @cancellable: (allow-none)(transfer none): cancellation object
+ *
+ * Use this method to fetch all storage pools managed by connection
+ * @conn. Use e.g. #gvir_connection_find_storage_pool_by_name or
+ * #gvir_connection_get_storage_pools afterwards to query the fetched
+ * pools.
  */
 gboolean gvir_connection_fetch_storage_pools(GVirConnection *conn,
                                              GCancellable *cancellable,
@@ -1722,6 +1732,11 @@ GVirInterface *gvir_connection_find_interface_by_mac(GVirConnection *conn,
  * gvir_connection_fetch_networks:
  * @conn: a #GVirConnection
  * @cancellable: (allow-none)(transfer none): cancellation object
+ *
+ * Use this method to fetch all networks managed by connection
+ * @conn. Use e.g. #gvir_connection_find_network_by_name or
+ * #gvir_connection_get_networks afterwards to query the fetched
+ * domains.
  */
 gboolean gvir_connection_fetch_networks(GVirConnection *conn,
                                         GCancellable *cancellable,
