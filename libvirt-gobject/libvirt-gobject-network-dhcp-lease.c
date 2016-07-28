@@ -96,12 +96,10 @@ static void gvir_network_dhcp_lease_set_property(GObject *object,
 
 static void gvir_network_dhcp_lease_finalize(GObject *object)
 {
+#ifdef HAVE_VIR_NETWORK_GET_DHCP_LEASES
     GVirNetworkDHCPLease *lease = GVIR_NETWORK_DHCP_LEASE(object);
-#ifdef HAVE_VIR_NETWORK_GET_DHCP_LEASES
     GVirNetworkDHCPLeasePrivate *priv = lease->priv;
-#endif /* HAVE_VIR_NETWORK_GET_DHCP_LEASES */
 
-#ifdef HAVE_VIR_NETWORK_GET_DHCP_LEASES
     virNetworkDHCPLeaseFree(priv->handle);
 #endif /* HAVE_VIR_NETWORK_GET_DHCP_LEASES */
 
