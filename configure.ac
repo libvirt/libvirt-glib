@@ -93,14 +93,14 @@ LIBVIRT_GLIB_COMPILE_WARNINGS
 PKG_CHECK_MODULES(LIBVIRT, libvirt >= $LIBVIRT_REQUIRED)
 # virDomainOpenGraphicsFD was introduced in libvirt 1.2.8
 AC_MSG_CHECKING([for virDomainOpenGraphicsFD])
-PKG_CHECK_EXISTS(libvirt >= 21.2.8,
+PKG_CHECK_EXISTS(libvirt >= 1.2.8,
                  [
 		   AC_DEFINE([HAVE_VIR_DOMAIN_OPEN_GRAPHICS_FD], 1, [Have virDomainOpenGraphicsFD?])
 		   AC_MSG_RESULT([yes])
 		 ],[AC_MSG_RESULT([no])])
 # virNetworkGetDHCPLeases was introduced in libvirt 1.2.6
 AC_MSG_CHECKING([for virNetworkGetDHCPLeases])
-PKG_CHECK_EXISTS(libvirt >= 21.2.6,
+PKG_CHECK_EXISTS(libvirt >= 1.2.6,
                  [
 		   AC_DEFINE([HAVE_VIR_NETWORK_GET_DHCP_LEASES], 1, [Have virNetworkGetDHCPLeases?])
 		   AC_MSG_RESULT([yes])
