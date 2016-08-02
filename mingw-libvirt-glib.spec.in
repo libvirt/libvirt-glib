@@ -87,8 +87,7 @@ MinGW Windows libvirt-gobject virtualization library.
 
 %build
 %mingw_configure \
-    --enable-introspection=no \
-    --without-python
+    --enable-introspection=no
 
 %mingw_make %{?_smp_mflags}
 

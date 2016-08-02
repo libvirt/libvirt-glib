@@ -56,8 +56,7 @@ if test -x /usr/bin/i686-w64-mingw32-gcc ; then
     --host=i686-w64-mingw32 \
     --prefix="$AUTOBUILD_INSTALL_ROOT/i686-w64-mingw32/sys-root/mingw" \
     --enable-werror \
-    --enable-introspection=no \
-    --without-python
+    --enable-introspection=no
 
   make
   make install
@@ -75,8 +74,7 @@ if test -x /usr/bin/x86_64-w64-mingw32-gcc ; then
     --host=x86_64-w64-mingw32 \
     --prefix="$AUTOBUILD_INSTALL_ROOT/i686-w64-mingw32/sys-root/mingw" \
     --enable-werror \
-    --enable-introspection=no \
-    --without-python
+    --enable-introspection=no
 
   make
   make install

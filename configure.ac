@@ -135,15 +135,11 @@ dnl Copied from libxml2 configure.in, but I removed mingw changes
 dnl for now since I'm not supporting mingw at present.  - RWMJ
 CYGWIN_EXTRA_LDFLAGS=
 CYGWIN_EXTRA_LIBADD=
-CYGWIN_EXTRA_PYTHON_LIBADD=
 MINGW_EXTRA_LDFLAGS=
 case "$host" in
   *-*-cygwin*)
     CYGWIN_EXTRA_LDFLAGS="-no-undefined"
     CYGWIN_EXTRA_LIBADD="${INTLLIBS}"
-    if test "x$PYTHON_VERSION" != "x"; then
-      CYGWIN_EXTRA_PYTHON_LIBADD="-L/usr/lib/python${PYTHON_VERSION}/config -lpython${PYTHON_VERSION}"
-    fi
     ;;
   *-*-mingw*)
     MINGW_EXTRA_LDFLAGS="-no-undefined"
@@ -151,7 +147,6 @@ case "$host" in
 esac
 AC_SUBST([CYGWIN_EXTRA_LDFLAGS])
 AC_SUBST([CYGWIN_EXTRA_LIBADD])
-AC_SUBST([CYGWIN_EXTRA_PYTHON_LIBADD])
 AC_SUBST([MINGW_EXTRA_LDFLAGS])
 
 
@@ -171,87 +166,6 @@ if test "${enable_coverage}" = yes; then
   AC_SUBST([COVERAGE_LDFLAGS], [$COV_FLAGS])
   COV_FLAGS=
 fi
-
-dnl
-dnl check for python
-dnl
-AC_ARG_WITH([python],
-  AC_HELP_STRING([--with-python], [Build python bindings @<:@default=yes@:>@]),[],[with_python=yes])
-
-PYTHON_VERSION=
-PYTHON_INCLUDES=
-PYTHON_SITE_PACKAGES=
-PYTHON_TESTS=
-pythondir=
-if test "$with_python" != "no" ; then
-    if test "$with_python" = "yes" ; then
-       with_python=""
-    fi
-    if test -x "$with_python/bin/python"
-    then
-        echo Found python in $with_python/bin/python
-        PYTHON="$with_python/bin/python"
-    else
-	if test -x "$with_python"
-	then
-	    echo Found python in $with_python
-	    PYTHON="$with_python"
-	else
-	    if test -x "$PYTHON"
-	    then
-	        echo Found python in environment PYTHON=$PYTHON
-		with_python=`$PYTHON -c "import sys; print sys.exec_prefix"`
-	    else
-		AC_PATH_PROG([PYTHON], [python python2.6 python2.5 python2.4 python2.3 python2.2 python2.1 python2.0 python1.6 python1.5])
-	    fi
-	fi
-    fi
-    if test "$PYTHON" != ""
-    then
-        PYTHON_VERSION=`$PYTHON -c "import sys; print sys.version[[0:3]]"`
-	echo Found Python version $PYTHON_VERSION
-    fi
-    if test "$PYTHON_VERSION" != ""
-    then
-	if test -r $with_python/include/python$PYTHON_VERSION/Python.h && \
-	   test -d $with_python/lib/python$PYTHON_VERSION/site-packages
-	then
-	    PYTHON_INCLUDES=$with_python/include/python$PYTHON_VERSION
-	    PYTHON_SITE_PACKAGES=$libdir/python$PYTHON_VERSION/site-packages
-	else
-	    if test -r $prefix/include/python$PYTHON_VERSION/Python.h
-	    then
-	        PYTHON_INCLUDES=$prefix/include/python$PYTHON_VERSION
-	        PYTHON_SITE_PACKAGES=$libdir/python$PYTHON_VERSION/site-packages
-	    else
-		if test -r /usr/include/python$PYTHON_VERSION/Python.h
-		then
-		    PYTHON_INCLUDES=/usr/include/python$PYTHON_VERSION
-	            PYTHON_SITE_PACKAGES=$libdir/python$PYTHON_VERSION/site-packages
-		else
-		    echo could not find python$PYTHON_VERSION/Python.h
-		fi
-	    fi
-	    if test ! -d "$PYTHON_SITE_PACKAGES"
-	    then
-		    PYTHON_SITE_PACKAGES=`$PYTHON -c "from distutils import sysconfig; print sysconfig.get_python_lib()"`
-	    fi
-	fi
-    fi
-    if test "$with_python" != ""
-    then
-        pythondir='$(PYTHON_SITE_PACKAGES)'
-    else
-        pythondir='$(libdir)/python$(PYTHON_VERSION)/site-packages'
-    fi
-else
-    PYTHON=
-fi
-AM_CONDITIONAL([WITH_PYTHON], test "$PYTHON_INCLUDES" != "")
-AC_SUBST([pythondir])
-AC_SUBST([PYTHON_VERSION])
-AC_SUBST([PYTHON_INCLUDES])
-AC_SUBST([PYTHON_SITE_PACKAGES])
 
 GOBJECT_INTROSPECTION_CHECK([$GOBJECT_INTROSPECTION_REQUIRED])
 
@@ -302,7 +216,6 @@ AC_OUTPUT(Makefile
           libvirt-gconfig/tests/Makefile
           libvirt-gobject/Makefile
           examples/Makefile
-          python/Makefile
           vapi/Makefile
           docs/Makefile
           docs/libvirt-glib/Makefile

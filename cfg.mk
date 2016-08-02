@@ -115,9 +115,6 @@ exclude_file_name_regexp--sc_preprocessor_indentation = ^*/*.[ch]
 
 exclude_file_name_regexp--sc_prohibit_strcmp = ^*/*.[ch]
 
-exclude_file_name_regexp--sc_require_config_h = python/libvirt-glib.c
-exclude_file_name_regexp--sc_require_config_h_first = python/libvirt-glib.c
-
 # XXX we shouldn't really ignore this, but the horrible enum rules...
 exclude_file_name_regexp--sc_makefile_at_at_check = libvirt-gobject/Makefile.am
 
