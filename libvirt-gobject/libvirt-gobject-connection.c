@@ -1999,7 +1999,7 @@ GVirStoragePool *gvir_connection_create_storage_pool
                                  GVirConfigStoragePool *conf,
                                  guint flags,
                                  GError **err) {
-    const gchar *xml;
+    gchar *xml;
     virStoragePoolPtr handle;
     GVirConnectionPrivate *priv;
 
@@ -2012,7 +2012,9 @@ GVirStoragePool *gvir_connection_create_storage_pool
     g_return_val_if_fail(xml != NULL, NULL);
 
     priv = conn->priv;
-    if (!(handle = virStoragePoolDefineXML(priv->conn, xml, flags))) {
+    handle = virStoragePoolDefineXML(priv->conn, xml, flags);
+    g_free(xml);
+    if (!handle) {
         gvir_set_error_literal(err, GVIR_CONNECTION_ERROR,
                                flags,
                                _("Failed to create storage pool"));
