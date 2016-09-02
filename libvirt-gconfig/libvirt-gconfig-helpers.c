@@ -293,7 +293,7 @@ gvir_config_xml_node_to_string(xmlNodePtr node)
 
     xmlbuf = xmlBufferCreate();
     if (xmlNodeDump(xmlbuf, node->doc, node, 0, 1) < 0)
-        return NULL;
+        xml = NULL;
     else
         xml = g_strndup((gchar *)xmlBufferContent(xmlbuf), xmlBufferLength(xmlbuf));
 
