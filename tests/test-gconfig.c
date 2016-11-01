@@ -30,12 +30,11 @@
     g_free(alloced_str); \
 } G_STMT_END
 
-static void check_xml(GVirConfigDomain *domain, const char *reference_file)
+static char * load_xml(const char *reference_file)
 {
     const char *reference_path;
     GError *error = NULL;
     char *reference_xml;
-    char *xml;
 
     reference_path = g_test_get_filename(G_TEST_DIST, "xml",
                                          reference_file, NULL);
@@ -45,6 +44,18 @@ static void check_xml(GVirConfigDomain *domain, const char *reference_file)
      * gedit, workaround this issue by removing trailing whitespace from
      * the reference file */
     g_strchomp(reference_xml);
+
+    return reference_xml;
+}
+
+
+static void check_xml(GVirConfigDomain *domain, const char *reference_file)
+{
+    char *reference_xml;
+    char *xml;
+
+    reference_xml = load_xml(reference_file);
+
     xml = gvir_config_object_to_xml(GVIR_CONFIG_OBJECT(domain));
     g_assert_cmpstr(xml, ==, reference_xml);
     g_free(xml);
