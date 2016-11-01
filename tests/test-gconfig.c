@@ -762,6 +762,29 @@ static void test_domain_device_pci_hostdev(void)
     g_object_unref(G_OBJECT(domain));
 }
 
+static void test_domain_device_unknown(void)
+{
+    GVirConfigDomain *domain;
+    GList *devices;
+    GError *error = NULL;
+    char *xml;
+
+    xml = load_xml("gconfig-domain-device-unknown.xml");
+
+    domain = gvir_config_domain_new_from_xml(xml, &error);
+    g_assert_no_error(error);
+
+    devices = gvir_config_domain_get_devices(domain);
+    g_assert_nonnull(devices);
+    gvir_config_domain_set_devices(domain, devices);
+
+    check_xml(domain, "gconfig-domain-device-unknown.xml");
+
+    g_list_free_full(devices, g_object_unref);
+    g_object_unref(G_OBJECT(domain));
+}
+
+
 int main(int argc, char **argv)
 {
     gvir_config_init(&argc, &argv);
@@ -793,6 +816,8 @@ int main(int argc, char **argv)
                     test_domain_device_usb_redir);
     g_test_add_func("/libvirt-gconfig/domain-device-pci-hostdev",
                     test_domain_device_pci_hostdev);
+    g_test_add_func("/libvirt-gconfig/domain-device-unknown",
+                    test_domain_device_unknown);
 
     return g_test_run();
 }
