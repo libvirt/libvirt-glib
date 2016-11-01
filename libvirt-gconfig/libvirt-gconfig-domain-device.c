@@ -64,7 +64,7 @@ gvir_config_domain_device_new_from_tree(GVirConfigXmlDoc *doc,
     } else if (xmlStrEqual(tree->name, (xmlChar*)"controller")) {
         return gvir_config_domain_controller_new_from_tree(doc, tree);
     } else if (xmlStrEqual(tree->name, (xmlChar*)"lease")) {
-        goto unimplemented;
+        type = GVIR_CONFIG_TYPE_DOMAIN_DEVICE;
     } else if (xmlStrEqual(tree->name, (xmlChar*)"hostdev")) {
         return gvir_config_domain_hostdev_new_from_tree(doc, tree);
     } else if (xmlStrEqual(tree->name, (xmlChar*)"redirdev")) {
@@ -76,7 +76,7 @@ gvir_config_domain_device_new_from_tree(GVirConfigXmlDoc *doc,
     } else if (xmlStrEqual(tree->name, (xmlChar*)"input")) {
         type = GVIR_CONFIG_TYPE_DOMAIN_INPUT;
     } else if (xmlStrEqual(tree->name, (xmlChar*)"hub")) {
-        goto unimplemented;
+        type = GVIR_CONFIG_TYPE_DOMAIN_DEVICE;
     } else if (xmlStrEqual(tree->name, (xmlChar*)"graphics")) {
         return gvir_config_domain_graphics_new_from_tree(doc, tree);
     } else if (xmlStrEqual(tree->name, (xmlChar*)"video")) {
@@ -90,22 +90,22 @@ gvir_config_domain_device_new_from_tree(GVirConfigXmlDoc *doc,
     } else if (xmlStrEqual(tree->name, (xmlChar*)"channel")) {
         type = GVIR_CONFIG_TYPE_DOMAIN_CHANNEL;
     } else if (xmlStrEqual(tree->name, (xmlChar*)"watchdog")) {
-        goto unimplemented;
+        type = GVIR_CONFIG_TYPE_DOMAIN_DEVICE;
     } else if (xmlStrEqual(tree->name, (xmlChar*)"sound")) {
         type = GVIR_CONFIG_TYPE_DOMAIN_SOUND;
     } else if (xmlStrEqual(tree->name, (xmlChar*)"memballoon")) {
         type = GVIR_CONFIG_TYPE_DOMAIN_MEMBALLOON;
     } else {
         g_debug("Unknown device node: %s", tree->name);
-        return NULL;
+        type = GVIR_CONFIG_TYPE_DOMAIN_DEVICE;
     }
 
     g_return_val_if_fail(g_type_is_a(type, GVIR_CONFIG_TYPE_DOMAIN_DEVICE), NULL);
 
+    if (type == GVIR_CONFIG_TYPE_DOMAIN_DEVICE)
+        g_debug("Proper support for '%s' device nodes is not yet implemented", tree->name);
+
     return GVIR_CONFIG_DOMAIN_DEVICE(gvir_config_object_new_from_tree(type, doc, NULL, tree));
-unimplemented:
-    g_debug("Parsing of '%s' device nodes is unimplemented", tree->name);
-    return NULL;
 }
 
 
