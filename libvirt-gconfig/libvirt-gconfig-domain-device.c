@@ -33,7 +33,7 @@ struct _GVirConfigDomainDevicePrivate
     gboolean unused;
 };
 
-G_DEFINE_ABSTRACT_TYPE(GVirConfigDomainDevice, gvir_config_domain_device, GVIR_CONFIG_TYPE_OBJECT);
+G_DEFINE_TYPE(GVirConfigDomainDevice, gvir_config_domain_device, GVIR_CONFIG_TYPE_OBJECT);
 
 
 static void gvir_config_domain_device_class_init(GVirConfigDomainDeviceClass *klass)
