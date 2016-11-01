@@ -209,6 +209,14 @@ void gvir_config_object_validate(GVirConfigObject *config,
         return;
     }
 
+    if (!priv->schema) {
+        gvir_config_set_error_literal(err,
+                                      GVIR_CONFIG_OBJECT_ERROR,
+                                      0,
+                                      _("No XML schema associated with this config object"));
+        return;
+    }
+
     rngParser = xmlRelaxNGNewParserCtxt(priv->schema);
     if (!rngParser) {
         gvir_config_set_error(err,
