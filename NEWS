@@ -1,6 +1,28 @@
                  libvirt-glib News
                  =================
 
+1.0.0 - Nov  4, 2016
+====================
+
+- Switch to new release numbering scheme, major
+  digit incremented each year, minor for each
+  release, micro for stable branches (if any)
+- Fix Libs.private variable in pkg-config file
+- Fix git introspection warnings
+- Add ability to set SPICE gl property
+- Add support for virtio video model
+- Add support for 3d accel property
+- Add support for querying video model
+- Add support for host device config for PCI devs
+- Add docs for more APIs
+- Avoid unused variable warnings
+- Fix check for libvirt optional features to use pkg-config
+- Delete manually written python binding. All apps should
+  use PyGObject with gobjection introspection.
+- Add schema to be NULL on config objects
+- Preserve unknown devices listed in XML
+- Add further test coverage
+
 0.2.3 - Dec 16, 2015
 ====================
 
