@@ -782,6 +782,7 @@ static void test_domain_device_unknown(void)
 
     g_list_free_full(devices, g_object_unref);
     g_object_unref(G_OBJECT(domain));
+    g_free(xml);
 }
 
 
