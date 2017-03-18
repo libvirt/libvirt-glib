@@ -78,7 +78,7 @@ static const char *eventDetailToString(int event, int detail) {
         break;
     case VIR_DOMAIN_EVENT_SUSPENDED:
         if (detail == VIR_DOMAIN_EVENT_SUSPENDED_PAUSED)
-            ret = "Unpaused";
+            ret = "Paused";
         else if (detail == VIR_DOMAIN_EVENT_SUSPENDED_MIGRATED)
             ret = "Migrated";
         break;
@@ -103,7 +103,7 @@ static const char *eventDetailToString(int event, int detail) {
             ret = "Migrated";
             break;
         case VIR_DOMAIN_EVENT_STOPPED_SAVED:
-            ret = "Failed";
+            ret = "Saved";
             break;
         case VIR_DOMAIN_EVENT_STOPPED_FAILED:
             ret = "Failed";
