@@ -98,7 +98,7 @@ static gboolean test_watch(gpointer user_data G_GNUC_UNUSED)
 static void test_remove_disabled_watch(void)
 {
     main_loop = g_main_loop_new(NULL, FALSE);
-    watch_fd = open("/bin/true", O_RDONLY);
+    watch_fd = open("/dev/null", O_RDONLY);
     g_idle_add(test_watch, NULL);
     g_main_loop_run(main_loop);
     g_main_loop_unref(main_loop);
