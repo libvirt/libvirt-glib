@@ -71,6 +71,8 @@ AC_SUBST([LIBVIRT_GLIB_VERSION_NUMBER])
 AC_PROG_CC
 AM_PROG_CC_C_O
 
+AC_PATH_PROG([PERL], [perl])
+
 LT_INIT([shared disable-static win32-dll])
 
 dnl AC_CONFIG_LIBOBJ_DIR([src])
