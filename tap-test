@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 
 # run a GTest in tap mode. The test binary is passed as $1
 

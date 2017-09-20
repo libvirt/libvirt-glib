@@ -1,4 +1,4 @@
-#!/usr/bin/gjs
+#!/usr/bin/env gjs
 
 const lv = imports.gi.LibvirtGObject;
 const gio = imports.gi.Gio;

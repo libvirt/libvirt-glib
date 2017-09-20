@@ -1,3 +1,4 @@
+#!/usr/bin/env python2
 
 from gi.repository import Gtk
 import libvirt

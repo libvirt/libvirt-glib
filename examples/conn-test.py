@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python2
 
 from gi.repository import LibvirtGObject;
 from gi.repository import Gio;
