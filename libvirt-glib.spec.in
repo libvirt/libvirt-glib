@@ -116,6 +116,12 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libvirt-gobject-1.0.la
 
 %find_lang %{name}
 
+%check
+if ! make %{?_smp_mflags} check; then
+  cat tests/test-suite.log || true
+  exit 1
+fi
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
