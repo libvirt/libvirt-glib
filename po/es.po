@@ -4,13 +4,14 @@
 #
 # Translators:
 # Adolfo Jayme Barrientos <fitoschido@ubuntu.com>, 2013
+# Máximo Castañeda Riloba <mcrcctm@gmail.com>, 2016. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-16 16:51+0000\n"
-"PO-Revision-Date: 2013-11-20 06:38-0500\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitoschido@ubuntu.com>\n"
+"POT-Creation-Date: 2017-12-04 16:39+0000\n"
+"PO-Revision-Date: 2016-08-07 06:44-0400\n"
+"Last-Translator: Máximo Castañeda Riloba <mcrcctm@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/libvirt-glib/"
 "language/es/)\n"
 "Language: es\n"
@@ -18,11 +19,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 3.7.3\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../libvirt-gconfig/libvirt-gconfig-helpers.c:141
 msgid "No XML document to parse"
-msgstr "No hay ningún document XML que analizar"
+msgstr "No hay ningún documento XML que analizar"
 
 #: ../libvirt-gconfig/libvirt-gconfig-helpers.c:149
 msgid "Unable to parse configuration"
@@ -38,22 +39,26 @@ msgid "No XML document associated with this config object"
 msgstr ""
 "No hay ningún documento XML asociado con este objeto de la configuración"
 
-#: ../libvirt-gconfig/libvirt-gconfig-object.c:217
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:216
+msgid "No XML schema associated with this config object"
+msgstr ""
+
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:225
 #, c-format
 msgid "Unable to create RNG parser for %s"
 msgstr "No se pudo crear el analizador RNG para %s"
 
-#: ../libvirt-gconfig/libvirt-gconfig-object.c:227
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:235
 #, c-format
 msgid "Unable to parse RNG %s"
 msgstr "No se pudo analizar el RNG %s"
 
-#: ../libvirt-gconfig/libvirt-gconfig-object.c:239
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:247
 #, c-format
 msgid "Unable to create RNG validation context %s"
 msgstr "No se pudo crear el contexto de validación de RNG %s"
 
-#: ../libvirt-gconfig/libvirt-gconfig-object.c:249
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:257
 msgid "Unable to validate doc"
 msgstr "No se pudo validar el documento"
 
@@ -71,72 +76,72 @@ msgstr "No se puede abrir %s"
 msgid "Unable to get connection URI"
 msgstr "No se puede obtener el URI de la conexión"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:726
-#: ../libvirt-gobject/libvirt-gobject-connection.c:809
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1496
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1748
+#: ../libvirt-gobject/libvirt-gobject-connection.c:731
+#: ../libvirt-gobject/libvirt-gobject-connection.c:819
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1506
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1763
 msgid "Connection is not open"
 msgstr "La conexión no está abierta"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:739
+#: ../libvirt-gobject/libvirt-gobject-connection.c:744
 msgid "Failed to fetch list of domains"
-msgstr ""
+msgstr "No se pudo obtener la lista de dominios"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:825
+#: ../libvirt-gobject/libvirt-gobject-connection.c:835
 msgid "Failed to fetch list of pools"
-msgstr ""
+msgstr "No se pudo obtener la lista de grupos"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1026
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1065
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1036
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1075
 msgid "Connection is not opened"
 msgstr "La conexión no está abierta"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1033
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1043
 msgid "Unable to get hypervisor name"
 msgstr "No se puede obtener el nombre del hipervisor"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1071
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1081
 msgid "Unable to get hypervisor version"
 msgstr "No se puede obtener la versión del hipervisor"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1386
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1441
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1396
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1451
 msgid "Failed to create domain"
 msgstr "Falló al crear el dominio"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1512
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1522
 msgid "Failed to fetch list of interfaces"
-msgstr ""
+msgstr "No se pudo obtener la lista de interfaces"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1764
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1779
 msgid "Failed to fetch list of networks"
-msgstr ""
+msgstr "No se pudo obtener la lista de redes"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:2005
+#: ../libvirt-gobject/libvirt-gobject-connection.c:2020
 msgid "Failed to create storage pool"
 msgstr "Falló al crear el grupo de almacenamiento"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:2048
+#: ../libvirt-gobject/libvirt-gobject-connection.c:2063
 msgid "Unable to get node info"
 msgstr "No se puede obtener la información del nodo"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:2088
+#: ../libvirt-gobject/libvirt-gobject-connection.c:2103
 msgid "Unable to get capabilities"
 msgstr "No se pudieron obtener las capacidades"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:2212
+#: ../libvirt-gobject/libvirt-gobject-connection.c:2227
 msgid "Unable to restore domain"
 msgstr "No se puede restaurar el dominio"
 
 #: ../libvirt-gobject/libvirt-gobject-stream.c:349
 msgid "virStreamRecv call would block"
-msgstr ""
+msgstr "La llamada a virStreamRecv sería bloqueante"
 
 #: ../libvirt-gobject/libvirt-gobject-stream.c:352
 #: ../libvirt-gobject/libvirt-gobject-stream.c:468
 #, c-format
 msgid "Got virStreamRecv error in %s"
-msgstr "Se obtivo el error virStreamRecv en %s"
+msgstr "Se obtuvo el error virStreamRecv en %s"
 
 #: ../libvirt-gobject/libvirt-gobject-stream.c:417
 msgid "Unable to perform RecvAll"
@@ -144,7 +149,7 @@ msgstr "No se puede realizar RecvAll"
 
 #: ../libvirt-gobject/libvirt-gobject-stream.c:465
 msgid "virStreamSend call would block"
-msgstr ""
+msgstr "La llamada a virStreamSend sería bloqueante"
 
 #: ../libvirt-gobject/libvirt-gobject-stream.c:533
 msgid "Unable to perform SendAll"

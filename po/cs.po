@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Zdenek <chmelarz@gmail.com>, 2016. #zanata
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-16 16:51+0000\n"
-"PO-Revision-Date: 2013-04-08 07:29-0400\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2017-12-04 16:39+0000\n"
+"PO-Revision-Date: 2016-10-23 10:21-0400\n"
+"Last-Translator: Zdenek <chmelarz@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/libvirt-glib/"
 "language/cs/)\n"
 "Language: cs\n"
@@ -17,133 +18,137 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Zanata 3.7.3\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../libvirt-gconfig/libvirt-gconfig-helpers.c:141
 msgid "No XML document to parse"
-msgstr ""
+msgstr "Žádný XML dokument k parsování"
 
 #: ../libvirt-gconfig/libvirt-gconfig-helpers.c:149
 msgid "Unable to parse configuration"
-msgstr ""
+msgstr "Nelze parsovat konfiguraci"
 
 #: ../libvirt-gconfig/libvirt-gconfig-helpers.c:157
 #, c-format
 msgid "XML data has no '%s' node"
-msgstr ""
+msgstr "XML data nemají uzel '%s'"
 
 #: ../libvirt-gconfig/libvirt-gconfig-object.c:208
 msgid "No XML document associated with this config object"
+msgstr "Žádný XML dokument není asociován s tímto konfiguračním objektem"
+
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:216
+msgid "No XML schema associated with this config object"
 msgstr ""
 
-#: ../libvirt-gconfig/libvirt-gconfig-object.c:217
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:225
 #, c-format
 msgid "Unable to create RNG parser for %s"
-msgstr ""
+msgstr "Nelze vytvořit RNG parser pro %s"
 
-#: ../libvirt-gconfig/libvirt-gconfig-object.c:227
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:235
 #, c-format
 msgid "Unable to parse RNG %s"
-msgstr ""
+msgstr "Nelze parsovat RNG %s"
 
-#: ../libvirt-gconfig/libvirt-gconfig-object.c:239
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:247
 #, c-format
 msgid "Unable to create RNG validation context %s"
-msgstr ""
+msgstr "Nelze vytvořit ověření kontextu RNG %s"
 
-#: ../libvirt-gconfig/libvirt-gconfig-object.c:249
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:257
 msgid "Unable to validate doc"
-msgstr ""
+msgstr "Nelze ověřit dokument"
 
 #: ../libvirt-gobject/libvirt-gobject-connection.c:440
 #, c-format
 msgid "Connection %s is already open"
-msgstr ""
+msgstr "Spojení %s je již navázáno"
 
 #: ../libvirt-gobject/libvirt-gobject-connection.c:455
 #, c-format
 msgid "Unable to open %s"
-msgstr ""
+msgstr "Nelze otevřít %s"
 
 #: ../libvirt-gobject/libvirt-gobject-connection.c:466
 msgid "Unable to get connection URI"
-msgstr ""
+msgstr "Nelze získat URI připojení"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:726
-#: ../libvirt-gobject/libvirt-gobject-connection.c:809
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1496
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1748
+#: ../libvirt-gobject/libvirt-gobject-connection.c:731
+#: ../libvirt-gobject/libvirt-gobject-connection.c:819
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1506
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1763
 msgid "Connection is not open"
-msgstr ""
+msgstr "Spojení není navázáno"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:739
+#: ../libvirt-gobject/libvirt-gobject-connection.c:744
 msgid "Failed to fetch list of domains"
-msgstr ""
+msgstr "Nepodařilo se načíst seznam doméno "
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:825
+#: ../libvirt-gobject/libvirt-gobject-connection.c:835
 msgid "Failed to fetch list of pools"
-msgstr ""
+msgstr "Nepodařilo se načíst seznam úložišť"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1026
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1065
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1036
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1075
 msgid "Connection is not opened"
-msgstr ""
+msgstr "Spojení není navázáno"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1033
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1043
 msgid "Unable to get hypervisor name"
-msgstr ""
+msgstr "Nezdařilo se získat název hypervisoru"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1071
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1081
 msgid "Unable to get hypervisor version"
-msgstr ""
+msgstr "Nepodařilo se získat verzi hypervizora"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1386
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1441
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1396
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1451
 msgid "Failed to create domain"
-msgstr ""
+msgstr "Nepodařilo se vytvořit doménu"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1512
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1522
 msgid "Failed to fetch list of interfaces"
-msgstr ""
+msgstr "Nepodařilo se načíst seznam rozhraní"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1764
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1779
 msgid "Failed to fetch list of networks"
-msgstr ""
+msgstr "Nepodařilo se načíst seznam sítí"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:2005
+#: ../libvirt-gobject/libvirt-gobject-connection.c:2020
 msgid "Failed to create storage pool"
-msgstr ""
+msgstr "Nepodařilo se vytvořit úložný prostor"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:2048
+#: ../libvirt-gobject/libvirt-gobject-connection.c:2063
 msgid "Unable to get node info"
-msgstr ""
+msgstr "Nepodařilo se získat informace o uzlu"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:2088
+#: ../libvirt-gobject/libvirt-gobject-connection.c:2103
 msgid "Unable to get capabilities"
-msgstr ""
+msgstr "Nepodařilo se získat schopnosti"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:2212
+#: ../libvirt-gobject/libvirt-gobject-connection.c:2227
 msgid "Unable to restore domain"
-msgstr ""
+msgstr "Nepodařilo se obnovit doménu"
 
 #: ../libvirt-gobject/libvirt-gobject-stream.c:349
 msgid "virStreamRecv call would block"
-msgstr ""
+msgstr "Volání virStreamRecv by blokovalo"
 
 #: ../libvirt-gobject/libvirt-gobject-stream.c:352
 #: ../libvirt-gobject/libvirt-gobject-stream.c:468
 #, c-format
 msgid "Got virStreamRecv error in %s"
-msgstr ""
+msgstr "Má chybu virStreamRecv v %s"
 
 #: ../libvirt-gobject/libvirt-gobject-stream.c:417
 msgid "Unable to perform RecvAll"
-msgstr ""
+msgstr "Nepodařilo se provést RecvAll"
 
 #: ../libvirt-gobject/libvirt-gobject-stream.c:465
 msgid "virStreamSend call would block"
-msgstr ""
+msgstr "Volání virStreamSend by blokovalo"
 
 #: ../libvirt-gobject/libvirt-gobject-stream.c:533
 msgid "Unable to perform SendAll"
-msgstr ""
+msgstr "Nepodařilo se provést SendAll"

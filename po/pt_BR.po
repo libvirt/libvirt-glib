@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-16 16:51+0000\n"
-"PO-Revision-Date: 2014-07-03 01:19-0400\n"
-"Last-Translator: Daniel Lara <danniel@fedoraproject.org>\n"
+"POT-Creation-Date: 2017-12-04 16:39+0000\n"
+"PO-Revision-Date: 2014-12-17 12:23-0500\n"
+"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
 "libvirt-glib/language/pt_BR/)\n"
 "Language: pt-BR\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Zanata 3.7.3\n"
+"X-Generator: Zanata 3.9.6\n"
 
 #: ../libvirt-gconfig/libvirt-gconfig-helpers.c:141
 msgid "No XML document to parse"
@@ -37,22 +37,26 @@ msgstr "Dados XML não possuem um nó '%s'"
 msgid "No XML document associated with this config object"
 msgstr "Nenhum documento XML associado a este objeto de configuração"
 
-#: ../libvirt-gconfig/libvirt-gconfig-object.c:217
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:216
+msgid "No XML schema associated with this config object"
+msgstr ""
+
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:225
 #, c-format
 msgid "Unable to create RNG parser for %s"
 msgstr "Não foi possível criar um analisador RNG para %s"
 
-#: ../libvirt-gconfig/libvirt-gconfig-object.c:227
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:235
 #, c-format
 msgid "Unable to parse RNG %s"
 msgstr "Não foi possível analisar o RNG %s"
 
-#: ../libvirt-gconfig/libvirt-gconfig-object.c:239
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:247
 #, c-format
 msgid "Unable to create RNG validation context %s"
 msgstr "Não foi possível criar o contexto de validação RNG %s"
 
-#: ../libvirt-gconfig/libvirt-gconfig-object.c:249
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:257
 msgid "Unable to validate doc"
 msgstr "Não foi possível validar o documento"
 
@@ -70,60 +74,60 @@ msgstr "Não foi possível abrir %s"
 msgid "Unable to get connection URI"
 msgstr "Não foi possível encontrar a URI da conexão"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:726
-#: ../libvirt-gobject/libvirt-gobject-connection.c:809
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1496
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1748
+#: ../libvirt-gobject/libvirt-gobject-connection.c:731
+#: ../libvirt-gobject/libvirt-gobject-connection.c:819
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1506
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1763
 msgid "Connection is not open"
 msgstr "A conexão não está aberta"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:739
+#: ../libvirt-gobject/libvirt-gobject-connection.c:744
 msgid "Failed to fetch list of domains"
 msgstr ""
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:825
+#: ../libvirt-gobject/libvirt-gobject-connection.c:835
 msgid "Failed to fetch list of pools"
 msgstr ""
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1026
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1065
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1036
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1075
 msgid "Connection is not opened"
 msgstr "A conexão não está aberta"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1033
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1043
 msgid "Unable to get hypervisor name"
 msgstr "Não foi possível encontrar o nome do hypervisor"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1071
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1081
 msgid "Unable to get hypervisor version"
 msgstr "Não foi possível encontrar a versão do hypervisor"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1386
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1441
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1396
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1451
 msgid "Failed to create domain"
 msgstr "Falha na criação do domínio"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1512
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1522
 msgid "Failed to fetch list of interfaces"
 msgstr ""
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1764
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1779
 msgid "Failed to fetch list of networks"
 msgstr ""
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:2005
+#: ../libvirt-gobject/libvirt-gobject-connection.c:2020
 msgid "Failed to create storage pool"
 msgstr "Falha na criação do storage pool"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:2048
+#: ../libvirt-gobject/libvirt-gobject-connection.c:2063
 msgid "Unable to get node info"
 msgstr "Não foi possível buscar informações do nó"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:2088
+#: ../libvirt-gobject/libvirt-gobject-connection.c:2103
 msgid "Unable to get capabilities"
 msgstr "Não foi possível buscar as capacidades"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:2212
+#: ../libvirt-gobject/libvirt-gobject-connection.c:2227
 msgid "Unable to restore domain"
 msgstr "Não foi possível restaurar o domínio"
 
