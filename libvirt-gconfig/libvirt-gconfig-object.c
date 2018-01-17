@@ -572,7 +572,7 @@ gvir_config_object_set_node_content(GVirConfigObject *object,
         node = gvir_config_object_replace_child(object, node_name);
         g_return_if_fail(node != NULL);
     } else {
-        node = g_object_ref(G_OBJECT(object));
+        node = g_object_ref(object);
     }
     encoded_data = xmlEncodeEntitiesReentrant(node->priv->node->doc,
                                               (xmlChar *)value);
@@ -896,7 +896,7 @@ gvir_config_object_attach(GVirConfigObject *parent, GVirConfigObject *child, gbo
         child->priv->doc = NULL;
     }
     if (parent->priv->doc != NULL) {
-        child->priv->doc = g_object_ref(G_OBJECT(parent->priv->doc));
+        child->priv->doc = g_object_ref(parent->priv->doc);
     }
 }
 
