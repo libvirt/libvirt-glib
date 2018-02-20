@@ -151,6 +151,9 @@ AC_DEFUN([LIBVIRT_GLIB_COMPILE_WARNINGS],[
     # that one off, so we need to manually enable this again
     wantwarn="$wantwarn -Wjump-misses-init"
 
+    # We do "bad" function casts all the time for event callbacks
+    wantwarn="$wantwarn -Wno-cast-function-type"
+
     # GNULIB turns on -Wformat=2 which implies -Wformat-nonliteral,
     # so we need to manually re-exclude it.  Also, older gcc 4.2
     # added an implied ATTRIBUTE_NONNULL on any parameter marked
