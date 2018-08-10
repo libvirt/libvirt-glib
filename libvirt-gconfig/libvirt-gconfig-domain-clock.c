@@ -33,12 +33,11 @@ struct _GVirConfigDomainClockPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainClock, gvir_config_domain_clock, GVIR_CONFIG_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainClock, gvir_config_domain_clock, GVIR_CONFIG_TYPE_OBJECT);
 
 
-static void gvir_config_domain_clock_class_init(GVirConfigDomainClockClass *klass)
+static void gvir_config_domain_clock_class_init(GVirConfigDomainClockClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainClockPrivate));
 }
 
 

@@ -33,12 +33,11 @@ struct _GVirConfigNodeDevicePrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigNodeDevice, gvir_config_node_device, GVIR_CONFIG_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigNodeDevice, gvir_config_node_device, GVIR_CONFIG_TYPE_OBJECT);
 
 
-static void gvir_config_node_device_class_init(GVirConfigNodeDeviceClass *klass)
+static void gvir_config_node_device_class_init(GVirConfigNodeDeviceClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigNodeDevicePrivate));
 }
 
 

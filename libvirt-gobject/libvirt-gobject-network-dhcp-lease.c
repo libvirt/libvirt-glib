@@ -46,7 +46,7 @@ struct _GVirNetworkDHCPLeasePrivate
 #endif /* HAVE_VIR_NETWORK_GET_DHCP_LEASES */
 };
 
-G_DEFINE_TYPE(GVirNetworkDHCPLease, gvir_network_dhcp_lease, G_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirNetworkDHCPLease, gvir_network_dhcp_lease, G_TYPE_OBJECT);
 
 enum {
     PROP_0,
@@ -123,8 +123,6 @@ static void gvir_network_dhcp_lease_class_init(GVirNetworkDHCPLeaseClass *klass)
                                                          G_PARAM_CONSTRUCT_ONLY |
                                                          G_PARAM_PRIVATE |
                                                          G_PARAM_STATIC_STRINGS));
-
-    g_type_class_add_private(klass, sizeof(GVirNetworkDHCPLeasePrivate));
 }
 
 

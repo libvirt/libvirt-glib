@@ -39,7 +39,7 @@ struct _GVirDomainDiskPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirDomainDisk, gvir_domain_disk, GVIR_TYPE_DOMAIN_DEVICE);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirDomainDisk, gvir_domain_disk, GVIR_TYPE_DOMAIN_DEVICE);
 
 #define GVIR_DOMAIN_DISK_ERROR gvir_domain_disk_error_quark()
 
@@ -49,9 +49,8 @@ gvir_domain_disk_error_quark(void)
     return g_quark_from_static_string("gvir-domain-disk");
 }
 
-static void gvir_domain_disk_class_init(GVirDomainDiskClass *klass)
+static void gvir_domain_disk_class_init(GVirDomainDiskClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirDomainDiskPrivate));
 }
 
 static void gvir_domain_disk_init(GVirDomainDisk *self)

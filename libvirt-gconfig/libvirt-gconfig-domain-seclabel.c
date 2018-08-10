@@ -33,12 +33,11 @@ struct _GVirConfigDomainSeclabelPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainSeclabel, gvir_config_domain_seclabel, GVIR_CONFIG_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainSeclabel, gvir_config_domain_seclabel, GVIR_CONFIG_TYPE_OBJECT);
 
 
-static void gvir_config_domain_seclabel_class_init(GVirConfigDomainSeclabelClass *klass)
+static void gvir_config_domain_seclabel_class_init(GVirConfigDomainSeclabelClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainSeclabelPrivate));
 }
 
 

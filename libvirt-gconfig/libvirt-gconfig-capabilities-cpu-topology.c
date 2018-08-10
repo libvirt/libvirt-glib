@@ -35,11 +35,10 @@ struct _GVirConfigCapabilitiesCpuTopologyPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigCapabilitiesCpuTopology, gvir_config_capabilities_cpu_topology, GVIR_CONFIG_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigCapabilitiesCpuTopology, gvir_config_capabilities_cpu_topology, GVIR_CONFIG_TYPE_OBJECT);
 
-static void gvir_config_capabilities_cpu_topology_class_init(GVirConfigCapabilitiesCpuTopologyClass *klass)
+static void gvir_config_capabilities_cpu_topology_class_init(GVirConfigCapabilitiesCpuTopologyClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigCapabilitiesCpuTopologyPrivate));
 }
 
 static void gvir_config_capabilities_cpu_topology_init(GVirConfigCapabilitiesCpuTopology *topology)

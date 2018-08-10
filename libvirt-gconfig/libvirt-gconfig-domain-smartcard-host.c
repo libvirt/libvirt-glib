@@ -33,12 +33,11 @@ struct _GVirConfigDomainSmartcardHostPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainSmartcardHost, gvir_config_domain_smartcard_host, GVIR_CONFIG_TYPE_DOMAIN_SMARTCARD);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainSmartcardHost, gvir_config_domain_smartcard_host, GVIR_CONFIG_TYPE_DOMAIN_SMARTCARD);
 
 
-static void gvir_config_domain_smartcard_host_class_init(GVirConfigDomainSmartcardHostClass *klass)
+static void gvir_config_domain_smartcard_host_class_init(GVirConfigDomainSmartcardHostClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainSmartcardHostPrivate));
 }
 
 

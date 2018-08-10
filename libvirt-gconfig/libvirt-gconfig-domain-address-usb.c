@@ -33,12 +33,11 @@ struct _GVirConfigDomainAddressUsbPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainAddressUsb, gvir_config_domain_address_usb, GVIR_CONFIG_TYPE_DOMAIN_ADDRESS);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainAddressUsb, gvir_config_domain_address_usb, GVIR_CONFIG_TYPE_DOMAIN_ADDRESS);
 
 
-static void gvir_config_domain_address_usb_class_init(GVirConfigDomainAddressUsbClass *klass)
+static void gvir_config_domain_address_usb_class_init(GVirConfigDomainAddressUsbClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainAddressUsbPrivate));
 }
 
 

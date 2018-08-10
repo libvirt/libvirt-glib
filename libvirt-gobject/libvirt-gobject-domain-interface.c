@@ -39,7 +39,7 @@ struct _GVirDomainInterfacePrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirDomainInterface, gvir_domain_interface, GVIR_TYPE_DOMAIN_DEVICE);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirDomainInterface, gvir_domain_interface, GVIR_TYPE_DOMAIN_DEVICE);
 
 #define GVIR_DOMAIN_INTERFACE_ERROR gvir_domain_interface_error_quark()
 
@@ -49,9 +49,8 @@ gvir_domain_interface_error_quark(void)
     return g_quark_from_static_string("gvir-domain-interface");
 }
 
-static void gvir_domain_interface_class_init(GVirDomainInterfaceClass *klass)
+static void gvir_domain_interface_class_init(GVirDomainInterfaceClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirDomainInterfacePrivate));
 }
 
 static void gvir_domain_interface_init(GVirDomainInterface *self)

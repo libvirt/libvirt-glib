@@ -33,12 +33,11 @@ struct _GVirConfigInterfacePrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigInterface, gvir_config_interface, GVIR_CONFIG_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigInterface, gvir_config_interface, GVIR_CONFIG_TYPE_OBJECT);
 
 
-static void gvir_config_interface_class_init(GVirConfigInterfaceClass *klass)
+static void gvir_config_interface_class_init(GVirConfigInterfaceClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigInterfacePrivate));
 }
 
 

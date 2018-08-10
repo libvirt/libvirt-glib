@@ -33,11 +33,10 @@ struct _GVirConfigCapabilitiesHostSecModelPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigCapabilitiesHostSecModel, gvir_config_capabilities_host_secmodel, GVIR_CONFIG_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigCapabilitiesHostSecModel, gvir_config_capabilities_host_secmodel, GVIR_CONFIG_TYPE_OBJECT);
 
-static void gvir_config_capabilities_host_secmodel_class_init(GVirConfigCapabilitiesHostSecModelClass *klass)
+static void gvir_config_capabilities_host_secmodel_class_init(GVirConfigCapabilitiesHostSecModelClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigCapabilitiesHostSecModelPrivate));
 }
 
 static void gvir_config_capabilities_host_secmodel_init(GVirConfigCapabilitiesHostSecModel *secmodel)

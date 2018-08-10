@@ -134,8 +134,6 @@ static void gvir_domain_device_class_init(GVirDomainDeviceClass *klass)
                                                         G_PARAM_READWRITE |
                                                         G_PARAM_CONSTRUCT_ONLY |
                                                         G_PARAM_STATIC_STRINGS));
-
-    g_type_class_add_private(klass, sizeof(GVirDomainDevicePrivate));
 }
 
 static void gvir_domain_device_init(GVirDomainDevice *self)

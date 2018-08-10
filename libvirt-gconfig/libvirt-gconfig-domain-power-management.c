@@ -38,14 +38,12 @@ struct _GVirConfigDomainPowerManagementPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainPowerManagement,
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainPowerManagement,
               gvir_config_domain_power_management,
               GVIR_CONFIG_TYPE_OBJECT);
 
-static void gvir_config_domain_power_management_class_init
-        (GVirConfigDomainPowerManagementClass *klass)
+static void gvir_config_domain_power_management_class_init (GVirConfigDomainPowerManagementClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainPowerManagementPrivate));
 }
 
 

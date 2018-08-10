@@ -33,13 +33,12 @@ struct _GVirConfigDomainCpuModelPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainCpuModel,
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainCpuModel,
               gvir_config_domain_cpu_model,
               GVIR_CONFIG_TYPE_CAPABILITIES_CPU_MODEL);
 
-static void gvir_config_domain_cpu_model_class_init(GVirConfigDomainCpuModelClass *klass)
+static void gvir_config_domain_cpu_model_class_init(GVirConfigDomainCpuModelClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainCpuModelPrivate));
 }
 
 static void gvir_config_domain_cpu_model_init(GVirConfigDomainCpuModel *model)

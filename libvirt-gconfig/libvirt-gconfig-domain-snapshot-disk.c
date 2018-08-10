@@ -34,12 +34,11 @@ struct _GVirConfigDomainSnapshotDiskPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainSnapshotDisk, gvir_config_domain_snapshot_disk, GVIR_CONFIG_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainSnapshotDisk, gvir_config_domain_snapshot_disk, GVIR_CONFIG_TYPE_OBJECT);
 
 
-static void gvir_config_domain_snapshot_disk_class_init(GVirConfigDomainSnapshotDiskClass *klass)
+static void gvir_config_domain_snapshot_disk_class_init(GVirConfigDomainSnapshotDiskClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainSnapshotDiskPrivate));
 }
 
 

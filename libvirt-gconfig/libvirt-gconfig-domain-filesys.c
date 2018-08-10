@@ -33,12 +33,11 @@ struct _GVirConfigDomainFilesysPrivate
     GVirConfigDomainFilesysType type;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainFilesys, gvir_config_domain_filesys, GVIR_CONFIG_TYPE_DOMAIN_DEVICE);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainFilesys, gvir_config_domain_filesys, GVIR_CONFIG_TYPE_DOMAIN_DEVICE);
 
 
-static void gvir_config_domain_filesys_class_init(GVirConfigDomainFilesysClass *klass)
+static void gvir_config_domain_filesys_class_init(GVirConfigDomainFilesysClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainFilesysPrivate));
 }
 
 

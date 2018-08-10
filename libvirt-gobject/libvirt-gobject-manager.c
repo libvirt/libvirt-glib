@@ -39,7 +39,7 @@ struct _GVirManagerPrivate
     GList *connections;
 };
 
-G_DEFINE_TYPE(GVirManager, gvir_manager, G_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirManager, gvir_manager, G_TYPE_OBJECT);
 
 
 enum {
@@ -101,8 +101,6 @@ static void gvir_manager_class_init(GVirManagerClass *klass)
                  G_TYPE_NONE,
                  1,
                  GVIR_TYPE_CONNECTION);
-
-    g_type_class_add_private(klass, sizeof(GVirManagerPrivate));
 }
 
 

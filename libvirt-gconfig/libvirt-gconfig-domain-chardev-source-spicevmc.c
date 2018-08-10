@@ -33,12 +33,11 @@ struct _GVirConfigDomainChardevSourceSpiceVmcPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainChardevSourceSpiceVmc, gvir_config_domain_chardev_source_spicevmc, GVIR_CONFIG_TYPE_DOMAIN_CHARDEV_SOURCE);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainChardevSourceSpiceVmc, gvir_config_domain_chardev_source_spicevmc, GVIR_CONFIG_TYPE_DOMAIN_CHARDEV_SOURCE);
 
 
-static void gvir_config_domain_chardev_source_spicevmc_class_init(GVirConfigDomainChardevSourceSpiceVmcClass *klass)
+static void gvir_config_domain_chardev_source_spicevmc_class_init(GVirConfigDomainChardevSourceSpiceVmcClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainChardevSourceSpiceVmcPrivate));
 }
 
 

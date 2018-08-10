@@ -37,7 +37,7 @@ struct _GVirConfigXmlDocPrivate
     xmlDocPtr doc;
 };
 
-G_DEFINE_TYPE(GVirConfigXmlDoc, gvir_config_xml_doc, G_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigXmlDoc, gvir_config_xml_doc, G_TYPE_OBJECT);
 
 enum {
     PROP_0,
@@ -89,8 +89,6 @@ static void gvir_config_xml_doc_finalize(GObject *object)
 static void gvir_config_xml_doc_class_init(GVirConfigXmlDocClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS(klass);
-
-    g_type_class_add_private(klass, sizeof(GVirConfigXmlDocPrivate));
 
     object_class->finalize = gvir_config_xml_doc_finalize;
     object_class->get_property = gvir_config_xml_doc_get_property;

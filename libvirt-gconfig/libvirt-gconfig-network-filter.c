@@ -33,12 +33,11 @@ struct _GVirConfigNetworkFilterPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigNetworkFilter, gvir_config_network_filter, GVIR_CONFIG_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigNetworkFilter, gvir_config_network_filter, GVIR_CONFIG_TYPE_OBJECT);
 
 
-static void gvir_config_network_filter_class_init(GVirConfigNetworkFilterClass *klass)
+static void gvir_config_network_filter_class_init(GVirConfigNetworkFilterClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigNetworkFilterPrivate));
 }
 
 

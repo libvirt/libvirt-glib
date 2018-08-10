@@ -36,9 +36,8 @@ struct _GVirConfigDomainTimerPrivate
 G_DEFINE_ABSTRACT_TYPE(GVirConfigDomainTimer, gvir_config_domain_timer, GVIR_CONFIG_TYPE_OBJECT);
 
 
-static void gvir_config_domain_timer_class_init(GVirConfigDomainTimerClass *klass)
+static void gvir_config_domain_timer_class_init(GVirConfigDomainTimerClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainTimerPrivate));
 }
 
 

@@ -33,12 +33,11 @@ struct _GVirConfigDomainOsPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainOs, gvir_config_domain_os, GVIR_CONFIG_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainOs, gvir_config_domain_os, GVIR_CONFIG_TYPE_OBJECT);
 
 
-static void gvir_config_domain_os_class_init(GVirConfigDomainOsClass *klass)
+static void gvir_config_domain_os_class_init(GVirConfigDomainOsClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainOsPrivate));
 }
 
 

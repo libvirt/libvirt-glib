@@ -58,7 +58,7 @@ typedef struct {
 } GVirStreamSource;
 
 
-G_DEFINE_TYPE(GVirStream, gvir_stream, G_TYPE_IO_STREAM);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirStream, gvir_stream, G_TYPE_IO_STREAM);
 
 
 enum {
@@ -278,8 +278,6 @@ static void gvir_stream_class_init(GVirStreamClass *klass)
                                                        G_PARAM_WRITABLE |
                                                        G_PARAM_CONSTRUCT_ONLY |
                                                        G_PARAM_STATIC_STRINGS));
-
-    g_type_class_add_private(klass, sizeof(GVirStreamPrivate));
 }
 
 

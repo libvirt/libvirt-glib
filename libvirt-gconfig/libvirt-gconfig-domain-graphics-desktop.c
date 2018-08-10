@@ -33,12 +33,11 @@ struct _GVirConfigDomainGraphicsDesktopPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainGraphicsDesktop, gvir_config_domain_graphics_desktop, GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainGraphicsDesktop, gvir_config_domain_graphics_desktop, GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS);
 
 
-static void gvir_config_domain_graphics_desktop_class_init(GVirConfigDomainGraphicsDesktopClass *klass)
+static void gvir_config_domain_graphics_desktop_class_init(GVirConfigDomainGraphicsDesktopClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainGraphicsDesktopPrivate));
 }
 
 

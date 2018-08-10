@@ -36,9 +36,8 @@ struct _GVirConfigDomainControllerPrivate
 G_DEFINE_ABSTRACT_TYPE(GVirConfigDomainController, gvir_config_domain_controller, GVIR_CONFIG_TYPE_DOMAIN_DEVICE);
 
 
-static void gvir_config_domain_controller_class_init(GVirConfigDomainControllerClass *klass)
+static void gvir_config_domain_controller_class_init(GVirConfigDomainControllerClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainControllerPrivate));
 }
 
 

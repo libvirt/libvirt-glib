@@ -111,12 +111,11 @@ struct _GVirConfigDomainControllerUsbPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainControllerUsb, gvir_config_domain_controller_usb, GVIR_CONFIG_TYPE_DOMAIN_CONTROLLER);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainControllerUsb, gvir_config_domain_controller_usb, GVIR_CONFIG_TYPE_DOMAIN_CONTROLLER);
 
 
-static void gvir_config_domain_controller_usb_class_init(GVirConfigDomainControllerUsbClass *klass)
+static void gvir_config_domain_controller_usb_class_init(GVirConfigDomainControllerUsbClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainControllerUsbPrivate));
 }
 
 

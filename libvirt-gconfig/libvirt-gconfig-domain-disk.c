@@ -33,12 +33,11 @@ struct _GVirConfigDomainDiskPrivate
     GVirConfigDomainDiskType type;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainDisk, gvir_config_domain_disk, GVIR_CONFIG_TYPE_DOMAIN_DEVICE);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainDisk, gvir_config_domain_disk, GVIR_CONFIG_TYPE_DOMAIN_DEVICE);
 
 
-static void gvir_config_domain_disk_class_init(GVirConfigDomainDiskClass *klass)
+static void gvir_config_domain_disk_class_init(GVirConfigDomainDiskClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainDiskPrivate));
 }
 
 

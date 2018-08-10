@@ -33,12 +33,11 @@ struct _GVirConfigDomainTimerRtcPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainTimerRtc, gvir_config_domain_timer_rtc, GVIR_CONFIG_TYPE_DOMAIN_TIMER);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainTimerRtc, gvir_config_domain_timer_rtc, GVIR_CONFIG_TYPE_DOMAIN_TIMER);
 
 
-static void gvir_config_domain_timer_rtc_class_init(GVirConfigDomainTimerRtcClass *klass)
+static void gvir_config_domain_timer_rtc_class_init(GVirConfigDomainTimerRtcClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainTimerRtcPrivate));
 }
 
 

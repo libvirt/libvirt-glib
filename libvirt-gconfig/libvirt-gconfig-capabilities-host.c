@@ -35,12 +35,11 @@ struct _GVirConfigCapabilitiesHostPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigCapabilitiesHost, gvir_config_capabilities_host, GVIR_CONFIG_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigCapabilitiesHost, gvir_config_capabilities_host, GVIR_CONFIG_TYPE_OBJECT);
 
 
-static void gvir_config_capabilities_host_class_init(GVirConfigCapabilitiesHostClass *klass)
+static void gvir_config_capabilities_host_class_init(GVirConfigCapabilitiesHostClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigCapabilitiesHostPrivate));
 }
 
 static void gvir_config_capabilities_host_init(GVirConfigCapabilitiesHost *host)

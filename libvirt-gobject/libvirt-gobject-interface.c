@@ -38,7 +38,7 @@ struct _GVirInterfacePrivate
     virInterfacePtr handle;
 };
 
-G_DEFINE_TYPE(GVirInterface, gvir_interface, G_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirInterface, gvir_interface, G_TYPE_OBJECT);
 
 
 enum {
@@ -125,8 +125,6 @@ static void gvir_interface_class_init(GVirInterfaceClass *klass)
                                                        G_PARAM_WRITABLE |
                                                        G_PARAM_CONSTRUCT_ONLY |
                                                        G_PARAM_STATIC_STRINGS));
-
-    g_type_class_add_private(klass, sizeof(GVirInterfacePrivate));
 }
 
 

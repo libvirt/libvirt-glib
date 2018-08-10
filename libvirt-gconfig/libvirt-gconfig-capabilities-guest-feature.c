@@ -35,11 +35,10 @@ struct _GVirConfigCapabilitiesGuestFeaturePrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigCapabilitiesGuestFeature, gvir_config_capabilities_guest_feature, GVIR_CONFIG_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigCapabilitiesGuestFeature, gvir_config_capabilities_guest_feature, GVIR_CONFIG_TYPE_OBJECT);
 
-static void gvir_config_capabilities_guest_feature_class_init(GVirConfigCapabilitiesGuestFeatureClass *klass)
+static void gvir_config_capabilities_guest_feature_class_init(GVirConfigCapabilitiesGuestFeatureClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigCapabilitiesGuestFeaturePrivate));
 }
 
 static void gvir_config_capabilities_guest_feature_init(GVirConfigCapabilitiesGuestFeature *feature)

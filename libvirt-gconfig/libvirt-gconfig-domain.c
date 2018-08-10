@@ -34,7 +34,7 @@ struct _GVirConfigDomainPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomain, gvir_config_domain, GVIR_CONFIG_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomain, gvir_config_domain, GVIR_CONFIG_TYPE_OBJECT);
 
 enum {
     PROP_0,
@@ -127,8 +127,6 @@ static void gvir_config_domain_set_property(GObject *object,
 static void gvir_config_domain_class_init(GVirConfigDomainClass *klass)
 {
     GObjectClass *object_class = G_OBJECT_CLASS(klass);
-
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainPrivate));
 
     object_class->get_property = gvir_config_domain_get_property;
     object_class->set_property = gvir_config_domain_set_property;

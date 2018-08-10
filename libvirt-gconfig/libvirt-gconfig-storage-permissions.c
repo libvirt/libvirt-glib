@@ -33,12 +33,11 @@ struct _GVirConfigStoragePermissionsPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigStoragePermissions, gvir_config_storage_permissions, GVIR_CONFIG_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigStoragePermissions, gvir_config_storage_permissions, GVIR_CONFIG_TYPE_OBJECT);
 
 
-static void gvir_config_storage_permissions_class_init(GVirConfigStoragePermissionsClass *klass)
+static void gvir_config_storage_permissions_class_init(GVirConfigStoragePermissionsClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigStoragePermissionsPrivate));
 }
 
 

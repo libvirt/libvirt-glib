@@ -33,12 +33,11 @@ struct _GVirConfigDomainRedirdevPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainRedirdev, gvir_config_domain_redirdev, GVIR_CONFIG_TYPE_DOMAIN_CHARDEV);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainRedirdev, gvir_config_domain_redirdev, GVIR_CONFIG_TYPE_DOMAIN_CHARDEV);
 
 
-static void gvir_config_domain_redirdev_class_init(GVirConfigDomainRedirdevClass *klass)
+static void gvir_config_domain_redirdev_class_init(GVirConfigDomainRedirdevClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainRedirdevPrivate));
 }
 
 

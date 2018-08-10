@@ -34,12 +34,11 @@ struct _GVirConfigStorageVolBackingStorePrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigStorageVolBackingStore, gvir_config_storage_vol_backing_store, GVIR_CONFIG_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigStorageVolBackingStore, gvir_config_storage_vol_backing_store, GVIR_CONFIG_TYPE_OBJECT);
 
 
-static void gvir_config_storage_vol_backing_store_class_init(GVirConfigStorageVolBackingStoreClass *klass)
+static void gvir_config_storage_vol_backing_store_class_init(GVirConfigStorageVolBackingStoreClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigStorageVolBackingStorePrivate));
 }
 
 

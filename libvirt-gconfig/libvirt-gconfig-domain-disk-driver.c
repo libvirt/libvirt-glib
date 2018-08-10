@@ -33,12 +33,11 @@ struct _GVirConfigDomainDiskDriverPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainDiskDriver, gvir_config_domain_disk_driver, GVIR_CONFIG_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainDiskDriver, gvir_config_domain_disk_driver, GVIR_CONFIG_TYPE_OBJECT);
 
 
-static void gvir_config_domain_disk_driver_class_init(GVirConfigDomainDiskDriverClass *klass)
+static void gvir_config_domain_disk_driver_class_init(GVirConfigDomainDiskDriverClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainDiskDriverPrivate));
 }
 
 

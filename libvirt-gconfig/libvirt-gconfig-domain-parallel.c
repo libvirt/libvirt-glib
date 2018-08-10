@@ -32,12 +32,11 @@ struct _GVirConfigDomainParallelPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainParallel, gvir_config_domain_parallel, GVIR_CONFIG_TYPE_DOMAIN_CHARDEV);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainParallel, gvir_config_domain_parallel, GVIR_CONFIG_TYPE_DOMAIN_CHARDEV);
 
 
-static void gvir_config_domain_parallel_class_init(GVirConfigDomainParallelClass *klass)
+static void gvir_config_domain_parallel_class_init(GVirConfigDomainParallelClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainParallelPrivate));
 }
 
 

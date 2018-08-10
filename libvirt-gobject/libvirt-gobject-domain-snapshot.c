@@ -38,7 +38,7 @@ struct _GVirDomainSnapshotPrivate
     virDomainSnapshotPtr handle;
 };
 
-G_DEFINE_TYPE(GVirDomainSnapshot, gvir_domain_snapshot, G_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirDomainSnapshot, gvir_domain_snapshot, G_TYPE_OBJECT);
 
 
 enum {
@@ -125,8 +125,6 @@ static void gvir_domain_snapshot_class_init(GVirDomainSnapshotClass *klass)
                                                        G_PARAM_WRITABLE |
                                                        G_PARAM_CONSTRUCT_ONLY |
                                                        G_PARAM_STATIC_STRINGS));
-
-    g_type_class_add_private(klass, sizeof(GVirDomainSnapshotPrivate));
 }
 
 

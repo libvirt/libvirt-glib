@@ -33,12 +33,11 @@ struct _GVirConfigDomainAddressPciPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainAddressPci, gvir_config_domain_address_pci, GVIR_CONFIG_TYPE_DOMAIN_ADDRESS);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainAddressPci, gvir_config_domain_address_pci, GVIR_CONFIG_TYPE_DOMAIN_ADDRESS);
 
 
-static void gvir_config_domain_address_pci_class_init(GVirConfigDomainAddressPciClass *klass)
+static void gvir_config_domain_address_pci_class_init(GVirConfigDomainAddressPciClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainAddressPciPrivate));
 }
 
 

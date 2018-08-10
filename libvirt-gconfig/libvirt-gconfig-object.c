@@ -42,7 +42,7 @@ struct _GVirConfigObjectPrivate
     xmlNodePtr node;
 };
 
-G_DEFINE_TYPE(GVirConfigObject, gvir_config_object, G_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigObject, gvir_config_object, G_TYPE_OBJECT);
 
 enum {
     PROP_0,
@@ -175,8 +175,6 @@ static void gvir_config_object_class_init(GVirConfigObjectClass *klass)
                                                         G_PARAM_READWRITE |
                                                         G_PARAM_CONSTRUCT_ONLY |
                                                         G_PARAM_STATIC_STRINGS));
-
-    g_type_class_add_private(klass, sizeof(GVirConfigObjectPrivate));
 }
 
 

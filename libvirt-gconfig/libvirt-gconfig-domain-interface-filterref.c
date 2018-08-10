@@ -34,11 +34,10 @@ struct _GVirConfigDomainInterfaceFilterrefPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainInterfaceFilterref, gvir_config_domain_interface_filterref, GVIR_CONFIG_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainInterfaceFilterref, gvir_config_domain_interface_filterref, GVIR_CONFIG_TYPE_OBJECT);
 
-static void gvir_config_domain_interface_filterref_class_init(GVirConfigDomainInterfaceFilterrefClass *klass)
+static void gvir_config_domain_interface_filterref_class_init(GVirConfigDomainInterfaceFilterrefClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainInterfaceFilterrefPrivate));
 }
 
 static void gvir_config_domain_interface_filterref_init(GVirConfigDomainInterfaceFilterref *filterref)

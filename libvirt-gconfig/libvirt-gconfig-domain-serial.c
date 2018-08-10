@@ -32,12 +32,11 @@ struct _GVirConfigDomainSerialPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainSerial, gvir_config_domain_serial, GVIR_CONFIG_TYPE_DOMAIN_CHARDEV);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainSerial, gvir_config_domain_serial, GVIR_CONFIG_TYPE_DOMAIN_CHARDEV);
 
 
-static void gvir_config_domain_serial_class_init(GVirConfigDomainSerialClass *klass)
+static void gvir_config_domain_serial_class_init(GVirConfigDomainSerialClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainSerialPrivate));
 }
 
 

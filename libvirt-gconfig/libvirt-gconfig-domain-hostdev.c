@@ -37,9 +37,8 @@ struct _GVirConfigDomainHostdevPrivate
 G_DEFINE_ABSTRACT_TYPE(GVirConfigDomainHostdev, gvir_config_domain_hostdev, GVIR_CONFIG_TYPE_DOMAIN_DEVICE);
 
 
-static void gvir_config_domain_hostdev_class_init(GVirConfigDomainHostdevClass *klass)
+static void gvir_config_domain_hostdev_class_init(GVirConfigDomainHostdevClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainHostdevPrivate));
 }
 
 

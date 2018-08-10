@@ -48,7 +48,7 @@ struct _GVirConnectionPrivate
     GHashTable *networks;
 };
 
-G_DEFINE_TYPE(GVirConnection, gvir_connection, G_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConnection, gvir_connection, G_TYPE_OBJECT);
 
 
 enum {
@@ -230,8 +230,6 @@ static void gvir_connection_class_init(GVirConnectionClass *klass)
                  G_TYPE_NONE,
                  1,
                  GVIR_TYPE_DOMAIN);
-
-    g_type_class_add_private(klass, sizeof(GVirConnectionPrivate));
 }
 
 

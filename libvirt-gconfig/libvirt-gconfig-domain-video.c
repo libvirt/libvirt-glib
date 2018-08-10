@@ -34,12 +34,11 @@ struct _GVirConfigDomainVideoPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainVideo, gvir_config_domain_video, GVIR_CONFIG_TYPE_DOMAIN_DEVICE);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainVideo, gvir_config_domain_video, GVIR_CONFIG_TYPE_DOMAIN_DEVICE);
 
 
-static void gvir_config_domain_video_class_init(GVirConfigDomainVideoClass *klass)
+static void gvir_config_domain_video_class_init(GVirConfigDomainVideoClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainVideoPrivate));
 }
 
 

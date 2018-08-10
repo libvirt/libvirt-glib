@@ -33,12 +33,11 @@ struct _GVirConfigDomainChannelPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainChannel, gvir_config_domain_channel, GVIR_CONFIG_TYPE_DOMAIN_CHARDEV);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainChannel, gvir_config_domain_channel, GVIR_CONFIG_TYPE_DOMAIN_CHARDEV);
 
 
-static void gvir_config_domain_channel_class_init(GVirConfigDomainChannelClass *klass)
+static void gvir_config_domain_channel_class_init(GVirConfigDomainChannelClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainChannelPrivate));
 }
 
 

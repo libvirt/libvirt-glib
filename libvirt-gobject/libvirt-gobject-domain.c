@@ -46,7 +46,7 @@ struct _GVirDomainPrivate
     GMutex *lock;
 };
 
-G_DEFINE_TYPE(GVirDomain, gvir_domain, G_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirDomain, gvir_domain, G_TYPE_OBJECT);
 
 
 enum {
@@ -246,8 +246,6 @@ static void gvir_domain_class_init(GVirDomainClass *klass)
                                         g_cclosure_marshal_VOID__VOID,
                                         G_TYPE_NONE,
                                         0);
-
-    g_type_class_add_private(klass, sizeof(GVirDomainPrivate));
 }
 
 

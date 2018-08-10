@@ -31,12 +31,11 @@ struct _GVirConfigDomainChardevSourceSpicePortPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainChardevSourceSpicePort, gvir_config_domain_chardev_source_spiceport, GVIR_CONFIG_TYPE_DOMAIN_CHARDEV_SOURCE);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainChardevSourceSpicePort, gvir_config_domain_chardev_source_spiceport, GVIR_CONFIG_TYPE_DOMAIN_CHARDEV_SOURCE);
 
 
-static void gvir_config_domain_chardev_source_spiceport_class_init(GVirConfigDomainChardevSourceSpicePortClass *klass)
+static void gvir_config_domain_chardev_source_spiceport_class_init(GVirConfigDomainChardevSourceSpicePortClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainChardevSourceSpicePortPrivate));
 }
 
 

@@ -35,12 +35,11 @@ struct _GVirConfigStorageVolPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigStorageVol, gvir_config_storage_vol, GVIR_CONFIG_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigStorageVol, gvir_config_storage_vol, GVIR_CONFIG_TYPE_OBJECT);
 
 
-static void gvir_config_storage_vol_class_init(GVirConfigStorageVolClass *klass)
+static void gvir_config_storage_vol_class_init(GVirConfigStorageVolClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigStorageVolPrivate));
 }
 
 

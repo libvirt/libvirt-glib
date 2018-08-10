@@ -31,9 +31,6 @@
 #include "libvirt-gobject-input-stream.h"
 #include "libvirt-gobject-compat.h"
 
-#define gvir_input_stream_get_type _gvir_input_stream_get_type
-G_DEFINE_TYPE(GVirInputStream, gvir_input_stream, G_TYPE_INPUT_STREAM);
-
 enum
 {
     PROP_0,
@@ -49,6 +46,9 @@ struct _GVirInputStreamPrivate
     gpointer buffer;
     gsize count;
 };
+
+#define gvir_input_stream_get_type _gvir_input_stream_get_type
+G_DEFINE_TYPE_WITH_PRIVATE(GVirInputStream, gvir_input_stream, G_TYPE_INPUT_STREAM);
 
 static void gvir_input_stream_get_property(GObject *object,
                                            guint prop_id,
@@ -195,8 +195,6 @@ static void gvir_input_stream_class_init(GVirInputStreamClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     GInputStreamClass *ginputstream_class = G_INPUT_STREAM_CLASS(klass);
-
-    g_type_class_add_private(klass, sizeof(GVirInputStreamPrivate));
 
     gobject_class->finalize = gvir_input_stream_finalize;
     gobject_class->get_property = gvir_input_stream_get_property;

@@ -35,7 +35,7 @@ struct _GVirConfigDomainCpuPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainCpu, gvir_config_domain_cpu, GVIR_CONFIG_TYPE_CAPABILITIES_CPU);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainCpu, gvir_config_domain_cpu, GVIR_CONFIG_TYPE_CAPABILITIES_CPU);
 
 static GList *
 _gvir_config_domain_cpu_get_features(GVirConfigCapabilitiesCpu *cpu);
@@ -46,8 +46,6 @@ static void gvir_config_domain_cpu_class_init(GVirConfigDomainCpuClass *klass)
 
     capabilities_class = GVIR_CONFIG_CAPABILITIES_CPU_CLASS(klass);
     capabilities_class->get_features = _gvir_config_domain_cpu_get_features;
-
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainCpuPrivate));
 }
 
 static void gvir_config_domain_cpu_init(GVirConfigDomainCpu *cpu)

@@ -35,15 +35,13 @@ struct _GVirConfigCapabilitiesCpuPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigCapabilitiesCpu, gvir_config_capabilities_cpu, GVIR_CONFIG_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigCapabilitiesCpu, gvir_config_capabilities_cpu, GVIR_CONFIG_TYPE_OBJECT);
 
 static GList *
 _gvir_config_capabilities_cpu_get_features(GVirConfigCapabilitiesCpu *cpu);
 
 static void gvir_config_capabilities_cpu_class_init(GVirConfigCapabilitiesCpuClass *klass)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigCapabilitiesCpuPrivate));
-
     klass->get_features = _gvir_config_capabilities_cpu_get_features;
 }
 

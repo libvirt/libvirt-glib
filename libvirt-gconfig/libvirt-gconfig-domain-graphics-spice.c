@@ -34,12 +34,11 @@ struct _GVirConfigDomainGraphicsSpicePrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainGraphicsSpice, gvir_config_domain_graphics_spice, GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainGraphicsSpice, gvir_config_domain_graphics_spice, GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS);
 
 
-static void gvir_config_domain_graphics_spice_class_init(GVirConfigDomainGraphicsSpiceClass *klass)
+static void gvir_config_domain_graphics_spice_class_init(GVirConfigDomainGraphicsSpiceClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainGraphicsSpicePrivate));
 }
 
 

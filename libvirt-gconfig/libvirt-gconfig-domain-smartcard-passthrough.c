@@ -33,12 +33,11 @@ struct _GVirConfigDomainSmartcardPassthroughPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainSmartcardPassthrough, gvir_config_domain_smartcard_passthrough, GVIR_CONFIG_TYPE_DOMAIN_SMARTCARD);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainSmartcardPassthrough, gvir_config_domain_smartcard_passthrough, GVIR_CONFIG_TYPE_DOMAIN_SMARTCARD);
 
 
-static void gvir_config_domain_smartcard_passthrough_class_init(GVirConfigDomainSmartcardPassthroughClass *klass)
+static void gvir_config_domain_smartcard_passthrough_class_init(GVirConfigDomainSmartcardPassthroughClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainSmartcardPassthroughPrivate));
 }
 
 

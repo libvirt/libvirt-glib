@@ -35,12 +35,11 @@ struct _GVirConfigDomainSnapshotPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainSnapshot, gvir_config_domain_snapshot, GVIR_CONFIG_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainSnapshot, gvir_config_domain_snapshot, GVIR_CONFIG_TYPE_OBJECT);
 
 
-static void gvir_config_domain_snapshot_class_init(GVirConfigDomainSnapshotClass *klass)
+static void gvir_config_domain_snapshot_class_init(GVirConfigDomainSnapshotClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainSnapshotPrivate));
 }
 
 

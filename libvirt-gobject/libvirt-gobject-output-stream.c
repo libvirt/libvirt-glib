@@ -31,9 +31,6 @@
 #include "libvirt-gobject-output-stream.h"
 #include "libvirt-gobject-compat.h"
 
-#define gvir_output_stream_get_type _gvir_output_stream_get_type
-G_DEFINE_TYPE(GVirOutputStream, gvir_output_stream, G_TYPE_OUTPUT_STREAM);
-
 enum
 {
     PROP_0,
@@ -49,6 +46,9 @@ struct _GVirOutputStreamPrivate
     const void * buffer;
     gsize count;
 };
+
+#define gvir_output_stream_get_type _gvir_output_stream_get_type
+G_DEFINE_TYPE_WITH_PRIVATE(GVirOutputStream, gvir_output_stream, G_TYPE_OUTPUT_STREAM);
 
 static void gvir_output_stream_get_property(GObject *object,
                                             guint prop_id,
@@ -195,8 +195,6 @@ static void gvir_output_stream_class_init(GVirOutputStreamClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS(klass);
     GOutputStreamClass *goutputstream_class = G_OUTPUT_STREAM_CLASS(klass);
-
-    g_type_class_add_private(klass, sizeof(GVirOutputStreamPrivate));
 
     gobject_class->finalize = gvir_output_stream_finalize;
     gobject_class->get_property = gvir_output_stream_get_property;

@@ -33,12 +33,11 @@ struct _GVirConfigDomainGraphicsVncPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainGraphicsVnc, gvir_config_domain_graphics_vnc, GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainGraphicsVnc, gvir_config_domain_graphics_vnc, GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS);
 
 
-static void gvir_config_domain_graphics_vnc_class_init(GVirConfigDomainGraphicsVncClass *klass)
+static void gvir_config_domain_graphics_vnc_class_init(GVirConfigDomainGraphicsVncClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainGraphicsVncPrivate));
 }
 
 

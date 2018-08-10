@@ -38,7 +38,7 @@ struct _GVirNodeDevicePrivate
     virNodeDevicePtr handle;
 };
 
-G_DEFINE_TYPE(GVirNodeDevice, gvir_node_device, G_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirNodeDevice, gvir_node_device, G_TYPE_OBJECT);
 
 
 enum {
@@ -125,8 +125,6 @@ static void gvir_node_device_class_init(GVirNodeDeviceClass *klass)
                                                        G_PARAM_WRITABLE |
                                                        G_PARAM_CONSTRUCT_ONLY |
                                                        G_PARAM_STATIC_STRINGS));
-
-    g_type_class_add_private(klass, sizeof(GVirNodeDevicePrivate));
 }
 
 

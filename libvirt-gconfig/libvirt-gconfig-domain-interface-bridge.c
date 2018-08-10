@@ -36,12 +36,11 @@ struct _GVirConfigDomainInterfaceBridgePrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainInterfaceBridge, gvir_config_domain_interface_bridge, GVIR_CONFIG_TYPE_DOMAIN_INTERFACE);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainInterfaceBridge, gvir_config_domain_interface_bridge, GVIR_CONFIG_TYPE_DOMAIN_INTERFACE);
 
 
-static void gvir_config_domain_interface_bridge_class_init(GVirConfigDomainInterfaceBridgeClass *klass)
+static void gvir_config_domain_interface_bridge_class_init(GVirConfigDomainInterfaceBridgeClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainInterfaceBridgePrivate));
 }
 
 

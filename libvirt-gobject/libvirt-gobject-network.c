@@ -42,7 +42,7 @@ struct _GVirNetworkPrivate
     gchar uuid[VIR_UUID_STRING_BUFLEN];
 };
 
-G_DEFINE_TYPE(GVirNetwork, gvir_network, G_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirNetwork, gvir_network, G_TYPE_OBJECT);
 
 
 enum {
@@ -141,8 +141,6 @@ static void gvir_network_class_init(GVirNetworkClass *klass)
                                                        G_PARAM_WRITABLE |
                                                        G_PARAM_CONSTRUCT_ONLY |
                                                        G_PARAM_STATIC_STRINGS));
-
-    g_type_class_add_private(klass, sizeof(GVirNetworkPrivate));
 }
 
 

@@ -33,12 +33,11 @@ struct _GVirConfigDomainGraphicsSdlPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainGraphicsSdl, gvir_config_domain_graphics_sdl, GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainGraphicsSdl, gvir_config_domain_graphics_sdl, GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS);
 
 
-static void gvir_config_domain_graphics_sdl_class_init(GVirConfigDomainGraphicsSdlClass *klass)
+static void gvir_config_domain_graphics_sdl_class_init(GVirConfigDomainGraphicsSdlClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainGraphicsSdlPrivate));
 }
 
 

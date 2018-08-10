@@ -33,12 +33,11 @@ struct _GVirConfigDomainSoundPrivate
     gboolean unused;
 };
 
-G_DEFINE_TYPE(GVirConfigDomainSound, gvir_config_domain_sound, GVIR_CONFIG_TYPE_DOMAIN_DEVICE);
+G_DEFINE_TYPE_WITH_PRIVATE(GVirConfigDomainSound, gvir_config_domain_sound, GVIR_CONFIG_TYPE_DOMAIN_DEVICE);
 
 
-static void gvir_config_domain_sound_class_init(GVirConfigDomainSoundClass *klass)
+static void gvir_config_domain_sound_class_init(GVirConfigDomainSoundClass *klass G_GNUC_UNUSED)
 {
-    g_type_class_add_private(klass, sizeof(GVirConfigDomainSoundPrivate));
 }
 
 
