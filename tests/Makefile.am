@@ -1,5 +1,3 @@
-if ENABLE_TESTS
-
 include $(top_srcdir)/build-aux/glib-tap.mk
 
 AM_CFLAGS = \
@@ -22,4 +20,3 @@ test_programs = test-gconfig test-events
 EXTRA_DIST += \
 	xml \
 	$(NULL)
-endif

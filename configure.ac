@@ -13,7 +13,6 @@ LIBVIRT_REQUIRED=1.2.5
 AC_SUBST([LIBVIRT_REQUIRED]) dnl used in the .spec file
 GLIB2_REQUIRED=2.38.0
 AC_SUBST([GLIB2_REQUIRED]) dnl used in the .spec file
-GLIB2_TEST_REQUIRED=2.38.0
 GOBJECT_INTROSPECTION_REQUIRED=1.36.0
 LIBXML2_REQUIRED=2.0.0
 
@@ -107,16 +106,11 @@ PKG_CHECK_EXISTS(libvirt >= 1.2.6,
 		   AC_DEFINE([HAVE_VIR_NETWORK_GET_DHCP_LEASES], 1, [Have virNetworkGetDHCPLeases?])
 		   AC_MSG_RESULT([yes])
 		 ],[AC_MSG_RESULT([no])])
-enable_tests=no
-PKG_CHECK_MODULES(GLIB2, glib-2.0 >= $GLIB2_TEST_REQUIRED,
-                  [enable_tests=yes],
-                  [PKG_CHECK_MODULES(GLIB2, glib-2.0 >= $GLIB2_REQUIRED)])
+PKG_CHECK_MODULES(GLIB2, glib-2.0 >= $GLIB2_REQUIRED)
 PKG_CHECK_MODULES(GTHREAD2, gthread-2.0 >= $GLIB2_REQUIRED)
 PKG_CHECK_MODULES(GOBJECT2, gobject-2.0 >= $GLIB2_REQUIRED)
 PKG_CHECK_MODULES(GIO2, gio-2.0 >= $GLIB2_REQUIRED)
 PKG_CHECK_MODULES(LIBXML2, libxml-2.0 >= $LIBXML2_REQUIRED)
-
-AM_CONDITIONAL([ENABLE_TESTS], [test "$enable_tests" = "yes"])
 
 LIBVIRT_GLIB_GETTEXT
 dnl Should be in m4/virt-gettext.m4 but intltoolize is too
