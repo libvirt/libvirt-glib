@@ -806,7 +806,7 @@ gboolean gvir_config_domain_set_custom_xml(GVirConfigDomain *domain,
         return FALSE;
     }
 
-    gvir_config_object_set_namespace(custom_xml, ns, ns_uri);
+    gvir_config_object_set_namespace(custom_xml, ns, ns_uri, FALSE);
 
     gvir_config_object_delete_children(metadata, NULL, ns_uri);
     gvir_config_object_attach_add(metadata, custom_xml);

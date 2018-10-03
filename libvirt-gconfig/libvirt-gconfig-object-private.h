@@ -111,7 +111,8 @@ void gvir_config_object_foreach_child(GVirConfigObject *object,
                                       gpointer opaque);
 gboolean gvir_config_object_set_namespace(GVirConfigObject *object,
                                           const char *ns,
-                                          const char *ns_uri);
+                                          const char *ns_uri,
+                                          gboolean ns_children);
 GVirConfigObject *gvir_config_object_get_child(GVirConfigObject *object,
                                                const gchar *child_name);
 GVirConfigObject *gvir_config_object_get_child_with_type(GVirConfigObject *object,
