@@ -40,7 +40,7 @@ struct _GVirDomainDevicePrivate
     GVirConfigDomainDevice *config;
 };
 
-G_DEFINE_ABSTRACT_TYPE(GVirDomainDevice, gvir_domain_device, G_TYPE_OBJECT);
+G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE(GVirDomainDevice, gvir_domain_device, G_TYPE_OBJECT);
 
 enum {
     PROP_0,

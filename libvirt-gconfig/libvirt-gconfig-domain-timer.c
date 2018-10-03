@@ -33,7 +33,7 @@ struct _GVirConfigDomainTimerPrivate
     gboolean unused;
 };
 
-G_DEFINE_ABSTRACT_TYPE(GVirConfigDomainTimer, gvir_config_domain_timer, GVIR_CONFIG_TYPE_OBJECT);
+G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE(GVirConfigDomainTimer, gvir_config_domain_timer, GVIR_CONFIG_TYPE_OBJECT);
 
 
 static void gvir_config_domain_timer_class_init(GVirConfigDomainTimerClass *klass G_GNUC_UNUSED)

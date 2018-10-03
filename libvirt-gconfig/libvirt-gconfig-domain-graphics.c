@@ -33,7 +33,7 @@ struct _GVirConfigDomainGraphicsPrivate
     gboolean unused;
 };
 
-G_DEFINE_ABSTRACT_TYPE(GVirConfigDomainGraphics, gvir_config_domain_graphics, GVIR_CONFIG_TYPE_DOMAIN_DEVICE);
+G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE(GVirConfigDomainGraphics, gvir_config_domain_graphics, GVIR_CONFIG_TYPE_DOMAIN_DEVICE);
 
 
 static void gvir_config_domain_graphics_class_init(GVirConfigDomainGraphicsClass *klass G_GNUC_UNUSED)

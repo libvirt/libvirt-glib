@@ -33,7 +33,7 @@ struct _GVirConfigDomainControllerPrivate
     gboolean unused;
 };
 
-G_DEFINE_ABSTRACT_TYPE(GVirConfigDomainController, gvir_config_domain_controller, GVIR_CONFIG_TYPE_DOMAIN_DEVICE);
+G_DEFINE_ABSTRACT_TYPE_WITH_PRIVATE(GVirConfigDomainController, gvir_config_domain_controller, GVIR_CONFIG_TYPE_DOMAIN_DEVICE);
 
 
 static void gvir_config_domain_controller_class_init(GVirConfigDomainControllerClass *klass G_GNUC_UNUSED)
