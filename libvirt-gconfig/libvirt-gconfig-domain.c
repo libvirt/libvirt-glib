@@ -782,11 +782,12 @@ GList *gvir_config_domain_get_devices(GVirConfigDomain *domain)
     return data.devices;
 }
 
-gboolean gvir_config_domain_set_custom_xml(GVirConfigDomain *domain,
-                                           const gchar *xml,
-                                           const gchar *ns,
-                                           const gchar *ns_uri,
-                                           GError **error)
+static gboolean gvir_config_domain_set_custom_xml_helper(GVirConfigDomain *domain,
+                                                         const gchar *xml,
+                                                         const gchar *ns,
+                                                         const gchar *ns_uri,
+                                                         gboolean ns_children,
+                                                         GError **error)
 {
     GVirConfigObject *metadata;
     GVirConfigObject *custom_xml;
@@ -806,7 +807,7 @@ gboolean gvir_config_domain_set_custom_xml(GVirConfigDomain *domain,
         return FALSE;
     }
 
-    gvir_config_object_set_namespace(custom_xml, ns, ns_uri, FALSE);
+    gvir_config_object_set_namespace(custom_xml, ns, ns_uri, ns_children);
 
     gvir_config_object_delete_children(metadata, NULL, ns_uri);
     gvir_config_object_attach_add(metadata, custom_xml);
@@ -814,6 +815,34 @@ gboolean gvir_config_domain_set_custom_xml(GVirConfigDomain *domain,
     g_object_unref(G_OBJECT(custom_xml));
 
     return TRUE;
+}
+
+gboolean gvir_config_domain_set_custom_xml(GVirConfigDomain *domain,
+                                           const gchar *xml,
+                                           const gchar *ns,
+                                           const gchar *ns_uri,
+                                           GError **error)
+{
+    return gvir_config_domain_set_custom_xml_helper(domain,
+                                                    xml,
+                                                    ns,
+                                                    ns_uri,
+                                                    FALSE,
+                                                    error);
+}
+
+gboolean gvir_config_domain_set_custom_xml_ns_children(GVirConfigDomain *domain,
+                                                       const gchar *xml,
+                                                       const gchar *ns,
+                                                       const gchar *ns_uri,
+                                                       GError **error)
+{
+    return gvir_config_domain_set_custom_xml_helper(domain,
+                                                    xml,
+                                                    ns,
+                                                    ns_uri,
+                                                    TRUE,
+                                                    error);
 }
 
 struct LookupNamespacedNodeData {

@@ -114,6 +114,9 @@ static void test_domain(void)
                                      GVIR_CONFIG_DOMAIN_LIFECYCLE_ON_POWEROFF,
                                      GVIR_CONFIG_DOMAIN_LIFECYCLE_RESTART);
 
+    gvir_config_domain_set_custom_xml_ns_children(domain, "<libosinfo><os id=\"http://centos.org/centos/7\"/></libosinfo>", "libosinfo", "http://libosinfo.org/xmlns/libvirt/domain/1.0", NULL);
+    gvir_config_domain_set_custom_xml_ns_children(domain, "<instance><flavor name=\"m1.small\"><memory>512</memory><disk>10</disk></flavor></instance>", "nova", "http://openstack.org/nova/instance/1", NULL);
+    gvir_config_domain_set_custom_xml(domain, "<gnome-boxes><os-state>installed</os-state></gnome-boxes>", "boxes", "https://wiki.gnome.org/Apps/Boxes", NULL);
     gvir_config_domain_set_custom_xml(domain, "<foo/>", "ns", "http://foo", NULL);
     gvir_config_domain_set_custom_xml(domain, "<foo/>", "nsbar", "http://bar", NULL);
     gvir_config_domain_set_custom_xml(domain, "<foo/>", "ns", "http://bar", NULL);

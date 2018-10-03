@@ -9,6 +9,18 @@
   </features>
   <on_poweroff>restart</on_poweroff>
   <metadata>
+    <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
+      <libosinfo:os id="http://centos.org/centos/7"/>
+    </libosinfo:libosinfo>
+    <nova:instance xmlns:nova="http://openstack.org/nova/instance/1">
+      <nova:flavor name="m1.small">
+        <nova:memory>512</nova:memory>
+        <nova:disk>10</nova:disk>
+      </nova:flavor>
+    </nova:instance>
+    <boxes:gnome-boxes xmlns:boxes="https://wiki.gnome.org/Apps/Boxes">
+      <os-state>installed</os-state>
+    </boxes:gnome-boxes>
     <ns:foo xmlns:ns="http://bar"/>
     <ns:bar xmlns:ns="http://foo"/>
   </metadata>

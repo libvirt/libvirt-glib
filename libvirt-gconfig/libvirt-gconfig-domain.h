@@ -137,6 +137,11 @@ GList *gvir_config_domain_get_devices(GVirConfigDomain *domain);
 void gvir_config_domain_set_lifecycle(GVirConfigDomain *domain,
                                       GVirConfigDomainLifecycleEvent event,
                                       GVirConfigDomainLifecycleAction action);
+gboolean gvir_config_domain_set_custom_xml_ns_children(GVirConfigDomain *domain,
+                                                       const gchar *xml,
+                                                       const gchar *ns,
+                                                       const gchar *ns_uri,
+                                                       GError **error);
 gboolean gvir_config_domain_set_custom_xml(GVirConfigDomain *domain,
                                            const gchar *xml,
                                            const gchar *ns,
