@@ -8,17 +8,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-04 16:39+0000\n"
-"PO-Revision-Date: 2014-12-17 12:23-0500\n"
+"POT-Creation-Date: 2018-10-10 10:55+0100\n"
+"PO-Revision-Date: 2014-12-17 12:23+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
 "libvirt-glib/language/pt_BR/)\n"
-"Language: pt-BR\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Zanata 3.9.6\n"
+"X-Generator: Zanata 4.6.2\n"
 
 #: ../libvirt-gconfig/libvirt-gconfig-helpers.c:141
 msgid "No XML document to parse"
@@ -33,122 +33,122 @@ msgstr "Não foi possível ler a configuração"
 msgid "XML data has no '%s' node"
 msgstr "Dados XML não possuem um nó '%s'"
 
-#: ../libvirt-gconfig/libvirt-gconfig-object.c:208
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:206
 msgid "No XML document associated with this config object"
 msgstr "Nenhum documento XML associado a este objeto de configuração"
 
-#: ../libvirt-gconfig/libvirt-gconfig-object.c:216
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:214
 msgid "No XML schema associated with this config object"
 msgstr ""
 
-#: ../libvirt-gconfig/libvirt-gconfig-object.c:225
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:223
 #, c-format
 msgid "Unable to create RNG parser for %s"
 msgstr "Não foi possível criar um analisador RNG para %s"
 
-#: ../libvirt-gconfig/libvirt-gconfig-object.c:235
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:233
 #, c-format
 msgid "Unable to parse RNG %s"
 msgstr "Não foi possível analisar o RNG %s"
 
-#: ../libvirt-gconfig/libvirt-gconfig-object.c:247
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:245
 #, c-format
 msgid "Unable to create RNG validation context %s"
 msgstr "Não foi possível criar o contexto de validação RNG %s"
 
-#: ../libvirt-gconfig/libvirt-gconfig-object.c:257
+#: ../libvirt-gconfig/libvirt-gconfig-object.c:255
 msgid "Unable to validate doc"
 msgstr "Não foi possível validar o documento"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:440
+#: ../libvirt-gobject/libvirt-gobject-connection.c:438
 #, c-format
 msgid "Connection %s is already open"
 msgstr "Conexão %s já está aberta"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:455
+#: ../libvirt-gobject/libvirt-gobject-connection.c:453
 #, c-format
 msgid "Unable to open %s"
 msgstr "Não foi possível abrir %s"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:466
+#: ../libvirt-gobject/libvirt-gobject-connection.c:464
 msgid "Unable to get connection URI"
 msgstr "Não foi possível encontrar a URI da conexão"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:731
-#: ../libvirt-gobject/libvirt-gobject-connection.c:819
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1506
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1763
+#: ../libvirt-gobject/libvirt-gobject-connection.c:729
+#: ../libvirt-gobject/libvirt-gobject-connection.c:817
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1504
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1761
 msgid "Connection is not open"
 msgstr "A conexão não está aberta"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:744
+#: ../libvirt-gobject/libvirt-gobject-connection.c:742
 msgid "Failed to fetch list of domains"
 msgstr ""
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:835
+#: ../libvirt-gobject/libvirt-gobject-connection.c:833
 msgid "Failed to fetch list of pools"
 msgstr ""
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1036
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1075
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1034
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1073
 msgid "Connection is not opened"
 msgstr "A conexão não está aberta"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1043
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1041
 msgid "Unable to get hypervisor name"
 msgstr "Não foi possível encontrar o nome do hypervisor"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1081
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1079
 msgid "Unable to get hypervisor version"
 msgstr "Não foi possível encontrar a versão do hypervisor"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1396
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1451
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1394
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1449
 msgid "Failed to create domain"
 msgstr "Falha na criação do domínio"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1522
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1520
 msgid "Failed to fetch list of interfaces"
 msgstr ""
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:1779
+#: ../libvirt-gobject/libvirt-gobject-connection.c:1777
 msgid "Failed to fetch list of networks"
 msgstr ""
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:2020
+#: ../libvirt-gobject/libvirt-gobject-connection.c:2018
 msgid "Failed to create storage pool"
 msgstr "Falha na criação do storage pool"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:2063
+#: ../libvirt-gobject/libvirt-gobject-connection.c:2061
 msgid "Unable to get node info"
 msgstr "Não foi possível buscar informações do nó"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:2103
+#: ../libvirt-gobject/libvirt-gobject-connection.c:2101
 msgid "Unable to get capabilities"
 msgstr "Não foi possível buscar as capacidades"
 
-#: ../libvirt-gobject/libvirt-gobject-connection.c:2227
+#: ../libvirt-gobject/libvirt-gobject-connection.c:2225
 msgid "Unable to restore domain"
 msgstr "Não foi possível restaurar o domínio"
 
-#: ../libvirt-gobject/libvirt-gobject-stream.c:349
+#: ../libvirt-gobject/libvirt-gobject-stream.c:347
 msgid "virStreamRecv call would block"
 msgstr "A chamada a virStreamRecv bloquearia"
 
-#: ../libvirt-gobject/libvirt-gobject-stream.c:352
-#: ../libvirt-gobject/libvirt-gobject-stream.c:468
+#: ../libvirt-gobject/libvirt-gobject-stream.c:350
+#: ../libvirt-gobject/libvirt-gobject-stream.c:466
 #, c-format
 msgid "Got virStreamRecv error in %s"
 msgstr "Erro virStreamRecv em %s"
 
-#: ../libvirt-gobject/libvirt-gobject-stream.c:417
+#: ../libvirt-gobject/libvirt-gobject-stream.c:415
 msgid "Unable to perform RecvAll"
 msgstr "Não foi possível realizar um RecvAll"
 
-#: ../libvirt-gobject/libvirt-gobject-stream.c:465
+#: ../libvirt-gobject/libvirt-gobject-stream.c:463
 msgid "virStreamSend call would block"
 msgstr "A chamada a virStreamSend bloquearia"
 
-#: ../libvirt-gobject/libvirt-gobject-stream.c:533
+#: ../libvirt-gobject/libvirt-gobject-stream.c:531
 msgid "Unable to perform SendAll"
 msgstr "Não foi possível realizar um SendAll"
