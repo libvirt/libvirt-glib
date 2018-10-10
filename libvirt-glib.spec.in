@@ -15,7 +15,7 @@
 
 Name: @PACKAGE@
 Version: @VERSION@
-Release: 1%{?dist}%{?extra_release}
+Release: 1%{?dist}
 Summary: libvirt glib integration for events
 Group: Development/Libraries
 License: LGPLv2+
