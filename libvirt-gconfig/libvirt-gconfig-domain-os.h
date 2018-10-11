@@ -85,6 +85,7 @@ GVirConfigDomainOs *gvir_config_domain_os_new_from_xml(const gchar *xml, GError 
 void gvir_config_domain_os_set_os_type(GVirConfigDomainOs *os, GVirConfigDomainOsType type);
 GVirConfigDomainOsType gvir_config_domain_os_get_os_type(GVirConfigDomainOs *os);
 const char *gvir_config_domain_os_get_arch(GVirConfigDomainOs *os);
+const char *gvir_config_domain_os_get_machine(GVirConfigDomainOs *os);
 void gvir_config_domain_os_set_arch(GVirConfigDomainOs *os, const char *arch);
 GList *gvir_config_domain_os_get_boot_devices(GVirConfigDomainOs *os);
 void gvir_config_domain_os_set_boot_devices(GVirConfigDomainOs *os, GList *boot_devices);

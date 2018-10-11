@@ -768,6 +768,7 @@ global:
 
 LIBVIRT_GCONFIG_1.0.1 {
 global:
+	gvir_config_domain_os_get_machine;
 	gvir_config_domain_set_custom_xml_ns_children;
 } LIBVIRT_GCONFIG_0.2.4;
 

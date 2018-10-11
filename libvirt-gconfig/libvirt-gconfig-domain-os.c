@@ -306,6 +306,13 @@ void gvir_config_domain_os_set_arch(GVirConfigDomainOs *os, const char *arch)
     xmlNewProp(os_type_node, (xmlChar*)"arch", (xmlChar*)arch);
 }
 
+const char *gvir_config_domain_os_get_machine(GVirConfigDomainOs *os)
+{
+    return gvir_config_object_get_attribute(GVIR_CONFIG_OBJECT(os),
+                                            "type",
+                                            "machine");
+}
+
 void gvir_config_domain_os_set_machine(GVirConfigDomainOs *os, const char *machine)
 {
     xmlNodePtr os_node;
