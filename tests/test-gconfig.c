@@ -214,8 +214,10 @@ static void test_domain_os(void)
     os = gvir_config_domain_os_new();
     gvir_config_domain_os_set_os_type(os, GVIR_CONFIG_DOMAIN_OS_TYPE_HVM);
     gvir_config_domain_os_set_arch(os, "x86_64");
+    gvir_config_domain_os_set_machine(os, "q35");
     g_assert_cmpint(gvir_config_domain_os_get_os_type(os), ==, GVIR_CONFIG_DOMAIN_OS_TYPE_HVM);
     g_assert_cmpstr(gvir_config_domain_os_get_arch(os), ==, "x86_64");
+    g_assert_cmpstr(gvir_config_domain_os_get_machine(os), ==, "q35");
     devices = g_list_append(devices,
                              GINT_TO_POINTER(GVIR_CONFIG_DOMAIN_OS_BOOT_DEVICE_CDROM));
     devices = g_list_append(devices,

@@ -1,6 +1,6 @@
 <domain>
   <os>
-    <type arch="x86_64">hvm</type>
+    <type arch="x86_64" machine="q35">hvm</type>
     <boot dev="cdrom"/>
     <boot dev="network"/>
   </os>
