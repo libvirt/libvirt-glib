@@ -1,6 +1,23 @@
                  libvirt-glib News
                  =================
 
+2.0.0 - Oct 12, 2018
+====================
+
+- Increase min libvirt to 1.2.5
+- Increase min glib to 2.38
+- Fix example program event detail strings
+- Set LC_CTYPE=en_US.UTF-8 when running python apps
+- Don't relay on non-portable paths
+- Fix sha-bang lines for portability
+- Refresh translations
+- Remove bogus casts for g_object_ref args
+- Disable -Wcast-function-type warnings
+- Modernize gobject macro usage
+- Allow adding namespace to child nodes
+- Add ICH9 audio support
+- Add API for getting machine type
+
 1.0.0 - Nov  4, 2016
 ====================
 
