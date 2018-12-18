@@ -498,6 +498,7 @@ int main(int argc, char **argv)
     gvir_config_storage_vol_target_set_format(vol_target, "qcow2");
     gvir_config_storage_vol_target_set_permissions(vol_target, perms);
     gvir_config_storage_vol_target_set_compat(vol_target, "1.1");
+    gvir_config_storage_vol_target_set_features(vol_target, GVIR_CONFIG_STORAGE_VOL_TARGET_FEATURE_LAZY_REFCOUNT);
     g_object_unref(G_OBJECT(perms));
     gvir_config_storage_vol_set_target(vol, vol_target);
     g_object_unref(G_OBJECT(vol_target));

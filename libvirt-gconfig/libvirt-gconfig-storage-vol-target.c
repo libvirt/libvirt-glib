@@ -109,3 +109,17 @@ void gvir_config_storage_vol_target_set_compat(GVirConfigStorageVolTarget *targe
     gvir_config_object_set_node_content(GVIR_CONFIG_OBJECT(target),
                                         "compat", compat);
 }
+
+void gvir_config_storage_vol_target_set_features(GVirConfigStorageVolTarget *target,
+                                                 guint64 features)
+{
+    g_return_if_fail(GVIR_CONFIG_IS_STORAGE_VOL_TARGET(target));
+    g_return_if_fail((features & ~GVIR_CONFIG_STORAGE_VOL_TARGET_FEATURE_LAZY_REFCOUNT) == 0);
+
+    if ((features & GVIR_CONFIG_STORAGE_VOL_TARGET_FEATURE_LAZY_REFCOUNT) != 0) {
+        GVirConfigObject *features_node;
+        features_node = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(target), "features");
+        gvir_config_object_set_node_content(features_node, "lazy_refcount", "");
+        g_object_unref(features_node);
+    }
+}

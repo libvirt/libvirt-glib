@@ -69,6 +69,12 @@ void gvir_config_storage_vol_target_set_format(GVirConfigStorageVolTarget *targe
                                                const char *format);
 void gvir_config_storage_vol_target_set_permissions(GVirConfigStorageVolTarget *target,
                                                     GVirConfigStoragePermissions *perms);
+typedef enum {
+    GVIR_CONFIG_STORAGE_VOL_TARGET_FEATURE_LAZY_REFCOUNT = 1 << 0
+} GVirConfigStorageVolTargetFeatures;
+
+void gvir_config_storage_vol_target_set_features(GVirConfigStorageVolTarget *target,
+                                                 guint64 features);
 
 G_END_DECLS
 
