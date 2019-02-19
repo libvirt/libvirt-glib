@@ -16,7 +16,7 @@ BuildRequires:  mingw32-glib2
 BuildRequires:  mingw64-glib2
 BuildRequires:  mingw32-libvirt >= 0.9.10
 BuildRequires:  mingw64-libvirt >= 0.9.10
-BuildRequires:  intltool
+BuildRequires:  gettext
 BuildRequires:  pkgconfig
 
 BuildArch:      noarch

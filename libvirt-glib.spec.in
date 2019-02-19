@@ -37,7 +37,7 @@ BuildRequires: libtool
 %if %{with_vala}
 BuildRequires: vala-tools
 %endif
-BuildRequires: intltool
+BuildRequires: gettext
 
 %package devel
 Group: Development/Libraries

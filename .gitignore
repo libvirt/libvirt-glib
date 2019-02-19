@@ -22,7 +22,6 @@ Makefile.in
 m4/ltsugar.m4
 m4/lt~obsolete.m4
 m4/libtool.m4
-m4/intltool.m4
 m4/ltversion.m4
 m4/ltoptions.m4
 autom4te.cache
@@ -83,14 +82,7 @@ libvirt-gconfig/tests/test-capabilities-parse
 libvirt-gconfig/tests/test-domain-create
 libvirt-gconfig/tests/test-domain-parse
 .tx/
-po/Makefile
-po/Makefile.in
-po/Makefile.in.in
-po/POTFILES
-po/libvirt-glib.pot
-po/stamp-it
 po/*.gmo
-po/.zanata-cache/
 tests/test-events
 tests/test-gconfig
 tests/*.log

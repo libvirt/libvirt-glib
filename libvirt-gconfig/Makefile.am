@@ -201,6 +201,7 @@ libvirt_gconfig_1_0_la_SOURCES = \
 nodist_libvirt_gconfig_1_0_la_SOURCES = \
 			$(GCONFIG_GENERATED_FILES)
 libvirt_gconfig_1_0_la_CFLAGS = \
+			-DGETTEXT_PACKAGE="\"libvirt-glib\"" \
 			-DG_LOG_DOMAIN="\"Libvirt.GConfig\"" \
 			-DDATADIR="\"$(datadir)\"" \
 			-DLIBVIRT_GCONFIG_BUILD \
