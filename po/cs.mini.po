@@ -23,7 +23,7 @@ msgstr ""
 
 #, c-format
 msgid "Connection %s is already open"
-msgstr "Spojení %s je již navázáno"
+msgstr "Spojení %s už je navázáno"
 
 msgid "Connection is not open"
 msgstr "Spojení není navázáno"
@@ -35,10 +35,10 @@ msgid "Failed to create domain"
 msgstr "Nepodařilo se vytvořit doménu"
 
 msgid "Failed to create storage pool"
-msgstr "Nepodařilo se vytvořit úložný prostor"
+msgstr "Nepodařilo se vytvořit fond úložišť"
 
 msgid "Failed to fetch list of domains"
-msgstr "Nepodařilo se načíst seznam doméno "
+msgstr "Nepodařilo se načíst seznam domén"
 
 msgid "Failed to fetch list of interfaces"
 msgstr "Nepodařilo se načíst seznam rozhraní"
@@ -51,50 +51,50 @@ msgstr "Nepodařilo se načíst seznam úložišť"
 
 #, c-format
 msgid "Got virStreamRecv error in %s"
-msgstr "Má chybu virStreamRecv v %s"
+msgstr "Obdržena chyba virStreamRecv v %s"
 
 msgid "No XML document associated with this config object"
-msgstr "Žádný XML dokument není asociován s tímto konfiguračním objektem"
+msgstr "S tímto objektem nastavení není spojen žádný XML dokument"
 
 msgid "No XML document to parse"
-msgstr "Žádný XML dokument k parsování"
+msgstr "Žádný XML dokument ke zpracování"
 
 msgid "No XML schema associated with this config object"
-msgstr "Žádné XML schéma není spojeno s tímto konfiguračním objektem"
+msgstr "S tímto objektem nastavení není spojen žádné XML schema"
 
 #, c-format
 msgid "Unable to create RNG parser for %s"
-msgstr "Nelze vytvořit RNG parser pro %s"
+msgstr "Nedaří se vytvořit RNG parser pro %s"
 
 #, c-format
 msgid "Unable to create RNG validation context %s"
-msgstr "Nelze vytvořit ověření kontextu RNG %s"
+msgstr "Nedaří se vytvořit ověření kontextu RNG %s"
 
 msgid "Unable to get capabilities"
-msgstr "Nepodařilo se získat schopnosti"
+msgstr "Nepodařilo se získat možnosti"
 
 msgid "Unable to get connection URI"
-msgstr "Nelze získat URI připojení"
+msgstr "Nedaří se získat URI připojení"
 
 msgid "Unable to get hypervisor name"
 msgstr "Nezdařilo se získat název hypervisoru"
 
 msgid "Unable to get hypervisor version"
-msgstr "Nepodařilo se získat verzi hypervizora"
+msgstr "Nepodařilo se získat verzi hypervizoru"
 
 msgid "Unable to get node info"
 msgstr "Nepodařilo se získat informace o uzlu"
 
 #, c-format
 msgid "Unable to open %s"
-msgstr "Nelze otevřít %s"
+msgstr "Nedaří se otevřít %s"
 
 #, c-format
 msgid "Unable to parse RNG %s"
-msgstr "Nelze parsovat RNG %s"
+msgstr "Nedaří se zpracovat RNG %s"
 
 msgid "Unable to parse configuration"
-msgstr "Nelze parsovat konfiguraci"
+msgstr "Nedaří se zpracovat nastavení"
 
 msgid "Unable to perform RecvAll"
 msgstr "Nepodařilo se provést RecvAll"
@@ -106,11 +106,11 @@ msgid "Unable to restore domain"
 msgstr "Nepodařilo se obnovit doménu"
 
 msgid "Unable to validate doc"
-msgstr "Nelze ověřit dokument"
+msgstr "Dokument se nedaří ověřit"
 
 #, c-format
 msgid "XML data has no '%s' node"
-msgstr "XML data nemají uzel '%s'"
+msgstr "XML data nemají uzel „%s“"
 
 msgid "virStreamRecv call would block"
 msgstr "Volání virStreamRecv by blokovalo"

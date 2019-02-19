@@ -60,6 +60,9 @@ msgstr "Aucun document XML associé avec cet objet de configuration"
 msgid "No XML document to parse"
 msgstr "Aucun document XML à analyser"
 
+msgid "No XML schema associated with this config object"
+msgstr "Aucun schéma XML associé avec cet objet de configuration"
+
 #, c-format
 msgid "Unable to create RNG parser for %s"
 msgstr "Impossible de créer l'analyseur RNG pour %s"
