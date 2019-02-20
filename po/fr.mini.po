@@ -1,0 +1,117 @@
+# Libvirt package strings.
+# Copyright (C) 2019 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jérôme Fenal <jfenal@gmail.com>, 2013
+# Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>, 2016. #zanata
+# Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>, 2019. #zanata
+msgid ""
+msgstr ""
+"Project-Id-Version: libvirt-glib 2.0.0\n"
+"Report-Msgid-Bugs-To: https://libvirt.org/bugs.html\n"
+"POT-Creation-Date: 2019-02-19 18:35+0000\n"
+"PO-Revision-Date: 2019-01-21 08:05+0000\n"
+"Last-Translator: Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>\n"
+"Language-Team: French (http://www.transifex.com/projects/p/libvirt-glib/"
+"language/fr/)\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Zanata 4.6.2\n"
+
+#, c-format
+msgid "Connection %s is already open"
+msgstr "La connexion %s est déjà ouverte"
+
+msgid "Connection is not open"
+msgstr "La connexion n'est pas ouverte"
+
+msgid "Connection is not opened"
+msgstr "La connexion n'est pas ouverte"
+
+msgid "Failed to create domain"
+msgstr "Échec de la création du domaine"
+
+msgid "Failed to create storage pool"
+msgstr "Échec de la création du pool de stockage"
+
+msgid "Failed to fetch list of domains"
+msgstr "Impossible de récupérer la liste des domaines"
+
+msgid "Failed to fetch list of interfaces"
+msgstr "Impossible de récupérer la liste des interfaces"
+
+msgid "Failed to fetch list of networks"
+msgstr "Impossible de récupérer la liste des réseaux"
+
+msgid "Failed to fetch list of pools"
+msgstr "Impossible de récupérer la liste des pools"
+
+#, c-format
+msgid "Got virStreamRecv error in %s"
+msgstr "Erreur virStreamRecv survenue dans %s"
+
+msgid "No XML document associated with this config object"
+msgstr "Aucun document XML associé avec cet objet de configuration"
+
+msgid "No XML document to parse"
+msgstr "Aucun document XML à analyser"
+
+#, c-format
+msgid "Unable to create RNG parser for %s"
+msgstr "Impossible de créer l'analyseur RNG pour %s"
+
+#, c-format
+msgid "Unable to create RNG validation context %s"
+msgstr "Impossible de créer un contexte de validation RNG %s"
+
+msgid "Unable to get capabilities"
+msgstr "Impossible d'obtenir les capacités"
+
+msgid "Unable to get connection URI"
+msgstr "Impossible d'obtenir l'URI de connexion"
+
+msgid "Unable to get hypervisor name"
+msgstr "Impossible d'obtenir le nom de l'hyperviseur"
+
+msgid "Unable to get hypervisor version"
+msgstr "Impossible d'obtenir la version de l'hyperviseur"
+
+msgid "Unable to get node info"
+msgstr "Impossible d'obtenir les informations sur le nœud"
+
+#, c-format
+msgid "Unable to open %s"
+msgstr "Impossible d'ouvrir %s"
+
+#, c-format
+msgid "Unable to parse RNG %s"
+msgstr "Impossible d'analyser le RNG %s"
+
+msgid "Unable to parse configuration"
+msgstr "Impossible d'analyser la configuration"
+
+msgid "Unable to perform RecvAll"
+msgstr "Impossible d'exécuter RecvAll"
+
+msgid "Unable to perform SendAll"
+msgstr "Impossible d'exécuter SendAll"
+
+msgid "Unable to restore domain"
+msgstr "Impossible de restaurer le domaine"
+
+msgid "Unable to validate doc"
+msgstr "Impossible de valider le document"
+
+#, c-format
+msgid "XML data has no '%s' node"
+msgstr "Les données XML n'ont pas de nœud « %s »"
+
+msgid "virStreamRecv call would block"
+msgstr "L'appel à virStreamRecv serait bloquant"
+
+msgid "virStreamSend call would block"
+msgstr "L'appel à virStreamSend serait bloquant"
