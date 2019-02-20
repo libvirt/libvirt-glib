@@ -1,0 +1,121 @@
+# Libvirt package strings.
+# Copyright (C) 2019 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Yuri Chornoivan <yurchor@ukr.net>, 2013
+# Yuri Chornoivan <yurchor@ukr.net>, 2015. #zanata
+# Yuri Chornoivan <yurchor@ukr.net>, 2017. #zanata
+msgid ""
+msgstr ""
+"Project-Id-Version: libvirt-glib 2.0.0\n"
+"Report-Msgid-Bugs-To: https://libvirt.org/bugs.html\n"
+"POT-Creation-Date: 2019-02-19 18:35+0000\n"
+"PO-Revision-Date: 2017-12-06 12:39+0000\n"
+"Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
+"Language-Team: Ukrainian (http://www.transifex.com/projects/p/libvirt-glib/"
+"language/uk/)\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Zanata 4.6.2\n"
+
+#, c-format
+msgid "Connection %s is already open"
+msgstr "З’єднання %s вже відкрито"
+
+msgid "Connection is not open"
+msgstr "З'єднання не відкрито"
+
+msgid "Connection is not opened"
+msgstr "З’єднання не відкрито"
+
+msgid "Failed to create domain"
+msgstr "Не вдалося створити домен"
+
+msgid "Failed to create storage pool"
+msgstr "Не вдалося створити резервне сховище"
+
+msgid "Failed to fetch list of domains"
+msgstr "Не вдалося отримати список доменів"
+
+msgid "Failed to fetch list of interfaces"
+msgstr "Не вдалося отримати список інтерфейсів"
+
+msgid "Failed to fetch list of networks"
+msgstr "Не вдалося отримати список мереж"
+
+msgid "Failed to fetch list of pools"
+msgstr "Не вдалося отримати список буферів"
+
+#, c-format
+msgid "Got virStreamRecv error in %s"
+msgstr "Отримано повідомлення про помилку virStreamRecv у %s"
+
+msgid "No XML document associated with this config object"
+msgstr "З цим об’єктом налаштування не пов’язано жодного документа XML"
+
+msgid "No XML document to parse"
+msgstr "Немає документа XML для обробки"
+
+msgid "No XML schema associated with this config object"
+msgstr "З цим об’єктом налаштування не пов’язано жодної схеми XML"
+
+#, c-format
+msgid "Unable to create RNG parser for %s"
+msgstr "Не вдалося створити обробник RNG для %s"
+
+#, c-format
+msgid "Unable to create RNG validation context %s"
+msgstr "Не вдалося створити контекст перевірки RNG, %s"
+
+msgid "Unable to get capabilities"
+msgstr "Не вдалося отримати список можливостей"
+
+msgid "Unable to get connection URI"
+msgstr "Не вдалося отримати адресу з’єднання"
+
+msgid "Unable to get hypervisor name"
+msgstr "Не вдалося отримати назву гіпервізора"
+
+msgid "Unable to get hypervisor version"
+msgstr "Не вдалося отримати версію гіпервізора"
+
+msgid "Unable to get node info"
+msgstr "Не вдалося отримати дані щодо вузла"
+
+#, c-format
+msgid "Unable to open %s"
+msgstr "Не вдалося відкрити %s"
+
+#, c-format
+msgid "Unable to parse RNG %s"
+msgstr "Не вдалося обробити RNG, %s"
+
+msgid "Unable to parse configuration"
+msgstr "Не вдалося обробити налаштування"
+
+msgid "Unable to perform RecvAll"
+msgstr "Не вдалося виконати RecvAll"
+
+msgid "Unable to perform SendAll"
+msgstr "Не вдалося виконати SendAll"
+
+msgid "Unable to restore domain"
+msgstr "Не вдалося відновити домен"
+
+msgid "Unable to validate doc"
+msgstr "Не вдалося перевірити документи"
+
+#, c-format
+msgid "XML data has no '%s' node"
+msgstr "У даних XML немає вузла «%s»"
+
+msgid "virStreamRecv call would block"
+msgstr "Виклик virStreamRecv заблокується"
+
+msgid "virStreamSend call would block"
+msgstr "Виклик virStreamSend заблокується"
