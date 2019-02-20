@@ -1,0 +1,119 @@
+# Libvirt package strings.
+# Copyright (C) 2019 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Zdenek <chmelarz@gmail.com>, 2016. #zanata
+# Pavel Borecki <pavel.borecki@gmail.com>, 2018. #zanata
+msgid ""
+msgstr ""
+"Project-Id-Version: libvirt-glib 2.0.0\n"
+"Report-Msgid-Bugs-To: https://libvirt.org/bugs.html\n"
+"POT-Creation-Date: 2019-02-19 18:35+0000\n"
+"PO-Revision-Date: 2018-11-27 06:44+0000\n"
+"Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
+"Language-Team: Czech (http://www.transifex.com/projects/p/libvirt-glib/"
+"language/cs/)\n"
+"Language: cs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Zanata 4.6.2\n"
+
+#, c-format
+msgid "Connection %s is already open"
+msgstr "Spojení %s je již navázáno"
+
+msgid "Connection is not open"
+msgstr "Spojení není navázáno"
+
+msgid "Connection is not opened"
+msgstr "Spojení není navázáno"
+
+msgid "Failed to create domain"
+msgstr "Nepodařilo se vytvořit doménu"
+
+msgid "Failed to create storage pool"
+msgstr "Nepodařilo se vytvořit úložný prostor"
+
+msgid "Failed to fetch list of domains"
+msgstr "Nepodařilo se načíst seznam doméno "
+
+msgid "Failed to fetch list of interfaces"
+msgstr "Nepodařilo se načíst seznam rozhraní"
+
+msgid "Failed to fetch list of networks"
+msgstr "Nepodařilo se načíst seznam sítí"
+
+msgid "Failed to fetch list of pools"
+msgstr "Nepodařilo se načíst seznam úložišť"
+
+#, c-format
+msgid "Got virStreamRecv error in %s"
+msgstr "Má chybu virStreamRecv v %s"
+
+msgid "No XML document associated with this config object"
+msgstr "Žádný XML dokument není asociován s tímto konfiguračním objektem"
+
+msgid "No XML document to parse"
+msgstr "Žádný XML dokument k parsování"
+
+msgid "No XML schema associated with this config object"
+msgstr "Žádné XML schéma není spojeno s tímto konfiguračním objektem"
+
+#, c-format
+msgid "Unable to create RNG parser for %s"
+msgstr "Nelze vytvořit RNG parser pro %s"
+
+#, c-format
+msgid "Unable to create RNG validation context %s"
+msgstr "Nelze vytvořit ověření kontextu RNG %s"
+
+msgid "Unable to get capabilities"
+msgstr "Nepodařilo se získat schopnosti"
+
+msgid "Unable to get connection URI"
+msgstr "Nelze získat URI připojení"
+
+msgid "Unable to get hypervisor name"
+msgstr "Nezdařilo se získat název hypervisoru"
+
+msgid "Unable to get hypervisor version"
+msgstr "Nepodařilo se získat verzi hypervizora"
+
+msgid "Unable to get node info"
+msgstr "Nepodařilo se získat informace o uzlu"
+
+#, c-format
+msgid "Unable to open %s"
+msgstr "Nelze otevřít %s"
+
+#, c-format
+msgid "Unable to parse RNG %s"
+msgstr "Nelze parsovat RNG %s"
+
+msgid "Unable to parse configuration"
+msgstr "Nelze parsovat konfiguraci"
+
+msgid "Unable to perform RecvAll"
+msgstr "Nepodařilo se provést RecvAll"
+
+msgid "Unable to perform SendAll"
+msgstr "Nepodařilo se provést SendAll"
+
+msgid "Unable to restore domain"
+msgstr "Nepodařilo se obnovit doménu"
+
+msgid "Unable to validate doc"
+msgstr "Nelze ověřit dokument"
+
+#, c-format
+msgid "XML data has no '%s' node"
+msgstr "XML data nemají uzel '%s'"
+
+msgid "virStreamRecv call would block"
+msgstr "Volání virStreamRecv by blokovalo"
+
+msgid "virStreamSend call would block"
+msgstr "Volání virStreamSend by blokovalo"

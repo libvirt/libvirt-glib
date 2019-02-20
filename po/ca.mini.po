@@ -1,0 +1,122 @@
+# Libvirt package strings.
+# Copyright (C) 2019 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2015. #zanata
+# Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2016. #zanata
+# Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2017. #zanata
+msgid ""
+msgstr ""
+"Project-Id-Version: libvirt-glib 2.0.0\n"
+"Report-Msgid-Bugs-To: https://libvirt.org/bugs.html\n"
+"POT-Creation-Date: 2019-02-19 18:35+0000\n"
+"PO-Revision-Date: 2017-12-17 03:08+0000\n"
+"Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
+"Language-Team: Catalan (http://www.transifex.com/projects/p/libvirt-glib/"
+"language/ca/)\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Zanata 4.6.2\n"
+
+#, c-format
+msgid "Connection %s is already open"
+msgstr "La connexió %s ja està oberta"
+
+msgid "Connection is not open"
+msgstr "La connexió no és oberta"
+
+msgid "Connection is not opened"
+msgstr "La connexió no està oberta"
+
+msgid "Failed to create domain"
+msgstr "La creació del domini ha fallat"
+
+msgid "Failed to create storage pool"
+msgstr "La creació de la reserva de l'emmagatzematge ha fallat"
+
+msgid "Failed to fetch list of domains"
+msgstr "No s'ha pogut capturar la llista dels dominis"
+
+msgid "Failed to fetch list of interfaces"
+msgstr "No s'ha pogut capturar la llista de les interfícies"
+
+msgid "Failed to fetch list of networks"
+msgstr "No s'ha pogut capturar la llista de les xarxes"
+
+msgid "Failed to fetch list of pools"
+msgstr "No s'ha pogut capturar la llista de les reserves"
+
+#, c-format
+msgid "Got virStreamRecv error in %s"
+msgstr "Es va obtenir un error en virStreamRecv a %s"
+
+msgid "No XML document associated with this config object"
+msgstr ""
+"Cap document XML que estigui associat amb aquest objecte de configuració"
+
+msgid "No XML document to parse"
+msgstr "Cap document XML per analitzar sintàcticament"
+
+msgid "No XML schema associated with this config object"
+msgstr ""
+"Cap esquema XML que estigui associat amb aquest objecte de configuració"
+
+#, c-format
+msgid "Unable to create RNG parser for %s"
+msgstr "No es pot crear l'analitzador sintàctic RNG per %s"
+
+#, c-format
+msgid "Unable to create RNG validation context %s"
+msgstr "No es pot crear la validació del context del RNG %s"
+
+msgid "Unable to get capabilities"
+msgstr "No es poden obtenir les capacitats"
+
+msgid "Unable to get connection URI"
+msgstr "No es pot obtenir la URI de la connexió"
+
+msgid "Unable to get hypervisor name"
+msgstr "No es pot obtenir el nom de l'hipervisor"
+
+msgid "Unable to get hypervisor version"
+msgstr "No es pot obtenir la versió de l'hipervisor"
+
+msgid "Unable to get node info"
+msgstr "No es pot obtenir la informació del node"
+
+#, c-format
+msgid "Unable to open %s"
+msgstr "No es pot obrir %s"
+
+#, c-format
+msgid "Unable to parse RNG %s"
+msgstr "No es pot analitzar sintàcticament el RNG %s"
+
+msgid "Unable to parse configuration"
+msgstr "No es pot analitzar sintàcticament"
+
+msgid "Unable to perform RecvAll"
+msgstr "No es pot realitzar RecvAll"
+
+msgid "Unable to perform SendAll"
+msgstr "No es pot realitzar SendAll"
+
+msgid "Unable to restore domain"
+msgstr "No es pot restaurar el domini"
+
+msgid "Unable to validate doc"
+msgstr "No es pot validar el document"
+
+#, c-format
+msgid "XML data has no '%s' node"
+msgstr "Les dades del XML no tenen cap node «%s»"
+
+msgid "virStreamRecv call would block"
+msgstr "La crida a virStreamRecv podria bloquejar"
+
+msgid "virStreamSend call would block"
+msgstr "La crida a virStreamSend podria bloquejar"
