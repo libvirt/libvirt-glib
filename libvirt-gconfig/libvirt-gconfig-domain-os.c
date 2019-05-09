@@ -328,3 +328,20 @@ void gvir_config_domain_os_set_machine(GVirConfigDomainOs *os, const char *machi
 
     xmlNewProp(os_type_node, (xmlChar*)"machine", (xmlChar*)machine);
 }
+
+void gvir_config_domain_os_set_firmware(GVirConfigDomainOs *os, GVirConfigDomainOsFirmware firmware)
+{
+    xmlNodePtr node;
+    const gchar *firmware_str;
+
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_OS(os));
+
+    node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(os));
+    g_return_if_fail(node != NULL);
+
+    firmware_str = gvir_config_genum_get_nick(GVIR_CONFIG_TYPE_DOMAIN_OS_FIRMWARE,
+                   firmware);
+    g_return_if_fail(firmware_str != NULL);
+
+    xmlNewProp(node, (xmlChar*)"firmware", (xmlChar*)firmware_str);
+}

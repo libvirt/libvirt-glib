@@ -77,6 +77,11 @@ typedef enum {
     GVIR_CONFIG_DOMAIN_OS_BOOT_DEVICE_NETWORK
 } GVirConfigDomainOsBootDevice;
 
+typedef enum {
+    GVIR_CONFIG_DOMAIN_OS_FIRMWARE_BIOS,
+    GVIR_CONFIG_DOMAIN_OS_FIRMWARE_EFI
+} GVirConfigDomainOsFirmware;
+
 GType gvir_config_domain_os_get_type(void);
 
 GVirConfigDomainOs *gvir_config_domain_os_new(void);
@@ -99,6 +104,8 @@ void gvir_config_domain_os_set_smbios_mode(GVirConfigDomainOs *os,
                                            GVirConfigDomainOsSmBiosMode mode);
 void gvir_config_domain_os_enable_boot_menu(GVirConfigDomainOs *os, gboolean enable);
 void gvir_config_domain_os_bios_enable_serial(GVirConfigDomainOs *os, gboolean enable);
+void gvir_config_domain_os_set_firmware(GVirConfigDomainOs *os,
+                                        GVirConfigDomainOsFirmware firmware);
 
 G_END_DECLS
 
