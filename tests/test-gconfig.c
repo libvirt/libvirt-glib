@@ -791,6 +791,37 @@ static void test_domain_device_unknown(void)
     g_free(xml);
 }
 
+static void test_domain_capabilities_os(void)
+{
+    GVirConfigDomainCapabilities *domain_caps;
+    GVirConfigDomainCapabilitiesOs *os;
+    GList *firmwares, *l;
+    gsize i;
+    GVirConfigDomainOsFirmware expected_firmwares[] = {GVIR_CONFIG_DOMAIN_OS_FIRMWARE_BIOS,
+                                                       GVIR_CONFIG_DOMAIN_OS_FIRMWARE_EFI};
+    GError *error = NULL;
+    gchar *xml;
+
+    xml = load_xml("gconfig-domain-capabilities-os.xml");
+
+    domain_caps =  gvir_config_domain_capabilities_new_from_xml(xml, &error);
+    g_assert_no_error(error);
+
+    os = gvir_config_domain_capabilities_get_os(domain_caps);
+    g_assert_nonnull(os);
+
+    firmwares = gvir_config_domain_capabilities_os_get_firmwares(os);
+    g_assert_nonnull(firmwares);
+
+    for (l = firmwares, i = 0; l != NULL; l = l->next, i++)
+        g_assert_cmpint(GPOINTER_TO_INT(l->data), ==, expected_firmwares[i]);
+
+
+    g_list_free(firmwares);
+    g_object_unref(os);
+    g_object_unref(domain_caps);
+    g_free(xml);
+}
 
 int main(int argc, char **argv)
 {
@@ -825,6 +856,8 @@ int main(int argc, char **argv)
                     test_domain_device_pci_hostdev);
     g_test_add_func("/libvirt-gconfig/domain-device-unknown",
                     test_domain_device_unknown);
+    g_test_add_func("/libvirt-gconfig/domain-capabilities-os",
+                    test_domain_capabilities_os);
 
     return g_test_run();
 }
