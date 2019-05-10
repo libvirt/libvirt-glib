@@ -51,10 +51,15 @@ struct _GVirConfigDomainCapabilitiesOsClass
 {
     GVirConfigObjectClass parent_class;
 
-    gpointer padding[20];
+    GList *(*get_firmwares)(GVirConfigDomainCapabilitiesOs *os);
+
+    gpointer padding[19];
 };
 
 GType gvir_config_domain_capabilities_os_get_type(void);
+
+GList *
+gvir_config_domain_capabilities_os_get_firmwares(GVirConfigDomainCapabilitiesOs *os);
 
 G_END_DECLS
 

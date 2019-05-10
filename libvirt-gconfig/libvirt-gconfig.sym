@@ -778,6 +778,7 @@ global:
 	gvir_config_domain_capabilities_get_type;
 	gvir_config_domain_capabilities_new;
 	gvir_config_domain_capabilities_new_from_xml;
+	gvir_config_domain_capabilities_os_get_firmwares;
 	gvir_config_domain_capabilities_os_get_type;
 	gvir_config_domain_os_firmware_get_type;
 	gvir_config_domain_os_set_firmware;
