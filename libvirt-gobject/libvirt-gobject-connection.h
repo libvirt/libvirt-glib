@@ -255,6 +255,28 @@ gboolean
 gvir_connection_restore_domain_from_file_finish(GVirConnection *conn,
                                                 GAsyncResult *result,
                                                 GError **err);
+
+GVirConfigDomainCapabilities *gvir_connection_get_domain_capabilities(GVirConnection *conn,
+                                                                      const gchar *emulatorbin,
+                                                                      const gchar *arch,
+                                                                      const gchar *machine,
+                                                                      const gchar *virttype,
+                                                                      guint flags,
+                                                                      GError **err);
+void gvir_connection_get_domain_capabilities_async(GVirConnection *conn,
+                                                   const gchar *emulatorbin,
+                                                   const gchar *arch,
+                                                   const gchar *machine,
+                                                   const gchar *virttype,
+                                                   guint flags,
+                                                   GCancellable *cancellable,
+                                                   GAsyncReadyCallback callback,
+                                                   gpointer user_data);
+GVirConfigDomainCapabilities *
+gvir_connection_get_domain_capabilities_finish(GVirConnection *conn,
+                                               GAsyncResult *result,
+                                               GError **err);
+
 G_END_DECLS
 
 #endif /* __LIBVIRT_GOBJECT_CONNECTION_H__ */

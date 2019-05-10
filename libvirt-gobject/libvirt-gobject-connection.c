@@ -2078,6 +2078,174 @@ GVirNodeInfo *gvir_connection_get_node_info(GVirConnection *conn,
 }
 
 /**
+ * gvir_connection_get_domain_capabilities:
+ * @conn: a #GVirConnection
+ * @emulatorbin: (allow-none): path to emulator
+ * @arch: (allow-none): domain architecture
+ * @machine: (allow-none): machine type
+ * @virttype: (allow-none): virtualization type
+ * @flags: extra flags; not used yet, so callers should always pass 0
+ * @err: return location for any #GError
+ *
+ * Return value: (transfer full): a #GVirConfigDomainCapabilities or NULL.
+ * The return object should be unreffed with g_object_unref() when no longer
+ * needed.
+ */
+GVirConfigDomainCapabilities *
+gvir_connection_get_domain_capabilities(GVirConnection *conn,
+                                        const gchar *emulatorbin,
+                                        const gchar *arch,
+                                        const gchar *machine,
+                                        const gchar *virttype,
+                                        guint flags,
+                                        GError **err)
+{
+    GVirConfigDomainCapabilities *domain_caps;
+    gchar *domain_caps_xml;
+
+    g_return_val_if_fail(GVIR_IS_CONNECTION(conn), NULL);
+    g_return_val_if_fail(err == NULL || *err == NULL, NULL);
+    g_return_val_if_fail(conn->priv->conn, NULL);
+
+    domain_caps_xml = virConnectGetDomainCapabilities(conn->priv->conn,
+                                                      emulatorbin,
+                                                      arch,
+                                                      machine,
+                                                      virttype,
+                                                      flags);
+    if (domain_caps_xml == NULL) {
+        gvir_set_error_literal(err, GVIR_CONNECTION_ERROR,
+                               0,
+                               _("Unable to get domain capabilities"));
+        return NULL;
+    }
+
+    domain_caps = gvir_config_domain_capabilities_new_from_xml(domain_caps_xml, err);
+    free(domain_caps_xml);
+
+    return domain_caps;
+}
+
+typedef struct {
+    gchar *emulatorbin;
+    gchar *arch;
+    gchar *machine;
+    gchar *virttype;
+    guint flags;
+} GetDomainCapabilitiesData;
+
+static void get_domain_capabilities_data_free(GetDomainCapabilitiesData *data)
+{
+    g_free(data->emulatorbin);
+    g_free(data->arch);
+    g_free(data->machine);
+    g_free(data->virttype);
+    g_slice_free(GetDomainCapabilitiesData, data);
+}
+
+static void
+gvir_connection_get_domain_capabilities_helper(GTask *task,
+                                               gpointer object,
+                                               gpointer task_data G_GNUC_UNUSED,
+                                               GCancellable *cancellable G_GNUC_UNUSED)
+{
+    GVirConnection *conn = GVIR_CONNECTION(object);
+    GetDomainCapabilitiesData *data;
+    GError *err = NULL;
+    GVirConfigDomainCapabilities *domain_caps;
+
+    data = (GetDomainCapabilitiesData *)task_data;
+
+    domain_caps = gvir_connection_get_domain_capabilities(conn,
+                                                          data->emulatorbin,
+                                                          data->arch,
+                                                          data->machine,
+                                                          data->virttype,
+                                                          data->flags,
+                                                          &err);
+    if (domain_caps == NULL) {
+        g_task_return_error(task, err);
+
+        return;
+    }
+
+    g_task_return_pointer(task, domain_caps, g_object_unref);
+}
+
+/**
+ * gvir_connection_get_domain_capabilities_async:
+ * @conn: a #GVirConnection
+ * @emulatorbin: (allow-none): path to emulator
+ * @arch: (allow-none): domain architecture
+ * @machine: (allow-none): machine type
+ * @virttype: (allow-none): virtualization type
+ * @flags: extra flags; not used yet, so callers should always pass 0
+ * @cancellable: (allow-none)(transfer none): cancellation object
+ * @callback: (scope async): completion callback
+ * @user_data: (closure): opaque data for callback
+ */
+void gvir_connection_get_domain_capabilities_async(GVirConnection *conn,
+                                                   const gchar *emulatorbin,
+                                                   const gchar *arch,
+                                                   const gchar *machine,
+                                                   const gchar *virttype,
+                                                   guint flags,
+                                                   GCancellable *cancellable,
+                                                   GAsyncReadyCallback callback,
+                                                   gpointer user_data)
+{
+    GTask *task;
+    GetDomainCapabilitiesData *data;
+
+    g_return_if_fail(GVIR_IS_CONNECTION(conn));
+    g_return_if_fail((cancellable == NULL) || G_IS_CANCELLABLE(cancellable));
+
+    data = g_slice_new0(GetDomainCapabilitiesData);
+    data->emulatorbin = g_strdup(emulatorbin);
+    data->arch = g_strdup(arch);
+    data->machine = g_strdup(machine);
+    data->virttype = g_strdup(virttype);
+    data->flags = flags;
+
+    task = g_task_new(G_OBJECT(conn),
+                      cancellable,
+                      callback,
+                      user_data);
+    g_task_set_source_tag(task,
+                          gvir_connection_get_domain_capabilities_async);
+    g_task_set_task_data(task,
+                         data,
+                         (GDestroyNotify)get_domain_capabilities_data_free);
+    g_task_run_in_thread(task,
+                         gvir_connection_get_domain_capabilities_helper);
+    g_object_unref(task);
+}
+
+/**
+ * gvir_connection_get_domain_capabilities_finish:
+ * @conn: a #GVirConnection
+ * @result: (transfer none): async method result
+ *
+ * Return value: (transfer full): a #GVirConfigDomainCapabilities or NULL.
+ * The returned object should be unreffed with g_object_unref() when no
+ * longer needed.
+ */
+GVirConfigDomainCapabilities *
+gvir_connection_get_domain_capabilities_finish(GVirConnection *conn,
+                                               GAsyncResult *result,
+                                               GError **err)
+{
+    g_return_val_if_fail(GVIR_IS_CONNECTION(conn), NULL);
+    g_return_val_if_fail(g_task_is_valid(result, G_OBJECT(conn)),
+                         NULL);
+    g_return_val_if_fail(g_task_get_source_tag(G_TASK(result)) ==
+                         gvir_connection_get_domain_capabilities_async,
+                         NULL);
+
+    return g_task_propagate_pointer(G_TASK(result), err);
+}
+
+/**
  * gvir_connection_get_capabilities:
  * @conn: a #GVirConnection
  * @err: return location for any #GError

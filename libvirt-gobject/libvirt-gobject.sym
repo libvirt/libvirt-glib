@@ -311,4 +311,12 @@ LIBVIRT_GOBJECT_0.2.3 {
 	gvir_domain_set_time_finish;
 } LIBVIRT_GOBJECT_0.2.2;
 
+
+LIBVIRT_GOBJECT_2.0.1 {
+  global:
+	gvir_connection_get_domain_capabilities;
+	gvir_connection_get_domain_capabilities_async;
+	gvir_connection_get_domain_capabilities_finish;
+} LIBVIRT_GOBJECT_0.2.3;
+
 # .... define new API here using predicted next version number ....
