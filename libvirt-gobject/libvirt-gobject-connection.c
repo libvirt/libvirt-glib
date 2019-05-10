@@ -2177,7 +2177,7 @@ gvir_connection_get_capabilities_finish(GVirConnection *conn,
                          NULL);
     g_return_val_if_fail(g_task_get_source_tag(G_TASK(result)) ==
                          gvir_connection_get_capabilities_async,
-                         FALSE);
+                         NULL);
 
     return g_task_propagate_pointer(G_TASK(result), err);
 }
