@@ -774,6 +774,7 @@ global:
 
 LIBVIRT_GCONFIG_2.0.1 {
 global:
+	gvir_config_domain_capabilities_get_os;
 	gvir_config_domain_capabilities_get_type;
 	gvir_config_domain_capabilities_new;
 	gvir_config_domain_capabilities_new_from_xml;

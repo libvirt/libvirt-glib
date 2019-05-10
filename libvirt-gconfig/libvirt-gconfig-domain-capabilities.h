@@ -25,6 +25,8 @@
 #ifndef __LIBVIRT_GCONFIG_DOMAIN_CAPABILITIES_H__
 #define __LIBVIRT_GCONFIG_DOMAIN_CAPABILITIES_H__
 
+#include "libvirt-gconfig/libvirt-gconfig-domain-capabilities-os.h"
+
 G_BEGIN_DECLS
 
 #define GVIR_CONFIG_TYPE_DOMAIN_CAPABILITIES            (gvir_config_domain_capabilities_get_type ())
@@ -59,6 +61,7 @@ GType gvir_config_domain_capabilities_get_type(void);
 GVirConfigDomainCapabilities *gvir_config_domain_capabilities_new(void);
 GVirConfigDomainCapabilities *gvir_config_domain_capabilities_new_from_xml(const gchar *xml,
                                                                            GError **error);
+GVirConfigDomainCapabilitiesOs *gvir_config_domain_capabilities_get_os(GVirConfigDomainCapabilities *domain_caps);
 
 G_END_DECLS
 

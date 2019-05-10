@@ -69,3 +69,26 @@ gvir_config_domain_capabilities_new_from_xml(const gchar *xml,
                                              xml, error);
     return GVIR_CONFIG_DOMAIN_CAPABILITIES(object);
 }
+
+/**
+ * gvir_config_domain_capabilities_get_os:
+ * @domain_caps: a #GVirConfigDomainCapabilities
+ *
+ * Gets the @os associated with the @domain_caps.
+ *
+ * Returns: (transfer full): a new #GVirConfigDomainCapabilitiesOs.
+ */
+GVirConfigDomainCapabilitiesOs *
+gvir_config_domain_capabilities_get_os(GVirConfigDomainCapabilities *domain_caps)
+{
+    GVirConfigObject *object;
+
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_CAPABILITIES(domain_caps), NULL);
+
+    object = gvir_config_object_get_child_with_type
+                                (GVIR_CONFIG_OBJECT(domain_caps),
+                                "os",
+                                GVIR_CONFIG_TYPE_DOMAIN_CAPABILITIES_OS);
+
+    return GVIR_CONFIG_DOMAIN_CAPABILITIES_OS(object);
+}
