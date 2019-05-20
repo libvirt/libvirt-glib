@@ -74,7 +74,7 @@ pty = LibvirtGConfig.DomainChardevSourcePty.new()
 console.set_source(pty)
 domain.add_device(console)
 
-print domain.to_xml()
+print(domain.to_xml())
 
 
 pool = LibvirtGConfig.StoragePool.new()
@@ -95,7 +95,7 @@ pool_target.set_path("/dev/disk/by-path")
 pool_target.set_permissions(perms)
 pool.set_target(pool_target)
 
-print pool.to_xml()
+print(pool.to_xml())
 
 
 vol = LibvirtGConfig.StorageVol.new()
@@ -107,4 +107,4 @@ vol_target.set_format("qcow2")
 vol_target.set_permissions(perms)
 vol.set_target(vol_target)
 
-print vol.to_xml()
+print(vol.to_xml())
