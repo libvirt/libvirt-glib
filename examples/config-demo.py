@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 
-from gi.repository import LibvirtGConfig;
+from gi.repository import LibvirtGConfig
 
 domain = LibvirtGConfig.Domain.new()
 domain.set_virt_type(LibvirtGConfig.DomainVirtType.KVM)
