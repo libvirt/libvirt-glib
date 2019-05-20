@@ -1,5 +1,8 @@
 #!/usr/bin/env python2
 
+import gi
+
+gi.require_version('LibvirtGConfig', '1.0')
 from gi.repository import LibvirtGConfig
 
 domain = LibvirtGConfig.Domain.new()
