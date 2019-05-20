@@ -34,7 +34,7 @@ def done(conn, result, data):
                 conf.validate()
 
                 print ("Document is valid according to %s" % conf.get_schema())
-            except Exception, e:
+            except Exception as e:
                 print ("Document is not valid according to %s: %s: %s" % (conf.get_schema(), str(e), str(type(e))))
 
             xml = conf.to_xml()
