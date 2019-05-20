@@ -1,7 +1,11 @@
 #!/usr/bin/env python2
 
+import gi
+
+gi.require_version('LibvirtGObject', '1.0')
 from gi.repository import LibvirtGObject
 from gi.repository import Gio
+gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 
 LibvirtGObject.init_object_check(None)
