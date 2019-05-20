@@ -48,7 +48,7 @@ def main():
 
     print "Using uri:" + uri
 
-    LibvirtGLib.init(0, "")
+    LibvirtGLib.init()
     LibvirtGLib.event_register()
     vc = libvirt.open(uri)
 
