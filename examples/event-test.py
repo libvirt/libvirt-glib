@@ -1,10 +1,14 @@
 #!/usr/bin/env python2
 
+import gi
+
+gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 import libvirt
 import getopt
 import sys
 
+gi.require_version('LibvirtGLib', '1.0')
 from gi.repository import LibvirtGLib
 
 def eventToString(event):
