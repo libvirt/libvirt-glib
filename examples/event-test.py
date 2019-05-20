@@ -5,7 +5,7 @@ import libvirt
 import getopt
 import sys
 
-from gi.repository import LibvirtGLib;
+from gi.repository import LibvirtGLib
 
 def eventToString(event):
     eventStrings = ( "Added",
@@ -15,8 +15,8 @@ def eventToString(event):
                      "Resumed",
                      "Stopped",
                      "Saved",
-                     "Restored" );
-    return eventStrings[event];
+                     "Restored" )
+    return eventStrings[event]
 
 def myDomainEventCallback1 (conn, dom, event, detail, opaque):
     print "myDomainEventCallback1 EVENT: Domain %s(%s) %s" % (dom.name(), dom.ID(), eventToString(event))
