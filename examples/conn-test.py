@@ -1,10 +1,10 @@
 #!/usr/bin/env python2
 
-from gi.repository import LibvirtGObject;
-from gi.repository import Gio;
-from gi.repository import Gtk;
+from gi.repository import LibvirtGObject
+from gi.repository import Gio
+from gi.repository import Gtk
 
-LibvirtGObject.init_object_check(None);
+LibvirtGObject.init_object_check(None)
 
 conn = LibvirtGObject.Connection(uri="test:///default")
 canc = Gio.Cancellable()
