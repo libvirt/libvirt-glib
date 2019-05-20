@@ -87,7 +87,7 @@ pool.set_source(pool_source)
 perms = LibvirtGConfig.StoragePermissions.new()
 perms.set_owner(1001)
 perms.set_group(1005)
-perms.set_mode(0744)
+perms.set_mode(0o744)
 perms.set_label("virt_image_t")
 
 pool_target = LibvirtGConfig.StoragePoolTarget.new()
