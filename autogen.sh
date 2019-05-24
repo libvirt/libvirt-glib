@@ -1,43 +1,26 @@
 #!/bin/sh
 # Run this to generate all the initial makefiles, etc.
+test -n "$srcdir" || srcdir=$(dirname "$0")
+test -n "$srcdir" || srcdir=.
 
-set -e
-srcdir=`dirname $0`
-test -z "$srcdir" && srcdir=.
+olddir=$(pwd)
 
-THEDIR=`pwd`
-cd $srcdir
+cd "$srcdir"
 
-DIE=0
-
-for prog in autoreconf automake autoconf libtoolize
-do
-    ($prog --version) < /dev/null > /dev/null 2>&1 || {
-        echo
-        echo "You must have $prog installed to compile libvirt-glib."
-        DIE=1
-    }
-done
-
-if test "$DIE" -eq 1; then
-        exit 1
-fi
-
-if test -z "$*"; then
-        echo "I am going to run ./configure with no args - if you "
-        echo "wish to pass any extra arguments to it, please specify them on "
-        echo "the $0 command line."
-fi
+(test -f libvirt-glib/libvirt-glib-main.c) || {
+    echo -n "**Error**: Directory "\`$srcdir\'" does not look like the"
+    echo " top-level libvirt-glib directory"
+    exit 1
+}
 
 # Real ChangeLog/AUTHORS is auto-generated from GIT logs at
 # make dist time, but automake requires that it
 # exists at all times :-(
 touch ChangeLog AUTHORS
 
-mkdir -p build-aux
-autoreconf -if
-
-cd $THEDIR
+aclocal --install || exit 1
+gtkdocize --copy || exit 1
+autoreconf --verbose --force --install || exit 1
 
 if test "x$1" = "x--system"; then
     shift
@@ -51,7 +34,16 @@ if test "x$1" = "x--system"; then
     EXTRA_ARGS="--prefix=$prefix --sysconfdir=$sysconfdir --localstatedir=$localstatedir --libdir=$libdir"
 fi
 
-$srcdir/configure $EXTRA_ARGS "$@" && {
-    echo
-    echo "Now type 'make' to compile libvirt-glib."
-}
+cd "$olddir"
+
+if [ "$NOCONFIGURE" = "" ]; then
+        $srcdir/configure $EXTRA_ARGS "$@" || exit 1
+
+        if [ "$1" = "--help" ]; then
+                exit 0
+        else
+                echo "Now type 'make' to compile $PKG_NAME" || exit 1
+        fi
+else
+        echo "Skipping configure process."
+fi

@@ -19,11 +19,14 @@ Makefile.in
 *.la
 *~
 *.orig
+m4/gtk-doc.m4
+m4/introspection.m4
 m4/ltsugar.m4
 m4/lt~obsolete.m4
 m4/libtool.m4
 m4/ltversion.m4
 m4/ltoptions.m4
+m4/pkg.m4
 autom4te.cache
 config.*
 COPYING
@@ -55,6 +58,7 @@ python/*pyc
 */*.gir
 */*.typelib
 build/
+gtk-doc.make
 libvirt-gconfig/libvirt-gconfig-enum-types.h
 libvirt-gconfig/libvirt-gconfig-enum-types.c
 libvirt-gobject/libvirt-gobject-enums.h
