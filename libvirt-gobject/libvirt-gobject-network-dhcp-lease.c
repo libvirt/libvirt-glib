@@ -121,7 +121,6 @@ static void gvir_network_dhcp_lease_class_init(GVirNetworkDHCPLeaseClass *klass)
                                                          "The lease handle",
                                                          G_PARAM_READWRITE |
                                                          G_PARAM_CONSTRUCT_ONLY |
-                                                         G_PARAM_PRIVATE |
                                                          G_PARAM_STATIC_STRINGS));
 }
 
