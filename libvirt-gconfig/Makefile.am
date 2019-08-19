@@ -209,6 +209,8 @@ libvirt_gconfig_1_0_la_CFLAGS = \
 			-DG_LOG_DOMAIN="\"Libvirt.GConfig\"" \
 			-DDATADIR="\"$(datadir)\"" \
 			-DLIBVIRT_GCONFIG_BUILD \
+			-DGLIB_VERSION_MIN_REQUIRED=$(GLIB2_VERSION_SYMBOL) \
+			-DGLIB_VERSION_MAX_ALLOWED=$(GLIB2_VERSION_SYMBOL) \
 			$(COVERAGE_CFLAGS) \
 			-I$(top_srcdir) \
 			-I$(top_builddir) \

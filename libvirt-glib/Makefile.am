@@ -16,6 +16,8 @@ libvirt_glib_1_0_la_SOURCES = \
 			libvirt-glib-main.c
 libvirt_glib_1_0_la_CFLAGS = \
 			-DLIBVIRT_GLIB_BUILD \
+			-DGLIB_VERSION_MIN_REQUIRED=$(GLIB2_VERSION_SYMBOL) \
+			-DGLIB_VERSION_MAX_ALLOWED=$(GLIB2_VERSION_SYMBOL) \
 			-DGETTEXT_PACKAGE="\"libvirt-glib\"" \
 			-DG_LOG_DOMAIN="\"Libvirt.GLib\"" \
 			-DLOCALEDIR="\"$(datadir)/locale\"" \
