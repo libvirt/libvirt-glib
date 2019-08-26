@@ -345,3 +345,15 @@ void gvir_config_domain_os_set_firmware(GVirConfigDomainOs *os, GVirConfigDomain
 
     xmlNewProp(node, (xmlChar*)"firmware", (xmlChar*)firmware_str);
 }
+
+GVirConfigDomainOsFirmware gvir_config_domain_os_get_firmware(GVirConfigDomainOs *os)
+{
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_OS(os),
+                         GVIR_CONFIG_DOMAIN_OS_FIRMWARE_BIOS);
+
+    return gvir_config_object_get_attribute_genum
+            (GVIR_CONFIG_OBJECT(os),
+             NULL, "firmware",
+             GVIR_CONFIG_TYPE_DOMAIN_OS_FIRMWARE,
+             GVIR_CONFIG_DOMAIN_OS_FIRMWARE_BIOS);
+}
