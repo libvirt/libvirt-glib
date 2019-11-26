@@ -1,6 +1,24 @@
                  libvirt-glib News
                  =================
 
+3.0.0 - Nov 26, 2019
+====================
+
+- Add support for bochs video device
+- Add API to query firmware config
+- Improve testing coverage
+- Validate min/max glib API versions in use
+- Remove deprecated G_PARAM_PRIVATE
+- Fix docs build linking problems
+- Convert python demos to be python 3 compatible & use
+  modern best practice for pyobject introspection bindings
+- Add API to query domain capaibilities
+- Refresh translations
+- Simplify build process for handling translations
+- Fix some memory leaks
+- Add API for setting storage volume features
+
+
 2.0.0 - Oct 12, 2018
 ====================
 

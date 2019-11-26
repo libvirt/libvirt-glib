@@ -1,4 +1,4 @@
-AC_INIT(libvirt-glib, 2.0.0)
+AC_INIT(libvirt-glib, 3.0.0)
 AC_CONFIG_SRCDIR(libvirt-glib/libvirt-glib-main.c)
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_HEADERS([config.h])
