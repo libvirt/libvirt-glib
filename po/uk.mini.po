@@ -6,12 +6,13 @@
 # Yuri Chornoivan <yurchor@ukr.net>, 2013
 # Yuri Chornoivan <yurchor@ukr.net>, 2015. #zanata
 # Yuri Chornoivan <yurchor@ukr.net>, 2017. #zanata
+# Yuri Chornoivan <yurchor@ukr.net>, 2019. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: libvirt-glib 2.0.0\n"
+"Project-Id-Version: libvirt-glib 3.0.0\n"
 "Report-Msgid-Bugs-To: https://libvirt.org/bugs.html\n"
-"POT-Creation-Date: 2019-02-19 18:35+0000\n"
-"PO-Revision-Date: 2017-12-06 12:39+0000\n"
+"POT-Creation-Date: 2019-12-12 12:16+0000\n"
+"PO-Revision-Date: 2019-11-27 08:28+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/projects/p/libvirt-glib/"
 "language/uk/)\n"
@@ -77,6 +78,9 @@ msgstr "Не вдалося отримати список можливостей
 
 msgid "Unable to get connection URI"
 msgstr "Не вдалося отримати адресу з’єднання"
+
+msgid "Unable to get domain capabilities"
+msgstr "Не вдалося отримати дані щодо можливостей домену"
 
 msgid "Unable to get hypervisor name"
 msgstr "Не вдалося отримати назву гіпервізора"

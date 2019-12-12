@@ -9,12 +9,13 @@
 # Piotr Drąg <piotrdrag@gmail.com>, 2015. #zanata
 # Piotr Drąg <piotrdrag@gmail.com>, 2016. #zanata
 # Piotr Drąg <piotrdrag@gmail.com>, 2017. #zanata
+# Piotr Drąg <piotrdrag@gmail.com>, 2019. #zanata
 msgid ""
 msgstr ""
-"Project-Id-Version: libvirt-glib 2.0.0\n"
+"Project-Id-Version: libvirt-glib 3.0.0\n"
 "Report-Msgid-Bugs-To: https://libvirt.org/bugs.html\n"
-"POT-Creation-Date: 2019-02-19 18:35+0000\n"
-"PO-Revision-Date: 2017-12-05 12:29+0000\n"
+"POT-Creation-Date: 2019-12-12 12:16+0000\n"
+"PO-Revision-Date: 2019-12-02 12:21+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish (http://www.transifex.com/projects/p/libvirt-glib/"
 "language/pl/)\n"
@@ -80,6 +81,9 @@ msgstr "Nie można uzyskać możliwości"
 
 msgid "Unable to get connection URI"
 msgstr "Nie można uzyskać adresu URI połączenia"
+
+msgid "Unable to get domain capabilities"
+msgstr "Nie można uzyskać możliwości domeny"
 
 msgid "Unable to get hypervisor name"
 msgstr "Nie można uzyskać nazwy nadzorcy"
