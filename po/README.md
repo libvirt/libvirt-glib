@@ -2,7 +2,7 @@ Libvirt-Glib Message Translation
 ================================
 
 Libvirt-Glib translatable messages are maintained using the GNU Gettext tools
-and file formats, in combination with the Zanata web service.
+and file formats, in combination with the Weblate web service.
 
 Source repository
 =================
@@ -38,28 +38,28 @@ minimized po files using
 
 Note, however, that this is generally not something that should be run by
 developers normally, as it is triggered by 'make pull-po' when refreshing
-content from Zanata.
+content from Weblate.
 
 
-Zanata web service
-==================
+Weblate web service
+===================
 
 The translation of libvirt-glib messages has been outsourced to the Fedora
-translation team using the Zanata web service:
+translation team using the Weblate web service:
 
-  https://fedora.zanata.org/project/view/libvirt-glib
+  https://translate.stg.fedoraproject.org/projects/libvirt/libvirt-glib
 
 As such, changes to translations will generally NOT be accepted as patches
 directly to libvirt-glib GIT. Any changes made to "$LANG.mini.po" files in
 libvirt-glib GIT will be overwritten and lost the next time content is
-imported from Zanata.
+imported from Weblate.
 
-The master "libvirt-glib.pot" file is periodically pushed to Zanata to provide
+The master "libvirt-glib.pot" file is periodically pushed to Weblate to provide
 the translation team with content changes, using
 
   make push-pot
 
-New translated text is then periodically pulled down from Zanata to update the
+New translated text is then periodically pulled down from Weblate to update the
 minimized po files, using
 
   make pull-po
@@ -67,10 +67,8 @@ minimized po files, using
 Sometimes the translators make mistakes, most commonly with handling printf
 format specifiers. The "pull-po" command re-generates the .gmo files to try to
 identify such mistakes. If a mistake is made, the broken msgstr should be
-deleted in the local "$LANG.mini.po" file, and the Zanata web interface used
+deleted in the local "$LANG.mini.po" file, and the Weblate web interface used
 to reject the translation so that the broken msgstr isn't pulled down next time.
 
 After pulling down new content the diff should be examined to look for any
-obvious mistakes that are not caught automatically. There have been bugs in
-Zanata tools which caused messges to go missing, so pay particular attention to
-diffs showing deletions where the msgid still exists in libvirt-glib.pot
+obvious mistakes that are not caught automatically.

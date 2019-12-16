@@ -55,12 +55,26 @@ update-mini-po: $(POTFILE)
 	done
 
 push-pot: $(POTFILE)
-	zanata push --push-type=source
+	wlc upload --method replace -i libvirt-glib.pot libvirt/libvirt-glib/en
 
-pull-po: $(POTFILE)
-	zanata pull --create-skeletons
+pull-po: $(POTFILE) check-new-langs
+	@for lang in $(LANGS); do \
+	  echo "Downloading $$lang" && \
+	  wlc download -o  $$lang.po libvirt/libvirt-glib/$$lang ; \
+	done
 	$(MAKE) update-mini-po
 	$(MAKE) update-gmo
+
+check-new-langs:
+	@for po in `wlc ls libvirt/libvirt-glib | \
+	    grep filename | grep -v 'en.po' | \
+	    sed -e 's/filename: //' -e 's/.po/.mini.po/'` ; \
+	do \
+	  if ! test -f "$$po" ; \
+	  then \
+	    echo "New language $$po in weblate" && exit 1; \
+	  fi ; \
+	done
 
 $(POTFILE): POTFILES $(POTFILE_DEPS)
 	$(XGETTEXT) -o $@-t $(XGETTEXT_ARGS) \
