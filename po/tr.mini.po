@@ -1,0 +1,114 @@
+msgid ""
+msgstr ""
+"Report-Msgid-Bugs-To: https://libvirt.org/bugs.html\n"
+"POT-Creation-Date: 2020-01-03 15:48+0000\n"
+"PO-Revision-Date: 2019-12-17 18:15+0000\n"
+"Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
+"Language-Team: Turkish <https://translate.stg.fedoraproject.org/projects/"
+"libvirt-glib/application/tr/>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.9.1\n"
+
+#, c-format
+msgid "Connection %s is already open"
+msgstr "%s bağlantısı zaten açık"
+
+msgid "Connection is not open"
+msgstr "Bağlantı açık değil"
+
+msgid "Connection is not opened"
+msgstr "Bağlantı açılmadı"
+
+msgid "Failed to create domain"
+msgstr "Alan adı oluşturulamadı"
+
+msgid "Failed to create storage pool"
+msgstr "Depolama havuzu oluşturulamadı"
+
+msgid "Failed to fetch list of domains"
+msgstr "Alan adları listesi alınamadı"
+
+msgid "Failed to fetch list of interfaces"
+msgstr "Arayüz listesi alınamadı"
+
+msgid "Failed to fetch list of networks"
+msgstr "Ağ listesi alınamadı"
+
+msgid "Failed to fetch list of pools"
+msgstr "Havuz listesi alınamadı"
+
+#, c-format
+msgid "Got virStreamRecv error in %s"
+msgstr "%s'de virStreamRecv hatası alındı"
+
+msgid "No XML document associated with this config object"
+msgstr "Bu yapılandırma nesnesiyle ilişkilendirilmiş bir XML belgesi yok"
+
+msgid "No XML document to parse"
+msgstr "Ayrıştırılacak XML belgesi yok"
+
+msgid "No XML schema associated with this config object"
+msgstr "Bu yapılandırma nesnesiyle ilişkilendirilmiş bir XML şeması yok"
+
+#, c-format
+msgid "Unable to create RNG parser for %s"
+msgstr "%s için RNG ayrıştırıcısı oluşturulamadı"
+
+#, c-format
+msgid "Unable to create RNG validation context %s"
+msgstr "%s RNG doğrulama içeriği oluşturulamadı"
+
+msgid "Unable to get capabilities"
+msgstr "Yetenekler alınamadı"
+
+msgid "Unable to get connection URI"
+msgstr "Bağlantı URI'si alınamadı"
+
+msgid "Unable to get domain capabilities"
+msgstr "Alan adı yetenekleri alınamadı"
+
+msgid "Unable to get hypervisor name"
+msgstr "Hypervisor adı alınamadı"
+
+msgid "Unable to get hypervisor version"
+msgstr "Hypervisor versiyonu alınamadı"
+
+msgid "Unable to get node info"
+msgstr "Düğüm bilgisi alınamadı"
+
+#, c-format
+msgid "Unable to open %s"
+msgstr "%s açılamadı"
+
+#, c-format
+msgid "Unable to parse RNG %s"
+msgstr "RNG %s ayrıştırılamadı"
+
+msgid "Unable to parse configuration"
+msgstr "Yapılandırma ayrıştırılamadı"
+
+msgid "Unable to perform RecvAll"
+msgstr "RecvAll uygulanamadı"
+
+msgid "Unable to perform SendAll"
+msgstr "SendAll uygulanamadı"
+
+msgid "Unable to restore domain"
+msgstr "Alan adı geri yüklenemedi"
+
+msgid "Unable to validate doc"
+msgstr "Doküman doğrulanamadı"
+
+#, c-format
+msgid "XML data has no '%s' node"
+msgstr "XML verilerinde '%s' düğümü yok"
+
+msgid "virStreamRecv call would block"
+msgstr "virStreamRecv çağırması bloklayacaktı"
+
+msgid "virStreamSend call would block"
+msgstr "virStreamSend çağırması bloklayacaktı"

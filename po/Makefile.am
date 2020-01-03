@@ -3,8 +3,9 @@ COPYRIGHT_HOLDER = The Libvirt authors
 MSGID_BUGS_ADDRESS = https://libvirt.org/bugs.html
 
 LANGS := \
-	ca cs en_GB es fi fr \
-	hi ja pl pt_BR ru uk
+	ca cs de en_GB es fi \
+	fr hi ja pl pt_BR ru \
+	tr uk
 
 
 POTFILE_DEPS := $(shell $(SED) 's,^,$(top_srcdir)/,' $(srcdir)/POTFILES)
