@@ -777,7 +777,7 @@ gvir_domain_save_to_file_helper(GTask *task,
  * @filename: path to output file
  * @custom_conf: (allow-none): configuration for domain or NULL
  * @flags: the flags
- * @cancellable: (allow-none) (transfer none): cancallation object
+ * @cancellable: (allow-none) (transfer none): cancellation object
  * @callback: (scope async): completion callback
  * @user_data: (closure): opaque data for callback
  *
