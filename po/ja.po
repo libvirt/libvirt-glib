@@ -4,7 +4,7 @@
 # Translators:
 # Hajime Taira <htaira@redhat.com>, 2013
 # Tomoyuki KATO <tomo@dream.daynight.jp>, 2013
-# Anonymous <noreply@weblate.org>, 2019.
+# Anonymous <noreply@weblate.org>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: libvirt-glib 2.0.0\n"

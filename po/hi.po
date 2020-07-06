@@ -4,7 +4,7 @@
 # Translators:
 # Mohan Prakash <mpduty@gmail.com>, 2014
 # Rajesh Ranjan <rranjan@redhat.com>, 2014
-# Anonymous <noreply@weblate.org>, 2019.
+# Anonymous <noreply@weblate.org>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: libvirt-glib 2.0.0\n"

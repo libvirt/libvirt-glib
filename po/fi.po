@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2017. #zanata
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: libvirt-glib 2.0.0\n"

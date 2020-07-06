@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Translators:
 # Fábio Olivé Leite <fabio.olive@gmail.com>, 2013
-# Anonymous <noreply@weblate.org>, 2019.
+# Anonymous <noreply@weblate.org>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: libvirt-glib 2.0.0\n"

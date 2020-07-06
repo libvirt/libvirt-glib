@@ -2,9 +2,9 @@
 # Copyright (C) 2019 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Translators:
-# Zdenek <chmelarz@gmail.com>, 2016. #zanata
-# Pavel Borecki <pavel.borecki@gmail.com>, 2018. #zanata
-# Josef Hruska <hrusjos@gmail.com>, 2019.
+# Zdenek <chmelarz@gmail.com>, 2016
+# Pavel Borecki <pavel.borecki@gmail.com>, 2018
+# Josef Hruska <hrusjos@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: libvirt-glib 2.0.0\n"
