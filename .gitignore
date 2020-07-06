@@ -87,9 +87,6 @@ libvirt-gconfig/tests/test-domain-create
 libvirt-gconfig/tests/test-domain-parse
 .tx/
 po/*.gmo
-po/*po
-!po/*.mini.po
-po/*pot
 tests/test-events
 tests/test-gconfig
 tests/*.log
