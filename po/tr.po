@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: https://libvirt.org/bugs.html\n"
-"POT-Creation-Date: 2020-01-03 15:48+0000\n"
+"POT-Creation-Date: 2020-07-06 16:42+0100\n"
 "PO-Revision-Date: 2019-12-17 18:15+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://translate.stg.fedoraproject.org/projects/"

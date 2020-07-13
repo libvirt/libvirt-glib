@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libvirt-glib 2.0.0\n"
 "Report-Msgid-Bugs-To: https://libvirt.org/bugs.html\n"
-"POT-Creation-Date: 2020-01-03 15:48+0000\n"
+"POT-Creation-Date: 2020-07-06 16:42+0100\n"
 "PO-Revision-Date: 2019-12-19 22:15+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: English (United Kingdom) <https://translate.stg.fedoraproject."
@@ -36,6 +36,18 @@ msgstr "Failed to create domain"
 msgid "Failed to create storage pool"
 msgstr "Failed to create storage pool"
 
+msgid "Failed to fetch list of domains"
+msgstr ""
+
+msgid "Failed to fetch list of interfaces"
+msgstr ""
+
+msgid "Failed to fetch list of networks"
+msgstr ""
+
+msgid "Failed to fetch list of pools"
+msgstr ""
+
 #, c-format
 msgid "Got virStreamRecv error in %s"
 msgstr "Got virStreamRecv error in %s"
@@ -62,6 +74,9 @@ msgstr "Unable to get capabilities"
 
 msgid "Unable to get connection URI"
 msgstr "Unable to get connection URI"
+
+msgid "Unable to get domain capabilities"
+msgstr ""
 
 msgid "Unable to get hypervisor name"
 msgstr "Unable to get hypervisor name"

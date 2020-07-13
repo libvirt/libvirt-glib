@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libvirt-glib 2.0.0\n"
 "Report-Msgid-Bugs-To: https://libvirt.org/bugs.html\n"
-"POT-Creation-Date: 2020-01-03 15:48+0000\n"
+"POT-Creation-Date: 2020-07-06 16:42+0100\n"
 "PO-Revision-Date: 2014-12-17 12:23+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/libvirt-glib/"
@@ -22,5 +22,101 @@ msgstr ""
 "X-Generator: Zanata 4.6.2\n"
 
 #, c-format
+msgid "Connection %s is already open"
+msgstr ""
+
+msgid "Connection is not open"
+msgstr ""
+
+msgid "Connection is not opened"
+msgstr ""
+
+msgid "Failed to create domain"
+msgstr ""
+
+msgid "Failed to create storage pool"
+msgstr ""
+
+msgid "Failed to fetch list of domains"
+msgstr ""
+
+msgid "Failed to fetch list of interfaces"
+msgstr ""
+
+msgid "Failed to fetch list of networks"
+msgstr ""
+
+msgid "Failed to fetch list of pools"
+msgstr ""
+
+#, c-format
+msgid "Got virStreamRecv error in %s"
+msgstr ""
+
+msgid "No XML document associated with this config object"
+msgstr ""
+
+msgid "No XML document to parse"
+msgstr ""
+
+msgid "No XML schema associated with this config object"
+msgstr ""
+
+#, c-format
+msgid "Unable to create RNG parser for %s"
+msgstr ""
+
+#, c-format
+msgid "Unable to create RNG validation context %s"
+msgstr ""
+
+msgid "Unable to get capabilities"
+msgstr ""
+
+msgid "Unable to get connection URI"
+msgstr ""
+
+msgid "Unable to get domain capabilities"
+msgstr ""
+
+msgid "Unable to get hypervisor name"
+msgstr ""
+
+msgid "Unable to get hypervisor version"
+msgstr ""
+
+msgid "Unable to get node info"
+msgstr ""
+
+#, c-format
 msgid "Unable to open %s"
 msgstr "Невозможно открыть %s"
+
+#, c-format
+msgid "Unable to parse RNG %s"
+msgstr ""
+
+msgid "Unable to parse configuration"
+msgstr ""
+
+msgid "Unable to perform RecvAll"
+msgstr ""
+
+msgid "Unable to perform SendAll"
+msgstr ""
+
+msgid "Unable to restore domain"
+msgstr ""
+
+msgid "Unable to validate doc"
+msgstr ""
+
+#, c-format
+msgid "XML data has no '%s' node"
+msgstr ""
+
+msgid "virStreamRecv call would block"
+msgstr ""
+
+msgid "virStreamSend call would block"
+msgstr ""

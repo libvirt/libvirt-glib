@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libvirt-glib 2.0.0\n"
 "Report-Msgid-Bugs-To: https://libvirt.org/bugs.html\n"
-"POT-Creation-Date: 2020-01-03 15:48+0000\n"
+"POT-Creation-Date: 2020-07-06 16:42+0100\n"
 "PO-Revision-Date: 2017-12-17 03:08+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/projects/p/libvirt-glib/"
@@ -76,6 +76,9 @@ msgstr "No es poden obtenir les capacitats"
 
 msgid "Unable to get connection URI"
 msgstr "No es pot obtenir la URI de la connexió"
+
+msgid "Unable to get domain capabilities"
+msgstr ""
 
 msgid "Unable to get hypervisor name"
 msgstr "No es pot obtenir el nom de l'hipervisor"
