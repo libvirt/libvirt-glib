@@ -25,11 +25,12 @@ stages:
   export MAKEFLAGS="-j$(getconf _NPROCESSORS_ONLN)"
   export SCRATCH_DIR="/tmp/scratch"
   export VROOT="$SCRATCH_DIR/vroot"
+  export LIBDIR="$VROOT/lib"
   export CCACHE_DIR="$PWD/ccache"
   export CCACHE_MAXSIZE="500M"
   export PATH="$CCACHE_WRAPPERSDIR:$VROOT/bin:$PATH"
-  export PKG_CONFIG_PATH="$VROOT/lib/pkgconfig"
-  export LD_LIBRARY_PATH="$VROOT/lib"
+  export PKG_CONFIG_PATH="$LIBDIR/pkgconfig"
+  export LD_LIBRARY_PATH="$LIBDIR"
 
 .git_native_build_job_template: &git_native_build_job_definition
   image: $CI_REGISTRY_IMAGE/ci-$NAME:latest
@@ -45,10 +46,9 @@ stages:
     - mkdir -p "$SCRATCH_DIR"
     - cd "$SCRATCH_DIR"
     - git clone --depth 1 https://gitlab.com/libvirt/libvirt.git
-    - mkdir libvirt/build
-    - cd libvirt/build
-    - ../autogen.sh --prefix="$VROOT" --without-libvirtd
-    - $MAKE install
+    - cd libvirt
+    - meson build -Ddriver_libvirtd=disabled "--prefix=$VROOT" "--libdir=$LIBDIR"
+    - ninja -C build install
     - popd
     - mkdir build
     - cd build
@@ -89,10 +89,9 @@ stages:
     - mkdir -p "$SCRATCH_DIR"
     - cd "$SCRATCH_DIR"
     - git clone --depth 1 https://gitlab.com/libvirt/libvirt.git
-    - mkdir libvirt/build
-    - cd libvirt/build
-    - ../autogen.sh $CONFIGURE_OPTS --prefix="$VROOT"
-    - $MAKE install
+    - cd libvirt
+    - meson build -Ddriver_libvirtd=disabled "--prefix=$VROOT" "--libdir=$LIBDIR" $MESON_OPTS
+    - ninja -C build install
     - popd
     - mkdir build
     - cd build
@@ -126,11 +125,6 @@ x64-centos-stream-container:
   <<: *container_job_definition
   variables:
     NAME: centos-stream
-
-x64-debian-9-container:
-  <<: *container_job_definition
-  variables:
-    NAME: debian-9
 
 x64-debian-10-container:
   <<: *container_job_definition
@@ -203,11 +197,6 @@ x64-centos-stream-dist-build:
   <<: *dist_native_build_job_definition
   variables:
     NAME: centos-stream
-
-x64-debian-9-dist-build:
-  <<: *dist_native_build_job_definition
-  variables:
-    NAME: debian-9
 
 x64-debian-10-dist-build:
   <<: *dist_native_build_job_definition
