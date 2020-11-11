@@ -4,21 +4,22 @@
 #
 # Translators:
 # Jiri Grönroos <jiri.gronroos@iki.fi>, 2017
+# Ricky Tigg <ricky.tigg@gmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: libvirt-glib 2.0.0\n"
 "Report-Msgid-Bugs-To: https://libvirt.org/bugs.html\n"
 "POT-Creation-Date: 2020-07-06 16:42+0100\n"
-"PO-Revision-Date: 2017-03-26 10:27+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
-"Language-Team: Finnish (http://www.transifex.com/projects/p/libvirt-glib/"
-"language/fi/)\n"
+"PO-Revision-Date: 2020-11-11 14:35+0000\n"
+"Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
+"Language-Team: Finnish <https://translate.fedoraproject.org/projects/libvirt/"
+"libvirt-glib/fi/>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Zanata 4.6.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #, c-format
 msgid "Connection %s is already open"
@@ -34,49 +35,49 @@ msgid "Failed to create domain"
 msgstr "Domainin luominen epäonnistui"
 
 msgid "Failed to create storage pool"
-msgstr ""
+msgstr "Tallennusalueen luominen epäonnistui"
 
 msgid "Failed to fetch list of domains"
-msgstr ""
+msgstr "Toimialueiden luettelon noutaminen epäonnistui"
 
 msgid "Failed to fetch list of interfaces"
-msgstr ""
+msgstr "Liitäntöjen luettelon noutaminen epäonnistui"
 
 msgid "Failed to fetch list of networks"
-msgstr ""
+msgstr "Verkkojen luettelon noutaminen epäonnistui"
 
 msgid "Failed to fetch list of pools"
-msgstr ""
+msgstr "Alueiden luettelon noutaminen epäonnistui"
 
 #, c-format
 msgid "Got virStreamRecv error in %s"
-msgstr ""
+msgstr "Sai virheen StreamRecv %s:ssa"
 
 msgid "No XML document associated with this config object"
-msgstr ""
+msgstr "Tähän määritysobjektiin ei ole liitetty XML-asiakirjaa"
 
 msgid "No XML document to parse"
-msgstr ""
+msgstr "Ei jäsennettävää XML-asiakirjaa"
 
 msgid "No XML schema associated with this config object"
-msgstr ""
+msgstr "Tähän määritysobjektiin ei ole liitetty XML-skeemaa"
 
 #, c-format
 msgid "Unable to create RNG parser for %s"
-msgstr ""
+msgstr "RNG-jäsennintä ei voida luoda %s:lle"
 
 #, c-format
 msgid "Unable to create RNG validation context %s"
-msgstr ""
+msgstr "RNG-vahvistuskontekstia %s ei voida luoda"
 
 msgid "Unable to get capabilities"
-msgstr ""
+msgstr "Ominaisuuksia ei voida saada"
 
 msgid "Unable to get connection URI"
-msgstr ""
+msgstr "Yhteyden URI:tä ei voida saada"
 
 msgid "Unable to get domain capabilities"
-msgstr ""
+msgstr "Toimialueiden ominaisuuksia ei voida saada"
 
 msgid "Unable to get hypervisor name"
 msgstr "Ei saatu hypervisorin nimeä"
@@ -85,37 +86,37 @@ msgid "Unable to get hypervisor version"
 msgstr "Ei saatu hypervisorin versiota"
 
 msgid "Unable to get node info"
-msgstr ""
+msgstr "Solmutietoja ei saada"
 
 #, c-format
 msgid "Unable to open %s"
-msgstr "Ei voida avata %s"
+msgstr "%s:a ei voida avata"
 
 #, c-format
 msgid "Unable to parse RNG %s"
-msgstr ""
+msgstr "RNG: n %s jäsentäminen epäonnistui"
 
 msgid "Unable to parse configuration"
-msgstr ""
+msgstr "Määritystä ei voida jäsentää"
 
 msgid "Unable to perform RecvAll"
-msgstr ""
+msgstr "RecvAllia ei voi suorittaa"
 
 msgid "Unable to perform SendAll"
-msgstr ""
+msgstr "SendAllia ei voi suorittaa"
 
 msgid "Unable to restore domain"
-msgstr ""
+msgstr "Toimialuetta ei voi palauttaa"
 
 msgid "Unable to validate doc"
-msgstr ""
+msgstr "Asiakirjan vahvistaminen epäonnistui"
 
 #, c-format
 msgid "XML data has no '%s' node"
-msgstr ""
+msgstr "XML-tiedoissa ei ole '%s'-solmua"
 
 msgid "virStreamRecv call would block"
-msgstr ""
+msgstr "virStreamRecv-kutsu jumittäisi"
 
 msgid "virStreamSend call would block"
-msgstr ""
+msgstr "virStreamRecv-kutsu jumittaisi"
