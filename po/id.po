@@ -1,0 +1,156 @@
+# Libvirt package strings.
+# Copyright (C) 2020 The Libvirt authors
+# This file is distributed under the same license as the libvirt-glib package.
+# Andika Triwidada <andika@gmail.com>, 2020.
+msgid ""
+msgstr ""
+"Project-Id-Version: libvirt-glib 3.0.0\n"
+"Report-Msgid-Bugs-To: https://libvirt.org/bugs.html\n"
+"POT-Creation-Date: 2020-07-06 16:42+0100\n"
+"PO-Revision-Date: 2020-09-08 00:29+0000\n"
+"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
+"Language-Team: Indonesian <https://translate.fedoraproject.org/projects/"
+"libvirt/libvirt-glib/id/>\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.2.2\n"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:438
+#, c-format
+msgid "Connection %s is already open"
+msgstr "Koneksi %s sudah terbuka"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:729
+#: libvirt-gobject/libvirt-gobject-connection.c:817
+#: libvirt-gobject/libvirt-gobject-connection.c:1504
+#: libvirt-gobject/libvirt-gobject-connection.c:1761
+msgid "Connection is not open"
+msgstr "Koneksi tidak terbuka"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:1034
+#: libvirt-gobject/libvirt-gobject-connection.c:1073
+msgid "Connection is not opened"
+msgstr "Koneksi tidak dibuka"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:1394
+#: libvirt-gobject/libvirt-gobject-connection.c:1449
+msgid "Failed to create domain"
+msgstr "Gagal membuat domain"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:2020
+msgid "Failed to create storage pool"
+msgstr "Gagal membuat pool penyimpanan"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:742
+msgid "Failed to fetch list of domains"
+msgstr "Gagal mengambil daftar domain"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:1520
+msgid "Failed to fetch list of interfaces"
+msgstr "Gagal mengambil daftar antar muka"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:1777
+msgid "Failed to fetch list of networks"
+msgstr "Gagal mengambil daftar jaringan"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:833
+msgid "Failed to fetch list of pools"
+msgstr "Gagal mengambil daftar pool"
+
+#: libvirt-gobject/libvirt-gobject-stream.c:350
+#: libvirt-gobject/libvirt-gobject-stream.c:466
+#, c-format
+msgid "Got virStreamRecv error in %s"
+msgstr "Mendapat galat virStreamRecv dalam %s"
+
+#: libvirt-gconfig/libvirt-gconfig-object.c:206
+msgid "No XML document associated with this config object"
+msgstr "Tidak ada dokumen XML yang terkait dengan objek konfig ini"
+
+#: libvirt-gconfig/libvirt-gconfig-helpers.c:141
+msgid "No XML document to parse"
+msgstr "Tidak ada dokumen XML untuk diurai"
+
+#: libvirt-gconfig/libvirt-gconfig-object.c:214
+msgid "No XML schema associated with this config object"
+msgstr "Tidak ada skema XML yang terakit dengan objek konfig ini"
+
+#: libvirt-gconfig/libvirt-gconfig-object.c:223
+#, c-format
+msgid "Unable to create RNG parser for %s"
+msgstr "Tidak bisa membuat pengurai RNG bagi %s"
+
+#: libvirt-gconfig/libvirt-gconfig-object.c:245
+#, c-format
+msgid "Unable to create RNG validation context %s"
+msgstr "Tidak bisa membuat konteks validasi RNG %s"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:2271
+msgid "Unable to get capabilities"
+msgstr "Tidak bisa memperoleh kapabilitas"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:464
+msgid "Unable to get connection URI"
+msgstr "Tidak bisa mendapat URI koneksi"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:2119
+msgid "Unable to get domain capabilities"
+msgstr "Tidak bisa mendapat kapabilitas domain"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:1041
+msgid "Unable to get hypervisor name"
+msgstr "Tidak bisa mendapat nama hypervisor"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:1079
+msgid "Unable to get hypervisor version"
+msgstr "Tidak bisa mendapat versi hypervisor"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:2063
+msgid "Unable to get node info"
+msgstr "Tidak bisa mendapat info node"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:453
+#, c-format
+msgid "Unable to open %s"
+msgstr "Tidak bisa membuka %s"
+
+#: libvirt-gconfig/libvirt-gconfig-object.c:233
+#, c-format
+msgid "Unable to parse RNG %s"
+msgstr "Tidak bisa mengurai RNG %s"
+
+#: libvirt-gconfig/libvirt-gconfig-helpers.c:149
+msgid "Unable to parse configuration"
+msgstr "Tidak bisa mengurai konfigurasi"
+
+#: libvirt-gobject/libvirt-gobject-stream.c:415
+msgid "Unable to perform RecvAll"
+msgstr "Tidak bisa melaksanakan RecvAll"
+
+#: libvirt-gobject/libvirt-gobject-stream.c:531
+msgid "Unable to perform SendAll"
+msgstr "Tidak bisa melaksanakan SendAll"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:2395
+msgid "Unable to restore domain"
+msgstr "Tidak bisa memulihkan domain"
+
+#: libvirt-gconfig/libvirt-gconfig-object.c:255
+msgid "Unable to validate doc"
+msgstr "Tidak bisa memvalidasi dok"
+
+#: libvirt-gconfig/libvirt-gconfig-helpers.c:157
+#, c-format
+msgid "XML data has no '%s' node"
+msgstr "Data XML tidak punya node '%s'"
+
+#: libvirt-gobject/libvirt-gobject-stream.c:347
+msgid "virStreamRecv call would block"
+msgstr "Pemanggilan virStreamRecv akan memblokir"
+
+#: libvirt-gobject/libvirt-gobject-stream.c:463
+msgid "virStreamSend call would block"
+msgstr "Pemanggilan virStreamSend akan memblokir"
