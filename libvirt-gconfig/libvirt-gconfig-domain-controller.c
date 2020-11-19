@@ -83,6 +83,35 @@ unimplemented:
     return NULL;
 }
 
+void gvir_config_domain_controller_set_ports(GVirConfigDomainController *controller,
+                                             guint ports)
+{
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_CONTROLLER(controller));
+
+    gvir_config_object_set_attribute_with_type(GVIR_CONFIG_OBJECT(controller),
+                                               "ports", G_TYPE_UINT,
+                                               ports, NULL);
+}
+
+guint gvir_config_domain_controller_get_ports(GVirConfigDomainController *controller)
+{
+    const char *ports_str;
+    char *end;
+    guint ports;
+
+    g_return_val_if_fail(GVIR_CONFIG_IS_DOMAIN_CONTROLLER(controller), 0);
+
+    ports_str = gvir_config_object_get_attribute(GVIR_CONFIG_OBJECT(controller),
+                                                 NULL, "ports");
+    if (ports_str == 0)
+        return 0;
+
+    ports = strtoul(ports_str, &end, 0);
+    g_return_val_if_fail(*end == '\0', 0);
+
+    return ports;
+}
+
 void gvir_config_domain_controller_set_index(GVirConfigDomainController *controller,
                                              guint index)
 {

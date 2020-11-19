@@ -787,4 +787,10 @@ global:
 	gvir_config_storage_vol_target_set_features;
 } LIBVIRT_GCONFIG_2.0.0;
 
+LIBVIRT_GCONFIG_3.1.0 {
+global:
+	gvir_config_domain_controller_get_ports;
+	gvir_config_domain_controller_set_ports;
+} LIBVIRT_GCONFIG_3.0.0;
+
 # .... define new API here using predicted next version number ....

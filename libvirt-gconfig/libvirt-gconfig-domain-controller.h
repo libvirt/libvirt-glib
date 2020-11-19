@@ -63,6 +63,9 @@ void gvir_config_domain_controller_set_index(GVirConfigDomainController *control
 guint gvir_config_domain_controller_get_index(GVirConfigDomainController *controller);
 void gvir_config_domain_controller_set_address(GVirConfigDomainController *controller,
                                                GVirConfigDomainAddress *address);
+void gvir_config_domain_controller_set_ports(GVirConfigDomainController *controller,
+                                             guint ports);
+guint gvir_config_domain_controller_get_ports(GVirConfigDomainController *controller);
 
 G_END_DECLS
 
