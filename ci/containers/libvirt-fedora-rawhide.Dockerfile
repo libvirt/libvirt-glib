@@ -1,4 +1,4 @@
-FROM fedora:rawhide
+FROM registry.fedoraproject.org/fedora:rawhide
 
 RUN dnf update -y --nogpgcheck fedora-gpg-keys && \
     dnf update -y && \
@@ -9,10 +9,7 @@ RUN dnf update -y --nogpgcheck fedora-gpg-keys && \
         bash-completion \
         ca-certificates \
         ccache \
-        chrony \
-        cppi \
         gcc \
-        gdb \
         gettext \
         gettext-devel \
         git \
@@ -24,11 +21,7 @@ RUN dnf update -y --nogpgcheck fedora-gpg-keys && \
         libtool \
         libvirt-devel \
         libxml2-devel \
-        lsof \
         make \
-        meson \
-        net-tools \
-        ninja-build \
         patch \
         perl \
         perl-App-cpanminus \
@@ -38,12 +31,7 @@ RUN dnf update -y --nogpgcheck fedora-gpg-keys && \
         python3-setuptools \
         python3-wheel \
         rpm-build \
-        screen \
-        strace \
-        sudo \
-        vala \
-        vim \
-        xz && \
+        vala && \
     dnf autoremove -y && \
     dnf clean all -y && \
     mkdir -p /usr/libexec/ccache-wrappers && \
