@@ -1,22 +1,35 @@
+# THIS FILE WAS AUTO-GENERATED
+#
+#  $ lcitool dockerfile --cross mingw32 fedora-rawhide libvirt,libvirt-glib
+#
+# https://gitlab.com/libvirt/libvirt-ci/-/commit/b098ec6631a85880f818f2dd25c437d509e53680
 FROM registry.fedoraproject.org/fedora:rawhide
 
-RUN dnf update -y --nogpgcheck fedora-gpg-keys && \
-    dnf update -y && \
-    dnf install -y \
+RUN dnf install -y nosync && \
+    echo -e '#!/bin/sh\n\
+if test -d /usr/lib64\n\
+then\n\
+    export LD_PRELOAD=/usr/lib64/nosync/nosync.so\n\
+else\n\
+    export LD_PRELOAD=/usr/lib/nosync/nosync.so\n\
+fi\n\
+exec "$@"' > /usr/bin/nosync && \
+    chmod +x /usr/bin/nosync && \
+    nosync dnf update -y --nogpgcheck fedora-gpg-keys && \
+    nosync dnf update -y && \
+    nosync dnf install -y \
         augeas \
         autoconf \
         automake \
         bash-completion \
         ca-certificates \
         ccache \
-        clang \
         cppi \
         diffutils \
         dnsmasq \
         dwarves \
         ebtables \
         firewalld-filesystem \
-        gcc \
         gettext-devel \
         git \
         glibc-langpack-en \
@@ -49,13 +62,14 @@ RUN dnf update -y --nogpgcheck fedora-gpg-keys && \
         sheepdog \
         vala \
         zfs-fuse && \
-    dnf autoremove -y && \
-    dnf clean all -y && \
+    nosync dnf autoremove -y && \
+    nosync dnf clean all -y && \
+    rpm -qa | sort > /packages.txt && \
     mkdir -p /usr/libexec/ccache-wrappers && \
     ln -s /usr/bin/ccache /usr/libexec/ccache-wrappers/i686-w64-mingw32-cc && \
     ln -s /usr/bin/ccache /usr/libexec/ccache-wrappers/i686-w64-mingw32-$(basename /usr/bin/gcc)
 
-RUN dnf install -y \
+RUN nosync dnf install -y \
         mingw32-curl \
         mingw32-dbus \
         mingw32-dlfcn \
@@ -69,7 +83,7 @@ RUN dnf install -y \
         mingw32-pkg-config \
         mingw32-portablexdr \
         mingw32-readline && \
-    dnf clean all -y
+    nosync dnf clean all -y
 
 ENV LANG "en_US.UTF-8"
 ENV MAKE "/usr/bin/make"
