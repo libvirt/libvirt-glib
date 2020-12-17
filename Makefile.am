@@ -11,11 +11,11 @@ EXTRA_DIST = $(PACKAGE).spec \
 	     mingw-$(PACKAGE).spec.in \
 	     $(pkgconfig_DATA:%.pc=%.pc.in) \
 	     GNUmakefile \
-	     maint.mk \
-	     cfg.mk \
 	     AUTHORS.in \
+	     build-aux/cfg.mk \
 	     build-aux/check-symfile.pl \
 	     build-aux/check-symsorting.pl \
+	     build-aux/maint.mk \
 	     tap-driver.sh \
 	     tap-test \
 	     $(NULL)

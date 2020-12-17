@@ -54,7 +54,7 @@ local-checks-to-skip =			\
 
 # Files that should never cause syntax check failures.
 VC_LIST_ALWAYS_EXCLUDE_REGEX = \
-  (^HACKING|\.po|maint.mk)$$
+  (^HACKING|\.po|build-aux/maint.mk)$$
 
 # Functions like free() that are no-ops on NULL arguments.
 useless_free_options =				\

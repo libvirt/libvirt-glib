@@ -19,7 +19,7 @@
 
 # This is reported not to work with make-3.79.1
 # ME := $(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST))
-ME := maint.mk
+ME := $(_build-aux)/maint.mk
 
 # Diagnostic for continued use of deprecated variable.
 # Remove in 2013
@@ -124,7 +124,7 @@ export LC_ALL = C
 ## Sanity checks.  ##
 ## --------------- ##
 
-_cfg_mk := $(shell test -f $(srcdir)/cfg.mk && echo '$(srcdir)/cfg.mk')
+_cfg_mk := $(shell test -f $(srcdir)/$(_build-aux)/cfg.mk && echo '$(srcdir)/cfg.mk')
 
 # Collect the names of rules starting with `sc_'.
 syntax-check-rules := $(sort $(shell sed -n 's/^\(sc_[a-zA-Z0-9_-]*\):.*/\1/p' \
@@ -1007,7 +1007,7 @@ sc_immutable_NEWS:
 # for any corrections to old entries.
 update-NEWS-hash: NEWS
 	perl -pi -e 's/^(old_NEWS_hash[ \t]+:?=[ \t]+).*/$${1}'"$(NEWS_hash)/" \
-	  $(srcdir)/cfg.mk
+	  $(srcdir)/$(_build-aux)/cfg.mk
 
 # Ensure that we use only the standard $(VAR) notation,
 # not @...@ in Makefile.am, now that we can rely on automake
@@ -1420,7 +1420,7 @@ _gl_TS_dir ?= src
 ALL_RECURSIVE_TARGETS += sc_tight_scope
 sc_tight_scope: tight-scope.mk
 	@fail=0;							\
-	if ! grep '^ *export _gl_TS_headers *=' $(srcdir)/cfg.mk	\
+	if ! grep '^ *export _gl_TS_headers *=' $(srcdir)/$(_build-aux)/cfg.mk	\
 		> /dev/null						\
 	   && ! grep -w noinst_HEADERS $(srcdir)/$(_gl_TS_dir)/Makefile.am \
 		> /dev/null 2>&1; then					\
@@ -1428,7 +1428,7 @@ sc_tight_scope: tight-scope.mk
 	else								\
 	    $(MAKE) -s -C $(_gl_TS_dir)					\
 		-f Makefile						\
-		-f $(abs_top_srcdir)/cfg.mk				\
+		-f $(abs_top_srcdir)/$(_build-aux)/cfg.mk				\
 		-f $(abs_top_builddir)/$<				\
 	      _gl_tight_scope						\
 		|| fail=1;						\
