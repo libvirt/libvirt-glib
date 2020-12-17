@@ -47,8 +47,7 @@ ALL_RECURSIVE_TARGETS =
 include Makefile
 
 # Some projects override e.g., _autoreconf here.
-include $(srcdir)/$(_build-aux)/cfg.mk
-include $(srcdir)/$(_build-aux)/maint.mk
+include $(srcdir)/$(_build-aux)/syntax-check.mk
 
 else
 
@@ -56,8 +55,7 @@ else
 srcdir = .
 
 # The package can override .DEFAULT_GOAL to run actions like autoreconf.
-include $(srcdir)/$(_build-aux)/cfg.mk
-include $(srcdir)/$(_build-aux)/maint.mk
+include $(srcdir)/$(_build-aux)/syntax-check.mk
 
 ifeq ($(.DEFAULT_GOAL),abort-due-to-no-makefile)
 $(MAKECMDGOALS): abort-due-to-no-makefile

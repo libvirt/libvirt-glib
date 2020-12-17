@@ -12,10 +12,9 @@ EXTRA_DIST = $(PACKAGE).spec \
 	     $(pkgconfig_DATA:%.pc=%.pc.in) \
 	     GNUmakefile \
 	     AUTHORS.in \
-	     build-aux/cfg.mk \
 	     build-aux/check-symfile.pl \
 	     build-aux/check-symsorting.pl \
-	     build-aux/maint.mk \
+	     build-aux/syntax-check.mk \
 	     tap-driver.sh \
 	     tap-test \
 	     $(NULL)

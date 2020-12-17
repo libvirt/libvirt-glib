@@ -1,32 +1,30 @@
-# -*-Makefile-*-
-# This Makefile fragment tries to be general-purpose enough to be
-# used by many projects via the gnulib maintainer-makefile module.
+# Customize Makefile.maint.                           -*- makefile -*-
+# Copyright (C) 2008-2011 Red Hat, Inc.
+# Copyright (C) 2001-2011 Free Software Foundation, Inc.
 
-## Copyright (C) 2001-2011 Free Software Foundation, Inc.
-##
-## This program is free software: you can redistribute it and/or modify
-## it under the terms of the GNU General Public License as published by
-## the Free Software Foundation, either version 3 of the License, or
-## (at your option) any later version.
-##
-## This program is distributed in the hope that it will be useful,
-## but WITHOUT ANY WARRANTY; without even the implied warranty of
-## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-## GNU General Public License for more details.
-##
-## You should have received a copy of the GNU General Public License
-## along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # This is reported not to work with make-3.79.1
 # ME := $(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST))
-ME := $(_build-aux)/maint.mk
+ME := $(_build-aux)/syntax-check.mk
 
 GIT = git
 VC = $(GIT)
 
 VC_LIST = $(srcdir)/$(_build-aux)/vc-list-files -C $(srcdir)
 
-# You can override this variable in cfg.mk to set your own regexp
+# You can override this variable in syntax-check.mk to set your own regexp
 # matching files to ignore.
 VC_LIST_ALWAYS_EXCLUDE_REGEX ?= ^$$
 
@@ -82,11 +80,9 @@ export LC_ALL = C
 ## Sanity checks.  ##
 ## --------------- ##
 
-_cfg_mk := $(shell test -f $(srcdir)/$(_build-aux)/cfg.mk && echo '$(srcdir)/cfg.mk')
-
 # Collect the names of rules starting with `sc_'.
 syntax-check-rules := $(sort $(shell sed -n 's/^\(sc_[a-zA-Z0-9_-]*\):.*/\1/p' \
-			$(srcdir)/$(ME) $(_cfg_mk)))
+			$(srcdir)/$(ME)))
 .PHONY: $(syntax-check-rules)
 
 ifeq ($(shell $(VC_LIST) >/dev/null 2>&1; echo $$?),0)
@@ -181,7 +177,7 @@ endef
 # _sc_search_regexp used to be named _prohibit_regexp.  However,
 # upgrading to the new definition and leaving the old name undefined
 # would usually convert each custom rule using $(_prohibit_regexp)
-# (usually defined in cfg.mk) into a no-op.  This definition ensures
+# (usually defined in syntax-check.mk) into a no-op.  This definition ensures
 # that people know right away if they're still using the old name.
 # FIXME: remove in 2012.
 _prohibit_regexp = \
@@ -295,7 +291,7 @@ sc_prohibit_have_config_h:
 	  $(_sc_search_regexp)
 
 # Nearly all .c files must include <config.h>.  However, we also permit this
-# via inclusion of a package-specific header, if cfg.mk specified one.
+# via inclusion of a package-specific header, if syntax-check.mk specified one.
 # config_h_header must be suitable for grep -E.
 config_h_header ?= <config\.h>
 sc_require_config_h:
@@ -305,7 +301,7 @@ sc_require_config_h:
 	  $(_sc_search_regexp)
 
 # You must include <config.h> before including any other header file.
-# This can possibly be via a package-specific header, if given by cfg.mk.
+# This can possibly be via a package-specific header, if given by syntax-check.mk.
 sc_require_config_h_first:
 	@if $(VC_LIST_EXCEPT) | grep -l '\.c$$' > /dev/null; then	\
 	  fail=0;							\
@@ -741,7 +737,7 @@ sc_const_long_option:
 # otherwise, makeinfo would put German or French (current locale)
 # navigation hints in the otherwise-English documentation.
 #
-# Allow the package to add exceptions via a hook in cfg.mk;
+# Allow the package to add exceptions via a hook in syntax-check.mk;
 # for example, @PRAGMA_SYSTEM_HEADER@ can be permitted by
 # setting this to ' && !/PRAGMA_SYSTEM_HEADER/'.
 _makefile_at_at_check_exceptions ?=
@@ -824,3 +820,67 @@ sc_vulnerable_makefile_CVE-2009-4029:
 	  '  "make dist*" rules, and upgrade to fixed automake'		\
 	  '  see http://bugzilla.redhat.com/542609 for details')	\
 	  $(_sc_search_regexp)
+
+# Files that should never cause syntax check failures.
+VC_LIST_ALWAYS_EXCLUDE_REGEX = \
+  (^HACKING|\.po|build-aux/syntax-check.mk)$$
+
+# Functions like free() that are no-ops on NULL arguments.
+useless_free_options =				\
+  --name=g_free					\
+  --name=xmlBufferFree				\
+  --name=xmlFree				\
+  --name=xmlFreeDoc				\
+  --name=xmlXPathFreeContext			\
+  --name=xmlXPathFreeObject
+
+# Ensure that no C source file, docs, or rng schema uses TABs for
+# indentation.  Also match *.h.in files, to get libvirt.h.in.  Exclude
+# files in gnulib, since they're imported.
+space_indent_files=(\.(rng|s?[ch](\.in)?|html.in|py)|(daemon|tools)/.*\.in)
+sc_TAB_in_indentation:
+	@prohibit='^ *	'						\
+	in_vc_files='$(space_indent_files)$$'				\
+	halt='indent with space, not TAB, in C, sh, html, py, and RNG schemas' \
+	  $(_sc_search_regexp)
+
+# G_GNUC_UNUSED should only be applied in implementations, not
+# header declarations
+sc_avoid_attribute_unused_in_header:
+	@prohibit='^[^#]*G_GNUC_UNUSED([^:]|$$)'			\
+	in_vc_files='\.h$$'						\
+	halt='use G_GNUC_UNUSED in .c rather than .h files'		\
+	  $(_sc_search_regexp)
+
+# Enforce recommended preprocessor indentation style.
+sc_preprocessor_indentation:
+	@if cppi --version >/dev/null 2>&1; then			\
+	  $(VC_LIST_EXCEPT) | grep '\.[ch]$$' | xargs cppi -a -c	\
+	    || { echo '$(ME): incorrect preprocessor indentation' 1>&2;	\
+		exit 1; };						\
+	else								\
+	  echo '$(ME): skipping test $@: cppi not installed' 1>&2;	\
+	fi
+
+sc_copyright_format:
+	@require='Copyright .*Red 'Hat', Inc\.'				\
+	containing='Copyright .*Red 'Hat				\
+	halt='Red Hat copyright is missing Inc.'			\
+	  $(_sc_search_regexp)
+	@prohibit='Copyright [^(].*Red 'Hat				\
+	halt='consistently use (C) in Red Hat copyright'		\
+	  $(_sc_search_regexp)
+	@prohibit='\<Red''Hat\>'					\
+	halt='spell Red Hat as two words'				\
+	  $(_sc_search_regexp)
+
+exclude_file_name_regexp--sc_bindtextdomain = ^(libvirt-gconfig/tests|examples)/|libvirt-glib/libvirt-glib-event.c|libvirt-glib/libvirt-glib-main.c|tests/
+
+exclude_file_name_regexp--sc_preprocessor_indentation = ^*/*.[ch]
+
+exclude_file_name_regexp--sc_prohibit_strcmp = ^*/*.[ch]
+
+# XXX we shouldn't really ignore this, but the horrible enum rules...
+exclude_file_name_regexp--sc_makefile_at_at_check = libvirt-gobject/Makefile.am
+
+exclude_file_name_regexp--sc_unmarked_diagnostics = tap-driver\.sh
