@@ -1,0 +1,23 @@
+
+/* Enable compile-time and run-time bounds-checking, and some warnings. */
+#if !defined _FORTIFY_SOURCE && defined __OPTIMIZE__ && __OPTIMIZE__
+# define _FORTIFY_SOURCE 2
+#endif
+
+/* Name of package */
+#define PACKAGE "libvirt-glib"
+
+/* GETTEXT package name */
+#define GETTEXT_PACKAGE "libvirt-glib"
+
+/* Enable GNU extensions */
+#define _GNU_SOURCE
+
+/* Define to the full name and version of this package. */
+#define PACKAGE_STRING "libvirt-glib-@VERSION@"
+
+/* Define to the version of this package. */
+#define PACKAGE_VERSION "@VERSION@"
+
+/* Version number of package */
+#define VERSION "@VERSION@"

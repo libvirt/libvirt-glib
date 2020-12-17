@@ -17,6 +17,8 @@
 
 # This is reported not to work with make-3.79.1
 # ME := $(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST))
+
+_build-aux := build-aux
 ME := $(_build-aux)/syntax-check.mk
 
 GIT = git

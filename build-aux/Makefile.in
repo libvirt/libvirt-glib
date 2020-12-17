@@ -1,0 +1,3 @@
+srcdir = @srcdir@
+
+include $(srcdir)/build-aux/syntax-check.mk

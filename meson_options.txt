@@ -1,0 +1,7 @@
+option('git_werror', type: 'feature', value: 'auto', description: 'use -Werror if building from GIT')
+option('rpath', type: 'feature', value: 'auto', description: 'whether to include rpath information in installed binaries and libraries')
+option('docs', type: 'feature', value: 'auto', description: 'whether to generate documentation')
+option('tests', type: 'feature', value: 'auto', description: 'whether to build tests')
+
+option('introspection', type: 'feature', value: 'auto', yield: true, description: 'Enable GObject Introspection')
+option('vapi', type: 'feature', value: 'auto', yield: true, description: 'Enable Vala bindings')
