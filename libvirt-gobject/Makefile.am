@@ -1,5 +1,8 @@
 
-EXTRA_DIST = libvirt-gobject.sym
+EXTRA_DIST = \
+		libvirt-gobject.sym \
+		libvirt-gobject-enums.h.template \
+		libvirt-gobject-enums.c.template
 
 lib_LTLIBRARIES = libvirt-gobject-1.0.la
 
@@ -100,27 +103,20 @@ libvirt_gobject_1_0_la_LDFLAGS = \
 			-version-info $(LIBVIRT_GLIB_VERSION_INFO)
 
 libvirt-gobject-enums.c: $(libvirt_gobject_1_0_la_HEADERS)
-	$(AM_V_GEN)glib-mkenums \
-                        --fhead "#include \"libvirt-gobject/libvirt-gobject.h\"\n\n" \
-                        --vhead "static const G@Type@Value _@enum_name@_values[] = {" \
-                        --vprod "  { @VALUENAME@, \"@VALUENAME@\", \"@valuenick@\" }," \
-                        --vtail "  { 0, NULL, NULL }\n};\n\n" \
-                        --vtail "GType\n@enum_name@_get_type (void)\n{\n" \
-                        --vtail "  static GType type = 0;\n\n" \
-                        --vtail "  if (!type)\n" \
-                        --vtail "    type = g_@type@_register_static (\"@EnumName@\", _@enum_name@_values);\n\n" \
-                        --vtail "  return type;\n}\n\n" \
-                $^ | sed -e 's/g_vir/gvir/g' > $@
+	$(AM_V_GEN) (LC_ALL= LANG=C LC_CTYPE=en_US.UTF-8  \
+		$(GLIB_MKENUMS) \
+		--identifier-prefix GVir \
+		--symbol-prefix gvir \
+		--template $(srcdir)/libvirt-gobject-enums.c.template \
+		$(GOBJECT_HEADER_FILES:%=$(srcdir)/%) ) > libvirt-gobject-enums.c
 
 libvirt-gobject-enums.h: $(libvirt_gobject_1_0_la_HEADERS)
-	$(AM_V_GEN)glib-mkenums    --fhead "#ifndef __LIBVIRT_GOBJECT_ENUMS_H__\n" \
-                        --fhead "#define __LIBVIRT_GOBJECT_ENUMS_H__\n\n" \
-                        --fhead "G_BEGIN_DECLS\n\n" \
-                        --ftail "G_END_DECLS\n\n" \
-                        --ftail "#endif /* __LIBVIRT_GOBJECT_ENUMS_H__ */\n" \
-                        --eprod "#define GVIR_TYPE_@ENUMSHORT@ @enum_name@_get_type()\n" \
-                        --eprod "GType @enum_name@_get_type (void);\n" \
-                $^ | sed -e 's/g_vir/gvir/g' | sed -e 's/_VIR_/_/g' > $@
+	$(AM_V_GEN) (LC_ALL= LANG=C LC_CTYPE=en_US.UTF-8  \
+		$(GLIB_MKENUMS) \
+		--identifier-prefix GVir \
+		--symbol-prefix gvir \
+		--template $(srcdir)/libvirt-gobject-enums.h.template \
+		$(GOBJECT_HEADER_FILES:%=$(srcdir)/%) ) > libvirt-gobject-enums.h
 
 BUILT_SOURCES = $(GOBJECT_GENERATED_FILES)
 
