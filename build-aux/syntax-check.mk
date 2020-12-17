@@ -693,28 +693,6 @@ sc_prohibit_test_double_equal:
 	halt='use "test x = x", not "test x =''= x"'			\
 	  $(_sc_search_regexp)
 
-# Each program that uses proper_name_utf8 must link with one of the
-# ICONV libraries.  Otherwise, some ICONV library must appear in LDADD.
-# The perl -0777 invocation below extracts the possibly-multi-line
-# definition of LDADD from the appropriate Makefile.am and exits 0
-# when it contains "ICONV".
-sc_proper_name_utf8_requires_ICONV:
-	@progs=$$(grep -l 'proper_name_utf8 ''("' $$($(VC_LIST_EXCEPT)));\
-	if test "x$$progs" != x; then					\
-	  fail=0;							\
-	  for p in $$progs; do						\
-	    dir=$$(dirname "$$p");					\
-	    perl -0777							\
-	      -ne 'exit !(/^LDADD =(.+?[^\\]\n)/ms && $$1 =~ /ICONV/)'	\
-	      $$dir/Makefile.am && continue;				\
-	    base=$$(basename "$$p" .c);					\
-	    grep "$${base}_LDADD.*ICONV)" $$dir/Makefile.am > /dev/null	\
-	      || { fail=1; echo 1>&2 "$(ME): $$p uses proper_name_utf8"; }; \
-	  done;								\
-	  test $$fail = 1 &&						\
-	    { echo 1>&2 '$(ME): the above do not link with any ICONV library'; \
-	      exit 1; } || :;						\
-	fi
 
 # Warn about "c0nst struct Foo const foo[]",
 # but not about "char const *const foo" or "#define const const".
@@ -728,40 +706,6 @@ sc_const_long_option:
 	  | grep -Ev 'const struct option|struct option const' && {	\
 	      echo 1>&2 '$(ME): add "const" to the above declarations'; \
 	      exit 1; } || :
-
-# Ensure that we use only the standard $(VAR) notation,
-# not @...@ in Makefile.am, now that we can rely on automake
-# to emit a definition for each substituted variable.
-# However, there is still one case in which @VAR@ use is not just
-# legitimate, but actually required: when augmenting an automake-defined
-# variable with a prefix.  For example, gettext uses this:
-# MAKEINFO = env LANG= LC_MESSAGES= LC_ALL= LANGUAGE= @MAKEINFO@
-# otherwise, makeinfo would put German or French (current locale)
-# navigation hints in the otherwise-English documentation.
-#
-# Allow the package to add exceptions via a hook in syntax-check.mk;
-# for example, @PRAGMA_SYSTEM_HEADER@ can be permitted by
-# setting this to ' && !/PRAGMA_SYSTEM_HEADER/'.
-_makefile_at_at_check_exceptions ?=
-sc_makefile_at_at_check:
-	@perl -ne '/\@[A-Z_0-9]+\@/'					\
-          -e ' && !/([A-Z_0-9]+)\s+=.*\@\1\@$$/'			\
-          -e ''$(_makefile_at_at_check_exceptions)			\
-	  -e 'and (print "$$ARGV:$$.: $$_"), $$m=1; END {exit !$$m}'	\
-	    $$($(VC_LIST_EXCEPT) | grep -E '(^|/)(Makefile\.am|[^/]+\.mk)$$') \
-	  && { echo '$(ME): use $$(...), not @...@' 1>&2; exit 1; } || :
-
-sc_makefile_TAB_only_indentation:
-	@prohibit='^	[ ]{8}'						\
-	in_vc_files='akefile|\.mk$$'					\
-	halt='found TAB-8-space indentation'				\
-	  $(_sc_search_regexp)
-
-sc_m4_quote_check:
-	@prohibit='(AC_DEFINE(_UNQUOTED)?|AC_DEFUN)\([^[]'		\
-	in_vc_files='(^configure\.ac|\.m4)$$'				\
-	halt='quote the first arg to AC_DEF*'				\
-	  $(_sc_search_regexp)
 
 fix_po_file_diag = \
 'you have changed the set of files with translatable diagnostics;\n\
@@ -881,8 +825,5 @@ exclude_file_name_regexp--sc_bindtextdomain = ^(libvirt-gconfig/tests|examples)/
 exclude_file_name_regexp--sc_preprocessor_indentation = ^*/*.[ch]
 
 exclude_file_name_regexp--sc_prohibit_strcmp = ^*/*.[ch]
-
-# XXX we shouldn't really ignore this, but the horrible enum rules...
-exclude_file_name_regexp--sc_makefile_at_at_check = libvirt-gobject/Makefile.am
 
 exclude_file_name_regexp--sc_unmarked_diagnostics = tap-driver\.sh
