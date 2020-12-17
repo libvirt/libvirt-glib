@@ -6,9 +6,8 @@ Release:        1%{?dist}
 Summary:        MinGW Windows libvirt-glib virtualization library
 
 License:        LGPLv2+
-Group:          Development/Libraries
-URL:            http://libvirt.org/
-Source0:        ftp://libvirt.org/libvirt/glib/libvirt-glib-%{version}.tar.gz
+URL:            https://libvirt.org/
+Source0:        https://libvirt.org/sources/glib/libvirt-glib-%{version}.tar.gz
 
 BuildRequires:  mingw32-filesystem >= 95
 BuildRequires:  mingw64-filesystem >= 95
@@ -23,37 +22,31 @@ BuildArch:      noarch
 
 %package -n mingw32-libvirt-glib
 Summary: MingwGW Windows libvirt-gconfig virtualization library
-Group: Development/Libraries
 
 Requires: pkgconfig
 
 %package -n mingw32-libvirt-gconfig
 Summary: MingwGW Windows libvirt-gconfig virtualization library
-Group: Development/Libraries
 
 Requires: pkgconfig
 
 %package -n mingw32-libvirt-gobject
 Summary: MingwGW Windows libvirt-gobject virtualization library
-Group: Development/Libraries
 
 Requires: pkgconfig
 
 %package -n mingw64-libvirt-glib
 Summary: MingwGW Windows libvirt-gconfig virtualization library
-Group: Development/Libraries
 
 Requires: pkgconfig
 
 %package -n mingw64-libvirt-gconfig
 Summary: MingwGW Windows libvirt-gconfig virtualization library
-Group: Development/Libraries
 
 Requires: pkgconfig
 
 %package -n mingw64-libvirt-gobject
 Summary: MingwGW Windows libvirt-gobject virtualization library
-Group: Development/Libraries
 
 Requires: pkgconfig
 
