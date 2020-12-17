@@ -1,6 +1,6 @@
 /*** BEGIN file-header ***/
-#ifndef __LIBVIRT_GOBJECT_ENUM_TYPES_H__
-#define __LIBVIRT_GOBJECT_ENUM_TYPES_H__
+#ifndef __LIBVIRT_GOBJECT_ENUMS_H__
+#define __LIBVIRT_GOBJECT_ENUMS_H__
 
 #include <libvirt-gobject/libvirt-gobject.h>
 
@@ -15,5 +15,5 @@ GType @enum_name@_get_type (void) G_GNUC_CONST;
 /*** BEGIN file-tail ***/
 G_END_DECLS
 
-#endif /* __LIBVIRT_GOBJECT_ENUM_TYPES_H__ */
+#endif /* __LIBVIRT_GOBJECT_ENUMS_H__ */
 /*** END file-tail ***/

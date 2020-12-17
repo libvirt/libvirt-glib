@@ -26,7 +26,7 @@
 #include <glib.h>
 #include <libvirt/virterror.h>
 #include <string.h>
-#if !defined(HAVE_VIR_DOMAIN_OPEN_GRAPHICS_FD) && !defined(G_OS_WIN32)
+#ifndef G_OS_WIN32
 #include <sys/socket.h>
 #endif
 
@@ -1188,7 +1188,7 @@ cleanup:
  *
  * Since: 0.2.0
  */
-#if defined(HAVE_VIR_DOMAIN_OPEN_GRAPHICS_FD) || !defined(G_OS_WIN32)
+#ifndef G_OS_WIN32
 int gvir_domain_open_graphics_fd(GVirDomain *dom,
                                  guint idx,
                                  unsigned int flags,
@@ -1196,16 +1196,12 @@ int gvir_domain_open_graphics_fd(GVirDomain *dom,
 {
     GVirDomainPrivate *priv;
     int ret = -1;
-#ifndef HAVE_VIR_DOMAIN_OPEN_GRAPHICS_FD
-    int pair[2];
-#endif
 
     g_return_val_if_fail(GVIR_IS_DOMAIN(dom), -1);
     g_return_val_if_fail(err == NULL || *err == NULL, -1);
 
     priv = dom->priv;
 
-#ifdef HAVE_VIR_DOMAIN_OPEN_GRAPHICS_FD
     ret = virDomainOpenGraphicsFD(priv->handle, idx, flags);
     if (ret <= 0) {
         gvir_set_error_literal(err, GVIR_DOMAIN_ERROR,
@@ -1213,27 +1209,6 @@ int gvir_domain_open_graphics_fd(GVirDomain *dom,
                                "Unable to open graphics");
         goto end;
     }
-
-#else
-    if (socketpair(PF_UNIX, SOCK_STREAM, 0, pair) < 0) {
-        g_set_error_literal(err, GVIR_DOMAIN_ERROR,
-                            0,
-                            "Failed to create socket pair");
-        goto end;
-    }
-
-    if (virDomainOpenGraphics(priv->handle, idx, pair[0], flags) < 0) {
-        gvir_set_error_literal(err, GVIR_DOMAIN_ERROR,
-                               0,
-                               "Unable to open graphics");
-        close(pair[0]);
-        close(pair[1]);
-
-        goto end;
-    }
-    close(pair[0]);
-    ret = pair[1];
-#endif
 
 end:
     return ret;

@@ -9,7 +9,7 @@ AC_CANONICAL_HOST
 
 AM_SILENT_RULES([yes])
 
-LIBVIRT_REQUIRED=1.2.5
+LIBVIRT_REQUIRED=1.2.8
 AC_SUBST([LIBVIRT_REQUIRED]) dnl used in the .spec file
 GLIB2_REQUIRED=2.38.0
 AC_SUBST([GLIB2_REQUIRED]) dnl used in the .spec file
@@ -94,20 +94,6 @@ m4_if(m4_version_compare([2.61a.100],
 LIBVIRT_GLIB_COMPILE_WARNINGS
 
 PKG_CHECK_MODULES(LIBVIRT, libvirt >= $LIBVIRT_REQUIRED)
-# virDomainOpenGraphicsFD was introduced in libvirt 1.2.8
-AC_MSG_CHECKING([for virDomainOpenGraphicsFD])
-PKG_CHECK_EXISTS(libvirt >= 1.2.8,
-                 [
-		   AC_DEFINE([HAVE_VIR_DOMAIN_OPEN_GRAPHICS_FD], 1, [Have virDomainOpenGraphicsFD?])
-		   AC_MSG_RESULT([yes])
-		 ],[AC_MSG_RESULT([no])])
-# virNetworkGetDHCPLeases was introduced in libvirt 1.2.6
-AC_MSG_CHECKING([for virNetworkGetDHCPLeases])
-PKG_CHECK_EXISTS(libvirt >= 1.2.6,
-                 [
-		   AC_DEFINE([HAVE_VIR_NETWORK_GET_DHCP_LEASES], 1, [Have virNetworkGetDHCPLeases?])
-		   AC_MSG_RESULT([yes])
-		 ],[AC_MSG_RESULT([no])])
 PKG_CHECK_MODULES(GLIB2, glib-2.0 >= $GLIB2_REQUIRED)
 PKG_CHECK_MODULES(GTHREAD2, gthread-2.0 >= $GLIB2_REQUIRED)
 PKG_CHECK_MODULES(GOBJECT2, gobject-2.0 >= $GLIB2_REQUIRED)
