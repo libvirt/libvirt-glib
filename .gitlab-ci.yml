@@ -185,6 +185,7 @@ x64-centos-8-git-build:
     - x64-centos-8-container
   variables:
     NAME: centos-8
+    RPM: skip
 
 x64-centos-7-dist-build:
   <<: *dist_native_build_job_definition
@@ -192,6 +193,7 @@ x64-centos-7-dist-build:
     - x64-centos-7-container
   variables:
     NAME: centos-7
+    RPM: skip
 
 x64-centos-8-dist-build:
   <<: *dist_native_build_job_definition
@@ -199,6 +201,7 @@ x64-centos-8-dist-build:
     - x64-centos-8-container
   variables:
     NAME: centos-8
+    RPM: skip
 
 x64-centos-stream-dist-build:
   <<: *dist_native_build_job_definition
@@ -206,6 +209,7 @@ x64-centos-stream-dist-build:
     - x64-centos-stream-container
   variables:
     NAME: centos-stream
+    RPM: skip
 
 x64-debian-10-dist-build:
   <<: *dist_native_build_job_definition
@@ -248,6 +252,7 @@ x64-opensuse-151-dist-build:
     - x64-opensuse-151-container
   variables:
     NAME: opensuse-151
+    RPM: skip
 
 x64-ubuntu-1804-dist-build:
   <<: *dist_native_build_job_definition

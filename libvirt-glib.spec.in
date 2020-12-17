@@ -6,8 +6,9 @@ Release: 1%{?dist}
 Summary: libvirt glib integration for events
 License: LGPLv2+
 URL: https://libvirt.org/
-Source0: https://libvirt.org/sources/glib/%{name}-%{version}.tar.gz
+Source0: https://libvirt.org/sources/glib/%{name}-%{version}.tar.xz
 
+BuildRequires: meson
 BuildRequires: glib2-devel
 BuildRequires: libvirt-devel
 BuildRequires: gobject-introspection-devel
@@ -64,28 +65,16 @@ managing virtualization host objects
 %setup -q
 
 %build
-
-%configure --enable-introspection
-%__make %{?_smp_mflags}
-
+%meson -Drpath=disabled
+%meson_build
 
 %install
-rm -rf $RPM_BUILD_ROOT
-%__make install  DESTDIR=$RPM_BUILD_ROOT
-rm -f $RPM_BUILD_ROOT%{_libdir}/libvirt-glib-1.0.a
-rm -f $RPM_BUILD_ROOT%{_libdir}/libvirt-glib-1.0.la
-rm -f $RPM_BUILD_ROOT%{_libdir}/libvirt-gconfig-1.0.a
-rm -f $RPM_BUILD_ROOT%{_libdir}/libvirt-gconfig-1.0.la
-rm -f $RPM_BUILD_ROOT%{_libdir}/libvirt-gobject-1.0.a
-rm -f $RPM_BUILD_ROOT%{_libdir}/libvirt-gobject-1.0.la
+%meson_install
 
 %find_lang %{name}
 
 %check
-if ! make %{?_smp_mflags} check; then
-  cat tests/test-suite.log || true
-  exit 1
-fi
+%meson_test
 
 %post -p /sbin/ldconfig
 
@@ -100,7 +89,7 @@ fi
 %postun -n libvirt-gobject -p /sbin/ldconfig
 
 %files -f %{name}.lang
-%doc README COPYING AUTHORS ChangeLog NEWS
+%doc README COPYING AUTHORS NEWS
 %{_libdir}/libvirt-glib-1.0.so.*
 %{_libdir}/girepository-1.0/LibvirtGLib-1.0.typelib
 
@@ -122,6 +111,7 @@ fi
 %{_includedir}/libvirt-glib-1.0/libvirt-glib/libvirt-glib-*.h
 %{_datadir}/gir-1.0/LibvirtGLib-1.0.gir
 %{_datadir}/gtk-doc/html/Libvirt-glib
+%{_datadir}/vala/vapi/libvirt-glib-1.0.deps
 %{_datadir}/vala/vapi/libvirt-glib-1.0.vapi
 
 %files -n libvirt-gconfig-devel
@@ -134,6 +124,7 @@ fi
 %{_includedir}/libvirt-gconfig-1.0/libvirt-gconfig/libvirt-gconfig-*.h
 %{_datadir}/gir-1.0/LibvirtGConfig-1.0.gir
 %{_datadir}/gtk-doc/html/Libvirt-gconfig
+%{_datadir}/vala/vapi/libvirt-gconfig-1.0.deps
 %{_datadir}/vala/vapi/libvirt-gconfig-1.0.vapi
 
 %files -n libvirt-gobject-devel

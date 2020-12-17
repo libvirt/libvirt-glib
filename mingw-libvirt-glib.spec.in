@@ -9,12 +9,13 @@ License:        LGPLv2+
 URL:            https://libvirt.org/
 Source0:        https://libvirt.org/sources/glib/libvirt-glib-%{version}.tar.gz
 
-BuildRequires:  mingw32-filesystem >= 95
-BuildRequires:  mingw64-filesystem >= 95
+BuildRequires:  meson
+BuildRequires:  mingw32-filesystem
+BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw32-glib2
 BuildRequires:  mingw64-glib2
-BuildRequires:  mingw32-libvirt >= 0.9.10
-BuildRequires:  mingw64-libvirt >= 0.9.10
+BuildRequires:  mingw32-libvirt
+BuildRequires:  mingw64-libvirt
 BuildRequires:  gettext
 BuildRequires:  pkgconfig
 
@@ -79,33 +80,19 @@ MinGW Windows libvirt-gobject virtualization library.
 
 
 %build
-%mingw_configure \
-    --enable-introspection=no
-
-%mingw_make %{?_smp_mflags}
-
+%mingw_meson -Drpath=disabled -Ddocs=disabled
+%mingw_ninja
 
 %install
-%mingw_make_install DESTDIR=$RPM_BUILD_ROOT
-
-rm -f $RPM_BUILD_ROOT%{mingw32_libdir}/libvirt-gconfig-1.0.a
-rm -f $RPM_BUILD_ROOT%{mingw32_libdir}/libvirt-glib-1.0.a
-rm -f $RPM_BUILD_ROOT%{mingw32_libdir}/libvirt-gobject-1.0.a
-rm -f $RPM_BUILD_ROOT%{mingw64_libdir}/libvirt-gconfig-1.0.a
-rm -f $RPM_BUILD_ROOT%{mingw64_libdir}/libvirt-glib-1.0.a
-rm -f $RPM_BUILD_ROOT%{mingw64_libdir}/libvirt-gobject-1.0.a
-
-rm -rf $RPM_BUILD_ROOT%{mingw32_datadir}/gtk-doc
-rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/gtk-doc
+%mingw_ninja_install
 
 %mingw_find_lang libvirt-glib
 
 %files -n mingw32-libvirt-glib -f mingw32-libvirt-glib.lang
-%doc README COPYING AUTHORS ChangeLog NEWS
+%doc README COPYING AUTHORS NEWS
 %{mingw32_bindir}/libvirt-glib-1.0-0.dll
 
 %{mingw32_libdir}/libvirt-glib-1.0.dll.a
-%{mingw32_libdir}/libvirt-glib-1.0.la
 
 %{mingw32_libdir}/pkgconfig/libvirt-glib-1.0.pc
 
@@ -115,11 +102,10 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/gtk-doc
 %{mingw32_includedir}/libvirt-glib-1.0/libvirt-glib/libvirt-glib-*.h
 
 %files -n mingw64-libvirt-glib -f mingw64-libvirt-glib.lang
-%doc README COPYING AUTHORS ChangeLog NEWS
+%doc README COPYING AUTHORS NEWS
 %{mingw64_bindir}/libvirt-glib-1.0-0.dll
 
 %{mingw64_libdir}/libvirt-glib-1.0.dll.a
-%{mingw64_libdir}/libvirt-glib-1.0.la
 
 %{mingw64_libdir}/pkgconfig/libvirt-glib-1.0.pc
 
@@ -134,7 +120,6 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/gtk-doc
 %{mingw32_bindir}/libvirt-gconfig-1.0-0.dll
 
 %{mingw32_libdir}/libvirt-gconfig-1.0.dll.a
-%{mingw32_libdir}/libvirt-gconfig-1.0.la
 
 %{mingw32_libdir}/pkgconfig/libvirt-gconfig-1.0.pc
 
@@ -147,7 +132,6 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/gtk-doc
 %{mingw64_bindir}/libvirt-gconfig-1.0-0.dll
 
 %{mingw64_libdir}/libvirt-gconfig-1.0.dll.a
-%{mingw64_libdir}/libvirt-gconfig-1.0.la
 
 %{mingw64_libdir}/pkgconfig/libvirt-gconfig-1.0.pc
 
@@ -162,7 +146,6 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/gtk-doc
 %{mingw32_bindir}/libvirt-gobject-1.0-0.dll
 
 %{mingw32_libdir}/libvirt-gobject-1.0.dll.a
-%{mingw32_libdir}/libvirt-gobject-1.0.la
 
 %{mingw32_libdir}/pkgconfig/libvirt-gobject-1.0.pc
 
@@ -175,7 +158,6 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/gtk-doc
 %{mingw64_bindir}/libvirt-gobject-1.0-0.dll
 
 %{mingw64_libdir}/libvirt-gobject-1.0.dll.a
-%{mingw64_libdir}/libvirt-gobject-1.0.la
 
 %{mingw64_libdir}/pkgconfig/libvirt-gobject-1.0.pc
 
