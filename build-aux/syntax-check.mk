@@ -766,7 +766,7 @@ fix_po_file_diag = \
 apply the above patch\n'
 
 # Verify that all source files using _() are listed in po/POTFILES.in.
-po_file ?= $(srcdir)/po/POTFILES.in
+po_file ?= $(srcdir)/po/POTFILES
 generated_files ?= $(srcdir)/lib/*.[ch]
 sc_po_check:
 	@if test -f $(po_file); then					\
