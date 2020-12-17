@@ -119,8 +119,7 @@ $(sc_z_rules_): %.z: %
 # The patsubst here is to replace each sc_% rule with its sc_%.z wrapper
 # that computes and prints elapsed time.
 local-check :=								\
-  $(patsubst sc_%, sc_%.z,						\
-    $(filter-out $(local-checks-to-skip), $(local-checks-available)))
+  $(patsubst sc_%, sc_%.z,$(local-checks-available))
 
 syntax-check: $(local-check)
 
@@ -251,24 +250,6 @@ sc_cast_of_x_alloc_return_value:
 	halt='don'\''t cast x*alloc return value'			\
 	  $(_sc_search_regexp)
 
-sc_cast_of_alloca_return_value:
-	@prohibit='\*\) *alloca\>'					\
-	halt='don'\''t cast alloca return value'			\
-	  $(_sc_search_regexp)
-
-sc_space_tab:
-	@prohibit='[ ]	'						\
-	halt='found SPACE-TAB sequence; remove the SPACE'		\
-	  $(_sc_search_regexp)
-
-# Don't use *scanf or the old ato* functions in `real' code.
-# They provide no error checking mechanism.
-# Instead, use strto* functions.
-sc_prohibit_atoi_atof:
-	@prohibit='\<([fs]?scanf|ato([filq]|ll)) *\('				\
-	halt='do not use *scan''f, ato''f, ato''i, ato''l, ato''ll or ato''q'	\
-	  $(_sc_search_regexp)
-
 # Use STREQ rather than comparing strcmp == 0, or != 0.
 sc_prohibit_strcmp:
 	@grep -nE '! *str''cmp *\(|\<str''cmp *\(.+\) *[!=]='	\
@@ -292,14 +273,6 @@ sc_prohibit_magic_number_exit:
 	halt='use EXIT_* values rather than magic number'			\
 	  $(_sc_search_regexp)
 
-# Using EXIT_SUCCESS as the first argument to error is misleading,
-# since when that parameter is 0, error does not exit.  Use `0' instead.
-sc_error_exit_success:
-	@prohibit='error *\(EXIT_SUCCESS,'				\
-	in_vc_files='\.[chly]$$'					\
-	halt='found error (EXIT_SUCCESS'				\
-	 $(_sc_search_regexp)
-
 # `FATAL:' should be fully upper-cased in error messages
 # `WARNING:' should be fully upper-cased, or fully lower-cased
 sc_error_message_warn_fatal:
@@ -308,26 +281,12 @@ sc_error_message_warn_fatal:
 	  { echo '$(ME): use FATAL, WARNING or warning'	1>&2;		\
 	    exit 1; } || :
 
-# Error messages should not start with a capital letter
-sc_error_message_uppercase:
-	@grep -nEA2 '[^rp]error *\(' $$($(VC_LIST_EXCEPT))		\
-	    | grep -E '"[A-Z]'						\
-	    | grep -vE '"FATAL|"WARNING|"Java|"C#|PRIuMAX' &&		\
-	  { echo '$(ME): found capitalized error message' 1>&2;		\
-	    exit 1; } || :
-
 # Error messages should not end with a period
 sc_error_message_period:
 	@grep -nEA2 '[^rp]error *\(' $$($(VC_LIST_EXCEPT))		\
 	    | grep -E '[^."]\."' &&					\
 	  { echo '$(ME): found error message ending in period' 1>&2;	\
 	    exit 1; } || :
-
-sc_file_system:
-	@prohibit=file''system						\
-	ignore_case=1							\
-	halt='found use of "file''system"; spell it "file system"'	\
-	  $(_sc_search_regexp)
 
 # Don't use cpp tests of this symbol.  All code assumes config.h is included.
 sc_prohibit_have_config_h:
@@ -394,14 +353,6 @@ sc_prohibit_close_stream_without_use:
 sc_prohibit_getopt_without_use:
 	@h='getopt.h' re='\<getopt(_long)? *\(' $(_sc_header_without_use)
 
-# Don't include quotearg.h unless you use one of its functions.
-sc_prohibit_quotearg_without_use:
-	@h='quotearg.h' re='\<quotearg(_[^ ]+)? *\(' $(_sc_header_without_use)
-
-# Don't include quote.h unless you use one of its functions.
-sc_prohibit_quote_without_use:
-	@h='quote.h' re='\<quote(_n)? *\(' $(_sc_header_without_use)
-
 # Don't include this header unless you use one of its functions.
 sc_prohibit_long_options_without_use:
 	@h='long-options.h' re='\<parse_long_options *\(' \
@@ -444,17 +395,6 @@ _xa2 = X([CZ]|N?M)ALLOC
 sc_prohibit_xalloc_without_use:
 	@h='xalloc.h' \
 	re='\<($(_xa1)|$(_xa2)) *\('\
-	  $(_sc_header_without_use)
-
-# Extract function names:
-# perl -lne '/^(?:extern )?(?:void|char) \*?(\w+) *\(/ and print $1' lib/hash.h
-_hash_re = \
-clear|delete|free|get_(first|next)|insert|lookup|print_statistics|reset_tuning
-_hash_fn = \<($(_hash_re)) *\(
-_hash_struct = (struct )?\<[Hh]ash_(table|tuning)\>
-sc_prohibit_hash_without_use:
-	@h='hash.h' \
-	re='$(_hash_fn)|$(_hash_struct)'\
 	  $(_sc_header_without_use)
 
 sc_prohibit_cloexec_without_use:
@@ -603,27 +543,11 @@ sc_prohibit_verify_without_use:
 sc_prohibit_xfreopen_without_use:
 	@h='xfreopen.h' re='\<xfreopen *\(' $(_sc_header_without_use)
 
-sc_obsolete_symbols:
-	@prohibit='\<(HAVE''_FCNTL_H|O''_NDELAY)\>'			\
-	halt='do not use HAVE''_FCNTL_H or O'_NDELAY			\
-	  $(_sc_search_regexp)
-
-# FIXME: warn about definitions of EXIT_FAILURE, EXIT_SUCCESS, STREQ
-
 # Each nonempty ChangeLog line must start with a year number, or a TAB.
 sc_changelog:
 	@prohibit='^[^12	]'					\
 	in_vc_files='^ChangeLog$$'					\
 	halt='found unexpected prefix in a ChangeLog'			\
-	  $(_sc_search_regexp)
-
-# Ensure that each .c file containing a "main" function also
-# calls set_program_name.
-sc_program_name:
-	@require='set_program_name *\(m?argv\[0\]\);'			\
-	in_vc_files='\.c$$'						\
-	containing='\<main *('						\
-	halt='the above files do not call set_program_name'		\
 	  $(_sc_search_regexp)
 
 # Ensure that each .c file containing a "main" function also
@@ -635,37 +559,9 @@ sc_bindtextdomain:
 	halt='the above files do not call bindtextdomain'		\
 	  $(_sc_search_regexp)
 
-# Require that the final line of each test-lib.sh-using test be this one:
-# Exit $fail
-# Note: this test requires GNU grep's --label= option.
-Exit_witness_file ?= tests/test-lib.sh
-Exit_base := $(notdir $(Exit_witness_file))
-sc_require_test_exit_idiom:
-	@if test -f $(srcdir)/$(Exit_witness_file); then		\
-	  die=0;							\
-	  for i in $$(grep -l -F 'srcdir/$(Exit_base)'			\
-		$$($(VC_LIST) tests)); do				\
-	    tail -n1 $$i | grep '^Exit .' > /dev/null			\
-	      && : || { die=1; echo $$i; }				\
-	  done;								\
-	  test $$die = 1 &&						\
-	    { echo 1>&2 '$(ME): the final line in each of the above is not:'; \
-	      echo 1>&2 'Exit something';				\
-	      exit 1; } || :;						\
-	fi
-
 sc_trailing_blank:
 	@prohibit='[	 ]$$'						\
 	halt='found trailing blank(s)'					\
-	  $(_sc_search_regexp)
-
-# Match lines like the following, but where there is only one space
-# between the options and the description:
-#   -D, --all-repeated[=delimit-method]  print all duplicate lines\n
-longopt_re = --[a-z][0-9A-Za-z-]*(\[?=[0-9A-Za-z-]*\]?)?
-sc_two_space_separator_in_usage:
-	@prohibit='^   *(-[A-Za-z],)? $(longopt_re) [^ ].*\\$$'		\
-	halt='help2man requires at least two spaces between an option and its description'\
 	  $(_sc_search_regexp)
 
 # A regexp matching function names like "error" that may be used
@@ -682,24 +578,11 @@ sc_unmarked_diagnostics:
 	  { echo '$(ME): found unmarked diagnostic(s)' 1>&2;		\
 	    exit 1; } || :
 
-# Avoid useless parentheses like those in this example:
-# #if defined (SYMBOL) || defined (SYM2)
-sc_useless_cpp_parens:
-	@prohibit='^# *if .*defined *\('				\
-	halt='found useless parentheses in cpp directive'		\
-	  $(_sc_search_regexp)
-
 # Prohibit checked in backup files.
 sc_prohibit_backup_files:
 	@$(VC_LIST) | grep '~$$' &&				\
 	  { echo '$(ME): found version controlled backup file' 1>&2;	\
 	    exit 1; } || :
-
-# Require the latest GPL.
-sc_GPL_version:
-	@prohibit='either ''version [^3]'				\
-	halt='GPL vN, N!=3'						\
-	  $(_sc_search_regexp)
 
 # Require the latest GFDL.  Two regexp, since some .texi files end up
 # line wrapping between 'Free Documentation License,' and 'Version'.
@@ -707,23 +590,6 @@ _GFDL_regexp = (Free ''Documentation.*Version 1\.[^3]|Version 1\.[^3] or any)
 sc_GFDL_version:
 	@prohibit='$(_GFDL_regexp)'					\
 	halt='GFDL vN, N!=3'						\
-	  $(_sc_search_regexp)
-
-# Don't use Texinfo's @acronym{}.
-# http://lists.gnu.org/archive/html/bug-gnulib/2010-03/msg00321.html
-texinfo_suffix_re_ ?= \.(txi|texi(nfo)?)$$
-sc_texinfo_acronym:
-	@prohibit='@acronym\{'						\
-	in_vc_files='$(texinfo_suffix_re_)'				\
-	halt='found use of Texinfo @acronym{}'				\
-	  $(_sc_search_regexp)
-
-cvs_keywords = \
-  Author|Date|Header|Id|Name|Locker|Log|RCSfile|Revision|Source|State
-
-sc_prohibit_cvs_keyword:
-	@prohibit='\$$($(cvs_keywords))\$$'				\
-	halt='do not use CVS keyword expansion'				\
 	  $(_sc_search_regexp)
 
 # This Perl code is slightly obfuscated.  Not only is each "$" doubled
@@ -768,21 +634,6 @@ sc_prohibit_empty_lines_at_EOF:
 	@perl -le '$(require_exactly_one_NL_at_EOF_)' $$($(VC_LIST_EXCEPT)) \
 	  || { echo '$(ME): empty line(s) or no newline at EOF'		\
 		1>&2; exit 1; } || :
-
-# Make sure we don't use st_blocks.  Use ST_NBLOCKS instead.
-# This is a bit of a kludge, since it prevents use of the string
-# even in comments, but for now it does the job with no false positives.
-sc_prohibit_stat_st_blocks:
-	@prohibit='[.>]st_blocks'					\
-	halt='do not use st_blocks; use ST_NBLOCKS'			\
-	  $(_sc_search_regexp)
-
-# Make sure we don't define any S_IS* macros in src/*.c files.
-# They're already defined via gnulib's sys/stat.h replacement.
-sc_prohibit_S_IS_definition:
-	@prohibit='^ *# *define  *S_IS'					\
-	halt='do not define S_IS* macros; include <sys/stat.h>'		\
-	  $(_sc_search_regexp)
 
 # Perl block to convert a match to FILE_NAME:LINENO:TEST,
 # that is shared by two definitions below.
@@ -945,43 +796,6 @@ sc_po_check:
 	  diff -u -L $(po_file) -L $(po_file) $@-1 $@-2			\
 	    || { printf '$(ME): '$(fix_po_file_diag) 1>&2; exit 1; };	\
 	  rm -f $@-1 $@-2;						\
-	fi
-
-# Sometimes it is useful to change the PATH environment variable
-# in Makefiles.  When doing so, it's better not to use the Unix-centric
-# path separator of `:', but rather the automake-provided `$(PATH_SEPARATOR)'.
-msg = '$(ME): Do not use `:'\'' above; use $$(PATH_SEPARATOR) instead'
-sc_makefile_path_separator_check:
-	@prohibit='PATH[=].*:'						\
-	in_vc_files='akefile|\.mk$$'					\
-	halt=$(msg)							\
-	  $(_sc_search_regexp)
-
-# If tests/help-version exists and seems to be new enough, assume that its
-# use of init.sh and path_prepend_ is correct, and ensure that every other
-# use of init.sh is identical.
-# This is useful because help-version cross-checks prog --version
-# with $(VERSION), which verifies that its path_prepend_ invocation
-# sets PATH correctly.  This is an inexpensive way to ensure that
-# the other init.sh-using tests also get it right.
-_hv_file ?= $(srcdir)/tests/help-version
-_hv_regex_weak ?= ^ *\. .*/init\.sh"
-# Fix syntax-highlighters "
-_hv_regex_strong ?= ^ *\. "\$${srcdir=\.}/init\.sh"
-sc_cross_check_PATH_usage_in_tests:
-	@if test -f $(_hv_file); then					\
-	  grep -l 'VERSION mismatch' $(_hv_file) >/dev/null		\
-	    || { echo "$@: skipped: no such file: $(_hv_file)" 1>&2;	\
-		 exit 0; };						\
-	  grep -lE '$(_hv_regex_strong)' $(_hv_file) >/dev/null		\
-	    || { echo "$@: $(_hv_file) lacks conforming use of init.sh" 1>&2; \
-		 exit 1; };						\
-	  good=$$(grep -E '$(_hv_regex_strong)' $(_hv_file));		\
-	  grep -LFx "$$good"						\
-		$$(grep -lE '$(_hv_regex_weak)' $$($(VC_LIST_EXCEPT)))	\
-	      | grep . &&						\
-	    { echo "$(ME): the above files use path_prepend_ inconsistently" \
-		1>&2; exit 1; } || :;					\
 	fi
 
 # #if HAVE_... will evaluate to false for any non numeric string.
