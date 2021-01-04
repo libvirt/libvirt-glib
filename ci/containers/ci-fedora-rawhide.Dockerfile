@@ -2,7 +2,7 @@
 #
 #  $ lcitool dockerfile fedora-rawhide libvirt+dist,libvirt-glib
 #
-# https://gitlab.com/libvirt/libvirt-ci/-/commit/b098ec6631a85880f818f2dd25c437d509e53680
+# https://gitlab.com/libvirt/libvirt-ci/-/commit/99a72b2d54f069cca979c04f1907c5444fd73b96
 FROM registry.fedoraproject.org/fedora:rawhide
 
 RUN dnf install -y nosync && \
@@ -18,22 +18,20 @@ exec "$@"' > /usr/bin/nosync && \
     nosync dnf update -y --nogpgcheck fedora-gpg-keys && \
     nosync dnf update -y && \
     nosync dnf install -y \
-        autoconf \
-        automake \
         ca-certificates \
         ccache \
         gcc \
         gettext \
-        gettext-devel \
         git \
         glib2-devel \
         glibc-langpack-en \
         gobject-introspection-devel \
         gtk-doc \
-        libtool \
         libvirt-devel \
         libxml2-devel \
         make \
+        meson \
+        ninja-build \
         pkgconfig \
         rpm-build \
         vala && \
@@ -46,4 +44,5 @@ exec "$@"' > /usr/bin/nosync && \
 
 ENV LANG "en_US.UTF-8"
 ENV MAKE "/usr/bin/make"
+ENV NINJA "/usr/bin/ninja"
 ENV CCACHE_WRAPPERSDIR "/usr/libexec/ccache-wrappers"

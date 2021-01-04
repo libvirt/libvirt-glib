@@ -2,7 +2,7 @@
 #
 #  $ lcitool dockerfile debian-sid libvirt+dist,libvirt-glib
 #
-# https://gitlab.com/libvirt/libvirt-ci/-/commit/b098ec6631a85880f818f2dd25c437d509e53680
+# https://gitlab.com/libvirt/libvirt-ci/-/commit/99a72b2d54f069cca979c04f1907c5444fd73b96
 FROM docker.io/library/debian:sid-slim
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
@@ -10,9 +10,6 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get install -y eatmydata && \
     eatmydata apt-get dist-upgrade -y && \
     eatmydata apt-get install --no-install-recommends -y \
-            autoconf \
-            automake \
-            autopoint \
             ca-certificates \
             ccache \
             gcc \
@@ -21,12 +18,12 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
             gtk-doc-tools \
             libgirepository1.0-dev \
             libglib2.0-dev \
-            libtool \
-            libtool-bin \
             libvirt-dev \
             libxml2-dev \
             locales \
             make \
+            meson \
+            ninja-build \
             pkgconf \
             valac && \
     eatmydata apt-get autoremove -y && \
@@ -40,4 +37,5 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 
 ENV LANG "en_US.UTF-8"
 ENV MAKE "/usr/bin/make"
+ENV NINJA "/usr/bin/ninja"
 ENV CCACHE_WRAPPERSDIR "/usr/libexec/ccache-wrappers"

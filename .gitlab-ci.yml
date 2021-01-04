@@ -50,12 +50,12 @@ stages:
     - meson build -Ddriver_libvirtd=disabled "--prefix=$VROOT" "--libdir=$LIBDIR"
     - ninja -C build install
     - popd
-    - mkdir build
-    - cd build
-    - ../autogen.sh --prefix="$VROOT"
-    - $MAKE install
-    - $MAKE dist
-    - if test -x /usr/bin/rpmbuild && test "$RPM" != "skip" ; then rpmbuild --nodeps -ta libvirt-glib*.tar.gz ; fi
+    - meson build
+    - ninja -C build dist
+    - if test -x /usr/bin/rpmbuild && test "$RPM" != "skip";
+      then
+        rpmbuild --nodeps -ta build/meson-dist/libvirt-glib-*.tar.xz;
+      fi
 
 .dist_native_build_job_template: &dist_native_build_job_definition
   image: $CI_REGISTRY_IMAGE/ci-$NAME:latest
@@ -67,12 +67,12 @@ stages:
   before_script:
     - *script_variables
   script:
-    - mkdir build
-    - cd build
-    - ../autogen.sh --prefix="$VROOT"
-    - $MAKE install
-    - $MAKE dist
-    - if test -x /usr/bin/rpmbuild && test "$RPM" != "skip" ; then rpmbuild -ta libvirt-glib*.tar.gz ; fi
+    - meson build
+    - ninja -C build dist
+    - if test -x /usr/bin/rpmbuild && test "$RPM" != "skip";
+      then
+        rpmbuild --nodeps -ta build/meson-dist/libvirt-glib-*.tar.xz;
+      fi
 
 # Default cross build jobs that are always run
 .git_cross_build_default_job_template: &git_cross_build_default_job_definition
@@ -93,10 +93,8 @@ stages:
     - meson build -Ddriver_libvirtd=disabled "--prefix=$VROOT" "--libdir=$LIBDIR" $MESON_OPTS
     - ninja -C build install
     - popd
-    - mkdir build
-    - cd build
-    - ../autogen.sh $CONFIGURE_OPTS || (cat config.log && exit 1)
-    - $MAKE
+    - meson build --werror $MESON_OPTS || (cat build/meson-logs/meson-log.txt && exit 1)
+    - ninja -C build
 
 # Check that all commits are signed-off for the DCO.
 # Skip on "libvirt" namespace, since we only need to run

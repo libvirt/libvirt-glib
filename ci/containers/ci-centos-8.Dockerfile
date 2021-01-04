@@ -2,7 +2,7 @@
 #
 #  $ lcitool dockerfile centos-8 libvirt+minimal,libvirt+dist,libvirt-glib
 #
-# https://gitlab.com/libvirt/libvirt-ci/-/commit/b098ec6631a85880f818f2dd25c437d509e53680
+# https://gitlab.com/libvirt/libvirt-ci/-/commit/99a72b2d54f069cca979c04f1907c5444fd73b96
 FROM docker.io/library/centos:8
 
 RUN dnf update -y && \
@@ -11,13 +11,10 @@ RUN dnf update -y && \
     dnf install -y centos-release-advanced-virtualization && \
     dnf install -y epel-release && \
     dnf install -y \
-        autoconf \
-        automake \
         ca-certificates \
         ccache \
         gcc \
         gettext \
-        gettext-devel \
         git \
         glib2-devel \
         glibc-devel \
@@ -27,7 +24,6 @@ RUN dnf update -y && \
         gtk-doc \
         libnl3-devel \
         libtirpc-devel \
-        libtool \
         libvirt-devel \
         libxml2 \
         libxml2-devel \
