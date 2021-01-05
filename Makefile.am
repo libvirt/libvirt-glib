@@ -12,8 +12,8 @@ EXTRA_DIST = $(PACKAGE).spec \
 	     $(pkgconfig_DATA:%.pc=%.pc.in) \
 	     GNUmakefile \
 	     AUTHORS.in \
-	     build-aux/check-symfile.pl \
-	     build-aux/check-symsorting.pl \
+	     build-aux/check-symfile.py \
+	     build-aux/check-symsorting.py \
 	     build-aux/syntax-check.mk \
 	     tap-driver.sh \
 	     tap-test \
