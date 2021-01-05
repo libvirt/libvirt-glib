@@ -18,139 +18,102 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.2.2\n"
 
-#: libvirt-gobject/libvirt-gobject-connection.c:438
 #, c-format
 msgid "Connection %s is already open"
 msgstr "La connessione %s è già aperta"
 
-#: libvirt-gobject/libvirt-gobject-connection.c:729
-#: libvirt-gobject/libvirt-gobject-connection.c:817
-#: libvirt-gobject/libvirt-gobject-connection.c:1504
-#: libvirt-gobject/libvirt-gobject-connection.c:1761
 msgid "Connection is not open"
 msgstr "La connessione non è aperta"
 
-#: libvirt-gobject/libvirt-gobject-connection.c:1034
-#: libvirt-gobject/libvirt-gobject-connection.c:1073
 msgid "Connection is not opened"
 msgstr "La connessione non è stata aperta"
 
-#: libvirt-gobject/libvirt-gobject-connection.c:1394
-#: libvirt-gobject/libvirt-gobject-connection.c:1449
 msgid "Failed to create domain"
 msgstr "Creazione del dominio non riuscita"
 
-#: libvirt-gobject/libvirt-gobject-connection.c:2020
 msgid "Failed to create storage pool"
 msgstr "Creazione pool di archiviazione non riuscita"
 
-#: libvirt-gobject/libvirt-gobject-connection.c:742
 msgid "Failed to fetch list of domains"
 msgstr "Recupero elenco dei domini non riuscito"
 
-#: libvirt-gobject/libvirt-gobject-connection.c:1520
 msgid "Failed to fetch list of interfaces"
 msgstr "Recupero elenco delle interfacce non riuscito"
 
-#: libvirt-gobject/libvirt-gobject-connection.c:1777
 msgid "Failed to fetch list of networks"
 msgstr "Recupero elenco delle reti non riuscito"
 
-#: libvirt-gobject/libvirt-gobject-connection.c:833
 msgid "Failed to fetch list of pools"
 msgstr "Recupero elenco dei pool non riuscito"
 
-#: libvirt-gobject/libvirt-gobject-stream.c:350
-#: libvirt-gobject/libvirt-gobject-stream.c:466
 #, c-format
 msgid "Got virStreamRecv error in %s"
 msgstr "Ottenuto errore virStreamRecv in %s"
 
-#: libvirt-gconfig/libvirt-gconfig-object.c:206
 msgid "No XML document associated with this config object"
 msgstr "Nessun documento XML associato con questo oggetto di configurazione"
 
-#: libvirt-gconfig/libvirt-gconfig-helpers.c:141
 msgid "No XML document to parse"
 msgstr "Nessun documento XML da leggere"
 
-#: libvirt-gconfig/libvirt-gconfig-object.c:214
 msgid "No XML schema associated with this config object"
 msgstr "Nessuno schema XML associato con questo oggetto di configurazione"
 
-#: libvirt-gconfig/libvirt-gconfig-object.c:223
 #, c-format
 msgid "Unable to create RNG parser for %s"
 msgstr "Impossibile creare un analizzatore RNG per %s"
 
-#: libvirt-gconfig/libvirt-gconfig-object.c:245
 #, c-format
 msgid "Unable to create RNG validation context %s"
 msgstr "Impossibile creare il contesto di validazione RNG %s"
 
-#: libvirt-gobject/libvirt-gobject-connection.c:2271
 msgid "Unable to get capabilities"
 msgstr "Impossibile ottenere le funzionalità"
 
-#: libvirt-gobject/libvirt-gobject-connection.c:464
 msgid "Unable to get connection URI"
 msgstr "Impossibile ottenere l'URI di connessione"
 
-#: libvirt-gobject/libvirt-gobject-connection.c:2119
 msgid "Unable to get domain capabilities"
 msgstr "Impossibile ottenere le funzionalità del dominio"
 
-#: libvirt-gobject/libvirt-gobject-connection.c:1041
 msgid "Unable to get hypervisor name"
 msgstr "Impossibile ottenere il nome dell'hypervisor"
 
-#: libvirt-gobject/libvirt-gobject-connection.c:1079
 msgid "Unable to get hypervisor version"
 msgstr "Impossibile ottenere la versione dell'hypervisor"
 
-#: libvirt-gobject/libvirt-gobject-connection.c:2063
 msgid "Unable to get node info"
 msgstr "Impossibile ottenere informazioni sul nodo"
 
-#: libvirt-gobject/libvirt-gobject-connection.c:453
 #, c-format
 msgid "Unable to open %s"
 msgstr "Impossibile aprire %s"
 
-#: libvirt-gconfig/libvirt-gconfig-object.c:233
 #, c-format
 msgid "Unable to parse RNG %s"
 msgstr "Impossibile leggere RNG %s"
 
-#: libvirt-gconfig/libvirt-gconfig-helpers.c:149
 msgid "Unable to parse configuration"
 msgstr "Impossibile leggere la configurazione"
 
-#: libvirt-gobject/libvirt-gobject-stream.c:415
 msgid "Unable to perform RecvAll"
 msgstr "Impossibile eseguire RecvAll"
 
-#: libvirt-gobject/libvirt-gobject-stream.c:531
 msgid "Unable to perform SendAll"
 msgstr "Impossibile eseguire SendAll"
 
-#: libvirt-gobject/libvirt-gobject-connection.c:2395
 msgid "Unable to restore domain"
 msgstr "Impossibile ripristinare il dominio"
 
-#: libvirt-gconfig/libvirt-gconfig-object.c:255
 msgid "Unable to validate doc"
 msgstr "Impossibile validare il documento"
 
-#: libvirt-gconfig/libvirt-gconfig-helpers.c:157
 #, c-format
 msgid "XML data has no '%s' node"
 msgstr "I dati XML non hanno un nodo «%s»"
 
-#: libvirt-gobject/libvirt-gobject-stream.c:347
 msgid "virStreamRecv call would block"
 msgstr "La chiamata virStreamRecv è bloccante"
 
-#: libvirt-gobject/libvirt-gobject-stream.c:463
 msgid "virStreamSend call would block"
 msgstr "La chiamata virStreamSend è bloccante"
