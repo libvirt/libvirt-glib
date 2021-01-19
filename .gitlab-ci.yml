@@ -155,6 +155,11 @@ x64-opensuse-151-container:
   variables:
     NAME: opensuse-151
 
+x64-opensuse-152-container:
+  <<: *container_job_definition
+  variables:
+    NAME: opensuse-152
+
 x64-ubuntu-1804-container:
   <<: *container_job_definition
   variables:
@@ -250,6 +255,14 @@ x64-opensuse-151-dist-build:
     - x64-opensuse-151-container
   variables:
     NAME: opensuse-151
+    RPM: skip
+
+x64-opensuse-152-dist-build:
+  <<: *dist_native_build_job_definition
+  needs:
+    - x64-opensuse-152-container
+  variables:
+    NAME: opensuse-152
     RPM: skip
 
 x64-ubuntu-1804-dist-build:
