@@ -2,13 +2,14 @@
 #
 #  $ lcitool dockerfile centos-stream libvirt+dist,libvirt-glib
 #
-# https://gitlab.com/libvirt/libvirt-ci/-/commit/99a72b2d54f069cca979c04f1907c5444fd73b96
+# https://gitlab.com/libvirt/libvirt-ci/-/commit/d527e0c012f476c293f3bc801b7da08bc85f98ef
 FROM docker.io/library/centos:8
 
-RUN dnf update -y && \
-    dnf install -y centos-release-stream && \
+RUN dnf install -y centos-release-stream && \
+    dnf install -y centos-stream-release && \
+    dnf update -y && \
     dnf install 'dnf-command(config-manager)' -y && \
-    dnf config-manager --set-enabled -y Stream-PowerTools && \
+    dnf config-manager --set-enabled -y powertools && \
     dnf install -y centos-release-advanced-virtualization && \
     dnf install -y epel-release && \
     dnf install -y \
