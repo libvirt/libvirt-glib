@@ -7,7 +7,7 @@ Summary:        MinGW Windows libvirt-glib virtualization library
 
 License:        LGPLv2+
 URL:            https://libvirt.org/
-Source0:        https://libvirt.org/sources/glib/libvirt-glib-%{version}.tar.gz
+Source0:        https://libvirt.org/sources/glib/libvirt-glib-%{version}.tar.xz
 
 BuildRequires:  meson
 BuildRequires:  mingw32-filesystem
