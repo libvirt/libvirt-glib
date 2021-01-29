@@ -89,11 +89,13 @@ if enable_introspection
   endif
 endif
 
-test('check-glib-symfile',
-     python3,
-     args: [check_symfile,
-            join_paths(meson.current_source_dir(), 'libvirt-glib.sym'),
-            join_paths(meson.current_build_dir(), 'libvirt-glib-1.0.so')])
+if host_machine.system() == 'linux'
+  test('check-glib-symfile',
+    python3,
+    args: [check_symfile,
+      join_paths(meson.current_source_dir(), 'libvirt-glib.sym'),
+      join_paths(meson.current_build_dir(), 'libvirt-glib-1.0.so')])
+endif
 
 test('check-glib-symsorting',
      python3,

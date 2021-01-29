@@ -284,11 +284,13 @@ if build_tests
   subdir('tests')
 endif
 
-test('check-gconfig-symfile',
-     python3,
-     args: [check_symfile,
-            join_paths(meson.current_source_dir(), 'libvirt-gconfig.sym'),
-            join_paths(meson.current_build_dir(), 'libvirt-gconfig-1.0.so')])
+if host_machine.system() == 'linux'
+  test('check-gconfig-symfile',
+       python3,
+       args: [check_symfile,
+              join_paths(meson.current_source_dir(), 'libvirt-gconfig.sym'),
+              join_paths(meson.current_build_dir(), 'libvirt-gconfig-1.0.so')])
+endif
 
 test('check-gconfig-symsorting',
      python3,
