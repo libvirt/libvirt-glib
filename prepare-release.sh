@@ -5,7 +5,7 @@ set -v
 
 rm -rf build
 
-meson --prefix="`pwd`/build/vroot" -Denable-gtk-doc=true build/native
+meson --prefix="`pwd`/build/vroot" -Ddocs=true build/native
 
 ninja -C build/native dist
 
