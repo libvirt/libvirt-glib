@@ -1,6 +1,6 @@
 project(
   'libvirt-glib', 'c',
-  version: '3.0.0',
+  version: '4.0.0',
   license: 'LGPLv2+',
   meson_version: '>= 0.50.0',
   default_options: [
