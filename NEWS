@@ -1,6 +1,21 @@
                  libvirt-glib News
                  =================
 
+4.0.0 - Feb 10, 2021
+====================
+
+- Replace autotools build system with meson
+- Mandate libvirt >= 1.2.8
+- Mandate libxml2 >= 2.9.1
+- Mandate glib >= 2.48.0
+- Mandate gobject-introspection >= 1.46.0
+- Fix docs incompatibility with gtk-doc >= 1.30
+- Updated translations
+- Misc API docs fixes
+- Add constants related to NVRAM during domain delete
+- Add domain config API for controller ports attribute
+- Fix compat with newer glib by avoid volatile for enum types
+
 3.0.0 - Nov 26, 2019
 ====================
 
