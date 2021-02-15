@@ -83,7 +83,7 @@ MinGW Windows libvirt-gobject virtualization library.
 
 
 %build
-%mingw_meson -Drpath=disabled -Ddocs=disabled
+%mingw_meson -Drpath=disabled -Ddocs=disabled -Dintrospection=disabled -Dvapi=disabled
 %mingw_ninja
 
 %install
