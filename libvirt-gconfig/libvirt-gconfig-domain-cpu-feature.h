@@ -25,8 +25,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_CPU_FEATURE_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_CPU_FEATURE_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -77,5 +76,3 @@ GVirConfigDomainCpuFeaturePolicy
 gvir_config_domain_cpu_feature_get_policy(GVirConfigDomainCpuFeature *feature);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_CPU_FEATURE_H__ */

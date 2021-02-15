@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_ADDRESS_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_ADDRESS_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -59,5 +58,3 @@ struct _GVirConfigDomainAddressClass
 GType gvir_config_domain_address_get_type(void);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_ADDRESS_H__ */

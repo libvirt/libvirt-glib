@@ -26,8 +26,7 @@
 
 #include <libvirt-gconfig/libvirt-gconfig-domain-interface-filterref-parameter.h>
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_INTERFACE_FILTERREF_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_INTERFACE_FILTERREF_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -74,5 +73,3 @@ void gvir_config_domain_interface_filterref_add_parameter(GVirConfigDomainInterf
 GList *gvir_config_domain_interface_filterref_get_parameters(GVirConfigDomainInterfaceFilterref *filterref);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_INTERFACE_FILTERREF_H__ */

@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_NODE_DEVICE_H__
-#define __LIBVIRT_GCONFIG_NODE_DEVICE_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -64,5 +63,3 @@ GVirConfigNodeDevice *gvir_config_node_device_new_from_xml(const gchar *xml,
                                                            GError **error);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_NODE_DEVICE_H__ */

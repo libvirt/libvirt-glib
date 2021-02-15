@@ -20,8 +20,7 @@
  * Author: Daniel P. Berrange <berrange@redhat.com>
  */
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_CHARDEV_SOURCE_PRIVATE_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_CHARDEV_SOURCE_PRIVATE_H__
+#pragma once
 
 #include <libvirt-gconfig/libvirt-gconfig-xml-doc.h>
 
@@ -36,5 +35,3 @@ gvir_config_domain_chardev_source_pty_new_from_tree(GVirConfigXmlDoc *doc,
                                                     xmlNodePtr tree);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_CHARDEV_SOURCE_PRIVATE_H__ */

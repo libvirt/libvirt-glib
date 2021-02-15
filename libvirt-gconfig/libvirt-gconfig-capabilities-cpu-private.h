@@ -19,8 +19,8 @@
  *
  * Author: Zeeshan Ali (Khattak) <zeeshanak@gnome.org>
  */
-#ifndef __LIBVIRT_GCONFIG_CAPABILITIES_CPU_PRIVATE_H__
-#define __LIBVIRT_GCONFIG_CAPABILITIES_CPU_PRIVATE_H__
+
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -31,5 +31,3 @@ gvir_config_capabilities_cpu_get_features_with_type(GVirConfigCapabilitiesCpu *c
                                                     GType type);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_CAPABILITIES_CPU_PRIVATE_H__ */

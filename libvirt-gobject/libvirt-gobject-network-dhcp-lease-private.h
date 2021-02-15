@@ -22,13 +22,10 @@
  *          Daniel P. Berrange <berrange@redhat.com>
  */
 
-#ifndef __LIBVIRT_GOBJECT_NETWORK_DHCP_LEASE_PRIVATE_H__
-#define __LIBVIRT_GOBJECT_NETWORK_DHCP_LEASE_PRIVATE_H__
+#pragma once
 
 G_BEGIN_DECLS
 
 GVirNetworkDHCPLease *gvir_network_dhcp_lease_new(virNetworkDHCPLeasePtr handle);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GOBJECT_NETWORK_DHCP_LEASE_PRIVATE_H__ */

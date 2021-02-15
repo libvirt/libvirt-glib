@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_TIMER_RTC_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_TIMER_RTC_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -63,5 +62,3 @@ GVirConfigDomainTimerRtc *gvir_config_domain_timer_rtc_new_from_xml(const gchar 
                                                 GError **error);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_TIMER_RTC_H__ */

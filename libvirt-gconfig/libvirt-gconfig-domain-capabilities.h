@@ -22,8 +22,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_CAPABILITIES_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_CAPABILITIES_H__
+#pragma once
 
 #include "libvirt-gconfig/libvirt-gconfig-domain-capabilities-os.h"
 
@@ -64,5 +63,3 @@ GVirConfigDomainCapabilities *gvir_config_domain_capabilities_new_from_xml(const
 GVirConfigDomainCapabilitiesOs *gvir_config_domain_capabilities_get_os(GVirConfigDomainCapabilities *domain_caps);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_CAPABILITIES_H__ */

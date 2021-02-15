@@ -20,8 +20,7 @@
  * Author: Zeeshan Ali (Khattak) <zeeshanak@gnome.org>
  */
 
-#ifndef __LIBVIRT_GOBJECT_STORAGE_POOL_PRIVATE_H__
-#define __LIBVIRT_GOBJECT_STORAGE_POOL_PRIVATE_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -29,5 +28,3 @@ G_GNUC_INTERNAL void gvir_storage_pool_delete_vol(GVirStoragePool *pool,
                                                   GVirStorageVol *volume);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GOBJECT_STORAGE_POOL_PRIVATE_H__ */

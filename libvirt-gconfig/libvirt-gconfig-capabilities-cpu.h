@@ -25,8 +25,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_CAPABILITIES_CPU_H__
-#define __LIBVIRT_GCONFIG_CAPABILITIES_CPU_H__
+#pragma once
 
 #include "libvirt-gconfig-capabilities-cpu-topology.h"
 #include "libvirt-gconfig-capabilities-cpu-feature.h"
@@ -80,5 +79,3 @@ GVirConfigCapabilitiesCpuModel *
 gvir_config_capabilities_cpu_get_model(GVirConfigCapabilitiesCpu *cpu);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_CAPABILITIES_CPU_H__ */

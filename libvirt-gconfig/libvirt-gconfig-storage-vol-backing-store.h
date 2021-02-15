@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_STORAGE_VOL_BACKING_STORE_H__
-#define __LIBVIRT_GCONFIG_STORAGE_VOL_BACKING_STORE_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -68,5 +67,3 @@ void gvir_config_storage_vol_backing_store_set_path(GVirConfigStorageVolBackingS
                                                     const char *path);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_STORAGE_VOL_BACKING_STORE_H__ */

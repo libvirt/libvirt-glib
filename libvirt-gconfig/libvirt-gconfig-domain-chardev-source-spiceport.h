@@ -22,8 +22,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_CHARDEV_SOURCE_SPICE_PORT_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_CHARDEV_SOURCE_SPICE_PORT_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -67,5 +66,3 @@ void gvir_config_domain_chardev_source_spiceport_set_channel(GVirConfigDomainCha
 const gchar * gvir_config_domain_chardev_source_spiceport_get_channel(GVirConfigDomainChardevSourceSpicePort *port);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_CHARDEV_SOURCE_SPICE_PORT_H__ */

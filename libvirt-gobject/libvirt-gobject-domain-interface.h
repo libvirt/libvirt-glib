@@ -24,8 +24,7 @@
 #error "Only <libvirt-gobject/libvirt-gobject.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GOBJECT_DOMAIN_INTERFACE_H__
-#define __LIBVIRT_GOBJECT_DOMAIN_INTERFACE_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -77,5 +76,3 @@ GType gvir_domain_interface_stats_get_type(void);
 GVirDomainInterfaceStats *gvir_domain_interface_get_stats(GVirDomainInterface *self, GError **err);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GOBJECT_DOMAIN_INTERFACE_H__ */

@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_GRAPHICS_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_GRAPHICS_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -60,5 +59,3 @@ struct _GVirConfigDomainGraphicsClass
 GType gvir_config_domain_graphics_get_type(void);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_GRAPHICS_H__ */

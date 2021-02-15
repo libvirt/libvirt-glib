@@ -25,8 +25,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_CAPABILITIES_GUEST_DOMAIN_H__
-#define __LIBVIRT_GCONFIG_CAPABILITIES_GUEST_DOMAIN_H__
+#pragma once
 
 #include "libvirt-gconfig-domain.h"
 
@@ -68,5 +67,3 @@ GVirConfigDomainVirtType
 gvir_config_capabilities_guest_domain_get_virt_type(GVirConfigCapabilitiesGuestDomain *domain);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_CAPABILITIES_GUEST_DOMAIN_H__ */

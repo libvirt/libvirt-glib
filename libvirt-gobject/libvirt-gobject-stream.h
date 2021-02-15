@@ -25,8 +25,7 @@
 #error "Only <libvirt-gobject/libvirt-gobject.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GOBJECT_STREAM_H__
-#define __LIBVIRT_GOBJECT_STREAM_H__
+#pragma once
 
 #include <glib-object.h>
 #include <gio/gio.h>
@@ -140,5 +139,3 @@ gssize gvir_stream_send(GVirStream *stream,
                         GError **error);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GOBJECT_STREAM_H__ */

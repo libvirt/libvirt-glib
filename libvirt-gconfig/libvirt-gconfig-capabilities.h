@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_CAPABILITIES_H__
-#define __LIBVIRT_GCONFIG_CAPABILITIES_H__
+#pragma once
 
 #include "libvirt-gconfig/libvirt-gconfig-capabilities-host.h"
 
@@ -68,5 +67,3 @@ gvir_config_capabilities_get_host(GVirConfigCapabilities *caps);
 GList *gvir_config_capabilities_get_guests(GVirConfigCapabilities *caps);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_CAPABILITIES_H__ */

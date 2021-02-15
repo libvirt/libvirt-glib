@@ -25,8 +25,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_CAPABILITIES_CPU_FEATURE_H__
-#define __LIBVIRT_GCONFIG_CAPABILITIES_CPU_FEATURE_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -66,5 +65,3 @@ gvir_config_capabilities_cpu_feature_set_name(GVirConfigCapabilitiesCpuFeature *
                                               const gchar *name);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_CAPABILITIES_CPU_FEATURE_H__ */

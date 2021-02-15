@@ -20,9 +20,6 @@
  * Author: Christophe Fergeau <cfergeau@redhat.com>
  */
 
-#ifndef __LIBVIRT_GCONFIG_COMPAT_H__
-#define __LIBVIRT_GCONFIG_COMPAT_H__
+#pragma once
 
 #include <glib-object.h>
-
-#endif /* __LIBVIRT_GCONFIG_COMPAT_H__ */

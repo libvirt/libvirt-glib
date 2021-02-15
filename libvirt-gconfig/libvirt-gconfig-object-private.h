@@ -19,8 +19,7 @@
  *
  * Author: Christophe Fergeau <cfergeau@redhat.com>
  */
-#ifndef __LIBVIRT_GCONFIG_OBJECT_PRIVATE_H__
-#define __LIBVIRT_GCONFIG_OBJECT_PRIVATE_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -122,5 +121,3 @@ gboolean gvir_config_object_has_child(GVirConfigObject *object,
                                       const gchar *child_name);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_OBJECT_H__ */

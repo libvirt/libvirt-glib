@@ -25,8 +25,7 @@
 #endif
 #include <libvirt/libvirt.h>
 
-#ifndef __LIBVIRT_GOBJECT_STORAGE_VOL_H__
-#define __LIBVIRT_GOBJECT_STORAGE_VOL_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -125,5 +124,3 @@ gboolean gvir_storage_vol_upload(GVirStorageVol *vol,
                                  GError **err);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GOBJECT_STORAGE_VOL_H__ */

@@ -20,11 +20,10 @@
  * Author: Daniel P. Berrange <berrange@redhat.com>
  */
 
-#ifndef __LIBVIRT_GLIB_H__
+#pragma once
+
 #define __LIBVIRT_GLIB_H__
 
 #include <libvirt-glib/libvirt-glib-main.h>
 #include <libvirt-glib/libvirt-glib-event.h>
 #include <libvirt-glib/libvirt-glib-error.h>
-
-#endif /* __LIBVIRT_GLIB_H__ */

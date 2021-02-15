@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_CONTROLLER_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_CONTROLLER_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -68,5 +67,3 @@ void gvir_config_domain_controller_set_ports(GVirConfigDomainController *control
 guint gvir_config_domain_controller_get_ports(GVirConfigDomainController *controller);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_CONTROLLER_H__ */

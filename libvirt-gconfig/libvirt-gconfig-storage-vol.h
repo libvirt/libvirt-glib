@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_STORAGE_VOL_H__
-#define __LIBVIRT_GCONFIG_STORAGE_VOL_H__
+#pragma once
 
 #include <libvirt-gconfig/libvirt-gconfig-storage-vol-backing-store.h>
 #include <libvirt-gconfig/libvirt-gconfig-storage-vol-target.h>
@@ -78,5 +77,3 @@ void gvir_config_storage_vol_set_target(GVirConfigStorageVol *vol,
                                         GVirConfigStorageVolTarget *target);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_STORAGE_VOL_H__ */

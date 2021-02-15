@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_OBJECT_H__
-#define __LIBVIRT_GCONFIG_OBJECT_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -75,5 +74,3 @@ gchar *gvir_config_object_to_xml(GVirConfigObject *config);
 const gchar *gvir_config_object_get_schema(GVirConfigObject *config);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_OBJECT_H__ */

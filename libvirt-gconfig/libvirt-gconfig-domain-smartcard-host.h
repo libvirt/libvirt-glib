@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_SMARTCARD_HOST_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_SMARTCARD_HOST_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -63,5 +62,3 @@ GVirConfigDomainSmartcardHost *gvir_config_domain_smartcard_host_new_from_xml(co
                                                                               GError **error);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_SMARTCARD_HOST_H__ */

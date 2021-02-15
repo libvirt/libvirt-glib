@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_TIMER_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_TIMER_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -71,5 +70,3 @@ gboolean gvir_config_domain_timer_get_present(GVirConfigDomainTimer *timer);
 void gvir_config_domain_timer_set_present(GVirConfigDomainTimer *timer, gboolean present);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_TIMER_H__ */

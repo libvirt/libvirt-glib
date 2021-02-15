@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_SNAPSHOT_DISK_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_SNAPSHOT_DISK_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -80,5 +79,3 @@ void gvir_config_domain_snapshot_disk_set_driver_format(GVirConfigDomainSnapshot
                                                         GVirConfigDomainDiskFormat format);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_SNAPSHOT_DISK_H__ */

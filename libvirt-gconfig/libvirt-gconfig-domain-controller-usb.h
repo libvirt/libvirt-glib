@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_CONTROLLER_USB_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_CONTROLLER_USB_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -81,5 +80,3 @@ void gvir_config_domain_controller_usb_set_master(GVirConfigDomainControllerUsb 
                                                   guint startport);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_CONTROLLER_USB_H__ */

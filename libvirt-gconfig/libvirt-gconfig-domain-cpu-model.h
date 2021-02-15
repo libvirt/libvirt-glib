@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_CPU_MODEL_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_CPU_MODEL_H__
+#pragma once
 
 #include "libvirt-gconfig-capabilities-cpu-model.h"
 
@@ -64,5 +63,3 @@ GVirConfigDomainCpuModel *
 gvir_config_domain_cpu_model_new_from_xml(const gchar *xml, GError **error);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_CPU_MODEL_H__ */

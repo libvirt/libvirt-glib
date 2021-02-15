@@ -24,8 +24,7 @@
 #error "Only <libvirt-gobject/libvirt-gobject.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GOBJECT_MANAGER_H__
-#define __LIBVIRT_GOBJECT_MANAGER_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -77,5 +76,3 @@ GVirConnection *gvir_manager_find_connection_by_uri(GVirManager *man,
                                                     const gchar *uri);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GOBJECT_MANAGER_H__ */

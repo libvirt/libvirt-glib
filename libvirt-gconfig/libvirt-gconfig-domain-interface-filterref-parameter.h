@@ -26,8 +26,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_INTERFACE_FILTERREF_PARAMETER_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_INTERFACE_FILTERREF_PARAMETER_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -71,5 +70,3 @@ const gchar *gvir_config_domain_interface_filterref_parameter_get_name(GVirConfi
 const gchar *gvir_config_domain_interface_filterref_parameter_get_value(GVirConfigDomainInterfaceFilterrefParameter *parameter);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_INTERFACE_FILTERREF_PARAMETER_H__ */

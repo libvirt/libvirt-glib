@@ -24,8 +24,7 @@
 #error "Only <libvirt-gobject/libvirt-gobject.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GOBJECT_CONNECTION_H__
-#define __LIBVIRT_GOBJECT_CONNECTION_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -278,5 +277,3 @@ gvir_connection_get_domain_capabilities_finish(GVirConnection *conn,
                                                GError **err);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GOBJECT_CONNECTION_H__ */

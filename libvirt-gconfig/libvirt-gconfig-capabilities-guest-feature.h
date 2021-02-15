@@ -25,8 +25,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_CAPABILITIES_GUEST_FEATURE_H__
-#define __LIBVIRT_GCONFIG_CAPABILITIES_GUEST_FEATURE_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -63,5 +62,3 @@ const gchar *
 gvir_config_capabilities_guest_feature_get_name(GVirConfigCapabilitiesGuestFeature *feature);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_CAPABILITIES_GUEST_FEATURE_H__ */

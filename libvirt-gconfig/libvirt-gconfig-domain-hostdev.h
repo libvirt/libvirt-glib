@@ -25,8 +25,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_HOSTDEV_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_HOSTDEV_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -72,5 +71,3 @@ void gvir_config_domain_hostdev_set_shareable(GVirConfigDomainHostdev *hostdev,
 gboolean gvir_config_domain_hostdev_get_shareable(GVirConfigDomainHostdev *hostdev);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_HOSTDEV_H__ */

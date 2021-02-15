@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_INTERFACE_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_INTERFACE_H__
+#pragma once
 
 #include <libvirt-gconfig/libvirt-gconfig-domain-interface-filterref.h>
 
@@ -83,5 +82,3 @@ void gvir_config_domain_interface_set_filterref(GVirConfigDomainInterface *inter
 GVirConfigDomainInterfaceFilterref *gvir_config_domain_interface_get_filterref(GVirConfigDomainInterface *interface);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_INTERFACE_H__ */

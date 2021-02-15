@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_SNAPSHOT_PRIVATE_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_SNAPSHOT_PRIVATE_H__
+#pragma once
 
 #include <libvirt-gconfig/libvirt-gconfig-domain.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-snapshot-disk.h>
@@ -34,5 +33,3 @@ G_BEGIN_DECLS
 GVirConfigDomainSnapshotDisk *gvir_config_domain_snapshot_disk_new_from_tree(GVirConfigXmlDoc *doc,
                                                                              xmlNodePtr tree);
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_SNAPSHOT_PRIVATE_H__ */

@@ -24,8 +24,7 @@
 #error "Only <libvirt-gobject/libvirt-gobject.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GOBJECT_DOMAIN_H__
-#define __LIBVIRT_GOBJECT_DOMAIN_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -417,5 +416,3 @@ gboolean gvir_domain_set_time_finish(GVirDomain *dom,
                                      GError **err);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GOBJECT_DOMAIN_H__ */

@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_SMARTCARD_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_SMARTCARD_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -63,5 +62,3 @@ void gvir_config_domain_smartcard_set_address(GVirConfigDomainRedirdev *redirdev
                                               GVirConfigDomainAddress *address);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_SMARTCARD_H__ */

@@ -19,8 +19,7 @@
  *
  * Author: Marc-André Lureau <marcandre.lureau@redhat.com>
  */
-#ifndef __LIBVIRT_GOBJECT_DOMAIN_DEVICE_PRIVATE_H__
-#define __LIBVIRT_GOBJECT_DOMAIN_DEVICE_PRIVATE_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -29,5 +28,3 @@ G_GNUC_INTERNAL GVirDomainDevice *gvir_domain_device_new(GVirDomain *domain,
 virDomainPtr gvir_domain_device_get_domain_handle(GVirDomainDevice *self);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GOBJECT_DOMAIN_DEVICE_PRIVATE_H__ */

@@ -24,8 +24,7 @@
 #error "Only <libvirt-gobject/libvirt-gobject.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GOBJECT_DOMAIN_SNAPSHOT_H__
-#define __LIBVIRT_GOBJECT_DOMAIN_SNAPSHOT_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -133,5 +132,3 @@ gboolean gvir_domain_snapshot_set_config(GVirDomainSnapshot *snapshot,
                                          GError **error);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GOBJECT_DOMAIN_SNAPSHOT_H__ */

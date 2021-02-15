@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_REDIRDEV_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_REDIRDEV_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -71,5 +70,3 @@ void gvir_config_domain_redirdev_set_address(GVirConfigDomainRedirdev *redirdev,
                                              GVirConfigDomainAddress *address);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_REDIRDEV_H__ */

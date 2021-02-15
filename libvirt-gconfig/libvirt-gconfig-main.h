@@ -25,8 +25,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_MAIN_H__
-#define __LIBVIRT_GCONFIG_MAIN_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -37,5 +36,3 @@ gboolean gvir_config_init_check(int *argc,
                                 GError **err);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_MAIN_H__ */

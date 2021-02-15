@@ -21,8 +21,7 @@
  * Author: Daniel P. Berrange <berrange@redhat.com>
  */
 
-#ifndef __LIBVIRT_GLIB_EVENT_H__
-#define __LIBVIRT_GLIB_EVENT_H__
+#pragma once
 
 #include <glib.h>
 
@@ -31,5 +30,3 @@ G_BEGIN_DECLS
 void gvir_event_register(void);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GLIB_EVENT_H__ */

@@ -25,8 +25,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_HOSTDEV_PCI_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_HOSTDEV_PCI_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -77,5 +76,3 @@ void gvir_config_domain_hostdev_pci_set_rom_bar(GVirConfigDomainHostdevPci *host
 gboolean gvir_config_domain_hostdev_pci_get_rom_bar(GVirConfigDomainHostdevPci *hostdev);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_HOSTDEV_PCI_H__ */

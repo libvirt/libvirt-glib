@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_CHARDEV_SOURCE_SPICE_VMC_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_CHARDEV_SOURCE_SPICE_VMC_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -63,5 +62,3 @@ GVirConfigDomainChardevSourceSpiceVmc *gvir_config_domain_chardev_source_spicevm
 GVirConfigDomainChardevSourceSpiceVmc *gvir_config_domain_chardev_source_spicevmc_new_from_xml(const gchar *xml,
                                                                               GError **error);
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_CHARDEV_SOURCE_SPICE_VMC_H__ */

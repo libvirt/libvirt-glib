@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_CHARDEV_SOURCE_PTY_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_CHARDEV_SOURCE_PTY_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -68,5 +67,3 @@ void gvir_config_domain_chardev_source_pty_set_path(GVirConfigDomainChardevSourc
 const gchar * gvir_config_domain_chardev_source_pty_get_path(GVirConfigDomainChardevSourcePty *pty);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_CHARDEV_SOURCE_PTY_H__ */

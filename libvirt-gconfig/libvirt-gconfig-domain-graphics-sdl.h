@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_GRAPHICS_SDL_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_GRAPHICS_SDL_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -69,5 +68,3 @@ void gvir_config_domain_graphics_sdl_set_fullscreen(GVirConfigDomainGraphicsSdl 
                                                     gboolean fullscreen);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_GRAPHICS_SDL_H__ */

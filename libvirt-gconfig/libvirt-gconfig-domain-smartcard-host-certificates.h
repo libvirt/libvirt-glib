@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_SMARTCARD_HOST_CERTIFICATES_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_SMARTCARD_HOST_CERTIFICATES_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -70,5 +69,3 @@ void gvir_config_domain_smartcard_host_certificates_set_certificates(GVirConfigD
                                                                      const char *cert3);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_SMARTCARD_HOST_CERTIFICATES_H__ */

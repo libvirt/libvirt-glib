@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_NETWORK_H__
-#define __LIBVIRT_GCONFIG_NETWORK_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -64,5 +63,3 @@ GVirConfigNetwork *gvir_config_network_new_from_xml(const gchar *xml,
                                                     GError **error);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_NETWORK_H__ */

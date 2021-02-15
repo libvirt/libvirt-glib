@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_SERIAL_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_SERIAL_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -63,5 +62,3 @@ GVirConfigDomainSerial *gvir_config_domain_serial_new_from_xml(const gchar *xml,
                                                                  GError **error);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_SERIAL_H__ */

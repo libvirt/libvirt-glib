@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_DISK_DRIVER_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_DISK_DRIVER_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -140,5 +139,3 @@ void gvir_config_domain_disk_driver_set_discard(GVirConfigDomainDiskDriver *driv
 GVirConfigDomainDiskDriverDiscard gvir_config_domain_disk_driver_get_discard(GVirConfigDomainDiskDriver *driver);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_DISK_DRIVER_H__ */

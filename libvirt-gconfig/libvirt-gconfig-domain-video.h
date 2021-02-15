@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_VIDEO_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_VIDEO_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -88,5 +87,3 @@ void gvir_config_domain_video_set_accel3d(GVirConfigDomainVideo *video,
                                           gboolean accel3d);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_VIDEO_H__ */

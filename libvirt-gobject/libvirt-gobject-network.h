@@ -24,8 +24,7 @@
 #error "Only <libvirt-gobject/libvirt-gobject.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GOBJECT_NETWORK_H__
-#define __LIBVIRT_GOBJECT_NETWORK_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -77,5 +76,3 @@ GList *gvir_network_get_dhcp_leases(GVirNetwork *network,
                                     GError **err);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GOBJECT_NETWORK_H__ */

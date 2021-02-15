@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_MEMBALLOON_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_MEMBALLOON_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -71,5 +70,3 @@ void gvir_config_domain_memballoon_set_model(GVirConfigDomainMemballoon *memball
 
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_MEMBALLOON_H__ */

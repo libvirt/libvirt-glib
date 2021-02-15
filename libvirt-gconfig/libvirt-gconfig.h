@@ -20,7 +20,8 @@
  * Author: Daniel P. Berrange <berrange@redhat.com>
  */
 
-#ifndef __LIBVIRT_GCONFIG_H__
+#pragma once
+
 #define __LIBVIRT_GCONFIG_H__
 
 #include <glib-object.h>
@@ -111,5 +112,3 @@
 #include <libvirt-gconfig/libvirt-gconfig-storage-vol.h>
 #include <libvirt-gconfig/libvirt-gconfig-storage-vol-backing-store.h>
 #include <libvirt-gconfig/libvirt-gconfig-storage-vol-target.h>
-
-#endif /* __LIBVIRT_GCONFIG_H__ */

@@ -26,8 +26,7 @@
 #error "Only <libvirt-gobject/libvirt-gobject.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GOBJECT_NETWORK_DHCP_LEASE_H__
-#define __LIBVIRT_GOBJECT_NETWORK_DHCP_LEASE_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -81,5 +80,3 @@ const gchar *gvir_network_dhcp_lease_get_hostname(GVirNetworkDHCPLease *lease);
 const gchar *gvir_network_dhcp_lease_get_client_id(GVirNetworkDHCPLease *lease);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GOBJECT_NETWORK_DHCP_LEASE_H__ */

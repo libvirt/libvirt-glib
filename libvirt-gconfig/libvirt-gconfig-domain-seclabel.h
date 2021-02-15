@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_SECLABEL_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_SECLABEL_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -72,5 +71,3 @@ void gvir_config_domain_seclabel_set_baselabel(GVirConfigDomainSeclabel *seclabe
 void gvir_config_domain_seclabel_set_label(GVirConfigDomainSeclabel *seclabel, const gchar *label);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_SECLABEL_H__ */

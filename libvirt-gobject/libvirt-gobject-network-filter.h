@@ -24,8 +24,7 @@
 #error "Only <libvirt-gobject/libvirt-gobject.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GOBJECT_NETWORK_FILTER_H__
-#define __LIBVIRT_GOBJECT_NETWORK_FILTER_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -70,5 +69,3 @@ GVirConfigNetworkFilter *gvir_network_filter_get_config
                                  GError **err);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GOBJECT_NETWORK_FILTER_H__ */

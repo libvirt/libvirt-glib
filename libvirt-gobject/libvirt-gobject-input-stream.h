@@ -25,8 +25,7 @@
 #error "Only <libvirt-gobject/libvirt-gobject.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GOBJECT_INPUT_STREAM_H__
-#define __LIBVIRT_GOBJECT_INPUT_STREAM_H__
+#pragma once
 
 #include <gio/gio.h>
 #include "libvirt-gobject-stream.h"
@@ -59,5 +58,3 @@ GType _gvir_input_stream_get_type(void) G_GNUC_CONST;
 GVirInputStream *_gvir_input_stream_new(GVirStream *stream);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GOBJECT_INPUT_STREAM_H__ */

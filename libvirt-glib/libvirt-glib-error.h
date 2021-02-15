@@ -21,8 +21,7 @@
  * Author: Daniel P. Berrange <berrange@redhat.com>
  */
 
-#ifndef __LIBVIRT_GLIB_ERROR_H__
-#define __LIBVIRT_GLIB_ERROR_H__
+#pragma once
 
 #include <glib.h>
 
@@ -63,5 +62,3 @@ void gvir_critical(const gchar *format, ...) G_GNUC_PRINTF(1, 2);
 void gvir_warning(const gchar *format, ...) G_GNUC_PRINTF(1, 2);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GLIB_ERROR_H__ */

@@ -20,8 +20,7 @@
  * Author: Christophe Fergeau <cfergeau@gmail.com>
  */
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_DEVICE_PRIVATE_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_DEVICE_PRIVATE_H__
+#pragma once
 
 #include <libvirt-gconfig/libvirt-gconfig-xml-doc.h>
 
@@ -53,5 +52,3 @@ gvir_config_domain_smartcard_new_from_tree(GVirConfigXmlDoc *doc,
                                            xmlNodePtr tree);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_H__ */

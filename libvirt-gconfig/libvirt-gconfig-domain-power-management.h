@@ -25,8 +25,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_POWER_MANAGEMENT_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_POWER_MANAGEMENT_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -67,7 +66,4 @@ void gvir_config_domain_power_management_set_mem_suspend_enabled(GVirConfigDomai
 void gvir_config_domain_power_management_set_disk_suspend_enabled(GVirConfigDomainPowerManagement *pm,
                                                                   gboolean enabled);
 
-
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_POWER_MANAGEMENT_H__ */

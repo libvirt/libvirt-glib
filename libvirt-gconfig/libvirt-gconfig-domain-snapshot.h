@@ -25,8 +25,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_SNAPSHOT_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_SNAPSHOT_H__
+#pragma once
 
 #include <libvirt-gconfig/libvirt-gconfig-domain.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-snapshot-disk.h>
@@ -110,5 +109,3 @@ void gvir_config_domain_snapshot_add_disk(GVirConfigDomainSnapshot *snapshot,
 GList *gvir_config_domain_snapshot_get_disks(GVirConfigDomainSnapshot *snapshot);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_SNAPSHOT_H__ */

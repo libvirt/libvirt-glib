@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_NETWORK_FILTER_H__
-#define __LIBVIRT_GCONFIG_NETWORK_FILTER_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -64,5 +63,3 @@ GVirConfigNetworkFilter *gvir_config_network_filter_new_from_xml(const gchar *xm
                                                                  GError **error);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_NETWORK_FILTER_H__ */

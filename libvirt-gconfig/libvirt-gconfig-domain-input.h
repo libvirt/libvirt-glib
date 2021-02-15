@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_INPUT_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_INPUT_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -81,5 +80,3 @@ void gvir_config_domain_input_set_bus(GVirConfigDomainInput *input,
                                       GVirConfigDomainInputBus bus);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_INPUT_H__ */

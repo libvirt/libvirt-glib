@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_GRAPHICS_RDP_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_GRAPHICS_RDP_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -77,5 +76,3 @@ void gvir_config_domain_graphics_rdp_set_replace_user(GVirConfigDomainGraphicsRd
                                                       gboolean replace_user);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_GRAPHICS_RDP_H__ */

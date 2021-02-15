@@ -25,8 +25,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_HELPERS_H__
-#define __LIBVIRT_GCONFIG_HELPERS_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -34,5 +33,3 @@ GQuark gvir_config_object_error_quark(void);
 #define GVIR_CONFIG_OBJECT_ERROR gvir_config_object_error_quark()
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_HELPERS_H__ */

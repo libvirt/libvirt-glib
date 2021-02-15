@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_STORAGE_POOL_SOURCE_H__
-#define __LIBVIRT_GCONFIG_STORAGE_POOL_SOURCE_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -89,5 +88,3 @@ void gvir_config_storage_pool_source_set_vendor(GVirConfigStoragePoolSource *sou
                                                 const char *vendor);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_STORAGE_POOL_SOURCE_H__ */

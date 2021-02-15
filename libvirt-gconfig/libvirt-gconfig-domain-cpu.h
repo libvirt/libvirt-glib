@@ -25,8 +25,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_CPU_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_CPU_H__
+#pragma once
 
 #include <libvirt-gconfig/libvirt-gconfig-domain-cpu-model.h>
 
@@ -88,5 +87,3 @@ GVirConfigDomainCpuMode
 gvir_config_domain_cpu_get_mode(GVirConfigDomainCpu *cpu);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_CPU_H__ */

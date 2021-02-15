@@ -20,10 +20,7 @@
  * Author: Marc-André Lureau <marcandre.lureau@redhat.com>
  */
 
-#ifndef __LIBVIRT_GOBJECT_COMPAT_H__
-#define __LIBVIRT_GOBJECT_COMPAT_H__
+#pragma once
 
 #include <glib-object.h>
 #include <gio/gio.h>
-
-#endif /* __LIBVIRT_GOBJECT_COMPAT_H__ */

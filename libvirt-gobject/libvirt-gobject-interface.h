@@ -24,8 +24,7 @@
 #error "Only <libvirt-gobject/libvirt-gobject.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GOBJECT_INTERFACE_H__
-#define __LIBVIRT_GOBJECT_INTERFACE_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -70,5 +69,3 @@ GVirConfigInterface *gvir_interface_get_config(GVirInterface *iface,
                                                GError **err);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GOBJECT_INTERFACE_H__ */

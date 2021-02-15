@@ -24,8 +24,7 @@
 #error "Only <libvirt-gobject/libvirt-gobject.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GOBJECT_DOMAIN_DEVICE_H__
-#define __LIBVIRT_GOBJECT_DOMAIN_DEVICE_H__
+#pragma once
 
 #include <libvirt-gobject/libvirt-gobject-domain.h>
 
@@ -64,5 +63,3 @@ GVirDomain *gvir_domain_device_get_domain(GVirDomainDevice *device);
 GVirConfigDomainDevice *gvir_domain_device_get_config(GVirDomainDevice *device);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GOBJECT_DOMAIN_DEVICE_H__ */

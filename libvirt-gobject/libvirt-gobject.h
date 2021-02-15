@@ -20,7 +20,8 @@
  * Author: Daniel P. Berrange <berrange@redhat.com>
  */
 
-#ifndef __LIBVIRT_GOBJECT_H__
+#pragma once
+
 #define __LIBVIRT_GOBJECT_H__
 
 #include <glib-object.h>
@@ -46,5 +47,3 @@
 #include <libvirt-gobject/libvirt-gobject-connection.h>
 #include <libvirt-gobject/libvirt-gobject-manager.h>
 #include <libvirt-gobject/libvirt-gobject-stream.h>
-
-#endif /* __LIBVIRT_GOBJECT_H__ */

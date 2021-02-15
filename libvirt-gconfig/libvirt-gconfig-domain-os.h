@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_OS_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_OS_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -109,5 +108,3 @@ void gvir_config_domain_os_set_firmware(GVirConfigDomainOs *os,
                                         GVirConfigDomainOsFirmware firmware);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_OS_H__ */

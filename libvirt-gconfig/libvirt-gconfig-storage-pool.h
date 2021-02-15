@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_STORAGE_POOL_H__
-#define __LIBVIRT_GCONFIG_STORAGE_POOL_H__
+#pragma once
 
 #include <libvirt-gconfig/libvirt-gconfig-storage-pool-source.h>
 #include <libvirt-gconfig/libvirt-gconfig-storage-pool-target.h>
@@ -102,5 +101,3 @@ void gvir_config_storage_pool_set_uuid(GVirConfigStoragePool *pool,
                                        const char *uuid);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_STORAGE_POOL_H__ */

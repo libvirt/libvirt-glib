@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_DEVICE_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_DEVICE_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -62,5 +61,3 @@ GType gvir_config_domain_device_get_type(void);
 const gchar *gvir_config_domain_device_get_alias(GVirConfigDomainDevice *dev);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_DEVICE_H__ */

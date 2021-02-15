@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_XML_DOC_H__
-#define __LIBVIRT_GCONFIG_XML_DOC_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -62,5 +61,3 @@ GType gvir_config_xml_doc_get_type(void);
 GVirConfigXmlDoc *gvir_config_xml_doc_new(xmlDocPtr doc);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_XML_DOC_H__ */

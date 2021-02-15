@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_ADDRESS_PCI_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_ADDRESS_PCI_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -79,5 +78,3 @@ void gvir_config_domain_address_pci_set_multifunction(GVirConfigDomainAddressPci
                                                       gboolean multifunction);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_ADDRESS_PCI_H__ */

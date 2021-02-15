@@ -24,8 +24,7 @@
 #error "Only <libvirt-gobject/libvirt-gobject.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GOBJECT_NODE_DEVICE_H__
-#define __LIBVIRT_GOBJECT_NODE_DEVICE_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -68,5 +67,3 @@ GVirConfigNodeDevice *gvir_node_device_get_config(GVirNodeDevice *device,
                                                   GError **err);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GOBJECT_NODE_DEVICE_H__ */

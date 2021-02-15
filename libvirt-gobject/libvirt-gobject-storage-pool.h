@@ -24,8 +24,7 @@
 #error "Only <libvirt-gobject/libvirt-gobject.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GOBJECT_STORAGE_POOL_H__
-#define __LIBVIRT_GOBJECT_STORAGE_POOL_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -173,5 +172,3 @@ gboolean gvir_storage_pool_set_autostart(GVirStoragePool *pool,
                                          GError **err);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GOBJECT_STORAGE_POOL_H__ */

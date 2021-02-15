@@ -25,8 +25,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_HELPERS_PRIVATE_H__
-#define __LIBVIRT_GCONFIG_HELPERS_PRIVATE_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -61,6 +60,5 @@ const char *gvir_config_xml_get_attribute_content(xmlNodePtr node,
 char *gvir_config_xml_node_to_string(xmlNodePtr node);
 const char *gvir_config_genum_get_nick (GType enum_type, gint value);
 int gvir_config_genum_get_value (GType enum_type, const char *nick, gint default_value);
-G_END_DECLS
 
-#endif /* __LIBVIRT_GCONFIG_HELPERS_PRIVATE_H__ */
+G_END_DECLS

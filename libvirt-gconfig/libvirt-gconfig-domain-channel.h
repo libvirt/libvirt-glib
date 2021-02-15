@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_CHANNEL_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_CHANNEL_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -76,7 +75,4 @@ const gchar *gvir_config_domain_channel_get_target_name(GVirConfigDomainChannel 
 void gvir_config_domain_channel_set_target_name(GVirConfigDomainChannel *channel,
                                                 const gchar *name);
 
-
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_CHANNEL_H__ */

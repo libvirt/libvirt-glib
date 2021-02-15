@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_FILESYS_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_FILESYS_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -103,5 +102,3 @@ void gvir_config_domain_filesys_set_target(GVirConfigDomainFilesys *filesys,
 void gvir_config_domain_filesys_set_readonly(GVirConfigDomainFilesys *filesys,
                                              gboolean readonly);
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_FILESYS_H__ */

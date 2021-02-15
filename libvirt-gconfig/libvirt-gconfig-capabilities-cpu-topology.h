@@ -25,8 +25,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_CAPABILITIES_CPU_TOPOLOGY_H__
-#define __LIBVIRT_GCONFIG_CAPABILITIES_CPU_TOPOLOGY_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -79,5 +78,3 @@ gvir_config_capabilities_cpu_topology_set_threads(GVirConfigCapabilitiesCpuTopol
                                                   guint64 threads);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_CAPABILITIES_CPU_TOPOLOGY_H__ */

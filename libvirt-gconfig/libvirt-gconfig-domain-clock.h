@@ -24,8 +24,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_CLOCK_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_CLOCK_H__
+#pragma once
 
 #include <libvirt-gconfig/libvirt-gconfig-domain-timer.h>
 
@@ -84,5 +83,3 @@ void gvir_config_domain_clock_add_timer(GVirConfigDomainClock *klock,
 
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_CLOCK_H__ */

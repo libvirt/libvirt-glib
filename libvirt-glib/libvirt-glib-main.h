@@ -25,8 +25,7 @@
 #error "Only <libvirt-glib/libvirt-glib.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GLIB_MAIN_H__
-#define __LIBVIRT_GLIB_MAIN_H__
+#pragma once
 
 #include <glib.h>
 
@@ -39,5 +38,3 @@ gboolean gvir_init_check(int *argc,
                          GError **err);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GLIB_MAIN_H__ */

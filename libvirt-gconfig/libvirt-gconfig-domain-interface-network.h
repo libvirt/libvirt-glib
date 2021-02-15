@@ -25,8 +25,7 @@
 #error "Only <libvirt-gconfig/libvirt-gconfig.h> can be included directly."
 #endif
 
-#ifndef __LIBVIRT_GCONFIG_DOMAIN_INTERFACE_NETWORK_H__
-#define __LIBVIRT_GCONFIG_DOMAIN_INTERFACE_NETWORK_H__
+#pragma once
 
 G_BEGIN_DECLS
 
@@ -66,5 +65,3 @@ void gvir_config_domain_interface_network_set_source(GVirConfigDomainInterfaceNe
                                                      const char *source);
 
 G_END_DECLS
-
-#endif /* __LIBVIRT_GCONFIG_DOMAIN_INTERFACE_NETWORK_H__ */
