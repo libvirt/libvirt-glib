@@ -15,6 +15,7 @@ BuildRequires: gobject-introspection-devel
 BuildRequires: libxml2-devel
 BuildRequires: vala-tools
 BuildRequires: gettext
+BuildRequires: gtk-doc
 
 %package devel
 Summary: libvirt glib integration for events development files
