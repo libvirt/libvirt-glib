@@ -9,6 +9,7 @@ License:        LGPLv2+
 URL:            https://libvirt.org/
 Source0:        https://libvirt.org/sources/glib/libvirt-glib-%{version}.tar.xz
 
+BuildRequires:  make
 BuildRequires:  meson
 BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw64-filesystem
@@ -18,6 +19,8 @@ BuildRequires:  mingw32-libvirt
 BuildRequires:  mingw64-libvirt
 BuildRequires:  gettext
 BuildRequires:  pkgconfig
+# Native pkg needed for glib-mkenums
+BuildRequires:  glib2-devel
 
 BuildArch:      noarch
 
