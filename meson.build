@@ -175,8 +175,6 @@ cc_flags += [
   '-Wbuiltin-declaration-mismatch',
   '-Wbuiltin-macro-redefined',
   '-Wcannot-profile',
-  '-Wcast-align',
-  '-Wcast-align=strict',
   '-Wcast-function-type',
   '-Wchar-subscripts',
   '-Wclobbered',
@@ -435,6 +433,10 @@ cc_flags_disabled = [
   # Too many to deal with
   '-Wconversion',
   '-Wsign-conversion',
+
+  # gtk-doc scanner generated files cause violations on arm7 at least
+  '-Wcast-align',
+  '-Wcast-align=strict',
 
   # Need to allow bad cast for execve()
   '-Wcast-qual',
