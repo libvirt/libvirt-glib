@@ -146,7 +146,8 @@ static void gvir_connection_finalize(GObject *object)
     if (gvir_connection_is_open(conn))
         gvir_connection_close(conn);
 
-    g_mutex_free(priv->lock);
+    g_mutex_clear(priv->lock);
+    g_free(priv->lock);
     g_free(priv->uri);
 
     G_OBJECT_CLASS(gvir_connection_parent_class)->finalize(object);
@@ -239,7 +240,8 @@ static void gvir_connection_init(GVirConnection *conn)
 
     priv = conn->priv = GVIR_CONNECTION_GET_PRIVATE(conn);
 
-    priv->lock = g_mutex_new();
+    priv->lock = g_new0(GMutex, 1);
+    g_mutex_init(priv->lock);
     priv->domains = g_hash_table_new_full(g_str_hash,
                                           g_str_equal,
                                           NULL,

@@ -71,7 +71,8 @@ static void gvir_manager_finalize(GObject *object)
     }
     g_list_free(priv->connections);
 
-    g_mutex_free(priv->lock);
+    g_mutex_clear(priv->lock);
+    g_free(priv->lock);
 
     G_OBJECT_CLASS(gvir_manager_parent_class)->finalize(object);
 }
@@ -110,7 +111,8 @@ static void gvir_manager_init(GVirManager *manager)
 
     priv = manager->priv = GVIR_MANAGER_GET_PRIVATE(manager);
 
-    priv->lock = g_mutex_new();
+    priv->lock = g_new0(GMutex, 1);
+    g_mutex_init(priv->lock);
 }
 
 

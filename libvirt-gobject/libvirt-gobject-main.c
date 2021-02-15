@@ -65,8 +65,6 @@ gboolean gvir_init_object_check(int *argc,
                                 char ***argv,
                                 GError **err)
 {
-    g_type_init();
-
     gvir_event_register();
 
     if (!gvir_init_check(argc, argv, err))
@@ -75,19 +73,9 @@ gboolean gvir_init_object_check(int *argc,
     if (!gvir_config_init_check(argc, argv, err))
         return FALSE;
 
-    /* GLib >= 2.31.0 debug is off by default, so we need to
-     * enable it. Older versions are on by default, so we need
-     * to disable it.
-     */
-#if GLIB_CHECK_VERSION(2, 31, 0)
     if (getenv("LIBVIRT_GOBJECT_DEBUG"))
         g_log_set_handler(G_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
                           gvir_log_handler, (void*)0x1);
-#else
-    if (!getenv("LIBVIRT_GOBJECT_DEBUG"))
-        g_log_set_handler(G_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
-                          gvir_log_handler, NULL);
-#endif
 
     return TRUE;
 }

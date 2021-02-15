@@ -141,30 +141,14 @@ gboolean gvir_init_check(int *argc G_GNUC_UNUSED,
 {
     virSetErrorFunc(NULL, gvir_error_func);
 
-    /* Threading is always enabled from 2.31.0 onwards */
-#if !GLIB_CHECK_VERSION(2, 31, 0)
-    if (!g_thread_supported())
-        g_thread_init(NULL);
-#endif
-
     virInitialize();
 
     if (!bindtextdomain(PACKAGE, LOCALEDIR))
         return FALSE;
 
-    /* GLib >= 2.31.0 debug is off by default, so we need to
-     * enable it. Older versions are on by default, so we need
-     * to disable it.
-     */
-#if GLIB_CHECK_VERSION(2, 31, 0)
     if (getenv("LIBVIRT_GLIB_DEBUG"))
         g_log_set_handler(G_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
                           gvir_log_handler, (void*)0x1);
-#else
-    if (!getenv("LIBVIRT_GLIB_DEBUG"))
-        g_log_set_handler(G_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
-                          gvir_log_handler, NULL);
-#endif
 
     return TRUE;
 }

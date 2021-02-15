@@ -16,19 +16,3 @@
 #include <config.h>
 
 #include "libvirt-gobject-compat.h"
-
-GMutex *gvir_mutex_new(void)
-{
-    GMutex *mutex;
-
-    mutex = g_new(GMutex, 1);
-    g_mutex_init(mutex);
-
-    return mutex;
-}
-
-void gvir_mutex_free(GMutex *mutex)
-{
-    g_mutex_clear(mutex);
-    g_free(mutex);
-}

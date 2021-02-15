@@ -65,21 +65,9 @@ gboolean gvir_config_init_check(int *argc G_GNUC_UNUSED,
                                 char ***argv G_GNUC_UNUSED,
                                 GError **err G_GNUC_UNUSED)
 {
-    g_type_init();
-
-    /* GLib >= 2.31.0 debug is off by default, so we need to
-     * enable it. Older versions are on by default, so we need
-     * to disable it.
-     */
-#if GLIB_CHECK_VERSION(2, 31, 0)
     if (getenv("LIBVIRT_GCONFIG_DEBUG"))
         g_log_set_handler(G_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
                           gvir_log_handler, (void*)0x1);
-#else
-    if (!getenv("LIBVIRT_GCONFIG_DEBUG"))
-        g_log_set_handler(G_LOG_DOMAIN, G_LOG_LEVEL_DEBUG,
-                          gvir_log_handler, NULL);
-#endif
 
     return TRUE;
 }

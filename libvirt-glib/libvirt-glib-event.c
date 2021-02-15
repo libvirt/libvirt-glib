@@ -82,10 +82,6 @@
  */
 
 
-#if GLIB_CHECK_VERSION(2, 31, 0)
-#define g_mutex_new() g_new0(GMutex, 1)
-#endif
-
 struct gvir_event_handle
 {
     int watch;
@@ -474,7 +470,7 @@ cleanup:
 
 static gpointer event_register_once(gpointer data G_GNUC_UNUSED)
 {
-    eventlock = g_mutex_new();
+    eventlock = g_new0(GMutex, 1);
     timeouts = g_ptr_array_new_with_free_func(g_free);
     handles = g_ptr_array_new_with_free_func(g_free);
     virEventRegisterImpl(gvir_event_handle_add,

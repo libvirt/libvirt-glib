@@ -113,7 +113,8 @@ static void gvir_storage_pool_finalize(GObject *object)
 
     virStoragePoolFree(priv->handle);
 
-    g_mutex_free(priv->lock);
+    g_mutex_clear(priv->lock);
+    g_free(priv->lock);
 
     G_OBJECT_CLASS(gvir_storage_pool_parent_class)->finalize(object);
 }
@@ -160,7 +161,8 @@ static void gvir_storage_pool_init(GVirStoragePool *pool)
 
     priv = pool->priv = GVIR_STORAGE_POOL_GET_PRIVATE(pool);
 
-    priv->lock = g_mutex_new();
+    priv->lock = g_new0(GMutex, 1);
+    g_mutex_init(priv->lock);
 }
 
 typedef struct virStoragePool GVirStoragePoolHandle;

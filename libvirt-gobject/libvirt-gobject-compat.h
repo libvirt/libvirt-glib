@@ -26,13 +26,4 @@
 #include <glib-object.h>
 #include <gio/gio.h>
 
-#if GLIB_CHECK_VERSION(2, 31, 0)
-
-void gvir_mutex_free(GMutex *mutex);
-GMutex *gvir_mutex_new(void);
-#define g_mutex_new gvir_mutex_new
-#define g_mutex_free gvir_mutex_free
-
-#endif
-
 #endif /* __LIBVIRT_GOBJECT_COMPAT_H__ */

@@ -138,7 +138,8 @@ static void gvir_domain_finalize(GObject *object)
     if (priv->snapshots) {
         g_hash_table_unref(priv->snapshots);
     }
-    g_mutex_free(priv->lock);
+    g_mutex_clear(priv->lock);
+    g_free(priv->lock);
 
     virDomainFree(priv->handle);
 
@@ -252,7 +253,8 @@ static void gvir_domain_class_init(GVirDomainClass *klass)
 static void gvir_domain_init(GVirDomain *domain)
 {
     domain->priv = GVIR_DOMAIN_GET_PRIVATE(domain);
-    domain->priv->lock = g_mutex_new();
+    domain->priv->lock = g_new0(GMutex, 1);
+    g_mutex_init(domain->priv->lock);
 }
 
 typedef struct virDomain GVirDomainHandle;
