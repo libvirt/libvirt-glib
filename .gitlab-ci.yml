@@ -54,7 +54,7 @@ stages:
     - meson build -Ddriver_libvirtd=disabled "--prefix=$VROOT" "--libdir=$LIBDIR"
     - ninja -C build install
     - popd
-    - meson build
+    - meson build --werror $MESON_OPTS || (cat build/meson-logs/meson-log.txt && exit 1)
     - ninja -C build dist
     - if test -x /usr/bin/rpmbuild && test "$RPM" != "skip";
       then
@@ -71,7 +71,7 @@ stages:
   before_script:
     - *script_variables
   script:
-    - meson build
+    - meson build --werror $MESON_OPTS || (cat build/meson-logs/meson-log.txt && exit 1)
     - ninja -C build dist
     - if test -x /usr/bin/rpmbuild && test "$RPM" != "skip";
       then
