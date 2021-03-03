@@ -20,7 +20,7 @@ stages:
 
 # Common templates
 
-.container_job_template: &container_job_definition
+.container_job:
   image: docker:stable
   stage: containers
   needs: []
@@ -42,7 +42,7 @@ stages:
   after_script:
     - docker logout
 
-.git_native_build_job_template: &git_native_build_job_definition
+.native_git_build_job:
   image: $CI_REGISTRY_IMAGE/ci-$NAME:latest
   stage: builds
   rules:
@@ -77,7 +77,7 @@ stages:
         rpmbuild --nodeps -ta build/meson-dist/libvirt-glib-*.tar.xz;
       fi
 
-.dist_native_build_job_template: &dist_native_build_job_definition
+.native_dist_build_job:
   image: $CI_REGISTRY_IMAGE/ci-$NAME:latest
   stage: builds
   rules:
@@ -104,7 +104,7 @@ stages:
         rpmbuild --nodeps -ta build/meson-dist/libvirt-glib-*.tar.xz;
       fi
 
-.git_cross_build_default_job_template: &git_cross_build_default_job_definition
+.cross_git_build_job:
   image: $CI_REGISTRY_IMAGE/ci-$NAME:latest
   stage: builds
   rules:
@@ -175,57 +175,57 @@ stages:
 # Native container build jobs
 
 x64-centos-7-container:
-  <<: *container_job_definition
+  extends: .container_job
   variables:
     NAME: centos-7
 
 x64-centos-8-container:
-  <<: *container_job_definition
+  extends: .container_job
   variables:
     NAME: centos-8
 
 x64-centos-stream-container:
-  <<: *container_job_definition
+  extends: .container_job
   variables:
     NAME: centos-stream
 
 x64-debian-10-container:
-  <<: *container_job_definition
+  extends: .container_job
   variables:
     NAME: debian-10
 
 x64-debian-sid-container:
-  <<: *container_job_definition
+  extends: .container_job
   variables:
     NAME: debian-sid
 
 x64-fedora-32-container:
-  <<: *container_job_definition
+  extends: .container_job
   variables:
     NAME: fedora-32
 
 x64-fedora-33-container:
-  <<: *container_job_definition
+  extends: .container_job
   variables:
     NAME: fedora-33
 
 x64-fedora-rawhide-container:
-  <<: *container_job_definition
+  extends: .container_job
   variables:
     NAME: fedora-rawhide
 
 x64-opensuse-152-container:
-  <<: *container_job_definition
+  extends: .container_job
   variables:
     NAME: opensuse-152
 
 x64-ubuntu-1804-container:
-  <<: *container_job_definition
+  extends: .container_job
   variables:
     NAME: ubuntu-1804
 
 x64-ubuntu-2004-container:
-  <<: *container_job_definition
+  extends: .container_job
   variables:
     NAME: ubuntu-2004
 
@@ -233,12 +233,12 @@ x64-ubuntu-2004-container:
 # Cross-build containers build jobs
 
 mingw32-fedora-rawhide-container:
-  <<: *container_job_definition
+  extends: .container_job
   variables:
     NAME: fedora-rawhide-cross-mingw32
 
 mingw64-fedora-rawhide-container:
-  <<: *container_job_definition
+  extends: .container_job
   variables:
     NAME: fedora-rawhide-cross-mingw64
 
@@ -246,7 +246,7 @@ mingw64-fedora-rawhide-container:
 # Native architecture build + test jobs
 
 x64-centos-8-git-build:
-  <<: *git_native_build_job_definition
+  extends: .native_git_build_job
   needs:
     - x64-centos-8-container
   variables:
@@ -254,7 +254,7 @@ x64-centos-8-git-build:
     RPM: skip
 
 x64-centos-7-dist-build:
-  <<: *dist_native_build_job_definition
+  extends: .native_dist_build_job
   needs:
     - x64-centos-7-container
   variables:
@@ -265,7 +265,7 @@ x64-centos-7-dist-build:
     RPM: skip
 
 x64-centos-8-dist-build:
-  <<: *dist_native_build_job_definition
+  extends: .native_dist_build_job
   needs:
     - x64-centos-8-container
   variables:
@@ -273,7 +273,7 @@ x64-centos-8-dist-build:
     RPM: skip
 
 x64-centos-stream-dist-build:
-  <<: *dist_native_build_job_definition
+  extends: .native_dist_build_job
   needs:
     - x64-centos-stream-container
   variables:
@@ -281,42 +281,42 @@ x64-centos-stream-dist-build:
     RPM: skip
 
 x64-debian-10-dist-build:
-  <<: *dist_native_build_job_definition
+  extends: .native_dist_build_job
   needs:
     - x64-debian-10-container
   variables:
     NAME: debian-10
 
 x64-debian-sid-dist-build:
-  <<: *dist_native_build_job_definition
+  extends: .native_dist_build_job
   needs:
     - x64-debian-sid-container
   variables:
     NAME: debian-sid
 
 x64-fedora-32-dist-build:
-  <<: *dist_native_build_job_definition
+  extends: .native_dist_build_job
   needs:
     - x64-fedora-32-container
   variables:
     NAME: fedora-32
 
 x64-fedora-33-dist-build:
-  <<: *dist_native_build_job_definition
+  extends: .native_dist_build_job
   needs:
     - x64-fedora-33-container
   variables:
     NAME: fedora-33
 
 x64-fedora-rawhide-dist-build:
-  <<: *dist_native_build_job_definition
+  extends: .native_dist_build_job
   needs:
     - x64-fedora-rawhide-container
   variables:
     NAME: fedora-rawhide
 
 x64-opensuse-152-dist-build:
-  <<: *dist_native_build_job_definition
+  extends: .native_dist_build_job
   needs:
     - x64-opensuse-152-container
   variables:
@@ -324,14 +324,14 @@ x64-opensuse-152-dist-build:
     RPM: skip
 
 x64-ubuntu-1804-dist-build:
-  <<: *dist_native_build_job_definition
+  extends: .native_dist_build_job
   needs:
     - x64-ubuntu-1804-container
   variables:
     NAME: ubuntu-1804
 
 x64-ubuntu-2004-dist-build:
-  <<: *dist_native_build_job_definition
+  extends: .native_dist_build_job
   needs:
     - x64-ubuntu-2004-container
   variables:
@@ -376,14 +376,14 @@ x64-macos-11-build:
 # Cross compiled build jobs
 
 mingw32-fedora-rawhide-git-build:
-  <<: *git_cross_build_default_job_definition
+  extends: .cross_git_build_job
   needs:
     - mingw32-fedora-rawhide-container
   variables:
     NAME: fedora-rawhide-cross-mingw32
 
 mingw64-fedora-rawhide-git-build:
-  <<: *git_cross_build_default_job_definition
+  extends: .cross_git_build_job
   needs:
     - mingw64-fedora-rawhide-container
   variables:
