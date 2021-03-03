@@ -257,6 +257,9 @@ x64-centos-7-dist-build:
     - x64-centos-7-container
   variables:
     NAME: centos-7
+    # meson dist fails on CentOS 7 because of old git that fails to clone
+    # from shallow git repository which is done when running meson dist
+    DIST: skip
     RPM: skip
 
 x64-centos-8-dist-build:
