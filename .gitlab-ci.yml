@@ -1,3 +1,5 @@
+variables:
+  GIT_DEPTH: 100
 
 stages:
   - containers
@@ -400,3 +402,5 @@ check-dco:
     - /check-dco
   rules:
     - if: "$CI_PROJECT_NAMESPACE != 'libvirt'"
+  variables:
+    GIT_DEPTH: 1000
