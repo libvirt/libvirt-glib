@@ -24,6 +24,10 @@ stages:
   needs: []
   services:
     - docker:dind
+  rules:
+    - if: "$TEMPORARILY_DISABLED"
+      allow_failure: true
+    - when: on_success
   before_script:
     - export TAG="$CI_REGISTRY_IMAGE/ci-$NAME:latest"
     - export COMMON_TAG="$CI_REGISTRY/libvirt/libvirt-glib/ci-$NAME:latest"
@@ -39,6 +43,10 @@ stages:
 .git_native_build_job_template: &git_native_build_job_definition
   image: $CI_REGISTRY_IMAGE/ci-$NAME:latest
   stage: builds
+  rules:
+    - if: "$TEMPORARILY_DISABLED"
+      allow_failure: true
+    - when: on_success
   cache:
     paths:
       - ccache/
@@ -64,6 +72,10 @@ stages:
 .dist_native_build_job_template: &dist_native_build_job_definition
   image: $CI_REGISTRY_IMAGE/ci-$NAME:latest
   stage: builds
+  rules:
+    - if: "$TEMPORARILY_DISABLED"
+      allow_failure: true
+    - when: on_success
   cache:
     paths:
       - ccache/
@@ -81,6 +93,10 @@ stages:
 .git_cross_build_default_job_template: &git_cross_build_default_job_definition
   image: $CI_REGISTRY_IMAGE/ci-$NAME:latest
   stage: builds
+  rules:
+    - if: "$TEMPORARILY_DISABLED"
+      allow_failure: true
+    - when: on_success
   cache:
     paths:
       - ccache/
