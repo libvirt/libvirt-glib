@@ -367,6 +367,5 @@ check-dco:
   image: registry.gitlab.com/libvirt/libvirt-ci/check-dco:master
   script:
     - /check-dco
-  except:
-    variables:
-      - $CI_PROJECT_NAMESPACE == 'libvirt'
+  rules:
+    - if: "$CI_PROJECT_NAMESPACE != 'libvirt'"
