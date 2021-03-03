@@ -63,7 +63,13 @@ stages:
     - ninja -C build install
     - popd
     - meson build --werror $MESON_OPTS || (cat build/meson-logs/meson-log.txt && exit 1)
-    - ninja -C build dist
+    - if test "$DIST" != "skip";
+      then
+        ninja -C build dist;
+      else
+        ninja -C build;
+        ninja -C build test;
+      fi
     - if test -x /usr/bin/rpmbuild && test "$RPM" != "skip";
       then
         rpmbuild --nodeps -ta build/meson-dist/libvirt-glib-*.tar.xz;
@@ -84,7 +90,13 @@ stages:
     - *script_variables
   script:
     - meson build --werror $MESON_OPTS || (cat build/meson-logs/meson-log.txt && exit 1)
-    - ninja -C build dist
+    - if test "$DIST" != "skip";
+      then
+        ninja -C build dist;
+      else
+        ninja -C build;
+        ninja -C build test;
+      fi
     - if test -x /usr/bin/rpmbuild && test "$RPM" != "skip";
       then
         rpmbuild --nodeps -ta build/meson-dist/libvirt-glib-*.tar.xz;
