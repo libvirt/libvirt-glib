@@ -4,13 +4,13 @@
 #
 # Translators:
 # Jiri Grönroos <jiri.gronroos@iki.fi>, 2017
-# Ricky Tigg <ricky.tigg@gmail.com>, 2020.
+# Ricky Tigg <ricky.tigg@gmail.com>, 2020, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: libvirt-glib 2.0.0\n"
 "Report-Msgid-Bugs-To: https://libvirt.org/bugs.html\n"
 "POT-Creation-Date: 2020-07-06 16:42+0100\n"
-"PO-Revision-Date: 2020-11-11 14:35+0000\n"
+"PO-Revision-Date: 2021-03-26 14:01+0000\n"
 "Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
 "Language-Team: Finnish <https://translate.fedoraproject.org/projects/libvirt/"
 "libvirt-glib/fi/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3.2\n"
+"X-Generator: Weblate 4.5.1\n"
 
 #, c-format
 msgid "Connection %s is already open"
@@ -32,7 +32,7 @@ msgid "Connection is not opened"
 msgstr "Yhteyttä ei ole avattu"
 
 msgid "Failed to create domain"
-msgstr "Domainin luominen epäonnistui"
+msgstr "Toimialueen luominen epäonnistui"
 
 msgid "Failed to create storage pool"
 msgstr "Tallennusalueen luominen epäonnistui"
@@ -77,7 +77,7 @@ msgid "Unable to get connection URI"
 msgstr "Yhteyden URI:tä ei voida saada"
 
 msgid "Unable to get domain capabilities"
-msgstr "Toimialueiden ominaisuuksia ei voida saada"
+msgstr "Toimialueen kykyjä ei voida saada"
 
 msgid "Unable to get hypervisor name"
 msgstr "Ei saatu hypervisorin nimeä"
