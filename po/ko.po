@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: libvirt-glib 3.0.0\n"
 "Report-Msgid-Bugs-To: https://libvirt.org/bugs.html\n"
 "POT-Creation-Date: 2020-07-06 16:42+0100\n"
-"PO-Revision-Date: 2021-04-07 06:01+0000\n"
+"PO-Revision-Date: 2021-04-13 06:02+0000\n"
 "Last-Translator: simmon <simmon@nplob.com>\n"
 "Language-Team: Korean <https://translate.fedoraproject.org/projects/libvirt/"
 "libvirt-glib/ko/>\n"
@@ -106,7 +106,7 @@ msgstr "하이퍼바이저 이름을 가져 올 수 없습니다"
 
 #: libvirt-gobject/libvirt-gobject-connection.c:1079
 msgid "Unable to get hypervisor version"
-msgstr "하이퍼바이저 상태번호를 가져 올 수 없습니다"
+msgstr "하이퍼바이저 버전를 가져 올 수 없습니다"
 
 #: libvirt-gobject/libvirt-gobject-connection.c:2063
 msgid "Unable to get node info"
