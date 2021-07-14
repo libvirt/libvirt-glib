@@ -101,7 +101,7 @@ void gvir_init(int *argc,
     GError *err = NULL;
     if (!gvir_init_check(argc, argv, &err)) {
         g_error("Could not initialize libvirt-glib: %s\n",
-                err->message);
+                err ? err->message : "<unknown error>");
     }
 }
 
