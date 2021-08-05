@@ -1,0 +1,69 @@
+projects:
+  - libvirt-glib
+  - libvirt+dist
+
+gitlab:
+  namespace: libvirt
+  project: libvirt-glib
+
+targets:
+  centos-8:
+    projects:
+      - libvirt-glib
+      - libvirt+minimal
+      - libvirt+dist
+
+    jobs:
+      - arch: x86_64
+        variables:
+          RPM: skip
+
+      - arch: x86_64
+        template: .native_git_build_job
+        suffix: -git
+        variables:
+          RPM: skip
+
+  centos-stream-8:
+    jobs:
+      - arch: x86_64
+        variables:
+          RPM: skip
+
+  debian-10: x86_64
+
+  debian-sid: x86_64
+
+  fedora-33: x86_64
+
+  fedora-34: x86_64
+
+  fedora-rawhide:
+    jobs:
+      - arch: x86_64
+
+      - arch: mingw32
+
+      - arch: mingw64
+
+  freebsd-12: x86_64
+
+  freebsd-13: x86_64
+
+  macos-11: x86_64
+
+  opensuse-leap-152:
+    jobs:
+      - arch: x86_64
+        variables:
+          RPM: skip
+
+  opensuse-tumbleweed:
+    jobs:
+      - arch: x86_64
+        variables:
+          RPM: skip
+
+  ubuntu-1804: x86_64
+
+  ubuntu-2004: x86_64
