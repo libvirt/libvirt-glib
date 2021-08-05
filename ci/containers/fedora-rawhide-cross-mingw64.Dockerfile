@@ -1,11 +1,13 @@
 # THIS FILE WAS AUTO-GENERATED
 #
-#  $ lcitool dockerfile fedora-33 libvirt+dist,libvirt-glib
+#  $ lcitool manifest ci/manifest.yml
 #
-# https://gitlab.com/libvirt/libvirt-ci/-/commit/d527e0c012f476c293f3bc801b7da08bc85f98ef
-FROM registry.fedoraproject.org/fedora:33
+# https://gitlab.com/libvirt/libvirt-ci
 
-RUN dnf install -y nosync && \
+FROM registry.fedoraproject.org/fedora:rawhide
+
+RUN dnf update -y --nogpgcheck fedora-gpg-keys && \
+    dnf install -y nosync && \
     echo -e '#!/bin/sh\n\
 if test -d /usr/lib64\n\
 then\n\
@@ -19,29 +21,34 @@ exec "$@"' > /usr/bin/nosync && \
     nosync dnf install -y \
         ca-certificates \
         ccache \
-        gcc \
-        gettext \
         git \
-        glib2-devel \
         glibc-langpack-en \
-        gobject-introspection-devel \
         gtk-doc \
-        libvirt-devel \
-        libxml2-devel \
         make \
         meson \
         ninja-build \
-        pkgconfig \
         rpm-build \
         vala && \
     nosync dnf autoremove -y && \
     nosync dnf clean all -y && \
     rpm -qa | sort > /packages.txt && \
     mkdir -p /usr/libexec/ccache-wrappers && \
-    ln -s /usr/bin/ccache /usr/libexec/ccache-wrappers/cc && \
-    ln -s /usr/bin/ccache /usr/libexec/ccache-wrappers/$(basename /usr/bin/gcc)
+    ln -s /usr/bin/ccache /usr/libexec/ccache-wrappers/x86_64-w64-mingw32-cc && \
+    ln -s /usr/bin/ccache /usr/libexec/ccache-wrappers/x86_64-w64-mingw32-gcc
+
+RUN nosync dnf install -y \
+        mingw64-gcc \
+        mingw64-gettext \
+        mingw64-glib2 \
+        mingw64-libvirt \
+        mingw64-libxml2 \
+        mingw64-pkg-config && \
+    nosync dnf clean all -y
 
 ENV LANG "en_US.UTF-8"
 ENV MAKE "/usr/bin/make"
 ENV NINJA "/usr/bin/ninja"
 ENV CCACHE_WRAPPERSDIR "/usr/libexec/ccache-wrappers"
+
+ENV ABI "x86_64-w64-mingw32"
+ENV MESON_OPTS "--cross-file=/usr/share/mingw/toolchain-mingw64.meson"
