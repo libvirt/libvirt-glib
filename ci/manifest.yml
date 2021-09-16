@@ -46,11 +46,25 @@ targets:
 
       - arch: mingw64
 
-  freebsd-12: x86_64
+  freebsd-12:
+    jobs:
+      - arch: x86_64
+        variables:
+          XML_CATALOG_FILES: /usr/local/share/xml/catalog
 
-  freebsd-13: x86_64
+  freebsd-13:
+    jobs:
+      - arch: x86_64
+        variables:
+          XML_CATALOG_FILES: /usr/local/share/xml/catalog
 
-  macos-11: x86_64
+  macos-11:
+    jobs:
+      - arch: x86_64
+        variables:
+          PATH_EXTRA: /usr/local/opt/ccache/libexec:/usr/local/opt/gettext/bin:/usr/local/opt/rpcgen/bin
+          PKG_CONFIG_PATH: /usr/local/opt/libxml2/lib/pkgconfig
+          XML_CATALOG_FILES: /usr/local/etc/xml/catalog
 
   opensuse-leap-152:
     jobs:

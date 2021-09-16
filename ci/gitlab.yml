@@ -57,6 +57,7 @@
           -e "s|[@]PYTHON@|$PYTHON|g"
           -e "s|[@]PIP3@|$PIP3|g"
           -e "s|[@]PYPI_PKGS@|$PYPI_PKGS|g"
+          -e "s|[@]XML_CATALOG_FILES@|$XML_CATALOG_FILES|g"
       <ci/cirrus/build.yml >ci/cirrus/$NAME.yml
     - cat ci/cirrus/$NAME.yml
     - cirrus-run -v --show-build-log always ci/cirrus/$NAME.yml
@@ -325,6 +326,7 @@ x86_64-freebsd-12:
     UPDATE_COMMAND: pkg update
     UPGRADE_COMMAND: pkg upgrade -y
     INSTALL_COMMAND: pkg install -y
+    XML_CATALOG_FILES: /usr/local/share/xml/catalog
 
 
 x86_64-freebsd-13:
@@ -339,6 +341,7 @@ x86_64-freebsd-13:
     UPDATE_COMMAND: pkg update
     UPGRADE_COMMAND: pkg upgrade -y
     INSTALL_COMMAND: pkg install -y
+    XML_CATALOG_FILES: /usr/local/share/xml/catalog
 
 
 x86_64-macos-11:
@@ -353,3 +356,6 @@ x86_64-macos-11:
     UPDATE_COMMAND: brew update
     UPGRADE_COMMAND: brew upgrade
     INSTALL_COMMAND: brew install
+    PATH_EXTRA: /usr/local/opt/ccache/libexec:/usr/local/opt/gettext/bin:/usr/local/opt/rpcgen/bin
+    PKG_CONFIG_PATH: /usr/local/opt/libxml2/lib/pkgconfig
+    XML_CATALOG_FILES: /usr/local/etc/xml/catalog
