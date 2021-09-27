@@ -50,9 +50,6 @@ libvirt_dep = dependency('libvirt', version: '>=' + libvirt_version)
 libxml_min_version='>=2.9.1'
 libxml_dep = dependency('libxml-2.0', version: libxml_min_version)
 
-add_global_arguments('-DGLIB_VERSION_MIN_REQUIRED=@0@'.format(glib_min_version_symbol), language: 'c')
-add_global_arguments('-DGLIB_VERSION_MAX_ALLOWED=@0@'.format(glib_min_version_symbol), language: 'c')
-
 prefix = get_option('prefix')
 localedir = join_paths(prefix, get_option('localedir'))
 datadir = join_paths(prefix, get_option('datadir'))
@@ -520,6 +517,8 @@ common_cflags = [
   '-DLOCALEDIR="@0@"'.format(localedir),
   '-DDATADIR="@0@"'.format(datadir),
   '-DLIBVIRT_GLIB_BUILD',
+  '-DGLIB_VERSION_MIN_REQUIRED=@0@'.format(glib_min_version_symbol),
+  '-DGLIB_VERSION_MAX_ALLOWED=@0@'.format(glib_min_version_symbol),
 ]
 
 gnome = import('gnome')
