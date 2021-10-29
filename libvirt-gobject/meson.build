@@ -63,6 +63,10 @@ libvirt_gobject_enum_sources = gnome.mkenums(
   c_template: 'libvirt-gobject-enums.c.template',
   symbol_prefix: 'gvir',
   identifier_prefix: 'GVir',
+  # workaround for https://github.com/mesonbuild/meson/issues/9472
+  install_header: false,
+  install_dir: libvirt_gobject_includedir,
+  # end workaround
 )
 
 libvirt_gobject_sources += [libvirt_gobject_enum_sources, libvirt_gobject_enum_headers]

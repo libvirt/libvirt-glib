@@ -192,6 +192,10 @@ libvirt_gconfig_enum_sources = gnome.mkenums(
   c_template: 'libvirt-gconfig-enum-types.c.template',
   symbol_prefix: 'gvir_config',
   identifier_prefix: 'GVirConfig',
+  # workaround for https://github.com/mesonbuild/meson/issues/9472
+  install_header: false,
+  install_dir: libvirt_gconfig_includedir,
+  # end workaround
 )
 
 libvirt_gconfig_sources += [libvirt_gconfig_enum_sources, libvirt_gconfig_enum_headers]
