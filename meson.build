@@ -6,6 +6,7 @@ project(
   default_options: [
     'buildtype=debugoptimized',
     'c_std=gnu99',
+    'warning_level=2',
   ],
 )
 
@@ -171,12 +172,10 @@ cc_flags += [
   '-fexceptions',
   '-fipa-pure-const',
   '-fno-common',
-  '-W',
   '-Wabsolute-value',
   '-Waddress',
   '-Waddress-of-packed-member',
   '-Waggressive-loop-optimizations',
-  '-Wall',
   '-Walloc-size-larger-than=@0@'.format(alloc_max.stdout().strip()),
   '-Warray-bounds=2',
   '-Wattribute-alias=2',
@@ -207,7 +206,6 @@ cc_flags += [
   '-Wempty-body',
   '-Wendif-labels',
   '-Wexpansion-to-defined',
-  '-Wextra',
   '-Wformat-contains-nul',
   '-Wformat-extra-args',
   '-Wno-format-nonliteral',
@@ -338,39 +336,45 @@ cc_flags += [
   '-Wwrite-strings',
 ]
 
-# on aarch64 error: -fstack-protector not supported for this target
-if host_machine.cpu_family() != 'aarch64'
-  if host_machine.system() in [ 'linux', 'freebsd', 'windows' ]
-    # we prefer -fstack-protector-strong but fallback to -fstack-protector-all
-    fstack_cflags = cc.first_supported_argument([
-      '-fstack-protector-strong',
-      '-fstack-protector-all',
-    ])
-    cc_flags += fstack_cflags
 
-    # When building with mingw using -fstack-protector requires libssp library
-    # which is included by using -fstack-protector with linker.
-    if fstack_cflags.length() == 1 and host_machine.system() == 'windows'
-      add_project_link_arguments(fstack_cflags, language: 'c')
+if get_option('warning_level') == '2'
+  # on aarch64 error: -fstack-protector not supported for this target
+  if host_machine.cpu_family() != 'aarch64'
+    if host_machine.system() in [ 'linux', 'freebsd', 'windows' ]
+      # we prefer -fstack-protector-strong but fallback to -fstack-protector-all
+      fstack_cflags = cc.first_supported_argument([
+        '-fstack-protector-strong',
+        '-fstack-protector-all',
+      ])
+      cc_flags += fstack_cflags
+
+      # When building with mingw using -fstack-protector requires libssp library
+      # which is included by using -fstack-protector with linker.
+      if fstack_cflags.length() == 1 and host_machine.system() == 'windows'
+        add_project_link_arguments(fstack_cflags, language: 'c')
+      endif
     endif
   endif
+
+  # Clang complains about unused static inline functions which are common
+  # with G_DEFINE_AUTOPTR_CLEANUP_FUNC.
+  w_unused_function_args = ['-Wunused-function', '-Werror']
+  w_unused_function_code = '''
+    static inline void foo(void) {}
+
+    int main(void) { return 0; }
+  '''
+  # -Wunused-function is implied by -Wall, we must turn it off explicitly.
+  if not cc.compiles(w_unused_function_code, args: w_unused_function_args)
+    cc_flags += ['-Wno-unused-function']
+  endif
+
+  warning_cflags = cc.get_supported_arguments(cc_flags)
+else
+  warning_cflags = []
 endif
 
-# Clang complains about unused static inline functions which are common
-# with G_DEFINE_AUTOPTR_CLEANUP_FUNC.
-w_unused_function_args = ['-Wunused-function', '-Werror']
-w_unused_function_code = '''
-  static inline void foo(void) {}
 
-  int main(void) { return 0; }
-'''
-# -Wunused-function is implied by -Wall, we must turn it off explicitly.
-if not cc.compiles(w_unused_function_code, args: w_unused_function_args)
-  cc_flags += ['-Wno-unused-function']
-endif
-
-
-warning_cflags = cc.get_supported_arguments(cc_flags)
 
 if git
   authors = run_command(python3.full_path(), gen_authors_prog.full_path(),
