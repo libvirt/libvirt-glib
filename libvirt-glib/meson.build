@@ -28,7 +28,7 @@ endif
 libvirt_glib = shared_library(
   'virt-glib-1.0',
   sources: libvirt_glib_sources,
-  c_args: common_cflags,
+  c_args: common_cflags + warning_cflags,
   dependencies: libvirt_glib_deps,
   include_directories: top_include_dir,
   link_args: libvirt_glib_link_args,

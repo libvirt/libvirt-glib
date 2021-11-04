@@ -88,7 +88,7 @@ endif
 libvirt_gobject = shared_library(
   'virt-gobject-1.0',
   sources: libvirt_gobject_sources,
-  c_args: common_cflags,
+  c_args: common_cflags + warning_cflags,
   dependencies: libvirt_gobject_deps,
   include_directories: top_include_dir,
   link_with: [libvirt_glib, libvirt_gconfig],

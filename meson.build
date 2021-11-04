@@ -326,9 +326,6 @@ cc_flags += [
   '-Wunused-function',
   '-Wunused-label',
   '-Wunused-local-typedefs',
-  # gtk-doc-scangobj causes failures. We should do a
-  # more targetted workaround for this really.
-  '-Wno-unused-parameter',
   '-Wunused-result',
   '-Wunused-value',
   '-Wunused-variable',
@@ -373,8 +370,7 @@ if not cc.compiles(w_unused_function_code, args: w_unused_function_args)
 endif
 
 
-supported_cc_flags = cc.get_supported_arguments(cc_flags)
-add_project_arguments(supported_cc_flags, language: 'c')
+warning_cflags = cc.get_supported_arguments(cc_flags)
 
 if git
   authors = run_command(python3.full_path(), gen_authors_prog.full_path(),

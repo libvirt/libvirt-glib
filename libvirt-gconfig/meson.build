@@ -217,7 +217,7 @@ endif
 libvirt_gconfig = shared_library(
   'virt-gconfig-1.0',
   sources: libvirt_gconfig_sources,
-  c_args: common_cflags,
+  c_args: common_cflags + warning_cflags,
   dependencies: libvirt_gconfig_deps,
   include_directories: top_include_dir,
   link_with: [libvirt_glib],
