@@ -793,4 +793,14 @@ global:
 	gvir_config_domain_controller_set_ports;
 } LIBVIRT_GCONFIG_3.0.0;
 
+LIBVIRT_GCONFIG_5.0.0 {
+global:
+        gvir_config_domain_audio_backend_get_type;
+        gvir_config_domain_audio_get_type;
+        gvir_config_domain_audio_new;
+        gvir_config_domain_audio_new_from_xml;
+        gvir_config_domain_audio_set_backend;
+        gvir_config_domain_audio_set_server_name;
+} LIBVIRT_GCONFIG_3.1.0;
+
 # .... define new API here using predicted next version number ....

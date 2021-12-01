@@ -44,6 +44,7 @@
 #include <libvirt-gconfig/libvirt-gconfig-domain-address.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-address-pci.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-address-usb.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-audio.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-capabilities.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-capabilities-os.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-chardev.h>

@@ -90,6 +90,8 @@ gvir_config_domain_device_new_from_tree(GVirConfigXmlDoc *doc,
         type = GVIR_CONFIG_TYPE_DOMAIN_CHANNEL;
     } else if (xmlStrEqual(tree->name, (xmlChar*)"watchdog")) {
         type = GVIR_CONFIG_TYPE_DOMAIN_DEVICE;
+    } else if (xmlStrEqual(tree->name, (xmlChar*)"audio")) {
+        type = GVIR_CONFIG_TYPE_DOMAIN_AUDIO;
     } else if (xmlStrEqual(tree->name, (xmlChar*)"sound")) {
         type = GVIR_CONFIG_TYPE_DOMAIN_SOUND;
     } else if (xmlStrEqual(tree->name, (xmlChar*)"memballoon")) {
