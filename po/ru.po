@@ -4,119 +4,120 @@
 #
 # Translators:
 # Alexander Savchenko, 2014
+# Sergey A. <sw@atrus.ru>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: libvirt-glib 2.0.0\n"
 "Report-Msgid-Bugs-To: https://libvirt.org/bugs.html\n"
 "POT-Creation-Date: 2020-07-06 16:42+0100\n"
-"PO-Revision-Date: 2014-12-17 12:23+0000\n"
-"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
-"Language-Team: Russian (http://www.transifex.com/projects/p/libvirt-glib/"
-"language/ru/)\n"
+"PO-Revision-Date: 2022-07-04 00:18+0000\n"
+"Last-Translator: Sergey A. <sw@atrus.ru>\n"
+"Language-Team: Russian <https://translate.fedoraproject.org/projects/libvirt/"
+"libvirt-glib/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Zanata 4.6.2\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.13\n"
 
 #, c-format
 msgid "Connection %s is already open"
-msgstr ""
+msgstr "Соединение %s уже открыто"
 
 msgid "Connection is not open"
-msgstr ""
+msgstr "Соединение не открыто"
 
 msgid "Connection is not opened"
-msgstr ""
+msgstr "Соединение не открыто"
 
 msgid "Failed to create domain"
-msgstr ""
+msgstr "Не удалось создать домен"
 
 msgid "Failed to create storage pool"
-msgstr ""
+msgstr "Не удалось создать пул носителей"
 
 msgid "Failed to fetch list of domains"
-msgstr ""
+msgstr "Не удалось получить список доменов"
 
 msgid "Failed to fetch list of interfaces"
-msgstr ""
+msgstr "Не удалось получить список интерфейсов"
 
 msgid "Failed to fetch list of networks"
-msgstr ""
+msgstr "Не удалось получить список сетей"
 
 msgid "Failed to fetch list of pools"
-msgstr ""
+msgstr "Не удалось получить список пулов"
 
 #, c-format
 msgid "Got virStreamRecv error in %s"
-msgstr ""
+msgstr "Получено сообщение об ошибке virStreamRecv в %s"
 
 msgid "No XML document associated with this config object"
-msgstr ""
+msgstr "С этим объектом не связано ни одного документа XML"
 
 msgid "No XML document to parse"
-msgstr ""
+msgstr "Нет для разбора документа XML"
 
 msgid "No XML schema associated with this config object"
-msgstr ""
+msgstr "С этим объектом не связано ни одной схемы XML"
 
 #, c-format
 msgid "Unable to create RNG parser for %s"
-msgstr ""
+msgstr "Не удалось создать анализатор RNG для %s"
 
 #, c-format
 msgid "Unable to create RNG validation context %s"
-msgstr ""
+msgstr "Не удалось создать контекст валидации RNG: %s"
 
 msgid "Unable to get capabilities"
-msgstr ""
+msgstr "Не удалось получить список возможностей"
 
 msgid "Unable to get connection URI"
-msgstr ""
+msgstr "Не удалось получить URI подключения"
 
 msgid "Unable to get domain capabilities"
-msgstr ""
+msgstr "Не удалось получить возможности домена"
 
 msgid "Unable to get hypervisor name"
-msgstr ""
+msgstr "Не удалось получить имя гипервизора"
 
 msgid "Unable to get hypervisor version"
-msgstr ""
+msgstr "Не удалось получить версию гипервизора"
 
 msgid "Unable to get node info"
-msgstr ""
+msgstr "Не удалось получить информацию по узлу"
 
 #, c-format
 msgid "Unable to open %s"
-msgstr "Невозможно открыть %s"
+msgstr "Не удалось открыть %s"
 
 #, c-format
 msgid "Unable to parse RNG %s"
-msgstr ""
+msgstr "Не удалось обработать RNG %s"
 
 msgid "Unable to parse configuration"
-msgstr ""
+msgstr "Не удалось обработать конфигурацию"
 
 msgid "Unable to perform RecvAll"
-msgstr ""
+msgstr "Не удалось выполнить RecvAll"
 
 msgid "Unable to perform SendAll"
-msgstr ""
+msgstr "Не удалось выполнить SendAll"
 
 msgid "Unable to restore domain"
-msgstr ""
+msgstr "Не удалось восстановить домен"
 
 msgid "Unable to validate doc"
-msgstr ""
+msgstr "Документ не прошел проверку"
 
 #, c-format
 msgid "XML data has no '%s' node"
-msgstr ""
+msgstr "Данные XML не содержат узла «%s»"
 
 msgid "virStreamRecv call would block"
-msgstr ""
+msgstr "Вызов virStreamRecv будет заблокирован"
 
 msgid "virStreamSend call would block"
-msgstr ""
+msgstr "Вызов virStreamSend будет заблокирован"
