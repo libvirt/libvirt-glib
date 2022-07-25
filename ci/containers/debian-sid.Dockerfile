@@ -19,6 +19,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
             gtk-doc-tools \
             libgirepository1.0-dev \
             libglib2.0-dev \
+            libglib2.0-dev-bin \
             libvirt-dev \
             libxml2-dev \
             locales \

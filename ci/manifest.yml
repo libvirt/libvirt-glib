@@ -7,7 +7,7 @@ gitlab:
   project: libvirt-glib
 
 targets:
-  centos-8:
+  almalinux-8:
     projects:
       - libvirt-glib
       - libvirt+minimal
@@ -34,9 +34,9 @@ targets:
 
   debian-sid: x86_64
 
-  fedora-33: x86_64
+  fedora-35: x86_64
 
-  fedora-34: x86_64
+  fedora-36: x86_64
 
   fedora-rawhide:
     jobs:
@@ -66,7 +66,7 @@ targets:
           PKG_CONFIG_PATH: /usr/local/opt/libxml2/lib/pkgconfig
           XML_CATALOG_FILES: /usr/local/etc/xml/catalog
 
-  opensuse-leap-152:
+  opensuse-leap-153:
     jobs:
       - arch: x86_64
         variables:
@@ -78,6 +78,6 @@ targets:
         variables:
           RPM: skip
 
-  ubuntu-1804: x86_64
-
   ubuntu-2004: x86_64
+
+  ubuntu-2204: x86_64

@@ -6,11 +6,12 @@
 
 FROM quay.io/centos/centos:stream8
 
-RUN dnf update -y && \
+RUN dnf distro-sync -y && \
     dnf install 'dnf-command(config-manager)' -y && \
     dnf config-manager --set-enabled -y powertools && \
     dnf install -y centos-release-advanced-virtualization && \
     dnf install -y epel-release && \
+    dnf install -y epel-next-release && \
     dnf install -y \
         ca-certificates \
         ccache \
@@ -24,11 +25,9 @@ RUN dnf update -y && \
         libvirt-devel \
         libxml2-devel \
         make \
+        meson \
         ninja-build \
         pkgconfig \
-        python3-pip \
-        python3-setuptools \
-        python3-wheel \
         rpm-build \
         vala && \
     dnf autoremove -y && \
@@ -37,9 +36,6 @@ RUN dnf update -y && \
     mkdir -p /usr/libexec/ccache-wrappers && \
     ln -s /usr/bin/ccache /usr/libexec/ccache-wrappers/cc && \
     ln -s /usr/bin/ccache /usr/libexec/ccache-wrappers/gcc
-
-RUN pip3 install \
-         meson==0.56.0
 
 ENV LANG "en_US.UTF-8"
 ENV MAKE "/usr/bin/make"
