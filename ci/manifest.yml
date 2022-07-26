@@ -30,7 +30,11 @@ targets:
         variables:
           RPM: skip
 
+  centos-stream-9: x86_64
+
   debian-10: x86_64
+
+  debian-11: x86_64
 
   debian-sid: x86_64
 
