@@ -30,11 +30,3 @@ if test -x /usr/bin/x86_64-w64-mingw32-gcc ; then
 
   ninja -C build/win64
 fi
-
-if test -x /usr/bin/i686-w64-mingw32-gcc && test -x /usr/bin/x86_64-w64-mingw32-gcc ; then
-  if test -f /usr/bin/rpmbuild ; then
-    rpmbuild --nodeps \
-             --define "_sourcedir `pwd`/build/native/meson-dist" \
-             -ba --clean build/native/mingw-libvirt-glib.spec
-  fi
-fi

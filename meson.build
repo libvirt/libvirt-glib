@@ -118,12 +118,6 @@ if git
     output: 'libvirt-glib.spec',
     configuration: conf_data
   )
-
-  configure_file(
-    input: 'mingw-libvirt-glib.spec.in',
-    output: 'mingw-libvirt-glib.spec',
-    configuration: conf_data
-  )
 endif
 
 configure_file(
