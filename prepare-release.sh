@@ -5,7 +5,7 @@ set -v
 
 rm -rf build
 
-meson --prefix="`pwd`/build/vroot" -Ddocs=true build/native
+meson --prefix="`pwd`/build/vroot" -Ddocs=enabled build/native
 
 ninja -C build/native dist
 
