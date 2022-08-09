@@ -158,18 +158,6 @@ MinGW Windows libvirt-gobject virtualization library.
 %check
 %meson_test
 
-%post -p /sbin/ldconfig
-
-%postun -p /sbin/ldconfig
-
-%post -n libvirt-gconfig -p /sbin/ldconfig
-
-%postun -n libvirt-gconfig -p /sbin/ldconfig
-
-%post -n libvirt-gobject -p /sbin/ldconfig
-
-%postun -n libvirt-gobject -p /sbin/ldconfig
-
 %files -f %{name}.lang
 %doc README COPYING AUTHORS NEWS
 %{_libdir}/libvirt-glib-1.0.so.*
