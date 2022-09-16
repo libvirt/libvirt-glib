@@ -19,33 +19,33 @@ exec "$@"' > /usr/bin/nosync && \
     chmod +x /usr/bin/nosync && \
     nosync dnf distro-sync -y && \
     nosync dnf install -y \
-        ca-certificates \
-        ccache \
-        cppi \
-        git \
-        glib2-devel \
-        glibc-langpack-en \
-        gtk-doc \
-        make \
-        meson \
-        ninja-build \
-        rpm-build \
-        vala && \
+               ca-certificates \
+               ccache \
+               cppi \
+               git \
+               glib2-devel \
+               glibc-langpack-en \
+               gtk-doc \
+               make \
+               meson \
+               ninja-build \
+               rpm-build \
+               vala && \
     nosync dnf autoremove -y && \
     nosync dnf clean all -y
 
+ENV CCACHE_WRAPPERSDIR "/usr/libexec/ccache-wrappers"
 ENV LANG "en_US.UTF-8"
 ENV MAKE "/usr/bin/make"
 ENV NINJA "/usr/bin/ninja"
-ENV CCACHE_WRAPPERSDIR "/usr/libexec/ccache-wrappers"
 
 RUN nosync dnf install -y \
-        mingw32-gcc \
-        mingw32-gettext \
-        mingw32-glib2 \
-        mingw32-libvirt \
-        mingw32-libxml2 \
-        mingw32-pkg-config && \
+               mingw32-gcc \
+               mingw32-gettext \
+               mingw32-glib2 \
+               mingw32-libvirt \
+               mingw32-libxml2 \
+               mingw32-pkg-config && \
     nosync dnf clean all -y && \
     rpm -qa | sort > /packages.txt && \
     mkdir -p /usr/libexec/ccache-wrappers && \

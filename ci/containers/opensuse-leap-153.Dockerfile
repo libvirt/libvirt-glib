@@ -36,7 +36,7 @@ RUN zypper update -y && \
 
 RUN /usr/bin/pip3 install meson==0.56.0
 
+ENV CCACHE_WRAPPERSDIR "/usr/libexec/ccache-wrappers"
 ENV LANG "en_US.UTF-8"
 ENV MAKE "/usr/bin/make"
 ENV NINJA "/usr/bin/ninja"
-ENV CCACHE_WRAPPERSDIR "/usr/libexec/ccache-wrappers"
