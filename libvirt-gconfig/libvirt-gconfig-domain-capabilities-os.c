@@ -67,7 +67,7 @@ static gboolean search_firmwares(xmlNodePtr node, gpointer opaque)
 {
     const gchar *content;
 
-    if (!g_str_equal(node->name, "enum"))
+    if (!g_str_equal((const gchar *)node->name, "enum"))
         return TRUE;
 
     content = gvir_config_xml_get_attribute_content(node, "name");
