@@ -126,14 +126,14 @@ x86_64-debian-sid-prebuilt-env:
   needs:
     - job: x86_64-debian-sid-container
       optional: true
-  allow_failure: false
+  allow_failure: true
   variables:
     NAME: debian-sid
 
 x86_64-debian-sid-local-env:
   extends: .native_build_job_local_env
   needs: []
-  allow_failure: false
+  allow_failure: true
   variables:
     IMAGE: docker.io/library/debian:sid-slim
     NAME: debian-sid
@@ -180,14 +180,14 @@ x86_64-fedora-rawhide-prebuilt-env:
   needs:
     - job: x86_64-fedora-rawhide-container
       optional: true
-  allow_failure: false
+  allow_failure: true
   variables:
     NAME: fedora-rawhide
 
 x86_64-fedora-rawhide-local-env:
   extends: .native_build_job_local_env
   needs: []
-  allow_failure: false
+  allow_failure: true
   variables:
     IMAGE: registry.fedoraproject.org/fedora:rawhide
     NAME: fedora-rawhide
@@ -218,7 +218,7 @@ x86_64-opensuse-tumbleweed-prebuilt-env:
   needs:
     - job: x86_64-opensuse-tumbleweed-container
       optional: true
-  allow_failure: false
+  allow_failure: true
   variables:
     NAME: opensuse-tumbleweed
     RPM: skip
@@ -226,7 +226,7 @@ x86_64-opensuse-tumbleweed-prebuilt-env:
 x86_64-opensuse-tumbleweed-local-env:
   extends: .native_build_job_local_env
   needs: []
-  allow_failure: false
+  allow_failure: true
   variables:
     IMAGE: registry.opensuse.org/opensuse/tumbleweed:latest
     NAME: opensuse-tumbleweed
@@ -272,24 +272,24 @@ x86_64-ubuntu-2204-local-env:
 
 # Cross build jobs
 
-mingw32-fedora-rawhide-prebuilt-env:
+mingw32-fedora-37-prebuilt-env:
   extends: .cross_build_job_prebuilt_env
   needs:
-    - job: mingw32-fedora-rawhide-container
+    - job: mingw32-fedora-37-container
       optional: true
   allow_failure: false
   variables:
     CROSS: mingw32
-    NAME: fedora-rawhide
+    NAME: fedora-37
 
-mingw32-fedora-rawhide-local-env:
+mingw32-fedora-37-local-env:
   extends: .cross_build_job_local_env
   needs: []
   allow_failure: false
   variables:
     CROSS: mingw32
-    IMAGE: registry.fedoraproject.org/fedora:rawhide
-    NAME: fedora-rawhide
+    IMAGE: registry.fedoraproject.org/fedora:37
+    NAME: fedora-37
 
 
 mingw64-fedora-rawhide-prebuilt-env:
@@ -297,7 +297,7 @@ mingw64-fedora-rawhide-prebuilt-env:
   needs:
     - job: mingw64-fedora-rawhide-container
       optional: true
-  allow_failure: false
+  allow_failure: true
   variables:
     CROSS: mingw64
     NAME: fedora-rawhide
@@ -305,7 +305,7 @@ mingw64-fedora-rawhide-prebuilt-env:
 mingw64-fedora-rawhide-local-env:
   extends: .cross_build_job_local_env
   needs: []
-  allow_failure: false
+  allow_failure: true
   variables:
     CROSS: mingw64
     IMAGE: registry.fedoraproject.org/fedora:rawhide

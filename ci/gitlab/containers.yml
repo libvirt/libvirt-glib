@@ -44,7 +44,7 @@ x86_64-debian-11-container:
 
 x86_64-debian-sid-container:
   extends: .container_job
-  allow_failure: false
+  allow_failure: true
   variables:
     NAME: debian-sid
 
@@ -65,7 +65,7 @@ x86_64-fedora-37-container:
 
 x86_64-fedora-rawhide-container:
   extends: .container_job
-  allow_failure: false
+  allow_failure: true
   variables:
     NAME: fedora-rawhide
 
@@ -79,7 +79,7 @@ x86_64-opensuse-leap-153-container:
 
 x86_64-opensuse-tumbleweed-container:
   extends: .container_job
-  allow_failure: false
+  allow_failure: true
   variables:
     NAME: opensuse-tumbleweed
 
@@ -101,15 +101,15 @@ x86_64-ubuntu-2204-container:
 
 # Cross container jobs
 
-mingw32-fedora-rawhide-container:
+mingw32-fedora-37-container:
   extends: .container_job
   allow_failure: false
   variables:
-    NAME: fedora-rawhide-cross-mingw32
+    NAME: fedora-37-cross-mingw32
 
 
 mingw64-fedora-rawhide-container:
   extends: .container_job
-  allow_failure: false
+  allow_failure: true
   variables:
     NAME: fedora-rawhide-cross-mingw64

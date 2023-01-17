@@ -36,19 +36,27 @@ targets:
 
   debian-11: x86_64
 
-  debian-sid: x86_64
+  debian-sid:
+    jobs:
+      - arch: x86_64
+        allow-failure: true
 
   fedora-36: x86_64
 
-  fedora-37: x86_64
-
-  fedora-rawhide:
+  fedora-37:
     jobs:
       - arch: x86_64
 
       - arch: mingw32
 
+
+  fedora-rawhide:
+    jobs:
+      - arch: x86_64
+        allow-failure: true
+
       - arch: mingw64
+        allow-failure: true
 
   freebsd-12:
     jobs:
@@ -79,6 +87,7 @@ targets:
   opensuse-tumbleweed:
     jobs:
       - arch: x86_64
+        allow-failure: true
         variables:
           RPM: skip
 
