@@ -801,6 +801,13 @@ global:
         gvir_config_domain_audio_new_from_xml;
         gvir_config_domain_audio_set_backend;
         gvir_config_domain_audio_set_server_name;
+
+        gvir_config_domain_graphics_dbus_get_address;
+        gvir_config_domain_graphics_dbus_set_address;
+        gvir_config_domain_graphics_dbus_set_gl;
+        gvir_config_domain_graphics_dbus_get_type;
+        gvir_config_domain_graphics_dbus_new;
+        gvir_config_domain_graphics_dbus_new_from_xml;
 } LIBVIRT_GCONFIG_3.1.0;
 
 # .... define new API here using predicted next version number ....

@@ -61,6 +61,8 @@ gvir_config_domain_graphics_new_from_tree(GVirConfigXmlDoc *doc,
         gtype = GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS_SDL;
     } else if (g_str_equal(type, "vnc")) {
         gtype = GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS_VNC;
+    } else if (g_str_equal(type, "dbus")) {
+        gtype = GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS_DBUS;
     } else if (g_str_equal(type, "spice")) {
         gtype = GVIR_CONFIG_TYPE_DOMAIN_GRAPHICS_SPICE;
     } else if (g_str_equal(type, "rdp")) {
