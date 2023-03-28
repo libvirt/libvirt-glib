@@ -356,4 +356,4 @@ aarch64-macos-13:
     NAME: macos-13
     UPDATE_COMMAND: brew update
     UPGRADE_COMMAND: brew upgrade
-    XML_CATALOG_FILES: /usr/local/etc/xml/catalog
+    XML_CATALOG_FILES: /opt/homebrew/etc/xml/catalog

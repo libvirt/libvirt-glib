@@ -74,7 +74,7 @@ targets:
     jobs:
       - arch: aarch64
         variables:
-          XML_CATALOG_FILES: /usr/local/etc/xml/catalog
+          XML_CATALOG_FILES: /opt/homebrew/etc/xml/catalog
 
   opensuse-leap-153:
     jobs:
