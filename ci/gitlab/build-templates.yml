@@ -37,6 +37,13 @@
     - if: '$CI_PROJECT_NAMESPACE == $RUN_UPSTREAM_NAMESPACE && $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
       when: on_success
 
+    # forks: pushes to a branch when a pipeline run in upstream env is explicitly requested
+    - if: '$CI_PROJECT_NAMESPACE != $RUN_UPSTREAM_NAMESPACE && $CI_PIPELINE_SOURCE == "push" && $RUN_PIPELINE_UPSTREAM_ENV && $JOB_OPTIONAL'
+      when: manual
+      allow_failure: true
+    - if: '$CI_PROJECT_NAMESPACE != $RUN_UPSTREAM_NAMESPACE && $CI_PIPELINE_SOURCE == "push" && $RUN_PIPELINE_UPSTREAM_ENV'
+      when: on_success
+
     # upstream: other web/api/scheduled pipelines targeting the default branch
     - if: '$CI_PROJECT_NAMESPACE == $RUN_UPSTREAM_NAMESPACE && $CI_PIPELINE_SOURCE =~ /(web|api|schedule)/ && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH && $JOB_OPTIONAL'
       when: manual
@@ -75,6 +82,11 @@
     - if: '$CI_PROJECT_NAMESPACE == $RUN_UPSTREAM_NAMESPACE && $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH'
       when: on_success
 
+    # forks: avoid build in local env when job requests run in upstream containers
+    - if: '$CI_PROJECT_NAMESPACE != $RUN_UPSTREAM_NAMESPACE && $CI_PIPELINE_SOURCE == "push" && $RUN_PIPELINE_UPSTREAM_ENV'
+      when: never
+
+    # forks: pushes to branches with pipeline requested
     - if: '$CI_PROJECT_NAMESPACE != $RUN_UPSTREAM_NAMESPACE && $CI_PIPELINE_SOURCE == "push" && $RUN_PIPELINE && $JOB_OPTIONAL'
       when: manual
       allow_failure: true
@@ -151,6 +163,13 @@
     - if: '$CI_PROJECT_NAMESPACE == $RUN_UPSTREAM_NAMESPACE && $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
       when: on_success
 
+    # forks: pushes to a branch when a pipeline run in upstream env is explicitly requested
+    - if: '$CI_PROJECT_NAMESPACE != $RUN_UPSTREAM_NAMESPACE && $CI_PIPELINE_SOURCE == "push" && $RUN_PIPELINE_UPSTREAM_ENV && $JOB_OPTIONAL'
+      when: manual
+      allow_failure: true
+    - if: '$CI_PROJECT_NAMESPACE != $RUN_UPSTREAM_NAMESPACE && $CI_PIPELINE_SOURCE == "push" && $RUN_PIPELINE_UPSTREAM_ENV'
+      when: on_success
+
     # upstream: other web/api/scheduled pipelines targeting the default branch
     - if: '$CI_PROJECT_NAMESPACE == $RUN_UPSTREAM_NAMESPACE && $CI_PIPELINE_SOURCE =~ /(web|api|schedule)/ && $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH && $JOB_OPTIONAL'
       when: manual
@@ -162,7 +181,7 @@
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH'
       changes:
         - ci/gitlab/container-templates.yml
-        - ci/containers/$NAME.Dockerfile
+        - ci/containers/$NAME-cross-$CROSS.Dockerfile
       when: never
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH && $JOB_OPTIONAL'
       when: manual
@@ -178,7 +197,7 @@
   stage: builds
   interruptible: true
   before_script:
-    - source ci/buildenv/$NAME.sh
+    - source ci/buildenv/$NAME-cross-$CROSS.sh
     - install_buildenv
     - cat /packages.txt
   rules:
@@ -189,6 +208,11 @@
     - if: '$CI_PROJECT_NAMESPACE == $RUN_UPSTREAM_NAMESPACE && $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH'
       when: on_success
 
+    # forks: avoid build in local env when job requests run in upstream containers
+    - if: '$CI_PROJECT_NAMESPACE != $RUN_UPSTREAM_NAMESPACE && $CI_PIPELINE_SOURCE == "push" && $RUN_PIPELINE_UPSTREAM_ENV'
+      when: never
+
+    # forks: pushes to branches with pipeline requested
     - if: '$CI_PROJECT_NAMESPACE != $RUN_UPSTREAM_NAMESPACE && $CI_PIPELINE_SOURCE == "push" && $RUN_PIPELINE && $JOB_OPTIONAL'
       when: manual
       allow_failure: true
@@ -213,13 +237,13 @@
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH && $JOB_OPTIONAL'
       changes:
         - ci/gitlab/container-templates.yml
-        - ci/containers/$NAME.Dockerfile
+        - ci/containers/$NAME-cross-$CROSS.Dockerfile
       when: manual
       allow_failure: true
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH'
       changes:
         - ci/gitlab/container-templates.yml
-        - ci/containers/$NAME.Dockerfile
+        - ci/containers/$NAME-cross-$CROSS.Dockerfile
       when: on_success
 
     # upstream+forks: merge requests targeting non-default branches
@@ -235,13 +259,14 @@
 
 .cirrus_build_job:
   stage: builds
-  image: registry.gitlab.com/libvirt/libvirt-ci/cirrus-run:master
+  image: registry.gitlab.com/libvirt/libvirt-ci/cirrus-run:latest
   interruptible: true
   needs: []
   script:
     - source ci/cirrus/$NAME.vars
     - sed -e "s|[@]CI_REPOSITORY_URL@|$CI_REPOSITORY_URL|g"
           -e "s|[@]CI_COMMIT_REF_NAME@|$CI_COMMIT_REF_NAME|g"
+          -e "s|[@]CI_MERGE_REQUEST_REF_PATH@|$CI_MERGE_REQUEST_REF_PATH|g"
           -e "s|[@]CI_COMMIT_SHA@|$CI_COMMIT_SHA|g"
           -e "s|[@]CIRRUS_VM_INSTANCE_TYPE@|$CIRRUS_VM_INSTANCE_TYPE|g"
           -e "s|[@]CIRRUS_VM_IMAGE_SELECTOR@|$CIRRUS_VM_IMAGE_SELECTOR|g"
@@ -272,11 +297,16 @@
     - if: '$CI_PROJECT_NAMESPACE == $RUN_UPSTREAM_NAMESPACE && $CI_PIPELINE_SOURCE == "push"'
       when: on_success
 
-    # forks: pushes to branches with pipeline requested
+    # forks: pushes to branches with pipeline requested (including pipeline in upstream environment)
     - if: '$CI_PROJECT_NAMESPACE != $RUN_UPSTREAM_NAMESPACE && $CI_PIPELINE_SOURCE == "push" && $RUN_PIPELINE && $JOB_OPTIONAL'
       when: manual
       allow_failure: true
     - if: '$CI_PROJECT_NAMESPACE != $RUN_UPSTREAM_NAMESPACE && $CI_PIPELINE_SOURCE == "push" && $RUN_PIPELINE'
+      when: on_success
+    - if: '$CI_PROJECT_NAMESPACE != $RUN_UPSTREAM_NAMESPACE && $CI_PIPELINE_SOURCE == "push" && $RUN_PIPELINE_UPSTREAM_ENV && $JOB_OPTIONAL'
+      when: manual
+      allow_failure: true
+    - if: '$CI_PROJECT_NAMESPACE != $RUN_UPSTREAM_NAMESPACE && $CI_PIPELINE_SOURCE == "push" && $RUN_PIPELINE_UPSTREAM_ENV'
       when: on_success
 
     # upstream+forks: Run pipelines on MR, web, api & scheduled
