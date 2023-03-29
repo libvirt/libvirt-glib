@@ -2,7 +2,7 @@ project(
   'libvirt-glib', 'c',
   version: '4.0.0',
   license: 'LGPLv2+',
-  meson_version: '>= 0.50.0',
+  meson_version: '>= 0.56.0',
   default_options: [
     'buildtype=debugoptimized',
     'c_std=gnu99',
