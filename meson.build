@@ -305,7 +305,7 @@ size_max = cc.sizeof('size_t', prefix: '#include <stdint.h>')
 # give us (2147483647L) and we would have to remove the () and the suffix
 # in order to convert it to numbers to be able to pick the smaller one.
 alloc_max = run_command(
-  python3.path(), '-c',
+  python3.full_path(), '-c',
   'print(min(2**(@0@ * 8 - 1) - 1, 2**(@1@ * 8) - 1))'.format(ptrdiff_max, size_max),
   check: true,
 )
@@ -492,7 +492,7 @@ supported_cc_flags = cc.get_supported_arguments(cc_flags)
 add_project_arguments(supported_cc_flags, language: 'c')
 
 if git
-  authors = run_command(python3.path(), gen_authors_prog.full_path(),
+  authors = run_command(python3.full_path(), gen_authors_prog.full_path(),
                         env: runutf8, check: true)
   authors_file = 'AUTHORS.in'
 
@@ -505,8 +505,10 @@ if git
     configuration: authors_conf,
   )
 
-  meson.add_dist_script(python3.path(), dist_prog.full_path(), meson.build_root(), 'AUTHORS')
-  meson.add_dist_script(python3.path(), dist_prog.full_path(), meson.build_root(), 'libvirt-glib.spec')
+  meson.add_dist_script(python3.full_path(), dist_prog.full_path(),
+                        meson.build_root(), 'AUTHORS')
+  meson.add_dist_script(python3.full_path(), dist_prog.full_path(),
+                        meson.build_root(), 'libvirt-glib.spec')
 endif
 
 common_cflags = [
