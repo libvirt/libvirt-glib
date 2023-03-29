@@ -331,7 +331,6 @@ cc_flags += [
   '-Wvariadic-macros',
   '-Wvector-operation-performance',
   '-Wvla',
-  '-Wvla-larger-then=4031',
   '-Wvolatile-register-var',
   '-Wwrite-strings',
 ]
