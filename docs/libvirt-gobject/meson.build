@@ -3,7 +3,7 @@ libvirt_gobject_doc_path = join_paths(datadir, 'gtk-doc', 'html', 'Libvirt-gobje
 gnome.gtkdoc(
   'Libvirt-gobject',
   main_sgml: 'Libvirt-gobject-docs.xml',
-  src_dir: [join_paths(meson.source_root(), 'libvirt-gobject')],
+  src_dir: [join_paths(meson.project_source_root(), 'libvirt-gobject')],
   dependencies: [
     libvirt_gobject_dep,
   ],

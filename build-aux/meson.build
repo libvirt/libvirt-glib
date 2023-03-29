@@ -11,7 +11,7 @@ foreach name : scripts
 endforeach
 
 syntax_check_conf = configuration_data()
-syntax_check_conf.set('srcdir', meson.source_root())
+syntax_check_conf.set('srcdir', meson.project_source_root())
 
 configure_file(
   input: 'Makefile.in',

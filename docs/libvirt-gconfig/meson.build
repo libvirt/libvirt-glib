@@ -3,7 +3,7 @@ libvirt_gconfig_doc_path = join_paths(datadir, 'gtk-doc', 'html', 'Libvirt-gconf
 gnome.gtkdoc(
   'Libvirt-gconfig',
   main_sgml: 'Libvirt-gconfig-docs.xml',
-  src_dir: [join_paths(meson.source_root(), 'libvirt-gconfig')],
+  src_dir: [join_paths(meson.project_source_root(), 'libvirt-gconfig')],
   dependencies: [
     libvirt_gconfig_dep,
   ],

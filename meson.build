@@ -506,9 +506,9 @@ if git
   )
 
   meson.add_dist_script(python3.full_path(), dist_prog.full_path(),
-                        meson.build_root(), 'AUTHORS')
+                        meson.project_build_root(), 'AUTHORS')
   meson.add_dist_script(python3.full_path(), dist_prog.full_path(),
-                        meson.build_root(), 'libvirt-glib.spec')
+                        meson.project_build_root(), 'libvirt-glib.spec')
 endif
 
 common_cflags = [
