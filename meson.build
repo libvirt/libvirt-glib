@@ -15,7 +15,7 @@ python3 = find_program('python3', required: true)
 runutf8 = [ 'LC_ALL=', 'LANG=C', 'LC_CTYPE=en_US.UTF-8' ]
 
 cc = meson.get_compiler('c')
-git = run_command('test', '-d', '.git').returncode() == 0
+git = run_command('test', '-d', '.git', check: false).returncode() == 0
 
 version_info = meson.project_version().split('.')
 version_major = version_info[0].to_int()
@@ -305,6 +305,7 @@ size_max = cc.sizeof('size_t', prefix: '#include <stdint.h>')
 alloc_max = run_command(
   python3.path(), '-c',
   'print(min(2**(@0@ * 8 - 1) - 1, 2**(@1@ * 8) - 1))'.format(ptrdiff_max, size_max),
+  check: true,
 )
 cc_flags += [
   '-Walloc-size-larger-than=@0@'.format(alloc_max.stdout().strip()),
@@ -490,7 +491,7 @@ add_project_arguments(supported_cc_flags, language: 'c')
 
 if git
   authors_helper = join_paths(meson.source_root(), 'build-aux', 'gen-authors.py')
-  authors = run_command(python3.path(), authors_helper, env: runutf8)
+  authors = run_command(python3.path(), authors_helper, env: runutf8, check: true)
   authors_file = 'AUTHORS.in'
 
   authors_conf = configuration_data()
