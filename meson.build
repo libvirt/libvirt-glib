@@ -217,10 +217,7 @@ cc_flags += [
   '-Wformat-y2k',
   '-Wformat-zero-length',
   '-Wframe-address',
-  # This should be < 256 really. Currently we're down to 4096,
-  # but using 1024 bytes sized buffers (mostly for virStrerror)
-  # stops us from going down further
-  '-Wframe-larger-than=4096',
+  '-Wframe-larger-than=256',
   '-Wfree-nonheap-object',
   '-Whsa',
   '-Wif-not-aligned',
