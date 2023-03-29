@@ -164,12 +164,12 @@ endif
 if host_machine.system() == 'linux'
   test('check-gobject-symfile',
     python3,
-    args: [check_symfile,
+    args: [check_symfile_prog.full_path(),
       join_paths(meson.current_source_dir(), 'libvirt-gobject.sym'),
       join_paths(meson.current_build_dir(), 'libvirt-gobject-1.0.so')])
 endif
 
 test('check-gobject-symsorting',
      python3,
-     args: [check_symsorting,
+     args: [check_symsorting_prog.full_path(),
             join_paths(meson.current_source_dir(), 'libvirt-gobject.sym')])

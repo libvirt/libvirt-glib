@@ -1,3 +1,15 @@
+scripts = [
+    'check-symfile.py',
+    'check-symsorting.py',
+    'dist.py',
+    'gen-authors.py',
+]
+
+foreach name : scripts
+  sname = name.split('.')[0].underscorify()
+  set_variable('@0@_prog'.format(sname), find_program(name))
+endforeach
+
 syntax_check_conf = configuration_data()
 syntax_check_conf.set('srcdir', meson.source_root())
 
@@ -22,7 +34,6 @@ rc = run_command(
 )
 
 sc_tests = rc.stdout().strip().split()
-
 
 # Skip syntax-check if not building from git because we get the list of files
 # to check using git commands and it fails if we are not in git repository.

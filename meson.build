@@ -56,6 +56,8 @@ datadir = join_paths(prefix, get_option('datadir'))
 libdir = join_paths(prefix, get_option('libdir'))
 includedir = join_paths(prefix, get_option('includedir'))
 
+subdir('build-aux')
+
 # gobject introspection
 gir = find_program('g-ir-scanner', required: get_option('introspection'))
 enable_introspection = gir.found() and not meson.is_cross_build()
@@ -490,8 +492,8 @@ supported_cc_flags = cc.get_supported_arguments(cc_flags)
 add_project_arguments(supported_cc_flags, language: 'c')
 
 if git
-  authors_helper = join_paths(meson.source_root(), 'build-aux', 'gen-authors.py')
-  authors = run_command(python3.path(), authors_helper, env: runutf8, check: true)
+  authors = run_command(python3.path(), gen_authors_prog.full_path(),
+                        env: runutf8, check: true)
   authors_file = 'AUTHORS.in'
 
   authors_conf = configuration_data()
@@ -503,9 +505,8 @@ if git
     configuration: authors_conf,
   )
 
-  dist_helper = join_paths(meson.source_root(), 'build-aux', 'dist.py')
-  meson.add_dist_script(python3.path(), dist_helper, meson.build_root(), 'AUTHORS')
-  meson.add_dist_script(python3.path(), dist_helper, meson.build_root(), 'libvirt-glib.spec')
+  meson.add_dist_script(python3.path(), dist_prog.full_path(), meson.build_root(), 'AUTHORS')
+  meson.add_dist_script(python3.path(), dist_prog.full_path(), meson.build_root(), 'libvirt-glib.spec')
 endif
 
 common_cflags = [
@@ -521,10 +522,6 @@ i18n = import('i18n')
 
 top_include_dir = [include_directories('.')]
 
-check_symfile = join_paths(meson.source_root(), 'build-aux', 'check-symfile.py')
-check_symsorting = join_paths(meson.source_root(), 'build-aux', 'check-symsorting.py')
-
-
 subdir('libvirt-glib')
 subdir('libvirt-gconfig')
 subdir('libvirt-gobject')
@@ -534,4 +531,3 @@ subdir('docs')
 if build_tests
   subdir('tests')
 endif
-subdir('build-aux')
