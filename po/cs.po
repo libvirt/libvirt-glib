@@ -3,23 +3,23 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Translators:
 # Zdenek <chmelarz@gmail.com>, 2016
-# Pavel Borecki <pavel.borecki@gmail.com>, 2018
+# Pavel Borecki <pavel.borecki@gmail.com>, 2018, 2023.
 # Josef Hruska <hrusjos@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: libvirt-glib 2.0.0\n"
 "Report-Msgid-Bugs-To: https://libvirt.org/bugs.html\n"
 "POT-Creation-Date: 2020-07-06 16:42+0100\n"
-"PO-Revision-Date: 2019-12-26 18:16+0000\n"
-"Last-Translator: Josef Hruska <hrusjos@gmail.com>\n"
-"Language-Team: Czech <https://translate.stg.fedoraproject.org/projects/"
-"libvirt-glib/application/cs/>\n"
+"PO-Revision-Date: 2023-04-10 07:20+0000\n"
+"Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
+"Language-Team: Czech <https://translate.fedoraproject.org/projects/libvirt/"
+"libvirt-glib/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 3.9.1\n"
+"X-Generator: Weblate 4.15.2\n"
 
 #, c-format
 msgid "Connection %s is already open"
@@ -47,7 +47,7 @@ msgid "Failed to fetch list of networks"
 msgstr "Nepodařilo se načíst seznam sítí"
 
 msgid "Failed to fetch list of pools"
-msgstr "Nepodařilo se načíst seznam úložišť"
+msgstr "Nepodařilo se načíst seznam fondů úložišť"
 
 #, c-format
 msgid "Got virStreamRecv error in %s"
@@ -60,7 +60,7 @@ msgid "No XML document to parse"
 msgstr "Žádný XML dokument ke zpracování"
 
 msgid "No XML schema associated with this config object"
-msgstr "S tímto objektem nastavení není spojen žádné XML schema"
+msgstr "S tímto objektem nastavení není spojeno žádné XML schéma"
 
 #, c-format
 msgid "Unable to create RNG parser for %s"
@@ -71,22 +71,22 @@ msgid "Unable to create RNG validation context %s"
 msgstr "Nedaří se vytvořit ověření kontextu RNG %s"
 
 msgid "Unable to get capabilities"
-msgstr "Nepodařilo se získat možnosti"
+msgstr "Nedaří se získat výčet schopností"
 
 msgid "Unable to get connection URI"
 msgstr "Nedaří se získat URI připojení"
 
 msgid "Unable to get domain capabilities"
-msgstr "Nelze získat možnosti domény"
+msgstr "Nedaří se získat výčet schopností domény"
 
 msgid "Unable to get hypervisor name"
-msgstr "Nezdařilo se získat název hypervisoru"
+msgstr "Nedaří se získat název hypervizoru"
 
 msgid "Unable to get hypervisor version"
-msgstr "Nepodařilo se získat verzi hypervizoru"
+msgstr "Nedaří se získat verzi hypervizoru"
 
 msgid "Unable to get node info"
-msgstr "Nepodařilo se získat informace o uzlu"
+msgstr "Nedaří se získat informace o uzlu"
 
 #, c-format
 msgid "Unable to open %s"
@@ -100,16 +100,16 @@ msgid "Unable to parse configuration"
 msgstr "Nedaří se zpracovat nastavení"
 
 msgid "Unable to perform RecvAll"
-msgstr "Nepodařilo se provést RecvAll"
+msgstr "Nedaří se provést RecvAll"
 
 msgid "Unable to perform SendAll"
-msgstr "Nepodařilo se provést SendAll"
+msgstr "Nedaří se provést SendAll"
 
 msgid "Unable to restore domain"
-msgstr "Nepodařilo se obnovit doménu"
+msgstr "Nedaří se obnovit doménu"
 
 msgid "Unable to validate doc"
-msgstr "Dokument se nedaří ověřit"
+msgstr "Správnost dokumentu se nedaří ověřit"
 
 #, c-format
 msgid "XML data has no '%s' node"
