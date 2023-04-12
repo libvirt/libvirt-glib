@@ -1,0 +1,156 @@
+# Libvirt package strings.
+# Copyright (C) 2020 The Libvirt authors
+# This file is distributed under the same license as the libvirt-glib package.
+# Temuri Doghonadze <temuri.doghonadze@gmail.com>, 2023.
+msgid ""
+msgstr ""
+"Project-Id-Version: libvirt-glib 3.0.0\n"
+"Report-Msgid-Bugs-To: https://libvirt.org/bugs.html\n"
+"POT-Creation-Date: 2020-07-06 16:42+0100\n"
+"PO-Revision-Date: 2023-04-02 18:20+0000\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"Language-Team: Georgian <https://translate.fedoraproject.org/projects/"
+"libvirt/libvirt-glib/ka/>\n"
+"Language: ka\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.15.2\n"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:438
+#, c-format
+msgid "Connection %s is already open"
+msgstr "შეერთება %s უკვე ღიაა"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:729
+#: libvirt-gobject/libvirt-gobject-connection.c:817
+#: libvirt-gobject/libvirt-gobject-connection.c:1504
+#: libvirt-gobject/libvirt-gobject-connection.c:1761
+msgid "Connection is not open"
+msgstr "შეერთება ღია არაა"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:1034
+#: libvirt-gobject/libvirt-gobject-connection.c:1073
+msgid "Connection is not opened"
+msgstr "შეერთება არ გახსნილა"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:1394
+#: libvirt-gobject/libvirt-gobject-connection.c:1449
+msgid "Failed to create domain"
+msgstr "დომენის შექმნის შეცდომა"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:2020
+msgid "Failed to create storage pool"
+msgstr "საცავის პულის შექმნის შეცდომა"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:742
+msgid "Failed to fetch list of domains"
+msgstr "დომენების სიის გამოთხოვის შეცდომა"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:1520
+msgid "Failed to fetch list of interfaces"
+msgstr "ინტერფეისების სიის გამოთხოვის შეცდომა"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:1777
+msgid "Failed to fetch list of networks"
+msgstr "ქსელების სიის გამოთხოვის შეცდომა"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:833
+msgid "Failed to fetch list of pools"
+msgstr "პულების სიის გამოთხოვის შეცდომა"
+
+#: libvirt-gobject/libvirt-gobject-stream.c:350
+#: libvirt-gobject/libvirt-gobject-stream.c:466
+#, c-format
+msgid "Got virStreamRecv error in %s"
+msgstr "მივიღე virStreamRecv-ის შეცდომა ობიექტში %s"
+
+#: libvirt-gconfig/libvirt-gconfig-object.c:206
+msgid "No XML document associated with this config object"
+msgstr "ამ კონფიგურაციის ობიექტთან XML დოკუმენტები ასოცირებული არაა"
+
+#: libvirt-gconfig/libvirt-gconfig-helpers.c:141
+msgid "No XML document to parse"
+msgstr "დასამუშავებელი XML დოკუმენტების გარეშე"
+
+#: libvirt-gconfig/libvirt-gconfig-object.c:214
+msgid "No XML schema associated with this config object"
+msgstr "ამ კონფიგურაციის ობიექტთან XML სქემა ასოცირებული არაა"
+
+#: libvirt-gconfig/libvirt-gconfig-object.c:223
+#, c-format
+msgid "Unable to create RNG parser for %s"
+msgstr "RNG დამმუშავებლის %s-სთვის შექმნის შეცდომა"
+
+#: libvirt-gconfig/libvirt-gconfig-object.c:245
+#, c-format
+msgid "Unable to create RNG validation context %s"
+msgstr "RNG-ის გადამოწმების კონტექსტის %s შექმნა შეუძლებელია"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:2271
+msgid "Unable to get capabilities"
+msgstr "შესაძლებლობების მიღების შეცდომა"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:464
+msgid "Unable to get connection URI"
+msgstr "მიერთების URI-ის მიღების შეცდომა"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:2119
+msgid "Unable to get domain capabilities"
+msgstr "დომენის შესაძლებლობების მიღების შეცდომა"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:1041
+msgid "Unable to get hypervisor name"
+msgstr "ჰაიპერვიზორის სახელის მიღების შეცდომა"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:1079
+msgid "Unable to get hypervisor version"
+msgstr "ჰაიპერვიზორის ვერსიის მიღების შეცდომა"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:2063
+msgid "Unable to get node info"
+msgstr "კვანძის ინფორმაციის მიღების შეცდომა"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:453
+#, c-format
+msgid "Unable to open %s"
+msgstr "%s-ის გახსნის შეცდომა"
+
+#: libvirt-gconfig/libvirt-gconfig-object.c:233
+#, c-format
+msgid "Unable to parse RNG %s"
+msgstr "RNG-ის დამუშავების შეცდომა: %s"
+
+#: libvirt-gconfig/libvirt-gconfig-helpers.c:149
+msgid "Unable to parse configuration"
+msgstr "კონფიგურაციის დამუშავების შეცდომა"
+
+#: libvirt-gobject/libvirt-gobject-stream.c:415
+msgid "Unable to perform RecvAll"
+msgstr "RecvAll-ის შესრულების შეცდომა"
+
+#: libvirt-gobject/libvirt-gobject-stream.c:531
+msgid "Unable to perform SendAll"
+msgstr "SendAll-ის შესრულების შეცდომა"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:2395
+msgid "Unable to restore domain"
+msgstr "დომენის აღდგენის შეცდომა"
+
+#: libvirt-gconfig/libvirt-gconfig-object.c:255
+msgid "Unable to validate doc"
+msgstr "დოკუმენტის გადამოწმების შეცდომა"
+
+#: libvirt-gconfig/libvirt-gconfig-helpers.c:157
+#, c-format
+msgid "XML data has no '%s' node"
+msgstr "XML დომენებს '%s' კვანძი არ გააჩნიათ"
+
+#: libvirt-gobject/libvirt-gobject-stream.c:347
+msgid "virStreamRecv call would block"
+msgstr "virStreamRecv-ის გამოძახება დაბლოკავდა"
+
+#: libvirt-gobject/libvirt-gobject-stream.c:463
+msgid "virStreamSend call would block"
+msgstr "virStreamSend-ის გამოძახება დაბლოკავდა"
