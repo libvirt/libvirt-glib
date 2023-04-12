@@ -1,0 +1,157 @@
+# Libvirt package strings.
+# Copyright (C) 2020 The Libvirt authors
+# This file is distributed under the same license as the libvirt-glib package.
+# Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2023.
+msgid ""
+msgstr ""
+"Project-Id-Version: libvirt-glib 3.0.0\n"
+"Report-Msgid-Bugs-To: https://libvirt.org/bugs.html\n"
+"POT-Creation-Date: 2020-07-06 16:42+0100\n"
+"PO-Revision-Date: 2023-04-10 07:20+0000\n"
+"Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
+"Language-Team: Romanian <https://translate.fedoraproject.org/projects/"
+"libvirt/libvirt-glib/ro/>\n"
+"Language: ro\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2;\n"
+"X-Generator: Weblate 4.15.2\n"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:438
+#, c-format
+msgid "Connection %s is already open"
+msgstr "Conexiunea %s este deja deschisă"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:729
+#: libvirt-gobject/libvirt-gobject-connection.c:817
+#: libvirt-gobject/libvirt-gobject-connection.c:1504
+#: libvirt-gobject/libvirt-gobject-connection.c:1761
+msgid "Connection is not open"
+msgstr "Conexiunea nu este deschisă"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:1034
+#: libvirt-gobject/libvirt-gobject-connection.c:1073
+msgid "Connection is not opened"
+msgstr "Conexiunea nu a fost deschisă"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:1394
+#: libvirt-gobject/libvirt-gobject-connection.c:1449
+msgid "Failed to create domain"
+msgstr "Nu s-a putut crea domeniul"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:2020
+msgid "Failed to create storage pool"
+msgstr "Nu s-a reușit crearea grupului de stocare"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:742
+msgid "Failed to fetch list of domains"
+msgstr "Nu s-a putut prelua lista de domenii"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:1520
+msgid "Failed to fetch list of interfaces"
+msgstr "Nu s-a putut prelua lista de interfețe"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:1777
+msgid "Failed to fetch list of networks"
+msgstr "Nu s-a putut prelua lista de rețele"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:833
+msgid "Failed to fetch list of pools"
+msgstr "Nu s-a putut prelua lista de grupuri de stocare"
+
+#: libvirt-gobject/libvirt-gobject-stream.c:350
+#: libvirt-gobject/libvirt-gobject-stream.c:466
+#, c-format
+msgid "Got virStreamRecv error in %s"
+msgstr "A apărut o eroare virStreamRecv în %s"
+
+#: libvirt-gconfig/libvirt-gconfig-object.c:206
+msgid "No XML document associated with this config object"
+msgstr "Nu există niciun document XML asociat cu acest obiect de configurare"
+
+#: libvirt-gconfig/libvirt-gconfig-helpers.c:141
+msgid "No XML document to parse"
+msgstr "Niciun document XML de analizat"
+
+#: libvirt-gconfig/libvirt-gconfig-object.c:214
+msgid "No XML schema associated with this config object"
+msgstr "Nu există nicio schemă XML asociată cu acest obiect de configurare"
+
+#: libvirt-gconfig/libvirt-gconfig-object.c:223
+#, c-format
+msgid "Unable to create RNG parser for %s"
+msgstr "Nu s-a putut crea analizatorul RNG pentru %s"
+
+#: libvirt-gconfig/libvirt-gconfig-object.c:245
+#, c-format
+msgid "Unable to create RNG validation context %s"
+msgstr "Nu s-a putut crea contextul de validare RNG %s"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:2271
+msgid "Unable to get capabilities"
+msgstr "Nu s-au putut obține capacitățile"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:464
+msgid "Unable to get connection URI"
+msgstr "Nu se poate obține adresa URI a conexiunii"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:2119
+msgid "Unable to get domain capabilities"
+msgstr "Nu se pot obține capacitățile de domeniu"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:1041
+msgid "Unable to get hypervisor name"
+msgstr "Nu se poate obține numele hipervizorului"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:1079
+msgid "Unable to get hypervisor version"
+msgstr "Nu se poate obține versiunea hipervizorului"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:2063
+msgid "Unable to get node info"
+msgstr "Nu se pot obține informații despre nod"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:453
+#, c-format
+msgid "Unable to open %s"
+msgstr "Nu se poate deschide %s"
+
+#: libvirt-gconfig/libvirt-gconfig-object.c:233
+#, c-format
+msgid "Unable to parse RNG %s"
+msgstr "Nu se poate analiza RNG %s"
+
+#: libvirt-gconfig/libvirt-gconfig-helpers.c:149
+msgid "Unable to parse configuration"
+msgstr "Nu se poate analiza configurația"
+
+#: libvirt-gobject/libvirt-gobject-stream.c:415
+msgid "Unable to perform RecvAll"
+msgstr "Nu se poate efectua RecvAll"
+
+#: libvirt-gobject/libvirt-gobject-stream.c:531
+msgid "Unable to perform SendAll"
+msgstr "Nu se poate efectua SendAll"
+
+#: libvirt-gobject/libvirt-gobject-connection.c:2395
+msgid "Unable to restore domain"
+msgstr "Nu se poate restaura domeniul"
+
+#: libvirt-gconfig/libvirt-gconfig-object.c:255
+msgid "Unable to validate doc"
+msgstr "Nu se poate valida documentul"
+
+#: libvirt-gconfig/libvirt-gconfig-helpers.c:157
+#, c-format
+msgid "XML data has no '%s' node"
+msgstr "Datele XML nu au un nod „%s”"
+
+#: libvirt-gobject/libvirt-gobject-stream.c:347
+msgid "virStreamRecv call would block"
+msgstr "Apelul către virStreamRecv s-ar bloca"
+
+#: libvirt-gobject/libvirt-gobject-stream.c:463
+msgid "virStreamSend call would block"
+msgstr "Apelul către virStreamSend s-ar bloca"
