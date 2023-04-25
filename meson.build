@@ -64,7 +64,7 @@ enable_introspection = gir.found() and not meson.is_cross_build()
 
 # vala
 vapi_opt = get_option('vapi')
-enable_vapi = add_languages('vala', required: vapi_opt)
+enable_vapi = add_languages('vala', native: false, required: vapi_opt)
 if enable_vapi and not enable_introspection
     enable_vapi = false
     if vapi_opt.enabled()
