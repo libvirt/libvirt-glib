@@ -32,18 +32,18 @@ targets:
 
   centos-stream-9: x86_64
 
-  debian-10: x86_64
-
   debian-11: x86_64
+
+  debian-12: x86_64
 
   debian-sid:
     jobs:
       - arch: x86_64
         allow-failure: true
 
-  fedora-36: x86_64
+  fedora-37: x86_64
 
-  fedora-37:
+  fedora-38:
     jobs:
       - arch: x86_64
 
@@ -76,7 +76,7 @@ targets:
         variables:
           XML_CATALOG_FILES: /opt/homebrew/etc/xml/catalog
 
-  opensuse-leap-153:
+  opensuse-leap-15:
     jobs:
       - arch: x86_64
         variables:

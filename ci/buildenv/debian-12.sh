@@ -22,11 +22,9 @@ function install_buildenv() {
             libxml2-dev \
             locales \
             make \
+            meson \
             ninja-build \
             pkgconf \
-            python3-pip \
-            python3-setuptools \
-            python3-wheel \
             valac
     sed -Ei 's,^# (en_US\.UTF-8 .*)$,\1,' /etc/locale.gen
     dpkg-reconfigure locales
@@ -34,7 +32,6 @@ function install_buildenv() {
     mkdir -p /usr/libexec/ccache-wrappers
     ln -s /usr/bin/ccache /usr/libexec/ccache-wrappers/cc
     ln -s /usr/bin/ccache /usr/libexec/ccache-wrappers/gcc
-    /usr/bin/pip3 install meson==0.56.0
 }
 
 export CCACHE_WRAPPERSDIR="/usr/libexec/ccache-wrappers"
