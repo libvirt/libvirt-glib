@@ -212,12 +212,19 @@ void gvir_config_domain_disk_set_target_bus(GVirConfigDomainDisk *disk,
                                             GVirConfigDomainDiskBus bus)
 {
     const char *bus_str;
+    GVirConfigObject *child;
 
     g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_DISK(disk));
     bus_str = gvir_config_genum_get_nick(GVIR_CONFIG_TYPE_DOMAIN_DISK_BUS, bus);
     g_return_if_fail(bus_str != NULL);
-    gvir_config_object_add_child_with_attribute(GVIR_CONFIG_OBJECT(disk),
-                                                "target", "bus", bus_str);
+
+    child = gvir_config_object_add_child(GVIR_CONFIG_OBJECT(disk), "target");
+    gvir_config_object_set_attribute(child, "bus", bus_str, NULL);
+
+    if (bus == GVIR_CONFIG_DOMAIN_DISK_BUS_USB) {
+        gvir_config_object_set_attribute(child, "removable", "on", NULL);
+    }
+    g_object_unref(G_OBJECT(child));
 }
 
 void gvir_config_domain_disk_set_target_dev(GVirConfigDomainDisk *disk,
