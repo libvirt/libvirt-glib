@@ -45,7 +45,7 @@ glib_dep = dependency('glib-2.0', version: '>=' + glib_version)
 gobject_dep = dependency('gobject-2.0', version: '>=' + glib_version)
 gio_dep = dependency('gio-2.0', version: '>=' + glib_version)
 
-libvirt_version = '1.2.8'
+libvirt_version = '2.3.0'
 libvirt_dep = dependency('libvirt', version: '>=' + libvirt_version)
 
 libxml_min_version='>=2.9.1'
