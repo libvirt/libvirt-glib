@@ -67,7 +67,7 @@
  * </example>
  *
  * <example>
- * <title>Registering for events using Appplication</title>
+ * <title>Registering for events using Application</title>
  * <programlisting><![CDATA[
  * int main(int argc, char **argv) {
  *   ...setup...

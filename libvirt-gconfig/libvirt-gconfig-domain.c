@@ -477,7 +477,7 @@ void gvir_config_domain_set_memory(GVirConfigDomain *domain, guint64 memory)
  * Sets the current amount of RAM allocated to @domain in kilobytes (i.e.
  * blocks of 1024 bytes). This can be set to less than the maximum domain
  * memory to allow to balloon the guest memory on the fly. Be aware that
- * libvirt will set it automatically if it's not explictly set, which means
+ * libvirt will set it automatically if it's not explicitly set, which means
  * you may need to set this value in addition to 'memory' if you want to
  * change the available domain memory after creation.
  */

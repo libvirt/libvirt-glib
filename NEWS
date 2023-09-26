@@ -197,7 +197,7 @@
 - Add support for bridge interface types in guest XML
 - Add API to open a read-only connection
 - Add support for smartcard devices in guest XML
-- Remove storage volume from pool list after deleteing it
+- Remove storage volume from pool list after deleting it
 
 0.1.4 - Nov 16, 2012
 ====================
@@ -363,7 +363,7 @@
 - Expand libvirt-gobject API to allow watches on streams
 - Simplify debug system with new glib
 - Fix libvirt-gobject pkg-config file
-- Fix domain event handlig wrt transient guests
+- Fix domain event handling wrt transient guests
 - Don't crash if given a NULL uri to connect to
 - Expand libvirt-gobject API for storage pools & volumes
 - Fix some crashes in error paths where GError instance

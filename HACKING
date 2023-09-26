@@ -160,7 +160,7 @@ Coding style rules
 
  - Usage of goto should follow one of the following patterns, and
    label naming conventions. In particular any exit path jumps should
-   obay the 'cleanup' vs 'error' label naming
+   obey the 'cleanup' vs 'error' label naming
 
    * Interrupted system calls:
 

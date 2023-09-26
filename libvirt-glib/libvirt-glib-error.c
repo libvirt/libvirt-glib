@@ -45,7 +45,7 @@
  * The <code>gvir_error_new</code>, <code>gvir_error_new_literal</code> and
  * <code>gvir_error_new_valist</code> methods all return a newly created
  * <code>GError *</code> object instance, differing only in the way the
- * message needs to be provided. For most usage though, it is preferrable
+ * message needs to be provided. For most usage though, it is preferable
  * to use the <code>gvir_set_error</code>, <code>gvir_set_error_literal</code>
  * and <code>gvir_set_error_valist</code> methods. These all accept a
  * <code>GError **</code> argument and take care to only fill it if it
