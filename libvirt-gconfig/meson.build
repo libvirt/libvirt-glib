@@ -290,7 +290,7 @@ if build_tests
   subdir('tests')
 endif
 
-if host_machine.system() == 'linux'
+if host_machine.system() != 'windows' and host_machine.system() != 'darwin'
   test('check-gconfig-symfile',
        python3,
        args: [check_symfile_prog.full_path(),

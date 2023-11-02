@@ -91,7 +91,7 @@ if enable_introspection
   endif
 endif
 
-if host_machine.system() == 'linux'
+if host_machine.system() != 'windows' and host_machine.system() != 'darwin'
   test('check-glib-symfile',
     python3,
     args: [check_symfile_prog.full_path(),
