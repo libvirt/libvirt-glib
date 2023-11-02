@@ -17,12 +17,13 @@ libvirt_glib_deps = [
 
 libvirt_glib_sym_file = meson.current_source_dir() / 'libvirt-glib.sym'
 libvirt_glib_link_args = common_link_args
-if host_machine.system() == 'linux'
-  libvirt_glib_link_args += [
-    '-Wl,--version-script,@0@'.format(
-      libvirt_glib_sym_file
-    )
-  ]
+libvirt_glib_link_depends = []
+if version_script_flags != ''
+  libvirt_glib_link_args += '@0@@1@'.format(
+    version_script_flags,
+    libvirt_glib_sym_file,
+  )
+  libvirt_glib_link_depends += libvirt_glib_sym_file
 endif
 
 libvirt_glib = shared_library(
@@ -32,6 +33,7 @@ libvirt_glib = shared_library(
   dependencies: libvirt_glib_deps,
   include_directories: top_include_dir,
   link_args: libvirt_glib_link_args,
+  link_depends: libvirt_glib_link_depends,
   version: libvirt_glib_version,
   darwin_versions: libvirt_glib_darwin_versions,
   soversion: libvirt_glib_soversion,

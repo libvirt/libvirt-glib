@@ -370,6 +370,16 @@ else
   warning_cflags = []
 endif
 
+if host_machine.system() == 'windows'
+  # no machinery for generating .def files for now
+  version_script_flags = ''
+elif host_machine.system() == 'darwin'
+  # macOS libraries don't support symbol versioning
+  version_script_flags = ''
+else
+  version_script_flags = '-Wl,--version-script='
+endif
+
 
 
 if git
