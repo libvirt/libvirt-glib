@@ -15,12 +15,12 @@ libvirt_glib_deps = [
   libvirt_dep, glib_dep,
 ]
 
+libvirt_glib_sym_file = meson.current_source_dir() / 'libvirt-glib.sym'
 libvirt_glib_link_args = common_link_args
 if host_machine.system() == 'linux'
   libvirt_glib_link_args += [
-    '-Wl,--version-script,@0@/@1@'.format(
-      meson.current_source_dir(),
-      'libvirt-glib.sym'
+    '-Wl,--version-script,@0@'.format(
+      libvirt_glib_sym_file
     )
   ]
 endif
@@ -93,11 +93,11 @@ if host_machine.system() == 'linux'
   test('check-glib-symfile',
     python3,
     args: [check_symfile_prog.full_path(),
-      join_paths(meson.current_source_dir(), 'libvirt-glib.sym'),
+      libvirt_glib_sym_file,
       join_paths(meson.current_build_dir(), 'libvirt-glib-1.0.so')])
 endif
 
 test('check-glib-symsorting',
      python3,
      args: [check_symsorting_prog.full_path(),
-            join_paths(meson.current_source_dir(), 'libvirt-glib.sym')])
+            libvirt_glib_sym_file])

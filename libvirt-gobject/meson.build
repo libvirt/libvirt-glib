@@ -75,12 +75,12 @@ libvirt_gobject_deps = [
   libvirt_dep, gio_dep, libvirt_glib_dep, libvirt_gconfig_dep,
 ]
 
+libvirt_gobject_sym_file = meson.current_source_dir() / 'libvirt-gobject.sym'
 libvirt_gobject_link_args = common_link_args
 if host_machine.system() == 'linux'
   libvirt_gobject_link_args += [
-    '-Wl,--version-script,@0@/@1@'.format(
-      meson.current_source_dir(),
-      'libvirt-gobject.sym'
+    '-Wl,--version-script,@0@'.format(
+      libvirt_gobject_sym_file
     )
   ]
 endif
@@ -165,11 +165,11 @@ if host_machine.system() == 'linux'
   test('check-gobject-symfile',
     python3,
     args: [check_symfile_prog.full_path(),
-      join_paths(meson.current_source_dir(), 'libvirt-gobject.sym'),
+      libvirt_gobject_sym_file,
       join_paths(meson.current_build_dir(), 'libvirt-gobject-1.0.so')])
 endif
 
 test('check-gobject-symsorting',
      python3,
      args: [check_symsorting_prog.full_path(),
-            join_paths(meson.current_source_dir(), 'libvirt-gobject.sym')])
+            libvirt_gobject_sym_file])
