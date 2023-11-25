@@ -41,7 +41,7 @@ static GError *gvir_config_error_new_literal(GQuark domain,
                                              gint code,
                                              const gchar *message)
 {
-    xmlErrorPtr xerr = xmlGetLastError();
+    const xmlError *xerr = xmlGetLastError();
 
     if (!xerr)
         return NULL;

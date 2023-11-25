@@ -59,7 +59,7 @@ static void gvir_xml_generic_error_nop(void *userData G_GNUC_UNUSED,
 }
 
 static void gvir_xml_structured_error_nop(void *userData G_GNUC_UNUSED,
-                                          xmlErrorPtr error G_GNUC_UNUSED)
+                                          const xmlError *error G_GNUC_UNUSED)
 {
 }
 
@@ -197,7 +197,8 @@ void gvir_config_object_validate(GVirConfigObject *config,
     priv = config->priv;
 
     xmlSetGenericErrorFunc(NULL, gvir_xml_generic_error_nop);
-    xmlSetStructuredErrorFunc(NULL, gvir_xml_structured_error_nop);
+    /* Drop this typecast when >=libxml2-2.12.0 is required */
+    xmlSetStructuredErrorFunc(NULL, (xmlStructuredErrorFunc) gvir_xml_structured_error_nop);
 
     if (!priv->node) {
         gvir_config_set_error_literal(err,
