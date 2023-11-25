@@ -25,7 +25,10 @@
 
 #include <string.h>
 
+#include <libxml/tree.h>
+#include <libxml/entities.h>
 #include <libxml/relaxng.h>
+
 #include <glib/gi18n-lib.h>
 
 #include "libvirt-gconfig/libvirt-gconfig.h"

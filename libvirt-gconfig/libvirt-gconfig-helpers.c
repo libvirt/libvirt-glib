@@ -25,6 +25,7 @@
 
 #include <string.h>
 
+#include <libxml/parser.h>
 #include <libxml/xmlerror.h>
 #include <glib/gi18n-lib.h>
 
