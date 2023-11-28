@@ -1,7 +1,7 @@
                  libvirt-glib News
                  =================
 
-5.0.0 - Nov 27, 2023
+5.0.0 - Nov 28, 2023
 ====================
 
 - Fix compatiblity with libxml2 >= 2.12.0
@@ -10,6 +10,7 @@
 - Require use of GCC >= 4.8 / CLang > 3.4 / XCode CLang > 5.1
 - Mark USB disks as removable by default
 - Add support for audio device backend config
+- Add support for DBus graphics backend config
 - Improve compiler flag handling in meson
 - Extend library version script handling to FreeBSD
 - Fix pointer sign issue in capabilities config API
