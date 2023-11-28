@@ -11,6 +11,7 @@
 - Mark USB disks as removable by default
 - Add support for audio device backend config
 - Add support for DBus graphics backend config
+- Add support for controlling firmware feature flags
 - Improve compiler flag handling in meson
 - Extend library version script handling to FreeBSD
 - Fix pointer sign issue in capabilities config API
