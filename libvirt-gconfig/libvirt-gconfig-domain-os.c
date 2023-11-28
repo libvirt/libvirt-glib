@@ -357,3 +357,30 @@ GVirConfigDomainOsFirmware gvir_config_domain_os_get_firmware(GVirConfigDomainOs
              GVIR_CONFIG_TYPE_DOMAIN_OS_FIRMWARE,
              GVIR_CONFIG_DOMAIN_OS_FIRMWARE_BIOS);
 }
+
+void gvir_config_domain_os_enable_firmware_feature(GVirConfigDomainOs *os, const char *name, gboolean enable)
+{
+    GVirConfigDomainOsFirmware firmware;
+    xmlNodePtr os_node;
+    xmlNodePtr firmware_node;
+    xmlNodePtr node;
+    const gchar *firmware_str;
+
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_OS(os));
+
+    os_node = gvir_config_object_get_xml_node(GVIR_CONFIG_OBJECT(os));
+    g_return_if_fail(os_node != NULL);
+
+    firmware = gvir_config_domain_os_get_firmware(os);
+    firmware_str = gvir_config_genum_get_nick(GVIR_CONFIG_TYPE_DOMAIN_OS_FIRMWARE,
+                   firmware);
+    g_return_if_fail(firmware_str != NULL);
+
+    firmware_node = xmlNewDocNode(NULL, NULL, (xmlChar*)"firmware", NULL);
+    node = xmlNewDocNode(NULL, NULL, (xmlChar*)"feature", NULL);
+    xmlNewProp(node, (xmlChar*)"enabled", (xmlChar*)(enable ? "yes" : "no"));
+    xmlNewProp(node, (xmlChar*)"name", (xmlChar*)name);
+
+    xmlAddChild(firmware_node, node);
+    xmlAddChild(os_node, firmware_node);
+}

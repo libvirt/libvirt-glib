@@ -106,5 +106,6 @@ void gvir_config_domain_os_bios_enable_serial(GVirConfigDomainOs *os, gboolean e
 GVirConfigDomainOsFirmware gvir_config_domain_os_get_firmware(GVirConfigDomainOs *os);
 void gvir_config_domain_os_set_firmware(GVirConfigDomainOs *os,
                                         GVirConfigDomainOsFirmware firmware);
+void gvir_config_domain_os_enable_firmware_feature(GVirConfigDomainOs *os, const char *name, gboolean enable);
 
 G_END_DECLS
