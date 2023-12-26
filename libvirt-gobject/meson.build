@@ -86,10 +86,14 @@ if version_script_flags != ''
   libvirt_gobject_link_depends += libvirt_gobject_sym_file
 endif
 
+gobject_cflags = [
+  '-DG_LOG_DOMAIN="Libvirt.GObject"',
+]
+
 libvirt_gobject = shared_library(
   'virt-gobject-1.0',
   sources: libvirt_gobject_sources,
-  c_args: common_cflags + warning_cflags,
+  c_args: common_cflags + warning_cflags + gobject_cflags,
   dependencies: libvirt_gobject_deps,
   include_directories: top_include_dir,
   link_with: [libvirt_glib, libvirt_gconfig],

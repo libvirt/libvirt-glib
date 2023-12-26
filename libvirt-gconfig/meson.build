@@ -219,10 +219,14 @@ if version_script_flags != ''
   libvirt_gconfig_link_depends += libvirt_gconfig_sym_file
 endif
 
+gconfig_cflags = [
+  '-DG_LOG_DOMAIN="Libvirt.GConfig"',
+]
+
 libvirt_gconfig = shared_library(
   'virt-gconfig-1.0',
   sources: libvirt_gconfig_sources,
-  c_args: common_cflags + warning_cflags,
+  c_args: common_cflags + warning_cflags + gconfig_cflags,
   dependencies: libvirt_gconfig_deps,
   include_directories: top_include_dir,
   link_with: [libvirt_glib],

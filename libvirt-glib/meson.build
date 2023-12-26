@@ -26,10 +26,14 @@ if version_script_flags != ''
   libvirt_glib_link_depends += libvirt_glib_sym_file
 endif
 
+glib_cflags = [
+  '-DG_LOG_DOMAIN="Libvirt.GLib"',
+]
+
 libvirt_glib = shared_library(
   'virt-glib-1.0',
   sources: libvirt_glib_sources,
-  c_args: common_cflags + warning_cflags,
+  c_args: common_cflags + warning_cflags + glib_cflags,
   dependencies: libvirt_glib_deps,
   include_directories: top_include_dir,
   link_args: libvirt_glib_link_args,
