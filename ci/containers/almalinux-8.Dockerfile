@@ -37,7 +37,6 @@ RUN dnf update -y && \
         pkgconfig \
         python3 \
         python3-docutils \
-        rpcgen \
         rpm-build \
         vala && \
     dnf autoremove -y && \

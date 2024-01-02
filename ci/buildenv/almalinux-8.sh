@@ -36,7 +36,6 @@ function install_buildenv() {
         pkgconfig \
         python3 \
         python3-docutils \
-        rpcgen \
         rpm-build \
         vala
     rpm -qa | sort > /packages.txt

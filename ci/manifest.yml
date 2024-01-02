@@ -41,9 +41,9 @@ targets:
       - arch: x86_64
         allow-failure: true
 
-  fedora-37: x86_64
+  fedora-38: x86_64
 
-  fedora-38:
+  fedora-39:
     jobs:
       - arch: x86_64
 
@@ -58,13 +58,13 @@ targets:
       - arch: mingw64
         allow-failure: true
 
-  freebsd-12:
+  freebsd-13:
     jobs:
       - arch: x86_64
         variables:
           XML_CATALOG_FILES: /usr/local/share/xml/catalog
 
-  freebsd-13:
+  freebsd-14:
     jobs:
       - arch: x86_64
         variables:

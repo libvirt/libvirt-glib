@@ -139,24 +139,6 @@ x86_64-debian-sid-local-env:
     NAME: debian-sid
 
 
-x86_64-fedora-37-prebuilt-env:
-  extends: .native_build_job_prebuilt_env
-  needs:
-    - job: x86_64-fedora-37-container
-      optional: true
-  allow_failure: false
-  variables:
-    NAME: fedora-37
-
-x86_64-fedora-37-local-env:
-  extends: .native_build_job_local_env
-  needs: []
-  allow_failure: false
-  variables:
-    IMAGE: registry.fedoraproject.org/fedora:37
-    NAME: fedora-37
-
-
 x86_64-fedora-38-prebuilt-env:
   extends: .native_build_job_prebuilt_env
   needs:
@@ -173,6 +155,24 @@ x86_64-fedora-38-local-env:
   variables:
     IMAGE: registry.fedoraproject.org/fedora:38
     NAME: fedora-38
+
+
+x86_64-fedora-39-prebuilt-env:
+  extends: .native_build_job_prebuilt_env
+  needs:
+    - job: x86_64-fedora-39-container
+      optional: true
+  allow_failure: false
+  variables:
+    NAME: fedora-39
+
+x86_64-fedora-39-local-env:
+  extends: .native_build_job_local_env
+  needs: []
+  allow_failure: false
+  variables:
+    IMAGE: registry.fedoraproject.org/fedora:39
+    NAME: fedora-39
 
 
 x86_64-fedora-rawhide-prebuilt-env:
@@ -272,24 +272,24 @@ x86_64-ubuntu-2204-local-env:
 
 # Cross build jobs
 
-mingw32-fedora-38-prebuilt-env:
+mingw32-fedora-39-prebuilt-env:
   extends: .cross_build_job_prebuilt_env
   needs:
-    - job: mingw32-fedora-38-container
+    - job: mingw32-fedora-39-container
       optional: true
   allow_failure: false
   variables:
     CROSS: mingw32
-    NAME: fedora-38
+    NAME: fedora-39
 
-mingw32-fedora-38-local-env:
+mingw32-fedora-39-local-env:
   extends: .cross_build_job_local_env
   needs: []
   allow_failure: false
   variables:
     CROSS: mingw32
-    IMAGE: registry.fedoraproject.org/fedora:38
-    NAME: fedora-38
+    IMAGE: registry.fedoraproject.org/fedora:39
+    NAME: fedora-39
 
 
 mingw64-fedora-rawhide-prebuilt-env:
@@ -314,21 +314,6 @@ mingw64-fedora-rawhide-local-env:
 
 # Native cirrus build jobs
 
-x86_64-freebsd-12:
-  extends: .cirrus_build_job
-  needs: []
-  allow_failure: false
-  variables:
-    CIRRUS_VM_IMAGE_NAME: freebsd-12-4
-    CIRRUS_VM_IMAGE_SELECTOR: image_family
-    CIRRUS_VM_INSTANCE_TYPE: freebsd_instance
-    INSTALL_COMMAND: pkg install -y
-    NAME: freebsd-12
-    UPDATE_COMMAND: pkg update
-    UPGRADE_COMMAND: pkg upgrade -y
-    XML_CATALOG_FILES: /usr/local/share/xml/catalog
-
-
 x86_64-freebsd-13:
   extends: .cirrus_build_job
   needs: []
@@ -339,6 +324,21 @@ x86_64-freebsd-13:
     CIRRUS_VM_INSTANCE_TYPE: freebsd_instance
     INSTALL_COMMAND: pkg install -y
     NAME: freebsd-13
+    UPDATE_COMMAND: pkg update
+    UPGRADE_COMMAND: pkg upgrade -y
+    XML_CATALOG_FILES: /usr/local/share/xml/catalog
+
+
+x86_64-freebsd-14:
+  extends: .cirrus_build_job
+  needs: []
+  allow_failure: false
+  variables:
+    CIRRUS_VM_IMAGE_NAME: freebsd-14-0
+    CIRRUS_VM_IMAGE_SELECTOR: image_family
+    CIRRUS_VM_INSTANCE_TYPE: freebsd_instance
+    INSTALL_COMMAND: pkg install -y
+    NAME: freebsd-14
     UPDATE_COMMAND: pkg update
     UPGRADE_COMMAND: pkg upgrade -y
     XML_CATALOG_FILES: /usr/local/share/xml/catalog
