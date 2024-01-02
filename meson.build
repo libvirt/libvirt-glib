@@ -217,7 +217,7 @@ cc_flags += [
   '-Wformat-y2k',
   '-Wformat-zero-length',
   '-Wframe-address',
-  '-Wframe-larger-than=256',
+  '-Wframe-larger-than=1024',
   '-Wfree-nonheap-object',
   '-Whsa',
   '-Wif-not-aligned',
