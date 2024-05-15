@@ -18,6 +18,8 @@ stages:
   export LD_LIBRARY_PATH="$LIBDIR"
 
 .native_git_build_job:
+  extends:
+    - .gitlab_native_build_job
   cache:
     paths:
       - ccache/
@@ -39,17 +41,9 @@ stages:
         rpmbuild --nodeps --define "_without_mingw 1" -ta build/meson-dist/libvirt-glib-*.tar.xz;
       fi
 
-.native_git_build_job_prebuilt_env:
-  extends:
-    - .native_git_build_job
-    - .gitlab_native_build_job_prebuilt_env
-
-.native_git_build_job_local_env:
-  extends:
-    - .native_git_build_job
-    - .gitlab_native_build_job_local_env
-
 .native_build_job:
+  extends:
+    - .gitlab_native_build_job
   cache:
     paths:
       - ccache/
@@ -63,17 +57,9 @@ stages:
         rpmbuild --nodeps --define "_without_mingw 1" -ta build/meson-dist/libvirt-glib-*.tar.xz;
       fi
 
-.native_build_job_prebuilt_env:
-  extends:
-    - .native_build_job
-    - .gitlab_native_build_job_prebuilt_env
-
-.native_build_job_local_env:
-  extends:
-    - .native_build_job
-    - .gitlab_native_build_job_local_env
-
 .cross_build_job:
+  extends:
+    - .gitlab_cross_build_job
   cache:
     paths:
       - ccache/
@@ -82,15 +68,5 @@ stages:
     - *script_variables
     - meson build --werror $MESON_OPTS || (cat build/meson-logs/meson-log.txt && exit 1)
     - ninja -C build
-
-.cross_build_job_prebuilt_env:
-  extends:
-    - .cross_build_job
-    - .gitlab_cross_build_job_prebuilt_env
-
-.cross_build_job_local_env:
-  extends:
-    - .cross_build_job
-    - .gitlab_cross_build_job_local_env
 
 include: '/ci/gitlab.yml'

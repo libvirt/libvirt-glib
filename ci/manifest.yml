@@ -7,7 +7,7 @@ gitlab:
   project: libvirt-glib
 
 targets:
-  almalinux-8:
+  almalinux-9:
     projects:
       - libvirt-glib
       - libvirt+minimal
@@ -24,12 +24,6 @@ targets:
         variables:
           RPM: skip
 
-  centos-stream-8:
-    jobs:
-      - arch: x86_64
-        variables:
-          RPM: skip
-
   centos-stream-9: x86_64
 
   debian-11: x86_64
@@ -41,9 +35,9 @@ targets:
       - arch: x86_64
         allow-failure: true
 
-  fedora-38: x86_64
+  fedora-39: x86_64
 
-  fedora-39:
+  fedora-40:
     jobs:
       - arch: x86_64
 
@@ -89,6 +83,6 @@ targets:
         variables:
           RPM: skip
 
-  ubuntu-2004: x86_64
-
   ubuntu-2204: x86_64
+
+  ubuntu-2404: x86_64
