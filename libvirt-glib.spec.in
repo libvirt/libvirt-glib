@@ -43,6 +43,8 @@ Summary: libvirt object APIs for processing object configuration
 
 %package -n libvirt-gobject
 Summary: libvirt object APIs for managing virtualization hosts
+Requires: %{name} = %{version}-%{release}
+Requires: libvirt-gconfig = %{version}-%{release}
 
 %package -n libvirt-gconfig-devel
 Summary: libvirt object APIs for processing object configuration development files
