@@ -133,7 +133,7 @@ MinGW Windows libvirt-gobject virtualization library.
 %endif
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %meson -Drpath=disabled
