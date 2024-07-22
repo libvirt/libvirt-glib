@@ -24,10 +24,12 @@ BuildRequires: gtk-doc
 
 %if %{with_mingw}
 BuildRequires:  mingw32-filesystem
+BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-glib2
 BuildRequires:  mingw32-libvirt
 
 BuildRequires:  mingw64-filesystem
+BuildRequires:  mingw64-gcc
 BuildRequires:  mingw64-glib2
 BuildRequires:  mingw64-libvirt
 %endif
