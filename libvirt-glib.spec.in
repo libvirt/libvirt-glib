@@ -55,7 +55,6 @@ Summary: libvirt object APIs for managing virtualization hosts development files
 Requires: %{name}-devel = %{version}-%{release}
 Requires: libvirt-gconfig-devel = %{version}-%{release}
 Requires: libvirt-gobject = %{version}-%{release}
-Requires: libvirt-devel
 
 %description
 This package provides integration between libvirt and the glib
