@@ -64,7 +64,7 @@ targets:
         variables:
           XML_CATALOG_FILES: /usr/local/share/xml/catalog
 
-  macos-13:
+  macos-14:
     jobs:
       - arch: aarch64
         variables:
