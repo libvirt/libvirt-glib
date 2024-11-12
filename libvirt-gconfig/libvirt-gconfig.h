@@ -100,6 +100,7 @@
 #include <libvirt-gconfig/libvirt-gconfig-domain-timer-pit.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-timer-rtc.h>
 #include <libvirt-gconfig/libvirt-gconfig-domain-video.h>
+#include <libvirt-gconfig/libvirt-gconfig-domain-vsock.h>
 #include <libvirt-gconfig/libvirt-gconfig-enum-types.h>
 #include <libvirt-gconfig/libvirt-gconfig-helpers.h>
 #include <libvirt-gconfig/libvirt-gconfig-interface.h>

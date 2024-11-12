@@ -812,4 +812,10 @@ global:
         gvir_config_domain_os_enable_firmware_feature;
 } LIBVIRT_GCONFIG_3.1.0;
 
+LIBVIRT_GCONFIG_6.0.0 {
+global:
+        gvir_config_domain_vsock_get_type;
+        gvir_config_domain_vsock_new;
+} LIBVIRT_GCONFIG_5.0.0;
+
 # .... define new API here using predicted next version number ....
