@@ -54,3 +54,20 @@ GVirConfigDomainVsock *gvir_config_domain_vsock_new(void)
     gvir_config_object_set_attribute(object, "model", "virtio", NULL);
     return GVIR_CONFIG_DOMAIN_VSOCK(object);
 }
+
+void
+gvir_config_domain_vsock_set_cid_address(GVirConfigDomainVsock *vsock,
+                                         unsigned int address)
+{
+    GVirConfigObject *child;
+
+    g_return_if_fail(GVIR_CONFIG_IS_DOMAIN_VSOCK(vsock));
+
+    child = gvir_config_object_replace_child(GVIR_CONFIG_OBJECT(vsock), "cid");
+
+    gvir_config_object_set_attribute_with_type(child,
+                                               "auto", G_TYPE_STRING, "no",
+                                               "address", G_TYPE_UINT, address,
+                                               NULL);
+    g_object_unref(G_OBJECT(child));
+}

@@ -59,4 +59,7 @@ GType gvir_config_domain_vsock_get_type(void);
 
 GVirConfigDomainVsock *gvir_config_domain_vsock_new(void);
 
+void gvir_config_domain_vsock_set_cid_address(GVirConfigDomainVsock *vsock,
+                                              unsigned int address);
+
 G_END_DECLS

@@ -816,6 +816,7 @@ LIBVIRT_GCONFIG_6.0.0 {
 global:
         gvir_config_domain_vsock_get_type;
         gvir_config_domain_vsock_new;
+        gvir_config_domain_vsock_set_cid_address;
 } LIBVIRT_GCONFIG_5.0.0;
 
 # .... define new API here using predicted next version number ....
