@@ -75,17 +75,6 @@ x86_64-debian-sid:
     TARGET_BASE_IMAGE: docker.io/library/debian:sid-slim
 
 
-x86_64-fedora-39:
-  extends: .native_build_job
-  needs:
-    - job: x86_64-fedora-39-container
-      optional: true
-  allow_failure: false
-  variables:
-    NAME: fedora-39
-    TARGET_BASE_IMAGE: registry.fedoraproject.org/fedora:39
-
-
 x86_64-fedora-40:
   extends: .native_build_job
   needs:
@@ -95,6 +84,17 @@ x86_64-fedora-40:
   variables:
     NAME: fedora-40
     TARGET_BASE_IMAGE: registry.fedoraproject.org/fedora:40
+
+
+x86_64-fedora-41:
+  extends: .native_build_job
+  needs:
+    - job: x86_64-fedora-41-container
+      optional: true
+  allow_failure: false
+  variables:
+    NAME: fedora-41
+    TARGET_BASE_IMAGE: registry.fedoraproject.org/fedora:41
 
 
 x86_64-fedora-rawhide:
@@ -157,16 +157,16 @@ x86_64-ubuntu-2404:
 
 # Cross build jobs
 
-mingw32-fedora-40:
+mingw32-fedora-41:
   extends: .cross_build_job
   needs:
-    - job: mingw32-fedora-40-container
+    - job: mingw32-fedora-41-container
       optional: true
   allow_failure: false
   variables:
     CROSS: mingw32
-    NAME: fedora-40
-    TARGET_BASE_IMAGE: registry.fedoraproject.org/fedora:40
+    NAME: fedora-41
+    TARGET_BASE_IMAGE: registry.fedoraproject.org/fedora:41
 
 
 mingw64-fedora-rawhide:

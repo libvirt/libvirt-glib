@@ -1,6 +1,6 @@
 projects:
   - libvirt-glib
-  - libvirt+dist
+  - https://gitlab.com/libvirt/libvirt/-/raw/master/ci/lcitool/projects/libvirt+dist.yml
 
 gitlab:
   namespace: libvirt
@@ -10,8 +10,8 @@ targets:
   almalinux-9:
     projects:
       - libvirt-glib
-      - libvirt+minimal
-      - libvirt+dist
+      - https://gitlab.com/libvirt/libvirt/-/raw/master/ci/lcitool/projects/libvirt+minimal.yml
+      - https://gitlab.com/libvirt/libvirt/-/raw/master/ci/lcitool/projects/libvirt+dist.yml
 
     jobs:
       - arch: x86_64
@@ -35,9 +35,9 @@ targets:
       - arch: x86_64
         allow-failure: true
 
-  fedora-39: x86_64
+  fedora-40: x86_64
 
-  fedora-40:
+  fedora-41:
     jobs:
       - arch: x86_64
 
