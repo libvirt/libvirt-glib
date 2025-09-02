@@ -2,19 +2,22 @@
 # Copyright (C) 2020 The Libvirt authors
 # This file is distributed under the same license as the libvirt-glib package.
 # Américo Monteiro <a_monteiro@gmx.com>, 2025.
+# Weblate <noreply-mt-weblate@weblate.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: libvirt-glib 3.0.0\n"
 "Report-Msgid-Bugs-To: https://libvirt.org/bugs.html\n"
 "POT-Creation-Date: 2020-07-06 16:42+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-07-03 22:29+0000\n"
+"Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
+"Language-Team: Portuguese <https://translate.fedoraproject.org/projects/"
+"libvirt/libvirt-glib/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #: libvirt-gobject/libvirt-gobject-connection.c:438
 #, c-format
@@ -88,7 +91,7 @@ msgstr ""
 
 #: libvirt-gobject/libvirt-gobject-connection.c:2271
 msgid "Unable to get capabilities"
-msgstr ""
+msgstr "Incapaz de obter as capacidades"
 
 #: libvirt-gobject/libvirt-gobject-connection.c:464
 msgid "Unable to get connection URI"
@@ -111,9 +114,9 @@ msgid "Unable to get node info"
 msgstr ""
 
 #: libvirt-gobject/libvirt-gobject-connection.c:453
-#, c-format
+#, c-format, fuzzy
 msgid "Unable to open %s"
-msgstr ""
+msgstr "Incapaz de aceder ao %s: %s"
 
 #: libvirt-gconfig/libvirt-gconfig-object.c:233
 #, c-format
