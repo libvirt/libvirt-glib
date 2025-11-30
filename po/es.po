@@ -7,13 +7,14 @@
 # Anonymous <noreply@weblate.org>, 2019
 # Adolfo Jayme Barrientos <fitoschido@gmail.com>, 2020.
 # Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2023.
+# "Fco. Javier F. Serrador" <fserrador@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: libvirt-glib 2.0.0\n"
 "Report-Msgid-Bugs-To: https://libvirt.org/bugs.html\n"
 "POT-Creation-Date: 2020-07-06 16:42+0100\n"
-"PO-Revision-Date: 2023-04-10 07:20+0000\n"
-"Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
+"PO-Revision-Date: 2025-11-30 17:58+0000\n"
+"Last-Translator: \"Fco. Javier F. Serrador\" <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/libvirt/"
 "libvirt-glib/es/>\n"
 "Language: es\n"
@@ -21,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15.2\n"
+"X-Generator: Weblate 5.14.3\n"
 
 #, c-format
 msgid "Connection %s is already open"
@@ -68,59 +69,59 @@ msgstr ""
 
 #, c-format
 msgid "Unable to create RNG parser for %s"
-msgstr "No se pudo crear el analizador RNG para %s"
+msgstr "No es capaz de crear el intérprete RNG para %s"
 
 #, c-format
 msgid "Unable to create RNG validation context %s"
-msgstr "No se pudo crear el contexto de validación de RNG %s"
+msgstr "No es capaz de crear el contexto de validación de RNG %s"
 
 msgid "Unable to get capabilities"
-msgstr "No se pudieron obtener las capacidades"
+msgstr "No es capaz de obtener las capacidades"
 
 msgid "Unable to get connection URI"
-msgstr "No se puede obtener el URI de la conexión"
+msgstr "No es capaz de obtener el URI de la conexión"
 
 msgid "Unable to get domain capabilities"
-msgstr "No se pueden obtener las capacidades del dominio"
+msgstr "No es capaz de obtener las capacidades del dominio"
 
 msgid "Unable to get hypervisor name"
-msgstr "No se puede obtener el nombre del hipervisor"
+msgstr "No es capaz de obtener el nombre del hipervisor"
 
 msgid "Unable to get hypervisor version"
-msgstr "No se puede obtener la versión del hipervisor"
+msgstr "No es capaz de obtener la versión del hipervisor"
 
 msgid "Unable to get node info"
-msgstr "No se puede obtener la información del nodo"
+msgstr "No es capaz de obtener la información del nodo"
 
 #, c-format
 msgid "Unable to open %s"
-msgstr "No se puede abrir %s"
+msgstr "No es capaz de abrir %s"
 
 #, c-format
 msgid "Unable to parse RNG %s"
-msgstr "No se pudo analizar el RNG %s"
+msgstr "No es capaz de interpretar el RNG %s"
 
 msgid "Unable to parse configuration"
-msgstr "No se pudo analizar la configuración"
+msgstr "No es capaz de interpretar la configuración"
 
 msgid "Unable to perform RecvAll"
-msgstr "No se puede realizar RecvAll"
+msgstr "No es capaz de realizar RecvAll"
 
 msgid "Unable to perform SendAll"
-msgstr "No se puede realizar SendAll"
+msgstr "No es capaz de realizar SendAll"
 
 msgid "Unable to restore domain"
-msgstr "No se puede restaurar el dominio"
+msgstr "No es capaz de restaurar el dominio"
 
 msgid "Unable to validate doc"
-msgstr "No se pudo validar el documento"
+msgstr "No es capaz de validar el documento"
 
 #, c-format
 msgid "XML data has no '%s' node"
 msgstr "Los datos XML no tienen un nodo «%s»"
 
 msgid "virStreamRecv call would block"
-msgstr "La llamada virStreamRecv se bloquearía"
+msgstr "La invocación virStreamRecv se bloquearía"
 
 msgid "virStreamSend call would block"
-msgstr "La llamada virStreamSend se bloquearía"
+msgstr "La invocación virStreamSend se bloquearía"
