@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the libvirt-glib package.
 # Languages add-on <noreply-addon-languages@weblate.org>, 2026.
 # Weblate <noreply-mt-weblate@weblate.org>, 2026.
+# Haorong Xu <haorongxu09@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: libvirt-glib 3.0.0\n"
 "Report-Msgid-Bugs-To: https://libvirt.org/bugs.html\n"
 "POT-Creation-Date: 2020-07-06 16:42+0100\n"
 "PO-Revision-Date: 2026-02-25 02:58+0000\n"
-"Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
+"Last-Translator: Haorong Xu <haorongxu09@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://translate.fedoraproject.org/"
 "projects/libvirt/libvirt-glib/zh_CN/>\n"
 "Language: zh_CN\n"
@@ -20,9 +21,9 @@ msgstr ""
 "X-Generator: Weblate 5.16\n"
 
 #: libvirt-gobject/libvirt-gobject-connection.c:438
-#, c-format, fuzzy
+#, c-format
 msgid "Connection %s is already open"
-msgstr "连接已经打开"
+msgstr "连接 %s 已建立"
 
 #: libvirt-gobject/libvirt-gobject-connection.c:729
 #: libvirt-gobject/libvirt-gobject-connection.c:817
@@ -39,119 +40,122 @@ msgstr "连接未打开"
 #: libvirt-gobject/libvirt-gobject-connection.c:1394
 #: libvirt-gobject/libvirt-gobject-connection.c:1449
 msgid "Failed to create domain"
-msgstr ""
+msgstr "创建域失败"
 
 #: libvirt-gobject/libvirt-gobject-connection.c:2020
 msgid "Failed to create storage pool"
-msgstr ""
+msgstr "存储池创建失败"
 
 #: libvirt-gobject/libvirt-gobject-connection.c:742
 msgid "Failed to fetch list of domains"
-msgstr ""
+msgstr "获取域列表失败"
 
 #: libvirt-gobject/libvirt-gobject-connection.c:1520
 msgid "Failed to fetch list of interfaces"
-msgstr ""
+msgstr "获取接口列表失败"
 
 #: libvirt-gobject/libvirt-gobject-connection.c:1777
 msgid "Failed to fetch list of networks"
-msgstr ""
+msgstr "获取网络列表失败"
 
 #: libvirt-gobject/libvirt-gobject-connection.c:833
 msgid "Failed to fetch list of pools"
-msgstr ""
+msgstr "获取存储池列表失败"
 
 #: libvirt-gobject/libvirt-gobject-stream.c:350
 #: libvirt-gobject/libvirt-gobject-stream.c:466
 #, c-format
 msgid "Got virStreamRecv error in %s"
-msgstr ""
+msgstr "%s 中出现 virStreamRecv 错误"
 
 #: libvirt-gconfig/libvirt-gconfig-object.c:206
 msgid "No XML document associated with this config object"
-msgstr ""
+msgstr "该配置对象没有关联 XML 文件"
 
 #: libvirt-gconfig/libvirt-gconfig-helpers.c:141
 msgid "No XML document to parse"
-msgstr ""
+msgstr "没有 XML 文件可用于解析"
 
 #: libvirt-gconfig/libvirt-gconfig-object.c:214
 msgid "No XML schema associated with this config object"
-msgstr ""
+msgstr "该配置对象没有关联的 XML 模式"
 
 #: libvirt-gconfig/libvirt-gconfig-object.c:223
 #, c-format
 msgid "Unable to create RNG parser for %s"
-msgstr ""
+msgstr "为 %s 创建 RNG 解析器失败"
 
 #: libvirt-gconfig/libvirt-gconfig-object.c:245
 #, c-format
 msgid "Unable to create RNG validation context %s"
-msgstr ""
+msgstr "无法为 %s 创建 RNG 验证上下文"
 
 #: libvirt-gobject/libvirt-gobject-connection.c:2271
+#, fuzzy
 msgid "Unable to get capabilities"
 msgstr "无法获取 Capabilities 信息"
 
 #: libvirt-gobject/libvirt-gobject-connection.c:464
 msgid "Unable to get connection URI"
-msgstr ""
+msgstr "获取连接 URI 失败"
 
 #: libvirt-gobject/libvirt-gobject-connection.c:2119
+#, fuzzy
 msgid "Unable to get domain capabilities"
 msgstr "无法获取节点功能"
 
 #: libvirt-gobject/libvirt-gobject-connection.c:1041
 msgid "Unable to get hypervisor name"
-msgstr ""
+msgstr "获取 Hypervisor 名失败"
 
 #: libvirt-gobject/libvirt-gobject-connection.c:1079
 msgid "Unable to get hypervisor version"
-msgstr ""
+msgstr "获取 Hypervisor 版本失败"
 
 #: libvirt-gobject/libvirt-gobject-connection.c:2063
 msgid "Unable to get node info"
-msgstr ""
+msgstr "无法获取节点信息"
 
 #: libvirt-gobject/libvirt-gobject-connection.c:453
 #, c-format
 msgid "Unable to open %s"
-msgstr ""
+msgstr "无法打开 %s"
 
 #: libvirt-gconfig/libvirt-gconfig-object.c:233
 #, c-format
 msgid "Unable to parse RNG %s"
-msgstr ""
+msgstr "无法解析 RNG %s"
 
 #: libvirt-gconfig/libvirt-gconfig-helpers.c:149
 msgid "Unable to parse configuration"
-msgstr ""
+msgstr "无法解析配置文件"
 
 #: libvirt-gobject/libvirt-gobject-stream.c:415
 msgid "Unable to perform RecvAll"
-msgstr ""
+msgstr "无法执行 RecvAll 操作"
 
 #: libvirt-gobject/libvirt-gobject-stream.c:531
 msgid "Unable to perform SendAll"
-msgstr ""
+msgstr "无法执行 SendAll 操作"
 
 #: libvirt-gobject/libvirt-gobject-connection.c:2395
 msgid "Unable to restore domain"
-msgstr ""
+msgstr "无法恢复域"
 
 #: libvirt-gconfig/libvirt-gconfig-object.c:255
+#, fuzzy
 msgid "Unable to validate doc"
-msgstr ""
+msgstr "无法验证 doc"
 
 #: libvirt-gconfig/libvirt-gconfig-helpers.c:157
 #, c-format
 msgid "XML data has no '%s' node"
-msgstr ""
+msgstr "XML 数据没有节点 %s"
 
 #: libvirt-gobject/libvirt-gobject-stream.c:347
 msgid "virStreamRecv call would block"
-msgstr ""
+msgstr "virStreamRecv 调用将阻塞"
 
 #: libvirt-gobject/libvirt-gobject-stream.c:463
 msgid "virStreamSend call would block"
-msgstr ""
+msgstr "virStreamSend 调用将阻塞"
