@@ -2,36 +2,39 @@
 # Copyright (C) 2020 The Libvirt authors
 # This file is distributed under the same license as the libvirt-glib package.
 # Languages add-on <noreply-addon-languages@weblate.org>, 2026.
+# Weblate <noreply-mt-weblate@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: libvirt-glib 3.0.0\n"
 "Report-Msgid-Bugs-To: https://libvirt.org/bugs.html\n"
 "POT-Creation-Date: 2020-07-06 16:42+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-02-25 02:58+0000\n"
+"Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
+"Language-Team: Chinese (Simplified) <https://translate.fedoraproject.org/"
+"projects/libvirt/libvirt-glib/zh_CN/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.16\n"
 
 #: libvirt-gobject/libvirt-gobject-connection.c:438
-#, c-format
+#, c-format, fuzzy
 msgid "Connection %s is already open"
-msgstr ""
+msgstr "连接已经打开"
 
 #: libvirt-gobject/libvirt-gobject-connection.c:729
 #: libvirt-gobject/libvirt-gobject-connection.c:817
 #: libvirt-gobject/libvirt-gobject-connection.c:1504
 #: libvirt-gobject/libvirt-gobject-connection.c:1761
 msgid "Connection is not open"
-msgstr ""
+msgstr "连接未打开"
 
 #: libvirt-gobject/libvirt-gobject-connection.c:1034
 #: libvirt-gobject/libvirt-gobject-connection.c:1073
 msgid "Connection is not opened"
-msgstr ""
+msgstr "连接未打开"
 
 #: libvirt-gobject/libvirt-gobject-connection.c:1394
 #: libvirt-gobject/libvirt-gobject-connection.c:1449
@@ -88,7 +91,7 @@ msgstr ""
 
 #: libvirt-gobject/libvirt-gobject-connection.c:2271
 msgid "Unable to get capabilities"
-msgstr ""
+msgstr "无法获取 Capabilities 信息"
 
 #: libvirt-gobject/libvirt-gobject-connection.c:464
 msgid "Unable to get connection URI"
@@ -96,7 +99,7 @@ msgstr ""
 
 #: libvirt-gobject/libvirt-gobject-connection.c:2119
 msgid "Unable to get domain capabilities"
-msgstr ""
+msgstr "无法获取节点功能"
 
 #: libvirt-gobject/libvirt-gobject-connection.c:1041
 msgid "Unable to get hypervisor name"
