@@ -5,27 +5,26 @@
 # https://gitlab.com/libvirt/libvirt-ci
 
 function install_buildenv() {
-    dnf update -y
-    dnf install -y \
+    apk update
+    apk upgrade
+    apk add \
         ca-certificates \
         ccache \
-        cppi \
         gcc \
         gettext \
         git \
-        glib2-devel \
-        glibc-langpack-en \
-        gobject-introspection-devel \
+        glib-dev \
+        gobject-introspection-dev \
         gtk-doc \
-        libvirt-devel \
-        libxml2-devel \
+        libvirt-dev \
+        libxml2-dev \
         make \
         meson \
-        ninja-build \
-        pkgconfig \
-        rpm-build \
+        musl-dev \
+        pkgconf \
+        samurai \
         vala
-    rpm -qa | sort > /packages.txt
+    apk list --installed | sort > /packages.txt
     mkdir -p /usr/libexec/ccache-wrappers
     ln -s /usr/bin/ccache /usr/libexec/ccache-wrappers/cc
     ln -s /usr/bin/ccache /usr/libexec/ccache-wrappers/gcc

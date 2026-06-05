@@ -7,6 +7,27 @@
 
 # Native container jobs
 
+x86_64-alpine-322-container:
+  extends: .container_job
+  allow_failure: false
+  variables:
+    NAME: alpine-322
+
+
+x86_64-alpine-323-container:
+  extends: .container_job
+  allow_failure: false
+  variables:
+    NAME: alpine-323
+
+
+x86_64-alpine-edge-container:
+  extends: .container_job
+  allow_failure: true
+  variables:
+    NAME: alpine-edge
+
+
 x86_64-almalinux-9-container:
   extends: .container_job
   allow_failure: false
@@ -56,18 +77,18 @@ x86_64-debian-sid-container:
     NAME: debian-sid
 
 
-x86_64-fedora-42-container:
-  extends: .container_job
-  allow_failure: false
-  variables:
-    NAME: fedora-42
-
-
 x86_64-fedora-43-container:
   extends: .container_job
   allow_failure: false
   variables:
     NAME: fedora-43
+
+
+x86_64-fedora-44-container:
+  extends: .container_job
+  allow_failure: false
+  variables:
+    NAME: fedora-44
 
 
 x86_64-fedora-rawhide-container:
@@ -84,18 +105,18 @@ x86_64-opensuse-leap-15-container:
     NAME: opensuse-leap-15
 
 
+x86_64-opensuse-leap-16-container:
+  extends: .container_job
+  allow_failure: false
+  variables:
+    NAME: opensuse-leap-16
+
+
 x86_64-opensuse-tumbleweed-container:
   extends: .container_job
   allow_failure: true
   variables:
     NAME: opensuse-tumbleweed
-
-
-x86_64-ubuntu-2204-container:
-  extends: .container_job
-  allow_failure: false
-  variables:
-    NAME: ubuntu-2204
 
 
 x86_64-ubuntu-2404-container:
@@ -105,14 +126,21 @@ x86_64-ubuntu-2404-container:
     NAME: ubuntu-2404
 
 
-
-# Cross container jobs
-
-mingw32-fedora-43-container:
+x86_64-ubuntu-2604-container:
   extends: .container_job
   allow_failure: false
   variables:
-    NAME: fedora-43-cross-mingw32
+    NAME: ubuntu-2604
+
+
+
+# Cross container jobs
+
+mingw32-fedora-44-container:
+  extends: .container_job
+  allow_failure: false
+  variables:
+    NAME: fedora-44-cross-mingw32
 
 
 mingw64-fedora-rawhide-container:

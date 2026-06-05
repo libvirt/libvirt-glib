@@ -7,7 +7,7 @@
 FROM registry.opensuse.org/opensuse/tumbleweed:latest
 
 RUN zypper dist-upgrade -y && \
-    zypper install -y \
+    zypper install -y --allow-downgrade \
            ca-certificates \
            ccache \
            cppi \
@@ -15,6 +15,7 @@ RUN zypper dist-upgrade -y && \
            gettext-runtime \
            git \
            glib2-devel \
+           glibc-devel \
            glibc-locale \
            gobject-introspection-devel \
            gtk-doc \

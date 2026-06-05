@@ -6,7 +6,7 @@
 
 FROM registry.fedoraproject.org/fedora:43
 
-RUN dnf install -y nosync && \
+RUN dnf --quiet install -y nosync && \
     printf '#!/bin/sh\n\
 if test -d /usr/lib64\n\
 then\n\
@@ -16,28 +16,29 @@ else\n\
 fi\n\
 exec "$@"\n' > /usr/bin/nosync && \
     chmod +x /usr/bin/nosync && \
-    nosync dnf update -y && \
-    nosync dnf install -y \
-               ca-certificates \
-               ccache \
-               cppi \
-               gcc \
-               gettext \
-               git \
-               glib2-devel \
-               glibc-langpack-en \
-               gobject-introspection-devel \
-               gtk-doc \
-               libvirt-devel \
-               libxml2-devel \
-               make \
-               meson \
-               ninja-build \
-               pkgconfig \
-               rpm-build \
-               vala && \
-    nosync dnf autoremove -y && \
-    nosync dnf clean all -y && \
+    nosync dnf --quiet update -y && \
+    nosync dnf --quiet install -y \
+                       ca-certificates \
+                       ccache \
+                       cppi \
+                       gcc \
+                       gettext \
+                       git \
+                       glib2-devel \
+                       glibc-devel \
+                       glibc-langpack-en \
+                       gobject-introspection-devel \
+                       gtk-doc \
+                       libvirt-devel \
+                       libxml2-devel \
+                       make \
+                       meson \
+                       ninja-build \
+                       pkgconfig \
+                       rpm-build \
+                       vala && \
+    nosync dnf --quiet autoremove -y && \
+    nosync dnf --quiet clean all -y && \
     rpm -qa | sort > /packages.txt && \
     mkdir -p /usr/libexec/ccache-wrappers && \
     ln -s /usr/bin/ccache /usr/libexec/ccache-wrappers/cc && \

@@ -7,6 +7,12 @@ gitlab:
   project: libvirt-glib
 
 targets:
+  alpine-322: x86_64
+
+  alpine-323: x86_64
+
+  alpine-edge: x86_64
+
   almalinux-9:
     jobs:
       - arch: x86_64
@@ -38,14 +44,11 @@ targets:
 
   debian-13: x86_64
 
-  debian-sid:
-    jobs:
-      - arch: x86_64
-        allow-failure: true
+  debian-sid: x86_64
 
-  fedora-42: x86_64
+  fedora-43: x86_64
 
-  fedora-43:
+  fedora-44:
     jobs:
       - arch: x86_64
 
@@ -55,30 +58,16 @@ targets:
   fedora-rawhide:
     jobs:
       - arch: x86_64
-        allow-failure: true
 
       - arch: mingw64
-        allow-failure: true
-
-  freebsd-13:
-    jobs:
-      - arch: x86_64
-        variables:
-          XML_CATALOG_FILES: /usr/local/share/xml/catalog
-
-  freebsd-14:
-    jobs:
-      - arch: x86_64
-        variables:
-          XML_CATALOG_FILES: /usr/local/share/xml/catalog
-
-  macos-14:
-    jobs:
-      - arch: aarch64
-        variables:
-          XML_CATALOG_FILES: /opt/homebrew/etc/xml/catalog
 
   opensuse-leap-15:
+    jobs:
+      - arch: x86_64
+        variables:
+          RPM: skip
+
+  opensuse-leap-16:
     jobs:
       - arch: x86_64
         variables:
@@ -87,10 +76,9 @@ targets:
   opensuse-tumbleweed:
     jobs:
       - arch: x86_64
-        allow-failure: true
         variables:
           RPM: skip
 
-  ubuntu-2204: x86_64
-
   ubuntu-2404: x86_64
+
+  ubuntu-2604: x86_64

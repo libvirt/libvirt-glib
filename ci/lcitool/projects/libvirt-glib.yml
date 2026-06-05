@@ -8,6 +8,7 @@ packages:
   - glib2
   - gobject-introspection
   - gtk-doc
+  - libc
   - libxml2
   - make
   - meson

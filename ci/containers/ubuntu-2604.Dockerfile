@@ -4,7 +4,7 @@
 #
 # https://gitlab.com/libvirt/libvirt-ci
 
-FROM docker.io/library/ubuntu:22.04
+FROM docker.io/library/ubuntu:26.04
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
@@ -17,6 +17,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
                       gettext \
                       git \
                       gtk-doc-tools \
+                      libc6-dev \
                       libgirepository1.0-dev \
                       libglib2.0-dev \
                       libglib2.0-dev-bin \

@@ -15,6 +15,7 @@ function install_buildenv() {
             gettext \
             git \
             gtk-doc-tools \
+            libc6-dev \
             libgirepository1.0-dev \
             libglib2.0-dev \
             libglib2.0-dev-bin \

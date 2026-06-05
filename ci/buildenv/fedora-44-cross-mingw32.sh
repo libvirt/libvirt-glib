@@ -5,8 +5,7 @@
 # https://gitlab.com/libvirt/libvirt-ci
 
 function install_buildenv() {
-    dnf --quiet update -y --nogpgcheck fedora-gpg-keys
-    dnf --quiet distro-sync -y
+    dnf --quiet update -y
     dnf --quiet install -y \
                 ca-certificates \
                 ccache \
@@ -21,17 +20,17 @@ function install_buildenv() {
                 rpm-build \
                 vala
     dnf --quiet install -y \
-                mingw64-gcc \
-                mingw64-gettext \
-                mingw64-glib2 \
-                mingw64-headers \
-                mingw64-libvirt \
-                mingw64-libxml2 \
-                mingw64-pkg-config
+                mingw32-gcc \
+                mingw32-gettext \
+                mingw32-glib2 \
+                mingw32-headers \
+                mingw32-libvirt \
+                mingw32-libxml2 \
+                mingw32-pkg-config
     rpm -qa | sort > /packages.txt
     mkdir -p /usr/libexec/ccache-wrappers
-    ln -s /usr/bin/ccache /usr/libexec/ccache-wrappers/x86_64-w64-mingw32-cc
-    ln -s /usr/bin/ccache /usr/libexec/ccache-wrappers/x86_64-w64-mingw32-gcc
+    ln -s /usr/bin/ccache /usr/libexec/ccache-wrappers/i686-w64-mingw32-cc
+    ln -s /usr/bin/ccache /usr/libexec/ccache-wrappers/i686-w64-mingw32-gcc
 }
 
 export CCACHE_WRAPPERSDIR="/usr/libexec/ccache-wrappers"
@@ -39,5 +38,5 @@ export LANG="en_US.UTF-8"
 export MAKE="/usr/bin/make"
 export NINJA="/usr/bin/ninja"
 
-export ABI="x86_64-w64-mingw32"
-export MESON_OPTS="--cross-file=/usr/share/mingw/toolchain-mingw64.meson"
+export ABI="i686-w64-mingw32"
+export MESON_OPTS="--cross-file=/usr/share/mingw/toolchain-mingw32.meson"
