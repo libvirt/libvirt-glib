@@ -54,7 +54,7 @@ struct _GVirInputStream
     GVirInputStreamPrivate *priv;
 };
 
-GType _gvir_input_stream_get_type(void) G_GNUC_CONST;
+GType _gvir_input_stream_get_type(void);
 GVirInputStream *_gvir_input_stream_new(GVirStream *stream);
 
 G_END_DECLS

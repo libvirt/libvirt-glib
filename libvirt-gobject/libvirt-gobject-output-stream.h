@@ -54,7 +54,7 @@ struct _GVirOutputStream
     GVirOutputStreamPrivate *priv;
 };
 
-GType _gvir_output_stream_get_type(void) G_GNUC_CONST;
+GType _gvir_output_stream_get_type(void);
 GVirOutputStream *_gvir_output_stream_new(GVirStream *stream);
 
 G_END_DECLS
