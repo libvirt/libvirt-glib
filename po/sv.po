@@ -2,13 +2,14 @@
 # Copyright (C) 2020 The Libvirt authors
 # This file is distributed under the same license as the libvirt-glib package.
 # Göran Uddeborg <goeran@uddeborg.se>, 2021.
+# Daniel Nylander <po@danielnylander.se>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: libvirt-glib 3.0.0\n"
 "Report-Msgid-Bugs-To: https://libvirt.org/bugs.html\n"
 "POT-Creation-Date: 2020-07-06 16:42+0100\n"
-"PO-Revision-Date: 2021-11-18 21:16+0000\n"
-"Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
+"PO-Revision-Date: 2026-09-28 05:42+0000\n"
+"Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <https://translate.fedoraproject.org/projects/libvirt/"
 "libvirt-glib/sv/>\n"
 "Language: sv\n"
@@ -16,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9\n"
+"X-Generator: Weblate 2026.9.1\n"
 
 #: libvirt-gobject/libvirt-gobject-connection.c:438
 #, c-format
@@ -68,20 +69,20 @@ msgstr "Fick felet virStreamRecv i %s"
 
 #: libvirt-gconfig/libvirt-gconfig-object.c:206
 msgid "No XML document associated with this config object"
-msgstr "Inget XML-dokument är assoicerat med detta konfigurationsobjekt"
+msgstr "Inget XML-dokument är associerat med detta konfigurationsobjekt"
 
 #: libvirt-gconfig/libvirt-gconfig-helpers.c:141
 msgid "No XML document to parse"
-msgstr "Ingt XML-dokument att tolka"
+msgstr "Inget XML-dokument att tolka"
 
 #: libvirt-gconfig/libvirt-gconfig-object.c:214
 msgid "No XML schema associated with this config object"
-msgstr "Inget XML-schema är assoicerat med detta konfigurationsobjekt"
+msgstr "Inget XML-schema är associerat med detta konfigurationsobjekt"
 
 #: libvirt-gconfig/libvirt-gconfig-object.c:223
 #, c-format
 msgid "Unable to create RNG parser for %s"
-msgstr "Kan inte skap RNG-tolk för %s"
+msgstr "Kan inte skapa RNG-tolk för %s"
 
 #: libvirt-gconfig/libvirt-gconfig-object.c:245
 #, c-format
@@ -140,7 +141,7 @@ msgstr "Kan inte återställa domänen"
 
 #: libvirt-gconfig/libvirt-gconfig-object.c:255
 msgid "Unable to validate doc"
-msgstr "Kan inte validera doc"
+msgstr "Kan inte validera dokumentet"
 
 #: libvirt-gconfig/libvirt-gconfig-helpers.c:157
 #, c-format
