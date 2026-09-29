@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Translators:
 # Zdenek <chmelarz@gmail.com>, 2016
-# Pavel Borecki <pavel.borecki@gmail.com>, 2018, 2023.
+# Pavel Borecki <pavel.borecki@gmail.com>, 2018, 2023, 2026.
 # Josef Hruska <hrusjos@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: libvirt-glib 2.0.0\n"
 "Report-Msgid-Bugs-To: https://libvirt.org/bugs.html\n"
 "POT-Creation-Date: 2020-07-06 16:42+0100\n"
-"PO-Revision-Date: 2023-04-10 07:20+0000\n"
+"PO-Revision-Date: 2026-07-07 19:17+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://translate.fedoraproject.org/projects/libvirt/"
 "libvirt-glib/cs/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 4.15.2\n"
+"X-Generator: Weblate 2026.7.1.dev0\n"
 
 #, c-format
 msgid "Connection %s is already open"
@@ -47,7 +47,7 @@ msgid "Failed to fetch list of networks"
 msgstr "Nepodařilo se načíst seznam sítí"
 
 msgid "Failed to fetch list of pools"
-msgstr "Nepodařilo se načíst seznam fondů úložišť"
+msgstr "Nepodařilo se načíst seznam fondů"
 
 #, c-format
 msgid "Got virStreamRecv error in %s"
